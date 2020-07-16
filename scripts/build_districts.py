@@ -1,12 +1,15 @@
 """
 Build Single Member District pages
 """
-
+import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 
 
 class BuildDistricts():
+
+    def __init__(self):
+        pass
 
     def build_commissioner_table(self, smd_id):
         
@@ -117,6 +120,44 @@ class BuildDistricts():
         return candidate_table
 
 
+    def build_district_table(self, smd_id):
+        """Create HTML table for one district"""
+        
+        districts = pd.read_csv('data/districts.csv')
+
+        district_row = districts[districts['smd'] == smd_id].squeeze()
+
+        district_table = """
+            <table border="1">
+              <tbody>
+              """
+
+        fields_to_try = ['description', 'landmarks', 'notes']
+
+        for field_name in fields_to_try:
+
+            if field_name in district_row:
+
+                field_value = district_row[field_name]
+
+                if pd.notna(field_value):
+
+                    district_table += f"""
+                        <tr>
+                          <th>{field_name}</th>
+                          <td>{field_value}</td>
+                        </tr>
+                    """
+
+
+        district_table += """
+                </tbody>
+            </table>
+        """
+        
+        return district_table
+
+
 
 
     def run(self):
@@ -130,6 +171,9 @@ class BuildDistricts():
 
             smd_id = district['smd']
             smd_display = smd_id.replace('smd_','')
+
+            if smd_id != 'smd_1C07':
+                continue
                     
             with open('templates/smd.html', 'r') as f:
                 output = f.read()
@@ -137,8 +181,8 @@ class BuildDistricts():
             output = output.replace('REPLACE_WITH_SMD', smd_display)
             
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
-            
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+            output = output.replace('<!-- replace with district table -->', self.build_district_table(smd_id))
             
             output = output.replace('REPLACE_WITH_ANC', district['anc'])
             output = output.replace('REPLACE_WITH_WARD', str(district['ward']))
