@@ -1,24 +1,25 @@
-candidate_id,smd,full_name,election_date,candidacy_announced_date,candidacy_source,candidacy_source_link
-50001,smd_1A02,Dieter Lehmann Morales,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50002,smd_1A03,Zach Rybarczyk,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50003,smd_1A05,Karyn C. Miller,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50004,smd_1A06,Sean McGrath,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50005,smd_1A06,Judson Wood,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50006,smd_1A07,Benjamin Tingle,2020-11-03,2020-07-01,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50007,smd_1A07,Mukta Ghorpadey,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50008,smd_1A08,Kent Boese,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50009,smd_1A09,Michael Wray,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50010,smd_1A10,Rashida E. Brown,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50011,smd_1B02,Daniel C. Orlaskey,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50012,smd_1B07,Marcia Shia,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50013,smd_1B09,James A. Turner,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50014,smd_1B11,Robb Hudson,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50015,smd_1C03,Elias Benda,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50016,smd_1C03,Peter Wood,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50017,smd_1C07,Joseph Bowles,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50018,smd_1D02,Robin L.Sandenburgh,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50019,smd_1D03,Jack McKay,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50020,smd_1D05,Chelsea A. Allinger,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50021,smd_2B01,Matthew Sampson,2020-11-03,2020-07-01,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50022,smd_2B03,Robin Linnett Nunn,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
-50023,smd_2B04,Dianne C. Quinn,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+candidate_id,person_id,smd,candidate_name,candidate_status,election_date,candidate_announced_date,candidate_source,candidate_source_link
+50001,10285,smd_1A02,Dieter Lehmann Morales,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50002,10003,smd_1A03,Zach Rybarczyk,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50003,10286,smd_1A05,Karyn C. Miller,pulled_papers,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50004,10287,smd_1A06,Sean McGrath,pulled_papers,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50005,10288,smd_1A06,Judson Wood,pulled_papers,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50006,10289,smd_1A07,Benjamin Tingle,pulled_papers,2020-11-03,2020-07-01,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50007,10290,smd_1A07,Mukta Ghorpadey,pulled_papers,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50008,10008,smd_1A08,Kent Boese,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50009,10009,smd_1A09,Michael Wray,pulled_papers,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50010,10010,smd_1A10,Rashida E. Brown,pulled_papers,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50011,10014,smd_1B02,Daniel C. Orlaskey,pulled_papers,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50012,10018,smd_1B07,Marcia Shia,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50013,10020,smd_1B09,James A. Turner,pulled_papers,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50014,10022,smd_1B11,Robb Hudson,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50015,10291,smd_1C03,Elias Benda,pulled_papers,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50016,10292,smd_1C03,Peter Wood,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50017,10029,smd_1C07,Joseph Bowles,pulled_papers,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50018,10032,smd_1D02,Robin L.Sandenburgh,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50019,10033,smd_1D03,Jack McKay,pulled_papers,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50020,10035,smd_1D05,Chelsea A. Allinger,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50021,10044,smd_2B01,Matthew Sampson,pulled_papers,2020-11-03,2020-07-01,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50022,10293,smd_2B03,Robin Linnett Nunn,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50023,10294,smd_2B04,Dianne C. Quinn,pulled_papers,2020-11-03,2020-06-30,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
+50024,10295,smd_1C05,,declared,2020-11-03,2020-07-11,Twitter,https://twitter.com/zacycles/status/1281951423043952641

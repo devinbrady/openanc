@@ -1,4 +1,4 @@
-person_id,smd,full_name,first_name,middle_name,last_name,suffix,is_chair,term_start_date,term_end_date
+person_id,smd,commissioner_name,first_name,middle_name,last_name,suffix,is_chair,term_start_date,term_end_date
 10001,smd_1A01,Layla Bonnot,Layla,,Bonnot,,,2019-01-02,2021-01-02
 10002,smd_1A02,Teresa A. Edmondson,Teresa,A.,Edmondson,,,2019-01-02,2021-01-02
 10003,smd_1A03,Zach Rybarczyk,Zach,,Rybarczyk,,,2019-01-02,2021-01-02

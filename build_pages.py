@@ -40,24 +40,27 @@ def build_district_list():
 
     districts = pd.read_csv('data/districts.csv')
     commissioners = pd.read_csv('data/commissioners.csv')
+    people = pd.read_csv('data/people.csv')
 
-    do = pd.merge(districts, commissioners, how='left', on='smd')
-    do['full_name'] = do['full_name'].fillna('(vacant)')
+    dc = pd.merge(districts, commissioners, how='left', on='smd')
+    dcp = pd.merge(dc, people, how='left', on='person_id')
+
+    dcp['full_name'] = dcp['full_name'].fillna('(vacant)')
 
     district_list = '<ul>'
 
-    for idx, d in do.iterrows():
+    for idx, district_row in dcp.iterrows():
 
-        if d['full_name'] == '(vacant)':
+        smd_id = district_row['smd']
+        smd_display = smd_id.replace('smd_','')
+
+        if district_row['full_name'] == '(vacant)':
             commmissioner_name = '(vacant)'            
         else:
-            commmissioner_name = 'Commissioner ' + d['full_name']
+            commmissioner_name = 'Commissioner ' + district_row['full_name']
 
+        district_list += f'<li><a href="districts/{smd_display}.html">{smd_display}: {commmissioner_name}</a></li>'
 
-        district_list += '<li><a href="districts/{smd}.html">{smd}: {officeholder}</a></li>'.format(
-            smd=d['smd'].replace('smd_','')
-            , officeholder=commmissioner_name
-            )
 
     district_list += '</ul>'
 
@@ -69,9 +72,12 @@ def build_district_list():
 
 def build_commissioner_table(smd_id):
     
+    people = pd.read_csv('data/people.csv')
     commissioners = pd.read_csv('data/commissioners.csv')
+
+    people_commissioners = pd.merge(people, commissioners, how='inner', on='person_id')
     
-    current_commissioner = commissioners[commissioners['smd'] == smd_id]
+    current_commissioner = people_commissioners[people_commissioners['smd'] == smd_id]
     
     if len(current_commissioner) == 0:
         commissioner_table = '<p><em>Office is vacant.</em></p>'
@@ -108,10 +114,13 @@ def build_commissioner_table(smd_id):
 def add_candidates(smd_id):
     """Add multiple candidates"""
     
+    people = pd.read_csv('data/people.csv')
     candidates = pd.read_csv('data/candidates.csv')
+
+    people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
     
     # randomize the order of candidates
-    current_candidates = candidates[candidates['smd'] == smd_id].sample(frac=1)
+    current_candidates = people_candidates[people_candidates['smd'] == smd_id].sample(frac=1)
     
     if len(current_candidates) == 0:
         candidate_block = '<p><em>No known candidates.</em></p>'
@@ -134,31 +143,20 @@ def build_candidate_table(candidate_row):
           <tbody>
           """
 
-    if 'full_name' in candidate_row:
-        candidate_table += """
-            <tr>
-              <th>Name</th>
-              <td>{full_name}</td>
-            </tr>
-        """.format(full_name=candidate_row['full_name'])
+    fields_to_try = ['full_name', 'candidate_announced_date', 'candidate_source', 'candidate_source_link']
 
+    for field_name in fields_to_try:
 
-    if 'candidacy_announced_date' in candidate_row:
-        candidate_table += """
-            <tr>
-              <th>Announced</th>
-              <td>{candidacy_announced_date}</td>
-            </tr>
-        """.format(candidacy_announced_date=candidate_row['candidacy_announced_date'])
+        if field_name in candidate_row:
 
-        
-    if 'candidacy_source' in candidate_row:
-        candidate_table += """
-            <tr>
-              <th>Source</th>
-              <td>{candidacy_source}</td>
-            </tr>
-        """.format(candidacy_source=candidate_row['candidacy_source'])
+            field_value = candidate_row[field_name]
+
+            candidate_table += f"""
+                <tr>
+                  <th>{field_name}</th>
+                  <td>{field_value}</td>
+                </tr>
+            """
 
 
     candidate_table += """
