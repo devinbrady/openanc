@@ -26,7 +26,7 @@ def build_commissioner_table(smd):
             <tr>
               <th>Name</th>
               <td>{full_name}</td>
-            </tr>        
+            </tr>
         """.format(full_name=current_officeholder['full_name'].values[0])
             
         commissioner_table += f"""
@@ -42,6 +42,7 @@ def build_commissioner_table(smd):
         """
     
     return commissioner_table
+
 
 def add_candidates(smd):
     """Add multiple candidates"""
@@ -78,7 +79,7 @@ def build_candidate_table(cand_row):
             <tr>
               <th>Name</th>
               <td>{full_name}</td>
-            </tr>        
+            </tr>
         """.format(full_name=cand_row['full_name'])
 
 
@@ -87,7 +88,7 @@ def build_candidate_table(cand_row):
             <tr>
               <th>Announced</th>
               <td>{pickup_date}</td>
-            </tr>        
+            </tr>
         """.format(pickup_date=cand_row['pickup_date'])
 
         
@@ -96,7 +97,7 @@ def build_candidate_table(cand_row):
             <tr>
               <th>Source</th>
               <td>{source}</td>
-            </tr>        
+            </tr>
         """.format(source=cand_row['source'])
 
 
@@ -109,8 +110,8 @@ def build_candidate_table(cand_row):
     return candidate_table
 
 
-
-if __name__ == '__main__':
+def build_district_pages():
+    """Build pages for each SMD"""
 
     districts = pd.read_csv('data/districts.csv')
 
@@ -137,3 +138,8 @@ if __name__ == '__main__':
         with open('docs/districts/{smd}.html'.format(smd=district['smd']), 'w') as f:
             f.write(output_pretty)
 
+
+if __name__ == '__main__':
+
+    build_district_pages()
+    
