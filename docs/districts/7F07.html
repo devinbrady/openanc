@@ -1,0 +1,60 @@
+<html>
+ <head>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js">
+  </script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <h1>
+   District 7F07
+  </h1>
+  <div id="map" style="width: 400px; height: 300px;">
+  </div>
+  <script>
+   mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-76.97120508899451, 38.88571064788529], // starting position [lng, lat]
+    zoom: 14
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+  </script>
+  <br/>
+  <div style="width:400px;height:20px;background-color:#cab2d6;text-align: center">
+   District 7F07
+  </div>
+  <br/>
+  <h2>
+   Current Commissioner
+  </h2>
+  <p>
+   <em>
+    Office is vacant.
+   </em>
+  </p>
+  <h2>
+   2020 Candidates
+  </h2>
+  <p>
+   <em>
+    No known candidates.
+   </em>
+  </p>
+  <h2>
+   Links
+  </h2>
+  <ul>
+   <li>
+    ANC 7F
+   </li>
+   <li>
+    Ward 7
+   </li>
+   <li>
+    Submit new information
+   </li>
+  </ul>
+ </body>
+</html>

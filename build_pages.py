@@ -126,8 +126,8 @@ def build_district_pages():
 
     for idx, district in dist_cent_cc_c.iterrows():
         
-        if district['smd'] not in ('1A02', '1A06', '1B05'):
-            continue
+        # if district['smd'] not in ('1A02', '1A06', '1B05'):
+        #     continue
         
         with open('templates/smd.html') as f:
             output = f.read()
