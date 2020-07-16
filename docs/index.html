@@ -1,19 +1,18 @@
 <html>
-<head>
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
-</head>
-
-<body>
-
-
-<h1>OpenANC</h1>
-
-An open, public database of Advisory Neighborhood Commission districts, commissioners, and candidates. 
-
-<div id='map' style='width: 700px; height: 500px;'></div>
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+ <head>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js">
+  </script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <h1>
+   OpenANC
+  </h1>
+  An open, public database of Advisory Neighborhood Commission districts, commissioners, and candidates.
+  <div id="map" style="width: 700px; height: 500px;">
+  </div>
+  <script>
+   mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -28,312 +27,1538 @@ var map = new mapboxgl.Map({
 //   });
 
 map.addControl(new mapboxgl.NavigationControl());
-
-</script>
-
-<ul>
-    <li><a href="districts/1A01.html">1A01</a></li>
-    <li><a href="districts/1A02.html">1A02</a></li>
-    <li><a href="districts/1A03.html">1A03</a></li>
-    <li><a href="districts/1A04.html">1A04</a></li>
-    <li><a href="districts/1A05.html">1A05</a></li>
-    <li><a href="districts/1A06.html">1A06</a></li>
-    <li><a href="districts/1A07.html">1A07</a></li>
-    <li><a href="districts/1A08.html">1A08</a></li>
-    <li><a href="districts/1A09.html">1A09</a></li>
-    <li><a href="districts/1A10.html">1A10</a></li>
-    <li><a href="districts/1A11.html">1A11</a></li>
-    <li><a href="districts/1A12.html">1A12</a></li>
-    <li><a href="districts/1B01.html">1B01</a></li>
-    <li><a href="districts/1B02.html">1B02</a></li>
-    <li><a href="districts/1B03.html">1B03</a></li>
-    <li><a href="districts/1B04.html">1B04</a></li>
-    <li><a href="districts/1B05.html">1B05</a></li>
-    <li><a href="districts/1B06.html">1B06</a></li>
-    <li><a href="districts/1B07.html">1B07</a></li>
-    <li><a href="districts/1B08.html">1B08</a></li>
-    <li><a href="districts/1B09.html">1B09</a></li>
-    <li><a href="districts/1B10.html">1B10</a></li>
-    <li><a href="districts/1B11.html">1B11</a></li>
-    <li><a href="districts/1B12.html">1B12</a></li>
-    <li><a href="districts/1C01.html">1C01</a></li>
-    <li><a href="districts/1C02.html">1C02</a></li>
-    <li><a href="districts/1C03.html">1C03</a></li>
-    <li><a href="districts/1C04.html">1C04</a></li>
-    <li><a href="districts/1C05.html">1C05</a></li>
-    <li><a href="districts/1C06.html">1C06</a></li>
-    <li><a href="districts/1C07.html">1C07</a></li>
-    <li><a href="districts/1C08.html">1C08</a></li>
-    <li><a href="districts/1D01.html">1D01</a></li>
-    <li><a href="districts/1D02.html">1D02</a></li>
-    <li><a href="districts/1D03.html">1D03</a></li>
-    <li><a href="districts/1D04.html">1D04</a></li>
-    <li><a href="districts/1D05.html">1D05</a></li>
-    <li><a href="districts/2A01.html">2A01</a></li>
-    <li><a href="districts/2A02.html">2A02</a></li>
-    <li><a href="districts/2A03.html">2A03</a></li>
-    <li><a href="districts/2A04.html">2A04</a></li>
-    <li><a href="districts/2A05.html">2A05</a></li>
-    <li><a href="districts/2A06.html">2A06</a></li>
-    <li><a href="districts/2A07.html">2A07</a></li>
-    <li><a href="districts/2A08.html">2A08</a></li>
-    <li><a href="districts/2B01.html">2B01</a></li>
-    <li><a href="districts/2B02.html">2B02</a></li>
-    <li><a href="districts/2B03.html">2B03</a></li>
-    <li><a href="districts/2B04.html">2B04</a></li>
-    <li><a href="districts/2B05.html">2B05</a></li>
-    <li><a href="districts/2B06.html">2B06</a></li>
-    <li><a href="districts/2B07.html">2B07</a></li>
-    <li><a href="districts/2B08.html">2B08</a></li>
-    <li><a href="districts/2B09.html">2B09</a></li>
-    <li><a href="districts/2C01.html">2C01</a></li>
-    <li><a href="districts/2C02.html">2C02</a></li>
-    <li><a href="districts/2C03.html">2C03</a></li>
-    <li><a href="districts/2D01.html">2D01</a></li>
-    <li><a href="districts/2D02.html">2D02</a></li>
-    <li><a href="districts/2E01.html">2E01</a></li>
-    <li><a href="districts/2E02.html">2E02</a></li>
-    <li><a href="districts/2E03.html">2E03</a></li>
-    <li><a href="districts/2E04.html">2E04</a></li>
-    <li><a href="districts/2E05.html">2E05</a></li>
-    <li><a href="districts/2E06.html">2E06</a></li>
-    <li><a href="districts/2E07.html">2E07</a></li>
-    <li><a href="districts/2E08.html">2E08</a></li>
-    <li><a href="districts/2F01.html">2F01</a></li>
-    <li><a href="districts/2F02.html">2F02</a></li>
-    <li><a href="districts/2F03.html">2F03</a></li>
-    <li><a href="districts/2F04.html">2F04</a></li>
-    <li><a href="districts/2F05.html">2F05</a></li>
-    <li><a href="districts/2F06.html">2F06</a></li>
-    <li><a href="districts/2F07.html">2F07</a></li>
-    <li><a href="districts/2F08.html">2F08</a></li>
-    <li><a href="districts/3B01.html">3B01</a></li>
-    <li><a href="districts/3B02.html">3B02</a></li>
-    <li><a href="districts/3B03.html">3B03</a></li>
-    <li><a href="districts/3B04.html">3B04</a></li>
-    <li><a href="districts/3B05.html">3B05</a></li>
-    <li><a href="districts/3C01.html">3C01</a></li>
-    <li><a href="districts/3C02.html">3C02</a></li>
-    <li><a href="districts/3C03.html">3C03</a></li>
-    <li><a href="districts/3C04.html">3C04</a></li>
-    <li><a href="districts/3C05.html">3C05</a></li>
-    <li><a href="districts/3C06.html">3C06</a></li>
-    <li><a href="districts/3C07.html">3C07</a></li>
-    <li><a href="districts/3C08.html">3C08</a></li>
-    <li><a href="districts/3C09.html">3C09</a></li>
-    <li><a href="districts/3D01.html">3D01</a></li>
-    <li><a href="districts/3D02.html">3D02</a></li>
-    <li><a href="districts/3D03.html">3D03</a></li>
-    <li><a href="districts/3D04.html">3D04</a></li>
-    <li><a href="districts/3D05.html">3D05</a></li>
-    <li><a href="districts/3D06.html">3D06</a></li>
-    <li><a href="districts/3D07.html">3D07</a></li>
-    <li><a href="districts/3D08.html">3D08</a></li>
-    <li><a href="districts/3D09.html">3D09</a></li>
-    <li><a href="districts/3D10.html">3D10</a></li>
-    <li><a href="districts/3E01.html">3E01</a></li>
-    <li><a href="districts/3E02.html">3E02</a></li>
-    <li><a href="districts/3E03.html">3E03</a></li>
-    <li><a href="districts/3E04.html">3E04</a></li>
-    <li><a href="districts/3E05.html">3E05</a></li>
-    <li><a href="districts/3F01.html">3F01</a></li>
-    <li><a href="districts/3F02.html">3F02</a></li>
-    <li><a href="districts/3F03.html">3F03</a></li>
-    <li><a href="districts/3F04.html">3F04</a></li>
-    <li><a href="districts/3F05.html">3F05</a></li>
-    <li><a href="districts/3F06.html">3F06</a></li>
-    <li><a href="districts/3F07.html">3F07</a></li>
-    <li><a href="districts/3G01.html">3G01</a></li>
-    <li><a href="districts/3G02.html">3G02</a></li>
-    <li><a href="districts/3G03.html">3G03</a></li>
-    <li><a href="districts/3G04.html">3G04</a></li>
-    <li><a href="districts/3G05.html">3G05</a></li>
-    <li><a href="districts/3G06.html">3G06</a></li>
-    <li><a href="districts/3G07.html">3G07</a></li>
-    <li><a href="districts/4A01.html">4A01</a></li>
-    <li><a href="districts/4A02.html">4A02</a></li>
-    <li><a href="districts/4A03.html">4A03</a></li>
-    <li><a href="districts/4A04.html">4A04</a></li>
-    <li><a href="districts/4A05.html">4A05</a></li>
-    <li><a href="districts/4A06.html">4A06</a></li>
-    <li><a href="districts/4A07.html">4A07</a></li>
-    <li><a href="districts/4A08.html">4A08</a></li>
-    <li><a href="districts/4B01.html">4B01</a></li>
-    <li><a href="districts/4B02.html">4B02</a></li>
-    <li><a href="districts/4B03.html">4B03</a></li>
-    <li><a href="districts/4B04.html">4B04</a></li>
-    <li><a href="districts/4B05.html">4B05</a></li>
-    <li><a href="districts/4B06.html">4B06</a></li>
-    <li><a href="districts/4B07.html">4B07</a></li>
-    <li><a href="districts/4B08.html">4B08</a></li>
-    <li><a href="districts/4B09.html">4B09</a></li>
-    <li><a href="districts/4C01.html">4C01</a></li>
-    <li><a href="districts/4C02.html">4C02</a></li>
-    <li><a href="districts/4C03.html">4C03</a></li>
-    <li><a href="districts/4C04.html">4C04</a></li>
-    <li><a href="districts/4C05.html">4C05</a></li>
-    <li><a href="districts/4C06.html">4C06</a></li>
-    <li><a href="districts/4C07.html">4C07</a></li>
-    <li><a href="districts/4C08.html">4C08</a></li>
-    <li><a href="districts/4C09.html">4C09</a></li>
-    <li><a href="districts/4C10.html">4C10</a></li>
-    <li><a href="districts/4D01.html">4D01</a></li>
-    <li><a href="districts/4D02.html">4D02</a></li>
-    <li><a href="districts/4D03.html">4D03</a></li>
-    <li><a href="districts/4D04.html">4D04</a></li>
-    <li><a href="districts/4D05.html">4D05</a></li>
-    <li><a href="districts/4D06.html">4D06</a></li>
-    <li><a href="districts/5A01.html">5A01</a></li>
-    <li><a href="districts/5A02.html">5A02</a></li>
-    <li><a href="districts/5A03.html">5A03</a></li>
-    <li><a href="districts/5A04.html">5A04</a></li>
-    <li><a href="districts/5A05.html">5A05</a></li>
-    <li><a href="districts/5A06.html">5A06</a></li>
-    <li><a href="districts/5A07.html">5A07</a></li>
-    <li><a href="districts/5A08.html">5A08</a></li>
-    <li><a href="districts/5B01.html">5B01</a></li>
-    <li><a href="districts/5B02.html">5B02</a></li>
-    <li><a href="districts/5B03.html">5B03</a></li>
-    <li><a href="districts/5B04.html">5B04</a></li>
-    <li><a href="districts/5B05.html">5B05</a></li>
-    <li><a href="districts/5C01.html">5C01</a></li>
-    <li><a href="districts/5C02.html">5C02</a></li>
-    <li><a href="districts/5C03.html">5C03</a></li>
-    <li><a href="districts/5C04.html">5C04</a></li>
-    <li><a href="districts/5C05.html">5C05</a></li>
-    <li><a href="districts/5C06.html">5C06</a></li>
-    <li><a href="districts/5C07.html">5C07</a></li>
-    <li><a href="districts/5D01.html">5D01</a></li>
-    <li><a href="districts/5D02.html">5D02</a></li>
-    <li><a href="districts/5D03.html">5D03</a></li>
-    <li><a href="districts/5D04.html">5D04</a></li>
-    <li><a href="districts/5D05.html">5D05</a></li>
-    <li><a href="districts/5D06.html">5D06</a></li>
-    <li><a href="districts/5D07.html">5D07</a></li>
-    <li><a href="districts/5E01.html">5E01</a></li>
-    <li><a href="districts/5E02.html">5E02</a></li>
-    <li><a href="districts/5E03.html">5E03</a></li>
-    <li><a href="districts/5E04.html">5E04</a></li>
-    <li><a href="districts/5E05.html">5E05</a></li>
-    <li><a href="districts/5E06.html">5E06</a></li>
-    <li><a href="districts/5E07.html">5E07</a></li>
-    <li><a href="districts/5E08.html">5E08</a></li>
-    <li><a href="districts/5E09.html">5E09</a></li>
-    <li><a href="districts/5E10.html">5E10</a></li>
-    <li><a href="districts/6A01.html">6A01</a></li>
-    <li><a href="districts/6A02.html">6A02</a></li>
-    <li><a href="districts/6A03.html">6A03</a></li>
-    <li><a href="districts/6A04.html">6A04</a></li>
-    <li><a href="districts/6A05.html">6A05</a></li>
-    <li><a href="districts/6A06.html">6A06</a></li>
-    <li><a href="districts/6A07.html">6A07</a></li>
-    <li><a href="districts/6A08.html">6A08</a></li>
-    <li><a href="districts/6B01.html">6B01</a></li>
-    <li><a href="districts/6B02.html">6B02</a></li>
-    <li><a href="districts/6B03.html">6B03</a></li>
-    <li><a href="districts/6B04.html">6B04</a></li>
-    <li><a href="districts/6B05.html">6B05</a></li>
-    <li><a href="districts/6B06.html">6B06</a></li>
-    <li><a href="districts/6B07.html">6B07</a></li>
-    <li><a href="districts/6B08.html">6B08</a></li>
-    <li><a href="districts/6B09.html">6B09</a></li>
-    <li><a href="districts/6B10.html">6B10</a></li>
-    <li><a href="districts/6C01.html">6C01</a></li>
-    <li><a href="districts/6C02.html">6C02</a></li>
-    <li><a href="districts/6C03.html">6C03</a></li>
-    <li><a href="districts/6C04.html">6C04</a></li>
-    <li><a href="districts/6C05.html">6C05</a></li>
-    <li><a href="districts/6C06.html">6C06</a></li>
-    <li><a href="districts/6D01.html">6D01</a></li>
-    <li><a href="districts/6D02.html">6D02</a></li>
-    <li><a href="districts/6D03.html">6D03</a></li>
-    <li><a href="districts/6D04.html">6D04</a></li>
-    <li><a href="districts/6D05.html">6D05</a></li>
-    <li><a href="districts/6D06.html">6D06</a></li>
-    <li><a href="districts/6D07.html">6D07</a></li>
-    <li><a href="districts/6E01.html">6E01</a></li>
-    <li><a href="districts/6E02.html">6E02</a></li>
-    <li><a href="districts/6E03.html">6E03</a></li>
-    <li><a href="districts/6E04.html">6E04</a></li>
-    <li><a href="districts/6E05.html">6E05</a></li>
-    <li><a href="districts/6E06.html">6E06</a></li>
-    <li><a href="districts/6E07.html">6E07</a></li>
-    <li><a href="districts/7B01.html">7B01</a></li>
-    <li><a href="districts/7B02.html">7B02</a></li>
-    <li><a href="districts/7B03.html">7B03</a></li>
-    <li><a href="districts/7B04.html">7B04</a></li>
-    <li><a href="districts/7B05.html">7B05</a></li>
-    <li><a href="districts/7B06.html">7B06</a></li>
-    <li><a href="districts/7B07.html">7B07</a></li>
-    <li><a href="districts/7C01.html">7C01</a></li>
-    <li><a href="districts/7C02.html">7C02</a></li>
-    <li><a href="districts/7C03.html">7C03</a></li>
-    <li><a href="districts/7C04.html">7C04</a></li>
-    <li><a href="districts/7C05.html">7C05</a></li>
-    <li><a href="districts/7C06.html">7C06</a></li>
-    <li><a href="districts/7C07.html">7C07</a></li>
-    <li><a href="districts/7D01.html">7D01</a></li>
-    <li><a href="districts/7D02.html">7D02</a></li>
-    <li><a href="districts/7D03.html">7D03</a></li>
-    <li><a href="districts/7D04.html">7D04</a></li>
-    <li><a href="districts/7D05.html">7D05</a></li>
-    <li><a href="districts/7D06.html">7D06</a></li>
-    <li><a href="districts/7D07.html">7D07</a></li>
-    <li><a href="districts/7E01.html">7E01</a></li>
-    <li><a href="districts/7E02.html">7E02</a></li>
-    <li><a href="districts/7E03.html">7E03</a></li>
-    <li><a href="districts/7E04.html">7E04</a></li>
-    <li><a href="districts/7E05.html">7E05</a></li>
-    <li><a href="districts/7E06.html">7E06</a></li>
-    <li><a href="districts/7E07.html">7E07</a></li>
-    <li><a href="districts/7F01.html">7F01</a></li>
-    <li><a href="districts/7F02.html">7F02</a></li>
-    <li><a href="districts/7F03.html">7F03</a></li>
-    <li><a href="districts/7F04.html">7F04</a></li>
-    <li><a href="districts/7F05.html">7F05</a></li>
-    <li><a href="districts/7F06.html">7F06</a></li>
-    <li><a href="districts/7F07.html">7F07</a></li>
-    <li><a href="districts/8A01.html">8A01</a></li>
-    <li><a href="districts/8A02.html">8A02</a></li>
-    <li><a href="districts/8A03.html">8A03</a></li>
-    <li><a href="districts/8A04.html">8A04</a></li>
-    <li><a href="districts/8A05.html">8A05</a></li>
-    <li><a href="districts/8A06.html">8A06</a></li>
-    <li><a href="districts/8A07.html">8A07</a></li>
-    <li><a href="districts/8B01.html">8B01</a></li>
-    <li><a href="districts/8B02.html">8B02</a></li>
-    <li><a href="districts/8B03.html">8B03</a></li>
-    <li><a href="districts/8B04.html">8B04</a></li>
-    <li><a href="districts/8B05.html">8B05</a></li>
-    <li><a href="districts/8B06.html">8B06</a></li>
-    <li><a href="districts/8B07.html">8B07</a></li>
-    <li><a href="districts/8C01.html">8C01</a></li>
-    <li><a href="districts/8C02.html">8C02</a></li>
-    <li><a href="districts/8C03.html">8C03</a></li>
-    <li><a href="districts/8C04.html">8C04</a></li>
-    <li><a href="districts/8C05.html">8C05</a></li>
-    <li><a href="districts/8C06.html">8C06</a></li>
-    <li><a href="districts/8C07.html">8C07</a></li>
-    <li><a href="districts/8D01.html">8D01</a></li>
-    <li><a href="districts/8D02.html">8D02</a></li>
-    <li><a href="districts/8D03.html">8D03</a></li>
-    <li><a href="districts/8D04.html">8D04</a></li>
-    <li><a href="districts/8D05.html">8D05</a></li>
-    <li><a href="districts/8D06.html">8D06</a></li>
-    <li><a href="districts/8D07.html">8D07</a></li>
-    <li><a href="districts/8E01.html">8E01</a></li>
-    <li><a href="districts/8E02.html">8E02</a></li>
-    <li><a href="districts/8E03.html">8E03</a></li>
-    <li><a href="districts/8E04.html">8E04</a></li>
-    <li><a href="districts/8E05.html">8E05</a></li>
-    <li><a href="districts/8E06.html">8E06</a></li>
-    <li><a href="districts/8E07.html">8E07</a></li>
-</ul>
-
-
-</body>
-
+  </script>
+  <h2>
+   Counts
+  </h2>
+  <table border="1">
+   <tbody>
+    <tr>
+     <th>
+      Single Member Districts
+     </th>
+     <td>
+      296
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Current Commissioners
+     </th>
+     <td>
+      284
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Current Vacancies
+     </th>
+     <td>
+      12
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Current 2020 Candidates
+     </th>
+     <td>
+      23
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Districts Without a 2020 Candidate
+     </th>
+     <td>
+      276
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h2>
+   Districts
+  </h2>
+  <ul>
+   <li>
+    <a href="districts/1A01.html">
+     1A01: Commissioner Layla Bonnot
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A02.html">
+     1A02: Commissioner Teresa A. Edmondson
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A03.html">
+     1A03: Commissioner Zach Rybarczyk
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A04.html">
+     1A04: Commissioner Matthew Goldschimdt
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A05.html">
+     1A05: Commissioner Christine Miller
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A06.html">
+     1A06: Commissioner Angelica Castañon
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A07.html">
+     1A07: Commissioner Jen Bundy
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A08.html">
+     1A08: Commissioner Kent C. Boese
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A09.html">
+     1A09: Commissioner Michael Wray
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A10.html">
+     1A10: Commissioner Rashida Brown
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A11.html">
+     1A11: Commissioner Dotti Love Wade
+    </a>
+   </li>
+   <li>
+    <a href="districts/1A12.html">
+     1A12: Commissioner Jason Clock
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B01.html">
+     1B01: Commissioner Anita Norman
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B02.html">
+     1B02: Commissioner Dan Orlaskey
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B03.html">
+     1B03: Commissioner Sedrick Muhammad
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B04.html">
+     1B04: Commissioner Deborah Thomas
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B05.html">
+     1B05: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B06.html">
+     1B06: Commissioner Jennifer Bristol
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B07.html">
+     1B07: Commissioner Marcia Shia
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B08.html">
+     1B08: Commissioner Joshua R. Mater
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B09.html">
+     1B09: Commissioner James A. Turner
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B10.html">
+     1B10: Commissioner Danny Delaney
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B11.html">
+     1B11: Commissioner Robb Hudson
+    </a>
+   </li>
+   <li>
+    <a href="districts/1B12.html">
+     1B12: Commissioner Dan Winston
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C01.html">
+     1C01: Commissioner Amir Irani
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C02.html">
+     1C02: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C03.html">
+     1C03: Commissioner Ted Guthrie
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C04.html">
+     1C04: Commissioner John V. Zottoli
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C05.html">
+     1C05: Commissioner Damiana Dendy
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C06.html">
+     1C06: Commissioner Michaela Wright
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C07.html">
+     1C07: Commissioner Japer Bowles
+    </a>
+   </li>
+   <li>
+    <a href="districts/1C08.html">
+     1C08: Commissioner Chris Jackson
+    </a>
+   </li>
+   <li>
+    <a href="districts/1D01.html">
+     1D01: Commissioner Jon Stewart
+    </a>
+   </li>
+   <li>
+    <a href="districts/1D02.html">
+     1D02: Commissioner Robin Sandenburgh
+    </a>
+   </li>
+   <li>
+    <a href="districts/1D03.html">
+     1D03: Commissioner Jack McKay
+    </a>
+   </li>
+   <li>
+    <a href="districts/1D04.html">
+     1D04: Commissioner Yasmin Romero-Latin
+    </a>
+   </li>
+   <li>
+    <a href="districts/1D05.html">
+     1D05: Commissioner Chelsea A. Allinger
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A01.html">
+     2A01: Commissioner Patrick Kennedy
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A02.html">
+     2A02: Commissioner Nicole Goldin
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A03.html">
+     2A03: Commissioner Trupti J. Patel
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A04.html">
+     2A04: Commissioner William Kennedy Smith
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A05.html">
+     2A05: Commissioner Philip J. Schrefer
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A06.html">
+     2A06: Commissioner Jeri Epstein
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A07.html">
+     2A07: Commissioner Detrick Campbell
+    </a>
+   </li>
+   <li>
+    <a href="districts/2A08.html">
+     2A08: Commissioner James Harnett
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B01.html">
+     2B01: Commissioner Matthew H Sampson
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B02.html">
+     2B02: Commissioner Daniel Warwick
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B03.html">
+     2B03: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B04.html">
+     2B04: Commissioner Aaron Landry
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B05.html">
+     2B05: Commissioner Randy D. Downs
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B06.html">
+     2B06: Commissioner Mike Silverstein
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B07.html">
+     2B07: Commissioner Kari Cunningham
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B08.html">
+     2B08: Commissioner Beverly Schwartz
+    </a>
+   </li>
+   <li>
+    <a href="districts/2B09.html">
+     2B09: Commissioner Ed Hanlon
+    </a>
+   </li>
+   <li>
+    <a href="districts/2C01.html">
+     2C01: Commissioner Michael D. Shankle
+    </a>
+   </li>
+   <li>
+    <a href="districts/2C02.html">
+     2C02: Commissioner Jamaal T. Burton
+    </a>
+   </li>
+   <li>
+    <a href="districts/2C03.html">
+     2C03: Commissioner Kevin Wilsey
+    </a>
+   </li>
+   <li>
+    <a href="districts/2D01.html">
+     2D01: Commissioner David R. Bender
+    </a>
+   </li>
+   <li>
+    <a href="districts/2D02.html">
+     2D02: Commissioner Jeff Nestler
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E01.html">
+     2E01: Commissioner Kishan Putta
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E02.html">
+     2E02: Commissioner Joe Gibbons
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E03.html">
+     2E03: Commissioner Rick Murphy
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E04.html">
+     2E04: Commissioner Anna Landre
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E05.html">
+     2E05: Commissioner Lisa Palmer
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E06.html">
+     2E06: Commissioner Gwendolyn Lohse
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E07.html">
+     2E07: Commissioner Elizabeth H. Miller
+    </a>
+   </li>
+   <li>
+    <a href="districts/2E08.html">
+     2E08: Commissioner Matias Burdman
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F01.html">
+     2F01: Commissioner Jason Forman
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F02.html">
+     2F02: Commissioner John Guggenmos
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F03.html">
+     2F03: Commissioner John Bottino
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F04.html">
+     2F04: Commissioner John Fanning
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F05.html">
+     2F05: Commissioner Madeleine G. Stirling
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F06.html">
+     2F06: Commissioner Ian D. Simon
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F07.html">
+     2F07: Commissioner Kevin J. Sylvester
+    </a>
+   </li>
+   <li>
+    <a href="districts/2F08.html">
+     2F08: Commissioner Janice Ferebee
+    </a>
+   </li>
+   <li>
+    <a href="districts/3B01.html">
+     3B01: Commissioner Ann Lane Mladinov
+    </a>
+   </li>
+   <li>
+    <a href="districts/3B02.html">
+     3B02: Commissioner Jackie Blumenthal
+    </a>
+   </li>
+   <li>
+    <a href="districts/3B03.html">
+     3B03: Commissioner Melissa Lane
+    </a>
+   </li>
+   <li>
+    <a href="districts/3B04.html">
+     3B04: Commissioner Mary C. Young
+    </a>
+   </li>
+   <li>
+    <a href="districts/3B05.html">
+     3B05: Commissioner Brian G. Turmail
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C01.html">
+     3C01: Commissioner Lee Brian Reba
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C02.html">
+     3C02: Commissioner Jason Fink
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C03.html">
+     3C03: Commissioner Jimmy Dubois
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C04.html">
+     3C04: Commissioner Robert "Beau" Finley
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C05.html">
+     3C05: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C06.html">
+     3C06: Commissioner Angela Bradbery
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C07.html">
+     3C07: Commissioner Maureen Kinlan Boucher
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C08.html">
+     3C08: Commissioner Victoria Gersten
+    </a>
+   </li>
+   <li>
+    <a href="districts/3C09.html">
+     3C09: Commissioner Nancy J. MacWood
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D01.html">
+     3D01: Commissioner Chuck Elkins
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D02.html">
+     3D02: Commissioner Troy Kravitz
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D03.html">
+     3D03: Commissioner Paige Ela
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D04.html">
+     3D04: Commissioner Michael Sriqui
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D05.html">
+     3D05: Commissioner Alan Karnofsky
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D06.html">
+     3D06: Commissioner Virginia Gorsevski
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D07.html">
+     3D07: Commissioner Taylor Berlin
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D08.html">
+     3D08: Commissioner Christine Warnke
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D09.html">
+     3D09: Commissioner J.P. Szymkowicz
+    </a>
+   </li>
+   <li>
+    <a href="districts/3D10.html">
+     3D10: Commissioner Jeremy Del Moral
+    </a>
+   </li>
+   <li>
+    <a href="districts/3E01.html">
+     3E01: Commissioner Greg Ehrhardt
+    </a>
+   </li>
+   <li>
+    <a href="districts/3E02.html">
+     3E02: Commissioner Amy B. Hall
+    </a>
+   </li>
+   <li>
+    <a href="districts/3E03.html">
+     3E03: Commissioner Jonathan Bender
+    </a>
+   </li>
+   <li>
+    <a href="districts/3E04.html">
+     3E04: Commissioner Tom Quinn
+    </a>
+   </li>
+   <li>
+    <a href="districts/3E05.html">
+     3E05: Commissioner Jonathan McHugh
+    </a>
+   </li>
+   <li>
+    <a href="districts/3F01.html">
+     3F01: Commissioner David Cristeal
+    </a>
+   </li>
+   <li>
+    <a href="districts/3F02.html">
+     3F02: Commissioner Carolinn A Kuebler
+    </a>
+   </li>
+   <li>
+    <a href="districts/3F03.html">
+     3F03: Commissioner Naomi Rutenberg
+    </a>
+   </li>
+   <li>
+    <a href="districts/3F04.html">
+     3F04: Commissioner Leah Frelinghuysen
+    </a>
+   </li>
+   <li>
+    <a href="districts/3F05.html">
+     3F05: Commissioner Andrea Molod
+    </a>
+   </li>
+   <li>
+    <a href="districts/3F06.html">
+     3F06: Commissioner Monika Nemeth
+    </a>
+   </li>
+   <li>
+    <a href="districts/3F07.html">
+     3F07: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/3G01.html">
+     3G01: Commissioner Abraham Clayman
+    </a>
+   </li>
+   <li>
+    <a href="districts/3G02.html">
+     3G02: Commissioner Chanda Tuck Garfield
+    </a>
+   </li>
+   <li>
+    <a href="districts/3G03.html">
+     3G03: Commissioner Randy Speck
+    </a>
+   </li>
+   <li>
+    <a href="districts/3G04.html">
+     3G04: Commissioner Rebecca Maydak
+    </a>
+   </li>
+   <li>
+    <a href="districts/3G05.html">
+     3G05: Commissioner Jerry Malitz
+    </a>
+   </li>
+   <li>
+    <a href="districts/3G06.html">
+     3G06: Commissioner Dan Bradfield
+    </a>
+   </li>
+   <li>
+    <a href="districts/3G07.html">
+     3G07: Commissioner Chris Fromboluti
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A01.html">
+     4A01: Commissioner Phyllis Caudle Green
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A02.html">
+     4A02: Commissioner Stacey Lincoln
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A03.html">
+     4A03: Commissioner Stephen A. Whatley
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A04.html">
+     4A04: Commissioner Patience Singleton
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A05.html">
+     4A05: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A06.html">
+     4A06: Commissioner Candace Tiana Nelson
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A07.html">
+     4A07: Commissioner Marlene Moss
+    </a>
+   </li>
+   <li>
+    <a href="districts/4A08.html">
+     4A08: Commissioner Gale B. Black
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B01.html">
+     4B01: Commissioner Evan Yeats
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B02.html">
+     4B02: Commissioner Erin Palmer
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B03.html">
+     4B03: Commissioner Scot Knickerbocker
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B04.html">
+     4B04: Commissioner Brenda Parks
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B05.html">
+     4B05: Commissioner Perry Redd
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B06.html">
+     4B06: Commissioner Tiffani Nichole Johnson
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B07.html">
+     4B07: Commissioner Geoff Bromaghim
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B08.html">
+     4B08: Commissioner Alison Brooks
+    </a>
+   </li>
+   <li>
+    <a href="districts/4B09.html">
+     4B09: Commissioner LaRoya A. Huff
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C01.html">
+     4C01: Commissioner Charlotte Nugent
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C02.html">
+     4C02: Commissioner Maria Barry
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C03.html">
+     4C03: Commissioner Ulysses E. Campbell
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C04.html">
+     4C04: Commissioner Nora Simon
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C05.html">
+     4C05: Commissioner Debbie Matties
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C06.html">
+     4C06: Commissioner Bennett Hilley
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C07.html">
+     4C07: Commissioner Kim Varzi
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C08.html">
+     4C08: Commissioner Leah Anderson
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C09.html">
+     4C09: Commissioner Tearsa Coates
+    </a>
+   </li>
+   <li>
+    <a href="districts/4C10.html">
+     4C10: Commissioner Jonah Goodman
+    </a>
+   </li>
+   <li>
+    <a href="districts/4D01.html">
+     4D01: Commissioner Peter Tabor
+    </a>
+   </li>
+   <li>
+    <a href="districts/4D02.html">
+     4D02: Commissioner Renée L. Bowser
+    </a>
+   </li>
+   <li>
+    <a href="districts/4D03.html">
+     4D03: Commissioner Aaron Polkey
+    </a>
+   </li>
+   <li>
+    <a href="districts/4D04.html">
+     4D04: Commissioner Jamie Barden
+    </a>
+   </li>
+   <li>
+    <a href="districts/4D05.html">
+     4D05: Commissioner Krystal Branton
+    </a>
+   </li>
+   <li>
+    <a href="districts/4D06.html">
+     4D06: Commissioner Jonathan Nobil
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A01.html">
+     5A01: Commissioner Frank Wilds
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A02.html">
+     5A02: Commissioner Grace J. Lewis
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A03.html">
+     5A03: Commissioner Emily Singer Lucio
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A04.html">
+     5A04: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A05.html">
+     5A05: Commissioner Ronnie Edwards
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A06.html">
+     5A06: Commissioner Claudia Barragan
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A07.html">
+     5A07: Commissioner Sandi Washington
+    </a>
+   </li>
+   <li>
+    <a href="districts/5A08.html">
+     5A08: Commissioner Gordon-Andrew Fletcher
+    </a>
+   </li>
+   <li>
+    <a href="districts/5B01.html">
+     5B01: Commissioner Gayle Carley
+    </a>
+   </li>
+   <li>
+    <a href="districts/5B02.html">
+     5B02: Commissioner Ursula Higgins
+    </a>
+   </li>
+   <li>
+    <a href="districts/5B03.html">
+     5B03: Commissioner Henri Makembe
+    </a>
+   </li>
+   <li>
+    <a href="districts/5B04.html">
+     5B04: Commissioner Ra Amin
+    </a>
+   </li>
+   <li>
+    <a href="districts/5B05.html">
+     5B05: Commissioner Landon Jones
+    </a>
+   </li>
+   <li>
+    <a href="districts/5C01.html">
+     5C01: Commissioner Gail Brevard
+    </a>
+   </li>
+   <li>
+    <a href="districts/5C02.html">
+     5C02: Commissioner Lauren Rogers
+    </a>
+   </li>
+   <li>
+    <a href="districts/5C03.html">
+     5C03: Commissioner Pierre Hines
+    </a>
+   </li>
+   <li>
+    <a href="districts/5C04.html">
+     5C04: Commissioner Jacqueline Manning
+    </a>
+   </li>
+   <li>
+    <a href="districts/5C05.html">
+     5C05: Commissioner Darlene Oliver
+    </a>
+   </li>
+   <li>
+    <a href="districts/5C06.html">
+     5C06: Commissioner Kirsten Williams
+    </a>
+   </li>
+   <li>
+    <a href="districts/5C07.html">
+     5C07: Commissioner Jeremiah Montague Jr.
+    </a>
+   </li>
+   <li>
+    <a href="districts/5D01.html">
+     5D01: Commissioner Ryan Linehan
+    </a>
+   </li>
+   <li>
+    <a href="districts/5D02.html">
+     5D02: Commissioner Keisha L. Shropshire
+    </a>
+   </li>
+   <li>
+    <a href="districts/5D03.html">
+     5D03: Commissioner Steven C. Motley Sr
+    </a>
+   </li>
+   <li>
+    <a href="districts/5D04.html">
+     5D04: Commissioner Bernice S Blacknell
+    </a>
+   </li>
+   <li>
+    <a href="districts/5D05.html">
+     5D05: Commissioner Sydelle Moore
+    </a>
+   </li>
+   <li>
+    <a href="districts/5D06.html">
+     5D06: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/5D07.html">
+     5D07: Commissioner Clarence Lee
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E01.html">
+     5E01: Commissioner Nick Cheolas
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E02.html">
+     5E02: Commissioner Patricia Williams
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E03.html">
+     5E03: Commissioner Cortney Segmen
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E04.html">
+     5E04: Commissioner Sylvia M. Pinkney
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E05.html">
+     5E05: Commissioner Bradley Ashton Thomas
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E06.html">
+     5E06: Commissioner Karla M. Lewis
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E07.html">
+     5E07: Commissioner Bertha G. Holliday
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E08.html">
+     5E08: Commissioner Robert Vinson Brannum
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E09.html">
+     5E09: Commissioner Dianne Barnes
+    </a>
+   </li>
+   <li>
+    <a href="districts/5E10.html">
+     5E10: Commissioner Nancy Darlene Jones
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A01.html">
+     6A01: Commissioner Marie-Claire Brown
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A02.html">
+     6A02: Commissioner Phil Toomajian
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A03.html">
+     6A03: Commissioner Mike Soderman
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A04.html">
+     6A04: Commissioner Amber Gove
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A05.html">
+     6A05: Commissioner Ruth Ann Hudson
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A06.html">
+     6A06: Commissioner Stephanie Zimny
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A07.html">
+     6A07: Commissioner Sondra Phillips-Gilbert
+    </a>
+   </li>
+   <li>
+    <a href="districts/6A08.html">
+     6A08: Commissioner Brian Alcorn
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B01.html">
+     6B01: Commissioner Jennifer E. Samolyk
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B02.html">
+     6B02: Commissioner Gerald Sroufe
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B03.html">
+     6B03: Commissioner Brian Ready
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B04.html">
+     6B04: Commissioner Kirsten Oldenburg
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B05.html">
+     6B05: Commissioner Steve Holtzman
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B06.html">
+     6B06: Commissioner Corey Holman
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B07.html">
+     6B07: Commissioner Kelly Waud
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B08.html">
+     6B08: Commissioner Chander Jayaraman
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B09.html">
+     6B09: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/6B10.html">
+     6B10: Commissioner Kathryn Denise Rucker Krepp
+    </a>
+   </li>
+   <li>
+    <a href="districts/6C01.html">
+     6C01: Commissioner Christine Healey
+    </a>
+   </li>
+   <li>
+    <a href="districts/6C02.html">
+     6C02: Commissioner Karen Wirt
+    </a>
+   </li>
+   <li>
+    <a href="districts/6C03.html">
+     6C03: Commissioner Jay Adelstein
+    </a>
+   </li>
+   <li>
+    <a href="districts/6C04.html">
+     6C04: Commissioner Mark Eckenwiler
+    </a>
+   </li>
+   <li>
+    <a href="districts/6C05.html">
+     6C05: Commissioner Joel Kelty
+    </a>
+   </li>
+   <li>
+    <a href="districts/6C06.html">
+     6C06: Commissioner Drew Courtney
+    </a>
+   </li>
+   <li>
+    <a href="districts/6D01.html">
+     6D01: Commissioner Gail Fast
+    </a>
+   </li>
+   <li>
+    <a href="districts/6D02.html">
+     6D02: Commissioner Anna Forgie
+    </a>
+   </li>
+   <li>
+    <a href="districts/6D03.html">
+     6D03: Commissioner Ronald R. Collins
+    </a>
+   </li>
+   <li>
+    <a href="districts/6D04.html">
+     6D04: Commissioner Andy Litsky
+    </a>
+   </li>
+   <li>
+    <a href="districts/6D05.html">
+     6D05: Commissioner Fredrica Kramer
+    </a>
+   </li>
+   <li>
+    <a href="districts/6D06.html">
+     6D06: Commissioner Rhonda N. Hamilton
+    </a>
+   </li>
+   <li>
+    <a href="districts/6D07.html">
+     6D07: Commissioner Edward Daniels
+    </a>
+   </li>
+   <li>
+    <a href="districts/6E01.html">
+     6E01: Commissioner Alexander M. "Alex" Padro
+    </a>
+   </li>
+   <li>
+    <a href="districts/6E02.html">
+     6E02: Commissioner Michael J. Brown
+    </a>
+   </li>
+   <li>
+    <a href="districts/6E03.html">
+     6E03: Commissioner Frank S. Wiggins
+    </a>
+   </li>
+   <li>
+    <a href="districts/6E04.html">
+     6E04: Commissioner Rachelle Nigro
+    </a>
+   </li>
+   <li>
+    <a href="districts/6E05.html">
+     6E05: Commissioner Alex Marriott
+    </a>
+   </li>
+   <li>
+    <a href="districts/6E06.html">
+     6E06: Commissioner Alvin Judd Sr.
+    </a>
+   </li>
+   <li>
+    <a href="districts/6E07.html">
+     6E07: Commissioner Kevin M. Rogers
+    </a>
+   </li>
+   <li>
+    <a href="districts/7B01.html">
+     7B01: Commissioner Patricia Howard-Chittams
+    </a>
+   </li>
+   <li>
+    <a href="districts/7B02.html">
+     7B02: Commissioner Tiffany L. Brown
+    </a>
+   </li>
+   <li>
+    <a href="districts/7B03.html">
+     7B03: Commissioner Benjamin Crane
+    </a>
+   </li>
+   <li>
+    <a href="districts/7B04.html">
+     7B04: Commissioner Nicole Smith-McDermott
+    </a>
+   </li>
+   <li>
+    <a href="districts/7B05.html">
+     7B05: Commissioner Villareal "VJ" Johnson II
+    </a>
+   </li>
+   <li>
+    <a href="districts/7B06.html">
+     7B06: Commissioner April Pradier
+    </a>
+   </li>
+   <li>
+    <a href="districts/7B07.html">
+     7B07: Commissioner D. L. Humphrey
+    </a>
+   </li>
+   <li>
+    <a href="districts/7C01.html">
+     7C01: Commissioner Patricia A. Malloy
+    </a>
+   </li>
+   <li>
+    <a href="districts/7C02.html">
+     7C02: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/7C03.html">
+     7C03: Commissioner Catherine A. Woods
+    </a>
+   </li>
+   <li>
+    <a href="districts/7C04.html">
+     7C04: Commissioner Anthony Lorenzo Green
+    </a>
+   </li>
+   <li>
+    <a href="districts/7C05.html">
+     7C05: Commissioner Mary L. Gaffney
+    </a>
+   </li>
+   <li>
+    <a href="districts/7C06.html">
+     7C06: Commissioner Arnold Smith
+    </a>
+   </li>
+   <li>
+    <a href="districts/7C07.html">
+     7C07: Commissioner Antawan Holmes
+    </a>
+   </li>
+   <li>
+    <a href="districts/7D01.html">
+     7D01: Commissioner Tamara Blair
+    </a>
+   </li>
+   <li>
+    <a href="districts/7D02.html">
+     7D02: Commissioner Siraaj M. Hasan
+    </a>
+   </li>
+   <li>
+    <a href="districts/7D03.html">
+     7D03: Commissioner Dorothy Douglas
+    </a>
+   </li>
+   <li>
+    <a href="districts/7D04.html">
+     7D04: Commissioner Cinque E. Culver
+    </a>
+   </li>
+   <li>
+    <a href="districts/7D05.html">
+     7D05: Commissioner Aretha Jackson
+    </a>
+   </li>
+   <li>
+    <a href="districts/7D06.html">
+     7D06: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/7D07.html">
+     7D07: Commissioner Artilie Wright
+    </a>
+   </li>
+   <li>
+    <a href="districts/7E01.html">
+     7E01: Commissioner Veda Rasheed
+    </a>
+   </li>
+   <li>
+    <a href="districts/7E02.html">
+     7E02: Commissioner Linda S. Green
+    </a>
+   </li>
+   <li>
+    <a href="districts/7E03.html">
+     7E03: Commissioner Ebbon A. Allen
+    </a>
+   </li>
+   <li>
+    <a href="districts/7E04.html">
+     7E04: Commissioner Takiyah Tate
+    </a>
+   </li>
+   <li>
+    <a href="districts/7E05.html">
+     7E05: Commissioner Victor L. Horton
+    </a>
+   </li>
+   <li>
+    <a href="districts/7E06.html">
+     7E06: Commissioner Delia Houseal
+    </a>
+   </li>
+   <li>
+    <a href="districts/7E07.html">
+     7E07: Commissioner Yolanda Fields
+    </a>
+   </li>
+   <li>
+    <a href="districts/7F01.html">
+     7F01: Commissioner Tyrell M. Holcomb
+    </a>
+   </li>
+   <li>
+    <a href="districts/7F02.html">
+     7F02: Commissioner Terrance Hunter
+    </a>
+   </li>
+   <li>
+    <a href="districts/7F03.html">
+     7F03: Commissioner Sheila Carson Carr
+    </a>
+   </li>
+   <li>
+    <a href="districts/7F04.html">
+     7F04: Commissioner Charlene Exum
+    </a>
+   </li>
+   <li>
+    <a href="districts/7F05.html">
+     7F05: Commissioner Brittany N. Hughes
+    </a>
+   </li>
+   <li>
+    <a href="districts/7F06.html">
+     7F06: Commissioner Carol E. Fletcher
+    </a>
+   </li>
+   <li>
+    <a href="districts/7F07.html">
+     7F07: (vacant)
+    </a>
+   </li>
+   <li>
+    <a href="districts/8A01.html">
+     8A01: Commissioner Holly Muhammad
+    </a>
+   </li>
+   <li>
+    <a href="districts/8A02.html">
+     8A02: Commissioner Barbara J. Clark
+    </a>
+   </li>
+   <li>
+    <a href="districts/8A03.html">
+     8A03: Commissioner Brian K Thompson
+    </a>
+   </li>
+   <li>
+    <a href="districts/8A04.html">
+     8A04: Commissioner Troy Donte Prestwood
+    </a>
+   </li>
+   <li>
+    <a href="districts/8A05.html">
+     8A05: Commissioner Dorcas Agyei
+    </a>
+   </li>
+   <li>
+    <a href="districts/8A06.html">
+     8A06: Commissioner Tyón Jones
+    </a>
+   </li>
+   <li>
+    <a href="districts/8A07.html">
+     8A07: Commissioner Hanna Baker
+    </a>
+   </li>
+   <li>
+    <a href="districts/8B01.html">
+     8B01: Commissioner Leonard Lee Watson Jr.
+    </a>
+   </li>
+   <li>
+    <a href="districts/8B02.html">
+     8B02: Commissioner Paul Trantham
+    </a>
+   </li>
+   <li>
+    <a href="districts/8B03.html">
+     8B03: Commissioner Charles H. Wilson
+    </a>
+   </li>
+   <li>
+    <a href="districts/8B04.html">
+     8B04: Commissioner Darrell Danny Gaston
+    </a>
+   </li>
+   <li>
+    <a href="districts/8B05.html">
+     8B05: Commissioner Betty Scippio
+    </a>
+   </li>
+   <li>
+    <a href="districts/8B06.html">
+     8B06: Commissioner Humam Abdulmalik
+    </a>
+   </li>
+   <li>
+    <a href="districts/8B07.html">
+     8B07: Commissioner Keeon Johnson
+    </a>
+   </li>
+   <li>
+    <a href="districts/8C01.html">
+     8C01: Commissioner Mike Austin
+    </a>
+   </li>
+   <li>
+    <a href="districts/8C02.html">
+     8C02: Commissioner Chyla D. Evans
+    </a>
+   </li>
+   <li>
+    <a href="districts/8C03.html">
+     8C03: Commissioner Robinette Woodland
+    </a>
+   </li>
+   <li>
+    <a href="districts/8C04.html">
+     8C04: Commissioner Regina Sharlita Pixley
+    </a>
+   </li>
+   <li>
+    <a href="districts/8C05.html">
+     8C05: Commissioner Mustafa Abdul-Salaam
+    </a>
+   </li>
+   <li>
+    <a href="districts/8C06.html">
+     8C06: Commissioner Rhonda L. Edwards-Hines
+    </a>
+   </li>
+   <li>
+    <a href="districts/8C07.html">
+     8C07: Commissioner Salim Adofo
+    </a>
+   </li>
+   <li>
+    <a href="districts/8D01.html">
+     8D01: Commissioner Patricia Carmon
+    </a>
+   </li>
+   <li>
+    <a href="districts/8D02.html">
+     8D02: Commissioner Olivia L. Henderson
+    </a>
+   </li>
+   <li>
+    <a href="districts/8D03.html">
+     8D03: Commissioner Absalom Jordan
+    </a>
+   </li>
+   <li>
+    <a href="districts/8D04.html">
+     8D04: Commissioner Monique T. Diop
+    </a>
+   </li>
+   <li>
+    <a href="districts/8D05.html">
+     8D05: Commissioner Ellen Armstead
+    </a>
+   </li>
+   <li>
+    <a href="districts/8D06.html">
+     8D06: Commissioner LaVerne R. Glenn
+    </a>
+   </li>
+   <li>
+    <a href="districts/8D07.html">
+     8D07: Commissioner Constance Mobley
+    </a>
+   </li>
+   <li>
+    <a href="districts/8E01.html">
+     8E01: Commissioner Adeoye Owolewa
+    </a>
+   </li>
+   <li>
+    <a href="districts/8E02.html">
+     8E02: Commissioner Cheryl Moore
+    </a>
+   </li>
+   <li>
+    <a href="districts/8E03.html">
+     8E03: Commissioner Monica Watts
+    </a>
+   </li>
+   <li>
+    <a href="districts/8E04.html">
+     8E04: Commissioner Kendall Simmons
+    </a>
+   </li>
+   <li>
+    <a href="districts/8E05.html">
+     8E05: Commissioner Christopher L. Hawthorne
+    </a>
+   </li>
+   <li>
+    <a href="districts/8E06.html">
+     8E06: Commissioner Karlene Armstead
+    </a>
+   </li>
+   <li>
+    <a href="districts/8E07.html">
+     8E07: Commissioner Stephen A. Slaughter
+    </a>
+   </li>
+  </ul>
+ </body>
 </html>
-
-
-
