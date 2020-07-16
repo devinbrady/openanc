@@ -114,8 +114,17 @@ def build_district_pages():
     """Build pages for each SMD"""
 
     districts = pd.read_csv('data/districts.csv')
+    
+    centroids = pd.read_csv('data/smd_centroids.csv')
+    dist_cent = pd.merge(districts, centroids, how='inner', on='smd')
 
-    for idx, district in districts.iterrows():
+    cc = pd.read_csv('data/smd_color_category.csv')
+    dist_cent_cc = pd.merge(dist_cent, cc, how='inner', left_on='smd', right_on='SMD_ID')
+
+    c = pd.read_csv('data/color_categories.csv')
+    dist_cent_cc_c = pd.merge(dist_cent_cc, c, how='inner', on='Color_Category')
+
+    for idx, district in dist_cent_cc_c.iterrows():
         
         if district['smd'] not in ('1A02', '1A06', '1B05'):
             continue
@@ -123,7 +132,7 @@ def build_district_pages():
         with open('templates/smd.html') as f:
             output = f.read()
             
-        output = output.replace('<!-- replace with smd -->', district['smd'])
+        output = output.replace('REPLACE_WITH_SMD', district['smd'])
         
         output = output.replace('<!-- replace with commissioner table -->', build_commissioner_table(district['smd']))
         
@@ -131,6 +140,11 @@ def build_district_pages():
         
         output = output.replace('REPLACE_WITH_ANC', district['anc'])
         output = output.replace('REPLACE_WITH_WARD', str(district['ward']))
+
+        output = output.replace('REPLACE_WITH_LONGITUDE', str(district['longitude']))
+        output = output.replace('REPLACE_WITH_LATITUDE', str(district['latitude']))
+
+        output = output.replace('REPLACE_WITH_COLOR', district['color'])
 
         soup = BeautifulSoup(output, 'html.parser')
         output_pretty = soup.prettify()
@@ -142,4 +156,3 @@ def build_district_pages():
 if __name__ == '__main__':
 
     build_district_pages()
-    
