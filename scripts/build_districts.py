@@ -125,35 +125,41 @@ class BuildDistricts():
         
         districts = pd.read_csv('data/districts.csv')
 
-        district_row = districts[districts['smd'] == smd_id].squeeze()
-
-        district_table = """
-            <table border="1">
-              <tbody>
-              """
+        district_row = districts[districts['smd'] == smd_id].squeeze().dropna()
 
         fields_to_try = ['description', 'landmarks', 'notes']
 
-        for field_name in fields_to_try:
+        if any([(f in district_row.index) for f in fields_to_try]):
 
-            if field_name in district_row:
-
-                field_value = district_row[field_name]
-
-                if pd.notna(field_value):
-
-                    district_table += f"""
-                        <tr>
-                          <th>{field_name}</th>
-                          <td>{field_value}</td>
-                        </tr>
-                    """
+            district_table = """
+                <table border="1">
+                  <tbody>
+                  """
 
 
-        district_table += """
-                </tbody>
-            </table>
-        """
+            for field_name in fields_to_try:
+
+                if field_name in district_row:
+
+                    field_value = district_row[field_name]
+
+                    if pd.notna(field_value):
+
+                        district_table += f"""
+                            <tr>
+                              <th>{field_name}</th>
+                              <td>{field_value}</td>
+                            </tr>
+                        """
+
+
+            district_table += """
+                    </tbody>
+                </table>
+            """
+
+        else:
+            district_table = ''
         
         return district_table
 
@@ -172,8 +178,8 @@ class BuildDistricts():
             smd_id = district['smd']
             smd_display = smd_id.replace('smd_','')
 
-            if smd_id != 'smd_1C07':
-                continue
+            # if smd_id != 'smd_1C07':
+            #     continue
                     
             with open('templates/smd.html', 'r') as f:
                 output = f.read()
