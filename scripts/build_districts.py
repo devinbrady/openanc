@@ -12,6 +12,8 @@ class BuildDistricts():
         pass
 
     def build_commissioner_table(self, smd_id):
+
+        smd_display = smd_id.replace('smd_','')
         
         people = pd.read_csv('data/people.csv')
         commissioners = pd.read_csv('data/commissioners.csv')
@@ -40,7 +42,7 @@ class BuildDistricts():
             commissioner_table += f"""
                 <tr>
                   <th>Email</th>
-                  <td><a href="mailto:{smd_id}@anc.dc.gov">{smd_id}@anc.dc.gov</a></td>
+                  <td><a href="mailto:{smd_display}@anc.dc.gov">{smd_display}@anc.dc.gov</a></td>
                 </tr>
                 """
 
