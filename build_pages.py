@@ -120,9 +120,11 @@ def add_candidates(smd_id):
     people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
     
     # randomize the order of candidates
-    current_candidates = people_candidates[people_candidates['smd'] == smd_id].sample(frac=1)
+    current_candidates = people_candidates[people_candidates['smd'] == smd_id].sample(frac=1).reset_index()
     
-    if len(current_candidates) == 0:
+    num_candidates = len(current_candidates)
+
+    if num_candidates == 0:
         candidate_block = '<p><em>No known candidates.</em></p>'
         
     else:
@@ -130,7 +132,17 @@ def add_candidates(smd_id):
         candidate_block = ''
 
         for idx, candidate_row in current_candidates.iterrows():
+
+            # Add break between candidate tables if there is more than one candidate
+            if idx > 0:
+                candidate_block += '<br/>'
+
             candidate_block += build_candidate_table(candidate_row)
+            
+
+        if num_candidates > 1:
+            candidate_block += '<p><em>Candidate order is randomized</em></p>'
+
 
     return candidate_block
 
@@ -162,7 +174,6 @@ def build_candidate_table(candidate_row):
     candidate_table += """
             </tbody>
         </table>
-        <br/>
     """
     
     return candidate_table
@@ -174,7 +185,6 @@ def build_district_pages():
     """Build pages for each SMD"""
 
     districts = pd.read_csv('data/districts.csv')
-    
     map_colors = pd.read_csv('data/map_colors.csv')
     district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
 

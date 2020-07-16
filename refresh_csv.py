@@ -73,5 +73,5 @@ if __name__ == '__main__':
     refresh_csv(service, 'candidates', 'A:I')
     refresh_csv(service, 'commissioners', 'A:J')
     refresh_csv(service, 'districts', 'A:I')
-    refresh_csv(service, 'map_colors', 'A:B')
+    # refresh_csv(service, 'map_colors', 'A:B')
     refresh_csv(service, 'people', 'A:I')
