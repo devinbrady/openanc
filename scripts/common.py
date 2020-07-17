@@ -64,6 +64,8 @@ def build_data_table(row, fields_to_try):
 
         If no fields are valid, returns empty string
         """
+
+        field_names = pd.read_csv('data/field_names.csv')
             
         output_table = """
             <table border="1">
@@ -80,9 +82,13 @@ def build_data_table(row, fields_to_try):
 
                 if pd.notna(field_value):
 
+                    display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
+                    if pd.isnull(display_name):
+                        display_name = field_name
+
                     output_table += f"""
                         <tr>
-                        <th>{field_name}</th>
+                        <th>{display_name}</th>
                         """
 
                     if '_link' in field_name:
@@ -116,7 +122,7 @@ def current_time():
 
     tz = pytz.timezone('America/New_York')
     dc_now = datetime.now(tz)
-    dc_timestamp = dc_now.strftime("%B %-d, %Y %-I:%M %p")
+    dc_timestamp = dc_now.strftime("%B %-d, %Y") # Hour of day: %-I:%M %p
 
     return dc_timestamp
 

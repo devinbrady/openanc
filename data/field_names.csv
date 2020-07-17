@@ -1,0 +1,36 @@
+field_name,display_name
+anc_homepage_link,ANC Homepage Link
+anc_id,
+candidate_id,
+candidate_name,
+candidate_source,Candidate Source
+candidate_source_link,Candidate Source Link
+candidate_status,Candidate Status
+centroid_lat,
+centroid_lon,
+commissioner_email,Commissioner Email
+commissioner_name,
+current_smd_id,
+dc_oanc_link,DC Office of ANCs Link
+dcboe_hash_id,
+description,Description
+facebook_link,Facebook
+filed_date,Filed Date
+first_name,
+full_name,Name
+is_chair,
+landmarks,Landmarks
+last_name,
+map_color_id,
+middle_name,
+neighbor_smds,
+notes,Notes
+person_id,
+pickup_date,Pickup Date
+running_for_smd_id,
+smd_id,
+suffix,
+term_end_date,
+term_start_date,
+twitter_link,Twitter
+ward,

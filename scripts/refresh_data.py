@@ -79,5 +79,6 @@ class RefreshData():
         self.refresh_csv('candidates', 'A:J')
         self.refresh_csv('commissioners', 'A:K')
         self.refresh_csv('districts', 'A:J')
+        self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('map_colors', 'A:B') # Doesn't need to be run every time
         self.refresh_csv('people', 'A:J')
