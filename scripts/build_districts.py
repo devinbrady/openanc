@@ -4,9 +4,10 @@ Build Single Member District pages
 
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_data_table
+from scripts.common import build_district_list, build_data_table, build_footer
 
 
 class BuildDistricts():
@@ -23,7 +24,7 @@ class BuildDistricts():
 
         people_commissioners = pd.merge(people, commissioners, how='inner', on='person_id')
         
-        current_commissioner = people_commissioners[people_commissioners['smd'] == smd_id]
+        current_commissioner = people_commissioners[people_commissioners['smd_id'] == smd_id]
         
         if len(current_commissioner) == 0:
             commissioner_table = '<p><em>Office is vacant.</em></p>'
@@ -66,7 +67,7 @@ class BuildDistricts():
         people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
         
         # randomize the order of candidates
-        current_candidates = people_candidates[people_candidates['smd'] == smd_id].sample(frac=1).reset_index()
+        current_candidates = people_candidates[people_candidates['smd_id'] == smd_id].sample(frac=1).reset_index()
         
         num_candidates = len(current_candidates)
 
@@ -107,9 +108,11 @@ class BuildDistricts():
         
         districts = pd.read_csv('data/districts.csv')
 
-        district_row = districts[districts['smd'] == smd_id].squeeze().dropna()
+        district_row = districts[districts['smd_id'] == smd_id].squeeze().dropna()
 
         fields_to_try = ['description', 'landmarks', 'notes']
+
+        district_table = build_data_table(district_row, fields_to_try)
 
         if any([(f in district_row.index) for f in fields_to_try]):
 
@@ -158,10 +161,14 @@ class BuildDistricts():
         district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
 
         
-        for idx, district in district_colors.iterrows():
+        for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs'):
 
-            smd_id = district['smd']
+            smd_id = row['smd_id']
             smd_display = smd_id.replace('smd_','')
+
+            anc_id = row['anc_id']
+            anc_display_upper = 'ANC' + anc_id
+            anc_display_lower = anc_display_upper.lower()
 
             # if smd_id != 'smd_1C07':
             #     continue
@@ -173,26 +180,27 @@ class BuildDistricts():
             
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
-            output = output.replace('<!-- replace with district table -->', self.build_district_table(smd_id))
+            output = output.replace('<!-- replace with better know a district -->', self.build_district_table(smd_id))
 
-            neighbor_smd_ids = [('smd_' + d) for d in district['neighbor_smds'].split(', ')]
-            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids))
+            neighbor_smd_ids = [('smd_' + d) for d in row['neighbor_smds'].split(', ')]
+            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=2))
 
-            
-            output = output.replace('REPLACE_WITH_ANC', district['anc'])
-            output = output.replace('REPLACE_WITH_WARD', str(district['ward']))
 
-            output = output.replace('REPLACE_WITH_LONGITUDE', str(district['centroid_lon']))
-            output = output.replace('REPLACE_WITH_LATITUDE', str(district['centroid_lat']))
+            output = output.replace('REPLACE_WITH_ANC_UPPER', anc_display_upper)
+            output = output.replace('REPLACE_WITH_ANC_LOWER', anc_display_lower)
 
-            output = output.replace('REPLACE_WITH_COLOR', district['color_hex'])
+            output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
+            output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))
+
+            output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
+
+            output = output.replace('<!-- replace with footer -->', build_footer())
 
             soup = BeautifulSoup(output, 'html.parser')
             output_pretty = soup.prettify()
 
-            with open(f'docs/districts/{smd_display}.html', 'w') as f:
+            with open(f'docs/ancs/districts/{smd_display}.html', 'w') as f:
                 f.write(output_pretty)
 
-        print('{} district pages built.'.format(len(district_colors)))
 
 

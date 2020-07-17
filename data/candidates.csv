@@ -1,4 +1,4 @@
-candidate_id,person_id,smd,candidate_name,candidate_status,election_date,candidate_announced_date,candidate_source,candidate_source_link
+candidate_id,person_id,smd_id,candidate_name,candidate_status,election_date,candidate_announced_date,candidate_source,candidate_source_link
 50001,10285,smd_1A02,Dieter Lehmann Morales,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
 50002,10003,smd_1A03,Zach Rybarczyk,pulled_papers,2020-11-03,2020-06-29,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates
 50003,10286,smd_1A05,Karyn C. Miller,pulled_papers,2020-11-03,2020-06-26,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates

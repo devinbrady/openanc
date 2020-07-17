@@ -1,4 +1,4 @@
-smd,anc,ward,centroid_lon,centroid_lat,map_color_id,neighbor_smds,notes,description,landmarks
+smd_id,anc_id,ward,centroid_lon,centroid_lat,map_color_id,neighbor_smds,notes,description,landmarks
 smd_1A01,1A,1,-77.03412954884507,38.9361129455516,1,"1A02, 1A04, 1D02, 4C04, 4C05",,,
 smd_1A02,1A,1,-77.03443229412974,38.93381368292044,2,"1A01, 1A04, 1A05, 1D01, 1D02",,,
 smd_1A03,1A,1,-77.03459083716183,38.927648625531766,3,"1A05, 1A06, 1A11, 1A12, 1C05, 1C06, 1D04, 1D05",,,

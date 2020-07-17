@@ -18,9 +18,9 @@ class BuildIndex():
         commissioners = pd.read_csv('data/commissioners.csv')
         candidates = pd.read_csv('data/candidates.csv')
 
-        district_candidates = pd.merge(districts, candidates, how='left', on='smd')
+        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
 
-        no_candidate_districts = district_candidates[district_candidates['candidate_id'].isnull()]['smd'].nunique()
+        no_candidate_districts = district_candidates[district_candidates['candidate_id'].isnull()]['smd_id'].nunique()
 
         with open('templates/index-template.html', 'r') as f:
             output = f.read()
@@ -30,7 +30,7 @@ class BuildIndex():
         output = output.replace('NUMBER_OF_CANDIDATES', str(len(candidates)))
         output = output.replace('NUMBER_OF_NO_CANDIDATES', str(no_candidate_districts))
 
-        output = output.replace('REPLACE_WITH_DISTRICT_LIST', build_district_list())
+        output = output.replace('REPLACE_WITH_DISTRICT_LIST', build_district_list(level=0))
 
         soup = BeautifulSoup(output, 'html.parser')
         output_pretty = soup.prettify()
