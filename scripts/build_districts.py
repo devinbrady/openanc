@@ -70,6 +70,8 @@ class BuildDistricts():
                     , 'candidate_announced_date'
                     , 'candidate_source'
                     , 'candidate_source_link'
+                    , 'pickup_date'
+                    , 'filed_date'
                     ]
 
                 candidate_block += build_data_table(candidate_row, fields_to_try)
