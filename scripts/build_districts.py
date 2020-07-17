@@ -24,36 +24,15 @@ class BuildDistricts():
 
         people_commissioners = pd.merge(people, commissioners, how='inner', on='person_id')
         
-        current_commissioner = people_commissioners[people_commissioners['smd_id'] == smd_id]
+        current_commissioner = people_commissioners[people_commissioners['smd_id'] == smd_id].squeeze()
         
         if len(current_commissioner) == 0:
-            commissioner_table = '<p><em>Office is vacant.</em></p>'
+            commissioner_table = '<p>Office is vacant.</p>'
 
         else:
 
-            commissioner_table = """
-                <table border="1">
-                  <tbody>
-                  """
-            
-            commissioner_table += """
-                <tr>
-                  <th>Name</th>
-                  <td>{full_name}</td>
-                </tr>
-            """.format(full_name=current_commissioner['full_name'].values[0])
-                
-            commissioner_table += f"""
-                <tr>
-                  <th>Email</th>
-                  <td><a href="mailto:{smd_display}@anc.dc.gov">{smd_display}@anc.dc.gov</a></td>
-                </tr>
-                """
-
-            commissioner_table += """
-                    </tbody>
-                </table>
-            """
+            fields_to_try = ['full_name', 'commissioner_email']
+            commissioner_table = build_data_table(current_commissioner, fields_to_try)
         
         return commissioner_table
 
@@ -72,7 +51,7 @@ class BuildDistricts():
         num_candidates = len(current_candidates)
 
         if num_candidates == 0:
-            candidate_block = '<p><em>No known candidates.</em></p>'
+            candidate_block = '<p>No known candidates.</p>'
             
         else:
 
@@ -103,8 +82,8 @@ class BuildDistricts():
         return candidate_block
 
 
-    def build_district_table(self, smd_id):
-        """Create HTML table for one district"""
+    def build_better_know_a_district(self, smd_id):
+        """Create table for district landmarks"""
         
         districts = pd.read_csv('data/districts.csv')
 
@@ -114,41 +93,10 @@ class BuildDistricts():
 
         district_table = build_data_table(district_row, fields_to_try)
 
-        if any([(f in district_row.index) for f in fields_to_try]):
-
-            district_table = """
-                <table border="1">
-                  <tbody>
-                  """
-
-
-            for field_name in fields_to_try:
-
-                if field_name in district_row:
-
-                    field_value = district_row[field_name]
-
-                    if pd.notna(field_value):
-
-                        district_table += f"""
-                            <tr>
-                              <th>{field_name}</th>
-                              <td>{field_value}</td>
-                            </tr>
-                        """
-
-
-            district_table += """
-                    </tbody>
-                </table>
-            """
-
-        else:
-            district_table = ''
+        if district_table == '':
+            district_table = '<p>No landmarks for this district. Submit one!</p>'
         
         return district_table
-
-
 
 
 
@@ -180,7 +128,7 @@ class BuildDistricts():
             
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
-            output = output.replace('<!-- replace with better know a district -->', self.build_district_table(smd_id))
+            output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
             neighbor_smd_ids = [('smd_' + d) for d in row['neighbor_smds'].split(', ')]
             output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=2))

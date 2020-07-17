@@ -61,12 +61,16 @@ def build_district_list(smd_id_list=None, level=0):
 def build_data_table(row, fields_to_try):
         """
         Create HTML table for one row of data
+
+        If no fields are valid, returns empty string
         """
             
         output_table = """
             <table border="1">
               <tbody>
               """
+
+        fields_written = 0
 
         for field_name in fields_to_try:
 
@@ -90,11 +94,16 @@ def build_data_table(row, fields_to_try):
                     
                     output_table += '</tr>'
 
+                    fields_written += 1
 
         output_table += """
                 </tbody>
             </table>
         """
+
+        # or could use: if any([(f in row.index) for f in fields_to_try]):
+        if fields_written == 0:
+            output_table = ''
         
         return output_table
 
