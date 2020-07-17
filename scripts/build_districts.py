@@ -28,7 +28,7 @@ class BuildDistricts():
             commissioner_table = '<p><em>Office is vacant.</em></p>'
 
         else:
-        
+
             commissioner_table = """
                 <table border="1">
                   <tbody>
@@ -82,7 +82,16 @@ class BuildDistricts():
                 if idx > 0:
                     candidate_block += '<br/>'
 
-                candidate_block += self.build_candidate_table(candidate_row)
+                fields_to_try = [
+                    'full_name'
+                    , 'twitter_link'
+                    , 'facebook_link'
+                    , 'candidate_announced_date'
+                    , 'candidate_source'
+                    , 'candidate_source_link'
+                    ]
+
+                candidate_block += self.build_data_table(candidate_row, fields_to_try)
                 
 
             if num_candidates > 1:
@@ -92,36 +101,41 @@ class BuildDistricts():
         return candidate_block
 
 
-    def build_candidate_table(self, candidate_row):
-        """Create HTML table for one candidate"""
+    def build_data_table(self, row, fields_to_try):
+        """
+        Create HTML table for one row of data
+        """
             
-        candidate_table = """
+        output_table = """
             <table border="1">
               <tbody>
               """
 
-        fields_to_try = ['full_name', 'candidate_announced_date', 'candidate_source', 'candidate_source_link']
-
         for field_name in fields_to_try:
 
-            if field_name in candidate_row:
+            if field_name in row:
 
-                field_value = candidate_row[field_name]
+                field_value = row[field_name]
 
-                candidate_table += f"""
+                output_table += f"""
                     <tr>
-                      <th>{field_name}</th>
-                      <td>{field_value}</td>
-                    </tr>
-                """
+                    <th>{field_name}</th>
+                    """
+
+                if '_link' in field_name:
+                    output_table += f'<td><a href="{field_value}">{field_value}</a></td>'
+                else:
+                    output_table += f'<td>{field_value}</td>'
+                
+                output_table += '</tr>'
 
 
-        candidate_table += """
+        output_table += """
                 </tbody>
             </table>
         """
         
-        return candidate_table
+        return output_table
 
 
     def build_district_table(self, smd_id):

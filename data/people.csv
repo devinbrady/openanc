@@ -1,4 +1,4 @@
-person_id,full_name,first_name,middle_name,last_name,suffix,current_smd,twitter,facebook
+person_id,full_name,first_name,middle_name,last_name,suffix,current_smd,twitter_link,facebook_link
 10001,Layla Bonnot,Layla,,Bonnot,,smd_1A01,,
 10002,Teresa A. Edmondson,Teresa,A.,Edmondson,,smd_1A02,,
 10003,Zach Rybarczyk,Zach,,Rybarczyk,,smd_1A03,,
