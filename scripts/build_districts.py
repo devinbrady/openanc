@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 
+from scripts.common import build_district_list
+
 
 class BuildDistricts():
 
@@ -168,6 +170,8 @@ class BuildDistricts():
 
 
 
+
+
     def run(self):
         """Build pages for each SMD"""
 
@@ -175,6 +179,7 @@ class BuildDistricts():
         map_colors = pd.read_csv('data/map_colors.csv')
         district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
 
+        
         for idx, district in district_colors.iterrows():
 
             smd_id = district['smd']
@@ -191,6 +196,10 @@ class BuildDistricts():
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
             output = output.replace('<!-- replace with district table -->', self.build_district_table(smd_id))
+
+            neighbor_smd_ids = [('smd_' + d) for d in district['neighbor_smds'].split(', ')]
+            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids))
+
             
             output = output.replace('REPLACE_WITH_ANC', district['anc'])
             output = output.replace('REPLACE_WITH_WARD', str(district['ward']))
