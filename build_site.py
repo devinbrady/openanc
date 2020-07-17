@@ -13,8 +13,8 @@ r.run()
 bi = BuildIndex()
 bi.run()
 
-bd = BuildDistricts()
-bd.run()
-
 ba = BuildANCs()
 ba.run()
+
+bd = BuildDistricts()
+bd.run()
