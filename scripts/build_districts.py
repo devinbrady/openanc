@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list
+from scripts.common import build_district_list, build_data_table
 
 
 class BuildDistricts():
@@ -92,7 +92,7 @@ class BuildDistricts():
                     , 'candidate_source_link'
                     ]
 
-                candidate_block += self.build_data_table(candidate_row, fields_to_try)
+                candidate_block += build_data_table(candidate_row, fields_to_try)
                 
 
             if num_candidates > 1:
@@ -100,43 +100,6 @@ class BuildDistricts():
 
 
         return candidate_block
-
-
-    def build_data_table(self, row, fields_to_try):
-        """
-        Create HTML table for one row of data
-        """
-            
-        output_table = """
-            <table border="1">
-              <tbody>
-              """
-
-        for field_name in fields_to_try:
-
-            if field_name in row:
-
-                field_value = row[field_name]
-
-                output_table += f"""
-                    <tr>
-                    <th>{field_name}</th>
-                    """
-
-                if '_link' in field_name:
-                    output_table += f'<td><a href="{field_value}">{field_value}</a></td>'
-                else:
-                    output_table += f'<td>{field_value}</td>'
-                
-                output_table += '</tr>'
-
-
-        output_table += """
-                </tbody>
-            </table>
-        """
-        
-        return output_table
 
 
     def build_district_table(self, smd_id):

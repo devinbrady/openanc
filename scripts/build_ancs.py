@@ -26,6 +26,7 @@ class BuildANCs():
 
             anc_id = row['anc_id']
             anc_display = 'ANC' + anc_id
+            anc_display_lower = anc_display.lower()
                     
             with open('templates/anc.html', 'r') as f:
                 output = f.read()
@@ -45,7 +46,7 @@ class BuildANCs():
             soup = BeautifulSoup(output, 'html.parser')
             output_pretty = soup.prettify()
 
-            with open(f'docs/ancs/{anc_display}.html', 'w') as f:
+            with open(f'docs/ancs/{anc_display_lower}.html', 'w') as f:
                 f.write(output_pretty)
 
         print('{} ANC pages built.'.format(len(ancs)))
