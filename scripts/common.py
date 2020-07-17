@@ -11,7 +11,7 @@ def build_district_list(smd_id_list=None, level=0):
     If smd_id_list is None, all districts are returned
     If smd_id_list is a list, those SMDs are returned
 
-    level: 
+    link level: 
         0: homepage
         1: ANC page
         2: SMD page
