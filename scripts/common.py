@@ -74,17 +74,21 @@ def build_data_table(row, fields_to_try):
 
                 field_value = row[field_name]
 
-                output_table += f"""
-                    <tr>
-                    <th>{field_name}</th>
-                    """
+                if pd.notna(field_value):
 
-                if '_link' in field_name:
-                    output_table += f'<td><a href="{field_value}">{field_value}</a></td>'
-                else:
-                    output_table += f'<td>{field_value}</td>'
-                
-                output_table += '</tr>'
+                    output_table += f"""
+                        <tr>
+                        <th>{field_name}</th>
+                        """
+
+                    if '_link' in field_name:
+                        output_table += f'<td><a href="{field_value}">{field_value}</a></td>'
+                    elif '_email' in field_name:
+                        output_table += f'<td><a href="mailto:{field_value}">{field_value}</a></td>'
+                    else:
+                        output_table += f'<td>{field_value}</td>'
+                    
+                    output_table += '</tr>'
 
 
         output_table += """
