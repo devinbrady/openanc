@@ -5,7 +5,7 @@ Build Index page
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list
+from scripts.common import build_district_list, build_footer
 
 
 class BuildIndex():
@@ -68,6 +68,8 @@ class BuildIndex():
         output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.homepage_list())
+
+        output = output.replace('<!-- replace with footer -->', build_footer())
 
         soup = BeautifulSoup(output, 'html.parser')
         output_pretty = soup.prettify()
