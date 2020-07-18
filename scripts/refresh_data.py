@@ -68,6 +68,10 @@ class RefreshData():
         else:
             df = pd.DataFrame(values[1:], columns=values[0])
 
+            # Sort by the first field
+            first_field = df.columns[0]
+            df.sort_values(by=first_field, inplace=True)
+
             destination_path = f'data/{csv_name}.csv'
             df.to_csv(destination_path, index=False)
             print(f'Data written to: {destination_path}')
@@ -75,10 +79,10 @@ class RefreshData():
 
     def run(self):
 
-        self.refresh_csv('ancs', 'A:F')
+        self.refresh_csv('ancs', 'A:G')
         self.refresh_csv('candidates', 'A:J')
         self.refresh_csv('commissioners', 'A:K')
-        self.refresh_csv('districts', 'A:J')
+        self.refresh_csv('districts', 'A:K')
         self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('map_colors', 'A:B') # Doesn't need to be run every time
         self.refresh_csv('people', 'A:J')

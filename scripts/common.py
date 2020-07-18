@@ -114,6 +114,15 @@ def build_data_table(row, fields_to_try):
         return output_table
 
 
+def calculate_zoom(area):
+
+    slope = -0.0000004570057419
+    intercept = 15.0255174
+
+    zoom_level = (slope * area) + intercept
+
+    return zoom_level
+
 
 def current_time():
     """

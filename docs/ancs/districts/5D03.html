@@ -26,8 +26,11 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
     center: [-76.97835696657592, 38.90422502574933], // starting position [lng, lat]
-    zoom: 14
+    zoom: 12
 });
+
+// 15 = ideal for smallest, 2F07
+// 12 = ideal for largest, 8D04
 
 map.addControl(new mapboxgl.NavigationControl());
   </script>
@@ -64,6 +67,55 @@ map.addControl(new mapboxgl.NavigationControl());
   <h2>
    2020 Candidates
   </h2>
+  <table border="1">
+   <tbody>
+    <tr>
+     <th>
+      Name
+     </th>
+     <td>
+      Sean Barry
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Twitter
+     </th>
+     <td>
+      <a href="https://twitter.com/seanbbarry">
+       https://twitter.com/seanbbarry
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Candidate Source
+     </th>
+     <td>
+      DCBOE
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Candidate Source Link
+     </th>
+     <td>
+      <a href="https://www.dcboe.org/Candidates/2020-Candidates">
+       https://www.dcboe.org/Candidates/2020-Candidates
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Pickup Date
+     </th>
+     <td>
+      2020-06-26
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <br/>
   <table border="1">
    <tbody>
     <tr>
@@ -149,55 +201,6 @@ map.addControl(new mapboxgl.NavigationControl());
     </tr>
    </tbody>
   </table>
-  <br/>
-  <table border="1">
-   <tbody>
-    <tr>
-     <th>
-      Name
-     </th>
-     <td>
-      Sean Barry
-     </td>
-    </tr>
-    <tr>
-     <th>
-      Twitter
-     </th>
-     <td>
-      <a href="https://twitter.com/seanbbarry">
-       https://twitter.com/seanbbarry
-      </a>
-     </td>
-    </tr>
-    <tr>
-     <th>
-      Candidate Source
-     </th>
-     <td>
-      DCBOE
-     </td>
-    </tr>
-    <tr>
-     <th>
-      Candidate Source Link
-     </th>
-     <td>
-      <a href="https://www.dcboe.org/Candidates/2020-Candidates">
-       https://www.dcboe.org/Candidates/2020-Candidates
-      </a>
-     </td>
-    </tr>
-    <tr>
-     <th>
-      Pickup Date
-     </th>
-     <td>
-      2020-06-26
-     </td>
-    </tr>
-   </tbody>
-  </table>
   <p>
    <em>
     Candidate order is randomized
@@ -266,7 +269,7 @@ map.addControl(new mapboxgl.NavigationControl());
    </li>
   </ul>
   <p>
-   Last updated: July 17, 2020
+   Last updated: July 18, 2020
   </p>
  </body>
 </html>

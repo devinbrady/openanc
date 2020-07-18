@@ -11,7 +11,7 @@ from scripts.common import build_district_list
 class BuildIndex():
 
     def homepage_list(self):
-        """Build list of ANCs and SMDs"""
+        """Build a nested HTML list of ANCs and SMDs"""
 
         ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
@@ -34,6 +34,19 @@ class BuildIndex():
         return anc_html
 
 
+    def list_of_smds_without_candidates(self):
+        """Return a list of SMDs that don't currently have a candidate"""
+
+        districts = pd.read_csv('data/districts.csv')
+        candidates = pd.read_csv('data/candidates.csv')
+
+        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
+
+        no_candidate_districts = district_candidates[district_candidates['candidate_id'].isnull()]['smd_id'].unique()
+        districts_with_candidates = district_candidates[district_candidates['candidate_id'].notnull()]['smd_id'].unique()
+
+        return no_candidate_districts
+
 
     def run(self):
         """Add information to index page"""
@@ -44,7 +57,7 @@ class BuildIndex():
 
         district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
 
-        no_candidate_districts = district_candidates[district_candidates['candidate_id'].isnull()]['smd_id'].nunique()
+        num_no_candidate_districts = len(self.list_of_smds_without_candidates())
 
         with open('templates/index.html', 'r') as f:
             output = f.read()
@@ -52,7 +65,7 @@ class BuildIndex():
         output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
         output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
         output = output.replace('NUMBER_OF_CANDIDATES', str(len(candidates)))
-        output = output.replace('NUMBER_OF_NO_CANDIDATES', str(no_candidate_districts))
+        output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.homepage_list())
 

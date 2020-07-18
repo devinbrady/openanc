@@ -26,8 +26,11 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
     center: [-77.02756703949392, 38.89566214092415], // starting position [lng, lat]
-    zoom: 14
+    zoom: 12
 });
+
+// 15 = ideal for smallest, 2F07
+// 12 = ideal for largest, 8D04
 
 map.addControl(new mapboxgl.NavigationControl());
   </script>
@@ -193,7 +196,7 @@ map.addControl(new mapboxgl.NavigationControl());
    </li>
   </ul>
   <p>
-   Last updated: July 17, 2020
+   Last updated: July 18, 2020
   </p>
  </body>
 </html>

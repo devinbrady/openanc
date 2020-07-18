@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_data_table, build_footer
+from scripts.common import build_district_list, build_data_table, build_footer, calculate_zoom
 
 
 class BuildANCs():
@@ -43,6 +43,7 @@ class BuildANCs():
             
             output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
             output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))
+            output = output.replace('REPLACE_WITH_ZOOM_LEVEL', str(calculate_zoom(row['area'])))
 
             output = output.replace('<!-- replace with footer -->', build_footer())
 
