@@ -22,7 +22,7 @@ person_id,full_name,first_name,middle_name,last_name,suffix,current_smd_id,runni
 10021,Danny Delaney,Danny,,Delaney,,smd_1B10,not_currently_running,,
 10022,Robb Hudson,Robb,,Hudson,,smd_1B11,smd_1B11,,
 10023,Dan Winston,Dan,,Winston,,smd_1B12,not_currently_running,,
-10024,Amir Irani,Amir,,Irani,,smd_1C01,not_currently_running,https://twitter.com/iraniamir,
+10024,Amir Irani,Amir,,Irani,,smd_1C01,smd_1C01,https://twitter.com/iraniamir,
 10025,Ted Guthrie,Ted,,Guthrie,,smd_1C03,not_currently_running,,
 10026,John V. Zottoli,John,V.,Zottoli,,smd_1C04,smd_1C04,https://twitter.com/JohnZottoli,
 10027,Damiana Dendy,Damiana,,Dendy,,smd_1C05,not_currently_running,https://twitter.com/laborisforever,

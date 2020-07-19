@@ -72,6 +72,7 @@ class BuildIndex():
             output_about = f.read()
 
         output_about = output_about.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
+        output_about = output_about.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
         output_about = output_about.replace('<!-- replace with footer -->', build_footer())
 
         with open('docs/about.html', 'w') as f:
