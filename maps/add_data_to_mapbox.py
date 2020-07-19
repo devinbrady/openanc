@@ -14,10 +14,10 @@ def assemble_smd_info():
     """
 
 
-    districts = pd.read_csv('data/districts.csv')
-    candidates = pd.read_csv('data/candidates.csv')
-    commissioners = pd.read_csv('data/commissioners.csv')
-    people = pd.read_csv('data/people.csv')
+    districts = pd.read_csv('../data/districts.csv')
+    candidates = pd.read_csv('../data/candidates.csv')
+    commissioners = pd.read_csv('../data/commissioners.csv')
+    people = pd.read_csv('../data/people.csv')
 
 
     candidate_people = pd.merge(candidates, people, how='inner', on='person_id')
@@ -56,8 +56,6 @@ def assemble_smd_info():
 
     print(district_info_comm.head(10))
     
-    # district_info_comm.to_csv('data/to_mapbox/smd_info.csv', index=False)
-
     # Maybe add Last Updated to this? 
 
     return district_info_comm
@@ -67,16 +65,16 @@ def add_data_to_geojson():
 
     df = assemble_smd_info()
 
-    smd = gpd.read_file('maps/smd.geojson')
+    smd = gpd.read_file('smd.geojson')
 
     smd_df = smd.merge(df, on='smd_id')
 
-    smd_df.to_file('maps/smd-data.geojson', driver='GeoJSON')
+    smd_df.to_file('smd-data.geojson', driver='GeoJSON')
 
 
-    lp = pd.read_csv('maps/label_points.csv')
+    lp = pd.read_csv('label_points.csv')
     lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates']], how='inner', on='smd_id')
-    lp_df.to_csv('maps/label_points_data.csv', index=False)
+    lp_df.to_csv('label_points_data.csv', index=False)
 
 
 
