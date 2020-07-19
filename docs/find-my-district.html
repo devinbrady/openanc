@@ -103,7 +103,7 @@ margin-left:25%;
 
 
 <!-- Place and title the info box -->
-<div class='map-overlay' id='features'><h2>Search your address to find your ANC district</h2><div id='pd'><p>Click on a district for more info
+<div class='map-overlay' id='features'><h2>Search your address to zoom to your ANC district</h2><div id='pd'><p>Click on a district for more info
 <!-- Add the dybamic district info -->
 <div id='districts'>
 </div>
@@ -123,6 +123,7 @@ var map = new mapboxgl.Map({
 
 });
 
+
 // wait for map to load before adjusting it
 map.on('load', function() {
 
@@ -130,6 +131,8 @@ map.on('load', function() {
     map.getCanvas().style.cursor = 'default';
 
     // change info window on hover
+    // map.on('click', changeInfoWindow());
+
     map.on('click', function (e) {
         var districts = map.queryRenderedFeatures(e.point)
 
@@ -142,7 +145,6 @@ map.on('load', function() {
                     + "<br>Commissioner: " + districts[0].properties['current_commissioner']
                     + "<br>Candidates: " + districts[0].properties['list_of_candidates']
 
-
             } else {
             document.getElementById('pd').innerHTML = '<p>Click on a district for more info</p>';
         }
@@ -152,12 +154,12 @@ map.on('load', function() {
 
 
 
-// Set up and geocoder
+
+
+// Set up geocoder
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    marker: {
-        color: 'orange'
-    },
+    countries: 'us',
     mapboxgl: mapboxgl
 });
 
