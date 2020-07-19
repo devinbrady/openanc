@@ -64,20 +64,20 @@ class BuildDistricts():
                 fields_to_try = [
                     'full_name'
                     , 'candidate_status'
-                    , 'twitter_link'
-                    , 'facebook_link'
                     , 'candidate_announced_date'
                     , 'candidate_source'
                     , 'candidate_source_link'
                     , 'pickup_date'
                     , 'filed_date'
+                    , 'twitter_link'
+                    , 'facebook_link'
                     ]
 
                 candidate_block += build_data_table(candidate_row, fields_to_try)
                 
 
             candidate_block += (
-                "<p>Candidate list comes from the Board of Elections and from edits to OpenANC. "
+                "<p>The list of candidates comes from the Board of Elections and from edits to OpenANC. "
                 + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
                 ).format(edit_form_link('submit an edit'))
 
