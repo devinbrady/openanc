@@ -75,14 +75,13 @@ class BuildDistricts():
 
                 candidate_block += build_data_table(candidate_row, fields_to_try)
                 
-
-            candidate_block += (
-                "<p>The list of candidates comes from the Board of Elections and from edits to OpenANC. "
-                + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
-                ).format(edit_form_link('submit an edit'))
-
             if num_candidates > 1:
                 candidate_block += '<p><em>Candidate order is randomized</em></p>'
+
+        candidate_block += (
+            "<p>The list of candidates comes from the Board of Elections and from edits to OpenANC. "
+            + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
+            ).format(edit_form_link('submit an edit'))
 
 
         return candidate_block
