@@ -5,7 +5,7 @@ Build Index page
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates
+from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates, edit_form_link
 
 
 class BuildIndex():
@@ -66,10 +66,12 @@ class BuildIndex():
 
 
 
+        # Build About page
 
         with open('templates/about.html', 'r') as f:
             output_about = f.read()
 
+        output_about = output_about.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
         output_about = output_about.replace('<!-- replace with footer -->', build_footer())
 
         with open('docs/about.html', 'w') as f:
