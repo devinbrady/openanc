@@ -13,6 +13,7 @@ decorator==4.4.2
 defusedxml==0.6.0
 entrypoints==0.3
 Fiona==1.8.13.post1
+fuzzywuzzy==0.18.0
 geopandas==0.8.1
 google-api-core==1.21.0
 google-api-python-client==1.10.0
@@ -59,6 +60,7 @@ pyparsing==2.4.7
 pyproj==2.6.1.post1
 pyrsistent==0.16.0
 python-dateutil==2.8.1
+python-Levenshtein==0.12.0
 python-polylabel==0.6
 pytz==2020.1
 PyYAML==5.3.1
@@ -75,6 +77,7 @@ soupsieve==2.0.1
 terminado==0.8.3
 testpath==0.4.4
 tornado==6.0.4
+tqdm==4.48.0
 traitlets==4.3.3
 uritemplate==3.0.1
 urllib3==1.25.9
