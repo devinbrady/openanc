@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_data_table, build_footer
+from scripts.common import build_district_list, build_data_table, build_footer, edit_form_link
 
 
 class BuildDistricts():
@@ -76,6 +76,11 @@ class BuildDistricts():
                 candidate_block += build_data_table(candidate_row, fields_to_try)
                 
 
+            candidate_block += (
+                "<p>Candidate list comes from the Board of Elections and from edits to OpenANC. "
+                + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
+                ).format(edit_form_link('submit an edit'))
+
             if num_candidates > 1:
                 candidate_block += '<p><em>Candidate order is randomized</em></p>'
 
@@ -95,7 +100,7 @@ class BuildDistricts():
         district_table = build_data_table(district_row, fields_to_try)
 
         if district_table == '':
-            district_table = '<p>No landmarks for this district. Submit one!</p>'
+            district_table = '<p>No landmarks for this district. {}</p>'.format(edit_form_link('Submit one!'))
         
         return district_table
 

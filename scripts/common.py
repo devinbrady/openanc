@@ -4,6 +4,13 @@ import pandas as pd
 from datetime import datetime
 
 
+def edit_form_link(link_text='Submit edits'):
+    """Return HTML for link to form for edits"""
+
+    return f'<a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">{link_text}</a>'
+    
+
+
 def dc_coordinates():
     """Return coordinates for a DC-wide map"""
 
@@ -166,6 +173,7 @@ def build_footer():
     with open('templates/footer.html', 'r') as f:
         footer_html = f.read()
 
+    footer_html = footer_html.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('Submit edits'))
     footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', current_time())
 
     return footer_html
