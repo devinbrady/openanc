@@ -12,8 +12,6 @@ from scripts.common import build_district_list, build_data_table, build_footer
 
 class BuildDistricts():
 
-    def __init__(self):
-        pass
 
     def build_commissioner_table(self, smd_id):
 
