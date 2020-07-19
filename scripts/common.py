@@ -4,6 +4,31 @@ import pandas as pd
 from datetime import datetime
 
 
+def dc_coordinates():
+    """Return coordinates for a DC-wide map"""
+
+    dc_longitude = -77.016243706276569
+    dc_latitude = 38.894858329321485
+    dc_zoom_level = 10.3
+
+    return dc_longitude, dc_latitude, dc_zoom_level
+
+
+def list_of_smds_without_candidates():
+    """Return a list of SMDs that don't currently have a candidate"""
+
+    districts = pd.read_csv('data/districts.csv')
+    candidates = pd.read_csv('data/candidates.csv')
+
+    district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
+
+    no_candidate_districts = district_candidates[district_candidates['candidate_id'].isnull()]['smd_id'].unique().tolist()
+    districts_with_candidates = district_candidates[district_candidates['candidate_id'].notnull()]['smd_id'].unique().tolist()
+
+    return no_candidate_districts
+
+
+
 def build_district_list(smd_id_list=None, level=0):
     """
     Bulleted list of districts and current commmissioners

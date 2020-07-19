@@ -4,6 +4,7 @@ All steps necessary to build OpenANC pages
 
 from scripts.refresh_data import RefreshData
 from scripts.build_index import BuildIndex
+from scripts.build_maps import BuildMaps
 from scripts.build_districts import BuildDistricts
 from scripts.build_ancs import BuildANCs
 
@@ -12,6 +13,9 @@ r.run()
 
 bi = BuildIndex()
 bi.run()
+
+bm = BuildMaps()
+bm.run()
 
 ba = BuildANCs()
 ba.run()

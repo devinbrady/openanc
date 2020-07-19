@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>OpenANC</title>
+    <title>OpenANC - Needs Candidates</title>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 </head>
@@ -8,9 +8,7 @@
 <body>
 
 
-<h1>Map of District Without a Candidate</h1>
-
-<p>An open database of Washington, DC Advisory Neighborhood Commission districts, commissioners, and candidates.</p>
+<h1><a href="index.html">OpenANC</a> : ANC Districts Needing Candidates</h1>
 
 <div id='map' style='width: 700px; height: 500px;'></div>
 <script>
@@ -18,20 +16,54 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
-    center: [-77.016243706276569, 38.904858329321485], // starting position [lng, lat]
+    style: 'mapbox://styles/devinbrady/ckcsc9z9x1oqs1iphxychsky8', // ANCs no SMDs
+    center: [-77.016243706276569, 38.894858329321485], // starting position [lng, lat]
     zoom: 10.3 // starting zoom
 });
 
+var smds_needing_candidates = [
+    'smd_1A01', 'smd_1A04', 'smd_1B01', 'smd_1B03', 'smd_1B04', 'smd_1B06', 'smd_1B08', 'smd_1B10', 'smd_1C01', 'smd_1C06', 'smd_1D01', 'smd_1D04', 'smd_2A01', 'smd_2A04', 'smd_2A07', 'smd_2A08', 'smd_2B06', 'smd_2B07', 'smd_2C02', 'smd_2D02', 'smd_2E01', 'smd_2E04', 'smd_2E06', 'smd_2E08', 'smd_2F02', 'smd_2F03', 'smd_3C04', 'smd_3C07', 'smd_3C08', 'smd_3D05', 'smd_3D06', 'smd_3E02', 'smd_3E03', 'smd_3F02', 'smd_3F04', 'smd_3F05', 'smd_3G04', 'smd_3G06', 'smd_4A01', 'smd_4A03', 'smd_4A05', 'smd_4A07', 'smd_4B04', 'smd_4B05', 'smd_4B07', 'smd_4B08', 'smd_4C05', 'smd_4C07', 'smd_4D01', 'smd_4D02', 'smd_4D03', 'smd_4D04', 'smd_4D05', 'smd_5A02', 'smd_5A04', 'smd_5A05', 'smd_5A06', 'smd_5A07', 'smd_5B03', 'smd_5C05', 'smd_5E01', 'smd_5E05', 'smd_5E10', 'smd_6A05', 'smd_6B01', 'smd_6B05', 'smd_6B07', 'smd_6B10', 'smd_6D02', 'smd_6E03', 'smd_6E05', 'smd_6E06', 'smd_7B03', 'smd_7B04', 'smd_7B07', 'smd_7D02', 'smd_7D05', 'smd_7D07', 'smd_7E01', 'smd_7E02', 'smd_7E03', 'smd_7E05', 'smd_7F01', 'smd_7F03', 'smd_7F05', 'smd_7F07', 'smd_8A03', 'smd_8A07', 'smd_8B01', 'smd_8B02', 'smd_8B07', 'smd_8C01', 'smd_8C05', 'smd_8D03', 'smd_8D07', 'smd_8E03'
+    ];
+
+var smds_with_candidates = [
+'smd_1A02', 'smd_1A03', 'smd_1A05', 'smd_1A06', 'smd_1A07', 'smd_1A08', 'smd_1A09', 'smd_1A10', 'smd_1A11', 'smd_1A12', 'smd_1B02', 'smd_1B05', 'smd_1B07', 'smd_1B09', 'smd_1B11', 'smd_1B12', 'smd_1C02', 'smd_1C03', 'smd_1C04', 'smd_1C05', 'smd_1C07', 'smd_1C08', 'smd_1D02', 'smd_1D03', 'smd_1D05', 'smd_2A02', 'smd_2A03', 'smd_2A05', 'smd_2A06', 'smd_2B01', 'smd_2B02', 'smd_2B03', 'smd_2B04', 'smd_2B05', 'smd_2B08', 'smd_2B09', 'smd_2C01', 'smd_2C03', 'smd_2D01', 'smd_2E02', 'smd_2E03', 'smd_2E05', 'smd_2E07', 'smd_2F01', 'smd_2F04', 'smd_2F05', 'smd_2F06', 'smd_2F07', 'smd_2F08', 'smd_3B01', 'smd_3B02', 'smd_3B03', 'smd_3B04', 'smd_3B05', 'smd_3C01', 'smd_3C02', 'smd_3C03', 'smd_3C05', 'smd_3C06', 'smd_3C09', 'smd_3D01', 'smd_3D02', 'smd_3D03', 'smd_3D04', 'smd_3D07', 'smd_3D08', 'smd_3D09', 'smd_3D10', 'smd_3E01', 'smd_3E04', 'smd_3E05', 'smd_3F01', 'smd_3F03', 'smd_3F06', 'smd_3F07', 'smd_3G01', 'smd_3G02', 'smd_3G03', 'smd_3G05', 'smd_3G07', 'smd_4A02', 'smd_4A04', 'smd_4A06', 'smd_4A08', 'smd_4B01', 'smd_4B02', 'smd_4B03', 'smd_4B06', 'smd_4B09', 'smd_4C01', 'smd_4C02', 'smd_4C03', 'smd_4C04', 'smd_4C06', 'smd_4C08', 'smd_4C09', 'smd_4C10', 'smd_4D06', 'smd_5A01', 'smd_5A03', 'smd_5A08', 'smd_5B01', 'smd_5B02', 'smd_5B04', 'smd_5B05', 'smd_5C01', 'smd_5C02', 'smd_5C03', 'smd_5C04', 'smd_5C06', 'smd_5C07', 'smd_5D01', 'smd_5D02', 'smd_5D03', 'smd_5D04', 'smd_5D05', 'smd_5D06', 'smd_5D07', 'smd_5E02', 'smd_5E03', 'smd_5E04', 'smd_5E06', 'smd_5E07', 'smd_5E08', 'smd_5E09', 'smd_6A01', 'smd_6A02', 'smd_6A03', 'smd_6A04', 'smd_6A06', 'smd_6A07', 'smd_6A08', 'smd_6B02', 'smd_6B03', 'smd_6B04', 'smd_6B06', 'smd_6B08', 'smd_6B09', 'smd_6C01', 'smd_6C02', 'smd_6C03', 'smd_6C04', 'smd_6C05', 'smd_6C06', 'smd_6D01', 'smd_6D03', 'smd_6D04', 'smd_6D05', 'smd_6D06', 'smd_6D07', 'smd_6E01', 'smd_6E02', 'smd_6E04', 'smd_6E07', 'smd_7B01', 'smd_7B02', 'smd_7B05', 'smd_7B06', 'smd_7C01', 'smd_7C02', 'smd_7C03', 'smd_7C04', 'smd_7C05', 'smd_7C06', 'smd_7C07', 'smd_7D01', 'smd_7D03', 'smd_7D04', 'smd_7D06', 'smd_7E04', 'smd_7E06', 'smd_7E07', 'smd_7F02', 'smd_7F04', 'smd_7F06', 'smd_8A01', 'smd_8A02', 'smd_8A04', 'smd_8A05', 'smd_8A06', 'smd_8B03', 'smd_8B04', 'smd_8B05', 'smd_8B06', 'smd_8C02', 'smd_8C03', 'smd_8C04', 'smd_8C06', 'smd_8C07', 'smd_8D01', 'smd_8D02', 'smd_8D04', 'smd_8D05', 'smd_8D06', 'smd_8E01', 'smd_8E02', 'smd_8E04', 'smd_8E05', 'smd_8E06', 'smd_8E07'
+];
+
+
 map.addControl(new mapboxgl.NavigationControl());
+
+
+map.addLayer(
+{
+    'id': 'smds-need-candidates',
+    'type': 'fill',
+    'source': 'devinbrady.3ltfmuwd',
+    'source-layer': 'original',
+    'paint': {
+        'fill-outline-color': '#484896',
+        'fill-color': '#6e599f',
+        'fill-opacity': 0.75
+    },
+'filter': ['in', 'smd_id', ['literal', smds_needing_candidates]]
+},
+'settlement-label'
+); // Place polygon under these labels.
+
+
+// Add features that are in the list of SMDs without candidates
+// map.setFilter('counties-highlighted', [
+// 'in',
+// 'smd_id',
+// feature.properties.COUNTY
+// ]);
 
 </script>
 
 
 
-<h2>List of Districts Without a Candidate</h2>
+<h2>List of Districts Needing Candidates</h2>
 
-REPLACE_WITH_DISTRICT_LIST
+REPLACE_WITH_NEEDS_CANDIDATES_LIST
 
 </body>
 

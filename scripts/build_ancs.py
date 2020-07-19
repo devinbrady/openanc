@@ -47,9 +47,9 @@ class BuildANCs():
 
             output = output.replace('<!-- replace with footer -->', build_footer())
 
-            soup = BeautifulSoup(output, 'html.parser')
-            output_pretty = soup.prettify()
+            # soup = BeautifulSoup(output, 'html.parser')
+            # output_pretty = soup.prettify()
 
             with open(f'docs/ancs/{anc_display_lower}.html', 'w') as f:
-                f.write(output_pretty)
+                f.write(output)
 

@@ -5,7 +5,7 @@ Build Index page
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_footer
+from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates
 
 
 class BuildIndex():
@@ -26,26 +26,11 @@ class BuildIndex():
             anc_html += f'<li><a href="ancs/{anc_lower}.html">{anc_upper}</a></li>'
 
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].tolist()
-
             anc_html += build_district_list(smd_id_list=smds_in_anc, level=0)
 
         anc_html += '</ul>'
 
         return anc_html
-
-
-    def list_of_smds_without_candidates(self):
-        """Return a list of SMDs that don't currently have a candidate"""
-
-        districts = pd.read_csv('data/districts.csv')
-        candidates = pd.read_csv('data/candidates.csv')
-
-        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
-
-        no_candidate_districts = district_candidates[district_candidates['candidate_id'].isnull()]['smd_id'].unique()
-        districts_with_candidates = district_candidates[district_candidates['candidate_id'].notnull()]['smd_id'].unique()
-
-        return no_candidate_districts
 
 
     def run(self):
@@ -57,7 +42,7 @@ class BuildIndex():
 
         district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
 
-        num_no_candidate_districts = len(self.list_of_smds_without_candidates())
+        num_no_candidate_districts = len(list_of_smds_without_candidates())
 
         with open('templates/index.html', 'r') as f:
             output = f.read()
@@ -71,10 +56,24 @@ class BuildIndex():
 
         output = output.replace('<!-- replace with footer -->', build_footer())
 
-        soup = BeautifulSoup(output, 'html.parser')
-        output_pretty = soup.prettify()
+        # soup = BeautifulSoup(output, 'html.parser')
+        # output_pretty = soup.prettify()
 
         with open('docs/index.html', 'w') as f:
-            f.write(output_pretty)
+            f.write(output)
 
         print('Index built.')
+
+
+
+
+        with open('templates/about.html', 'r') as f:
+            output_about = f.read()
+
+        output_about = output_about.replace('<!-- replace with footer -->', build_footer())
+
+        with open('docs/about.html', 'w') as f:
+            f.write(output_about)
+
+        print('About built.')
+
