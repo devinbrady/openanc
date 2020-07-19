@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Find Your District</title>
 <meta charset='utf-8' />
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
@@ -90,7 +91,7 @@ margin-left:25%;
 
 
 <!-- Place and title the info box -->
-<div class='map-overlay' id='features'><h2>Search for your address to find your ANC district</h2><div id='pd'><p>Click on a district for more info
+<div class='map-overlay' id='features'><h2>Search your address to find your ANC district</h2><div id='pd'><p>Click on a district for more info
 <!-- Add the dybamic district info -->
 <div id='districts'>
 </div>
@@ -126,6 +127,8 @@ map.on('load', function() {
                 document.getElementById('pd').innerHTML = 
                     "<b>" + "District " + smd_name + "</b>"
                     + "<br>" + "<a href='ancs/districts/" + smd_name + ".html'>District Page</a>"
+                    + "<br>Commissioner: " + districts[0].properties['current_commissioner']
+                    + "<br>Candidates: " + districts[0].properties['list_of_candidates']
 
 
             } else {
