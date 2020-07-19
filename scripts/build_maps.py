@@ -5,7 +5,7 @@ Build Maps pages
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates
+from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates, google_analytics_block
 
 
 class BuildMaps():
@@ -19,6 +19,7 @@ class BuildMaps():
 
         output = output.replace('REPLACE_WITH_NEEDS_CANDIDATES_LIST', build_district_list(smd_id_list=list_of_smds_without_candidates(), level=0))
 
+        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
         output = output.replace('<!-- replace with footer -->', build_footer())
 
         # soup = BeautifulSoup(output, 'html.parser')

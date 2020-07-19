@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_data_table, build_footer, edit_form_link
+from scripts.common import build_district_list, build_data_table, build_footer, edit_form_link, google_analytics_block
 
 
 class BuildDistricts():
@@ -132,6 +132,7 @@ class BuildDistricts():
                 
             output = output.replace('REPLACE_WITH_SMD', smd_display)
             
+            output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))

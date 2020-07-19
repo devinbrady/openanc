@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_data_table, build_footer, calculate_zoom
+from scripts.common import build_district_list, build_data_table, build_footer, calculate_zoom, google_analytics_block
 
 
 class BuildANCs():
@@ -31,7 +31,9 @@ class BuildANCs():
                     
             with open('templates/anc.html', 'r') as f:
                 output = f.read()
-                
+            
+            output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+            
             output = output.replace('REPLACE_WITH_ANC', anc_display)
             
             anc_smd_ids = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()

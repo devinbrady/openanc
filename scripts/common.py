@@ -10,6 +10,24 @@ def edit_form_link(link_text='Submit edits'):
     return f'<a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">{link_text}</a>'
     
 
+def google_analytics_block():
+    """
+    Return HTML block of Javascript for Google Analytics. Include in the <head> of all pages
+    """
+
+    return """
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        """
+
+
 
 def dc_coordinates():
     """Return coordinates for a DC-wide map"""

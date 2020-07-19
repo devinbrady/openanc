@@ -5,7 +5,7 @@ Build Index page
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates, edit_form_link
+from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates, edit_form_link, google_analytics_block
 
 
 class BuildIndex():
@@ -33,7 +33,7 @@ class BuildIndex():
         return anc_html
 
 
-    def run(self):
+    def index_page(self):
         """Add information to index page"""
 
         districts = pd.read_csv('data/districts.csv')
@@ -46,6 +46,8 @@ class BuildIndex():
 
         with open('templates/index.html', 'r') as f:
             output = f.read()
+
+        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
 
         output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
         output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
@@ -65,18 +67,54 @@ class BuildIndex():
         print('Index built.')
 
 
+    def about_page(self):
 
         # Build About page
-
         with open('templates/about.html', 'r') as f:
-            output_about = f.read()
+            output = f.read()
 
-        output_about = output_about.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
-        output_about = output_about.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
-        output_about = output_about.replace('<!-- replace with footer -->', build_footer())
+        output = output.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
+        output = output.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
+        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+        output = output.replace('<!-- replace with footer -->', build_footer())
 
         with open('docs/about.html', 'w') as f:
-            f.write(output_about)
+            f.write(output)
 
         print('About built.')
 
+
+    def needs_candidates_page(self):
+
+        with open('templates/needs-candidates.html', 'r') as f:
+            output = f.read()
+
+        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+
+        with open('docs/needs-candidates.html', 'w') as f:
+            f.write(output)
+
+        print('needs-candidates built.')
+
+
+    def find_your_district_page(self):
+
+        with open('templates/find-my-district.html', 'r') as f:
+            output = f.read()
+
+        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+
+        with open('docs/find-my-district.html', 'w') as f:
+            f.write(output)
+
+        print('find-my-district built.')
+
+
+
+
+    def run(self):
+
+        self.index_page()
+        self.about_page()
+        self.needs_candidates_page()
+        self.find_your_district_page()
