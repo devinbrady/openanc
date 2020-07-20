@@ -1,285 +1,285 @@
-person_id,smd_id,commissioner_name,first_name,middle_name,last_name,suffix,is_chair,term_start_date,term_end_date,commissioner_email
-10001,smd_1A01,Layla Bonnot,Layla,,Bonnot,,,2019-01-02,2021-01-02,1A01@anc.dc.gov
-10002,smd_1A02,Teresa A. Edmondson,Teresa,A.,Edmondson,,,2019-01-02,2021-01-02,1A02@anc.dc.gov
-10003,smd_1A03,Zach Rybarczyk,Zach,,Rybarczyk,,,2019-01-02,2021-01-02,1A03@anc.dc.gov
-10004,smd_1A04,Matthew Goldschimdt,Matthew,,Goldschimdt,,,2019-01-02,2021-01-02,1A04@anc.dc.gov
-10005,smd_1A05,Christine Miller,Christine,,Miller,,,2019-01-02,2021-01-02,1A05@anc.dc.gov
-10006,smd_1A06,Angelica Castañon,Angelica,,Castañon,,,2019-01-02,2021-01-02,1A06@anc.dc.gov
-10007,smd_1A07,Jen Bundy,Jen,,Bundy,,,2019-01-02,2021-01-02,1A07@anc.dc.gov
-10008,smd_1A08,Kent C. Boese,Kent,C.,Boese,,TRUE,2019-01-02,2021-01-02,1A08@anc.dc.gov
-10009,smd_1A09,Michael Wray,Michael,,Wray,,,2019-01-02,2021-01-02,1A09@anc.dc.gov
-10010,smd_1A10,Rashida Brown,Rashida,,Brown,,,2019-01-02,2021-01-02,1A10@anc.dc.gov
-10011,smd_1A11,Dotti Love Wade,Dotti,Love,Wade,,,2019-01-02,2021-01-02,1A11@anc.dc.gov
-10012,smd_1A12,Jason Clock,Jason,,Clock,,,2019-01-02,2021-01-02,1A12@anc.dc.gov
-10013,smd_1B01,Anita Norman,Anita,,Norman,,,2019-01-02,2021-01-02,1B01@anc.dc.gov
-10014,smd_1B02,Dan Orlaskey,Dan,,Orlaskey,,,2019-01-02,2021-01-02,1B02@anc.dc.gov
-10015,smd_1B03,Sedrick Muhammad,Sedrick,,Muhammad,,,2019-01-02,2021-01-02,1B03@anc.dc.gov
-10016,smd_1B04,Deborah Thomas,Deborah,,Thomas,,,2019-01-02,2021-01-02,1B04@anc.dc.gov
-10017,smd_1B06,Jennifer Bristol,Jennifer,,Bristol,,,2019-01-02,2021-01-02,1B06@anc.dc.gov
-10018,smd_1B07,Marcia Shia,Marcia,,Shia,,,2019-01-02,2021-01-02,1B07@anc.dc.gov
-10019,smd_1B08,Joshua R. Mater,Joshua,R.,Mater,,,2019-01-02,2021-01-02,1B08@anc.dc.gov
-10020,smd_1B09,James A. Turner,James,A.,Turner,,TRUE,2019-01-02,2021-01-02,1B09@anc.dc.gov
-10021,smd_1B10,Danny Delaney,Danny,,Delaney,,,2019-01-02,2021-01-02,1B10@anc.dc.gov
-10022,smd_1B11,Robb Hudson,Robb,,Hudson,,,2019-01-02,2021-01-02,1B11@anc.dc.gov
-10023,smd_1B12,Dan Winston,Dan,,Winston,,,2019-01-02,2021-01-02,1B12@anc.dc.gov
-10024,smd_1C01,Amir Irani,Amir,,Irani,,TRUE,2019-01-02,2021-01-02,1C01@anc.dc.gov
-10025,smd_1C03,Ted Guthrie,Ted,,Guthrie,,,2019-01-02,2021-01-02,1C03@anc.dc.gov
-10026,smd_1C04,John V. Zottoli,John,V.,Zottoli,,,2019-01-02,2021-01-02,1C04@anc.dc.gov
-10027,smd_1C05,Damiana Dendy,Damiana,,Dendy,,,2019-01-02,2021-01-02,1C05@anc.dc.gov
-10028,smd_1C06,Michaela Wright,Michaela,,Wright,,,2019-01-02,2021-01-02,1C06@anc.dc.gov
-10029,smd_1C07,Japer Bowles,Japer,,Bowles,,,2019-01-02,2021-01-02,1C07@anc.dc.gov
-10030,smd_1C08,Chris Jackson,Chris,,Jackson,,,2019-01-02,2021-01-02,1C08@anc.dc.gov
-10031,smd_1D01,Jon Stewart,Jon,,Stewart,,,2019-01-02,2021-01-02,1D01@anc.dc.gov
-10032,smd_1D02,Robin Sandenburgh,Robin,,Sandenburgh,,TRUE,2019-01-02,2021-01-02,1D02@anc.dc.gov
-10033,smd_1D03,Jack McKay,Jack,,McKay,,,2019-01-02,2021-01-02,1D03@anc.dc.gov
-10034,smd_1D04,Yasmin Romero-Latin,Yasmin,,Romero-Latin,,,2019-01-02,2021-01-02,1D04@anc.dc.gov
-10035,smd_1D05,Chelsea A. Allinger,Chelsea,A.,Allinger,,,2019-01-02,2021-01-02,1D05@anc.dc.gov
-10036,smd_2A01,Patrick Kennedy,Patrick,,Kennedy,,,2019-01-02,2021-01-02,2A01@anc.dc.gov
-10037,smd_2A02,Nicole Goldin,Nicole,,Goldin,,,2019-01-02,2021-01-02,2A02@anc.dc.gov
-10038,smd_2A03,Trupti J. Patel,Trupti,J.,Patel,,,2019-01-02,2021-01-02,2A03@anc.dc.gov
-10039,smd_2A04,William Kennedy Smith,William,,Kennedy Smith,,,2019-01-02,2021-01-02,2A04@anc.dc.gov
-10040,smd_2A05,Philip J. Schrefer,Philip,J.,Schrefer,,,2019-01-02,2021-01-02,2A05@anc.dc.gov
-10041,smd_2A06,Jeri Epstein,Jeri,,Epstein,,,2019-01-02,2021-01-02,2A06@anc.dc.gov
-10042,smd_2A07,Detrick Campbell,Detrick,,Campbell,,,2019-01-02,2021-01-02,2A07@anc.dc.gov
-10043,smd_2A08,James Harnett,James,,Harnett,,TRUE,2019-01-02,2021-01-02,2A08@anc.dc.gov
-10044,smd_2B01,Matthew H Sampson,Matthew,H.,Sampson,,,2019-01-02,2021-01-02,2B01@anc.dc.gov
-10045,smd_2B02,Daniel Warwick,Daniel,,Warwick,,TRUE,2019-01-02,2021-01-02,2B02@anc.dc.gov
-10046,smd_2B04,Aaron Landry,Aaron,,Landry,,,2019-01-02,2021-01-02,2B04@anc.dc.gov
-10047,smd_2B05,Randy D. Downs,Randy,D.,Downs,,,2019-01-02,2021-01-02,2B05@anc.dc.gov
-10048,smd_2B06,Mike Silverstein,Mike,,Silverstein,,,2019-01-02,2021-01-02,2B06@anc.dc.gov
-10049,smd_2B07,Kari Cunningham,Kari,,Cunningham,,,2019-01-02,2021-01-02,2B07@anc.dc.gov
-10050,smd_2B08,Beverly Schwartz,Beverly,,Schwartz,,,2019-01-02,2021-01-02,2B08@anc.dc.gov
-10051,smd_2B09,Ed Hanlon,Ed,,Hanlon,,,2019-01-02,2021-01-02,2B09@anc.dc.gov
-10052,smd_2C01,Michael D. Shankle,Michael,D.,Shankle,,,2019-01-02,2021-01-02,2C01@anc.dc.gov
-10053,smd_2C02,Jamaal T. Burton,Jamaal,T.,Burton,,,2019-01-02,2021-01-02,2C02@anc.dc.gov
-10054,smd_2C03,Kevin Wilsey,Kevin,,Wilsey,,TRUE,2019-01-02,2021-01-02,2C03@anc.dc.gov
-10055,smd_2D01,David R. Bender,David,R.,Bender,,TRUE,2019-01-02,2021-01-02,2D01@anc.dc.gov
-10056,smd_2D02,Jeff Nestler,Jeff,,Nestler,,,2019-01-02,2021-01-02,2D02@anc.dc.gov
-10057,smd_2E01,Kishan Putta,Kishan,,Putta,,,2019-01-02,2021-01-02,2E01@anc.dc.gov
-10058,smd_2E02,Joe Gibbons,Joe,,Gibbons,,,2019-01-02,2021-01-02,2E02@anc.dc.gov
-10059,smd_2E03,Rick Murphy,Rick,,Murphy,,TRUE,2019-01-02,2021-01-02,2E03@anc.dc.gov
-10060,smd_2E04,Anna Landre,Anna,,Landre,,,2019-01-02,2021-01-02,2E04@anc.dc.gov
-10061,smd_2E05,Lisa Palmer,Lisa,,Palmer,,,2019-01-02,2021-01-02,2E05@anc.dc.gov
-10062,smd_2E06,Gwendolyn Lohse,Gwendolyn,,Lohse,,,2019-01-02,2021-01-02,2E06@anc.dc.gov
-10063,smd_2E07,Elizabeth H. Miller,Elizabeth,H.,Miller,,,2019-01-02,2021-01-02,2E07@anc.dc.gov
-10064,smd_2E08,Matias Burdman,Matias,,Burdman,,,2019-01-02,2021-01-02,2E08@anc.dc.gov
-10065,smd_2F01,Jason Forman,Jason,,Forman,,,2019-01-02,2021-01-02,2F01@anc.dc.gov
-10066,smd_2F02,John Guggenmos,John,,Guggenmos,,,2019-01-02,2021-01-02,2F02@anc.dc.gov
-10067,smd_2F03,John Bottino,John,,Bottino,,,2019-01-02,2021-01-02,2F03@anc.dc.gov
-10068,smd_2F04,John Fanning,John,,Fanning,,TRUE,2019-01-02,2021-01-02,2F04@anc.dc.gov
-10069,smd_2F05,Madeleine G. Stirling,Madeleine,G.,Stirling,,,2019-01-02,2021-01-02,2F05@anc.dc.gov
-10070,smd_2F06,Ian D. Simon,Ian,D.,Simon,,,2019-01-02,2021-01-02,2F06@anc.dc.gov
-10071,smd_2F07,Kevin J. Sylvester,Kevin,J.,Sylvester,,,2019-01-02,2021-01-02,2F07@anc.dc.gov
-10072,smd_2F08,Janice Ferebee,Janice,,Ferebee,,,2019-01-02,2021-01-02,2F08@anc.dc.gov
-10073,smd_3B01,Ann Lane Mladinov,Ann,,Lane Mladinov,,,2019-01-02,2021-01-02,3B01@anc.dc.gov
-10074,smd_3B02,Jackie Blumenthal,Jackie,,Blumenthal,,,2019-01-02,2021-01-02,3B02@anc.dc.gov
-10075,smd_3B03,Melissa Lane,Melissa,,Lane,,,2019-01-02,2021-01-02,3B03@anc.dc.gov
-10076,smd_3B04,Mary C. Young,Mary,C.,Young,,,2019-01-02,2021-01-02,3B04@anc.dc.gov
-10077,smd_3B05,Brian G. Turmail,Brian,G.,Turmail,,TRUE,2019-01-02,2021-01-02,3B05@anc.dc.gov
-10078,smd_3C01,Lee Brian Reba,Lee Brian,,Reba,,,2019-01-02,2021-01-02,3C01@anc.dc.gov
-10079,smd_3C02,Jason Fink,Jason,,Fink,,,2019-01-02,2021-01-02,3C02@anc.dc.gov
-10080,smd_3C03,Jimmy Dubois,Jimmy,,Dubois,,,2019-01-02,2021-01-02,3C03@anc.dc.gov
-10081,smd_3C04,"Robert ""Beau"" Finley","Robert ""Beau""",,Finley,,,2019-01-02,2021-01-02,3C04@anc.dc.gov
-10082,smd_3C06,Angela Bradbery,Angela,,Bradbery,,,2019-01-02,2021-01-02,3C06@anc.dc.gov
-10083,smd_3C07,Maureen Kinlan Boucher,Maureen,,Kinlan Boucher,,,2019-01-02,2021-01-02,3C07@anc.dc.gov
-10084,smd_3C08,Victoria Gersten,Victoria,,Gersten,,,2019-01-02,2021-01-02,3C08@anc.dc.gov
-10085,smd_3C09,Nancy J. MacWood,Nancy,J.,MacWood,,TRUE,2019-01-02,2021-01-02,3C09@anc.dc.gov
-10086,smd_3D01,Chuck Elkins,Chuck,,Elkins,,TRUE,2019-01-02,2021-01-02,3D01@anc.dc.gov
-10087,smd_3D02,Troy Kravitz,Troy,,Kravitz,,,2019-01-02,2021-01-02,3D02@anc.dc.gov
-10088,smd_3D03,Paige Ela,Paige,,Ela,,,2019-01-02,2021-01-02,3D03@anc.dc.gov
-10089,smd_3D04,Michael Sriqui,Michael,,Sriqui,,,2019-01-02,2021-01-02,3D04@anc.dc.gov
-10090,smd_3D05,Alan Karnofsky,Alan,,Karnofsky,,,2019-01-02,2021-01-02,3D05@anc.dc.gov
-10091,smd_3D06,Virginia Gorsevski,Virginia,,Gorsevski,,,2019-01-02,2021-01-02,3D06@anc.dc.gov
-10092,smd_3D07,Taylor Berlin,Taylor,,Berlin,,,2019-01-02,2021-01-02,3D07@anc.dc.gov
-10093,smd_3D08,Christine Warnke,Christine,,Warnke,,,2019-01-02,2021-01-02,3D08@anc.dc.gov
-10094,smd_3D09,J.P. Szymkowicz,J.P.,,Szymkowicz,,,2019-01-02,2021-01-02,3D09@anc.dc.gov
-10095,smd_3D10,Jeremy Del Moral,Jeremy,,Del Moral,,,2019-01-02,2021-01-02,3D10@anc.dc.gov
-10096,smd_3E01,Greg Ehrhardt,Greg,,Ehrhardt,,,2019-01-02,2021-01-02,3E01@anc.dc.gov
-10097,smd_3E02,Amy B. Hall,Amy,B.,Hall,,,2019-01-02,2021-01-02,3E02@anc.dc.gov
-10098,smd_3E03,Jonathan Bender,Jonathan,,Bender,,TRUE,2019-01-02,2021-01-02,3E03@anc.dc.gov
-10099,smd_3E04,Tom Quinn,Tom,,Quinn,,,2019-01-02,2021-01-02,3E04@anc.dc.gov
-10100,smd_3E05,Jonathan McHugh,Jonathan,,McHugh,,,2019-01-02,2021-01-02,3E05@anc.dc.gov
-10101,smd_3F01,David Cristeal,David,,Cristeal,,,2019-01-02,2021-01-02,3F01@anc.dc.gov
-10102,smd_3F02,Carolinn A Kuebler,Carolinn,A.,Kuebler,,,2019-01-02,2021-01-02,3F02@anc.dc.gov
-10103,smd_3F03,Naomi Rutenberg,Naomi,,Rutenberg,,,2019-01-02,2021-01-02,3F03@anc.dc.gov
-10104,smd_3F04,Leah Frelinghuysen,Leah,,Frelinghuysen,,,2019-01-02,2021-01-02,3F04@anc.dc.gov
-10105,smd_3F05,Andrea Molod,Andrea,,Molod,,,2019-01-02,2021-01-02,3F05@anc.dc.gov
-10106,smd_3F06,Monika Nemeth,Monika,,Nemeth,,TRUE,2019-01-02,2021-01-02,3F06@anc.dc.gov
-10107,smd_3G01,Abraham Clayman,Abraham,,Clayman,,,2019-01-02,2021-01-02,3G01@anc.dc.gov
-10108,smd_3G02,Chanda Tuck Garfield,Chanda,,Tuck Garfield,,,2019-01-02,2021-01-02,3G02@anc.dc.gov
-10109,smd_3G03,Randy Speck,Randy,,Speck,,TRUE,2019-01-02,2021-01-02,3G03@anc.dc.gov
-10110,smd_3G04,Rebecca Maydak,Rebecca,,Maydak,,,2019-01-02,2021-01-02,3G04@anc.dc.gov
-10111,smd_3G05,Jerry Malitz,Jerry,,Malitz,,,2019-01-02,2021-01-02,3G05@anc.dc.gov
-10112,smd_3G06,Dan Bradfield,Dan,,Bradfield,,,2019-01-02,2021-01-02,3G06@anc.dc.gov
-10113,smd_3G07,Chris Fromboluti,Chris,,Fromboluti,,,2019-01-02,2021-01-02,3G07@anc.dc.gov
-10114,smd_4A01,Phyllis Caudle Green,Phyllis,,Caudle Green,,,2019-01-02,2021-01-02,4A01@anc.dc.gov
-10115,smd_4A02,Stacey Lincoln,Stacey,,Lincoln,,,2019-01-02,2021-01-02,4A02@anc.dc.gov
-10116,smd_4A03,Stephen A. Whatley,Stephen,A.,Whatley,,,2019-01-02,2021-01-02,4A03@anc.dc.gov
-10117,smd_4A04,Patience Singleton,Patience,,Singleton,,,2019-01-02,2021-01-02,4A04@anc.dc.gov
-10118,smd_4A06,Candace Tiana Nelson,Candace,,Tiana Nelson,,,2019-01-02,2021-01-02,4A06@anc.dc.gov
-10119,smd_4A07,Marlene Moss,Marlene,,Moss,,,2019-01-02,2021-01-02,4A07@anc.dc.gov
-10120,smd_4A08,Gale B. Black,Gale,B.,Black,,TRUE,2019-01-02,2021-01-02,4A08@anc.dc.gov
-10121,smd_4B01,Evan Yeats,Evan,,Yeats,,,2019-01-02,2021-01-02,4B01@anc.dc.gov
-10122,smd_4B02,Erin Palmer,Erin,,Palmer,,,2019-01-02,2021-01-02,4B02@anc.dc.gov
-10123,smd_4B03,Scot Knickerbocker,Scot,,Knickerbocker,,,2019-01-02,2021-01-02,4B03@anc.dc.gov
-10124,smd_4B04,Brenda Parks,Brenda,,Parks,,TRUE,2019-01-02,2021-01-02,4B04@anc.dc.gov
-10125,smd_4B05,Perry Redd,Perry,,Redd,,,2019-01-02,2021-01-02,4B05@anc.dc.gov
-10126,smd_4B06,Tiffani Nichole Johnson,Tiffani,,Nichole Johnson,,,2019-01-02,2021-01-02,4B06@anc.dc.gov
-10127,smd_4B07,Geoff Bromaghim,Geoff,,Bromaghim,,,2019-01-02,2021-01-02,4B07@anc.dc.gov
-10128,smd_4B08,Alison Brooks,Alison,,Brooks,,,2019-01-02,2021-01-02,4B08@anc.dc.gov
-10129,smd_4B09,LaRoya A. Huff,LaRoya,A.,Huff,,,2019-01-02,2021-01-02,4B09@anc.dc.gov
-10130,smd_4C01,Charlotte Nugent,Charlotte,,Nugent,,TRUE,2019-01-02,2021-01-02,4C01@anc.dc.gov
-10131,smd_4C02,Maria Barry,Maria,,Barry,,,2019-01-02,2021-01-02,4C02@anc.dc.gov
-10132,smd_4C03,Ulysses E. Campbell,Ulysses,E.,Campbell,,,2019-01-02,2021-01-02,4C03@anc.dc.gov
-10133,smd_4C04,Nora Simon,Nora,,Simon,,,2019-01-02,2021-01-02,4C04@anc.dc.gov
-10134,smd_4C05,Debbie Matties,Debbie,,Matties,,,2019-01-02,2021-01-02,4C05@anc.dc.gov
-10135,smd_4C06,Bennett Hilley,Bennett,,Hilley,,,2019-01-02,2021-01-02,4C06@anc.dc.gov
-10136,smd_4C07,Kim Varzi,Kim,,Varzi,,,2019-01-02,2021-01-02,4C07@anc.dc.gov
-10137,smd_4C08,Leah Anderson,Leah,,Anderson,,,2019-01-02,2021-01-02,4C08@anc.dc.gov
-10138,smd_4C09,Tearsa Coates,Tearsa,,Coates,,,2019-01-02,2021-01-02,4C09@anc.dc.gov
-10139,smd_4C10,Jonah Goodman,Jonah,,Goodman,,,2019-01-02,2021-01-02,4C10@anc.dc.gov
-10140,smd_4D01,Peter Tabor,Peter,,Tabor,,,2019-01-02,2021-01-02,4D01@anc.dc.gov
-10141,smd_4D02,Renée L. Bowser,Renée,L.,Bowser,,TRUE,2019-01-02,2021-01-02,4D02@anc.dc.gov
-10142,smd_4D03,Aaron Polkey,Aaron,,Polkey,,,2019-01-02,2021-01-02,4D03@anc.dc.gov
-10143,smd_4D04,Jamie Barden,Jamie,,Barden,,,2019-01-02,2021-01-02,4D04@anc.dc.gov
-10144,smd_4D05,Krystal Branton,Krystal,,Branton,,,2019-01-02,2021-01-02,4D05@anc.dc.gov
-10145,smd_4D06,Jonathan Nobil,Jonathan,,Nobil,,,2019-01-02,2021-01-02,4D06@anc.dc.gov
-10146,smd_5A01,Frank Wilds,Frank,,Wilds,,,2019-01-02,2021-01-02,5A01@anc.dc.gov
-10147,smd_5A02,Grace J. Lewis,Grace,J.,Lewis,,,2019-01-02,2021-01-02,5A02@anc.dc.gov
-10148,smd_5A03,Emily Singer Lucio,Emily,,Singer Lucio,,,2019-01-02,2021-01-02,5A03@anc.dc.gov
-10149,smd_5A05,Ronnie Edwards,Ronnie,,Edwards,,TRUE,2019-01-02,2021-01-02,5A05@anc.dc.gov
-10150,smd_5A06,Claudia Barragan,Claudia,,Barragan,,,2019-01-02,2021-01-02,5A06@anc.dc.gov
-10151,smd_5A07,Sandi Washington,Sandi,,Washington,,,2019-01-02,2021-01-02,5A07@anc.dc.gov
-10152,smd_5A08,Gordon-Andrew Fletcher,Gordon-Andrew,,Fletcher,,,2019-01-02,2021-01-02,5A08@anc.dc.gov
-10153,smd_5B01,Gayle Carley,Gayle,,Carley,,,2019-01-02,2021-01-02,5B01@anc.dc.gov
-10154,smd_5B02,Ursula Higgins,Ursula,,Higgins,,TRUE,2019-01-02,2021-01-02,5B02@anc.dc.gov
-10155,smd_5B03,Henri Makembe,Henri,,Makembe,,,2019-01-02,2021-01-02,5B03@anc.dc.gov
-10156,smd_5B04,Ra Amin,Ra,,Amin,,,2019-01-02,2021-01-02,5B04@anc.dc.gov
-10157,smd_5B05,Landon Jones,Landon,,Jones,,,2019-01-02,2021-01-02,5B05@anc.dc.gov
-10158,smd_5C01,Gail Brevard,Gail,,Brevard,,,2019-01-02,2021-01-02,5C01@anc.dc.gov
-10159,smd_5C02,Lauren Rogers,Lauren,,Rogers,,,2019-01-02,2021-01-02,5C02@anc.dc.gov
-10160,smd_5C03,Pierre Hines,Pierre,,Hines,,,2019-01-02,2021-01-02,5C03@anc.dc.gov
-10161,smd_5C04,Jacqueline Manning,Jacqueline,,Manning,,TRUE,2019-01-02,2021-01-02,5C04@anc.dc.gov
-10162,smd_5C05,Darlene Oliver,Darlene,,Oliver,,,2019-01-02,2021-01-02,5C05@anc.dc.gov
-10163,smd_5C06,Kirsten Williams,Kirsten,,Williams,,,2019-01-02,2021-01-02,5C06@anc.dc.gov
-10164,smd_5C07,Jeremiah Montague Jr.,Jeremiah,,Montague,Jr.,,2019-01-02,2021-01-02,5C07@anc.dc.gov
-10165,smd_5D01,Ryan Linehan,Ryan,,Linehan,,,2019-01-02,2021-01-02,5D01@anc.dc.gov
-10166,smd_5D02,Keisha L. Shropshire,Keisha,L.,Shropshire,,,2019-01-02,2021-01-02,5D02@anc.dc.gov
-10167,smd_5D03,Steven C. Motley Sr,Steven,C.,Motley,Sr.,,2019-01-02,2021-01-02,5D03@anc.dc.gov
-10168,smd_5D04,Bernice S Blacknell,Bernice,S.,Blacknell,,,2019-01-02,2021-01-02,5D04@anc.dc.gov
-10169,smd_5D05,Sydelle Moore,Sydelle,,Moore,,,2019-01-02,2021-01-02,5D05@anc.dc.gov
-10170,smd_5D07,Clarence Lee,Clarence,,Lee,,TRUE,2019-01-02,2021-01-02,5D07@anc.dc.gov
-10171,smd_5E01,Nick Cheolas,Nick,,Cheolas,,,2019-01-02,2021-01-02,5E01@anc.dc.gov
-10172,smd_5E02,Patricia Williams,Patricia,,Williams,,,2019-01-02,2021-01-02,5E02@anc.dc.gov
-10173,smd_5E03,Cortney Segmen,Cortney,,Segmen,,,2019-01-02,2021-01-02,5E03@anc.dc.gov
-10174,smd_5E04,Sylvia M. Pinkney,Sylvia,M.,Pinkney,,,2019-01-02,2021-01-02,5E04@anc.dc.gov
-10175,smd_5E05,Bradley Ashton Thomas,Bradley,Ashton,Thomas,,TRUE,2019-01-02,2021-01-02,5E05@anc.dc.gov
-10176,smd_5E06,Karla M. Lewis,Karla,M.,Lewis,,,2019-01-02,2021-01-02,5E06@anc.dc.gov
-10177,smd_5E07,Bertha G. Holliday,Bertha,G.,Holliday,,,2019-01-02,2021-01-02,5E07@anc.dc.gov
-10178,smd_5E08,Robert Vinson Brannum,Robert,Vinson,Brannum,,,2019-01-02,2021-01-02,5E08@anc.dc.gov
-10179,smd_5E09,Dianne Barnes,Dianne,,Barnes,,,2019-01-02,2021-01-02,5E09@anc.dc.gov
-10180,smd_5E10,Nancy Darlene Jones,Nancy,Darlene,Jones,,,2019-01-02,2021-01-02,5E10@anc.dc.gov
-10181,smd_6A01,Marie-Claire Brown,Marie-Claire,,Brown,,,2019-01-02,2021-01-02,6A01@anc.dc.gov
-10182,smd_6A02,Phil Toomajian,Phil,,Toomajian,,,2019-01-02,2021-01-02,6A02@anc.dc.gov
-10183,smd_6A03,Mike Soderman,Mike,,Soderman,,,2019-01-02,2021-01-02,6A03@anc.dc.gov
-10184,smd_6A04,Amber Gove,Amber,,Gove,,TRUE,2019-01-02,2021-01-02,6A04@anc.dc.gov
-10185,smd_6A05,Ruth Ann Hudson,Ruth,Ann,Hudson,,,2019-01-02,2021-01-02,6A05@anc.dc.gov
-10186,smd_6A06,Stephanie Zimny,Stephanie,,Zimny,,,2019-01-02,2021-01-02,6A06@anc.dc.gov
-10187,smd_6A07,Sondra Phillips-Gilbert,Sondra,,Phillips-Gilbert,,,2019-01-02,2021-01-02,6A07@anc.dc.gov
-10188,smd_6A08,Brian Alcorn,Brian,,Alcorn,,,2019-01-02,2021-01-02,6A08@anc.dc.gov
-10189,smd_6B01,Jennifer E. Samolyk,Jennifer,E.,Samolyk,,,2019-01-02,2021-01-02,6B01@anc.dc.gov
-10190,smd_6B02,Gerald Sroufe,Gerald,,Sroufe,,,2019-01-02,2021-01-02,6B02@anc.dc.gov
-10191,smd_6B03,Brian Ready,Brian,,Ready,,TRUE,2019-01-02,2021-01-02,6B03@anc.dc.gov
-10192,smd_6B04,Kirsten Oldenburg,Kirsten,,Oldenburg,,,2019-01-02,2021-01-02,6B04@anc.dc.gov
-10193,smd_6B05,Steve Holtzman,Steve,,Holtzman,,,2019-01-02,2021-01-02,6B05@anc.dc.gov
-10194,smd_6B06,Corey Holman,Corey,,Holman,,,2019-01-02,2021-01-02,6B06@anc.dc.gov
-10195,smd_6B07,Kelly Waud,Kelly,,Waud,,,2019-01-02,2021-01-02,6B07@anc.dc.gov
-10196,smd_6B08,Chander Jayaraman,Chander,,Jayaraman,,,2019-01-02,2021-01-02,6B08@anc.dc.gov
-10197,smd_6B10,Kathryn Denise Rucker Krepp,Kathryn,Denise,Rucker Krepp,,,2019-01-02,2021-01-02,6B10@anc.dc.gov
-10198,smd_6C01,Christine Healey,Christine,,Healey,,,2019-01-02,2021-01-02,6C01@anc.dc.gov
-10199,smd_6C02,Karen Wirt,Karen,,Wirt,,TRUE,2019-01-02,2021-01-02,6C02@anc.dc.gov
-10200,smd_6C03,Jay Adelstein,Jay,,Adelstein,,,2019-01-02,2021-01-02,6C03@anc.dc.gov
-10201,smd_6C04,Mark Eckenwiler,Mark,,Eckenwiler,,,2019-01-02,2021-01-02,6C04@anc.dc.gov
-10202,smd_6C05,Joel Kelty,Joel,,Kelty,,,2019-01-02,2021-01-02,6C05@anc.dc.gov
-10203,smd_6C06,Drew Courtney,Drew,,Courtney,,,2019-01-02,2021-01-02,6C06@anc.dc.gov
-10204,smd_6D01,Gail Fast,Gail,,Fast,,TRUE,2019-01-02,2021-01-02,6D01@anc.dc.gov
-10205,smd_6D02,Anna Forgie,Anna,,Forgie,,,2019-01-02,2021-01-02,6D02@anc.dc.gov
-10206,smd_6D03,Ronald R. Collins,Ronald,R.,Collins,,,2019-01-02,2021-01-02,6D03@anc.dc.gov
-10207,smd_6D04,Andy Litsky,Andy,,Litsky,,,2019-01-02,2021-01-02,6D04@anc.dc.gov
-10208,smd_6D05,Fredrica Kramer,Fredrica,,Kramer,,,2019-01-02,2021-01-02,6D05@anc.dc.gov
-10209,smd_6D06,Rhonda N. Hamilton,Rhonda,N.,Hamilton,,,2019-01-02,2021-01-02,6D06@anc.dc.gov
-10210,smd_6D07,Edward Daniels,Edward,,Daniels,,,2019-01-02,2021-01-02,6D07@anc.dc.gov
-10211,smd_6E01,"Alexander M. ""Alex"" Padro","Alexander ""Alex""",M.,Padro,,,2019-01-02,2021-01-02,6E01@anc.dc.gov
-10212,smd_6E02,Michael J. Brown,Michael,J.,Brown,,,2019-01-02,2021-01-02,6E02@anc.dc.gov
-10213,smd_6E03,Frank S. Wiggins,Frank,S.,Wiggins,,,2019-01-02,2021-01-02,6E03@anc.dc.gov
-10214,smd_6E04,Rachelle Nigro,Rachelle,,Nigro,,TRUE,2019-01-02,2021-01-02,6E04@anc.dc.gov
-10215,smd_6E05,Alex Marriott,Alex,,Marriott,,,2019-01-02,2021-01-02,6E05@anc.dc.gov
-10216,smd_6E06,Alvin Judd Sr.,Alvin,,Judd,Sr.,,2019-01-02,2021-01-02,6E06@anc.dc.gov
-10217,smd_6E07,Kevin M. Rogers,Kevin,M.,Rogers,,,2019-01-02,2021-01-02,6E07@anc.dc.gov
-10218,smd_7B01,Patricia Howard-Chittams,Patricia,,Howard-Chittams,,,2019-01-02,2021-01-02,7B01@anc.dc.gov
-10219,smd_7B02,Tiffany L. Brown,Tiffany,L.,Brown,,,2019-01-02,2021-01-02,7B02@anc.dc.gov
-10220,smd_7B03,Benjamin Crane,Benjamin,,Crane,,,2019-01-02,2021-01-02,7B03@anc.dc.gov
-10221,smd_7B04,Nicole Smith-McDermott,Nicole,,Smith-McDermott,,,2019-01-02,2021-01-02,7B04@anc.dc.gov
-10222,smd_7B05,"Villareal ""VJ"" Johnson II","Villareal ""VJ""",,Johnson,II,,2019-01-02,2021-01-02,7B05@anc.dc.gov
-10223,smd_7B06,April Pradier,April,,Pradier,,,2019-01-02,2021-01-02,7B06@anc.dc.gov
-10224,smd_7B07,D. L. Humphrey,D. L.,,Humphrey,,TRUE,2019-01-02,2021-01-02,7B07@anc.dc.gov
-10225,smd_7C01,Patricia A. Malloy,Patricia,A.,Malloy,,,2019-01-02,2021-01-02,7C01@anc.dc.gov
-10226,smd_7C03,Catherine A. Woods,Catherine,A.,Woods,,,2019-01-02,2021-01-02,7C03@anc.dc.gov
-10227,smd_7C04,Anthony Lorenzo Green,Anthony,Lorenzo,Green,,,2019-01-02,2021-01-02,7C04@anc.dc.gov
-10228,smd_7C05,Mary L. Gaffney,Mary,L.,Gaffney,,,2019-01-02,2021-01-02,7C05@anc.dc.gov
-10229,smd_7C06,Arnold Smith,Arnold,,Smith,,,2019-01-02,2021-01-02,7C06@anc.dc.gov
-10230,smd_7C07,Antawan Holmes,Antawan,,Holmes,,TRUE,2019-01-02,2021-01-02,7C07@anc.dc.gov
-10231,smd_7D01,Tamara Blair,Tamara,,Blair,,,2019-01-02,2021-01-02,7D01@anc.dc.gov
-10232,smd_7D02,Siraaj M. Hasan,Siraaj,M.,Hasan,,TRUE,2019-01-02,2021-01-02,7D02@anc.dc.gov
-10233,smd_7D03,Dorothy Douglas,Dorothy,,Douglas,,,2019-01-02,2021-01-02,7D03@anc.dc.gov
-10234,smd_7D04,Cinque E. Culver,Cinque,E.,Culver,,,2019-01-02,2021-01-02,7D04@anc.dc.gov
-10235,smd_7D05,Aretha Jackson,Aretha,,Jackson,,,2019-01-02,2021-01-02,7D05@anc.dc.gov
-10236,smd_7D07,Artilie Wright,Artilie,,Wright,,,2019-01-02,2021-01-02,7D07@anc.dc.gov
-10237,smd_7E01,Veda Rasheed,Veda,,Rasheed,,,2019-01-02,2021-01-02,7E01@anc.dc.gov
-10238,smd_7E02,Linda S. Green,Linda,S.,Green,,,2019-01-02,2021-01-02,7E02@anc.dc.gov
-10239,smd_7E03,Ebbon A. Allen,Ebbon,A.,Allen,,,2019-01-02,2021-01-02,7E03@anc.dc.gov
-10240,smd_7E04,Takiyah Tate,Takiyah,,Tate,,,2019-01-02,2021-01-02,7E04@anc.dc.gov
-10241,smd_7E05,Victor L. Horton,Victor,L.,Horton,,,2019-01-02,2021-01-02,7E05@anc.dc.gov
-10242,smd_7E06,Delia Houseal,Delia,,Houseal,,TRUE,2019-01-02,2021-01-02,7E06@anc.dc.gov
-10243,smd_7E07,Yolanda Fields,Yolanda,,Fields,,,2019-01-02,2021-01-02,7E07@anc.dc.gov
-10244,smd_7F01,Tyrell M. Holcomb,Tyrell,M.,Holcomb,,TRUE,2019-01-02,2021-01-02,7F01@anc.dc.gov
-10245,smd_7F02,Terrance Hunter,Terrance,,Hunter,,,2019-01-02,2021-01-02,7F02@anc.dc.gov
-10246,smd_7F03,Sheila Carson Carr,Sheila,,Carson Carr,,,2019-01-02,2021-01-02,7F03@anc.dc.gov
-10247,smd_7F04,Charlene Exum,Charlene,,Exum,,,2019-01-02,2021-01-02,7F04@anc.dc.gov
-10248,smd_7F05,Brittany N. Hughes,Brittany,N.,Hughes,,,2019-01-02,2021-01-02,7F05@anc.dc.gov
-10249,smd_7F06,Carol E. Fletcher,Carol,E.,Fletcher,,,2019-01-02,2021-01-02,7F06@anc.dc.gov
-10250,smd_8A01,Holly Muhammad,Holly,,Muhammad,,,2019-01-02,2021-01-02,8A01@anc.dc.gov
-10251,smd_8A02,Barbara J. Clark,Barbara,J.,Clark,,,2019-01-02,2021-01-02,8A02@anc.dc.gov
-10252,smd_8A03,Brian K Thompson,Brian,K.,Thompson,,,2019-01-02,2021-01-02,8A03@anc.dc.gov
-10253,smd_8A04,Troy Donte Prestwood,Troy,Donte,Prestwood,,TRUE,2019-01-02,2021-01-02,8A04@anc.dc.gov
-10254,smd_8A05,Dorcas Agyei,Dorcas,,Agyei,,,2019-01-02,2021-01-02,8A05@anc.dc.gov
-10255,smd_8A06,Tyón Jones,Tyón,,Jones,,,2019-01-02,2021-01-02,8A06@anc.dc.gov
-10256,smd_8A07,Hanna Baker,Hanna,,Baker,,,2019-01-02,2021-01-02,8A07@anc.dc.gov
-10257,smd_8B01,Leonard Lee Watson Jr.,Leonard,Lee,Watson,Jr.,,2019-01-02,2021-01-02,8B01@anc.dc.gov
-10258,smd_8B02,Paul Trantham,Paul,,Trantham,,,2019-01-02,2021-01-02,8B02@anc.dc.gov
-10259,smd_8B03,Charles H. Wilson,Charles,H.,Wilson,,,2019-01-02,2021-01-02,8B03@anc.dc.gov
-10260,smd_8B04,Darrell Danny Gaston,"Darrell ""Danny""",,Gaston,,,2019-01-02,2021-01-02,8B04@anc.dc.gov
-10261,smd_8B05,Betty Scippio,Betty,,Scippio,,,2019-01-02,2021-01-02,8B05@anc.dc.gov
-10262,smd_8B06,Humam Abdulmalik,Humam,,Abdulmalik,,,2019-01-02,2021-01-02,8B06@anc.dc.gov
-10263,smd_8B07,Keeon Johnson,Keeon,,Johnson,,TRUE,2019-01-02,2021-01-02,8B07@anc.dc.gov
-10264,smd_8C01,Mike Austin,Mike,,Austin,,TRUE,2019-01-02,2021-01-02,8C01@anc.dc.gov
-10265,smd_8C02,Chyla D. Evans,Chyla,D.,Evans,,,2019-01-02,2021-01-02,8C02@anc.dc.gov
-10266,smd_8C03,Robinette Woodland,Robinette,,Woodland,,,2019-01-02,2021-01-02,8C03@anc.dc.gov
-10267,smd_8C04,Regina Sharlita Pixley,Regina,,Sharlita Pixley,,,2019-01-02,2021-01-02,8C04@anc.dc.gov
-10268,smd_8C05,Mustafa Abdul-Salaam,Mustafa,,Abdul-Salaam,,,2019-01-02,2021-01-02,8C05@anc.dc.gov
-10269,smd_8C06,Rhonda L. Edwards-Hines,Rhonda,L.,Edwards-Hines,,,2019-01-02,2021-01-02,8C06@anc.dc.gov
-10270,smd_8C07,Salim Adofo,Salim,,Adofo,,,2019-01-02,2021-01-02,8C07@anc.dc.gov
-10271,smd_8D01,Patricia Carmon,Patricia,,Carmon,,,2019-01-02,2021-01-02,8D01@anc.dc.gov
-10272,smd_8D02,Olivia L. Henderson,Olivia,L.,Henderson,,TRUE,2019-01-02,2021-01-02,8D02@anc.dc.gov
-10273,smd_8D03,Absalom Jordan,Absalom,,Jordan,,,2019-01-02,2021-01-02,8D03@anc.dc.gov
-10274,smd_8D04,Monique T. Diop,Monique,T.,Diop,,,2019-01-02,2021-01-02,8D04@anc.dc.gov
-10275,smd_8D05,Ellen Armstead,Ellen,,Armstead,,,2019-01-02,2021-01-02,8D05@anc.dc.gov
-10276,smd_8D06,LaVerne R. Glenn,LaVerne,R.,Glenn,,,2019-01-02,2021-01-02,8D06@anc.dc.gov
-10277,smd_8D07,Constance Mobley,Constance,,Mobley,,,2019-01-02,2021-01-02,8D07@anc.dc.gov
-10278,smd_8E01,Adeoye Owolewa,Adeoye,,Owolewa,,,2019-01-02,2021-01-02,8E01@anc.dc.gov
-10279,smd_8E02,Cheryl Moore,Cheryl,,Moore,,,2019-01-02,2021-01-02,8E02@anc.dc.gov
-10280,smd_8E03,Monica Watts,Monica,,Watts,,,2019-01-02,2021-01-02,8E03@anc.dc.gov
-10281,smd_8E04,Kendall Simmons,Kendall,,Simmons,,,2019-01-02,2021-01-02,8E04@anc.dc.gov
-10282,smd_8E05,Christopher L. Hawthorne,Christopher,L.,Hawthorne,,,2019-01-02,2021-01-02,8E05@anc.dc.gov
-10283,smd_8E06,Karlene Armstead,Karlene,,Armstead,,,2019-01-02,2021-01-02,8E06@anc.dc.gov
-10284,smd_8E07,Stephen A. Slaughter,Stephen,A.,Slaughter,,TRUE,2019-01-02,2021-01-02,8E07@anc.dc.gov
+person_id,smd_id,commissioner_name,first_name,middle_name,last_name,suffix,is_chair,term_start_date,term_end_date,commissioner_email,commissioner_status
+10001,smd_1A01,Layla Bonnot,Layla,,Bonnot,,,2019-01-02,2021-01-02,1A01@anc.dc.gov,current
+10002,smd_1A02,Teresa A. Edmondson,Teresa,A.,Edmondson,,,2019-01-02,2021-01-02,1A02@anc.dc.gov,current
+10003,smd_1A03,Zach Rybarczyk,Zach,,Rybarczyk,,,2019-01-02,2021-01-02,1A03@anc.dc.gov,current
+10004,smd_1A04,Matthew Goldschimdt,Matthew,,Goldschimdt,,,2019-01-02,2021-01-02,1A04@anc.dc.gov,current
+10005,smd_1A05,Christine Miller,Christine,,Miller,,,2019-01-02,2021-01-02,1A05@anc.dc.gov,current
+10006,smd_1A06,Angelica Castañon,Angelica,,Castañon,,,2019-01-02,2021-01-02,1A06@anc.dc.gov,current
+10007,smd_1A07,Jen Bundy,Jen,,Bundy,,,2019-01-02,2021-01-02,1A07@anc.dc.gov,current
+10008,smd_1A08,Kent C. Boese,Kent,C.,Boese,,TRUE,2019-01-02,2021-01-02,1A08@anc.dc.gov,current
+10009,smd_1A09,Michael Wray,Michael,,Wray,,,2019-01-02,2021-01-02,1A09@anc.dc.gov,current
+10010,smd_1A10,Rashida Brown,Rashida,,Brown,,,2019-01-02,2021-01-02,1A10@anc.dc.gov,current
+10011,smd_1A11,Dotti Love Wade,Dotti,Love,Wade,,,2019-01-02,2021-01-02,1A11@anc.dc.gov,current
+10012,smd_1A12,Jason Clock,Jason,,Clock,,,2019-01-02,2021-01-02,1A12@anc.dc.gov,current
+10013,smd_1B01,Anita Norman,Anita,,Norman,,,2019-01-02,2021-01-02,1B01@anc.dc.gov,current
+10014,smd_1B02,Dan Orlaskey,Dan,,Orlaskey,,,2019-01-02,2021-01-02,1B02@anc.dc.gov,current
+10015,smd_1B03,Sedrick Muhammad,Sedrick,,Muhammad,,,2019-01-02,2021-01-02,1B03@anc.dc.gov,current
+10016,smd_1B04,Deborah Thomas,Deborah,,Thomas,,,2019-01-02,2021-01-02,1B04@anc.dc.gov,current
+10017,smd_1B06,Jennifer Bristol,Jennifer,,Bristol,,,2019-01-02,2021-01-02,1B06@anc.dc.gov,current
+10018,smd_1B07,Marcia Shia,Marcia,,Shia,,,2019-01-02,2021-01-02,1B07@anc.dc.gov,current
+10019,smd_1B08,Joshua R. Mater,Joshua,R.,Mater,,,2019-01-02,2021-01-02,1B08@anc.dc.gov,current
+10020,smd_1B09,James A. Turner,James,A.,Turner,,TRUE,2019-01-02,2021-01-02,1B09@anc.dc.gov,current
+10021,smd_1B10,Danny Delaney,Danny,,Delaney,,,2019-01-02,2021-01-02,1B10@anc.dc.gov,current
+10022,smd_1B11,Robb Hudson,Robb,,Hudson,,,2019-01-02,2021-01-02,1B11@anc.dc.gov,current
+10023,smd_1B12,Dan Winston,Dan,,Winston,,,2019-01-02,2021-01-02,1B12@anc.dc.gov,current
+10024,smd_1C01,Amir Irani,Amir,,Irani,,TRUE,2019-01-02,2021-01-02,1C01@anc.dc.gov,current
+10025,smd_1C03,Ted Guthrie,Ted,,Guthrie,,,2019-01-02,2021-01-02,1C03@anc.dc.gov,current
+10026,smd_1C04,John V. Zottoli,John,V.,Zottoli,,,2019-01-02,2021-01-02,1C04@anc.dc.gov,current
+10027,smd_1C05,Damiana Dendy,Damiana,,Dendy,,,2019-01-02,2021-01-02,1C05@anc.dc.gov,current
+10028,smd_1C06,Michaela Wright,Michaela,,Wright,,,2019-01-02,2021-01-02,1C06@anc.dc.gov,current
+10029,smd_1C07,Japer Bowles,Japer,,Bowles,,,2019-01-02,2021-01-02,1C07@anc.dc.gov,current
+10030,smd_1C08,Chris Jackson,Chris,,Jackson,,,2019-01-02,2021-01-02,1C08@anc.dc.gov,current
+10031,smd_1D01,Jon Stewart,Jon,,Stewart,,,2019-01-02,2021-01-02,1D01@anc.dc.gov,current
+10032,smd_1D02,Robin Sandenburgh,Robin,,Sandenburgh,,TRUE,2019-01-02,2021-01-02,1D02@anc.dc.gov,current
+10033,smd_1D03,Jack McKay,Jack,,McKay,,,2019-01-02,2021-01-02,1D03@anc.dc.gov,current
+10034,smd_1D04,Yasmin Romero-Latin,Yasmin,,Romero-Latin,,,2019-01-02,2021-01-02,1D04@anc.dc.gov,current
+10035,smd_1D05,Chelsea A. Allinger,Chelsea,A.,Allinger,,,2019-01-02,2021-01-02,1D05@anc.dc.gov,current
+10036,smd_2A01,Patrick Kennedy,Patrick,,Kennedy,,,2019-01-02,2021-01-02,2A01@anc.dc.gov,current
+10037,smd_2A02,Nicole Goldin,Nicole,,Goldin,,,2019-01-02,2021-01-02,2A02@anc.dc.gov,current
+10038,smd_2A03,Trupti J. Patel,Trupti,J.,Patel,,,2019-01-02,2021-01-02,2A03@anc.dc.gov,current
+10039,smd_2A04,William Kennedy Smith,William,,Kennedy Smith,,,2019-01-02,2021-01-02,2A04@anc.dc.gov,current
+10041,smd_2A06,Jeri Epstein,Jeri,,Epstein,,,2019-01-02,2021-01-02,2A06@anc.dc.gov,current
+10042,smd_2A07,Detrick Campbell,Detrick,,Campbell,,,2019-01-02,2021-01-02,2A07@anc.dc.gov,current
+10043,smd_2A08,James Harnett,James,,Harnett,,TRUE,2019-01-02,2021-01-02,2A08@anc.dc.gov,current
+10044,smd_2B01,Matthew H Sampson,Matthew,H.,Sampson,,,2019-01-02,2021-01-02,2B01@anc.dc.gov,current
+10045,smd_2B02,Daniel Warwick,Daniel,,Warwick,,TRUE,2019-01-02,2021-01-02,2B02@anc.dc.gov,current
+10046,smd_2B04,Aaron Landry,Aaron,,Landry,,,2019-01-02,2021-01-02,2B04@anc.dc.gov,current
+10047,smd_2B05,Randy D. Downs,Randy,D.,Downs,,,2019-01-02,2021-01-02,2B05@anc.dc.gov,current
+10048,smd_2B06,Mike Silverstein,Mike,,Silverstein,,,2019-01-02,2021-01-02,2B06@anc.dc.gov,current
+10049,smd_2B07,Kari Cunningham,Kari,,Cunningham,,,2019-01-02,2021-01-02,2B07@anc.dc.gov,current
+10050,smd_2B08,Beverly Schwartz,Beverly,,Schwartz,,,2019-01-02,2021-01-02,2B08@anc.dc.gov,current
+10051,smd_2B09,Ed Hanlon,Ed,,Hanlon,,,2019-01-02,2021-01-02,2B09@anc.dc.gov,current
+10052,smd_2C01,Michael D. Shankle,Michael,D.,Shankle,,,2019-01-02,2021-01-02,2C01@anc.dc.gov,current
+10053,smd_2C02,Jamaal T. Burton,Jamaal,T.,Burton,,,2019-01-02,2021-01-02,2C02@anc.dc.gov,current
+10054,smd_2C03,Kevin Wilsey,Kevin,,Wilsey,,TRUE,2019-01-02,2021-01-02,2C03@anc.dc.gov,current
+10055,smd_2D01,David R. Bender,David,R.,Bender,,TRUE,2019-01-02,2021-01-02,2D01@anc.dc.gov,current
+10056,smd_2D02,Jeff Nestler,Jeff,,Nestler,,,2019-01-02,2021-01-02,2D02@anc.dc.gov,current
+10057,smd_2E01,Kishan Putta,Kishan,,Putta,,,2019-01-02,2021-01-02,2E01@anc.dc.gov,current
+10058,smd_2E02,Joe Gibbons,Joe,,Gibbons,,,2019-01-02,2021-01-02,2E02@anc.dc.gov,current
+10059,smd_2E03,Rick Murphy,Rick,,Murphy,,TRUE,2019-01-02,2021-01-02,2E03@anc.dc.gov,current
+10060,smd_2E04,Anna Landre,Anna,,Landre,,,2019-01-02,2021-01-02,2E04@anc.dc.gov,current
+10061,smd_2E05,Lisa Palmer,Lisa,,Palmer,,,2019-01-02,2021-01-02,2E05@anc.dc.gov,current
+10062,smd_2E06,Gwendolyn Lohse,Gwendolyn,,Lohse,,,2019-01-02,2021-01-02,2E06@anc.dc.gov,current
+10063,smd_2E07,Elizabeth H. Miller,Elizabeth,H.,Miller,,,2019-01-02,2021-01-02,2E07@anc.dc.gov,current
+10064,smd_2E08,Matias Burdman,Matias,,Burdman,,,2019-01-02,2021-01-02,2E08@anc.dc.gov,current
+10065,smd_2F01,Jason Forman,Jason,,Forman,,,2019-01-02,2021-01-02,2F01@anc.dc.gov,current
+10066,smd_2F02,John Guggenmos,John,,Guggenmos,,,2019-01-02,2021-01-02,2F02@anc.dc.gov,current
+10067,smd_2F03,John Bottino,John,,Bottino,,,2019-01-02,2021-01-02,2F03@anc.dc.gov,current
+10068,smd_2F04,John Fanning,John,,Fanning,,TRUE,2019-01-02,2021-01-02,2F04@anc.dc.gov,current
+10069,smd_2F05,Madeleine G. Stirling,Madeleine,G.,Stirling,,,2019-01-02,2021-01-02,2F05@anc.dc.gov,current
+10070,smd_2F06,Ian D. Simon,Ian,D.,Simon,,,2019-01-02,2021-01-02,2F06@anc.dc.gov,current
+10071,smd_2F07,Kevin J. Sylvester,Kevin,J.,Sylvester,,,2019-01-02,2021-01-02,2F07@anc.dc.gov,current
+10072,smd_2F08,Janice Ferebee,Janice,,Ferebee,,,2019-01-02,2021-01-02,2F08@anc.dc.gov,current
+10073,smd_3B01,Ann Lane Mladinov,Ann,,Lane Mladinov,,,2019-01-02,2021-01-02,3B01@anc.dc.gov,current
+10074,smd_3B02,Jackie Blumenthal,Jackie,,Blumenthal,,,2019-01-02,2021-01-02,3B02@anc.dc.gov,current
+10075,smd_3B03,Melissa Lane,Melissa,,Lane,,,2019-01-02,2021-01-02,3B03@anc.dc.gov,current
+10076,smd_3B04,Mary C. Young,Mary,C.,Young,,,2019-01-02,2021-01-02,3B04@anc.dc.gov,current
+10077,smd_3B05,Brian G. Turmail,Brian,G.,Turmail,,TRUE,2019-01-02,2021-01-02,3B05@anc.dc.gov,current
+10078,smd_3C01,Lee Brian Reba,Lee Brian,,Reba,,,2019-01-02,2021-01-02,3C01@anc.dc.gov,current
+10079,smd_3C02,Jason Fink,Jason,,Fink,,,2019-01-02,2021-01-02,3C02@anc.dc.gov,current
+10080,smd_3C03,Jimmy Dubois,Jimmy,,Dubois,,,2019-01-02,2021-01-02,3C03@anc.dc.gov,current
+10081,smd_3C04,"Robert ""Beau"" Finley","Robert ""Beau""",,Finley,,,2019-01-02,2021-01-02,3C04@anc.dc.gov,current
+10082,smd_3C06,Angela Bradbery,Angela,,Bradbery,,,2019-01-02,2021-01-02,3C06@anc.dc.gov,current
+10083,smd_3C07,Maureen Kinlan Boucher,Maureen,,Kinlan Boucher,,,2019-01-02,2021-01-02,3C07@anc.dc.gov,current
+10084,smd_3C08,Victoria Gersten,Victoria,,Gersten,,,2019-01-02,2021-01-02,3C08@anc.dc.gov,current
+10085,smd_3C09,Nancy J. MacWood,Nancy,J.,MacWood,,TRUE,2019-01-02,2021-01-02,3C09@anc.dc.gov,current
+10086,smd_3D01,Chuck Elkins,Chuck,,Elkins,,TRUE,2019-01-02,2021-01-02,3D01@anc.dc.gov,current
+10087,smd_3D02,Troy Kravitz,Troy,,Kravitz,,,2019-01-02,2021-01-02,3D02@anc.dc.gov,current
+10088,smd_3D03,Paige Ela,Paige,,Ela,,,2019-01-02,2021-01-02,3D03@anc.dc.gov,current
+10089,smd_3D04,Michael Sriqui,Michael,,Sriqui,,,2019-01-02,2021-01-02,3D04@anc.dc.gov,current
+10090,smd_3D05,Alan Karnofsky,Alan,,Karnofsky,,,2019-01-02,2021-01-02,3D05@anc.dc.gov,current
+10091,smd_3D06,Virginia Gorsevski,Virginia,,Gorsevski,,,2019-01-02,2021-01-02,3D06@anc.dc.gov,current
+10092,smd_3D07,Taylor Berlin,Taylor,,Berlin,,,2019-01-02,2021-01-02,3D07@anc.dc.gov,current
+10093,smd_3D08,Christine Warnke,Christine,,Warnke,,,2019-01-02,2021-01-02,3D08@anc.dc.gov,current
+10094,smd_3D09,J.P. Szymkowicz,J.P.,,Szymkowicz,,,2019-01-02,2021-01-02,3D09@anc.dc.gov,current
+10095,smd_3D10,Jeremy Del Moral,Jeremy,,Del Moral,,,2019-01-02,2021-01-02,3D10@anc.dc.gov,current
+10096,smd_3E01,Greg Ehrhardt,Greg,,Ehrhardt,,,2019-01-02,2021-01-02,3E01@anc.dc.gov,current
+10097,smd_3E02,Amy B. Hall,Amy,B.,Hall,,,2019-01-02,2021-01-02,3E02@anc.dc.gov,current
+10098,smd_3E03,Jonathan Bender,Jonathan,,Bender,,TRUE,2019-01-02,2021-01-02,3E03@anc.dc.gov,current
+10099,smd_3E04,Tom Quinn,Tom,,Quinn,,,2019-01-02,2021-01-02,3E04@anc.dc.gov,current
+10100,smd_3E05,Jonathan McHugh,Jonathan,,McHugh,,,2019-01-02,2021-01-02,3E05@anc.dc.gov,current
+10101,smd_3F01,David Cristeal,David,,Cristeal,,,2019-01-02,2021-01-02,3F01@anc.dc.gov,current
+10102,smd_3F02,Carolinn A Kuebler,Carolinn,A.,Kuebler,,,2019-01-02,2021-01-02,3F02@anc.dc.gov,current
+10103,smd_3F03,Naomi Rutenberg,Naomi,,Rutenberg,,,2019-01-02,2021-01-02,3F03@anc.dc.gov,current
+10104,smd_3F04,Leah Frelinghuysen,Leah,,Frelinghuysen,,,2019-01-02,2021-01-02,3F04@anc.dc.gov,current
+10105,smd_3F05,Andrea Molod,Andrea,,Molod,,,2019-01-02,2021-01-02,3F05@anc.dc.gov,current
+10106,smd_3F06,Monika Nemeth,Monika,,Nemeth,,TRUE,2019-01-02,2021-01-02,3F06@anc.dc.gov,current
+10107,smd_3G01,Abraham Clayman,Abraham,,Clayman,,,2019-01-02,2021-01-02,3G01@anc.dc.gov,current
+10108,smd_3G02,Chanda Tuck Garfield,Chanda,,Tuck Garfield,,,2019-01-02,2021-01-02,3G02@anc.dc.gov,current
+10109,smd_3G03,Randy Speck,Randy,,Speck,,TRUE,2019-01-02,2021-01-02,3G03@anc.dc.gov,current
+10110,smd_3G04,Rebecca Maydak,Rebecca,,Maydak,,,2019-01-02,2021-01-02,3G04@anc.dc.gov,current
+10111,smd_3G05,Jerry Malitz,Jerry,,Malitz,,,2019-01-02,2021-01-02,3G05@anc.dc.gov,current
+10112,smd_3G06,Dan Bradfield,Dan,,Bradfield,,,2019-01-02,2021-01-02,3G06@anc.dc.gov,current
+10113,smd_3G07,Chris Fromboluti,Chris,,Fromboluti,,,2019-01-02,2021-01-02,3G07@anc.dc.gov,current
+10114,smd_4A01,Phyllis Caudle Green,Phyllis,,Caudle Green,,,2019-01-02,2021-01-02,4A01@anc.dc.gov,current
+10115,smd_4A02,Stacey Lincoln,Stacey,,Lincoln,,,2019-01-02,2021-01-02,4A02@anc.dc.gov,current
+10116,smd_4A03,Stephen A. Whatley,Stephen,A.,Whatley,,,2019-01-02,2021-01-02,4A03@anc.dc.gov,current
+10117,smd_4A04,Patience Singleton,Patience,,Singleton,,,2019-01-02,2021-01-02,4A04@anc.dc.gov,current
+10118,smd_4A06,Candace Tiana Nelson,Candace,,Tiana Nelson,,,2019-01-02,2021-01-02,4A06@anc.dc.gov,current
+10119,smd_4A07,Marlene Moss,Marlene,,Moss,,,2019-01-02,2021-01-02,4A07@anc.dc.gov,current
+10120,smd_4A08,Gale B. Black,Gale,B.,Black,,TRUE,2019-01-02,2021-01-02,4A08@anc.dc.gov,current
+10121,smd_4B01,Evan Yeats,Evan,,Yeats,,,2019-01-02,2021-01-02,4B01@anc.dc.gov,current
+10122,smd_4B02,Erin Palmer,Erin,,Palmer,,,2019-01-02,2021-01-02,4B02@anc.dc.gov,current
+10123,smd_4B03,Scot Knickerbocker,Scot,,Knickerbocker,,,2019-01-02,2021-01-02,4B03@anc.dc.gov,current
+10124,smd_4B04,Brenda Parks,Brenda,,Parks,,TRUE,2019-01-02,2021-01-02,4B04@anc.dc.gov,current
+10125,smd_4B05,Perry Redd,Perry,,Redd,,,2019-01-02,2021-01-02,4B05@anc.dc.gov,current
+10126,smd_4B06,Tiffani Nichole Johnson,Tiffani,,Nichole Johnson,,,2019-01-02,2021-01-02,4B06@anc.dc.gov,current
+10127,smd_4B07,Geoff Bromaghim,Geoff,,Bromaghim,,,2019-01-02,2021-01-02,4B07@anc.dc.gov,current
+10128,smd_4B08,Alison Brooks,Alison,,Brooks,,,2019-01-02,2021-01-02,4B08@anc.dc.gov,current
+10129,smd_4B09,LaRoya A. Huff,LaRoya,A.,Huff,,,2019-01-02,2021-01-02,4B09@anc.dc.gov,current
+10130,smd_4C01,Charlotte Nugent,Charlotte,,Nugent,,TRUE,2019-01-02,2021-01-02,4C01@anc.dc.gov,current
+10131,smd_4C02,Maria Barry,Maria,,Barry,,,2019-01-02,2021-01-02,4C02@anc.dc.gov,current
+10132,smd_4C03,Ulysses E. Campbell,Ulysses,E.,Campbell,,,2019-01-02,2021-01-02,4C03@anc.dc.gov,current
+10133,smd_4C04,Nora Simon,Nora,,Simon,,,2019-01-02,2021-01-02,4C04@anc.dc.gov,current
+10134,smd_4C05,Debbie Matties,Debbie,,Matties,,,2019-01-02,2021-01-02,4C05@anc.dc.gov,current
+10135,smd_4C06,Bennett Hilley,Bennett,,Hilley,,,2019-01-02,2021-01-02,4C06@anc.dc.gov,current
+10136,smd_4C07,Kim Varzi,Kim,,Varzi,,,2019-01-02,2021-01-02,4C07@anc.dc.gov,current
+10137,smd_4C08,Leah Anderson,Leah,,Anderson,,,2019-01-02,2021-01-02,4C08@anc.dc.gov,current
+10138,smd_4C09,Tearsa Coates,Tearsa,,Coates,,,2019-01-02,2021-01-02,4C09@anc.dc.gov,current
+10139,smd_4C10,Jonah Goodman,Jonah,,Goodman,,,2019-01-02,2021-01-02,4C10@anc.dc.gov,current
+10140,smd_4D01,Peter Tabor,Peter,,Tabor,,,2019-01-02,2021-01-02,4D01@anc.dc.gov,current
+10141,smd_4D02,Renée L. Bowser,Renée,L.,Bowser,,TRUE,2019-01-02,2021-01-02,4D02@anc.dc.gov,current
+10142,smd_4D03,Aaron Polkey,Aaron,,Polkey,,,2019-01-02,2021-01-02,4D03@anc.dc.gov,current
+10143,smd_4D04,Jamie Barden,Jamie,,Barden,,,2019-01-02,2021-01-02,4D04@anc.dc.gov,current
+10144,smd_4D05,Krystal Branton,Krystal,,Branton,,,2019-01-02,2021-01-02,4D05@anc.dc.gov,current
+10145,smd_4D06,Jonathan Nobil,Jonathan,,Nobil,,,2019-01-02,2021-01-02,4D06@anc.dc.gov,current
+10146,smd_5A01,Frank Wilds,Frank,,Wilds,,,2019-01-02,2021-01-02,5A01@anc.dc.gov,current
+10147,smd_5A02,Grace J. Lewis,Grace,J.,Lewis,,,2019-01-02,2021-01-02,5A02@anc.dc.gov,current
+10148,smd_5A03,Emily Singer Lucio,Emily,,Singer Lucio,,,2019-01-02,2021-01-02,5A03@anc.dc.gov,current
+10149,smd_5A05,Ronnie Edwards,Ronnie,,Edwards,,TRUE,2019-01-02,2021-01-02,5A05@anc.dc.gov,current
+10150,smd_5A06,Claudia Barragan,Claudia,,Barragan,,,2019-01-02,2021-01-02,5A06@anc.dc.gov,current
+10151,smd_5A07,Sandi Washington,Sandi,,Washington,,,2019-01-02,2021-01-02,5A07@anc.dc.gov,current
+10152,smd_5A08,Gordon-Andrew Fletcher,Gordon-Andrew,,Fletcher,,,2019-01-02,2021-01-02,5A08@anc.dc.gov,current
+10153,smd_5B01,Gayle Carley,Gayle,,Carley,,,2019-01-02,2021-01-02,5B01@anc.dc.gov,current
+10154,smd_5B02,Ursula Higgins,Ursula,,Higgins,,TRUE,2019-01-02,2021-01-02,5B02@anc.dc.gov,current
+10155,smd_5B03,Henri Makembe,Henri,,Makembe,,,2019-01-02,2021-01-02,5B03@anc.dc.gov,current
+10156,smd_5B04,Ra Amin,Ra,,Amin,,,2019-01-02,2021-01-02,5B04@anc.dc.gov,current
+10158,smd_5C01,Gail Brevard,Gail,,Brevard,,,2019-01-02,2021-01-02,5C01@anc.dc.gov,current
+10159,smd_5C02,Lauren Rogers,Lauren,,Rogers,,,2019-01-02,2021-01-02,5C02@anc.dc.gov,current
+10160,smd_5C03,Pierre Hines,Pierre,,Hines,,,2019-01-02,2021-01-02,5C03@anc.dc.gov,current
+10161,smd_5C04,Jacqueline Manning,Jacqueline,,Manning,,TRUE,2019-01-02,2021-01-02,5C04@anc.dc.gov,current
+10162,smd_5C05,Darlene Oliver,Darlene,,Oliver,,,2019-01-02,2021-01-02,5C05@anc.dc.gov,current
+10163,smd_5C06,Kirsten Williams,Kirsten,,Williams,,,2019-01-02,2021-01-02,5C06@anc.dc.gov,current
+10164,smd_5C07,Jeremiah Montague Jr.,Jeremiah,,Montague,Jr.,,2019-01-02,2021-01-02,5C07@anc.dc.gov,current
+10165,smd_5D01,Ryan Linehan,Ryan,,Linehan,,,2019-01-02,2021-01-02,5D01@anc.dc.gov,current
+10166,smd_5D02,Keisha L. Shropshire,Keisha,L.,Shropshire,,,2019-01-02,2021-01-02,5D02@anc.dc.gov,current
+10167,smd_5D03,Steven C. Motley Sr,Steven,C.,Motley,Sr.,,2019-01-02,2021-01-02,5D03@anc.dc.gov,current
+10168,smd_5D04,Bernice S Blacknell,Bernice,S.,Blacknell,,,2019-01-02,2021-01-02,5D04@anc.dc.gov,current
+10169,smd_5D05,Sydelle Moore,Sydelle,,Moore,,,2019-01-02,2021-01-02,5D05@anc.dc.gov,current
+10170,smd_5D07,Clarence Lee,Clarence,,Lee,,TRUE,2019-01-02,2021-01-02,5D07@anc.dc.gov,current
+10171,smd_5E01,Nick Cheolas,Nick,,Cheolas,,,2019-01-02,2021-01-02,5E01@anc.dc.gov,current
+10172,smd_5E02,Patricia Williams,Patricia,,Williams,,,2019-01-02,2021-01-02,5E02@anc.dc.gov,current
+10173,smd_5E03,Cortney Segmen,Cortney,,Segmen,,,2019-01-02,2021-01-02,5E03@anc.dc.gov,current
+10174,smd_5E04,Sylvia M. Pinkney,Sylvia,M.,Pinkney,,,2019-01-02,2021-01-02,5E04@anc.dc.gov,current
+10175,smd_5E05,Bradley Ashton Thomas,Bradley,Ashton,Thomas,,TRUE,2019-01-02,2021-01-02,5E05@anc.dc.gov,current
+10176,smd_5E06,Karla M. Lewis,Karla,M.,Lewis,,,2019-01-02,2021-01-02,5E06@anc.dc.gov,current
+10177,smd_5E07,Bertha G. Holliday,Bertha,G.,Holliday,,,2019-01-02,2021-01-02,5E07@anc.dc.gov,current
+10178,smd_5E08,Robert Vinson Brannum,Robert,Vinson,Brannum,,,2019-01-02,2021-01-02,5E08@anc.dc.gov,current
+10179,smd_5E09,Dianne Barnes,Dianne,,Barnes,,,2019-01-02,2021-01-02,5E09@anc.dc.gov,current
+10180,smd_5E10,Nancy Darlene Jones,Nancy,Darlene,Jones,,,2019-01-02,2021-01-02,5E10@anc.dc.gov,current
+10181,smd_6A01,Marie-Claire Brown,Marie-Claire,,Brown,,,2019-01-02,2021-01-02,6A01@anc.dc.gov,current
+10182,smd_6A02,Phil Toomajian,Phil,,Toomajian,,,2019-01-02,2021-01-02,6A02@anc.dc.gov,current
+10183,smd_6A03,Mike Soderman,Mike,,Soderman,,,2019-01-02,2021-01-02,6A03@anc.dc.gov,current
+10184,smd_6A04,Amber Gove,Amber,,Gove,,TRUE,2019-01-02,2021-01-02,6A04@anc.dc.gov,current
+10185,smd_6A05,Ruth Ann Hudson,Ruth,Ann,Hudson,,,2019-01-02,2021-01-02,6A05@anc.dc.gov,current
+10186,smd_6A06,Stephanie Zimny,Stephanie,,Zimny,,,2019-01-02,2021-01-02,6A06@anc.dc.gov,current
+10187,smd_6A07,Sondra Phillips-Gilbert,Sondra,,Phillips-Gilbert,,,2019-01-02,2021-01-02,6A07@anc.dc.gov,current
+10188,smd_6A08,Brian Alcorn,Brian,,Alcorn,,,2019-01-02,2021-01-02,6A08@anc.dc.gov,current
+10189,smd_6B01,Jennifer E. Samolyk,Jennifer,E.,Samolyk,,,2019-01-02,2021-01-02,6B01@anc.dc.gov,current
+10190,smd_6B02,Gerald Sroufe,Gerald,,Sroufe,,,2019-01-02,2021-01-02,6B02@anc.dc.gov,current
+10191,smd_6B03,Brian Ready,Brian,,Ready,,TRUE,2019-01-02,2021-01-02,6B03@anc.dc.gov,current
+10192,smd_6B04,Kirsten Oldenburg,Kirsten,,Oldenburg,,,2019-01-02,2021-01-02,6B04@anc.dc.gov,current
+10193,smd_6B05,Steve Holtzman,Steve,,Holtzman,,,2019-01-02,2021-01-02,6B05@anc.dc.gov,current
+10194,smd_6B06,Corey Holman,Corey,,Holman,,,2019-01-02,2021-01-02,6B06@anc.dc.gov,current
+10195,smd_6B07,Kelly Waud,Kelly,,Waud,,,2019-01-02,2021-01-02,6B07@anc.dc.gov,current
+10196,smd_6B08,Chander Jayaraman,Chander,,Jayaraman,,,2019-01-02,2021-01-02,6B08@anc.dc.gov,current
+10197,smd_6B10,Kathryn Denise Rucker Krepp,Kathryn,Denise,Rucker Krepp,,,2019-01-02,2021-01-02,6B10@anc.dc.gov,current
+10198,smd_6C01,Christine Healey,Christine,,Healey,,,2019-01-02,2021-01-02,6C01@anc.dc.gov,current
+10199,smd_6C02,Karen Wirt,Karen,,Wirt,,TRUE,2019-01-02,2021-01-02,6C02@anc.dc.gov,current
+10200,smd_6C03,Jay Adelstein,Jay,,Adelstein,,,2019-01-02,2021-01-02,6C03@anc.dc.gov,current
+10201,smd_6C04,Mark Eckenwiler,Mark,,Eckenwiler,,,2019-01-02,2021-01-02,6C04@anc.dc.gov,current
+10202,smd_6C05,Joel Kelty,Joel,,Kelty,,,2019-01-02,2021-01-02,6C05@anc.dc.gov,current
+10203,smd_6C06,Drew Courtney,Drew,,Courtney,,,2019-01-02,2021-01-02,6C06@anc.dc.gov,current
+10204,smd_6D01,Gail Fast,Gail,,Fast,,TRUE,2019-01-02,2021-01-02,6D01@anc.dc.gov,current
+10205,smd_6D02,Anna Forgie,Anna,,Forgie,,,2019-01-02,2021-01-02,6D02@anc.dc.gov,current
+10206,smd_6D03,Ronald R. Collins,Ronald,R.,Collins,,,2019-01-02,2021-01-02,6D03@anc.dc.gov,current
+10207,smd_6D04,Andy Litsky,Andy,,Litsky,,,2019-01-02,2021-01-02,6D04@anc.dc.gov,current
+10208,smd_6D05,Fredrica Kramer,Fredrica,,Kramer,,,2019-01-02,2021-01-02,6D05@anc.dc.gov,current
+10209,smd_6D06,Rhonda N. Hamilton,Rhonda,N.,Hamilton,,,2019-01-02,2021-01-02,6D06@anc.dc.gov,current
+10210,smd_6D07,Edward Daniels,Edward,,Daniels,,,2019-01-02,2021-01-02,6D07@anc.dc.gov,current
+10211,smd_6E01,"Alexander M. ""Alex"" Padro","Alexander ""Alex""",M.,Padro,,,2019-01-02,2021-01-02,6E01@anc.dc.gov,current
+10212,smd_6E02,Michael J. Brown,Michael,J.,Brown,,,2019-01-02,2021-01-02,6E02@anc.dc.gov,current
+10213,smd_6E03,Frank S. Wiggins,Frank,S.,Wiggins,,,2019-01-02,2021-01-02,6E03@anc.dc.gov,current
+10214,smd_6E04,Rachelle Nigro,Rachelle,,Nigro,,TRUE,2019-01-02,2021-01-02,6E04@anc.dc.gov,current
+10215,smd_6E05,Alex Marriott,Alex,,Marriott,,,2019-01-02,2021-01-02,6E05@anc.dc.gov,current
+10216,smd_6E06,Alvin Judd Sr.,Alvin,,Judd,Sr.,,2019-01-02,2021-01-02,6E06@anc.dc.gov,current
+10217,smd_6E07,Kevin M. Rogers,Kevin,M.,Rogers,,,2019-01-02,2021-01-02,6E07@anc.dc.gov,current
+10218,smd_7B01,Patricia Howard-Chittams,Patricia,,Howard-Chittams,,,2019-01-02,2021-01-02,7B01@anc.dc.gov,current
+10219,smd_7B02,Tiffany L. Brown,Tiffany,L.,Brown,,,2019-01-02,2021-01-02,7B02@anc.dc.gov,current
+10220,smd_7B03,Benjamin Crane,Benjamin,,Crane,,,2019-01-02,2021-01-02,7B03@anc.dc.gov,current
+10221,smd_7B04,Nicole Smith-McDermott,Nicole,,Smith-McDermott,,,2019-01-02,2021-01-02,7B04@anc.dc.gov,current
+10222,smd_7B05,"Villareal ""VJ"" Johnson II","Villareal ""VJ""",,Johnson,II,,2019-01-02,2021-01-02,7B05@anc.dc.gov,current
+10223,smd_7B06,April Pradier,April,,Pradier,,,2019-01-02,2021-01-02,7B06@anc.dc.gov,current
+10224,smd_7B07,D. L. Humphrey,D. L.,,Humphrey,,TRUE,2019-01-02,2021-01-02,7B07@anc.dc.gov,current
+10225,smd_7C01,Patricia A. Malloy,Patricia,A.,Malloy,,,2019-01-02,2021-01-02,7C01@anc.dc.gov,current
+10226,smd_7C03,Catherine A. Woods,Catherine,A.,Woods,,,2019-01-02,2021-01-02,7C03@anc.dc.gov,current
+10227,smd_7C04,Anthony Lorenzo Green,Anthony,Lorenzo,Green,,,2019-01-02,2021-01-02,7C04@anc.dc.gov,current
+10228,smd_7C05,Mary L. Gaffney,Mary,L.,Gaffney,,,2019-01-02,2021-01-02,7C05@anc.dc.gov,current
+10229,smd_7C06,Arnold Smith,Arnold,,Smith,,,2019-01-02,2021-01-02,7C06@anc.dc.gov,current
+10230,smd_7C07,Antawan Holmes,Antawan,,Holmes,,TRUE,2019-01-02,2021-01-02,7C07@anc.dc.gov,current
+10231,smd_7D01,Tamara Blair,Tamara,,Blair,,,2019-01-02,2021-01-02,7D01@anc.dc.gov,current
+10232,smd_7D02,Siraaj M. Hasan,Siraaj,M.,Hasan,,TRUE,2019-01-02,2021-01-02,7D02@anc.dc.gov,current
+10233,smd_7D03,Dorothy Douglas,Dorothy,,Douglas,,,2019-01-02,2021-01-02,7D03@anc.dc.gov,current
+10234,smd_7D04,Cinque E. Culver,Cinque,E.,Culver,,,2019-01-02,2021-01-02,7D04@anc.dc.gov,current
+10235,smd_7D05,Aretha Jackson,Aretha,,Jackson,,,2019-01-02,2021-01-02,7D05@anc.dc.gov,current
+10236,smd_7D07,Artilie Wright,Artilie,,Wright,,,2019-01-02,2021-01-02,7D07@anc.dc.gov,current
+10237,smd_7E01,Veda Rasheed,Veda,,Rasheed,,,2019-01-02,2021-01-02,7E01@anc.dc.gov,current
+10238,smd_7E02,Linda S. Green,Linda,S.,Green,,,2019-01-02,2021-01-02,7E02@anc.dc.gov,current
+10239,smd_7E03,Ebbon A. Allen,Ebbon,A.,Allen,,,2019-01-02,2021-01-02,7E03@anc.dc.gov,current
+10240,smd_7E04,Takiyah Tate,Takiyah,,Tate,,,2019-01-02,2021-01-02,7E04@anc.dc.gov,current
+10241,smd_7E05,Victor L. Horton,Victor,L.,Horton,,,2019-01-02,2021-01-02,7E05@anc.dc.gov,current
+10242,smd_7E06,Delia Houseal,Delia,,Houseal,,TRUE,2019-01-02,2021-01-02,7E06@anc.dc.gov,current
+10243,smd_7E07,Yolanda Fields,Yolanda,,Fields,,,2019-01-02,2021-01-02,7E07@anc.dc.gov,current
+10244,smd_7F01,Tyrell M. Holcomb,Tyrell,M.,Holcomb,,TRUE,2019-01-02,2021-01-02,7F01@anc.dc.gov,current
+10245,smd_7F02,Terrance Hunter,Terrance,,Hunter,,,2019-01-02,2021-01-02,7F02@anc.dc.gov,current
+10246,smd_7F03,Sheila Carson Carr,Sheila,,Carson Carr,,,2019-01-02,2021-01-02,7F03@anc.dc.gov,current
+10247,smd_7F04,Charlene Exum,Charlene,,Exum,,,2019-01-02,2021-01-02,7F04@anc.dc.gov,current
+10248,smd_7F05,Brittany N. Hughes,Brittany,N.,Hughes,,,2019-01-02,2021-01-02,7F05@anc.dc.gov,current
+10249,smd_7F06,Carol E. Fletcher,Carol,E.,Fletcher,,,2019-01-02,2021-01-02,7F06@anc.dc.gov,current
+10250,smd_8A01,Holly Muhammad,Holly,,Muhammad,,,2019-01-02,2021-01-02,8A01@anc.dc.gov,current
+10251,smd_8A02,Barbara J. Clark,Barbara,J.,Clark,,,2019-01-02,2021-01-02,8A02@anc.dc.gov,current
+10252,smd_8A03,Brian K Thompson,Brian,K.,Thompson,,,2019-01-02,2021-01-02,8A03@anc.dc.gov,current
+10253,smd_8A04,Troy Donte Prestwood,Troy,Donte,Prestwood,,TRUE,2019-01-02,2021-01-02,8A04@anc.dc.gov,current
+10254,smd_8A05,Dorcas Agyei,Dorcas,,Agyei,,,2019-01-02,2021-01-02,8A05@anc.dc.gov,current
+10255,smd_8A06,Tyón Jones,Tyón,,Jones,,,2019-01-02,2021-01-02,8A06@anc.dc.gov,current
+10256,smd_8A07,Hanna Baker,Hanna,,Baker,,,2019-01-02,2021-01-02,8A07@anc.dc.gov,current
+10257,smd_8B01,Leonard Lee Watson Jr.,Leonard,Lee,Watson,Jr.,,2019-01-02,2021-01-02,8B01@anc.dc.gov,current
+10258,smd_8B02,Paul Trantham,Paul,,Trantham,,,2019-01-02,2021-01-02,8B02@anc.dc.gov,current
+10259,smd_8B03,Charles H. Wilson,Charles,H.,Wilson,,,2019-01-02,2021-01-02,8B03@anc.dc.gov,current
+10260,smd_8B04,Darrell Danny Gaston,"Darrell ""Danny""",,Gaston,,,2019-01-02,2021-01-02,8B04@anc.dc.gov,current
+10261,smd_8B05,Betty Scippio,Betty,,Scippio,,,2019-01-02,2021-01-02,8B05@anc.dc.gov,current
+10262,smd_8B06,Humam Abdulmalik,Humam,,Abdulmalik,,,2019-01-02,2021-01-02,8B06@anc.dc.gov,current
+10263,smd_8B07,Keeon Johnson,Keeon,,Johnson,,TRUE,2019-01-02,2021-01-02,8B07@anc.dc.gov,current
+10264,smd_8C01,Mike Austin,Mike,,Austin,,TRUE,2019-01-02,2021-01-02,8C01@anc.dc.gov,current
+10265,smd_8C02,Chyla D. Evans,Chyla,D.,Evans,,,2019-01-02,2021-01-02,8C02@anc.dc.gov,current
+10266,smd_8C03,Robinette Woodland,Robinette,,Woodland,,,2019-01-02,2021-01-02,8C03@anc.dc.gov,current
+10267,smd_8C04,Regina Sharlita Pixley,Regina,,Sharlita Pixley,,,2019-01-02,2021-01-02,8C04@anc.dc.gov,current
+10268,smd_8C05,Mustafa Abdul-Salaam,Mustafa,,Abdul-Salaam,,,2019-01-02,2021-01-02,8C05@anc.dc.gov,current
+10269,smd_8C06,Rhonda L. Edwards-Hines,Rhonda,L.,Edwards-Hines,,,2019-01-02,2021-01-02,8C06@anc.dc.gov,current
+10270,smd_8C07,Salim Adofo,Salim,,Adofo,,,2019-01-02,2021-01-02,8C07@anc.dc.gov,current
+10271,smd_8D01,Patricia Carmon,Patricia,,Carmon,,,2019-01-02,2021-01-02,8D01@anc.dc.gov,current
+10272,smd_8D02,Olivia L. Henderson,Olivia,L.,Henderson,,TRUE,2019-01-02,2021-01-02,8D02@anc.dc.gov,current
+10273,smd_8D03,Absalom Jordan,Absalom,,Jordan,,,2019-01-02,2021-01-02,8D03@anc.dc.gov,current
+10274,smd_8D04,Monique T. Diop,Monique,T.,Diop,,,2019-01-02,2021-01-02,8D04@anc.dc.gov,current
+10275,smd_8D05,Ellen Armstead,Ellen,,Armstead,,,2019-01-02,2021-01-02,8D05@anc.dc.gov,current
+10276,smd_8D06,LaVerne R. Glenn,LaVerne,R.,Glenn,,,2019-01-02,2021-01-02,8D06@anc.dc.gov,current
+10277,smd_8D07,Constance Mobley,Constance,,Mobley,,,2019-01-02,2021-01-02,8D07@anc.dc.gov,current
+10278,smd_8E01,Adeoye Owolewa,Adeoye,,Owolewa,,,2019-01-02,2021-01-02,8E01@anc.dc.gov,current
+10279,smd_8E02,Cheryl Moore,Cheryl,,Moore,,,2019-01-02,2021-01-02,8E02@anc.dc.gov,current
+10280,smd_8E03,Monica Watts,Monica,,Watts,,,2019-01-02,2021-01-02,8E03@anc.dc.gov,current
+10281,smd_8E04,Kendall Simmons,Kendall,,Simmons,,,2019-01-02,2021-01-02,8E04@anc.dc.gov,current
+10282,smd_8E05,Christopher L. Hawthorne,Christopher,L.,Hawthorne,,,2019-01-02,2021-01-02,8E05@anc.dc.gov,current
+10283,smd_8E06,Karlene Armstead,Karlene,,Armstead,,,2019-01-02,2021-01-02,8E06@anc.dc.gov,current
+10284,smd_8E07,Stephen A. Slaughter,Stephen,A.,Slaughter,,TRUE,2019-01-02,2021-01-02,8E07@anc.dc.gov,current
+10304,smd_2A05,Evelyn Hudson,,,,,,2019-11-20,2021-01-02,2A05@anc.dc.gov,current
+10361,smd_5B05,"John J. Feeley, Jr.",,,,,,2020-01-01,2021-01-02,5B05@anc.dc.gov,current

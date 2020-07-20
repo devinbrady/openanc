@@ -129,10 +129,11 @@ class RefreshData():
 
 
 
-    def refresh_csv(self, csv_name, sheet_range):
+    def refresh_csv(self, csv_name, sheet_range, filter_dict=None):
         """
         Pull down one sheet to CSV
         """
+
         sheet = self.service.spreadsheets()
         result = sheet.values().get(spreadsheetId=self.source_spreadsheet_id, range=f'{csv_name}!{sheet_range}').execute()
         values = result.get('values', [])
@@ -147,6 +148,11 @@ class RefreshData():
             first_field = df.columns[0]
             df.sort_values(by=first_field, inplace=True)
 
+            # filter rows out of CSV
+            if filter_dict:
+                for column_name in filter_dict:
+                    df = df[df[column_name] == filter_dict[column_name]]
+
             destination_path = f'data/{csv_name}.csv'
             df.to_csv(destination_path, index=False)
             print(f'Data written to: {destination_path}')
@@ -156,7 +162,7 @@ class RefreshData():
 
         self.refresh_csv('ancs', 'A:G')
         self.refresh_csv('candidates', 'A:J')
-        self.refresh_csv('commissioners', 'A:K')
+        self.refresh_csv('commissioners', 'A:L', filter_dict={'commissioner_status': 'current'})
         self.refresh_csv('districts', 'A:K')
         self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('map_colors', 'A:B') # Doesn't need to be run every time
