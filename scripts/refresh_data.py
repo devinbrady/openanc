@@ -97,14 +97,14 @@ class RefreshData():
 
 
         district_info_comm['current_commissioner'] = district_info_comm['current_commissioner'].fillna('(vacant)')
-        district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates'] = "['No known candidates']"
 
-        # district_info_comm.loc[district_info_comm['number_of_candidates'] > 0, 'list_of_candidates'] = district_info_comm.loc[district_info_comm['number_of_candidates'] > 0, 'list_of_candidates'].apply(eval).apply(', '.join)
-        district_info_comm['list_of_candidates'] = district_info_comm['list_of_candidates'].astype(str)
-        # district_info_comm['list_of_candidates'] = district_info_comm['list_of_candidates'].str.replace('[', '')
-
-        # print(district_info_comm.head(10))
+        district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates'] = (
+            district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates'].apply(
+                lambda x: ['(no known candidates)'])
+            )
         
+        district_info_comm['list_of_candidates'] = district_info_comm['list_of_candidates'].apply(', '.join)
+
         # Maybe add Last Updated to this? 
 
         return district_info_comm
@@ -169,3 +169,5 @@ class RefreshData():
         self.refresh_csv('people', 'A:J')
 
         self.add_data_to_geojson()
+
+
