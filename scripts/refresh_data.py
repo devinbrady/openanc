@@ -117,15 +117,15 @@ class RefreshData():
 
         df = self.assemble_smd_info()
 
+        # Add data to GeoJSON file with SMD shapes
         smd = gpd.read_file('maps/smd.geojson')
-
         smd_df = smd.merge(df, on='smd_id')
+        smd_df.to_file('maps/to_mapbox/smd-data.geojson', driver='GeoJSON')
 
-        smd_df.to_file('maps/smd-data.geojson', driver='GeoJSON')
-
-        lp = pd.read_csv('maps/label_points.csv')
+        # Add data to CSV with lat/long of SMD label points
+        lp = pd.read_csv('maps/label-points.csv')
         lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates']], how='inner', on='smd_id')
-        lp_df.to_csv('maps/label_points_data.csv', index=False)
+        lp_df.to_csv('maps/to_mapbox/label-points-data.csv', index=False)
 
 
 

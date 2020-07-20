@@ -64,7 +64,7 @@ class BuildIndex():
         with open('docs/index.html', 'w') as f:
             f.write(output)
 
-        print('Index built.')
+        print('built: index.html')
 
 
     def about_page(self):
@@ -81,7 +81,7 @@ class BuildIndex():
         with open('docs/about.html', 'w') as f:
             f.write(output)
 
-        print('About built.')
+        print('built: about.html')
 
 
     def needs_candidates_page(self):
@@ -94,7 +94,7 @@ class BuildIndex():
         with open('docs/needs-candidates.html', 'w') as f:
             f.write(output)
 
-        print('needs-candidates built.')
+        print('built: needs-candidates.html')
 
 
     def find_your_district_page(self):
@@ -107,7 +107,7 @@ class BuildIndex():
         with open('docs/find-my-district.html', 'w') as f:
             f.write(output)
 
-        print('find-my-district built.')
+        print('built: find-my-district.html')
 
 
 
