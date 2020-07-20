@@ -155,7 +155,7 @@ person_id,full_name,first_name,middle_name,last_name,suffix,current_smd_id,runni
 10154,Ursula Higgins,Ursula,,Higgins,,smd_5B02,smd_5B02,,
 10155,Henri Makembe,Henri,,Makembe,,smd_5B03,not_currently_running,,
 10156,Ra Amin,Ra,,Amin,,smd_5B04,smd_5B04,,
-10157,Landon Jones,Landon,,Jones,,smd_5B05,not_currently_running,,
+10157,Landon Jones,Landon,,Jones,,smd_5B05,not_currently_running,https://twitter.com/Landon2814,
 10158,Gail Brevard,Gail,,Brevard,,smd_5C01,smd_5C01,,
 10159,Lauren Rogers,Lauren,,Rogers,,smd_5C02,smd_5C02,,
 10160,Pierre Hines,Pierre,,Hines,,smd_5C03,smd_5C03,,
@@ -305,7 +305,7 @@ person_id,full_name,first_name,middle_name,last_name,suffix,current_smd_id,runni
 10305,Margaret Ellen Roggensack,,,,,not_currently_serving,smd_2B01,,
 10306,Bashir Yousef,,,,,not_currently_serving,smd_2B03,,
 10307,Robin Linnett Nunn,,,,,not_currently_serving,smd_2B03,,
-10309,Moshe 'Mo' Pasternak,,,,,not_currently_serving,smd_2B04,https://twitter.com/MoPasternakDC,
+10309,Moshe 'Mo' Pasternak,,,,,not_currently_serving,smd_2B04,https://twitter.com/MoPasternakDC,https://facebook.com/MoPasternakANC
 10310,Dianne C. Quinn,,,,,not_currently_serving,smd_2B04,,
 10311,Matthew Holden,,,,,not_currently_serving,smd_2B08,,
 10312,Kyle Mulhall,,,,,not_currently_serving,smd_2B09,https://twitter.com/kyle_mulhall_DC,
