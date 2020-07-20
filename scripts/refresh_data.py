@@ -55,7 +55,7 @@ class RefreshData():
         return service
 
 
-    def assemble_smd_info(self):
+    def assemble_smd_info(self, duplicate_check=False):
         """
         Make CSV, one row per district, with candidate names and counts
 
@@ -102,10 +102,14 @@ class RefreshData():
             district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates'].apply(
                 lambda x: ['(no known candidates)'])
             )
-        
+
         district_info_comm['list_of_candidates'] = district_info_comm['list_of_candidates'].apply(', '.join)
 
         # Maybe add Last Updated to this? 
+
+        if duplicate_check:
+            district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
+
 
         return district_info_comm
 
@@ -115,7 +119,7 @@ class RefreshData():
         Save new GeoJSON files with updated data fields
         """
 
-        df = self.assemble_smd_info()
+        df = self.assemble_smd_info(duplicate_check=True)
 
         # Add data to GeoJSON file with SMD shapes
         smd = gpd.read_file('maps/smd.geojson')
@@ -162,11 +166,11 @@ class RefreshData():
 
         self.refresh_csv('ancs', 'A:H')
         self.refresh_csv('candidates', 'A:J')
-        self.refresh_csv('commissioners', 'A:L', filter_dict={'commissioner_status': 'current'})
+        self.refresh_csv('commissioners', 'A:H', filter_dict={'commissioner_status': 'current'})
         self.refresh_csv('districts', 'A:K')
         self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('map_colors', 'A:B') # Doesn't need to be run every time
-        self.refresh_csv('people', 'A:J')
+        self.refresh_csv('people', 'A:G')
 
         self.add_data_to_geojson()
 

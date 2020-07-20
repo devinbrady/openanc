@@ -16,7 +16,7 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    df = pd.read_csv('csv/tabula-List-of-Advisory-Neighborhood-Commissioners_3.csv')
+    df = pd.read_excel('csv/dcboe-2020-07-17.xlsx')
 
     df.rename(
         columns={
@@ -26,10 +26,11 @@ def clean_csv():
             , 'Zip': 'zip'
             , 'Phone': 'phone'
             , 'Email Address': 'campaign_email'
-            , 'DateOfPickup': 'pickup_date'
-            , 'DateFiled': 'filed_date'
+            , 'Date of Pick-up': 'pickup_date'
+            , 'Date Filed': 'filed_date'
         }, inplace=True
         )
+
 
     # drop header rows interspersed in data
     df = df[df['smd'] != 'ANC/SMD'].copy()
@@ -37,10 +38,20 @@ def clean_csv():
     # drop rows with NULL name
     df.dropna(subset=['candidate_name'], inplace=True)
 
+    df['smd_id'] = 'smd_' + df['smd']
+
+    # Drop bad data
+
+    # trim bad characters from names
+    df['candidate_name'] = df['candidate_name'].apply(lambda row: row.strip())
+
+
     # drop potential duplicate of Regina Pixley
     df = df[df['candidate_name'] != 'Reginia R. Summers'].copy()
 
-    df['smd_id'] = 'smd_' + df['smd']
+    # Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
+    df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
+
 
     # Fix data entry errors and convert to dates
     df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
@@ -91,13 +102,14 @@ def match_names(source_value, list_to_search, list_of_ids):
 
 
 
-if __name__ == '__main__':
-
-    clean_csv()
+def run_matching_process():
 
     people = pd.read_csv('../people.csv')
     candidates = pd.read_csv('../candidates.csv')
     candidates_dcboe = pd.read_csv('candidates_dcboe.csv')
+
+    # Exclude the hash_ids that are currently in the OpenANC candidates table
+    candidates_dcboe = candidates_dcboe[ ~(candidates_dcboe['dcboe_hash_id'].isin(candidates['dcboe_hash_id'])) ]
 
     # candidates_dcboe['new_person'] = True
     candidates_dcboe['person_id'] = pd.NA
@@ -195,4 +207,12 @@ if __name__ == '__main__':
     add_records_to_candidates.to_csv('to_google_sheets/add_records_to_candidates.csv', index=False)
 
 
+
+
+
+if __name__ == '__main__':
+
+    clean_csv()
+
+    run_matching_process()
 
