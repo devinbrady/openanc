@@ -39,7 +39,7 @@ class BuildANCs():
             anc_smd_ids = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
             output = output.replace('<!-- replace with district list -->', build_district_list(anc_smd_ids, level=1))
 
-            fields_to_try = ['dc_oanc_link', 'anc_homepage_link', 'twitter_link']
+            fields_to_try = ['notes', 'dc_oanc_link', 'anc_homepage_link', 'twitter_link']
             output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try))
 
             

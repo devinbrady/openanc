@@ -160,7 +160,7 @@ class RefreshData():
 
     def run(self):
 
-        self.refresh_csv('ancs', 'A:G')
+        self.refresh_csv('ancs', 'A:H')
         self.refresh_csv('candidates', 'A:J')
         self.refresh_csv('commissioners', 'A:L', filter_dict={'commissioner_status': 'current'})
         self.refresh_csv('districts', 'A:K')
