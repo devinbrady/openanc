@@ -16,7 +16,7 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    df = pd.read_excel('csv/dcboe-2020-07-17.xlsx')
+    df = pd.read_excel('csv/dcboe-2020-07-20.xlsx')
 
     df.rename(
         columns={
@@ -28,9 +28,8 @@ def clean_csv():
             , 'Email Address': 'campaign_email'
             , 'Date of Pick-up': 'pickup_date'
             , 'Date Filed': 'filed_date'
-        }, inplace=True
+            }, inplace=True
         )
-
 
     # drop header rows interspersed in data
     df = df[df['smd'] != 'ANC/SMD'].copy()
@@ -38,21 +37,19 @@ def clean_csv():
     # drop rows with NULL name
     df.dropna(subset=['candidate_name'], inplace=True)
 
-    df['smd_id'] = 'smd_' + df['smd']
-
     # Drop bad data
 
-    # trim bad characters from names
-    df['candidate_name'] = df['candidate_name'].apply(lambda row: row.strip())
+    # trim bad characters from all fields
+    for c in ['smd', 'candidate_name']:
+        df[c] = df[c].apply(lambda row: row.strip())
 
+    df['smd_id'] = 'smd_' + df['smd']
 
-    # drop potential duplicate of Regina Pixley
-    df = df[df['candidate_name'] != 'Reginia R. Summers'].copy()
 
     # Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
     df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
 
-
+    df.to_csv('temp.csv')
     # Fix data entry errors and convert to dates
     df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
     df['pickup_date'] = pd.to_datetime(df['pickup_date'])

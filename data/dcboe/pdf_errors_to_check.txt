@@ -2,23 +2,23 @@ pdf_errors_to_check.txt
 
 These should all be fixed in candidates_dcboe.csv: 
 
+* "ANC/SMD" has a bad character at the start
 
-email columns merged: 
-John Feeley (5B05) - Gail Brevard (5C01)
-Kevin B. Coleman (8B04) - Darrell Gaston (8B04)
+* Email cells merged: 
+    * John Feeley (5B05) - Gail Brevard (5C01)
+    * Kevin B. Coleman (8B04) - Darrell Gaston (8B04)
+* Address cells merged: 
+    * 8E06,Karlene Armstead - 8E06,Brittany Geneva Cummings
 
-8E06 - Brittany Geneva Cummings 
+* Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
+
+* 7C02,Patricia Williams has pickup date of "6/302020"
+
+* 7F06,Carol E. Fletcher has filed date of "7F06"
+
+* 1C08,"Fiona Clem" has 2 spaces in the name, sometimes duplicated
 
 
+Unknown: 
 
-Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
-
-
-# drop potential duplicate of Regina Pixley
-df = df[df['candidate_name'] != 'Reginia R. Summers'].copy()
-
-7C02,Patricia Williams has pickup date of "6/302020"
-
-7F06,Carol E. Fletcher has filed date of "7F06"
-
-1C08,"Fiona Clem" has a space in the name, sometimes duplicated
+* Are Regina Pixley and Reginia R. Summers different people? Both are listed in 8C04 with different addresses and phone numbers. Currently treating them as different. 

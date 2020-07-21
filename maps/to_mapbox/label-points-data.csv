@@ -1,5 +1,5 @@
 smd_id,lon,lat,smd,current_commissioner,number_of_candidates,list_of_candidates
-smd_1A01,-77.03412972287954,38.93611303340671,1A01,Layla Bonnot,0,(no known candidates)
+smd_1A01,-77.03412972287954,38.93611303340671,1A01,Layla Bonnot,1,Layla Bonnot
 smd_1A02,-77.03443069499727,38.93381287472092,1A02,Teresa A. Edmondson,1,Dieter Lehmann Morales
 smd_1A03,-77.03450455712208,38.92757368318783,1A03,Zach Rybarczyk,1,Zach Rybarczyk
 smd_1A04,-77.03122314576842,38.93401296303263,1A04,Matthew Goldschimdt,0,(no known candidates)
@@ -17,7 +17,7 @@ smd_1B03,-77.02621710649917,38.92355780235551,1B03,Sedrick Muhammad,0,(no known 
 smd_1B04,-77.03095520357589,38.919351565104044,1B04,Deborah Thomas,0,(no known candidates)
 smd_1B05,-77.03483518834828,38.92041768275895,1B05,(vacant),1,Victoria Sanchez
 smd_1B06,-77.0336776277388,38.9221405022185,1B06,Jennifer Bristol,0,(no known candidates)
-smd_1B07,-77.03461686211284,38.924469603931065,1B07,Marcia Shia,1,Marcia Shia
+smd_1B07,-77.03461686211284,38.924469603931065,1B07,Marcia Shia,2,"Marcia Shia, Max Ewart"
 smd_1B08,-77.03134464800138,38.92411114943674,1B08,Joshua R. Mater,0,(no known candidates)
 smd_1B09,-77.02465464073076,38.926444352069815,1B09,James A. Turner,1,James A. Turner
 smd_1B10,-77.01720460403841,38.92460292221983,1B10,Danny Delaney,0,(no known candidates)
@@ -28,7 +28,7 @@ smd_1C02,-77.0474322553309,38.92048566851769,1C02,(vacant),1,Celeste Carano
 smd_1C03,-77.04376555890136,38.92060991853564,1C03,Ted Guthrie,3,"Elias Benda, Jennifer Hughes, Peter Wood"
 smd_1C04,-77.04545287701032,38.925220143158825,1C04,John V. Zottoli,2,"Meghan Faulkner, John V. Zottoli"
 smd_1C05,-77.03990269429444,38.926485017805376,1C05,Damiana Dendy,2,"Dennis Jaffe, Zack Gold"
-smd_1C06,-77.03833177312441,38.92413955448298,1C06,Michaela Wright,0,(no known candidates)
+smd_1C06,-77.03833177312441,38.92413955448298,1C06,Michaela Wright,1,Nancy Shia
 smd_1C07,-77.04111632889587,38.920993925002314,1C07,Japer Bowles,1,Japer Bowles
 smd_1C08,-77.03794146934806,38.9195502902062,1C08,Chris Jackson,1,Fiona Clem
 smd_1D01,-77.03942696096966,38.93238644849025,1D01,Jon Stewart,0,(no known candidates)
@@ -56,7 +56,7 @@ smd_2B09,-77.03521745404072,38.91555449118036,2B09,Ed Hanlon,1,Kyle Mulhall
 smd_2C01,-77.02756668338199,38.895661961106896,2C01,Michael D. Shankle,1,Michael D. Shankle
 smd_2C02,-77.01685784182132,38.899374751516405,2C02,Jamaal T. Burton,0,(no known candidates)
 smd_2C03,-77.01743103033488,38.89213326718808,2C03,Kevin Wilsey,1,Gigi Nelson
-smd_2D01,-77.05249941619985,38.91742694379136,2D01,David R. Bender,1,Thomas McDonough
+smd_2D01,-77.05249941619985,38.91742694379136,2D01,David R. Bender,2,"Thomas McDonough, Ashley Warren"
 smd_2D02,-77.05165667289249,38.91386137616636,2D02,Jeff Nestler,0,(no known candidates)
 smd_2E01,-77.07496999318819,38.914456902168176,2E01,Kishan Putta,1,Kishan Putta
 smd_2E02,-77.06848309364116,38.911740655520575,2E02,Joe Gibbons,2,"Jenny Mitchell, Christopher Mathews"
@@ -113,7 +113,7 @@ smd_3F07,-77.0555666158197,38.94156100498774,3F07,(vacant),1,Lisa Cox
 smd_3G01,-77.04778313199846,38.97993228946841,3G01,Abraham Clayman,2,"Lisa R. Gore, Lucinda A. Wade"
 smd_3G02,-77.05183833385371,38.96961386827036,3G02,Chanda Tuck Garfield,1,John K. Higgins
 smd_3G03,-77.06165871592323,38.96149734271903,3G03,Randy Speck,1,Randy Speck
-smd_3G04,-77.06612875978068,38.96899819117026,3G04,Rebecca Maydak,0,(no known candidates)
+smd_3G04,-77.06612875978068,38.96899819117026,3G04,Rebecca Maydak,1,Rebecca Maydak
 smd_3G05,-77.07188693032786,38.96580685962911,3G05,Jerry Malitz,1,Connie K.N. Chang
 smd_3G06,-77.07667043927272,38.963207718319886,3G06,Dan Bradfield,0,(no known candidates)
 smd_3G07,-77.07335950317406,38.95848690139886,3G07,Chris Fromboluti,1,Chris Fromboluti
@@ -145,7 +145,7 @@ smd_4C08,-77.02170663268122,38.93927564016201,4C08,Leah Anderson,1,Charles Andre
 smd_4C09,-77.01801845511864,38.946066936532695,4C09,Tearsa Coates,1,Alan Wehler
 smd_4C10,-77.01618636172047,38.9414667394034,4C10,Jonah Goodman,2,"Monica P. Blair, Jonah Goodman"
 smd_4D01,-77.02613507054205,38.95613130868148,4D01,Peter Tabor,0,(no known candidates)
-smd_4D02,-77.01526788149077,38.954819233105404,4D02,Renée L. Bowser,0,(no known candidates)
+smd_4D02,-77.01526788149077,38.954819233105404,4D02,Renée L. Bowser,1,Renée L. Bowser
 smd_4D03,-77.019022972573,38.95254754763975,4D03,Aaron Polkey,0,(no known candidates)
 smd_4D04,-77.02466356950933,38.95238557972383,4D04,Jamie Barden,0,(no known candidates)
 smd_4D05,-77.01235239264876,38.94901032042865,4D05,Krystal Branton,0,(no known candidates)
@@ -220,7 +220,7 @@ smd_6D06,-77.01166163745717,38.87226585647069,6D06,Rhonda N. Hamilton,1,Rhonda N
 smd_6D07,-76.9997137872511,38.87519538579514,6D07,"Edward Lee Daniels, Jr.",1,"Edward Lee Daniels, Jr."
 smd_6E01,-77.02418046899145,38.911644172699546,6E01,"Alexander M. ""Alex"" Padro",3,"Michael Eichler, Andrew Spencer DeFrank, Mary A. Sutherland"
 smd_6E02,-77.01891591795477,38.91157992219897,6E02,Michael J. Brown,4,"Tony Brown, Alexander Lopez, Valerie Randolph, Eugene Simms"
-smd_6E03,-77.02109813054655,38.90724995471025,6E03,Frank S. Wiggins,0,(no known candidates)
+smd_6E03,-77.02109813054655,38.90724995471025,6E03,Frank S. Wiggins,1,Frank S. Wiggins
 smd_6E04,-77.01778597258424,38.90576409697886,6E04,Rachelle Nigro,2,"Matthew R. Salmon, Rachelle Nigro"
 smd_6E05,-77.01835018760464,38.9025312361808,6E05,Alex Marriott,1,Katherine Kortum
 smd_6E06,-77.0105258117522,38.90532000163317,6E06,Alvin Judd Sr.,0,(no known candidates)
@@ -254,10 +254,10 @@ smd_7E05,-76.92980108874141,38.88593348945492,7E05,Victor L. Horton,0,(no known 
 smd_7E06,-76.9242075327959,38.88489694769902,7E06,Delia Houseal,1,Joel Savary
 smd_7E07,-76.91994135665442,38.88773127529494,7E07,Yolanda Fields,1,Brandon Scott
 smd_7F01,-76.94725426555108,38.89407883623808,7F01,Tyrell M. Holcomb,0,(no known candidates)
-smd_7F02,-76.94379618196321,38.88552760092518,7F02,Terrance Hunter,1,Dawn R. Cook
+smd_7F02,-76.94379618196321,38.88552760092518,7F02,Terrance Hunter,2,"Dawn R. Cook, Terrance Hunter"
 smd_7F03,-76.93739040011303,38.88390696464097,7F03,Sheila Carson Carr,0,(no known candidates)
-smd_7F04,-76.95389730149519,38.88206889978852,7F04,Charlene Exum,1,Racquel Codling
-smd_7F05,-76.94943724395108,38.88565657068758,7F05,Brittany N. Hughes,0,(no known candidates)
+smd_7F04,-76.95389730149519,38.88206889978852,7F04,Charlene Exum,2,"Racquel Codling, Charlene Exum"
+smd_7F05,-76.94943724395108,38.88565657068758,7F05,Brittany N. Hughes,1,Karen Settles
 smd_7F06,-76.95485138464196,38.89016355022197,7F06,Carol E. Fletcher,3,"Betty  J. Diggs, Carol E. Fletcher, Betty J. Diggs"
 smd_7F07,-76.97035016664961,38.88561598125518,7F07,(vacant),0,(no known candidates)
 smd_8A01,-76.97871677680264,38.87316866141457,8A01,Holly Muhammad,1,Holly Muhammad
@@ -265,7 +265,7 @@ smd_8A02,-76.98361891661939,38.86990408668088,8A02,Barbara J. Clark,1,Ira L. Lov
 smd_8A03,-76.97316542428722,38.86726801701096,8A03,Brian K Thompson,0,(no known candidates)
 smd_8A04,-76.98179954868235,38.8609822339344,8A04,Troy Donte Prestwood,2,"Moses Smith, Laneice Moore"
 smd_8A05,-76.98312127650215,38.86460887848001,8A05,Dorcas Agyei,2,"Michael Grier, Jamila White"
-smd_8A06,-76.99367486612934,38.866457315419346,8A06,Tyón Jones,4,"Aiyi'nah Darlene Ford, Isaac Smith, Greta Fuller, Robin M"
+smd_8A06,-76.99367486612934,38.866457315419346,8A06,Tyón Jones,5,"Aiyi'nah Darlene Ford, Isaac Smith, Greta Fuller, Robin M, Robin Ward 8 McKinney"
 smd_8A07,-76.98927646798415,38.85864903402259,8A07,Hanna Baker,0,(no known candidates)
 smd_8B01,-76.97632268510915,38.860305347525504,8B01,Leonard Lee Watson Jr.,0,(no known candidates)
 smd_8B02,-76.96996280093731,38.85818499959079,8B02,Paul Trantham,0,(no known candidates)
@@ -277,7 +277,7 @@ smd_8B07,-76.97724831843504,38.8443999175531,8B07,Keeon Johnson,0,(no known cand
 smd_8C01,-77.01227383323813,38.85364990271837,8C01,Mike Austin,1,Kwasi Seitu
 smd_8C02,-77.00000104255886,38.85276251716703,8C02,Chyla D. Evans,2,"Victoria Akinseye, Kendrick Daniel"
 smd_8C03,-76.99358057624295,38.846750638064606,8C03,Robinette Woodland,2,"Tasha J. Powell, Robinette Woodland"
-smd_8C04,-77.00277161283013,38.834221398395535,8C04,Regina Sharlita Pixley,1,Regina Sharlita Pixley
+smd_8C04,-77.00277161283013,38.834221398395535,8C04,Regina Sharlita Pixley,3,"Regina Sharlita Pixley, Reginia R. Summers, Veronica Proctor"
 smd_8C05,-77.01793180696436,38.842352335925604,8C05,Mustafa Abdul-Salaam,0,(no known candidates)
 smd_8C06,-76.99491101017927,38.858526613965466,8C06,Rhonda L. Edwards-Hines,1,Rhonda L. Edwards-Hines
 smd_8C07,-76.99739545427774,38.83920553484315,8C07,Salim Adofo,3,"Jonathan Steele, Mary J. Cuthbert, Salim Adofo"
