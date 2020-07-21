@@ -49,7 +49,6 @@ def clean_csv():
     # Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
     df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
 
-    df.to_csv('temp.csv')
     # Fix data entry errors and convert to dates
     df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
     df['pickup_date'] = pd.to_datetime(df['pickup_date'])
