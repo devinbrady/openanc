@@ -1,5 +1,5 @@
 person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link,website_link
-10001,Layla Bonnot,smd_1A01,smd_1A01,,,
+10001,Layla Bonnot,smd_1A01,smd_1A01,https://twitter.com/LaylaBonnot,,
 10002,Teresa A. Edmondson,smd_1A02,not_currently_running,,,
 10003,Zach Rybarczyk,smd_1A03,smd_1A03,,,
 10004,Matthew Goldschimdt,smd_1A04,not_currently_running,,,
@@ -346,7 +346,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10349,Vanessa Rubio,not_currently_serving,smd_4C01,,,
 10350,Taalib-Din Uqdah,not_currently_serving,smd_4C01,,,
 10351,Yvette D. Marbury-Long,not_currently_serving,smd_4C04,,,
-10352,Michael C. Whelan,not_currently_serving,smd_4C06,,,
+10352,Michael C. Whelan,not_currently_serving,smd_4C06,https://twitter.com/Mike4Petworth,,
 10353,Namatie Sia Mansaray,not_currently_serving,smd_4C06,,,
 10354,Charles Andrew Sinks,not_currently_serving,smd_4C08,,,
 10355,Alan Wehler,not_currently_serving,smd_4C09,,,
@@ -444,7 +444,6 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10452,John Adams,not_currently_serving,smd_7B01,,,
 10453,Betty J. Diggs,not_currently_serving,smd_7F06,,,
 10454,Greta Fuller,not_currently_serving,smd_8A06,,,
-10455,Robin M,not_currently_serving,smd_8A06,,,
 10456,Kwasi Seitu,not_currently_serving,smd_8C01,,,
 10457,Kendrick Daniel,not_currently_serving,smd_8C02,,,
 10458,Patricia Janifer,not_currently_serving,smd_8D07,,,
