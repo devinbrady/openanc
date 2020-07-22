@@ -79,11 +79,10 @@ class RefreshData():
 
 
 
-        district_info = district_candidates.groupby('smd_id').agg({
+        district_info = district_candidates.groupby(['smd_id', 'map_color_id']).agg({
             'full_name_candidate': list
             , 'candidate_id': 'count'
-            })
-
+            }).reset_index()
 
 
         district_info_comm = pd.merge(district_info, commissioner_people[['smd_id', 'full_name_commissioner']], how='left', on='smd_id')
@@ -126,6 +125,10 @@ class RefreshData():
 
         # Add data to GeoJSON file with SMD shapes
         smd = gpd.read_file('maps/smd.geojson')
+
+        # Use the map_color_id field from the Google Sheets over what is stored in the GeoJSON
+        smd.drop(columns=['map_color_id'], inplace=True)
+
         smd_df = smd.merge(df, on='smd_id')
         smd_df.to_file('maps/to_mapbox/smd-data.geojson', driver='GeoJSON')
 
