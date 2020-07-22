@@ -16,7 +16,7 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    df = pd.read_excel('csv/dcboe-2020-07-21.xlsx')
+    df = pd.read_excel('csv/dcboe-2020-07-22.xlsx')
 
     df.rename(
         columns={

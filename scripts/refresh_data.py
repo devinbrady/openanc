@@ -139,7 +139,7 @@ class RefreshData():
         Save new GeoJSON files with updated data fields
         """
 
-        df = self.assemble_smd_info(duplicate_check=True, print_counts=True, publish_to_google_sheets=False)
+        df = self.assemble_smd_info(duplicate_check=True, print_counts=True, publish_to_google_sheets=True)
 
         # Add data to GeoJSON file with SMD shapes
         smd = gpd.read_file('maps/smd.geojson')

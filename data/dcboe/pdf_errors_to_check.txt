@@ -16,7 +16,12 @@ These should all be fixed in candidates_dcboe.csv:
 
 * 7F06,Carol E. Fletcher has filed date of "7F06"
 
+
+
+No longer an issue:
+
 * 1C08,"Fiona Clem" has 2 spaces in the name, sometimes duplicated
+
 
 
 Unknown: 
