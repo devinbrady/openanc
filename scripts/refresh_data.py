@@ -55,13 +55,12 @@ class RefreshData():
         return service
 
 
-    def assemble_smd_info(self, duplicate_check=False):
+    def assemble_smd_info(self, duplicate_check=False, print_counts=False):
         """
         Make CSV, one row per district, with candidate names and counts
 
         Destination is a Mapbox dataset
         """
-
 
         districts = pd.read_csv('data/districts.csv')
         candidates = pd.read_csv('data/candidates.csv')
@@ -109,9 +108,10 @@ class RefreshData():
         if duplicate_check:
             district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
 
-        print('\nDistricts by number of candidates: ')
-        print(district_info_comm.groupby('number_of_candidates').size())
-        print()
+        if print_counts:
+            print('\nDistricts by number of candidates: ')
+            print(district_info_comm.groupby('number_of_candidates').size())
+            print()
 
         return district_info_comm
 
@@ -121,7 +121,7 @@ class RefreshData():
         Save new GeoJSON files with updated data fields
         """
 
-        df = self.assemble_smd_info(duplicate_check=True)
+        df = self.assemble_smd_info(duplicate_check=True, print_counts=True)
 
         # Add data to GeoJSON file with SMD shapes
         smd = gpd.read_file('maps/smd.geojson')
