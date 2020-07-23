@@ -109,6 +109,8 @@ class RefreshData():
             district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
 
         if print_counts:
+            print('\nCandidate Count: {}'.format(len(candidates)))
+
             print('\nDistricts by number of candidates: ')
             print(district_info_comm.groupby('number_of_candidates').size())
             print()
@@ -142,7 +144,7 @@ class RefreshData():
         df = self.assemble_smd_info(
             duplicate_check=True
             , print_counts=True
-            , publish_to_google_sheets=False
+            , publish_to_google_sheets=True
             )
 
         # Add data to GeoJSON file with SMD shapes
@@ -193,7 +195,7 @@ class RefreshData():
     def run(self):
 
         self.refresh_csv('ancs', 'A:H')
-        self.refresh_csv('candidates', 'A:J')
+        self.refresh_csv('candidates', 'A:K', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('commissioners', 'A:H', filter_dict={'commissioner_status': 'current'})
         self.refresh_csv('districts', 'A:K')
         self.refresh_csv('field_names', 'A:B')
