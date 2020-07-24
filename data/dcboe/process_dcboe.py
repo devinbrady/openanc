@@ -16,7 +16,7 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    df = pd.read_excel('csv/dcboe-2020-07-22.xlsx')
+    df = pd.read_excel('csv/dcboe-2020-07-24.xlsx')
 
     df.rename(
         columns={
@@ -49,11 +49,14 @@ def clean_csv():
     # Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
     df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
 
+    # Exclude candidate who dropped out
+    df = df[df['candidate_name'] != 'Andrew Spencer DeFrank']
+
     # Fix data entry errors and convert to dates
-    df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
+    # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
     df['pickup_date'] = pd.to_datetime(df['pickup_date'])
 
-    df.loc[df['filed_date'] == '7F06', 'filed_date'] = None
+    # df.loc[df['filed_date'] == '7F06', 'filed_date'] = None
     df['filed_date'] = pd.to_datetime(df['filed_date'])
 
     # Create a new ID for this data based off of the district and candidate name

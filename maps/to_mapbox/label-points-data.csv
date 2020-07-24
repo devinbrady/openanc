@@ -15,14 +15,14 @@ smd_1B01,-77.01861218673801,38.916735738956596,1B01,Anita Norman,1,Larry Handerh
 smd_1B02,-77.02583608170856,38.91688319962512,1B02,Dan Orlaskey,1,Dan Orlaskey
 smd_1B03,-77.02621710649917,38.92355780235551,1B03,Sedrick Muhammad,0,(no known candidates)
 smd_1B04,-77.03095520357589,38.919351565104044,1B04,Deborah Thomas,0,(no known candidates)
-smd_1B05,-77.03483518834828,38.92041768275895,1B05,(vacant),1,Victoria Sanchez
+smd_1B05,-77.03483518834828,38.92041768275895,1B05,(vacant),2,"Victoria Sanchez, Alan Kensek, Jr."
 smd_1B06,-77.0336776277388,38.9221405022185,1B06,Jennifer Bristol,0,(no known candidates)
 smd_1B07,-77.03461686211284,38.924469603931065,1B07,Marcia Shia,2,"Marcia Shia, Max Ewart"
 smd_1B08,-77.03134464800138,38.92411114943674,1B08,Joshua R. Mater,0,(no known candidates)
 smd_1B09,-77.02465464073076,38.926444352069815,1B09,James A. Turner,1,James A. Turner
 smd_1B10,-77.01720460403841,38.92460292221983,1B10,Danny Delaney,0,(no known candidates)
 smd_1B11,-77.02241712984711,38.921347649648425,1B11,Robb Hudson,1,Robb Hudson
-smd_1B12,-77.03045428625737,38.91610948802486,1B12,Dan Winston,2,"Michael Singer, Dan Wittels"
+smd_1B12,-77.03045428625737,38.91610948802486,1B12,Dan Winston,3,"Michael Singer, Dan Wittels, Andre Denegri"
 smd_1C01,-77.04444150766953,38.91718255057215,1C01,Amir Irani,1,Amir Irani
 smd_1C02,-77.0474322553309,38.92048566851769,1C02,(vacant),1,Celeste Carano
 smd_1C03,-77.04376555890136,38.92060991853564,1C03,Ted Guthrie,3,"Elias Benda, Jennifer Hughes, Peter Wood"
@@ -31,7 +31,7 @@ smd_1C05,-77.03990269429444,38.926485017805376,1C05,Damiana Dendy,2,"Dennis Jaff
 smd_1C06,-77.03833177312441,38.92413955448298,1C06,Michaela Wright,1,Nancy Shia
 smd_1C07,-77.04111632889587,38.920993925002314,1C07,Japer Bowles,1,Japer Bowles
 smd_1C08,-77.03794146934806,38.9195502902062,1C08,Chris Jackson,1,Fiona Clem
-smd_1D01,-77.03942696096966,38.93238644849025,1D01,Jon Stewart,0,(no known candidates)
+smd_1D01,-77.03942696096966,38.93238644849025,1D01,Jon Stewart,1,Alexandra Morgan
 smd_1D02,-77.03779257845966,38.936051138680064,1D02,Robin Sandenburgh,1,Robin Sandenburgh
 smd_1D03,-77.04380037173226,38.933915631330656,1D03,Jack McKay,1,Jack McKay
 smd_1D04,-77.03766492680333,38.93109848086383,1D04,Yasmin Romero-Latin,0,(no known candidates)
@@ -167,7 +167,7 @@ smd_5C01,-76.96948872033296,38.93420601337621,5C01,Gail Brevard,2,"Gail Brevard,
 smd_5C02,-76.96829489423114,38.92590267477644,5C02,Lauren Rogers,1,Lauren Rogers
 smd_5C03,-76.9535129993392,38.92385718381498,5C03,Pierre Hines,1,Pierre Hines
 smd_5C04,-76.96475149980802,38.915338157293476,5C04,Jacqueline Manning,1,Jacqueline Manning
-smd_5C05,-76.99074951174029,38.91759488801578,5C05,Darlene Oliver,0,(no known candidates)
+smd_5C05,-76.99074951174029,38.91759488801578,5C05,Darlene Oliver,2,"Jonathan Alfuth, Justin R. Riordan"
 smd_5C06,-76.98204937044102,38.922862642895176,5C06,Kirsten Williams,2,"Thaddeus James, D'Andre A. Phillips"
 smd_5C07,-76.97437258069037,38.927971427612746,5C07,Jeremiah Montague Jr.,1,Jeremiah Montague Jr.
 smd_5D01,-76.99064442256427,38.91061641442718,5D01,Ryan Linehan,1,Sebrena L. Rhodes
@@ -266,7 +266,7 @@ smd_8A03,-76.97316542428722,38.86726801701096,8A03,Brian K Thompson,0,(no known 
 smd_8A04,-76.98179954868235,38.8609822339344,8A04,Troy Donte Prestwood,2,"Moses Smith, Laneice Moore"
 smd_8A05,-76.98312127650215,38.86460887848001,8A05,Dorcas Agyei,2,"Michael Grier, Jamila White"
 smd_8A06,-76.99367486612934,38.866457315419346,8A06,Tyón Jones,5,"Aiyi'nah Darlene Ford, Isaac Smith, Greta Fuller, Robin Ward 8 McKinney, Kristina Leszczak"
-smd_8A07,-76.98927646798415,38.85864903402259,8A07,Hanna Baker,0,(no known candidates)
+smd_8A07,-76.98927646798415,38.85864903402259,8A07,Hanna Baker,1,Steven Tiller
 smd_8B01,-76.97632268510915,38.860305347525504,8B01,Leonard Lee Watson Jr.,0,(no known candidates)
 smd_8B02,-76.96996280093731,38.85818499959079,8B02,Paul Trantham,0,(no known candidates)
 smd_8B03,-76.97214103769088,38.85354596377001,8B03,Charles H. Wilson,3,"Alyce k. McFarland, Charles H. Wilson, Joseph B. Johnson"
