@@ -3,7 +3,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10002,Teresa A. Edmondson,smd_1A02,not_currently_running,,,
 10003,Zach Rybarczyk,smd_1A03,smd_1A03,,,
 10004,Matthew Goldschimdt,smd_1A04,not_currently_running,,,
-10005,Christine Miller,smd_1A05,not_currently_running,,,
+10005,Christine Miller,smd_1A05,smd_1A05,https://twitter.com/MillerANC1A05,,https://christinemillerdc.com/
 10006,Angelica Castañon,smd_1A06,not_currently_running,,,
 10007,Jen Bundy,smd_1A07,not_currently_running,,,
 10008,Kent C. Boese,smd_1A08,smd_1A08,,,
@@ -284,7 +284,6 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10283,Karlene Armstead,smd_8E06,smd_8E06,,,
 10284,Stephen A. Slaughter,smd_8E07,not_currently_running,,,
 10285,Dieter Lehmann Morales,not_currently_serving,smd_1A02,,,
-10286,Karyn C. Miller,not_currently_serving,smd_1A05,,,
 10287,Sean McGrath,not_currently_serving,smd_1A06,,,
 10288,Judson Wood,not_currently_serving,smd_1A06,https://twitter.com/Judson4DC,,
 10289,Benjamin Tingle,not_currently_serving,smd_1A07,,,
