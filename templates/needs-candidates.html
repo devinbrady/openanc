@@ -153,6 +153,15 @@ var geocoder = new MapboxGeocoder({
 
 map.addControl(geocoder);
 
+// Add geolocate control to the map.
+map.addControl(
+    new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        }
+    })
+);
+
 map.addControl(new mapboxgl.NavigationControl());
 
 // Set the latitude and latitude bounds for how the map should be displayed
