@@ -69,8 +69,10 @@ class BuildDistricts():
                     , 'candidate_source_link'
                     , 'pickup_date'
                     , 'filed_date'
+                    , 'website_link'
                     , 'twitter_link'
                     , 'facebook_link'
+                    , 'updated_at'
                     ]
 
                 candidate_block += build_data_table(candidate_row, fields_to_try)

@@ -8,6 +8,8 @@ import pandas as pd
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
+from scripts.refresh_data import RefreshData
+
 
 def clean_csv():
     """
@@ -16,7 +18,10 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    df = pd.read_excel('csv/dcboe-2020-07-24.xlsx')
+    df = pd.read_excel('data/dcboe/excel/dcboe-2020-07-24_1913.xlsx')
+    df['dcboe_updated_at'] = '2020-07-24 19:13'
+    df['candidate_source'] = 'DCBOE'
+    df['candidate_source_link'] = 'https://www.dcboe.org/Candidates/2020-Candidates'
 
     df.rename(
         columns={
@@ -47,25 +52,41 @@ def clean_csv():
 
 
     # Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
-    df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
+    # df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
 
-    # Exclude candidate who dropped out
+    # Exclude candidates who dropped out
     df = df[df['candidate_name'] != 'Andrew Spencer DeFrank']
+    df = df[df['candidate_name'] != 'Randy D Downs (withdrew 7/24/20)']
 
     # Fix data entry errors and convert to dates
     # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
-    df['pickup_date'] = pd.to_datetime(df['pickup_date'])
+    df['pickup_date'] = pd.to_datetime(df['pickup_date']).dt.strftime('%Y-%m-%d')
+
+    # There are some candidate rows that don't have a pickup date, but I think we should assume they have picked up
+    df['pickup_date'] = df['pickup_date'].fillna('unknown pickup date')    
 
     # df.loc[df['filed_date'] == '7F06', 'filed_date'] = None
-    df['filed_date'] = pd.to_datetime(df['filed_date'])
+    df['filed_date'] = pd.to_datetime(df['filed_date']).dt.strftime('%Y-%m-%d')
 
     # Create a new ID for this data based off of the district and candidate name
     df['dcboe_hash_id'] = hash_dataframe(df, ['smd_id', 'candidate_name'])
 
-    columns_to_save = ['dcboe_hash_id', 'smd_id', 'candidate_name', 'campaign_email', 'pickup_date', 'filed_date']
+    columns_to_save = [
+        'dcboe_hash_id'
+        , 'smd_id'
+        , 'candidate_name'
+        , 'pickup_date'
+        , 'filed_date'
+        , 'candidate_source'
+        , 'candidate_source_link'
+        , 'dcboe_updated_at'
+        ]
 
     df.sort_values(by='smd_id', inplace=True)
-    df[columns_to_save].to_csv('candidates_dcboe.csv', index=False)
+    df[columns_to_save].to_csv('data/dcboe/candidates_dcboe.csv', index=False)
+
+    rd = RefreshData()
+    rd.upload_to_google_sheets(df, columns_to_save, 'openanc_source', 'dcboe')
 
 
 def hash_dataframe(df, columns_to_hash):
@@ -103,9 +124,9 @@ def match_names(source_value, list_to_search, list_of_ids):
 
 def run_matching_process():
 
-    people = pd.read_csv('../people.csv')
-    candidates = pd.read_csv('../candidates.csv')
-    candidates_dcboe = pd.read_csv('candidates_dcboe.csv')
+    people = pd.read_csv('data/people.csv')
+    candidates = pd.read_csv('data/candidates.csv')
+    candidates_dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
     # Exclude the hash_ids that are currently in the OpenANC candidates table
     candidates_dcboe = candidates_dcboe[ ~(candidates_dcboe['dcboe_hash_id'].isin(candidates['dcboe_hash_id'])) ]
@@ -133,7 +154,7 @@ def run_matching_process():
             candidates_dcboe.loc[idx, 'person_id'] = best_id
             # candidates_dcboe.loc[idx, 'new_person'] = False
     
-    candidates_dcboe.to_csv('candidates_dcboe_match.csv', index=False)
+    candidates_dcboe.to_csv('data/dcboe/candidates_dcboe_match.csv', index=False)
 
 
     # prepare records for adding to Google Sheets
@@ -199,13 +220,11 @@ def run_matching_process():
 
     add_records_to_people.reset_index(inplace=True)
     add_records_to_people.drop(columns=['index'], inplace=True)
-    add_records_to_people.to_csv('to_google_sheets/add_records_to_people.csv', index=False)
+    add_records_to_people.to_csv('data/dcboe/to_google_sheets/add_records_to_people.csv', index=False)
 
     add_records_to_candidates.reset_index(inplace=True)
     add_records_to_candidates.drop(columns=['index'], inplace=True)
-    add_records_to_candidates.to_csv('to_google_sheets/add_records_to_candidates.csv', index=False)
-
-
+    add_records_to_candidates.to_csv('data/dcboe/to_google_sheets/add_records_to_candidates.csv', index=False)
 
 
 

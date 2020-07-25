@@ -3,6 +3,7 @@ Pull down fresh data from Google Sheets to CSV
 """
 
 import pickle
+import string
 import os.path
 import pandas as pd
 import geopandas as gpd
@@ -19,7 +20,13 @@ class RefreshData():
         self.scopes = ['https://www.googleapis.com/auth/spreadsheets']
 
         # The ID and range of a sample spreadsheet.
-        self.source_spreadsheet_id = '1QGki43vKLKJyG65Rd3lSKJwO_B3yX96SCljzmd9YJhk' # OpenANC Source
+        # self.source_spreadsheet_id = '' # OpenANC Source
+        # self.publish_spreadsheet_id = '' # OpenANC Published
+
+        self.spreadsheet_ids = {
+            'openanc_source': '1QGki43vKLKJyG65Rd3lSKJwO_B3yX96SCljzmd9YJhk'
+            , 'openanc_published': '1XoT92wFBKdmnUc6AXwABeWNjsjcwrGMPMKu1XsBOygU'
+        }
 
         self.service = self.google_auth()
 
@@ -53,6 +60,35 @@ class RefreshData():
         service = build('sheets', 'v4', credentials=creds)
         
         return service
+
+
+    def upload_to_google_sheets(self, df, columns_to_publish, destination_spreadsheet, destination_sheet):
+        """
+        Push values to a Google Sheet
+        """
+
+        for c in columns_to_publish:
+            df[c] = df[c].fillna('')
+
+        values = [columns_to_publish]
+        values += df[columns_to_publish].to_numpy().tolist()
+
+        body = {'values': values}
+
+        # value_input_option = 'RAW'
+        value_input_option = 'USER_ENTERED'
+
+        spreadsheet_id = self.spreadsheet_ids[destination_spreadsheet]
+
+        destination_range = destination_sheet + '!A:' + string.ascii_uppercase[len(columns_to_publish) - 1]
+
+        result = self.service.spreadsheets().values().update(
+            spreadsheetId=spreadsheet_id, range=destination_range,
+            valueInputOption=value_input_option, body=body).execute()
+
+        cells_updated = result.get('updatedCells')
+        print(f'{cells_updated} cells updated in Google Sheet: {destination_spreadsheet}')
+
 
 
     def assemble_smd_info(self, duplicate_check=False, print_counts=False, publish_to_google_sheets=False):
@@ -128,7 +164,7 @@ class RefreshData():
             value_input_option = 'RAW'
 
             result = self.service.spreadsheets().values().update(
-                spreadsheetId='1XoT92wFBKdmnUc6AXwABeWNjsjcwrGMPMKu1XsBOygU', range='Single_Member_Districts!A:E',
+                spreadsheetId=self.spreadsheet_ids['openanc_published'], range='Single_Member_Districts!A:E',
                 valueInputOption=value_input_option, body=body).execute()
 
             print('{0} cells updated in Google Sheets.'.format(result.get('updatedCells')))
@@ -162,14 +198,17 @@ class RefreshData():
         lp_df.to_csv('maps/to_mapbox/label-points-data.csv', index=False)
 
 
-
     def refresh_csv(self, csv_name, sheet_range, filter_dict=None):
         """
         Pull down one sheet to CSV
         """
 
         sheet = self.service.spreadsheets()
-        result = sheet.values().get(spreadsheetId=self.source_spreadsheet_id, range=f'{csv_name}!{sheet_range}').execute()
+        result = sheet.values().get(
+            spreadsheetId=self.spreadsheet_ids['openanc_source']
+            , range=f'{csv_name}!{sheet_range}'
+            ).execute()
+
         values = result.get('values', [])
 
         if not values:
@@ -195,7 +234,7 @@ class RefreshData():
     def run(self):
 
         self.refresh_csv('ancs', 'A:H')
-        self.refresh_csv('candidates', 'A:K', filter_dict={'publish_candidate': 'TRUE'})
+        self.refresh_csv('candidates', 'A:U', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('commissioners', 'A:H', filter_dict={'commissioner_status': 'current'})
         self.refresh_csv('districts', 'A:K')
         self.refresh_csv('field_names', 'A:B')

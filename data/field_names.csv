@@ -33,4 +33,6 @@ suffix,
 term_end_date,
 term_start_date,
 twitter_link,Twitter
+updated_at,Last Updated
 ward,
+website_link,Website
