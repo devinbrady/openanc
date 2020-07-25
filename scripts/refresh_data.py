@@ -147,27 +147,17 @@ class RefreshData():
         if print_counts:
             print('\nCandidate Count: {}'.format(len(candidates)))
 
-            print('\nDistricts by number of candidates: ')
-            print(district_info_comm.groupby('number_of_candidates').size())
-            print()
+            # print('\nDistricts by number of candidates: ')
+            # print(district_info_comm.groupby('number_of_candidates').size())
+            # print()
 
         if publish_to_google_sheets:
 
             district_info_comm['openanc_link'] = 'https://openanc.org/ancs/districts/' + district_info_comm['smd_id'].str.replace('smd_', '') + '.html'
 
             columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
-            values = [columns_to_publish]
-            values += district_info_comm[columns_to_publish].values.tolist()
 
-            body = {'values': values}
-
-            value_input_option = 'RAW'
-
-            result = self.service.spreadsheets().values().update(
-                spreadsheetId=self.spreadsheet_ids['openanc_published'], range='Single_Member_Districts!A:E',
-                valueInputOption=value_input_option, body=body).execute()
-
-            print('{0} cells updated in Google Sheets.'.format(result.get('updatedCells')))
+            self.upload_to_google_sheets(district_info_comm, columns_to_publish, 'openanc_published', 'Single_Member_Districts')
 
         return district_info_comm
 
