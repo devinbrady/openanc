@@ -7,7 +7,13 @@ import pandas as pd
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
-from scripts.common import build_district_list, build_data_table, build_footer, edit_form_link, google_analytics_block
+from scripts.common import (
+    build_district_list
+    , build_data_table
+    , build_footer
+    , edit_form_link
+    , google_analytics_block
+    )
 
 
 class BuildDistricts():

@@ -7,7 +7,14 @@ import pandas as pd
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
-from scripts.common import build_anc_html_table, anc_names, build_data_table, build_footer, calculate_zoom, google_analytics_block
+from scripts.common import (
+    build_anc_html_table
+    , anc_names
+    , build_data_table
+    , build_footer
+    , calculate_zoom
+    , google_analytics_block
+    )
 
 
 class BuildANCs():

@@ -178,6 +178,7 @@ class RefreshData():
         # Use the map_color_id field from the Google Sheets over what is stored in the GeoJSON
         smd.drop(columns=['map_color_id'], inplace=True)
 
+        # todo: push these tilesets to Mapbox via API
         smd_df = smd.merge(df, on='smd_id')
         smd_df.to_file('maps/to_mapbox/smd-data.geojson', driver='GeoJSON')
 
