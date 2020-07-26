@@ -20,6 +20,9 @@ class BuildDistricts():
 
 
     def build_commissioner_table(self, smd_id):
+        """
+        Build table with information about the current commissioner
+        """
 
         smd_display = smd_id.replace('smd_','')
         
@@ -42,7 +45,9 @@ class BuildDistricts():
 
 
     def add_candidates(self, smd_id):
-        """Add multiple candidates"""
+        """
+        Add blocks of information for each candidate in SMD
+        """
         
         people = pd.read_csv('data/people.csv')
         candidates = pd.read_csv('data/candidates.csv')
@@ -101,12 +106,13 @@ class BuildDistricts():
             + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
             ).format(edit_form_link('submit an edit'))
 
-
         return candidate_block
 
 
     def build_better_know_a_district(self, smd_id):
-        """Create table for district landmarks"""
+        """
+        Create table for district landmarks
+        """
         
         districts = pd.read_csv('data/districts.csv')
 
@@ -125,7 +131,9 @@ class BuildDistricts():
 
 
     def run(self):
-        """Build pages for each SMD"""
+        """
+        Build pages for each SMD
+        """
 
         districts = pd.read_csv('data/districts.csv')
         map_colors = pd.read_csv('data/map_colors.csv')
