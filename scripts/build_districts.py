@@ -43,8 +43,9 @@ class BuildDistricts():
 
         people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
         
-        # randomize the order of candidates
-        current_candidates = people_candidates[people_candidates['smd_id'] == smd_id].sample(frac=1).reset_index()
+        # Randomize the order of candidates
+        random_state = 0 # Perhaps use today's date
+        current_candidates = people_candidates[people_candidates['smd_id'] == smd_id].sample(frac=1, random_state=random_state).reset_index()
         
         num_candidates = len(current_candidates)
 

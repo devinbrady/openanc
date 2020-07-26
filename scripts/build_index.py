@@ -3,12 +3,14 @@ Build Index page
 """
 
 import pandas as pd
-from bs4 import BeautifulSoup
 
 from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates, edit_form_link, google_analytics_block
 
 
 class BuildIndex():
+
+    def __init__(self):
+        self.html_inserts = {}
 
     def homepage_list(self):
         """Build a nested HTML list of ANCs and SMDs"""
@@ -58,13 +60,41 @@ class BuildIndex():
 
         output = output.replace('<!-- replace with footer -->', build_footer())
 
-        # soup = BeautifulSoup(output, 'html.parser')
-        # output_pretty = soup.prettify()
-
         with open('docs/index.html', 'w') as f:
             f.write(output)
 
         print('built: index.html')
+
+
+    def list_page(self):
+        """Add information to List View"""
+
+        districts = pd.read_csv('data/districts.csv')
+        commissioners = pd.read_csv('data/commissioners.csv')
+        candidates = pd.read_csv('data/candidates.csv')
+
+        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
+
+        num_no_candidate_districts = len(list_of_smds_without_candidates())
+
+        with open('templates/list.html', 'r') as f:
+            output = f.read()
+
+        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+
+        output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
+        output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
+        output = output.replace('NUMBER_OF_CANDIDATES', str(len(candidates)))
+        output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
+
+        output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.homepage_list())
+
+        output = output.replace('<!-- replace with footer -->', build_footer())
+
+        with open('docs/list.html', 'w') as f:
+            f.write(output)
+
+        print('built: list.html')
 
 
     def about_page(self):
@@ -84,37 +114,27 @@ class BuildIndex():
         print('built: about.html')
 
 
-    def needs_candidates_page(self):
+    def build_single_page(self, html_name):
+        """
+        Build a single page that just needs Google Analytics
+        """
 
-        with open('templates/needs-candidates.html', 'r') as f:
+        with open(f'templates/{html_name}.html', 'r') as f:
             output = f.read()
 
         output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
 
-        with open('docs/needs-candidates.html', 'w') as f:
+        with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
 
-        print('built: needs-candidates.html')
-
-
-    def find_your_district_page(self):
-
-        with open('templates/find-my-district.html', 'r') as f:
-            output = f.read()
-
-        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
-
-        with open('docs/find-my-district.html', 'w') as f:
-            f.write(output)
-
-        print('built: find-my-district.html')
-
-
+        print(f'built: {html_name}.html')
 
 
     def run(self):
 
         self.index_page()
+        self.list_page()
         self.about_page()
-        self.needs_candidates_page()
-        self.find_your_district_page()
+        self.build_single_page('needs-candidates')
+        self.build_single_page('find-my-district')
+

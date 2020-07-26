@@ -145,7 +145,7 @@ class RefreshData():
             district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
 
         if print_counts:
-            print('\nCandidate Count: {}'.format(len(candidates)))
+            print('Candidate Count: {}'.format(len(candidates)))
 
             # print('\nDistricts by number of candidates: ')
             # print(district_info_comm.groupby('number_of_candidates').size())
