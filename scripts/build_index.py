@@ -49,6 +49,8 @@ class BuildIndex():
         districts = pd.read_csv('data/districts.csv')
         commissioners = pd.read_csv('data/commissioners.csv')
         candidates = pd.read_csv('data/candidates.csv')
+        candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+        cs = pd.merge(candidates, candidate_statuses, how='inner', on='candidate_status')
 
         district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
 
@@ -61,7 +63,7 @@ class BuildIndex():
 
         output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
         output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
-        output = output.replace('NUMBER_OF_CANDIDATES', str(len(candidates)))
+        output = output.replace('NUMBER_OF_CANDIDATES', str(cs['count_as_candidate'].sum()))
         output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_tables())

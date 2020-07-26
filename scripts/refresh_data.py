@@ -100,19 +100,21 @@ class RefreshData():
         candidates = pd.read_csv('data/candidates.csv')
         commissioners = pd.read_csv('data/commissioners.csv')
         people = pd.read_csv('data/people.csv')
+        candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 
 
         candidate_people = pd.merge(candidates, people, how='inner', on='person_id')
         candidate_people.rename(columns={'full_name': 'full_name_candidate'}, inplace=True)
+        cps = pd.merge(candidate_people, candidate_statuses, how='inner', on='candidate_status')
 
         commissioner_people = pd.merge(commissioners, people, how='inner', on='person_id')
         commissioner_people.rename(columns={'full_name': 'full_name_commissioner'}, inplace=True)
 
-        district_candidates = pd.merge(districts, candidate_people, how='left', on='smd_id')
+        # Only include active candidates
+        district_candidates = pd.merge(districts, cps[cps['count_as_candidate']].copy(), how='left', on='smd_id')
 
 
         # todo: make this candidate order also randomized
-        # todo: leave out the withdrew candidates
         district_info = district_candidates.groupby(['smd_id', 'map_color_id']).agg({
             'full_name_candidate': list
             , 'candidate_id': 'count'
@@ -144,7 +146,7 @@ class RefreshData():
             district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
 
         if print_counts:
-            print('Candidate Count: {}'.format(len(candidates)))
+            print('Candidate Count: {}'.format( cps['count_as_candidate'].sum()))
 
             # print('\nDistricts by number of candidates: ')
             # print(district_info_comm.groupby('number_of_candidates').size())
