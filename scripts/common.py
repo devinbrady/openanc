@@ -28,7 +28,6 @@ def google_analytics_block():
         """
 
 
-
 def dc_coordinates():
     """Return coordinates for a DC-wide map"""
 
@@ -51,7 +50,6 @@ def list_of_smds_without_candidates():
     districts_with_candidates = district_candidates[district_candidates['candidate_id'].notnull()]['smd_id'].unique().tolist()
 
     return no_candidate_districts
-
 
 
 def build_district_list(smd_id_list=None, level=0):
@@ -88,7 +86,7 @@ def build_district_list(smd_id_list=None, level=0):
         smd_display = smd_id.replace('smd_','')
 
         if district_row['full_name'] == '(vacant)':
-            commmissioner_name = '(vacant)'            
+            commmissioner_name = '(vacant)'
         else:
             commmissioner_name = 'Commissioner ' + district_row['full_name']
 
@@ -105,7 +103,6 @@ def build_district_list(smd_id_list=None, level=0):
     district_list += '</ul>'
 
     return district_list
-
 
 
 def build_data_table(row, fields_to_try):

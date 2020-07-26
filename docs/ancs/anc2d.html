@@ -35,9 +35,29 @@ var map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl());
 </script>
 
-<h2>Current Commissioners</h2>
+<h2>Districts, Commissioners, and Candidates</h2>
 
-<ul><li><a href="districts/2D01.html">2D01: Commissioner David R. Bender</a></li><li><a href="districts/2D02.html">2D02: Commissioner Jeff Nestler</a></li></ul>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>SMD</th>
+      <th>Current Commissioner</th>
+      <th>Pulled Papers for Ballot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="districts/2D01.html">2D01</a></td>
+      <td>David R. Bender</td>
+      <td>Thomas McDonough, Ashley Warren</td>
+    </tr>
+    <tr>
+      <td><a href="districts/2D02.html">2D02</a></td>
+      <td>Jeff Nestler</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
 <h2>ANC Info</h2>
 
@@ -63,7 +83,7 @@ map.addControl(new mapboxgl.NavigationControl());
     <li><a href="https://openanc.org">OpenANC Home</a></li>
 </ul>
 
-<p>Last updated: July 25, 2020</p>
+<p>Last updated: July 26, 2020</p>
 
 
 </body>

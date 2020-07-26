@@ -35,35 +35,42 @@ class BuildIndex():
         return anc_html
 
 
-    def index_page(self):
-        """Add information to index page"""
+    def district_table(self):
 
+        ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
-        commissioners = pd.read_csv('data/commissioners.csv')
-        candidates = pd.read_csv('data/candidates.csv')
 
-        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
+        html = '<table border="1">'
+        for idx, anc_row in ancs.iterrows():
 
-        num_no_candidate_districts = len(list_of_smds_without_candidates())
+            anc_id = anc_row['anc_id']
+            anc_upper = 'ANC' + anc_id
+            anc_lower = anc_upper.lower()
 
-        with open('templates/index.html', 'r') as f:
-            output = f.read()
+            html += '<tr>'
 
-        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+            num_smds_in_anc = sum(districts['anc_id'] == anc_id)
 
-        output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
-        output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
-        output = output.replace('NUMBER_OF_CANDIDATES', str(len(candidates)))
-        output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
+            html += f'<td rowspan="{num_smds_in_anc}"><a href="ancs/{anc_lower}.html">{anc_upper}</a></td>'
 
-        output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.homepage_list())
+            for smd_idx, smd_row in districts[districts['anc_id'] == anc_id].reset_index().iterrows():
 
-        output = output.replace('<!-- replace with footer -->', build_footer())
+                if smd_idx > 0:
+                    html += '<tr>'
 
-        with open('docs/index.html', 'w') as f:
-            f.write(output)
+                add_me = smd_row['smd_id']
+                html += f'<td>{add_me}</td></tr>'
 
-        print('built: index.html')
+
+
+
+
+            # smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].tolist()
+            # html += build_district_list(smd_id_list=smds_in_anc, level=0)
+
+        html += '</table>'
+
+        return html
 
 
     def list_page(self):
@@ -87,7 +94,7 @@ class BuildIndex():
         output = output.replace('NUMBER_OF_CANDIDATES', str(len(candidates)))
         output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
 
-        output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.homepage_list())
+        output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_table())
 
         output = output.replace('<!-- replace with footer -->', build_footer())
 

@@ -20,8 +20,6 @@ class RefreshData():
         self.scopes = ['https://www.googleapis.com/auth/spreadsheets']
 
         # The ID and range of a sample spreadsheet.
-        # self.source_spreadsheet_id = '' # OpenANC Source
-        # self.publish_spreadsheet_id = '' # OpenANC Published
 
         self.spreadsheet_ids = {
             'openanc_source': '1QGki43vKLKJyG65Rd3lSKJwO_B3yX96SCljzmd9YJhk'
@@ -113,7 +111,8 @@ class RefreshData():
         district_candidates = pd.merge(districts, candidate_people, how='left', on='smd_id')
 
 
-
+        # todo: make this candidate order also randomized
+        # todo: leave out the withdrew candidates
         district_info = district_candidates.groupby(['smd_id', 'map_color_id']).agg({
             'full_name_candidate': list
             , 'candidate_id': 'count'
@@ -224,7 +223,7 @@ class RefreshData():
     def run(self):
 
         self.refresh_csv('ancs', 'A:H')
-        self.refresh_csv('candidates', 'A:U', filter_dict={'publish_candidate': 'TRUE'})
+        self.refresh_csv('candidates', 'A:V', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('candidate_statuses', 'A:D')
         self.refresh_csv('commissioners', 'A:H', filter_dict={'commissioner_status': 'current'})
         self.refresh_csv('districts', 'A:K')

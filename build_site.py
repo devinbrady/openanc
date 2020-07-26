@@ -7,14 +7,14 @@ from scripts.build_index import BuildIndex
 from scripts.build_districts import BuildDistricts
 from scripts.build_ancs import BuildANCs
 
-# r = RefreshData()
-# r.run()
+r = RefreshData()
+r.run()
 
-# bi = BuildIndex()
-# bi.run()
+bi = BuildIndex()
+bi.run()
 
-# ba = BuildANCs()
-# ba.run()
+ba = BuildANCs()
+ba.run()
 
 bd = BuildDistricts()
 bd.run()
