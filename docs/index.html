@@ -200,9 +200,7 @@ map.on('load', function() {
 // Set up and geocoder
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    marker: {
-        color: 'orange'
-    },
+    placeholder: "Search your address",
     mapboxgl: mapboxgl
 });
 
