@@ -40,14 +40,20 @@ class BuildDistricts():
         
         people = pd.read_csv('data/people.csv')
         candidates = pd.read_csv('data/candidates.csv')
+        statuses = pd.read_csv('data/candidate_statuses.csv')
 
         people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
+        people_candidate_status = pd.merge(people_candidates, statuses, how='inner', on='candidate_status')
+
+        # Merge the order and status fields for sorting
+        people_candidate_status['order_status'] = people_candidate_status['display_order'].astype(str) + ';' + people_candidate_status['candidate_status']
         
         # Randomize the order of candidates
         random_state = 0 # Perhaps use today's date
-        current_candidates = people_candidates[people_candidates['smd_id'] == smd_id].sample(frac=1, random_state=random_state).reset_index()
+        smd_candidates = people_candidate_status[people_candidate_status['smd_id'] == smd_id].sample(
+            frac=1, random_state=random_state).reset_index()
         
-        num_candidates = len(current_candidates)
+        num_candidates = len(smd_candidates)
 
         if num_candidates == 0:
             candidate_block = '<p>No known candidates.</p>'
@@ -56,30 +62,34 @@ class BuildDistricts():
 
             candidate_block = ''
 
-            for idx, candidate_row in current_candidates.iterrows():
+            for status in sorted(smd_candidates['order_status'].unique()):
 
-                # Add break between candidate tables if there is more than one candidate
-                if idx > 0:
-                    candidate_block += '<br/>'
+                candidate_block += '<h3>' + status[status.find(';')+1:] + '</h3>'
+                candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
 
-                fields_to_try = [
-                    'full_name'
-                    , 'candidate_status'
-                    , 'candidate_announced_date'
-                    , 'candidate_source'
-                    , 'candidate_source_link'
-                    , 'pickup_date'
-                    , 'filed_date'
-                    , 'website_link'
-                    , 'twitter_link'
-                    , 'facebook_link'
-                    , 'updated_at'
-                    ]
+                for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
 
-                candidate_block += build_data_table(candidate_row, fields_to_try)
+                    # Add break between candidate tables if there is more than one candidate
+                    if idx > 0:
+                        candidate_block += '<br/>'
+
+                    fields_to_try = [
+                        'full_name'
+                        , 'candidate_announced_date'
+                        , 'candidate_source'
+                        , 'candidate_source_link'
+                        , 'pickup_date'
+                        , 'filed_date'
+                        , 'website_link'
+                        , 'twitter_link'
+                        , 'facebook_link'
+                        , 'updated_at'
+                        ]
+
+                    candidate_block += build_data_table(candidate_row, fields_to_try)
                 
-            if num_candidates > 1:
-                candidate_block += '<p><em>Candidate order is randomized</em></p>'
+                if candidates_in_status > 1:
+                    candidate_block += '<p><em>Candidate order is randomized</em></p>'
 
         candidate_block += (
             "<p>The list of candidates comes from the Board of Elections and from edits to OpenANC. "
@@ -126,7 +136,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_1C07':
+            # if smd_id != 'smd_2B05':
             #     continue
                     
             with open('templates/smd.html', 'r') as f:

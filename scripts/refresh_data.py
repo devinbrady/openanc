@@ -225,6 +225,7 @@ class RefreshData():
 
         self.refresh_csv('ancs', 'A:H')
         self.refresh_csv('candidates', 'A:U', filter_dict={'publish_candidate': 'TRUE'})
+        self.refresh_csv('candidate_statuses', 'A:D')
         self.refresh_csv('commissioners', 'A:H', filter_dict={'commissioner_status': 'current'})
         self.refresh_csv('districts', 'A:K')
         self.refresh_csv('field_names', 'A:B')
