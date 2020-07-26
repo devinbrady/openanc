@@ -4,77 +4,47 @@ Build Index page
 
 import pandas as pd
 
-from scripts.common import build_district_list, build_footer, list_of_smds_without_candidates, edit_form_link, google_analytics_block
+from scripts.common import (
+    build_anc_html_table
+    , anc_names
+    , build_footer
+    , list_of_smds_without_candidates
+    , edit_form_link
+    , google_analytics_block
+)
 
 
 class BuildIndex():
 
     def __init__(self):
+        # todo: find a cleaner way to track insert text and related functions
         self.html_inserts = {}
 
-    def homepage_list(self):
-        """Build a nested HTML list of ANCs and SMDs"""
+
+    def district_tables(self):
+        """
+        Build HTML containing each ANC and its child SMDs with commissioners and candidates
+        """
 
         ancs = pd.read_csv('data/ancs.csv')
-        districts = pd.read_csv('data/districts.csv')
 
-        anc_html = '<ul>'
-        for idx, anc_row in ancs.iterrows():
+        html = ''
 
-            anc_id = anc_row['anc_id']
-            anc_upper = 'ANC' + anc_id
-            anc_lower = anc_upper.lower()
+        for anc_id in sorted(ancs['anc_id']):
 
-            anc_html += f'<li><a href="ancs/{anc_lower}.html">{anc_upper}</a></li>'
+            anc_upper, anc_lower = anc_names(anc_id)
 
-            smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].tolist()
-            anc_html += build_district_list(smd_id_list=smds_in_anc, level=0)
+            html += f'<h3><a href="ancs/{anc_lower}.html">{anc_upper}</a></h3>'
 
-        anc_html += '</ul>'
-
-        return anc_html
-
-
-    def district_table(self):
-
-        ancs = pd.read_csv('data/ancs.csv')
-        districts = pd.read_csv('data/districts.csv')
-
-        html = '<table border="1">'
-        for idx, anc_row in ancs.iterrows():
-
-            anc_id = anc_row['anc_id']
-            anc_upper = 'ANC' + anc_id
-            anc_lower = anc_upper.lower()
-
-            html += '<tr>'
-
-            num_smds_in_anc = sum(districts['anc_id'] == anc_id)
-
-            html += f'<td rowspan="{num_smds_in_anc}"><a href="ancs/{anc_lower}.html">{anc_upper}</a></td>'
-
-            for smd_idx, smd_row in districts[districts['anc_id'] == anc_id].reset_index().iterrows():
-
-                if smd_idx > 0:
-                    html += '<tr>'
-
-                add_me = smd_row['smd_id']
-                html += f'<td>{add_me}</td></tr>'
-
-
-
-
-
-            # smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].tolist()
-            # html += build_district_list(smd_id_list=smds_in_anc, level=0)
-
-        html += '</table>'
+            html += build_anc_html_table(anc_id)
 
         return html
 
 
     def list_page(self):
-        """Add information to List View"""
+        """
+        Build List View page
+        """
 
         districts = pd.read_csv('data/districts.csv')
         commissioners = pd.read_csv('data/commissioners.csv')
@@ -94,7 +64,7 @@ class BuildIndex():
         output = output.replace('NUMBER_OF_CANDIDATES', str(len(candidates)))
         output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
 
-        output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_table())
+        output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_tables())
 
         output = output.replace('<!-- replace with footer -->', build_footer())
 
@@ -105,8 +75,10 @@ class BuildIndex():
 
 
     def about_page(self):
+        """
+        Build About page
+        """
 
-        # Build About page
         with open('templates/about.html', 'r') as f:
             output = f.read()
 
@@ -139,7 +111,6 @@ class BuildIndex():
 
     def run(self):
 
-        # self.index_page()
         self.list_page()
         self.about_page()
         self.build_single_page('index')
