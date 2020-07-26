@@ -43,14 +43,13 @@ class BuildDistricts():
         statuses = pd.read_csv('data/candidate_statuses.csv')
 
         people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
-        people_candidate_status = pd.merge(people_candidates, statuses, how='inner', on='candidate_status')
 
         # Merge the order and status fields for sorting
-        people_candidate_status['order_status'] = people_candidate_status['display_order'].astype(str) + ';' + people_candidate_status['candidate_status']
+        people_candidates['order_status'] = people_candidates['display_order'].astype(str) + ';' + people_candidates['candidate_status']
         
         # Randomize the order of candidates
         random_state = 0 # Perhaps use today's date
-        smd_candidates = people_candidate_status[people_candidate_status['smd_id'] == smd_id].sample(
+        smd_candidates = people_candidates[people_candidates['smd_id'] == smd_id].sample(
             frac=1, random_state=random_state).reset_index()
         
         num_candidates = len(smd_candidates)
