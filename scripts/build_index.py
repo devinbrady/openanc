@@ -135,6 +135,7 @@ class BuildIndex():
         self.index_page()
         self.list_page()
         self.about_page()
+        self.build_single_page('map')
         self.build_single_page('needs-candidates')
         self.build_single_page('find-my-district')
 

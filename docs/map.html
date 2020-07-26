@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenANC : Map View</title>
+<meta charset='utf-8' />
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+<!-- Pull in the mapbox libraries -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+<!-- Set style for all the objects in CSS -->
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h2,
+h3 {
+    margin: 10px;
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+p {
+    font-size: 0.85em;
+    margin: 10px;
+    text-align: left;
+}
+
+/**
+* Create a position for the map
+* on the page */
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+.map-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
+    margin-right: 20px;
+    font-family: Arial, sans-serif;
+    overflow: auto;
+    border-radius: 3px;
+}
+
+/*Set the style of the layer toggle*/
+#menu {
+    position: absolute;
+    background: #fff;
+    padding: 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+#features {
+    top: 5;
+    height: 200px;
+    margin-top: 20px;
+    width: 250px;
+
+}
+
+
+</style>
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+
+<body>
+
+<!-- Set up the geocoder aesthetics and pull in the saved scripts necessary for it to run -->
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css' type='text/css' />
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<style>
+#geocoder-container > div {
+min-width:50%;
+margin-left:25%;
+}
+</style>
+
+<!-- Place the map -->
+<div id='map'></div>
+
+<!-- Set up the layer toggle menu -->
+<div id='menu'>
+    OpenANC
+    <br><a href="list.html">List View</a>
+    <br><a href="about.html">About</a>
+    <br><br>
+    <input id='ckcoaoonn01nd1ipdspkflwie' type='radio' name='rtoggle' value='streets' checked='checked'>
+    <label for='All SMDs'>All Districts</label>
+    <br>
+    <input id='ckct6u5ey0mgj1ho127gsjf2o' type='radio' name='rtoggle' value='light'>
+    <label for='Needs Candidates'>No Candidate</label>
+</div>
+
+
+
+<!-- Place and title the info box -->
+<div class='map-overlay' id='features'><h2>Search your address to find your ANC district</h2><div id='pd'><p>Click on the map for more info
+<!-- Add the dybamic district info -->
+<div id='districts'>
+</div>
+</p></div></div>
+
+
+<script>
+
+// Set up the access token to be used
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+
+
+// Set up the variables being pulled by the layer toggle menu
+var layerList = document.getElementById('menu');
+var inputs = layerList.getElementsByTagName('input');
+
+
+ // Set the initial mapbox style to be used (in this case, the All SMDs style)
+var which_layer = 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie'
+
+// Create a function that pulls in data from the toggle menu selections and updates the style being used
+function switchLayer(layer) {
+    var layerId = layer.target.id;
+    map.setStyle('mapbox://styles/devinbrady/' + layerId);
+    which_layer = ('mapbox://styles/devinbrady/' + layerId);
+}
+
+// Create a for loop that lets the toggle memu switches happen repeatedly
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].onclick = switchLayer; 
+}
+
+// Pull in the map, using the style specified by the most recent value assigned to the variable which_layer (All SMDs at first, then whatever is selected in the toggle menu by the user)
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: which_layer
+    // zoom: 11
+});
+
+
+// wait for map to load before adjusting it
+map.on('load', function() {
+
+    // make a pointer cursor
+    map.getCanvas().style.cursor = 'default';
+
+    // change info window on click
+    map.on('click', function (e) {
+        var districts = map.queryRenderedFeatures(e.point)
+
+            if (districts.length > 0) {
+                var smd_name = districts[0].properties['smd_id'].replace('smd_', '')
+
+                document.getElementById('pd').innerHTML = 
+                    "<b>" + "District " + smd_name + "</b>"
+                    + "<br>" + "<a href='ancs/districts/" + smd_name + ".html'>District Page</a>"
+                    + "<br>Commissioner: " + districts[0].properties['current_commissioner']
+                    + "<br>Candidates: " + districts[0].properties['list_of_candidates']
+
+
+            } else {
+            document.getElementById('pd').innerHTML = '<p>Click on the map for more info</p>';
+        }
+    });
+
+});
+
+
+
+// Set up and geocoder
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    marker: {
+        color: 'orange'
+    },
+    mapboxgl: mapboxgl
+});
+
+map.addControl(geocoder);
+
+// todo: Change map-overlay to the district info of the district that the user geocodes to
+// geocoder.on('result', function() {
+//     console.log('A geocoder result event has occurred.')
+// });
+
+
+
+// Add geolocate control to the map.
+map.addControl(
+    new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    })
+);
+
+// todo: Change map-overlay to the district info of the district that the user geolocates to
+// geolocate.on('geolocate', function() {
+//     console.log('A geolocate event has occurred.')
+// });
+
+
+map.addControl(new mapboxgl.NavigationControl());
+
+// Set the latitude and latitude bounds for how the map should be displayed
+// map.fitBounds([[-106.305577, 25.538105], [-92.647061, 36.787841]]);
+
+</script>
+</body>
+</html>
