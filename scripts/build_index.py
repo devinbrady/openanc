@@ -70,7 +70,7 @@ class BuildIndex():
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_tables())
 
-        output = add_footer(output)
+        output = add_footer(output, level=0)
 
         with open('docs/list.html', 'w') as f:
             f.write(output)
@@ -94,7 +94,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
 
         output = add_google_analytics(output)
-        output = add_footer(output)
+        output = add_footer(output, level=0)
 
         with open('docs/counts.html', 'w') as f:
             f.write(output)
@@ -113,7 +113,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
         output = output.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
         output = add_google_analytics(output)
-        output = add_footer(output)
+        output = add_footer(output, level=0)
 
         with open('docs/about.html', 'w') as f:
             f.write(output)

@@ -174,7 +174,7 @@ class BuildDistricts():
 
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
-            output = add_footer(output)
+            output = add_footer(output, level=2)
 
             # soup = BeautifulSoup(output, 'html.parser')
             # output_pretty = soup.prettify()

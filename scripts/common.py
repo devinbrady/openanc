@@ -262,13 +262,28 @@ def current_time():
     return dc_timestamp
 
 
-def add_footer(input_html):
+def add_footer(input_html, level=0):
     """
     Return HTML with footer included
+
+    level: 
+        0: same dir as homepage, index.html
+        1: one directory down, like ancs/
+        2: two directories down, like ancs/districts/
     """
 
     with open('templates/footer.html', 'r') as f:
         footer_html = f.read()
+
+
+    if level == 0:
+        link_path = ''
+    elif level == 1:
+        link_path = '../'
+    elif level == 2:
+        link_path = '../../'
+
+    footer_html = footer_html.replace('REPLACE_WITH_LINK_PATH___', link_path)
 
     footer_html = footer_html.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('Submit edits'))
     footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', current_time())
