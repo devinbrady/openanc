@@ -7,7 +7,7 @@ import pandas as pd
 from scripts.common import (
     build_anc_html_table
     , anc_names
-    , build_footer
+    , add_footer
     , list_of_smds_without_candidates
     , edit_form_link
     , add_google_analytics
@@ -70,7 +70,7 @@ class BuildIndex():
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_tables())
 
-        output = output.replace('<!-- replace with footer -->', build_footer())
+        output = add_footer(output)
 
         with open('docs/list.html', 'w') as f:
             f.write(output)
@@ -94,7 +94,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
 
         output = add_google_analytics(output)
-        output = output.replace('<!-- replace with footer -->', build_footer())
+        output = add_footer(output)
 
         with open('docs/counts.html', 'w') as f:
             f.write(output)
@@ -113,7 +113,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
         output = output.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
         output = add_google_analytics(output)
-        output = output.replace('<!-- replace with footer -->', build_footer())
+        output = add_footer(output)
 
         with open('docs/about.html', 'w') as f:
             f.write(output)

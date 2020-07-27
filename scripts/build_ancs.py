@@ -11,7 +11,7 @@ from scripts.common import (
     build_anc_html_table
     , anc_names
     , build_data_table
-    , build_footer
+    , add_footer
     , calculate_zoom
     , add_google_analytics
     )
@@ -50,7 +50,7 @@ class BuildANCs():
             output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))
             output = output.replace('REPLACE_WITH_ZOOM_LEVEL', str(calculate_zoom(row['area'])))
 
-            output = output.replace('<!-- replace with footer -->', build_footer())
+            output = add_footer(output)
 
             # soup = BeautifulSoup(output, 'html.parser')
             # output_pretty = soup.prettify()

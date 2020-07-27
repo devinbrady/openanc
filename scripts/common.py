@@ -30,7 +30,7 @@ def add_google_analytics(input_html):
     output_html = input_html.replace('<!-- replace with google analytics -->', ga_block)
 
     return output_html
-    
+
 
 def dc_coordinates():
     """Return coordinates for a DC-wide map"""
@@ -262,7 +262,10 @@ def current_time():
     return dc_timestamp
 
 
-def build_footer():
+def add_footer(input_html):
+    """
+    Return HTML with footer included
+    """
 
     with open('templates/footer.html', 'r') as f:
         footer_html = f.read()
@@ -270,4 +273,7 @@ def build_footer():
     footer_html = footer_html.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('Submit edits'))
     footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', current_time())
 
-    return footer_html
+    output_html = input_html.replace('<!-- replace with footer -->', footer_html)
+
+    return output_html
+

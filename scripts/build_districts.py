@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from scripts.common import (
     build_district_list
     , build_data_table
-    , build_footer
+    , add_footer
     , edit_form_link
     , add_google_analytics
     )
@@ -174,7 +174,7 @@ class BuildDistricts():
 
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
-            output = output.replace('<!-- replace with footer -->', build_footer())
+            output = add_footer(output)
 
             # soup = BeautifulSoup(output, 'html.parser')
             # output_pretty = soup.prettify()
