@@ -2,6 +2,7 @@
 Periodically check DCBOE's site and send an alert if it changes
 """
 
+import os
 import pytz
 import time
 import requests
@@ -12,11 +13,11 @@ from datetime import datetime
 def poll_dcboe():
 
     url = 'https://www.dcboe.org/Candidates/2020-Candidates'
-    current_link_text = '<p><a href="/dcboe/media/PDFFiles/Copy-of-List-of-Advisory-Neighborhood-Commissioners_2020-(00000002)_3.pdf">ANC Candidate List for the November 3 General Election</a></p>'
+    current_link_text = '<p><a href="/dcboe/media/PDFFiles/Copy-of-List-of-Advisory-Neighborhood-Commissioners_2020-(00000003).pdf">ANC Candidate List for the November 3 General Election</a></p>'
 
     tz = pytz.timezone('America/New_York')
     current_timestamp = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
-    print(f'{current_timestamp} requesting: {url}')
+    print(f'{current_timestamp} requesting: {url} > ', end='')
     
     r = requests.get(url, stream=True)
 
@@ -24,7 +25,7 @@ def poll_dcboe():
 
     page_has_changed = not current_link_text in website_text
 
-    print(f'    page_has_changed: {page_has_changed}')
+    print(f'page_has_changed: {page_has_changed}')
     return page_has_changed
 
 
@@ -36,3 +37,6 @@ if __name__ == "__main__":
         time.sleep(300)
 
         page_has_changed = poll_dcboe()
+
+    if page_has_changed:
+        os.system('terminal-notifier -title "OpenANC" -message "DCBOE link has changed" -sound Blow')

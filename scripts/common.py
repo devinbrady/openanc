@@ -8,14 +8,14 @@ def edit_form_link(link_text='Submit edits'):
     """Return HTML for link to form for edits"""
 
     return f'<a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">{link_text}</a>'
-    
 
-def google_analytics_block():
+
+def add_google_analytics(input_html):
     """
-    Return HTML block of Javascript for Google Analytics. Include in the <head> of all pages
+    Return HTML with Google Analytics block added
     """
 
-    return """
+    ga_block = """
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
         <script>
@@ -27,6 +27,10 @@ def google_analytics_block():
         </script>
         """
 
+    output_html = input_html.replace('<!-- replace with google analytics -->', ga_block)
+
+    return output_html
+    
 
 def dc_coordinates():
     """Return coordinates for a DC-wide map"""

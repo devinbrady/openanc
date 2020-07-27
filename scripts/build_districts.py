@@ -12,7 +12,7 @@ from scripts.common import (
     , build_data_table
     , build_footer
     , edit_form_link
-    , google_analytics_block
+    , add_google_analytics
     )
 
 
@@ -157,7 +157,7 @@ class BuildDistricts():
                 
             output = output.replace('REPLACE_WITH_SMD', smd_display)
             
-            output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+            output = add_google_analytics(output)
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))

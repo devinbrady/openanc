@@ -10,8 +10,10 @@ from scripts.common import (
     , build_footer
     , list_of_smds_without_candidates
     , edit_form_link
-    , google_analytics_block
+    , add_google_analytics
 )
+
+from scripts.counts import Counts
 
 
 class BuildIndex():
@@ -59,7 +61,7 @@ class BuildIndex():
         with open('templates/list.html', 'r') as f:
             output = f.read()
 
-        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+        output = add_google_analytics(output)
 
         output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
         output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
@@ -76,6 +78,30 @@ class BuildIndex():
         print('built: list.html')
 
 
+    def count_page(self):
+        """
+        Build Count page
+        """
+
+        with open('templates/counts.html', 'r') as f:
+            output = f.read()
+
+        c = Counts()
+
+        output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_candidate_count('dc', '#fb9a99')) # light red
+        output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_candidate_count('ward', '#b2df8a')) # light green
+        output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_candidate_count('anc_id', '#a6cee3')) # light blue
+        output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
+
+        output = add_google_analytics(output)
+        output = output.replace('<!-- replace with footer -->', build_footer())
+
+        with open('docs/counts.html', 'w') as f:
+            f.write(output)
+
+        print('built: counts.html')
+
+
     def about_page(self):
         """
         Build About page
@@ -86,7 +112,7 @@ class BuildIndex():
 
         output = output.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
         output = output.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
-        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+        output = add_google_analytics(output)
         output = output.replace('<!-- replace with footer -->', build_footer())
 
         with open('docs/about.html', 'w') as f:
@@ -103,7 +129,7 @@ class BuildIndex():
         with open(f'templates/{html_name}.html', 'r') as f:
             output = f.read()
 
-        output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+        output = add_google_analytics(output)
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
@@ -113,6 +139,7 @@ class BuildIndex():
 
     def run(self):
 
+        self.count_page()
         self.list_page()
         self.about_page()
         self.build_single_page('index')

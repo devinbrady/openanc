@@ -13,7 +13,7 @@ from scripts.common import (
     , build_data_table
     , build_footer
     , calculate_zoom
-    , google_analytics_block
+    , add_google_analytics
     )
 
 
@@ -35,7 +35,7 @@ class BuildANCs():
             with open('templates/anc.html', 'r') as f:
                 output = f.read()
             
-            output = output.replace('<!-- replace with google analytics -->', google_analytics_block())
+            output = add_google_analytics(output)
             
             output = output.replace('REPLACE_WITH_ANC', anc_upper)
             
