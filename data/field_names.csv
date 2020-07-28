@@ -4,6 +4,7 @@ anc_id,
 candidate_id,
 candidate_name,
 candidate_source,Candidate Source
+candidate_source_description,Candidate Source Description
 candidate_source_link,Candidate Source Link
 candidate_status,Candidate Status
 centroid_lat,

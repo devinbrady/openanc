@@ -47,15 +47,26 @@ class Counts():
             }, inplace=True
             )
 
+        if 'Ward' in smd_count.columns:
+            smd_count['Ward'] = smd_count['Ward'].apply(lambda row: 'Ward {}'.format(row))
+        
+        if 'ANC' in smd_count.columns:
+            smd_count['ANC'] = smd_count['ANC'].apply(lambda row: 'ANC {}'.format(row))
         
         smd_html = (
             smd_count.style
                 .set_properties(**{
                     'border-color': 'black'
-                    , 'border-style' :'solid'
+                    , 'border-style': 'solid'
                     , 'border-width': '1px'
-                    , 'border-collapse':'collapse'
+                    , 'text-align': 'center'
+                    , 'padding': '4px'
+                    # , 'border-collapse': 'collapse'
                     })
+                .set_properties(
+                    subset=['Percentage with Candidate']
+                    , **{'text-align': 'left'}
+                    )
                 .format({
                     'Has Candidate': '{:.0f}'
                     , 'Percentage with Candidate': '{:.0%}'
@@ -89,6 +100,7 @@ class Counts():
                     , 'border-style' :'solid'
                     , 'border-width': '1px'
                     , 'border-collapse':'collapse'
+                    , 'padding': '4px'
                     })
                 .hide_index()
                 .render()

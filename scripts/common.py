@@ -266,7 +266,7 @@ def add_footer(input_html, level=0):
     """
     Return HTML with footer included
 
-    level: 
+    level for relative links: 
         0: same dir as homepage, index.html
         1: one directory down, like ancs/
         2: two directories down, like ancs/districts/

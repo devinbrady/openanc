@@ -87,6 +87,7 @@ class BuildDistricts():
                         'full_name'
                         , 'candidate_announced_date'
                         , 'candidate_source'
+                        , 'candidate_source_description'
                         , 'candidate_source_link'
                         , 'pickup_date'
                         , 'filed_date'
