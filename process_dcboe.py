@@ -18,8 +18,9 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    df = pd.read_excel('data/dcboe/excel/dcboe-2020-07-24_1913.xlsx')
-    df['dcboe_updated_at'] = '2020-07-24 19:13'
+    df = pd.read_excel('data/dcboe/excel/dcboe-2020-07-28_1743.xlsx')
+    df['dcboe_updated_at'] = '2020-07-28 17:43'
+
     df['candidate_source'] = 'DCBOE'
     df['candidate_source_link'] = 'https://www.dcboe.org/Candidates/2020-Candidates'
 
@@ -57,6 +58,7 @@ def clean_csv():
     # Exclude candidates who dropped out
     df = df[df['candidate_name'] != 'Andrew Spencer DeFrank']
     df = df[df['candidate_name'] != 'Randy D Downs (withdrew 7/24/20)']
+    df = df[df['candidate_name'] != 'Pete Stamper (Withdrew 7/27/2020)']
 
     # Fix data entry errors and convert to dates
     # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'

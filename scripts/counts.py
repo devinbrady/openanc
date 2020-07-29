@@ -21,9 +21,9 @@ class Counts():
 
         if groupby_field == 'dc':
 
-            dfd['State'] = 'DC'
+            dfd['District'] = 'DC'
 
-            smd_count = dfd.groupby('State').agg(
+            smd_count = dfd.groupby('District').agg(
                 num_smds = ('smd_id', 'count')
                 , has_candidate = ('has_candidate', 'sum')
                 )
@@ -65,7 +65,10 @@ class Counts():
                     })
                 .set_properties(
                     subset=['Percentage with Candidate']
-                    , **{'text-align': 'left'}
+                    , **{
+                        'text-align': 'left'
+                        , 'width': '700px'
+                        }
                     )
                 .format({
                     'Has Candidate': '{:.0f}'
