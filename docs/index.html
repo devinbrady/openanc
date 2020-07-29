@@ -117,10 +117,10 @@ margin-left:25%;
     <br/><a href="about.html">About</a>
     <br/><br/>
     <input id='ckcoaoonn01nd1ipdspkflwie' type='radio' name='rtoggle' value='streets' checked='checked'>
-    <label for='All SMDs'>All Districts</label>
+    <label for='ckcoaoonn01nd1ipdspkflwie'>All Districts</label>
     <br/>
     <input id='ckct6u5ey0mgj1ho127gsjf2o' type='radio' name='rtoggle' value='light'>
-    <label for='Needs Candidates'>Needs Candidate</label>
+    <label for='ckct6u5ey0mgj1ho127gsjf2o'>Needs Candidate</label>
 </div>
 
 
@@ -145,7 +145,7 @@ var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
 
 
- // Set the initial mapbox style to be used (in this case, the All SMDs style)
+ // Set the initial mapbox style to be used (in this case, the allSMDs style)
 var which_layer = 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie'
 
 // Create a function that pulls in data from the toggle menu selections and updates the style being used
@@ -160,7 +160,7 @@ for (var i = 0; i < inputs.length; i++) {
     inputs[i].onclick = switchLayer; 
 }
 
-// Pull in the map, using the style specified by the most recent value assigned to the variable which_layer (All SMDs at first, then whatever is selected in the toggle menu by the user)
+// Pull in the map, using the style specified by the most recent value assigned to the variable which_layer (allSMDs at first, then whatever is selected in the toggle menu by the user)
 var map = new mapboxgl.Map({
     container: 'map',
     style: which_layer
