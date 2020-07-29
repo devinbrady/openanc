@@ -35,7 +35,7 @@ class Counts():
                 , has_candidate = ('has_candidate', 'sum')
                 )
 
-
+        smd_count['Needs Candidate'] = smd_count['num_smds'] - smd_count['has_candidate']
         smd_count['Percentage with Candidate'] = smd_count['has_candidate'] / smd_count['num_smds']
 
         smd_count = smd_count.reset_index()
@@ -51,7 +51,7 @@ class Counts():
             smd_count['Ward'] = smd_count['Ward'].apply(lambda row: 'Ward {}'.format(row))
         
         if 'ANC' in smd_count.columns:
-            smd_count['ANC'] = smd_count['ANC'].apply(lambda row: 'ANC {}'.format(row))
+            smd_count['ANC'] = smd_count['ANC'].apply(lambda row: '<a href="ancs/anc{0}.html">ANC {1}</a>'.format(row.lower(), row))
         
         smd_html = (
             smd_count.style
@@ -72,6 +72,7 @@ class Counts():
                     )
                 .format({
                     'Has Candidate': '{:.0f}'
+                    , 'Needs Candidate': '{:.0f}'
                     , 'Percentage with Candidate': '{:.0%}'
                     })
                 .bar(subset=['Percentage with Candidate'], color=bar_color, vmin=0, vmax=1)
