@@ -49,7 +49,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10048,Mike Silverstein,smd_2B06,smd_2B06,,,,x
 10049,Kari Cunningham,smd_2B07,not_currently_running,https://twitter.com/KariLCunningha1,,,
 10050,Beverly Schwartz,smd_2B08,not_currently_running,,,,
-10051,Ed Hanlon,smd_2B09,not_currently_running,,,,
+10051,Ed Hanlon,smd_2B09,smd_2B09,,,,
 10052,Michael D. Shankle,smd_2C01,smd_2C01,https://twitter.com/MShankle,,,x
 10053,Jamaal T. Burton,smd_2C02,not_currently_running,https://twitter.com/iJamaal,,,
 10054,Kevin Wilsey,smd_2C03,not_currently_running,,,,
@@ -195,7 +195,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10194,Corey Holman,smd_6B06,smd_6B06,https://twitter.com/coreyholman,,,
 10195,Kelly Waud,smd_6B07,not_currently_running,,,,
 10196,Chander Jayaraman,smd_6B08,not_currently_running,https://twitter.com/DC_Chander,,,
-10197,Kathryn Denise Rucker Krepp,smd_6B10,not_currently_running,https://twitter.com/kdrkrepp,,,
+10197,Kathryn Denise Rucker Krepp,smd_6B10,smd_6B10,https://twitter.com/kdrkrepp,,,
 10198,Christine Healey,smd_6C01,smd_6C01,,,,
 10199,Karen Wirt,smd_6C02,smd_6C02,,,,
 10200,Jay Adelstein,smd_6C03,smd_6C03,,,,
@@ -242,7 +242,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10241,Victor L. Horton,smd_7E05,smd_7E05,https://twitter.com/1mV1ctor,,,
 10242,Delia Houseal,smd_7E06,smd_7E06,https://twitter.com/DeliaHouseal,,,
 10243,Yolanda Fields,smd_7E07,not_currently_running,,,,
-10244,Tyrell M. Holcomb,smd_7F01,not_currently_running,https://twitter.com/tmholcomb,,,
+10244,Tyrell M. Holcomb,smd_7F01,smd_7F01,https://twitter.com/tmholcomb,,,
 10245,Terrance Hunter,smd_7F02,smd_7F02,,,,
 10246,Sheila Carson Carr,smd_7F03,not_currently_running,,,,
 10247,Charlene Exum,smd_7F04,smd_7F04,,,,
@@ -266,7 +266,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10265,Chyla D. Evans,smd_8C02,not_currently_running,,,,
 10266,Robinette Woodland,smd_8C03,smd_8C03,https://twitter.com/robbieanc8c03,,,x
 10267,Regina Sharlita Pixley,smd_8C04,smd_8C04,,,,x
-10268,Mustafa Abdul-Salaam,smd_8C05,not_currently_running,,,,
+10268,Mustafa Abdul-Salaam,smd_8C05,smd_8C05,,,,
 10269,Rhonda L. Edwards-Hines,smd_8C06,smd_8C06,,,,x
 10270,Salim Adofo,smd_8C07,smd_8C07,https://twitter.com/salimadofo,https://www.facebook.com/salimadofo,https://www.salim4dc.com/,x
 10271,Patricia Carmon,smd_8D01,smd_8D01,,,,x
@@ -347,7 +347,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10351,Yvette D. Marbury-Long,not_currently_serving,smd_4C04,,,,
 10352,Michael C. Whelan,not_currently_serving,smd_4C06,https://twitter.com/Mike4Petworth,,,
 10353,Namatie Sia Mansaray,not_currently_serving,smd_4C06,,,,
-10354,Charles Andrew Sinks,not_currently_serving,smd_4C08,https://twitter.com/notfloats,,,
+10354,Charles Andrew Sinks,not_currently_serving,smd_4C08,https://twitter.com/notfloats,,https://www.charlieforanc.com/,x
 10355,Alan Wehler,not_currently_serving,smd_4C09,,,,
 10356,Monica P. Blair,not_currently_serving,smd_4C10,,,,
 10357,Damion McDuffie Sr.,not_currently_serving,smd_5A01,,,,
@@ -384,7 +384,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10391,Andrew Spencer DeFrank,not_currently_serving,smd_6E01,,,,
 10392,Mary A. Sutherland,not_currently_serving,smd_6E01,,,,
 10393,Tony Brown,not_currently_serving,smd_6E02,,,,
-10394,Alexander Lopez,not_currently_serving,smd_6E02,https://twitter.com/alopez_pdx,,,
+10394,Alexander Lopez,not_currently_serving,smd_6E02,https://twitter.com/alopez_pdx,,https://www.alexlopez6e02.com/,
 10395,Valerie Randolph,not_currently_serving,smd_6E02,,,,
 10396,Eugene Simms,not_currently_serving,smd_6E02,,,,
 10397,Matthew R. Salmon,not_currently_serving,smd_6E04,,,,
@@ -396,7 +396,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10403,Mandla Deskins,not_currently_serving,smd_7C02,,,,
 10404,Yolanda Fields,not_currently_serving,smd_7C02,,,,
 10405,Patricia Williams,not_currently_serving,smd_7C02,,,,
-10406,Vincent Van,not_currently_serving,smd_7C03,,,,
+10406,Vincent Van,not_currently_serving,smd_7C03,https://twitter.com/VinceJVan,,https://www.vincevanfordc.com/,x
 10407,Pete Stamper,not_currently_serving,smd_7C04,,,,
 10408,Victoria Clark,not_currently_serving,smd_7C06,https://twitter.com/Rayelle_ESQ,,https://www.victoria4dc.com/,
 10409,Emmanuelle Klossou,not_currently_serving,smd_7C07,,,,
@@ -504,3 +504,12 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10516,Stephanie Audain,not_currently_serving,smd_7D05,,,,
 10517,Michelle Kiah,not_currently_serving,smd_8B05,,,,
 10518,"Dolores ""Miracle"" Bryant",not_currently_serving,smd_8C03,,,,
+10519,Sabel Harris,not_currently_serving,smd_1B12,,,,
+10520,Sherene Joseph,not_currently_serving,smd_2F05,,,,
+10521,Alexandra Bailey,not_currently_serving,smd_2F08,,,,
+10522,Katharine Nanavatty,not_currently_serving,smd_3D05,,,,
+10524,Katie Ann Snyder,not_currently_serving,smd_4A01,,,,
+10525,Brenda Dawson Parks,not_currently_serving,smd_4B04,,,,
+10526,Bobby Curtis King II,not_currently_serving,smd_4C02,,,,
+10527,Simone Egwu,not_currently_serving,smd_5D07,,,,
+10528,Kimory S. Orendoff,not_currently_serving,smd_7D05,,,,

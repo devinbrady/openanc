@@ -6,6 +6,7 @@ from scripts.refresh_data import RefreshData
 
 class Counts():
 
+
     def smd_candidate_count(self, groupby_field, bar_color):
         """
         Count the number of SMDs and number of SMDs with candidates in each ANC or ward
@@ -80,12 +81,84 @@ class Counts():
                 .hide_index()
                 .render()
             )
-        # smd_html = smd_count.to_html(index=False)
         
         return smd_html
 
 
+    def contested_count(self):
+        """
+        Return HTML with number of candidates in each district, shows how many races are contested
+        """
+
+        rd = RefreshData()
+        smd_df = rd.assemble_smd_info()
+        smd_df.rename(columns={'number_of_candidates': 'Number of Candidates'}, inplace=True)
+        html = ''
+
+
+        # Count of contested vs uncontested
+        election_status_count = pd.DataFrame(columns=['Election Status', 'Count of Districts', 'Percentage'])
+        election_status_count.loc[0] = ['No Candidates Running', sum(smd_df['Number of Candidates'] == 0), 0]
+        election_status_count.loc[1] = ['Uncontested (1 candidate)', sum(smd_df['Number of Candidates'] == 1), 0]
+        election_status_count.loc[2] = ['Contested (2 or more candidates)', sum(smd_df['Number of Candidates'] > 1), 0]
+
+        election_status_count['Percentage'] = election_status_count['Count of Districts'] / election_status_count['Count of Districts'].sum()
+
+        html += '<p>'
+        html += (
+            election_status_count.style
+            .set_properties(**{
+                'border-color': 'black'
+                , 'border-style' :'solid'
+                , 'border-width': '1px'
+                , 'border-collapse':'collapse'
+                , 'padding': '4px'
+                })
+            .format({
+                'Percentage': '{:.1%}'
+                })
+            .hide_index()
+            .render()
+            )
+        html += '</p>'
+
+
+        # Count by number of candidates
+
+        candidate_count = pd.DataFrame(
+            smd_df.groupby('Number of Candidates').size()
+            , columns=['Count of Districts']
+            ).reset_index()
+
+        candidate_count['Percentage'] = candidate_count['Count of Districts'] / candidate_count['Count of Districts'].sum()
+
+        html += '<p>'
+        html += (
+            candidate_count.style
+            .set_properties(**{
+                'border-color': 'black'
+                , 'border-style' :'solid'
+                , 'border-width': '1px'
+                , 'border-collapse':'collapse'
+                , 'padding': '4px'
+                })
+            .format({
+                'Percentage': '{:.1%}'
+                })
+            .hide_index()
+            .render()
+            )
+        html += '</p>'
+
+
+
+        return html
+
+
     def candidate_status_count(self):
+        """
+        Return HTML table with count of candidates by candidate status
+        """
 
         candidates = pd.read_csv('data/candidates.csv')
 
@@ -112,10 +185,3 @@ class Counts():
 
         return status_html
 
-
-    def run(self):
-
-        # smd_candidate_count('anc_id')
-        # smd_candidate_count('ward')
-        
-        candidate_status_count()

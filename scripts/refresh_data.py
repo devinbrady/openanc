@@ -91,7 +91,7 @@ class RefreshData():
 
     def assemble_smd_info(self, duplicate_check=False, print_counts=False, publish_to_google_sheets=False):
         """
-        Make CSV, one row per district, with candidate names and counts
+        Return DataFrame, one row per district, with candidate names and counts
 
         Destination is a Mapbox dataset
         """

@@ -18,8 +18,12 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    df = pd.read_excel('data/dcboe/excel/dcboe-2020-07-28_1743.xlsx')
-    df['dcboe_updated_at'] = '2020-07-28 17:43'
+    excel_file = 'dcboe-2020-07-29.xlsx'
+    dcboe_updated_at = '2020-07-29 17:33'
+    print('Reading Excel file: ' + excel_file)
+
+    df = pd.read_excel('data/dcboe/excel/' + excel_file)
+    df['dcboe_updated_at'] = dcboe_updated_at
 
     df['candidate_source'] = 'DCBOE'
     df['candidate_source_link'] = 'https://www.dcboe.org/Candidates/2020-Candidates'
@@ -223,10 +227,12 @@ def run_matching_process():
     add_records_to_people.reset_index(inplace=True)
     add_records_to_people.drop(columns=['index'], inplace=True)
     add_records_to_people.to_csv('data/dcboe/to_google_sheets/add_records_to_people.csv', index=False)
+    print('Number of new people: {}'.format(len(add_records_to_people)))
 
     add_records_to_candidates.reset_index(inplace=True)
     add_records_to_candidates.drop(columns=['index'], inplace=True)
     add_records_to_candidates.to_csv('data/dcboe/to_google_sheets/add_records_to_candidates.csv', index=False)
+    print('Number of new candidates: {}'.format(len(add_records_to_candidates)))
 
 
 
