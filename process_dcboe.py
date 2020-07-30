@@ -235,10 +235,27 @@ def run_matching_process():
     print('Number of new candidates: {}'.format(len(add_records_to_candidates)))
 
 
+def check_new_candidates_for_duplicates():
+    """
+    Look at the most recent records and confirm they don't duplicate any records in the same district
+    """
+
+    new_candidates = pd.read_csv('data/dcboe/to_google_sheets/add_records_to_candidates.csv')
+
+    rd = RefreshData()
+    smd_df = rd.assemble_smd_info()
+
+    comparison = pd.merge(new_candidates, smd_df, how='inner', on='smd_id')
+
+    print('Make sure that none of the new candidates duplicate existing candidates:')
+    print(comparison[['smd_id', 'candidate_name', 'list_of_candidates']])
+
 
 if __name__ == '__main__':
 
     clean_csv()
 
     run_matching_process()
+
+    check_new_candidates_for_duplicates()
 
