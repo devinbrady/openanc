@@ -197,7 +197,20 @@ def build_smd_html_table(list_of_smds, link_path=''):
         
         display_df = pd.merge(display_df, cs_smd, how='left', on='smd_id')            
 
-    html = display_df[columns_to_html].to_html(index=False, na_rep='', justify='left', escape=False)
+    html = (
+        display_df[columns_to_html]
+        .fillna('')
+        .style
+        .set_properties(**{
+            'border-color': 'black'
+            , 'border-style': 'solid'
+            , 'border-width': '1px'
+            , 'text-align': 'center'
+            , 'padding': '4px'
+            })
+        .hide_index()
+        .render()
+        )
 
     return html
 

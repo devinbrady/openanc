@@ -1,9 +1,9 @@
 <html>
 <head>
-    <title>OpenANC: Ward 4</title>
+    <title>OpenANC : Ward 4</title>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
-
+<meta charset="UTF-8">
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
@@ -37,278 +37,1378 @@ map.addControl(new mapboxgl.NavigationControl());
 
 <h2>Districts, Commissioners, and Candidates in Ward 4</h2>
 
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th>SMD</th>
-      <th>Current Commissioner</th>
-      <th>Number of Candidates</th>
-      <th>On Ballot</th>
-      <th>Pulled Papers for Ballot</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="../ancs/districts/3G01.html">3G01</a></td>
-      <td>Abraham Clayman</td>
-      <td>2</td>
-      <td>Lisa R. Gore, Lucinda A. Wade</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/3G02.html">3G02</a></td>
-      <td>Chanda Tuck Garfield</td>
-      <td>1</td>
-      <td></td>
-      <td>John K. Higgins</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/3G03.html">3G03</a></td>
-      <td>Randy Speck</td>
-      <td>1</td>
-      <td>Randy Speck</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/3G04.html">3G04</a></td>
-      <td>Rebecca Maydak</td>
-      <td>1</td>
-      <td></td>
-      <td>Rebecca Maydak</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A01.html">4A01</a></td>
-      <td>Phyllis Caudle Green</td>
-      <td>1</td>
-      <td></td>
-      <td>Katie Ann Snyder</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A02.html">4A02</a></td>
-      <td>Stacey Lincoln</td>
-      <td>2</td>
-      <td>Stacey Lincoln, Merrit Paul Drucker</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A03.html">4A03</a></td>
-      <td>Stephen A. Whatley</td>
-      <td>1</td>
-      <td></td>
-      <td>Stephen A. Whatley</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A04.html">4A04</a></td>
-      <td>Patience Singleton</td>
-      <td>2</td>
-      <td>Jes'Terieuz 'JT' Howard</td>
-      <td>Patience Singleton</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A05.html">4A05</a></td>
-      <td>(vacant)</td>
-      <td>0</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A06.html">4A06</a></td>
-      <td>Candace Tiana Nelson</td>
-      <td>2</td>
-      <td>Aretha N. Jones</td>
-      <td>Candace Tiana Nelson</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A07.html">4A07</a></td>
-      <td>Marlene Moss</td>
-      <td>0</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4A08.html">4A08</a></td>
-      <td>Gale B. Black</td>
-      <td>1</td>
-      <td>Pavan Khoobchandani</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B01.html">4B01</a></td>
-      <td>Evan Yeats</td>
-      <td>1</td>
-      <td>Evan Yeats</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B02.html">4B02</a></td>
-      <td>Erin Palmer</td>
-      <td>1</td>
-      <td></td>
-      <td>Erin Palmer</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B03.html">4B03</a></td>
-      <td>Scot Knickerbocker</td>
-      <td>2</td>
-      <td>Jocelynn 'JJ' Johnson, Laurence B Minor II</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B04.html">4B04</a></td>
-      <td>Brenda Parks</td>
-      <td>1</td>
-      <td></td>
-      <td>Brenda Dawson Parks</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B05.html">4B05</a></td>
-      <td>Perry Redd</td>
-      <td>0</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B06.html">4B06</a></td>
-      <td>Tiffani Nichole Johnson</td>
-      <td>1</td>
-      <td></td>
-      <td>Tiffani Nichole Johnson</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B07.html">4B07</a></td>
-      <td>Geoff Bromaghim</td>
-      <td>1</td>
-      <td>Geoff Bromaghim</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B08.html">4B08</a></td>
-      <td>Alison Brooks</td>
-      <td>1</td>
-      <td>Alison Brooks</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4B09.html">4B09</a></td>
-      <td>LaRoya A. Huff</td>
-      <td>2</td>
-      <td></td>
-      <td>LaRoya A. Huff, Tischa Cockrell</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C01.html">4C01</a></td>
-      <td>Charlotte Nugent</td>
-      <td>3</td>
-      <td></td>
-      <td>Vanessa Rubio, Taalib-Din Uqdah, Mia Bruner</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C02.html">4C02</a></td>
-      <td>Maria Barry</td>
-      <td>2</td>
-      <td>Maria Barry</td>
-      <td>Bobby Curtis King II</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C03.html">4C03</a></td>
-      <td>Ulysses E. Campbell</td>
-      <td>1</td>
-      <td>Ulysses E. Campbell</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C04.html">4C04</a></td>
-      <td>Nora Simon</td>
-      <td>2</td>
-      <td></td>
-      <td>Yvette D. Marbury-Long, Jeremy Foster</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C05.html">4C05</a></td>
-      <td>Debbie Matties</td>
-      <td>1</td>
-      <td></td>
-      <td>Audrey Anderson Duckett</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C06.html">4C06</a></td>
-      <td>Bennett Hilley</td>
-      <td>2</td>
-      <td></td>
-      <td>Michael C. Whelan, Namatie Sia Mansaray</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C07.html">4C07</a></td>
-      <td>Kim Varzi</td>
-      <td>2</td>
-      <td>Paul Johnson</td>
-      <td>Jacob Mason</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C08.html">4C08</a></td>
-      <td>Leah Anderson</td>
-      <td>2</td>
-      <td>Charles Andrew Sinks</td>
-      <td>Clara Haskell Botstein</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C09.html">4C09</a></td>
-      <td>Tearsa Coates</td>
-      <td>1</td>
-      <td>Alan Wehler</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4C10.html">4C10</a></td>
-      <td>Jonah Goodman</td>
-      <td>2</td>
-      <td>Monica P. Blair, Jonah Goodman</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4D01.html">4D01</a></td>
-      <td>Peter Tabor</td>
-      <td>0</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4D02.html">4D02</a></td>
-      <td>Renée L. Bowser</td>
-      <td>1</td>
-      <td></td>
-      <td>Renée L. Bowser</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4D03.html">4D03</a></td>
-      <td>Aaron Polkey</td>
-      <td>1</td>
-      <td></td>
-      <td>Aryan Rodriguez Bocquet</td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4D04.html">4D04</a></td>
-      <td>Jamie Barden</td>
-      <td>1</td>
-      <td>Zachary Israel</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4D05.html">4D05</a></td>
-      <td>Krystal Branton</td>
-      <td>0</td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><a href="../ancs/districts/4D06.html">4D06</a></td>
-      <td>Jonathan Nobil</td>
-      <td>1</td>
-      <td>Jonathan Nobil</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<style  type="text/css" >
+    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }</style><table id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col0" class="data row0 col0" ><a href="../ancs/districts/3G01.html">3G01</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col1" class="data row0 col1" >Abraham Clayman</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col2" class="data row0 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col3" class="data row0 col3" >Lisa R. Gore, Lucinda A. Wade</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row0_col4" class="data row0 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col0" class="data row1 col0" ><a href="../ancs/districts/3G02.html">3G02</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col1" class="data row1 col1" >Chanda Tuck Garfield</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col2" class="data row1 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col3" class="data row1 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row1_col4" class="data row1 col4" >John K. Higgins</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col0" class="data row2 col0" ><a href="../ancs/districts/3G03.html">3G03</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col1" class="data row2 col1" >Randy Speck</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col2" class="data row2 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col3" class="data row2 col3" >Randy Speck</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row2_col4" class="data row2 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col0" class="data row3 col0" ><a href="../ancs/districts/3G04.html">3G04</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col1" class="data row3 col1" >Rebecca Maydak</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col2" class="data row3 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col3" class="data row3 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row3_col4" class="data row3 col4" >Rebecca Maydak</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col0" class="data row4 col0" ><a href="../ancs/districts/4A01.html">4A01</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col1" class="data row4 col1" >Phyllis Caudle Green</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col2" class="data row4 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col3" class="data row4 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row4_col4" class="data row4 col4" >Katie Ann Snyder</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col0" class="data row5 col0" ><a href="../ancs/districts/4A02.html">4A02</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col1" class="data row5 col1" >Stacey Lincoln</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col2" class="data row5 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col3" class="data row5 col3" >Stacey Lincoln, Merrit Paul Drucker</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row5_col4" class="data row5 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col0" class="data row6 col0" ><a href="../ancs/districts/4A03.html">4A03</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col1" class="data row6 col1" >Stephen A. Whatley</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col2" class="data row6 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col3" class="data row6 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row6_col4" class="data row6 col4" >Stephen A. Whatley</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col0" class="data row7 col0" ><a href="../ancs/districts/4A04.html">4A04</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col1" class="data row7 col1" >Patience Singleton</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col2" class="data row7 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col3" class="data row7 col3" >Jes'Terieuz 'JT' Howard</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row7_col4" class="data row7 col4" >Patience Singleton</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col0" class="data row8 col0" ><a href="../ancs/districts/4A05.html">4A05</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col1" class="data row8 col1" >(vacant)</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col2" class="data row8 col2" >0</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col3" class="data row8 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row8_col4" class="data row8 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col0" class="data row9 col0" ><a href="../ancs/districts/4A06.html">4A06</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col1" class="data row9 col1" >Candace Tiana Nelson</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col2" class="data row9 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col3" class="data row9 col3" >Aretha N. Jones</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row9_col4" class="data row9 col4" >Candace Tiana Nelson</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col0" class="data row10 col0" ><a href="../ancs/districts/4A07.html">4A07</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col1" class="data row10 col1" >Marlene Moss</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col2" class="data row10 col2" >0</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col3" class="data row10 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row10_col4" class="data row10 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col0" class="data row11 col0" ><a href="../ancs/districts/4A08.html">4A08</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col1" class="data row11 col1" >Gale B. Black</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col2" class="data row11 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col3" class="data row11 col3" >Pavan Khoobchandani</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row11_col4" class="data row11 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col0" class="data row12 col0" ><a href="../ancs/districts/4B01.html">4B01</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col1" class="data row12 col1" >Evan Yeats</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col2" class="data row12 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col3" class="data row12 col3" >Evan Yeats</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row12_col4" class="data row12 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col0" class="data row13 col0" ><a href="../ancs/districts/4B02.html">4B02</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col1" class="data row13 col1" >Erin Palmer</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col2" class="data row13 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col3" class="data row13 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row13_col4" class="data row13 col4" >Erin Palmer</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col0" class="data row14 col0" ><a href="../ancs/districts/4B03.html">4B03</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col1" class="data row14 col1" >Scot Knickerbocker</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col2" class="data row14 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col3" class="data row14 col3" >Jocelynn 'JJ' Johnson, Laurence B Minor II</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row14_col4" class="data row14 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col0" class="data row15 col0" ><a href="../ancs/districts/4B04.html">4B04</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col1" class="data row15 col1" >Brenda Parks</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col2" class="data row15 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col3" class="data row15 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row15_col4" class="data row15 col4" >Brenda Dawson Parks</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col0" class="data row16 col0" ><a href="../ancs/districts/4B05.html">4B05</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col1" class="data row16 col1" >Perry Redd</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col2" class="data row16 col2" >0</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col3" class="data row16 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row16_col4" class="data row16 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col0" class="data row17 col0" ><a href="../ancs/districts/4B06.html">4B06</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col1" class="data row17 col1" >Tiffani Nichole Johnson</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col2" class="data row17 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col3" class="data row17 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row17_col4" class="data row17 col4" >Tiffani Nichole Johnson</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col0" class="data row18 col0" ><a href="../ancs/districts/4B07.html">4B07</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col1" class="data row18 col1" >Geoff Bromaghim</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col2" class="data row18 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col3" class="data row18 col3" >Geoff Bromaghim</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row18_col4" class="data row18 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col0" class="data row19 col0" ><a href="../ancs/districts/4B08.html">4B08</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col1" class="data row19 col1" >Alison Brooks</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col2" class="data row19 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col3" class="data row19 col3" >Alison Brooks</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row19_col4" class="data row19 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col0" class="data row20 col0" ><a href="../ancs/districts/4B09.html">4B09</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col1" class="data row20 col1" >LaRoya A. Huff</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col2" class="data row20 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col3" class="data row20 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row20_col4" class="data row20 col4" >LaRoya A. Huff, Tischa Cockrell</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col0" class="data row21 col0" ><a href="../ancs/districts/4C01.html">4C01</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col1" class="data row21 col1" >Charlotte Nugent</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col2" class="data row21 col2" >3</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col3" class="data row21 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row21_col4" class="data row21 col4" >Vanessa Rubio, Taalib-Din Uqdah, Mia Bruner</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col0" class="data row22 col0" ><a href="../ancs/districts/4C02.html">4C02</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col1" class="data row22 col1" >Maria Barry</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col2" class="data row22 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col3" class="data row22 col3" >Maria Barry</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row22_col4" class="data row22 col4" >Bobby Curtis King II</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col0" class="data row23 col0" ><a href="../ancs/districts/4C03.html">4C03</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col1" class="data row23 col1" >Ulysses E. Campbell</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col2" class="data row23 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col3" class="data row23 col3" >Ulysses E. Campbell</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row23_col4" class="data row23 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col0" class="data row24 col0" ><a href="../ancs/districts/4C04.html">4C04</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col1" class="data row24 col1" >Nora Simon</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col2" class="data row24 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col3" class="data row24 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row24_col4" class="data row24 col4" >Yvette D. Marbury-Long, Jeremy Foster</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col0" class="data row25 col0" ><a href="../ancs/districts/4C05.html">4C05</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col1" class="data row25 col1" >Debbie Matties</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col2" class="data row25 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col3" class="data row25 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row25_col4" class="data row25 col4" >Audrey Anderson Duckett</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col0" class="data row26 col0" ><a href="../ancs/districts/4C06.html">4C06</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col1" class="data row26 col1" >Bennett Hilley</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col2" class="data row26 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col3" class="data row26 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row26_col4" class="data row26 col4" >Michael C. Whelan, Namatie Sia Mansaray</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col0" class="data row27 col0" ><a href="../ancs/districts/4C07.html">4C07</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col1" class="data row27 col1" >Kim Varzi</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col2" class="data row27 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col3" class="data row27 col3" >Paul Johnson</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row27_col4" class="data row27 col4" >Jacob Mason</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col0" class="data row28 col0" ><a href="../ancs/districts/4C08.html">4C08</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col1" class="data row28 col1" >Leah Anderson</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col2" class="data row28 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col3" class="data row28 col3" >Charles Andrew Sinks</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row28_col4" class="data row28 col4" >Clara Haskell Botstein</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col0" class="data row29 col0" ><a href="../ancs/districts/4C09.html">4C09</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col1" class="data row29 col1" >Tearsa Coates</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col2" class="data row29 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col3" class="data row29 col3" >Alan Wehler</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row29_col4" class="data row29 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col0" class="data row30 col0" ><a href="../ancs/districts/4C10.html">4C10</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col1" class="data row30 col1" >Jonah Goodman</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col2" class="data row30 col2" >2</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col3" class="data row30 col3" >Monica P. Blair, Jonah Goodman</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row30_col4" class="data row30 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col0" class="data row31 col0" ><a href="../ancs/districts/4D01.html">4D01</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col1" class="data row31 col1" >Peter Tabor</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col2" class="data row31 col2" >0</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col3" class="data row31 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row31_col4" class="data row31 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col0" class="data row32 col0" ><a href="../ancs/districts/4D02.html">4D02</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col1" class="data row32 col1" >Renée L. Bowser</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col2" class="data row32 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col3" class="data row32 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row32_col4" class="data row32 col4" >Renée L. Bowser</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col0" class="data row33 col0" ><a href="../ancs/districts/4D03.html">4D03</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col1" class="data row33 col1" >Aaron Polkey</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col2" class="data row33 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col3" class="data row33 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row33_col4" class="data row33 col4" >Aryan Rodriguez Bocquet</td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col0" class="data row34 col0" ><a href="../ancs/districts/4D04.html">4D04</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col1" class="data row34 col1" >Jamie Barden</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col2" class="data row34 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col3" class="data row34 col3" >Zachary Israel</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row34_col4" class="data row34 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col0" class="data row35 col0" ><a href="../ancs/districts/4D05.html">4D05</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col1" class="data row35 col1" >Krystal Branton</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col2" class="data row35 col2" >0</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col3" class="data row35 col3" ></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row35_col4" class="data row35 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col0" class="data row36 col0" ><a href="../ancs/districts/4D06.html">4D06</a></td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col1" class="data row36 col1" >Jonathan Nobil</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col2" class="data row36 col2" >1</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col3" class="data row36 col3" >Jonathan Nobil</td>
+                        <td id="T_9e3ee93a_d2a9_11ea_9b31_acde48001122row36_col4" class="data row36 col4" ></td>
+            </tr>
+    </tbody></table>
 
 <p>Note that the Single Member Districts 3G01, 3G02, 3G03, and 3G04 are a part of ANC 3G but located in Ward 4.</p>
 
