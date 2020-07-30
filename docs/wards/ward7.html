@@ -1,0 +1,354 @@
+<html>
+<head>
+    <title>7</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../index.html">OpenANC</a> : Ward 7</h1>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03412954884507, 38.9361129455516], // starting position [lng, lat]
+    zoom: 11
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Districts, Commissioners, and Candidates in Ward 7</h2>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>SMD</th>
+      <th>Current Commissioner</th>
+      <th>Number of Candidates</th>
+      <th>On Ballot</th>
+      <th>Pulled Papers for Ballot</th>
+      <th>Withdrew</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../ancs/districts/7B01.html">7B01</a></td>
+      <td>Patricia Howard-Chittams</td>
+      <td>2</td>
+      <td>John Adams</td>
+      <td>Chioma Iwuoha</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7B02.html">7B02</a></td>
+      <td>Tiffany L. Brown</td>
+      <td>1</td>
+      <td>Tiffany L. Brown</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7B03.html">7B03</a></td>
+      <td>Benjamin Crane</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7B04.html">7B04</a></td>
+      <td>Nicole Smith-McDermott</td>
+      <td>1</td>
+      <td></td>
+      <td>Cydne Smith Nash</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7B05.html">7B05</a></td>
+      <td>Villareal "VJ" Johnson II</td>
+      <td>2</td>
+      <td></td>
+      <td>Villareal "VJ" Johnson II, Donna Robinson</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7B06.html">7B06</a></td>
+      <td>April Pradier</td>
+      <td>2</td>
+      <td></td>
+      <td>Tony Dugger, Andrew Carlyle Haynesworth</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7B07.html">7B07</a></td>
+      <td>D. L. Humphrey</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7C01.html">7C01</a></td>
+      <td>Patricia A. Malloy</td>
+      <td>1</td>
+      <td></td>
+      <td>Patricia A. Malloy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7C02.html">7C02</a></td>
+      <td>(vacant)</td>
+      <td>3</td>
+      <td>Mandla Deskins</td>
+      <td>Yolanda Fields, Patricia Williams</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7C03.html">7C03</a></td>
+      <td>Catherine A. Woods</td>
+      <td>2</td>
+      <td></td>
+      <td>Vincent Van, Catherine A. Woods</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7C04.html">7C04</a></td>
+      <td>Anthony Lorenzo Green</td>
+      <td>2</td>
+      <td></td>
+      <td>Anthony Lorenzo Green, Patricia Stamper</td>
+      <td>Pete Stamper</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7C05.html">7C05</a></td>
+      <td>Mary L. Gaffney</td>
+      <td>1</td>
+      <td></td>
+      <td>Mary L. Gaffney</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7C06.html">7C06</a></td>
+      <td>Arnold Smith</td>
+      <td>1</td>
+      <td></td>
+      <td>Victoria Clark</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7C07.html">7C07</a></td>
+      <td>Antawan Holmes</td>
+      <td>2</td>
+      <td>Antawan Holmes</td>
+      <td>Emmanuelle Klossou</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7D01.html">7D01</a></td>
+      <td>Tamara Blair</td>
+      <td>1</td>
+      <td></td>
+      <td>Tamara Blair</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7D02.html">7D02</a></td>
+      <td>Siraaj M. Hasan</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7D03.html">7D03</a></td>
+      <td>Dorothy Douglas</td>
+      <td>1</td>
+      <td>Dorothy Douglas</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7D04.html">7D04</a></td>
+      <td>Cinque E. Culver</td>
+      <td>1</td>
+      <td>Milton Hardy</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7D05.html">7D05</a></td>
+      <td>Aretha Jackson</td>
+      <td>2</td>
+      <td></td>
+      <td>Stephanie Audain, Kimory S. Orendoff</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7D06.html">7D06</a></td>
+      <td>(vacant)</td>
+      <td>1</td>
+      <td>Rebecca Morris</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7D07.html">7D07</a></td>
+      <td>Artilie Wright</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7E01.html">7E01</a></td>
+      <td>Veda Rasheed</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7E02.html">7E02</a></td>
+      <td>Linda S. Green</td>
+      <td>1</td>
+      <td></td>
+      <td>Linda S. Green</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7E03.html">7E03</a></td>
+      <td>Ebbon A. Allen</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7E04.html">7E04</a></td>
+      <td>Takiyah Tate</td>
+      <td>3</td>
+      <td>Natasha Dupee, Lorraine Miller, Keith Hasan-Towery</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7E05.html">7E05</a></td>
+      <td>Victor L. Horton</td>
+      <td>1</td>
+      <td></td>
+      <td>Victor L. Horton</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7E06.html">7E06</a></td>
+      <td>Delia Houseal</td>
+      <td>2</td>
+      <td></td>
+      <td>Joel Savary, Delia Houseal</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7E07.html">7E07</a></td>
+      <td>Yolanda Fields</td>
+      <td>1</td>
+      <td></td>
+      <td>Brandon Scott</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7F01.html">7F01</a></td>
+      <td>Tyrell M. Holcomb</td>
+      <td>1</td>
+      <td></td>
+      <td>Tyrell M. Holcomb</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7F02.html">7F02</a></td>
+      <td>Terrance Hunter</td>
+      <td>2</td>
+      <td>Dawn R. Cook</td>
+      <td>Terrance Hunter</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7F03.html">7F03</a></td>
+      <td>Sheila Carson Carr</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7F04.html">7F04</a></td>
+      <td>Charlene Exum</td>
+      <td>2</td>
+      <td></td>
+      <td>Racquel Codling, Charlene Exum</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7F05.html">7F05</a></td>
+      <td>Brittany N. Hughes</td>
+      <td>2</td>
+      <td></td>
+      <td>Karen Settles, Brittany N. Hughes</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7F06.html">7F06</a></td>
+      <td>Carol E. Fletcher</td>
+      <td>2</td>
+      <td>Carol E. Fletcher</td>
+      <td>Betty J. Diggs</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/7F07.html">7F07</a></td>
+      <td>(vacant)</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- replace with 3/4 info -->
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../index.html">Find your ANC district</a></li>
+    <li><a href="../list.html">List of districts</a></li>
+    <li><a href="../counts.html">Counts of districts</a></li>
+    <li><a href="../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 30, 2020</p>
+
+
+</body>
+
+</html>

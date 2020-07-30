@@ -1,0 +1,332 @@
+<html>
+<head>
+    <title>5</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../index.html">OpenANC</a> : Ward 5</h1>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03412954884507, 38.9361129455516], // starting position [lng, lat]
+    zoom: 11
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Districts, Commissioners, and Candidates in Ward 5</h2>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>SMD</th>
+      <th>Current Commissioner</th>
+      <th>Number of Candidates</th>
+      <th>On Ballot</th>
+      <th>Pulled Papers for Ballot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../ancs/districts/5A01.html">5A01</a></td>
+      <td>Frank Wilds</td>
+      <td>1</td>
+      <td></td>
+      <td>Damion McDuffie Sr.</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5A02.html">5A02</a></td>
+      <td>Grace J. Lewis</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5A03.html">5A03</a></td>
+      <td>Emily Singer Lucio</td>
+      <td>1</td>
+      <td></td>
+      <td>Emily Singer Lucio</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5A04.html">5A04</a></td>
+      <td>(vacant)</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5A05.html">5A05</a></td>
+      <td>Ronnie Edwards</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5A06.html">5A06</a></td>
+      <td>Claudia Barragan</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5A07.html">5A07</a></td>
+      <td>Sandi Washington</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5A08.html">5A08</a></td>
+      <td>Gordon-Andrew Fletcher</td>
+      <td>2</td>
+      <td>Nestride Yumga</td>
+      <td>Gordon-Andrew Fletcher</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5B01.html">5B01</a></td>
+      <td>Gayle Carley</td>
+      <td>3</td>
+      <td>Steven Reaves Couper</td>
+      <td>Gayle Carley, Cynthia Woerner</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5B02.html">5B02</a></td>
+      <td>Ursula Higgins</td>
+      <td>1</td>
+      <td>Ursula Higgins</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5B03.html">5B03</a></td>
+      <td>Henri Makembe</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5B04.html">5B04</a></td>
+      <td>Ra Amin</td>
+      <td>1</td>
+      <td></td>
+      <td>Ra Amin</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5B05.html">5B05</a></td>
+      <td>John J. Feeley, Jr.</td>
+      <td>2</td>
+      <td></td>
+      <td>John J. Feeley, Jr., Colleen Costello</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5C01.html">5C01</a></td>
+      <td>Gail Brevard</td>
+      <td>2</td>
+      <td>Gail Brevard</td>
+      <td>Michael Triebwasser</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5C02.html">5C02</a></td>
+      <td>Lauren Rogers</td>
+      <td>1</td>
+      <td></td>
+      <td>Lauren Rogers</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5C03.html">5C03</a></td>
+      <td>Pierre Hines</td>
+      <td>1</td>
+      <td>Pierre Hines</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5C04.html">5C04</a></td>
+      <td>Jacqueline Manning</td>
+      <td>1</td>
+      <td>Jacqueline Manning</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5C05.html">5C05</a></td>
+      <td>Darlene Oliver</td>
+      <td>3</td>
+      <td>Justin R. Riordan, Raymond William Chandler</td>
+      <td>Jonathan Alfuth</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5C06.html">5C06</a></td>
+      <td>Kirsten Williams</td>
+      <td>2</td>
+      <td>D'Andre A. Phillips</td>
+      <td>Thaddeus James</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5C07.html">5C07</a></td>
+      <td>Jeremiah Montague Jr.</td>
+      <td>1</td>
+      <td>Jeremiah Montague Jr.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5D01.html">5D01</a></td>
+      <td>Ryan Linehan</td>
+      <td>2</td>
+      <td>Sebrena L. Rhodes</td>
+      <td>Aliyah McNeely</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5D02.html">5D02</a></td>
+      <td>Keisha L. Shropshire</td>
+      <td>1</td>
+      <td>Salvador Sauceda-Guzman</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5D03.html">5D03</a></td>
+      <td>Steven C. Motley Sr</td>
+      <td>3</td>
+      <td>Sean Barry, Latoya Renee Moore</td>
+      <td>James Butler</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5D04.html">5D04</a></td>
+      <td>Bernice S Blacknell</td>
+      <td>1</td>
+      <td>Bernice S Blacknell</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5D05.html">5D05</a></td>
+      <td>Sydelle Moore</td>
+      <td>2</td>
+      <td>Sydelle Moore</td>
+      <td>Kathy Henderson</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5D06.html">5D06</a></td>
+      <td>(vacant)</td>
+      <td>2</td>
+      <td></td>
+      <td>Zachary Hoffman, Michael Anthony Lussier</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5D07.html">5D07</a></td>
+      <td>Clarence Lee</td>
+      <td>2</td>
+      <td></td>
+      <td>Stephen Cobb, Simone Egwu</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E01.html">5E01</a></td>
+      <td>Nick Cheolas</td>
+      <td>1</td>
+      <td></td>
+      <td>Michael Braeuninger</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E02.html">5E02</a></td>
+      <td>Patricia Williams</td>
+      <td>1</td>
+      <td>Patricia Williams</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E03.html">5E03</a></td>
+      <td>Cortney Segmen</td>
+      <td>1</td>
+      <td></td>
+      <td>Denise L. Wright</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E04.html">5E04</a></td>
+      <td>Sylvia M. Pinkney</td>
+      <td>2</td>
+      <td>Sylvia M. Pinkney</td>
+      <td>Mary Farmer-Allen</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E05.html">5E05</a></td>
+      <td>Bradley Ashton Thomas</td>
+      <td>1</td>
+      <td></td>
+      <td>Bradley Ashton Thomas</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E06.html">5E06</a></td>
+      <td>Karla M. Lewis</td>
+      <td>1</td>
+      <td>Karla M. Lewis</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E07.html">5E07</a></td>
+      <td>Bertha G. Holliday</td>
+      <td>1</td>
+      <td></td>
+      <td>Sharon Burns</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E08.html">5E08</a></td>
+      <td>Robert Vinson Brannum</td>
+      <td>1</td>
+      <td>Robert Vinson Brannum</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E09.html">5E09</a></td>
+      <td>Dianne Barnes</td>
+      <td>2</td>
+      <td>Dianne Barnes, Kirby Vining</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/5E10.html">5E10</a></td>
+      <td>Nancy Darlene Jones</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- replace with 3/4 info -->
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../index.html">Find your ANC district</a></li>
+    <li><a href="../list.html">List of districts</a></li>
+    <li><a href="../counts.html">Counts of districts</a></li>
+    <li><a href="../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 30, 2020</p>
+
+
+</body>
+
+</html>

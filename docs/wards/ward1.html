@@ -1,0 +1,370 @@
+<html>
+<head>
+    <title>1</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../index.html">OpenANC</a> : Ward 1</h1>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03412954884507, 38.9361129455516], // starting position [lng, lat]
+    zoom: 11
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Districts, Commissioners, and Candidates in Ward 1</h2>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>SMD</th>
+      <th>Current Commissioner</th>
+      <th>Number of Candidates</th>
+      <th>On Ballot</th>
+      <th>Pulled Papers for Ballot</th>
+      <th>Declared Intention to Run</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../ancs/districts/1A01.html">1A01</a></td>
+      <td>Layla Bonnot</td>
+      <td>1</td>
+      <td></td>
+      <td>Layla Bonnot</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A02.html">1A02</a></td>
+      <td>Teresa A. Edmondson</td>
+      <td>1</td>
+      <td></td>
+      <td>Dieter Lehmann Morales</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A03.html">1A03</a></td>
+      <td>Zach Rybarczyk</td>
+      <td>1</td>
+      <td></td>
+      <td>Zach Rybarczyk</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A04.html">1A04</a></td>
+      <td>Matthew Goldschmidt</td>
+      <td>1</td>
+      <td></td>
+      <td>Chris Hall</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A05.html">1A05</a></td>
+      <td>Christine Miller</td>
+      <td>1</td>
+      <td></td>
+      <td>Christine Miller</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A06.html">1A06</a></td>
+      <td>Angelica Castañon</td>
+      <td>2</td>
+      <td>Judson Wood</td>
+      <td>Sean McGrath</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A07.html">1A07</a></td>
+      <td>Jen Bundy</td>
+      <td>2</td>
+      <td>Mukta Ghorpadey</td>
+      <td>Benjamin Tingle</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A08.html">1A08</a></td>
+      <td>Kent C. Boese</td>
+      <td>1</td>
+      <td>Kent C. Boese</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A09.html">1A09</a></td>
+      <td>Michael Wray</td>
+      <td>1</td>
+      <td>Michael Wray</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A10.html">1A10</a></td>
+      <td>Rashida Brown</td>
+      <td>1</td>
+      <td>Rashida Brown</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A11.html">1A11</a></td>
+      <td>Dotti Love Wade</td>
+      <td>1</td>
+      <td></td>
+      <td>Dotti Love Wade</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1A12.html">1A12</a></td>
+      <td>Jason Clock</td>
+      <td>1</td>
+      <td></td>
+      <td>Jason Clock</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B01.html">1B01</a></td>
+      <td>Anita Norman</td>
+      <td>1</td>
+      <td></td>
+      <td>Larry Handerhan</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B02.html">1B02</a></td>
+      <td>Dan Orlaskey</td>
+      <td>1</td>
+      <td></td>
+      <td>Dan Orlaskey</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B03.html">1B03</a></td>
+      <td>Sedrick Muhammad</td>
+      <td>1</td>
+      <td></td>
+      <td>Muhsin Boe Umar</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B04.html">1B04</a></td>
+      <td>Deborah Thomas</td>
+      <td>1</td>
+      <td></td>
+      <td>Karen Gaal</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B05.html">1B05</a></td>
+      <td>(vacant)</td>
+      <td>2</td>
+      <td></td>
+      <td>Victoria Sanchez, Alan Kensek, Jr.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B06.html">1B06</a></td>
+      <td>Jennifer Bristol</td>
+      <td>1</td>
+      <td></td>
+      <td>Judy Floy</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B07.html">1B07</a></td>
+      <td>Marcia Shia</td>
+      <td>2</td>
+      <td></td>
+      <td>Marcia Shia, Max Ewart</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B08.html">1B08</a></td>
+      <td>Joshua R. Mater</td>
+      <td>1</td>
+      <td></td>
+      <td>Eric Behna</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B09.html">1B09</a></td>
+      <td>James A. Turner</td>
+      <td>1</td>
+      <td>James A. Turner</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B10.html">1B10</a></td>
+      <td>Danny Delaney</td>
+      <td>1</td>
+      <td></td>
+      <td>Danny Delaney</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B11.html">1B11</a></td>
+      <td>Robb Hudson</td>
+      <td>1</td>
+      <td>Robb Hudson</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1B12.html">1B12</a></td>
+      <td>Dan Winston</td>
+      <td>4</td>
+      <td></td>
+      <td>Michael Singer, Dan Wittels, Andre Denegri, Sabel Harris</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C01.html">1C01</a></td>
+      <td>Amir Irani</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td>Amir Irani</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C02.html">1C02</a></td>
+      <td>(vacant)</td>
+      <td>1</td>
+      <td></td>
+      <td>Celeste Carano</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C03.html">1C03</a></td>
+      <td>Ted Guthrie</td>
+      <td>3</td>
+      <td>Peter Wood</td>
+      <td>Elias Benda, Jennifer Hughes</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C04.html">1C04</a></td>
+      <td>John V. Zottoli</td>
+      <td>2</td>
+      <td>John V. Zottoli</td>
+      <td>Meghan Faulkner</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C05.html">1C05</a></td>
+      <td>Damiana Dendy</td>
+      <td>2</td>
+      <td>Zack Gold</td>
+      <td>Dennis Jaffe</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C06.html">1C06</a></td>
+      <td>Michaela Wright</td>
+      <td>1</td>
+      <td></td>
+      <td>Nancy Shia</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C07.html">1C07</a></td>
+      <td>Japer Bowles</td>
+      <td>1</td>
+      <td></td>
+      <td>Japer Bowles</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1C08.html">1C08</a></td>
+      <td>Chris Jackson</td>
+      <td>2</td>
+      <td>Fiona Clem</td>
+      <td>Chris Jackson</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1D01.html">1D01</a></td>
+      <td>Jon Stewart</td>
+      <td>1</td>
+      <td></td>
+      <td>Alexandra Morgan</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1D02.html">1D02</a></td>
+      <td>Robin Sandenburgh</td>
+      <td>1</td>
+      <td></td>
+      <td>Robin Sandenburgh</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1D03.html">1D03</a></td>
+      <td>Jack McKay</td>
+      <td>1</td>
+      <td>Jack McKay</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1D04.html">1D04</a></td>
+      <td>Yasmin Romero-Latin</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/1D05.html">1D05</a></td>
+      <td>Chelsea A. Allinger</td>
+      <td>1</td>
+      <td></td>
+      <td>Chelsea A. Allinger</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- replace with 3/4 info -->
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../index.html">Find your ANC district</a></li>
+    <li><a href="../list.html">List of districts</a></li>
+    <li><a href="../counts.html">Counts of districts</a></li>
+    <li><a href="../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 30, 2020</p>
+
+
+</body>
+
+</html>

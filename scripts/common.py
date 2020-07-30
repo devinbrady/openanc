@@ -1,4 +1,5 @@
 
+import sys
 import pytz
 import pandas as pd
 from datetime import datetime
@@ -129,6 +130,74 @@ def build_anc_html_table(anc_id, level=0):
         anc_df = pd.merge(anc_df, cs_smd, how='left', on='smd_id')            
 
     html = anc_df[columns_to_html].to_html(index=False, na_rep='', justify='left', escape=False)
+
+    return html
+
+
+def build_smd_html_table(list_of_smds, link_path=''):
+    """
+    Return an HTML table with one row per district for a given list of SMDs
+
+    Contains current commissioner and all candidates by status
+    """
+
+    districts = pd.read_csv('data/districts.csv')
+    commissioners = pd.read_csv('data/commissioners.csv')
+    people = pd.read_csv('data/people.csv')
+    candidates = pd.read_csv('data/candidates.csv')
+    candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+
+    dc = pd.merge(districts, commissioners, how='left', on='smd_id')
+    dcp = pd.merge(dc, people, how='left', on='person_id')
+
+    cp = pd.merge(candidates, people, how='inner', on='person_id')
+    cpd = pd.merge(cp, districts, how='inner', on='smd_id')
+
+    dcp['Current Commissioner'] = dcp['full_name'].fillna('(vacant)')
+
+    display_df = dcp[dcp['smd_id'].isin(list_of_smds)].copy()
+
+
+    display_df['SMD'] = (
+        f'<a href="{link_path}' + display_df['smd_id'].str.replace('smd_','') + '.html">' 
+        + display_df['smd_id'].str.replace('smd_','') + '</a>'
+        )
+
+
+    # Number of candidates in each SMD
+    # todo: make this a function
+    cps = pd.merge(cp, candidate_statuses, how='inner', on='candidate_status')
+
+    # Only include active candidates
+    district_candidates = pd.merge(districts, cps[cps['count_as_candidate']].copy(), how='left', on='smd_id')
+
+    candidate_count = pd.DataFrame(district_candidates.groupby('smd_id')['candidate_id'].count()).reset_index()
+    candidate_count.rename(columns={'candidate_id': 'Number of Candidates'}, inplace=True)
+    display_df = pd.merge(display_df, candidate_count, how='inner', on='smd_id')
+
+
+
+    columns_to_html = ['SMD', 'Current Commissioner', 'Number of Candidates']
+
+
+
+    cpd['order_status'] = cpd['display_order'].astype(str) + ';' + cpd['candidate_status']
+
+    candidates_in_smds = cpd[cpd['smd_id'].isin(list_of_smds)].copy()
+    statuses_in_smds = sorted(candidates_in_smds['order_status'].unique())
+    
+    for status in statuses_in_smds:
+
+        status_name = status[status.find(';')+1:]
+        columns_to_html += [status_name]
+        
+        cs_df = candidates_in_smds[candidates_in_smds['order_status'] == status][['smd_id', 'full_name']].copy()
+        cs_smd = cs_df.groupby('smd_id').agg({'full_name': list}).reset_index()
+        cs_smd[status_name] = cs_smd['full_name'].apply(lambda row: ', '.join(row))
+        
+        display_df = pd.merge(display_df, cs_smd, how='left', on='smd_id')            
+
+    html = display_df[columns_to_html].to_html(index=False, na_rep='', justify='left', escape=False)
 
     return html
 

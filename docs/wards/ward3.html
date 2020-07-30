@@ -1,0 +1,346 @@
+<html>
+<head>
+    <title>3</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../index.html">OpenANC</a> : Ward 3</h1>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03412954884507, 38.9361129455516], // starting position [lng, lat]
+    zoom: 11
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Districts, Commissioners, and Candidates in Ward 3</h2>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>SMD</th>
+      <th>Current Commissioner</th>
+      <th>Number of Candidates</th>
+      <th>On Ballot</th>
+      <th>Pulled Papers for Ballot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../ancs/districts/3B01.html">3B01</a></td>
+      <td>Ann Lane Mladinov</td>
+      <td>1</td>
+      <td></td>
+      <td>Ann Lane Mladinov</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3B02.html">3B02</a></td>
+      <td>Jackie Blumenthal</td>
+      <td>1</td>
+      <td>Jackie Blumenthal</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3B03.html">3B03</a></td>
+      <td>Melissa Lane</td>
+      <td>1</td>
+      <td></td>
+      <td>Melissa Lane</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3B04.html">3B04</a></td>
+      <td>Mary C. Young</td>
+      <td>1</td>
+      <td></td>
+      <td>Elizabeth Elson</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3B05.html">3B05</a></td>
+      <td>Brian G. Turmail</td>
+      <td>1</td>
+      <td></td>
+      <td>Brian G. Turmail</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C01.html">3C01</a></td>
+      <td>Lee Brian Reba</td>
+      <td>1</td>
+      <td></td>
+      <td>Lee Brian Reba</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C02.html">3C02</a></td>
+      <td>Jason Fink</td>
+      <td>1</td>
+      <td>Jason Fink</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C03.html">3C03</a></td>
+      <td>Jimmy Dubois</td>
+      <td>1</td>
+      <td>Janell Marie Pagats</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C04.html">3C04</a></td>
+      <td>Robert "Beau" Finley</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C05.html">3C05</a></td>
+      <td>(vacant)</td>
+      <td>3</td>
+      <td>Trish Berman</td>
+      <td>Meena Aladdin, Sauleh A. Siddiqui</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C06.html">3C06</a></td>
+      <td>Angela Bradbery</td>
+      <td>2</td>
+      <td>Kamolika Das</td>
+      <td>Adam M. Hoyt</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C07.html">3C07</a></td>
+      <td>Maureen Kinlan Boucher</td>
+      <td>1</td>
+      <td></td>
+      <td>Maureen Kinlan Boucher</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C08.html">3C08</a></td>
+      <td>Victoria Gersten</td>
+      <td>2</td>
+      <td>Stephanie Zobay</td>
+      <td>Dora Currea</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3C09.html">3C09</a></td>
+      <td>Nancy J. MacWood</td>
+      <td>1</td>
+      <td></td>
+      <td>Nancy J. MacWood</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D01.html">3D01</a></td>
+      <td>Chuck Elkins</td>
+      <td>2</td>
+      <td></td>
+      <td>Carolin Jane Croft, Chuck Elkins</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D02.html">3D02</a></td>
+      <td>Troy Kravitz</td>
+      <td>2</td>
+      <td></td>
+      <td>Troy Kravitz, Toni A. Ghazi</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D03.html">3D03</a></td>
+      <td>Paige Ela</td>
+      <td>1</td>
+      <td></td>
+      <td>Paige Ela</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D04.html">3D04</a></td>
+      <td>Michael Sriqui</td>
+      <td>1</td>
+      <td>Michael Sriqui</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D05.html">3D05</a></td>
+      <td>Alan Karnofsky</td>
+      <td>1</td>
+      <td></td>
+      <td>Katharine Nanavatty</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D06.html">3D06</a></td>
+      <td>Virginia Gorsevski</td>
+      <td>1</td>
+      <td></td>
+      <td>Jason Rao</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D07.html">3D07</a></td>
+      <td>Taylor Berlin</td>
+      <td>1</td>
+      <td></td>
+      <td>Christian Damiana</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D08.html">3D08</a></td>
+      <td>Christine Warnke</td>
+      <td>3</td>
+      <td>Benjamin Bergmann, Christine Warnke</td>
+      <td>Doreen Moses</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D09.html">3D09</a></td>
+      <td>J.P. Szymkowicz</td>
+      <td>2</td>
+      <td>J.P. Szymkowicz</td>
+      <td>Marc Hayes Robinson</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3D10.html">3D10</a></td>
+      <td>Jeremy Del Moral</td>
+      <td>1</td>
+      <td>Jeremy Del Moral</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3E01.html">3E01</a></td>
+      <td>Greg Ehrhardt</td>
+      <td>1</td>
+      <td></td>
+      <td>Matthew Cohen</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3E02.html">3E02</a></td>
+      <td>Amy B. Hall</td>
+      <td>1</td>
+      <td></td>
+      <td>Amy B. Hall</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3E03.html">3E03</a></td>
+      <td>Jonathan Bender</td>
+      <td>2</td>
+      <td></td>
+      <td>Jonathan Bender, Sara Cantos Kline</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3E04.html">3E04</a></td>
+      <td>Tom Quinn</td>
+      <td>2</td>
+      <td></td>
+      <td>Laila Kunaish, Tom Quinn</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3E05.html">3E05</a></td>
+      <td>Jonathan McHugh</td>
+      <td>1</td>
+      <td></td>
+      <td>Jonathan McHugh</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3F01.html">3F01</a></td>
+      <td>David Cristeal</td>
+      <td>2</td>
+      <td>David Cristeal</td>
+      <td>Ulas Doga Eralp</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3F02.html">3F02</a></td>
+      <td>Carolinn A Kuebler</td>
+      <td>1</td>
+      <td></td>
+      <td>Alexandria Appah</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3F03.html">3F03</a></td>
+      <td>Naomi Rutenberg</td>
+      <td>1</td>
+      <td>Dipali ("Dipa") Mehta</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3F04.html">3F04</a></td>
+      <td>Leah Frelinghuysen</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3F05.html">3F05</a></td>
+      <td>Andrea Molod</td>
+      <td>3</td>
+      <td></td>
+      <td>Ryan Keefe, Alexander Armstrong, Claudette David</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3F06.html">3F06</a></td>
+      <td>Monika Nemeth</td>
+      <td>1</td>
+      <td></td>
+      <td>Monika Nemeth</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3F07.html">3F07</a></td>
+      <td>(vacant)</td>
+      <td>2</td>
+      <td>Lisa Cox</td>
+      <td>Matt Buechner</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3G05.html">3G05</a></td>
+      <td>Jerry Malitz</td>
+      <td>1</td>
+      <td>Connie K.N. Chang</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3G06.html">3G06</a></td>
+      <td>Dan Bradfield</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/3G07.html">3G07</a></td>
+      <td>Chris Fromboluti</td>
+      <td>1</td>
+      <td>Chris Fromboluti</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that the Single Member Districts 3G01, 3G02, 3G03, and 3G04 are a part of ANC 3G but located in Ward 4.</p>
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../index.html">Find your ANC district</a></li>
+    <li><a href="../list.html">List of districts</a></li>
+    <li><a href="../counts.html">Counts of districts</a></li>
+    <li><a href="../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 30, 2020</p>
+
+
+</body>
+
+</html>

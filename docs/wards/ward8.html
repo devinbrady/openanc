@@ -1,0 +1,318 @@
+<html>
+<head>
+    <title>8</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../index.html">OpenANC</a> : Ward 8</h1>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03412954884507, 38.9361129455516], // starting position [lng, lat]
+    zoom: 11
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Districts, Commissioners, and Candidates in Ward 8</h2>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>SMD</th>
+      <th>Current Commissioner</th>
+      <th>Number of Candidates</th>
+      <th>On Ballot</th>
+      <th>Pulled Papers for Ballot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../ancs/districts/8A01.html">8A01</a></td>
+      <td>Holly Muhammad</td>
+      <td>1</td>
+      <td></td>
+      <td>Holly Muhammad</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8A02.html">8A02</a></td>
+      <td>Barbara J. Clark</td>
+      <td>2</td>
+      <td>Ira L. Lovelace</td>
+      <td>Barbara J. Clark</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8A03.html">8A03</a></td>
+      <td>Brian K Thompson</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8A04.html">8A04</a></td>
+      <td>Troy Donte Prestwood</td>
+      <td>2</td>
+      <td></td>
+      <td>Moses Smith, Laneice Moore</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8A05.html">8A05</a></td>
+      <td>Dorcas Agyei</td>
+      <td>2</td>
+      <td></td>
+      <td>Michael Grier, Jamila White</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8A06.html">8A06</a></td>
+      <td>Tyón Jones</td>
+      <td>5</td>
+      <td>Isaac Smith</td>
+      <td>Aiyi'nah Darlene Ford, Greta Fuller, Robin Ward 8 McKinney, Kristina Leszczak</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8A07.html">8A07</a></td>
+      <td>Hanna Baker</td>
+      <td>1</td>
+      <td></td>
+      <td>Steven Tiller</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8B01.html">8B01</a></td>
+      <td>Leonard Lee Watson Jr.</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8B02.html">8B02</a></td>
+      <td>Paul Trantham</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8B03.html">8B03</a></td>
+      <td>Charles H. Wilson</td>
+      <td>3</td>
+      <td></td>
+      <td>Alyce k. McFarland, Charles H. Wilson, Joseph B. Johnson</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8B04.html">8B04</a></td>
+      <td>Darrell Danny Gaston</td>
+      <td>2</td>
+      <td>Kevin B. Coleman</td>
+      <td>Darrell Danny Gaston</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8B05.html">8B05</a></td>
+      <td>Betty Scippio</td>
+      <td>2</td>
+      <td>Betty Scippio</td>
+      <td>Michelle Kiah</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8B06.html">8B06</a></td>
+      <td>Humam Abdulmalik</td>
+      <td>1</td>
+      <td>Humam Abdulmalik</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8B07.html">8B07</a></td>
+      <td>Keeon Johnson</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8C01.html">8C01</a></td>
+      <td>Mike Austin</td>
+      <td>1</td>
+      <td></td>
+      <td>Kwasi Seitu</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8C02.html">8C02</a></td>
+      <td>Chyla D. Evans</td>
+      <td>2</td>
+      <td></td>
+      <td>Victoria Akinseye, Kendrick Daniel</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8C03.html">8C03</a></td>
+      <td>Robinette Woodland</td>
+      <td>3</td>
+      <td></td>
+      <td>Tasha J. Powell, Robinette Woodland, Dolores "Miracle" Bryant</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8C04.html">8C04</a></td>
+      <td>Regina Sharlita Pixley</td>
+      <td>3</td>
+      <td>Regina Sharlita Pixley</td>
+      <td>Reginia R. Summers, Veronica Proctor</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8C05.html">8C05</a></td>
+      <td>Mustafa Abdul-Salaam</td>
+      <td>1</td>
+      <td></td>
+      <td>Mustafa Abdul-Salaam</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8C06.html">8C06</a></td>
+      <td>Rhonda L. Edwards-Hines</td>
+      <td>1</td>
+      <td></td>
+      <td>Rhonda L. Edwards-Hines</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8C07.html">8C07</a></td>
+      <td>Salim Adofo</td>
+      <td>3</td>
+      <td></td>
+      <td>Jonathan Steele, Mary J. Cuthbert, Salim Adofo</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8D01.html">8D01</a></td>
+      <td>Patricia Carmon</td>
+      <td>2</td>
+      <td></td>
+      <td>Rowena "Joyce" Scott, Patricia Carmon</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8D02.html">8D02</a></td>
+      <td>Olivia L. Henderson</td>
+      <td>2</td>
+      <td>Emerald Holman</td>
+      <td>Olivia L. Henderson</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8D03.html">8D03</a></td>
+      <td>Absalom Jordan</td>
+      <td>1</td>
+      <td></td>
+      <td>Absalom Jordan</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8D04.html">8D04</a></td>
+      <td>Monique T. Diop</td>
+      <td>1</td>
+      <td></td>
+      <td>Monique T. Diop</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8D05.html">8D05</a></td>
+      <td>Ellen Armstead</td>
+      <td>2</td>
+      <td>Shanquella 'Goldie' Ross</td>
+      <td>Ellen Armstead</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8D06.html">8D06</a></td>
+      <td>LaVerne R. Glenn</td>
+      <td>2</td>
+      <td></td>
+      <td>LaVerne R. Glenn, Alyse Newhouse</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8D07.html">8D07</a></td>
+      <td>Constance Mobley</td>
+      <td>1</td>
+      <td></td>
+      <td>Patricia Janifer</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8E01.html">8E01</a></td>
+      <td>Adeoye Owolewa</td>
+      <td>2</td>
+      <td></td>
+      <td>Rufaro Jenkins, Shekita McBroom</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8E02.html">8E02</a></td>
+      <td>Cheryl Moore</td>
+      <td>3</td>
+      <td>Bruce C. Jones III, Anthony Muhammad</td>
+      <td>Cheryl Moore</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8E03.html">8E03</a></td>
+      <td>Monica Watts</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8E04.html">8E04</a></td>
+      <td>Kendall Simmons</td>
+      <td>2</td>
+      <td></td>
+      <td>Richard Martin Campbell, Kendall Simmons</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8E05.html">8E05</a></td>
+      <td>Christopher L. Hawthorne</td>
+      <td>2</td>
+      <td></td>
+      <td>Shaquan Hudson, Christopher L. Hawthorne</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8E06.html">8E06</a></td>
+      <td>Karlene Armstead</td>
+      <td>2</td>
+      <td></td>
+      <td>Brittany Geneva Cummings, Karlene Armstead</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/8E07.html">8E07</a></td>
+      <td>Stephen A. Slaughter</td>
+      <td>2</td>
+      <td></td>
+      <td>Jeannina Williams, Stephen A. Slaughter</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- replace with 3/4 info -->
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../index.html">Find your ANC district</a></li>
+    <li><a href="../list.html">List of districts</a></li>
+    <li><a href="../counts.html">Counts of districts</a></li>
+    <li><a href="../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 30, 2020</p>
+
+
+</body>
+
+</html>

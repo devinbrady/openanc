@@ -52,9 +52,6 @@ class BuildANCs():
 
             output = add_footer(output, level=1)
 
-            # soup = BeautifulSoup(output, 'html.parser')
-            # output_pretty = soup.prettify()
-
             with open(f'docs/ancs/{anc_lower}.html', 'w') as f:
                 f.write(output)
 

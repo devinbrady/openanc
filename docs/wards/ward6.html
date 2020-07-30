@@ -1,0 +1,339 @@
+<html>
+<head>
+    <title>6</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../index.html">OpenANC</a> : Ward 6</h1>
+
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03412954884507, 38.9361129455516], // starting position [lng, lat]
+    zoom: 11
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Districts, Commissioners, and Candidates in Ward 6</h2>
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>SMD</th>
+      <th>Current Commissioner</th>
+      <th>Number of Candidates</th>
+      <th>On Ballot</th>
+      <th>Pulled Papers for Ballot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="../ancs/districts/6A01.html">6A01</a></td>
+      <td>Marie-Claire Brown</td>
+      <td>2</td>
+      <td>Keya Chatterjee</td>
+      <td>Marie-Claire Brown</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6A02.html">6A02</a></td>
+      <td>Phil Toomajian</td>
+      <td>1</td>
+      <td>Phil Toomajian</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6A03.html">6A03</a></td>
+      <td>Mike Soderman</td>
+      <td>1</td>
+      <td>Mike Soderman</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6A04.html">6A04</a></td>
+      <td>Amber Gove</td>
+      <td>2</td>
+      <td>Ali Gardezi</td>
+      <td>Amber Gove</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6A05.html">6A05</a></td>
+      <td>Ruth Ann Hudson</td>
+      <td>1</td>
+      <td></td>
+      <td>Laura L. Gentile</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6A06.html">6A06</a></td>
+      <td>Stephanie Zimny</td>
+      <td>3</td>
+      <td>H.J. Amons, Sr.</td>
+      <td>Robb Dooling, Kate Robinson</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6A07.html">6A07</a></td>
+      <td>Sondra Phillips-Gilbert</td>
+      <td>3</td>
+      <td>Sondra Phillips-Gilbert, Daniel M. Lee</td>
+      <td>Rico Dancy</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6A08.html">6A08</a></td>
+      <td>Brian Alcorn</td>
+      <td>1</td>
+      <td>Brian Alcorn</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B01.html">6B01</a></td>
+      <td>Jennifer E. Samolyk</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B02.html">6B02</a></td>
+      <td>Gerald Sroufe</td>
+      <td>1</td>
+      <td>Gerald Sroufe</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B03.html">6B03</a></td>
+      <td>Brian Ready</td>
+      <td>2</td>
+      <td>Brian Ready</td>
+      <td>Gerardo Mijares-Shafai</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B04.html">6B04</a></td>
+      <td>Kirsten Oldenburg</td>
+      <td>1</td>
+      <td>Kirsten Oldenburg</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B05.html">6B05</a></td>
+      <td>Steve Holtzman</td>
+      <td>1</td>
+      <td></td>
+      <td>Steve Holtzman</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B06.html">6B06</a></td>
+      <td>Corey Holman</td>
+      <td>1</td>
+      <td></td>
+      <td>Corey Holman</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B07.html">6B07</a></td>
+      <td>Kelly Waud</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B08.html">6B08</a></td>
+      <td>Chander Jayaraman</td>
+      <td>1</td>
+      <td></td>
+      <td>Paul Blair</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B09.html">6B09</a></td>
+      <td>(vacant)</td>
+      <td>2</td>
+      <td></td>
+      <td>Michael Morris, R. Andre Speaks</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6B10.html">6B10</a></td>
+      <td>Kathryn Denise Rucker Krepp</td>
+      <td>1</td>
+      <td></td>
+      <td>Kathryn Denise Rucker Krepp</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6C01.html">6C01</a></td>
+      <td>Christine Healey</td>
+      <td>1</td>
+      <td>Christine Healey</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6C02.html">6C02</a></td>
+      <td>Karen Wirt</td>
+      <td>1</td>
+      <td>Karen Wirt</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6C03.html">6C03</a></td>
+      <td>Jay Adelstein</td>
+      <td>1</td>
+      <td>Jay Adelstein</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6C04.html">6C04</a></td>
+      <td>Mark Eckenwiler</td>
+      <td>2</td>
+      <td>Mark Eckenwiler</td>
+      <td>Pranav Nanda</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6C05.html">6C05</a></td>
+      <td>Joel Kelty</td>
+      <td>1</td>
+      <td></td>
+      <td>Joel Kelty</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6C06.html">6C06</a></td>
+      <td>Drew Courtney</td>
+      <td>3</td>
+      <td>Drew Courtney</td>
+      <td>Tommy Howard, Cindy Drabek</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6D01.html">6D01</a></td>
+      <td>Gail Fast</td>
+      <td>1</td>
+      <td></td>
+      <td>Gail Fast</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6D02.html">6D02</a></td>
+      <td>Anna Forgie</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6D03.html">6D03</a></td>
+      <td>Ronald R. Collins</td>
+      <td>1</td>
+      <td>Ronald R. Collins</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6D04.html">6D04</a></td>
+      <td>Andy Litsky</td>
+      <td>1</td>
+      <td></td>
+      <td>Andy Litsky</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6D05.html">6D05</a></td>
+      <td>Fredrica Kramer</td>
+      <td>1</td>
+      <td></td>
+      <td>Fredrica Kramer</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6D06.html">6D06</a></td>
+      <td>Rhonda N. Hamilton</td>
+      <td>1</td>
+      <td></td>
+      <td>Rhonda N. Hamilton</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6D07.html">6D07</a></td>
+      <td>Edward Lee Daniels, Jr.</td>
+      <td>1</td>
+      <td>Edward Lee Daniels, Jr.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6E01.html">6E01</a></td>
+      <td>Alexander M. "Alex" Padro</td>
+      <td>2</td>
+      <td>Michael Eichler</td>
+      <td>Mary A. Sutherland</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6E02.html">6E02</a></td>
+      <td>Michael J. Brown</td>
+      <td>4</td>
+      <td>Tony Brown</td>
+      <td>Alexander Lopez, Valerie Randolph, Eugene Simms</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6E03.html">6E03</a></td>
+      <td>Frank S. Wiggins</td>
+      <td>1</td>
+      <td></td>
+      <td>Frank S. Wiggins</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6E04.html">6E04</a></td>
+      <td>Rachelle Nigro</td>
+      <td>3</td>
+      <td>Rachelle Nigro</td>
+      <td>Matthew R. Salmon, Jordan A. Hibbs</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6E05.html">6E05</a></td>
+      <td>Alex Marriott</td>
+      <td>2</td>
+      <td>Katherine Kortum</td>
+      <td>Patrick Parlej</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6E06.html">6E06</a></td>
+      <td>Alvin Judd Sr.</td>
+      <td>1</td>
+      <td></td>
+      <td>Denise E Blackson</td>
+    </tr>
+    <tr>
+      <td><a href="../ancs/districts/6E07.html">6E07</a></td>
+      <td>Kevin M. Rogers</td>
+      <td>2</td>
+      <td>Kevin M. Rogers</td>
+      <td>Nathan Brown</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- replace with 3/4 info -->
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../index.html">Find your ANC district</a></li>
+    <li><a href="../list.html">List of districts</a></li>
+    <li><a href="../counts.html">Counts of districts</a></li>
+    <li><a href="../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 30, 2020</p>
+
+
+</body>
+
+</html>
