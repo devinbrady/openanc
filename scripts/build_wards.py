@@ -5,7 +5,7 @@ Build Ward pages
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from bs4 import BeautifulSoup
+import geopandas as gpd
 
 from scripts.common import (
     build_anc_html_table
@@ -15,6 +15,7 @@ from scripts.common import (
     , add_footer
     , calculate_zoom
     , add_google_analytics
+    , add_geojson
     )
 
 
@@ -27,6 +28,8 @@ class BuildWards():
         ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
 
+        ward_gdf = gpd.read_file('maps/ward.geojson')
+
         wards = sorted(districts['ward'].unique())
         
         for ward in tqdm(wards, total=len(wards), desc='Wards'):
@@ -35,6 +38,7 @@ class BuildWards():
                 output = f.read()
             
             output = add_google_analytics(output)
+            output = add_geojson(ward_gdf, 'WARD', ward, output)
             
             output = output.replace('REPLACE_WITH_WARD', str(ward))
             

@@ -1,6 +1,7 @@
 
 import sys
 import pytz
+import numpy as np
 import pandas as pd
 from datetime import datetime
 
@@ -31,6 +32,49 @@ def add_google_analytics(input_html):
     output_html = input_html.replace('<!-- replace with google analytics -->', ga_block)
 
     return output_html
+
+
+def add_geojson(shape_gdf, field_name, field_value, input_html):
+    """
+    Add a GeoJSON feature as a Javascript variable to an HTML string
+
+    This variable will be used to calculate the bounds of the map
+    """
+    
+    a = shape_gdf[shape_gdf[field_name] == field_value].copy() 
+
+    b = a.geometry.iloc[0]
+    
+    c = b.boundary[0].xy
+
+    f = '[['
+
+    for idx, value in enumerate(c[0]):
+
+        if idx > 0: 
+            f += ','
+        
+        f += '['
+
+        x = c[0][idx]
+
+        f += '{}'.format(x)
+
+        y = c[1][idx]
+
+        f += ', {}'.format(y)
+
+        f+= ']\n'
+
+    f += ']]'
+
+
+
+    output_html = input_html.replace('REPLACE_WITH_XY', f)
+
+    return output_html
+
+
 
 
 def dc_coordinates():
