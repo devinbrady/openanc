@@ -15,6 +15,7 @@ from scripts.common import (
     , add_footer
     , calculate_zoom
     , add_google_analytics
+    , add_geojson
     )
 
 
@@ -27,35 +28,6 @@ class BuildANCs():
 
 
 
-    def add_anc_geojson(self, anc_id, input_html):
-        """
-        Add the GeoJSON for a district as a variable in the HTML
-
-        This variable will be used to calculate the bounds of the map
-        """
-        # print(anc_id)
-        
-        a = self.geojson_shape[self.geojson_shape['ANC_ID'] == anc_id].copy()
-
-        b = a.geometry.iloc[0]
-        
-        c = b.boundary[0].xy
-        # print(c)
-
-        d = np.dstack(c)
-        # print(d)
-        
-        e = np.array2string(d, separator=',')
-
-        # print()
-
-
-        output_html = input_html.replace('REPLACE_WITH_XY', e)
-
-        return output_html
-
-
-
     def run(self):
         """Build pages for each ANC"""
 
@@ -63,8 +35,7 @@ class BuildANCs():
         districts = pd.read_csv('data/districts.csv')
 
         
-        # for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs'):
-        for idx, row in ancs.iterrows():
+        for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs'):
 
             anc_id = row['anc_id']
             anc_upper, anc_lower = anc_names(anc_id)
@@ -76,7 +47,7 @@ class BuildANCs():
                 output = f.read()
             
             output = add_google_analytics(output)
-            output = self.add_anc_geojson(anc_id, output)
+            output = add_geojson(self.geojson_shape, 'ANC_ID', anc_id, output)
             
             output = output.replace('REPLACE_WITH_ANC', anc_upper)
             
