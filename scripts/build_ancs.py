@@ -33,21 +33,21 @@ class BuildANCs():
 
         This variable will be used to calculate the bounds of the map
         """
-        print(anc_id)
+        # print(anc_id)
         
         a = self.geojson_shape[self.geojson_shape['ANC_ID'] == anc_id].copy()
 
         b = a.geometry.iloc[0]
         
         c = b.boundary[0].xy
-        print(c)
+        # print(c)
 
         d = np.dstack(c)
-        print(d)
+        # print(d)
         
         e = np.array2string(d, separator=',')
 
-        print()
+        # print()
 
 
         output_html = input_html.replace('REPLACE_WITH_XY', e)
@@ -69,8 +69,8 @@ class BuildANCs():
             anc_id = row['anc_id']
             anc_upper, anc_lower = anc_names(anc_id)
 
-            if anc_id != '6D':
-                continue
+            # if anc_id != '6D':
+            #     continue
                     
             with open('templates/anc.html', 'r') as f:
                 output = f.read()
