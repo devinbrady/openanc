@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>ANC6C</title>
+    <title>OpenANC : ANC6C</title>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
@@ -24,7 +24,7 @@
 
 <h1><a href="../index.html">OpenANC</a> : ANC6C</h1>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
+<div id='map' style='width: 700px; height: 400px;'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
 var map = new mapboxgl.Map({
@@ -34,234 +34,585 @@ var map = new mapboxgl.Map({
     zoom: 13.808363953471408
 });
 
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-76.99496322, 38.90140802],
+  [-76.99496322, 38.90133343],
+  [-76.99507838, 38.90133361],
+  [-76.99557908, 38.90133463],
+  [-76.9960719 , 38.90133563],
+  [-76.9961051 , 38.90133563],
+  [-76.99616932, 38.90133554],
+  [-76.99616943, 38.90125051],
+  [-76.99616968, 38.9008608 ],
+  [-76.99616975, 38.90074299],
+  [-76.99616984, 38.90056526],
+  [-76.99616994, 38.90035381],
+  [-76.99616994, 38.9003403 ],
+  [-76.99616961, 38.90021265],
+  [-76.99606135, 38.90021247],
+  [-76.99524331, 38.90021118],
+  [-76.99507559, 38.9002109 ],
+  [-76.99496307, 38.9002108 ],
+  [-76.99496341, 38.90008217],
+  [-76.99496354, 38.9000646 ],
+  [-76.99496384, 38.89975537],
+  [-76.99496395, 38.89963531],
+  [-76.99496404, 38.89955175],
+  [-76.99496369, 38.89937463],
+  [-76.99496325, 38.89914214],
+  [-76.9949628 , 38.8989999 ],
+  [-76.9949628 , 38.89899459],
+  [-76.99496303, 38.89891558],
+  [-76.99496327, 38.89883442],
+  [-76.99496421, 38.89853075],
+  [-76.99496715, 38.8979089 ],
+  [-76.99496936, 38.89743704],
+  [-76.9949696 , 38.89740623],
+  [-76.99496742, 38.89734065],
+  [-76.99496443, 38.89724877],
+  [-76.99496408, 38.89723669],
+  [-76.99496424, 38.89672487],
+  [-76.99496438, 38.89621605],
+  [-76.99496438, 38.89620659],
+  [-76.99496382, 38.89612461],
+  [-76.99496324, 38.89603705],
+  [-76.99496313, 38.89602219],
+  [-76.99496224, 38.89566987],
+  [-76.99496281, 38.89558267],
+  [-76.99496328, 38.89548313],
+  [-76.99496356, 38.89543791],
+  [-76.99496387, 38.89538629],
+  [-76.99496444, 38.89529512],
+  [-76.99496457, 38.89527629],
+  [-76.99496446, 38.89507347],
+  [-76.99496437, 38.8948738 ],
+  [-76.99496425, 38.89479092],
+  [-76.99496425, 38.89470796],
+  [-76.99496425, 38.89469733],
+  [-76.99496449, 38.89440622],
+  [-76.99496464, 38.89423646],
+  [-76.99496475, 38.89419602],
+  [-76.99496476, 38.89419335],
+  [-76.99496539, 38.89397982],
+  [-76.99496593, 38.89378847],
+  [-76.99496617, 38.89368181],
+  [-76.9949663 , 38.89365407],
+  [-76.99496641, 38.89358605],
+  [-76.99496664, 38.89350381],
+  [-76.99496664, 38.89349849],
+  [-76.99496575, 38.89308023],
+  [-76.99496385, 38.89266333],
+  [-76.99496383, 38.89265324],
+  [-76.99496456, 38.89215904],
+  [-76.99496443, 38.89214183],
+  [-76.99496387, 38.89210291],
+  [-76.99496352, 38.89206409],
+  [-76.99496319, 38.89202517],
+  [-76.99496283, 38.89197608],
+  [-76.99496273, 38.89192698],
+  [-76.99496261, 38.89187789],
+  [-76.99496261, 38.89182888],
+  [-76.99496274, 38.89177978],
+  [-76.99496308, 38.89173069],
+  [-76.99496344, 38.89168042],
+  [-76.99496391, 38.89163007],
+  [-76.9949646 , 38.8915798 ],
+  [-76.9949647 , 38.8915653 ],
+  [-76.99496392, 38.89149764],
+  [-76.99496356, 38.89143008],
+  [-76.99496346, 38.89136252],
+  [-76.9949638 , 38.89129486],
+  [-76.9949645 , 38.8912273 ],
+  [-76.99496555, 38.89115965],
+  [-76.99496704, 38.89109209],
+  [-76.99496879, 38.89102452],
+  [-76.99496959, 38.89099714],
+  [-76.99497051, 38.89096984],
+  [-76.99497143, 38.89094246],
+  [-76.99497374, 38.89088237],
+  [-76.99497351, 38.89085814],
+  [-76.99496998, 38.89048051],
+  [-76.99496889, 38.89034509],
+  [-76.99496711, 38.89012044],
+  [-76.99496541, 38.88991361],
+  [-76.9949646 , 38.88981371],
+  [-76.99500656, 38.88981353],
+  [-76.99504851, 38.88981335],
+  [-76.99509047, 38.88981326],
+  [-76.99521231, 38.88981291],
+  [-76.99533414, 38.88981255],
+  [-76.99545599, 38.88981238],
+  [-76.99557781, 38.88981229],
+  [-76.99569966, 38.8898122 ],
+  [-76.99582148, 38.88981221],
+  [-76.99594333, 38.8898123 ],
+  [-76.99606515, 38.88981249],
+  [-76.9960692 , 38.88981258],
+  [-76.99617547, 38.88981276],
+  [-76.99628646, 38.88981295],
+  [-76.99629338, 38.88981295],
+  [-76.99674499, 38.8898135 ],
+  [-76.9972788 , 38.88981333],
+  [-76.99731215, 38.8898135 ],
+  [-76.99731699, 38.88981351],
+  [-76.99769662, 38.88981532],
+  [-76.99825865, 38.88981614],
+  [-76.99833739, 38.88981624],
+  [-76.99844804, 38.88981624],
+  [-76.99855778, 38.88981633],
+  [-76.99918851, 38.88981651],
+  [-76.99939033, 38.88981625],
+  [-76.99952058, 38.88981607],
+  [-76.99963551, 38.88981598],
+  [-77.00020884, 38.88981517],
+  [-77.00046345, 38.88981535],
+  [-77.00058161, 38.88981544],
+  [-77.00069757, 38.88981552],
+  [-77.00091611, 38.88981561],
+  [-77.00130685, 38.8898159 ],
+  [-77.00163917, 38.88981615],
+  [-77.00193783, 38.88981596],
+  [-77.00204213, 38.88981596],
+  [-77.00214126, 38.88981587],
+  [-77.00224812, 38.88981578],
+  [-77.0023076 , 38.88981577],
+  [-77.00311584, 38.88981512],
+  [-77.00340147, 38.88981575],
+  [-77.00351696, 38.88981601],
+  [-77.00362393, 38.88981628],
+  [-77.00372132, 38.88981646],
+  [-77.004548  , 38.88981616],
+  [-77.00543613, 38.88981621],
+  [-77.00577581, 38.88981863],
+  [-77.00591805, 38.88981961],
+  [-77.00906645, 38.88980597],
+  [-77.00906598, 38.89105778],
+  [-77.00906559, 38.89208007],
+  [-77.0091021 , 38.89208159],
+  [-77.00914554, 38.89208339],
+  [-77.00921862, 38.8920859 ],
+  [-77.00928064, 38.89208797],
+  [-77.00931084, 38.89208824],
+  [-77.00937229, 38.89208859],
+  [-77.00948364, 38.89208777],
+  [-77.0097672 , 38.89208766],
+  [-77.00992061, 38.89208756],
+  [-77.009996  , 38.89208755],
+  [-77.01019093, 38.89208744],
+  [-77.01019449, 38.89208744],
+  [-77.01020845, 38.89208744],
+  [-77.01043853, 38.8920876 ],
+  [-77.01054883, 38.89208777],
+  [-77.0107237 , 38.89208794],
+  [-77.01089487, 38.8920881 ],
+  [-77.01152919, 38.89208795],
+  [-77.01201318, 38.89207914],
+  [-77.01217574, 38.89209491],
+  [-77.012329  , 38.89209548],
+  [-77.01273734, 38.89209701],
+  [-77.01276723, 38.89209706],
+  [-77.01318171, 38.89209759],
+  [-77.01323388, 38.89209681],
+  [-77.01355172, 38.89209197],
+  [-77.0136414 , 38.89209061],
+  [-77.01373533, 38.89209049],
+  [-77.01402333, 38.89209013],
+  [-77.01402467, 38.89209013],
+  [-77.01403438, 38.89336225],
+  [-77.01403657, 38.89364966],
+  [-77.01404866, 38.89398863],
+  [-77.01407291, 38.89478892],
+  [-77.01407371, 38.89543388],
+  [-77.01407456, 38.89613287],
+  [-77.01407725, 38.8983364 ],
+  [-77.0140786 , 38.89944158],
+  [-77.01366204, 38.89929577],
+  [-77.01339931, 38.89920381],
+  [-77.01242966, 38.89886439],
+  [-77.01190714, 38.89864526],
+  [-77.01118379, 38.89833772],
+  [-77.01108718, 38.89829836],
+  [-77.01059134, 38.89809653],
+  [-77.00981294, 38.89777959],
+  [-77.00930072, 38.897571  ],
+  [-77.00927789, 38.89756182],
+  [-77.00906668, 38.89747711],
+  [-77.0090742 , 38.89786712],
+  [-77.00906794, 38.89892527],
+  [-77.00906706, 38.89907293],
+  [-77.00906793, 38.89957015],
+  [-77.00906554, 38.90021567],
+  [-77.00906267, 38.90040936],
+  [-77.00906443, 38.90087772],
+  [-77.00906479, 38.90118286],
+  [-77.00906479, 38.9011852 ],
+  [-77.00906511, 38.90136355],
+  [-77.00906566, 38.90166544],
+  [-77.00906652, 38.90208072],
+  [-77.00906594, 38.90237518],
+  [-77.00906656, 38.90252231],
+  [-77.00906693, 38.90261114],
+  [-77.00906585, 38.90320046],
+  [-77.00906628, 38.90327911],
+  [-77.00906874, 38.90373794],
+  [-77.00907178, 38.90430218],
+  [-77.00907165, 38.9043601 ],
+  [-77.00907084, 38.90469155],
+  [-77.00906839, 38.90511131],
+  [-77.00906521, 38.90565512],
+  [-77.00906051, 38.90645831],
+  [-77.00905525, 38.90735826],
+  [-77.00891902, 38.90740624],
+  [-77.00881892, 38.9074415 ],
+  [-77.00863631, 38.90750583],
+  [-77.00855307, 38.9075352 ],
+  [-77.00777499, 38.90780136],
+  [-77.00719172, 38.9080067 ],
+  [-77.00701648, 38.90806734],
+  [-77.00655716, 38.90822627],
+  [-77.00640533, 38.90827853],
+  [-77.0063523 , 38.90829673],
+  [-77.00588828, 38.9084572 ],
+  [-77.004766  , 38.90884571],
+  [-77.00459508, 38.90890488],
+  [-77.00441524, 38.90882498],
+  [-77.00440407, 38.90882002],
+  [-77.00434573, 38.90879408],
+  [-77.00427516, 38.90876264],
+  [-77.00381812, 38.90856853],
+  [-77.00378192, 38.90855322],
+  [-77.00370615, 38.90852106],
+  [-77.00314742, 38.908282  ],
+  [-77.00288571, 38.90817093],
+  [-77.00288259, 38.90816958],
+  [-77.00278331, 38.90812697],
+  [-77.00228823, 38.90791402],
+  [-77.00225733, 38.90790069],
+  [-77.00210975, 38.9078407 ],
+  [-77.00201971, 38.90780404],
+  [-77.00185668, 38.90773765],
+  [-77.00183142, 38.90772738],
+  [-77.00182671, 38.90772549],
+  [-77.00145961, 38.90757046],
+  [-77.00109284, 38.90741408],
+  [-77.00108905, 38.90741246],
+  [-77.000855  , 38.90731265],
+  [-77.00079561, 38.9072876 ],
+  [-77.00076   , 38.90727256],
+  [-77.00063328, 38.90721914],
+  [-77.00052006, 38.90717149],
+  [-77.00048616, 38.90715716],
+  [-77.00036408, 38.90710564],
+  [-77.00034632, 38.90709816],
+  [-77.00021766, 38.90705105],
+  [-76.99960164, 38.9067871 ],
+  [-76.99957801, 38.90677674],
+  [-76.99943297, 38.90671368],
+  [-76.99930408, 38.90665756],
+  [-76.99851386, 38.90631397],
+  [-76.99833873, 38.90623776],
+  [-76.9982118 , 38.90618254],
+  [-76.99812443, 38.90614455],
+  [-76.99781359, 38.90600939],
+  [-76.99737468, 38.9058212 ],
+  [-76.99735692, 38.90581363],
+  [-76.99710064, 38.90570381],
+  [-76.99698927, 38.90565607],
+  [-76.99667602, 38.90552192],
+  [-76.99656004, 38.90547291],
+  [-76.99648464, 38.90544111],
+  [-76.99639346, 38.90540264],
+  [-76.99622076, 38.90532985],
+  [-76.99616575, 38.90530661],
+  [-76.99600125, 38.90524291],
+  [-76.99599236, 38.90523904],
+  [-76.99518732, 38.90488903],
+  [-76.99505969, 38.90483444],
+  [-76.99489979, 38.90476606],
+  [-76.99492507, 38.90472313],
+  [-76.99494412, 38.90469337],
+  [-76.99495602, 38.90466734],
+  [-76.99496496, 38.90464316],
+  [-76.9949677 , 38.90461481],
+  [-76.99496427, 38.90422709],
+  [-76.99496383, 38.90414736],
+  [-76.994962  , 38.90382018],
+  [-76.99496154, 38.90373226],
+  [-76.99496144, 38.90365317],
+  [-76.99496144, 38.90365038],
+  [-76.99496126, 38.90303258],
+  [-76.99496149, 38.90290647],
+  [-76.99496173, 38.90280611],
+  [-76.99496197, 38.90271062],
+  [-76.99496083, 38.90251956],
+  [-76.99496107, 38.90242578],
+  [-76.99496131, 38.90232462],
+  [-76.99496154, 38.90222381],
+  [-76.99496178, 38.90212292],
+  [-76.99496187, 38.90208471],
+  [-76.99496202, 38.90202203],
+  [-76.99496226, 38.90192122],
+  [-76.99496249, 38.90182033],
+  [-76.9949626 , 38.90173902],
+  [-76.99496261, 38.90171952],
+  [-76.9949627 , 38.90168356],
+  [-76.99496284, 38.90161863],
+  [-76.99496298, 38.90151774],
+  [-76.99496322, 38.90141693],
+  [-76.99496322, 38.90140802]]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 30
+});
+
 map.addControl(new mapboxgl.NavigationControl());
 </script>
 
 <h2>Districts, Commissioners, and Candidates</h2>
 
 <style  type="text/css" >
-    #T_9297679c_d2db_11ea_981e_acde48001122row0_col0 {
+    #T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row0_col1 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row0_col2 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row0_col3 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row0_col4 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row1_col0 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row1_col1 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row1_col2 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row1_col3 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row1_col4 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row2_col0 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row2_col1 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row2_col2 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row2_col3 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row2_col4 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row3_col0 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row3_col1 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row3_col2 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row3_col3 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row3_col4 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row4_col0 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row4_col1 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row4_col2 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row4_col3 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row4_col4 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row5_col0 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row5_col1 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row5_col2 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row5_col3 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_9297679c_d2db_11ea_981e_acde48001122row5_col4 {
+        }    #T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }</style><table id="T_9297679c_d2db_11ea_981e_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
+        }</style><table id="T_3ab00b70_d2df_11ea_b94b_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_9297679c_d2db_11ea_981e_acde48001122row0_col0" class="data row0 col0" ><a href="districts/6C01.html">6C01</a></td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row0_col1" class="data row0 col1" >Christine Healey</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row0_col2" class="data row0 col2" >1</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row0_col3" class="data row0 col3" >Christine Healey</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row0_col4" class="data row0 col4" ></td>
+                                <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col0" class="data row0 col0" ><a href="districts/6C01.html">6C01</a></td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col1" class="data row0 col1" >Christine Healey</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col2" class="data row0 col2" >1</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col3" class="data row0 col3" >Christine Healey</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row0_col4" class="data row0 col4" ></td>
             </tr>
             <tr>
-                                <td id="T_9297679c_d2db_11ea_981e_acde48001122row1_col0" class="data row1 col0" ><a href="districts/6C02.html">6C02</a></td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row1_col1" class="data row1 col1" >Karen Wirt</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row1_col2" class="data row1 col2" >1</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row1_col3" class="data row1 col3" >Karen Wirt</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row1_col4" class="data row1 col4" ></td>
+                                <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col0" class="data row1 col0" ><a href="districts/6C02.html">6C02</a></td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col1" class="data row1 col1" >Karen Wirt</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col2" class="data row1 col2" >1</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col3" class="data row1 col3" >Karen Wirt</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row1_col4" class="data row1 col4" ></td>
             </tr>
             <tr>
-                                <td id="T_9297679c_d2db_11ea_981e_acde48001122row2_col0" class="data row2 col0" ><a href="districts/6C03.html">6C03</a></td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row2_col1" class="data row2 col1" >Jay Adelstein</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row2_col2" class="data row2 col2" >1</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row2_col3" class="data row2 col3" >Jay Adelstein</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row2_col4" class="data row2 col4" ></td>
+                                <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col0" class="data row2 col0" ><a href="districts/6C03.html">6C03</a></td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col1" class="data row2 col1" >Jay Adelstein</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col2" class="data row2 col2" >1</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col3" class="data row2 col3" >Jay Adelstein</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row2_col4" class="data row2 col4" ></td>
             </tr>
             <tr>
-                                <td id="T_9297679c_d2db_11ea_981e_acde48001122row3_col0" class="data row3 col0" ><a href="districts/6C04.html">6C04</a></td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row3_col1" class="data row3 col1" >Mark Eckenwiler</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row3_col2" class="data row3 col2" >2</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row3_col3" class="data row3 col3" >Mark Eckenwiler</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row3_col4" class="data row3 col4" >Pranav Nanda</td>
+                                <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col0" class="data row3 col0" ><a href="districts/6C04.html">6C04</a></td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col1" class="data row3 col1" >Mark Eckenwiler</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col2" class="data row3 col2" >2</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col3" class="data row3 col3" >Mark Eckenwiler</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row3_col4" class="data row3 col4" >Pranav Nanda</td>
             </tr>
             <tr>
-                                <td id="T_9297679c_d2db_11ea_981e_acde48001122row4_col0" class="data row4 col0" ><a href="districts/6C05.html">6C05</a></td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row4_col1" class="data row4 col1" >Joel Kelty</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row4_col2" class="data row4 col2" >1</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row4_col3" class="data row4 col3" ></td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row4_col4" class="data row4 col4" >Joel Kelty</td>
+                                <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col0" class="data row4 col0" ><a href="districts/6C05.html">6C05</a></td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col1" class="data row4 col1" >Joel Kelty</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col2" class="data row4 col2" >1</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col3" class="data row4 col3" ></td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row4_col4" class="data row4 col4" >Joel Kelty</td>
             </tr>
             <tr>
-                                <td id="T_9297679c_d2db_11ea_981e_acde48001122row5_col0" class="data row5 col0" ><a href="districts/6C06.html">6C06</a></td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row5_col1" class="data row5 col1" >Drew Courtney</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row5_col2" class="data row5 col2" >3</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row5_col3" class="data row5 col3" >Drew Courtney</td>
-                        <td id="T_9297679c_d2db_11ea_981e_acde48001122row5_col4" class="data row5 col4" >Tommy Howard, Cindy Drabek</td>
+                                <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col0" class="data row5 col0" ><a href="districts/6C06.html">6C06</a></td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col1" class="data row5 col1" >Drew Courtney</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col2" class="data row5 col2" >3</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col3" class="data row5 col3" >Drew Courtney</td>
+                        <td id="T_3ab00b70_d2df_11ea_b94b_acde48001122row5_col4" class="data row5 col4" >Tommy Howard, Cindy Drabek</td>
             </tr>
     </tbody></table>
 

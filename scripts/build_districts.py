@@ -196,6 +196,7 @@ class BuildDistricts():
             output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=2))
 
 
+            output = output.replace('REPLACE_WITH_WARD', str(row['ward']))
             output = output.replace('REPLACE_WITH_ANC_UPPER', anc_display_upper)
             output = output.replace('REPLACE_WITH_ANC_LOWER', anc_display_lower)
 

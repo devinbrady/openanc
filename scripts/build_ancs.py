@@ -5,7 +5,8 @@ Build ANC pages
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from bs4 import BeautifulSoup
+import geopandas as gpd
+
 
 from scripts.common import (
     build_smd_html_table
@@ -19,6 +20,41 @@ from scripts.common import (
 
 class BuildANCs():
 
+    def __init__(self):
+
+        # Load GeoJSON for all ANCs to memory
+        self.geojson_shape = gpd.read_file('maps/anc.geojson')
+
+
+
+    def add_anc_geojson(self, anc_id, input_html):
+        """
+        Add the GeoJSON for a district as a variable in the HTML
+
+        This variable will be used to calculate the bounds of the map
+        """
+        print(anc_id)
+        
+        a = self.geojson_shape[self.geojson_shape['ANC_ID'] == anc_id].copy()
+
+        b = a.geometry.iloc[0]
+        
+        c = b.boundary[0].xy
+        print(c)
+
+        d = np.dstack(c)
+        print(d)
+        
+        e = np.array2string(d, separator=',')
+
+        print()
+
+
+        output_html = input_html.replace('REPLACE_WITH_XY', e)
+
+        return output_html
+
+
 
     def run(self):
         """Build pages for each ANC"""
@@ -27,15 +63,20 @@ class BuildANCs():
         districts = pd.read_csv('data/districts.csv')
 
         
-        for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs'):
+        # for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs'):
+        for idx, row in ancs.iterrows():
 
             anc_id = row['anc_id']
             anc_upper, anc_lower = anc_names(anc_id)
+
+            if anc_id != '6D':
+                continue
                     
             with open('templates/anc.html', 'r') as f:
                 output = f.read()
             
             output = add_google_analytics(output)
+            output = self.add_anc_geojson(anc_id, output)
             
             output = output.replace('REPLACE_WITH_ANC', anc_upper)
             

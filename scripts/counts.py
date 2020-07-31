@@ -49,7 +49,7 @@ class Counts():
             )
 
         if 'Ward' in smd_count.columns:
-            smd_count['Ward'] = smd_count['Ward'].apply(lambda row: 'Ward {}'.format(row))
+            smd_count['Ward'] = smd_count['Ward'].apply(lambda row: '<a href="wards/ward{0}.html">Ward {0}</a>'.format(row))
         
         if 'ANC' in smd_count.columns:
             smd_count['ANC'] = smd_count['ANC'].apply(lambda row: '<a href="ancs/anc{0}.html">ANC {1}</a>'.format(row.lower(), row))

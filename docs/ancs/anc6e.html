@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>ANC6E</title>
+    <title>OpenANC : ANC6E</title>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
@@ -24,7 +24,7 @@
 
 <h1><a href="../index.html">OpenANC</a> : ANC6E</h1>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
+<div id='map' style='width: 700px; height: 400px;'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
 var map = new mapboxgl.Map({
@@ -34,271 +34,664 @@ var map = new mapboxgl.Map({
     zoom: 14.32652209070079
 });
 
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.01789607, 38.91409546],
+  [-77.01786031, 38.91399583],
+  [-77.01783505, 38.91392521],
+  [-77.01782466, 38.91389522],
+  [-77.01780066, 38.91382586],
+  [-77.01778222, 38.91377259],
+  [-77.01776384, 38.91371947],
+  [-77.0177282 , 38.91361624],
+  [-77.01764249, 38.91338246],
+  [-77.01762238, 38.91332763],
+  [-77.01750746, 38.91300461],
+  [-77.017393  , 38.91269213],
+  [-77.01739046, 38.91268483],
+  [-77.01736498, 38.91261322],
+  [-77.01733844, 38.91253872],
+  [-77.01721867, 38.91220183],
+  [-77.01712614, 38.91195015],
+  [-77.01709763, 38.91187232],
+  [-77.01708138, 38.91182818],
+  [-77.01707733, 38.9118171 ],
+  [-77.01695295, 38.91147661],
+  [-77.01685547, 38.91120169],
+  [-77.01682916, 38.91112737],
+  [-77.01680136, 38.91105017],
+  [-77.01672658, 38.91084254],
+  [-77.01663118, 38.91058014],
+  [-77.01661364, 38.91052862],
+  [-77.0165969 , 38.91047935],
+  [-77.01657383, 38.91041134],
+  [-77.01655526, 38.91036008],
+  [-77.01651672, 38.91025406],
+  [-77.01650068, 38.91021001],
+  [-77.01645068, 38.91007218],
+  [-77.01632739, 38.90973241],
+  [-77.01629752, 38.90964999],
+  [-77.01629693, 38.90964837],
+  [-77.01629175, 38.90963368],
+  [-77.01623971, 38.90948668],
+  [-77.01620856, 38.90939867],
+  [-77.01619946, 38.90937354],
+  [-77.01619876, 38.90937164],
+  [-77.01616241, 38.9092713 ],
+  [-77.01615638, 38.90925467],
+  [-77.01614523, 38.90922401],
+  [-77.01611972, 38.90915383],
+  [-77.01600622, 38.9088409 ],
+  [-77.01598579, 38.9087846 ],
+  [-77.01594011, 38.90866146],
+  [-77.01591035, 38.90858156],
+  [-77.01577841, 38.90820794],
+  [-77.01574824, 38.90812252],
+  [-77.01548838, 38.90740487],
+  [-77.01544288, 38.90724262],
+  [-77.01530417, 38.90724129],
+  [-77.01530168, 38.90724129],
+  [-77.01522298, 38.90724136],
+  [-77.01516594, 38.9072414 ],
+  [-77.0151611 , 38.9072414 ],
+  [-77.01506771, 38.90724132],
+  [-77.01505759, 38.9072414 ],
+  [-77.01485568, 38.90724306],
+  [-77.01463213, 38.90724354],
+  [-77.01463029, 38.90724354],
+  [-77.01445284, 38.90724527],
+  [-77.01416335, 38.90724387],
+  [-77.01386312, 38.90724318],
+  [-77.01373727, 38.90724221],
+  [-77.01365708, 38.90724159],
+  [-77.01365677, 38.90716536],
+  [-77.01365539, 38.9068463 ],
+  [-77.01365535, 38.9068232 ],
+  [-77.0136553 , 38.90679391],
+  [-77.01365525, 38.90677133],
+  [-77.0136552 , 38.90674195],
+  [-77.01365502, 38.90664839],
+  [-77.01365521, 38.90654117],
+  [-77.01365532, 38.90647164],
+  [-77.01365579, 38.90639107],
+  [-77.01365644, 38.90627922],
+  [-77.01365642, 38.90617914],
+  [-77.01365617, 38.90610176],
+  [-77.01365616, 38.90609816],
+  [-77.01365535, 38.90594564],
+  [-77.01365425, 38.90590339],
+  [-77.01365059, 38.90576036],
+  [-77.01341053, 38.90584363],
+  [-77.01216255, 38.90627648],
+  [-77.01104295, 38.90666515],
+  [-77.01020838, 38.90695475],
+  [-77.0101278 , 38.90698268],
+  [-77.01010059, 38.90699215],
+  [-77.0096143 , 38.90716199],
+  [-77.00956207, 38.90718029],
+  [-77.00935676, 38.90725201],
+  [-77.0092817 , 38.9072785 ],
+  [-77.00919337, 38.90730961],
+  [-77.00905525, 38.90735826],
+  [-77.00906051, 38.90645831],
+  [-77.00906521, 38.90565512],
+  [-77.00906839, 38.90511131],
+  [-77.00907084, 38.90469155],
+  [-77.00907165, 38.9043601 ],
+  [-77.00907178, 38.90430218],
+  [-77.00906874, 38.90373794],
+  [-77.00906628, 38.90327911],
+  [-77.00906585, 38.90320046],
+  [-77.00906693, 38.90261114],
+  [-77.00906656, 38.90252231],
+  [-77.00906594, 38.90237518],
+  [-77.00906652, 38.90208072],
+  [-77.00906566, 38.90166544],
+  [-77.00906511, 38.90136355],
+  [-77.00906479, 38.9011852 ],
+  [-77.00906479, 38.90118286],
+  [-77.00906443, 38.90087772],
+  [-77.00906267, 38.90040936],
+  [-77.00906554, 38.90021567],
+  [-77.00906793, 38.89957015],
+  [-77.00906706, 38.89907293],
+  [-77.00906794, 38.89892527],
+  [-77.0090742 , 38.89786712],
+  [-77.00906668, 38.89747711],
+  [-77.00927789, 38.89756182],
+  [-77.00930072, 38.897571  ],
+  [-77.00981294, 38.89777959],
+  [-77.01059134, 38.89809653],
+  [-77.01108718, 38.89829836],
+  [-77.01118379, 38.89833772],
+  [-77.01190714, 38.89864526],
+  [-77.01242966, 38.89886439],
+  [-77.01339931, 38.89920381],
+  [-77.01366204, 38.89929577],
+  [-77.0140786 , 38.89944158],
+  [-77.01415859, 38.89946958],
+  [-77.01416705, 38.89947254],
+  [-77.0142608 , 38.89950535],
+  [-77.01428992, 38.89951555],
+  [-77.01515715, 38.89981909],
+  [-77.01556154, 38.89996063],
+  [-77.01558844, 38.89997004],
+  [-77.01593737, 38.90009218],
+  [-77.01620022, 38.90018417],
+  [-77.01640374, 38.90026183],
+  [-77.01653143, 38.90030471],
+  [-77.01772002, 38.90071242],
+  [-77.01814176, 38.90085946],
+  [-77.01818593, 38.90087485],
+  [-77.01849884, 38.90098372],
+  [-77.01863306, 38.90103047],
+  [-77.01877624, 38.90108033],
+  [-77.01880031, 38.90108843],
+  [-77.01892922, 38.90113175],
+  [-77.01906544, 38.90117988],
+  [-77.01916363, 38.90121458],
+  [-77.01948195, 38.9013266 ],
+  [-77.01951861, 38.90133965],
+  [-77.01973929, 38.90141358],
+  [-77.01979901, 38.90143329],
+  [-77.01992076, 38.90147678],
+  [-77.02001486, 38.90151361],
+  [-77.02007679, 38.90153316],
+  [-77.02026067, 38.90159125],
+  [-77.02042611, 38.90165182],
+  [-77.02070282, 38.90174861],
+  [-77.02075355, 38.90176619],
+  [-77.02077022, 38.90177197],
+  [-77.02091577, 38.90182244],
+  [-77.02123238, 38.90193201],
+  [-77.02152835, 38.90203294],
+  [-77.02160685, 38.90205743],
+  [-77.02165043, 38.90207012],
+  [-77.0217036 , 38.90208191],
+  [-77.02191731, 38.90210914],
+  [-77.0219188 , 38.90227439],
+  [-77.02191997, 38.90252891],
+  [-77.02192035, 38.90260756],
+  [-77.02192044, 38.90290962],
+  [-77.02192136, 38.90294663],
+  [-77.02191952, 38.90318695],
+  [-77.02191625, 38.90416848],
+  [-77.02191624, 38.90417562],
+  [-77.02191605, 38.9046997 ],
+  [-77.02191771, 38.90483609],
+  [-77.02191824, 38.90505733],
+  [-77.02191634, 38.90563927],
+  [-77.02191643, 38.90565128],
+  [-77.02223847, 38.90565399],
+  [-77.02237813, 38.90565396],
+  [-77.0224023 , 38.90565342],
+  [-77.02241604, 38.90565341],
+  [-77.02241606, 38.90570084],
+  [-77.02241676, 38.90570718],
+  [-77.02241679, 38.90578085],
+  [-77.02241573, 38.90724548],
+  [-77.02275583, 38.90724566],
+  [-77.02294701, 38.90724408],
+  [-77.02314575, 38.90724243],
+  [-77.02346638, 38.90724561],
+  [-77.02347178, 38.90724577],
+  [-77.02356289, 38.90724848],
+  [-77.02360854, 38.90725126],
+  [-77.02370527, 38.90725412],
+  [-77.02381354, 38.90725482],
+  [-77.02391154, 38.90725435],
+  [-77.02393991, 38.90725236],
+  [-77.02396504, 38.90725166],
+  [-77.02396761, 38.90771672],
+  [-77.0239719 , 38.90849425],
+  [-77.02397183, 38.90858172],
+  [-77.02397163, 38.90866676],
+  [-77.02397163, 38.90867405],
+  [-77.0239714 , 38.90879748],
+  [-77.02397105, 38.9089943 ],
+  [-77.02397074, 38.90915519],
+  [-77.0239717 , 38.90957065],
+  [-77.02397183, 38.90965425],
+  [-77.02410686, 38.90965314],
+  [-77.02416612, 38.90965259],
+  [-77.02450447, 38.90965355],
+  [-77.02457145, 38.90965373],
+  [-77.02485155, 38.90965452],
+  [-77.02491786, 38.90965432],
+  [-77.02498092, 38.90965422],
+  [-77.02498461, 38.90965422],
+  [-77.02505553, 38.90965402],
+  [-77.02533847, 38.90965324],
+  [-77.02545138, 38.90965316],
+  [-77.0258943 , 38.90965285],
+  [-77.02590204, 38.90965285],
+  [-77.02599138, 38.90965256],
+  [-77.02607591, 38.90965227],
+  [-77.02630822, 38.9096515 ],
+  [-77.02649165, 38.90965221],
+  [-77.02650959, 38.90965228],
+  [-77.02681035, 38.90965345],
+  [-77.02688149, 38.90965308],
+  [-77.02703841, 38.90965241],
+  [-77.02703842, 38.90965728],
+  [-77.02703842, 38.90966079],
+  [-77.02703855, 38.90973691],
+  [-77.02703901, 38.91000116],
+  [-77.02703959, 38.91033533],
+  [-77.02703993, 38.91034335],
+  [-77.02704016, 38.9103484 ],
+  [-77.02704114, 38.91048136],
+  [-77.02704171, 38.91055569],
+  [-77.02704224, 38.91062423],
+  [-77.0270419 , 38.91067297],
+  [-77.02704169, 38.9107217 ],
+  [-77.02704138, 38.91078017],
+  [-77.02704117, 38.91083854],
+  [-77.02704096, 38.91089691],
+  [-77.02704075, 38.91095529],
+  [-77.02704054, 38.91101375],
+  [-77.02704055, 38.91103916],
+  [-77.02704044, 38.91106465],
+  [-77.02704045, 38.91109005],
+  [-77.02704036, 38.91112843],
+  [-77.02704024, 38.91115653],
+  [-77.02704025, 38.91118473],
+  [-77.02704026, 38.91121284],
+  [-77.02704018, 38.91127589],
+  [-77.0270399 , 38.91175955],
+  [-77.02703804, 38.91221619],
+  [-77.02703695, 38.91248545],
+  [-77.02703697, 38.91252932],
+  [-77.0270371 , 38.91261489],
+  [-77.02703714, 38.91270083],
+  [-77.02703735, 38.91294613],
+  [-77.02703763, 38.91338835],
+  [-77.02703767, 38.91349942],
+  [-77.02703771, 38.91359329],
+  [-77.02703772, 38.91362833],
+  [-77.02703774, 38.91368319],
+  [-77.02703777, 38.91375319],
+  [-77.02703782, 38.91389471],
+  [-77.02703786, 38.9140129 ],
+  [-77.02703744, 38.91409765],
+  [-77.0268624 , 38.91409609],
+  [-77.02678712, 38.91409655],
+  [-77.02637789, 38.91409746],
+  [-77.02620887, 38.91409705],
+  [-77.02599267, 38.91409039],
+  [-77.025886  , 38.91408973],
+  [-77.02565967, 38.91408789],
+  [-77.0255868 , 38.91409457],
+  [-77.02498444, 38.91409686],
+  [-77.02468004, 38.91409783],
+  [-77.024497  , 38.91409881],
+  [-77.02436652, 38.91409952],
+  [-77.02430817, 38.91408935],
+  [-77.02412922, 38.91409164],
+  [-77.02396999, 38.91409356],
+  [-77.02382782, 38.91409377],
+  [-77.02344989, 38.91409428],
+  [-77.02343162, 38.9140943 ],
+  [-77.02308307, 38.91409671],
+  [-77.02304904, 38.91409672],
+  [-77.02294688, 38.91409665],
+  [-77.02285925, 38.91409658],
+  [-77.02243479, 38.9140963 ],
+  [-77.02241245, 38.91409629],
+  [-77.02222254, 38.91409616],
+  [-77.02205155, 38.91409619],
+  [-77.02191813, 38.91409622],
+  [-77.02178444, 38.91409624],
+  [-77.02139903, 38.91409406],
+  [-77.02129402, 38.91409406],
+  [-77.02124456, 38.91409406],
+  [-77.02119871, 38.91409406],
+  [-77.02094301, 38.91409405],
+  [-77.02087209, 38.91409398],
+  [-77.02087326, 38.91414505],
+  [-77.02087362, 38.91416938],
+  [-77.02087443, 38.91422424],
+  [-77.02087478, 38.91458582],
+  [-77.02087509, 38.91492273],
+  [-77.0208751 , 38.91494148],
+  [-77.02087495, 38.91508861],
+  [-77.02087474, 38.91527236],
+  [-77.02087447, 38.9154963 ],
+  [-77.02087447, 38.9155054 ],
+  [-77.02087483, 38.91558296],
+  [-77.02085661, 38.91558711],
+  [-77.02083886, 38.91559234],
+  [-77.02082133, 38.91559838],
+  [-77.02080427, 38.91560532],
+  [-77.02078791, 38.91561325],
+  [-77.02077235, 38.91562199],
+  [-77.02075759, 38.91563163],
+  [-77.02074814, 38.91563821],
+  [-77.02073925, 38.91564542],
+  [-77.02073269, 38.91565091],
+  [-77.02072577, 38.91565713],
+  [-77.02071688, 38.91566551],
+  [-77.02070802, 38.9156747 ],
+  [-77.02069959, 38.91568416],
+  [-77.02069175, 38.91569389],
+  [-77.02068438, 38.9157038 ],
+  [-77.02067746, 38.91571407],
+  [-77.02067124, 38.91572443],
+  [-77.02066548, 38.91573506],
+  [-77.02066041, 38.91574587],
+  [-77.02056677, 38.91570616],
+  [-77.02054775, 38.91569806],
+  [-77.02040557, 38.9156377 ],
+  [-77.02011909, 38.91551824],
+  [-77.02009246, 38.91550707],
+  [-77.02004264, 38.91548636],
+  [-77.01997824, 38.91545767],
+  [-77.01990195, 38.91542369],
+  [-77.01977474, 38.91536705],
+  [-77.01975538, 38.9153584 ],
+  [-77.01974084, 38.91535192],
+  [-77.01955379, 38.91527259],
+  [-77.01932567, 38.91517579],
+  [-77.01910173, 38.91508078],
+  [-77.01898918, 38.91503333],
+  [-77.0189298 , 38.91500829],
+  [-77.0187913 , 38.91494994],
+  [-77.0185534 , 38.91484972],
+  [-77.01841618, 38.91479182],
+  [-77.01816017, 38.91467484],
+  [-77.01815717, 38.91467349],
+  [-77.01811125, 38.91465349],
+  [-77.01801329, 38.91439946],
+  [-77.01789607, 38.91409546]]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 30
+});
+
 map.addControl(new mapboxgl.NavigationControl());
 </script>
 
 <h2>Districts, Commissioners, and Candidates</h2>
 
 <style  type="text/css" >
-    #T_92c6ed64_d2db_11ea_981e_acde48001122row0_col0 {
+    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row0_col1 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row0_col2 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row0_col3 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row0_col4 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row1_col0 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row1_col1 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row1_col2 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row1_col3 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row1_col4 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row2_col0 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row2_col1 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row2_col2 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row2_col3 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row2_col4 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row3_col0 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row3_col1 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row3_col2 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row3_col3 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row3_col4 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row4_col0 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row4_col1 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row4_col2 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row4_col3 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row4_col4 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row5_col0 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row5_col1 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row5_col2 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row5_col3 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row5_col4 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row6_col0 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row6_col1 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row6_col2 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row6_col3 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_92c6ed64_d2db_11ea_981e_acde48001122row6_col4 {
+        }    #T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }</style><table id="T_92c6ed64_d2db_11ea_981e_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
+        }</style><table id="T_3ad84d1a_d2df_11ea_b94b_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row0_col0" class="data row0 col0" ><a href="districts/6E01.html">6E01</a></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row0_col1" class="data row0 col1" >Alexander M. "Alex" Padro</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row0_col2" class="data row0 col2" >2</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row0_col3" class="data row0 col3" >Michael Eichler</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row0_col4" class="data row0 col4" >Mary A. Sutherland</td>
+                                <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col0" class="data row0 col0" ><a href="districts/6E01.html">6E01</a></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col1" class="data row0 col1" >Alexander M. "Alex" Padro</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col2" class="data row0 col2" >2</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col3" class="data row0 col3" >Michael Eichler</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row0_col4" class="data row0 col4" >Mary A. Sutherland</td>
             </tr>
             <tr>
-                                <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row1_col0" class="data row1 col0" ><a href="districts/6E02.html">6E02</a></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row1_col1" class="data row1 col1" >Michael J. Brown</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row1_col2" class="data row1 col2" >4</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row1_col3" class="data row1 col3" >Tony Brown</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row1_col4" class="data row1 col4" >Alexander Lopez, Valerie Randolph, Eugene Simms</td>
+                                <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col0" class="data row1 col0" ><a href="districts/6E02.html">6E02</a></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col1" class="data row1 col1" >Michael J. Brown</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col2" class="data row1 col2" >4</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col3" class="data row1 col3" >Tony Brown</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row1_col4" class="data row1 col4" >Alexander Lopez, Valerie Randolph, Eugene Simms</td>
             </tr>
             <tr>
-                                <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row2_col0" class="data row2 col0" ><a href="districts/6E03.html">6E03</a></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row2_col1" class="data row2 col1" >Frank S. Wiggins</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row2_col2" class="data row2 col2" >1</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row2_col3" class="data row2 col3" ></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row2_col4" class="data row2 col4" >Frank S. Wiggins</td>
+                                <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col0" class="data row2 col0" ><a href="districts/6E03.html">6E03</a></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col1" class="data row2 col1" >Frank S. Wiggins</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col2" class="data row2 col2" >1</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col3" class="data row2 col3" ></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row2_col4" class="data row2 col4" >Frank S. Wiggins</td>
             </tr>
             <tr>
-                                <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row3_col0" class="data row3 col0" ><a href="districts/6E04.html">6E04</a></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row3_col1" class="data row3 col1" >Rachelle Nigro</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row3_col2" class="data row3 col2" >3</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row3_col3" class="data row3 col3" >Rachelle Nigro</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row3_col4" class="data row3 col4" >Matthew R. Salmon, Jordan A. Hibbs</td>
+                                <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col0" class="data row3 col0" ><a href="districts/6E04.html">6E04</a></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col1" class="data row3 col1" >Rachelle Nigro</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col2" class="data row3 col2" >3</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col3" class="data row3 col3" >Rachelle Nigro</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row3_col4" class="data row3 col4" >Matthew R. Salmon, Jordan A. Hibbs</td>
             </tr>
             <tr>
-                                <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row4_col0" class="data row4 col0" ><a href="districts/6E05.html">6E05</a></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row4_col1" class="data row4 col1" >Alex Marriott</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row4_col2" class="data row4 col2" >2</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row4_col3" class="data row4 col3" >Katherine Kortum</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row4_col4" class="data row4 col4" >Patrick Parlej</td>
+                                <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col0" class="data row4 col0" ><a href="districts/6E05.html">6E05</a></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col1" class="data row4 col1" >Alex Marriott</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col2" class="data row4 col2" >2</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col3" class="data row4 col3" >Katherine Kortum</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row4_col4" class="data row4 col4" >Patrick Parlej</td>
             </tr>
             <tr>
-                                <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row5_col0" class="data row5 col0" ><a href="districts/6E06.html">6E06</a></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row5_col1" class="data row5 col1" >Alvin Judd Sr.</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row5_col2" class="data row5 col2" >1</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row5_col3" class="data row5 col3" ></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row5_col4" class="data row5 col4" >Denise E Blackson</td>
+                                <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col0" class="data row5 col0" ><a href="districts/6E06.html">6E06</a></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col1" class="data row5 col1" >Alvin Judd Sr.</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col2" class="data row5 col2" >1</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col3" class="data row5 col3" ></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row5_col4" class="data row5 col4" >Denise E Blackson</td>
             </tr>
             <tr>
-                                <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row6_col0" class="data row6 col0" ><a href="districts/6E07.html">6E07</a></td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row6_col1" class="data row6 col1" >Kevin M. Rogers</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row6_col2" class="data row6 col2" >2</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row6_col3" class="data row6 col3" >Kevin M. Rogers</td>
-                        <td id="T_92c6ed64_d2db_11ea_981e_acde48001122row6_col4" class="data row6 col4" >Nathan Brown</td>
+                                <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col0" class="data row6 col0" ><a href="districts/6E07.html">6E07</a></td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col1" class="data row6 col1" >Kevin M. Rogers</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col2" class="data row6 col2" >2</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col3" class="data row6 col3" >Kevin M. Rogers</td>
+                        <td id="T_3ad84d1a_d2df_11ea_b94b_acde48001122row6_col4" class="data row6 col4" >Nathan Brown</td>
             </tr>
     </tbody></table>
 

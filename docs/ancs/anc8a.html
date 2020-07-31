@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>ANC8A</title>
+    <title>OpenANC : ANC8A</title>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
@@ -24,7 +24,7 @@
 
 <h1><a href="../index.html">OpenANC</a> : ANC8A</h1>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
+<div id='map' style='width: 700px; height: 400px;'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
 var map = new mapboxgl.Map({
@@ -34,271 +34,304 @@ var map = new mapboxgl.Map({
     zoom: 13.311946036389951
 });
 
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-76.97228878, 38.87285971],
+  [-76.97223017, 38.8727261 ],
+  [-76.97213106, 38.87275364],
+  ...,
+  [-76.97243222, 38.87292884],
+  [-76.97239948, 38.87291306],
+  [-76.97228878, 38.87285971]]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 30
+});
+
 map.addControl(new mapboxgl.NavigationControl());
 </script>
 
 <h2>Districts, Commissioners, and Candidates</h2>
 
 <style  type="text/css" >
-    #T_934b1d5a_d2db_11ea_981e_acde48001122row0_col0 {
+    #T_3b495942_d2df_11ea_b94b_acde48001122row0_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row0_col1 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row0_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row0_col2 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row0_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row0_col3 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row0_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row0_col4 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row0_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row1_col0 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row1_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row1_col1 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row1_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row1_col2 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row1_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row1_col3 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row1_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row1_col4 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row1_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row2_col0 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row2_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row2_col1 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row2_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row2_col2 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row2_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row2_col3 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row2_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row2_col4 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row2_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row3_col0 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row3_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row3_col1 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row3_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row3_col2 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row3_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row3_col3 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row3_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row3_col4 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row3_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row4_col0 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row4_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row4_col1 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row4_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row4_col2 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row4_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row4_col3 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row4_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row4_col4 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row4_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row5_col0 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row5_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row5_col1 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row5_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row5_col2 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row5_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row5_col3 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row5_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row5_col4 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row5_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row6_col0 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row6_col0 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row6_col1 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row6_col1 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row6_col2 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row6_col2 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row6_col3 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row6_col3 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }    #T_934b1d5a_d2db_11ea_981e_acde48001122row6_col4 {
+        }    #T_3b495942_d2df_11ea_b94b_acde48001122row6_col4 {
             border-color:  black;
             border-style:  solid;
             border-width:  1px;
             text-align:  center;
             padding:  4px;
-        }</style><table id="T_934b1d5a_d2db_11ea_981e_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
+        }</style><table id="T_3b495942_d2df_11ea_b94b_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
                 <tr>
-                                <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row0_col0" class="data row0 col0" ><a href="districts/8A01.html">8A01</a></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row0_col1" class="data row0 col1" >Holly Muhammad</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row0_col2" class="data row0 col2" >1</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row0_col3" class="data row0 col3" ></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row0_col4" class="data row0 col4" >Holly Muhammad</td>
+                                <td id="T_3b495942_d2df_11ea_b94b_acde48001122row0_col0" class="data row0 col0" ><a href="districts/8A01.html">8A01</a></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row0_col1" class="data row0 col1" >Holly Muhammad</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row0_col2" class="data row0 col2" >1</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row0_col3" class="data row0 col3" ></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row0_col4" class="data row0 col4" >Holly Muhammad</td>
             </tr>
             <tr>
-                                <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row1_col0" class="data row1 col0" ><a href="districts/8A02.html">8A02</a></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row1_col1" class="data row1 col1" >Barbara J. Clark</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row1_col2" class="data row1 col2" >2</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row1_col3" class="data row1 col3" >Ira L. Lovelace</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row1_col4" class="data row1 col4" >Barbara J. Clark</td>
+                                <td id="T_3b495942_d2df_11ea_b94b_acde48001122row1_col0" class="data row1 col0" ><a href="districts/8A02.html">8A02</a></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row1_col1" class="data row1 col1" >Barbara J. Clark</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row1_col2" class="data row1 col2" >2</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row1_col3" class="data row1 col3" >Ira L. Lovelace</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row1_col4" class="data row1 col4" >Barbara J. Clark</td>
             </tr>
             <tr>
-                                <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row2_col0" class="data row2 col0" ><a href="districts/8A03.html">8A03</a></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row2_col1" class="data row2 col1" >Brian K Thompson</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row2_col2" class="data row2 col2" >0</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row2_col3" class="data row2 col3" ></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row2_col4" class="data row2 col4" ></td>
+                                <td id="T_3b495942_d2df_11ea_b94b_acde48001122row2_col0" class="data row2 col0" ><a href="districts/8A03.html">8A03</a></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row2_col1" class="data row2 col1" >Brian K Thompson</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row2_col2" class="data row2 col2" >0</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row2_col3" class="data row2 col3" ></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row2_col4" class="data row2 col4" ></td>
             </tr>
             <tr>
-                                <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row3_col0" class="data row3 col0" ><a href="districts/8A04.html">8A04</a></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row3_col1" class="data row3 col1" >Troy Donte Prestwood</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row3_col2" class="data row3 col2" >2</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row3_col3" class="data row3 col3" ></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row3_col4" class="data row3 col4" >Moses Smith, Laneice Moore</td>
+                                <td id="T_3b495942_d2df_11ea_b94b_acde48001122row3_col0" class="data row3 col0" ><a href="districts/8A04.html">8A04</a></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row3_col1" class="data row3 col1" >Troy Donte Prestwood</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row3_col2" class="data row3 col2" >2</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row3_col3" class="data row3 col3" ></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row3_col4" class="data row3 col4" >Moses Smith, Laneice Moore</td>
             </tr>
             <tr>
-                                <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row4_col0" class="data row4 col0" ><a href="districts/8A05.html">8A05</a></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row4_col1" class="data row4 col1" >Dorcas Agyei</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row4_col2" class="data row4 col2" >2</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row4_col3" class="data row4 col3" ></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row4_col4" class="data row4 col4" >Michael Grier, Jamila White</td>
+                                <td id="T_3b495942_d2df_11ea_b94b_acde48001122row4_col0" class="data row4 col0" ><a href="districts/8A05.html">8A05</a></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row4_col1" class="data row4 col1" >Dorcas Agyei</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row4_col2" class="data row4 col2" >2</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row4_col3" class="data row4 col3" ></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row4_col4" class="data row4 col4" >Michael Grier, Jamila White</td>
             </tr>
             <tr>
-                                <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row5_col0" class="data row5 col0" ><a href="districts/8A06.html">8A06</a></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row5_col1" class="data row5 col1" >Tyón Jones</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row5_col2" class="data row5 col2" >5</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row5_col3" class="data row5 col3" >Isaac Smith</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row5_col4" class="data row5 col4" >Aiyi'nah Darlene Ford, Greta Fuller, Robin Ward 8 McKinney, Kristina Leszczak</td>
+                                <td id="T_3b495942_d2df_11ea_b94b_acde48001122row5_col0" class="data row5 col0" ><a href="districts/8A06.html">8A06</a></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row5_col1" class="data row5 col1" >Tyón Jones</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row5_col2" class="data row5 col2" >5</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row5_col3" class="data row5 col3" >Isaac Smith</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row5_col4" class="data row5 col4" >Aiyi'nah Darlene Ford, Greta Fuller, Robin Ward 8 McKinney, Kristina Leszczak</td>
             </tr>
             <tr>
-                                <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row6_col0" class="data row6 col0" ><a href="districts/8A07.html">8A07</a></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row6_col1" class="data row6 col1" >Hanna Baker</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row6_col2" class="data row6 col2" >1</td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row6_col3" class="data row6 col3" ></td>
-                        <td id="T_934b1d5a_d2db_11ea_981e_acde48001122row6_col4" class="data row6 col4" >Steven Tiller</td>
+                                <td id="T_3b495942_d2df_11ea_b94b_acde48001122row6_col0" class="data row6 col0" ><a href="districts/8A07.html">8A07</a></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row6_col1" class="data row6 col1" >Hanna Baker</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row6_col2" class="data row6 col2" >1</td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row6_col3" class="data row6 col3" ></td>
+                        <td id="T_3b495942_d2df_11ea_b94b_acde48001122row6_col4" class="data row6 col4" >Steven Tiller</td>
             </tr>
     </tbody></table>
 
