@@ -5,8 +5,7 @@ Build Index page
 import pandas as pd
 
 from scripts.common import (
-    build_anc_html_table
-    , anc_names
+    anc_names
     , add_footer
     , list_of_smds_without_candidates
     , edit_form_link
@@ -40,7 +39,6 @@ class BuildIndex():
 
             html += f'<h3><a href="ancs/{anc_lower}.html">{anc_upper}</a></h3>'
 
-            # html += build_anc_html_table(anc_id)
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
 
             html += build_smd_html_table(smds_in_anc, link_path='ancs/districts/')

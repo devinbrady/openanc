@@ -4,6 +4,8 @@
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
+<meta charset="UTF-8">
+
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
@@ -37,60 +39,268 @@ map.addControl(new mapboxgl.NavigationControl());
 
 <h2>Districts, Commissioners, and Candidates</h2>
 
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th>SMD</th>
-      <th>Current Commissioner</th>
-      <th>On Ballot</th>
-      <th>Pulled Papers for Ballot</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><a href="districts/8D01.html">8D01</a></td>
-      <td>Patricia Carmon</td>
-      <td></td>
-      <td>Rowena "Joyce" Scott, Patricia Carmon</td>
-    </tr>
-    <tr>
-      <td><a href="districts/8D02.html">8D02</a></td>
-      <td>Olivia L. Henderson</td>
-      <td>Emerald Holman</td>
-      <td>Olivia L. Henderson</td>
-    </tr>
-    <tr>
-      <td><a href="districts/8D03.html">8D03</a></td>
-      <td>Absalom Jordan</td>
-      <td></td>
-      <td>Absalom Jordan</td>
-    </tr>
-    <tr>
-      <td><a href="districts/8D04.html">8D04</a></td>
-      <td>Monique T. Diop</td>
-      <td></td>
-      <td>Monique T. Diop</td>
-    </tr>
-    <tr>
-      <td><a href="districts/8D05.html">8D05</a></td>
-      <td>Ellen Armstead</td>
-      <td>Shanquella 'Goldie' Ross</td>
-      <td>Ellen Armstead</td>
-    </tr>
-    <tr>
-      <td><a href="districts/8D06.html">8D06</a></td>
-      <td>LaVerne R. Glenn</td>
-      <td></td>
-      <td>LaVerne R. Glenn, Alyse Newhouse</td>
-    </tr>
-    <tr>
-      <td><a href="districts/8D07.html">8D07</a></td>
-      <td>Constance Mobley</td>
-      <td></td>
-      <td>Patricia Janifer</td>
-    </tr>
-  </tbody>
-</table>
+<style  type="text/css" >
+    #T_938bbac2_d2db_11ea_981e_acde48001122row0_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row0_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row0_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row0_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row0_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row1_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row1_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row1_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row1_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row1_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row2_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row2_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row2_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row2_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row2_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row3_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row3_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row3_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row3_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row3_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row4_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row4_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row4_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row4_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row4_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row5_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row5_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row5_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row5_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row5_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row6_col0 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row6_col1 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row6_col2 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row6_col3 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }    #T_938bbac2_d2db_11ea_981e_acde48001122row6_col4 {
+            border-color:  black;
+            border-style:  solid;
+            border-width:  1px;
+            text-align:  center;
+            padding:  4px;
+        }</style><table id="T_938bbac2_d2db_11ea_981e_acde48001122" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>        <th class="col_heading level0 col2" >Number of Candidates</th>        <th class="col_heading level0 col3" >On Ballot</th>        <th class="col_heading level0 col4" >Pulled Papers for Ballot</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_938bbac2_d2db_11ea_981e_acde48001122row0_col0" class="data row0 col0" ><a href="districts/8D01.html">8D01</a></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row0_col1" class="data row0 col1" >Patricia Carmon</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row0_col2" class="data row0 col2" >2</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row0_col3" class="data row0 col3" ></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row0_col4" class="data row0 col4" >Rowena "Joyce" Scott, Patricia Carmon</td>
+            </tr>
+            <tr>
+                                <td id="T_938bbac2_d2db_11ea_981e_acde48001122row1_col0" class="data row1 col0" ><a href="districts/8D02.html">8D02</a></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row1_col1" class="data row1 col1" >Olivia L. Henderson</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row1_col2" class="data row1 col2" >2</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row1_col3" class="data row1 col3" >Emerald Holman</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row1_col4" class="data row1 col4" >Olivia L. Henderson</td>
+            </tr>
+            <tr>
+                                <td id="T_938bbac2_d2db_11ea_981e_acde48001122row2_col0" class="data row2 col0" ><a href="districts/8D03.html">8D03</a></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row2_col1" class="data row2 col1" >Absalom Jordan</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row2_col2" class="data row2 col2" >1</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row2_col3" class="data row2 col3" ></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row2_col4" class="data row2 col4" >Absalom Jordan</td>
+            </tr>
+            <tr>
+                                <td id="T_938bbac2_d2db_11ea_981e_acde48001122row3_col0" class="data row3 col0" ><a href="districts/8D04.html">8D04</a></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row3_col1" class="data row3 col1" >Monique T. Diop</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row3_col2" class="data row3 col2" >1</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row3_col3" class="data row3 col3" ></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row3_col4" class="data row3 col4" >Monique T. Diop</td>
+            </tr>
+            <tr>
+                                <td id="T_938bbac2_d2db_11ea_981e_acde48001122row4_col0" class="data row4 col0" ><a href="districts/8D05.html">8D05</a></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row4_col1" class="data row4 col1" >Ellen Armstead</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row4_col2" class="data row4 col2" >2</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row4_col3" class="data row4 col3" >Shanquella 'Goldie' Ross</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row4_col4" class="data row4 col4" >Ellen Armstead</td>
+            </tr>
+            <tr>
+                                <td id="T_938bbac2_d2db_11ea_981e_acde48001122row5_col0" class="data row5 col0" ><a href="districts/8D06.html">8D06</a></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row5_col1" class="data row5 col1" >LaVerne R. Glenn</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row5_col2" class="data row5 col2" >2</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row5_col3" class="data row5 col3" ></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row5_col4" class="data row5 col4" >LaVerne R. Glenn, Alyse Newhouse</td>
+            </tr>
+            <tr>
+                                <td id="T_938bbac2_d2db_11ea_981e_acde48001122row6_col0" class="data row6 col0" ><a href="districts/8D07.html">8D07</a></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row6_col1" class="data row6 col1" >Constance Mobley</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row6_col2" class="data row6 col2" >1</td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row6_col3" class="data row6 col3" ></td>
+                        <td id="T_938bbac2_d2db_11ea_981e_acde48001122row6_col4" class="data row6 col4" >Patricia Janifer</td>
+            </tr>
+    </tbody></table>
 
 <h2>ANC Info</h2>
 

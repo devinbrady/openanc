@@ -8,7 +8,7 @@ from tqdm import tqdm
 from bs4 import BeautifulSoup
 
 from scripts.common import (
-    build_anc_html_table
+    build_smd_html_table
     , anc_names
     , build_data_table
     , add_footer
@@ -39,8 +39,8 @@ class BuildANCs():
             
             output = output.replace('REPLACE_WITH_ANC', anc_upper)
             
-            anc_smd_ids = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
-            output = output.replace('<!-- replace with district list -->', build_anc_html_table(anc_id, level=1))
+            smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
+            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_path='districts/'))
 
             fields_to_try = ['notes', 'dc_oanc_link', 'anc_homepage_link', 'twitter_link']
             output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try))
