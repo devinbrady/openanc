@@ -22,7 +22,7 @@
 
 <h1><a href="../../index.html">OpenANC</a> : <a href="../anc1b.html">ANC1B</a> : District 1B07</h1>
 
-<div id='map' style='width: 400px; height: 300px;'></div>
+<div id='map' style='width: 700px; height: 400px;'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
 var map = new mapboxgl.Map({
@@ -32,13 +32,104 @@ var map = new mapboxgl.Map({
     zoom: 13
 });
 
-// 15 = ideal for smallest, 2F07
-// 12 = ideal for largest, 8D04
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.03635655, 38.92326256],
+  [-77.03649342, 38.92325765],
+  [-77.03649266, 38.92333981],
+  [-77.03649179, 38.92342791],
+  [-77.03649172, 38.92350146],
+  [-77.03649152, 38.92376772],
+  [-77.03649145, 38.92385233],
+  [-77.03649128, 38.92406755],
+  [-77.03649115, 38.92423514],
+  [-77.03649044, 38.92431389],
+  [-77.03648897, 38.92447688],
+  [-77.03648742, 38.92464751],
+  [-77.0364869 , 38.92470484],
+  [-77.03648635, 38.92477321],
+  [-77.03639445, 38.92477747],
+  [-77.03635604, 38.92477857],
+  [-77.03576869, 38.92479568],
+  [-77.03547466, 38.92480424],
+  [-77.03539242, 38.92480661],
+  [-77.03539707, 38.92487768],
+  [-77.03541938, 38.92521972],
+  [-77.03542635, 38.92532656],
+  [-77.03532823, 38.92533073],
+  [-77.03484242, 38.925351  ],
+  [-77.03481067, 38.92535233],
+  [-77.03470306, 38.92535912],
+  [-77.03465302, 38.92536219],
+  [-77.03398462, 38.92540401],
+  [-77.03348437, 38.9254346 ],
+  [-77.03301677, 38.92546311],
+  [-77.03300638, 38.92546374],
+  [-77.03280467, 38.92547659],
+  [-77.03246593, 38.92549817],
+  [-77.03231861, 38.92550934],
+  [-77.0323113 , 38.92543196],
+  [-77.0323054 , 38.92537025],
+  [-77.03225188, 38.9248349 ],
+  [-77.0322492 , 38.92480887],
+  [-77.03224447, 38.92476347],
+  [-77.0322221 , 38.9245489 ],
+  [-77.03237012, 38.92453926],
+  [-77.03289879, 38.92450709],
+  [-77.0334371 , 38.92447424],
+  [-77.03408703, 38.92443126],
+  [-77.0340989 , 38.92442945],
+  [-77.03411032, 38.92442621],
+  [-77.03412082, 38.9244217 ],
+  [-77.03413038, 38.92441584],
+  [-77.03413868, 38.92440899],
+  [-77.03414549, 38.92440115],
+  [-77.03415067, 38.9243926 ],
+  [-77.03415412, 38.92438359],
+  [-77.03415573, 38.92437422],
+  [-77.0341555 , 38.92436476],
+  [-77.03412871, 38.92403119],
+  [-77.03409407, 38.92369951],
+  [-77.03408085, 38.92356871],
+  [-77.03407379, 38.92349872],
+  [-77.0341642 , 38.92349401],
+  [-77.03470528, 38.92346578],
+  [-77.03482403, 38.92345959],
+  [-77.03519478, 38.92344578],
+  [-77.03529119, 38.92344224],
+  [-77.03531092, 38.92344124],
+  [-77.03531154, 38.92330287],
+  [-77.03543642, 38.92329608],
+  [-77.03549384, 38.92329291],
+  [-77.03634432, 38.92326301],
+  [-77.03635655, 38.92326256]]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
 
 map.addControl(new mapboxgl.NavigationControl());
 </script>
-<br/>
-<div style="width:400px;height:20px;background-color:#fdbf6f;opacity:0.5;text-align: center">District 1B07</div>
 <br/>
 
 <h2>Current Commissioner</h2>

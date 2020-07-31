@@ -2,10 +2,11 @@
 Build Single Member District pages
 """
 
+import sys
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from bs4 import BeautifulSoup
+import geopandas as gpd
 
 from scripts.common import (
     build_district_list
@@ -17,6 +18,11 @@ from scripts.common import (
 
 
 class BuildDistricts():
+
+    def __init__(self):
+
+        # Load GeoJSON for all SMDs to memory
+        self.smd_shape = gpd.read_file('maps/smd.geojson')
 
 
     def build_commissioner_table(self, smd_id):
@@ -129,6 +135,26 @@ class BuildDistricts():
         return district_table
 
 
+    def add_smd_geojson(self, smd_id, input_html):
+        """
+        Add the GeoJSON for the SMD as a variable in the HTML
+
+        This variable will be used to calculate the bounds of the map
+        """
+        
+        a = self.smd_shape[self.smd_shape['smd_id'] == smd_id].copy() 
+
+        b = a.geometry.iloc[0]
+        
+        c = b.boundary[0].xy
+
+        d = np.dstack(c)
+
+        e = np.array2string(d, separator=',')
+
+        output_html = input_html.replace('REPLACE_WITH_XY', e)
+
+        return output_html
 
 
     def run(self):
@@ -142,6 +168,7 @@ class BuildDistricts():
 
         
         for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs'):
+        # for idx, row in district_colors.iterrows():
 
             smd_id = row['smd_id']
             smd_display = smd_id.replace('smd_','')
@@ -150,7 +177,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_2B05':
+            # if smd_id != 'smd_1B01':
             #     continue
                     
             with open('templates/smd.html', 'r') as f:
@@ -159,6 +186,8 @@ class BuildDistricts():
             output = output.replace('REPLACE_WITH_SMD', smd_display)
             
             output = add_google_analytics(output)
+            output = self.add_smd_geojson(smd_id, output)
+
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
@@ -176,9 +205,6 @@ class BuildDistricts():
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
             output = add_footer(output, level=2)
-
-            # soup = BeautifulSoup(output, 'html.parser')
-            # output_pretty = soup.prettify()
 
             with open(f'docs/ancs/districts/{smd_display}.html', 'w') as f:
                 f.write(output)
