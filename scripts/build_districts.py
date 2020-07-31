@@ -136,27 +136,6 @@ class BuildDistricts():
         return district_table
 
 
-    def add_smd_geojson(self, smd_id, input_html):
-        """
-        Add the GeoJSON for the SMD as a variable in the HTML
-
-        This variable will be used to calculate the bounds of the map
-        """
-        
-        a = self.smd_shape[self.smd_shape['smd_id'] == smd_id].copy() 
-
-        b = a.geometry.iloc[0]
-        
-        c = b.boundary[0].xy
-
-        d = np.dstack(c)
-
-        e = np.array2string(d, separator=',')
-
-        output_html = input_html.replace('REPLACE_WITH_XY', e)
-
-        return output_html
-
 
     def run(self):
         """

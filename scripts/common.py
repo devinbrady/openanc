@@ -6,10 +6,12 @@ import pandas as pd
 from datetime import datetime
 
 
+
 def edit_form_link(link_text='Submit edits'):
     """Return HTML for link to form for edits"""
 
     return f'<a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">{link_text}</a>'
+
 
 
 def add_google_analytics(input_html):
@@ -34,6 +36,7 @@ def add_google_analytics(input_html):
     return output_html
 
 
+
 def add_geojson(shape_gdf, field_name, field_value, input_html):
     """
     Add a GeoJSON feature as a Javascript variable to an HTML string
@@ -41,39 +44,34 @@ def add_geojson(shape_gdf, field_name, field_value, input_html):
     This variable will be used to calculate the bounds of the map
     """
     
-    a = shape_gdf[shape_gdf[field_name] == field_value].copy() 
+    shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy() 
 
-    b = a.geometry.iloc[0]
+    shape_geo = shape_row.geometry.iloc[0]
     
-    c = b.boundary[0].xy
+    geo_bounds = shape_geo.boundary[0].xy
 
-    f = '[['
+    output_string = '[['
 
-    for idx, value in enumerate(c[0]):
+    for idx, value in enumerate(geo_bounds[0]):
 
         if idx > 0: 
-            f += ','
+            output_string += ','
         
-        f += '['
+        output_string += '['
 
-        x = c[0][idx]
+        x = geo_bounds[0][idx]
+        output_string += '{}'.format(x)
 
-        f += '{}'.format(x)
+        y = geo_bounds[1][idx]
+        output_string += ', {}'.format(y)
 
-        y = c[1][idx]
+        output_string += ']\n'
 
-        f += ', {}'.format(y)
+    output_string += ']]'
 
-        f+= ']\n'
-
-    f += ']]'
-
-
-
-    output_html = input_html.replace('REPLACE_WITH_XY', f)
+    output_html = input_html.replace('REPLACE_WITH_XY', output_string)
 
     return output_html
-
 
 
 
@@ -85,6 +83,7 @@ def dc_coordinates():
     dc_zoom_level = 10.3
 
     return dc_longitude, dc_latitude, dc_zoom_level
+
 
 
 def list_of_smds_without_candidates():
@@ -104,6 +103,7 @@ def list_of_smds_without_candidates():
     return no_candidate_districts
 
 
+
 def anc_names(anc_id):
     """
     Return formatted ANC names
@@ -114,68 +114,6 @@ def anc_names(anc_id):
 
     return anc_upper, anc_lower
 
-
-def build_anc_html_table(anc_id, level=0):
-    """
-    Return an HTML table with one row per district in an ANC
-
-    Contains current commissioner and all candidates by status
-    """
-
-    anc_upper, anc_lower = anc_names(anc_id)
-
-    ancs = pd.read_csv('data/ancs.csv')
-    districts = pd.read_csv('data/districts.csv')
-    commissioners = pd.read_csv('data/commissioners.csv')
-    people = pd.read_csv('data/people.csv')
-    candidates = pd.read_csv('data/candidates.csv')
-    candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
-
-    dc = pd.merge(districts, commissioners, how='left', on='smd_id')
-    dcp = pd.merge(dc, people, how='left', on='person_id')
-
-    cp = pd.merge(candidates, people, how='inner', on='person_id')
-    cpd = pd.merge(cp, districts, how='inner', on='smd_id')
-
-    dcp['Current Commissioner'] = dcp['full_name'].fillna('(vacant)')
-
-    anc_df = dcp[dcp['anc_id'] == anc_id].copy()
-
-    # Construct link to SMD page
-    if level == 0:
-        link_path = 'ancs/districts/'
-    elif level == 1:
-        link_path = 'districts/'
-    elif level == 2:
-        link_path = ''
-
-    anc_df['SMD'] = (
-        f'<a href="{link_path}' + anc_df['smd_id'].str.replace('smd_','') + '.html">' 
-        + anc_df['smd_id'].str.replace('smd_','') + '</a>'
-        )
-
-    columns_to_html = ['SMD', 'Current Commissioner']
-
-
-    cpd['order_status'] = cpd['display_order'].astype(str) + ';' + cpd['candidate_status']
-
-    candidates_in_anc = cpd[cpd['anc_id'] == anc_id].copy()
-    statuses_in_anc = sorted(candidates_in_anc['order_status'].unique())
-    
-    for status in statuses_in_anc:
-
-        status_name = status[status.find(';')+1:]
-        columns_to_html += [status_name]
-        
-        cs_df = candidates_in_anc[candidates_in_anc['order_status'] == status][['smd_id', 'full_name']].copy()
-        cs_smd = cs_df.groupby('smd_id').agg({'full_name': list}).reset_index()
-        cs_smd[status_name] = cs_smd['full_name'].apply(lambda row: ', '.join(row))
-        
-        anc_df = pd.merge(anc_df, cs_smd, how='left', on='smd_id')            
-
-    html = anc_df[columns_to_html].to_html(index=False, na_rep='', justify='left', escape=False)
-
-    return html
 
 
 def build_smd_html_table(list_of_smds, link_path=''):
@@ -313,6 +251,7 @@ def build_district_list(smd_id_list=None, level=0):
     return district_list
 
 
+
 def build_data_table(row, fields_to_try):
         """
         Create HTML table for one row of data
@@ -369,6 +308,7 @@ def build_data_table(row, fields_to_try):
         return output_table
 
 
+
 def calculate_zoom(area):
 
     slope = -0.0000004570057419
@@ -377,6 +317,7 @@ def calculate_zoom(area):
     zoom_level = (slope * area) + intercept
 
     return zoom_level
+
 
 
 def current_time():
@@ -389,6 +330,7 @@ def current_time():
     dc_timestamp = dc_now.strftime("%B %-d, %Y") # Hour of day: %-I:%M %p
 
     return dc_timestamp
+
 
 
 def add_footer(input_html, level=0):

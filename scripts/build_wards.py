@@ -8,8 +8,7 @@ from tqdm import tqdm
 import geopandas as gpd
 
 from scripts.common import (
-    build_anc_html_table
-    , anc_names
+    anc_names
     , build_data_table
     , build_smd_html_table
     , add_footer
