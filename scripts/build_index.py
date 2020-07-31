@@ -11,6 +11,7 @@ from scripts.common import (
     , list_of_smds_without_candidates
     , edit_form_link
     , add_google_analytics
+    , build_smd_html_table
 )
 
 from scripts.counts import Counts
@@ -29,6 +30,7 @@ class BuildIndex():
         """
 
         ancs = pd.read_csv('data/ancs.csv')
+        districts = pd.read_csv('data/districts.csv')
 
         html = ''
 
@@ -38,7 +40,10 @@ class BuildIndex():
 
             html += f'<h3><a href="ancs/{anc_lower}.html">{anc_upper}</a></h3>'
 
-            html += build_anc_html_table(anc_id)
+            # html += build_anc_html_table(anc_id)
+            smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
+
+            html += build_smd_html_table(smds_in_anc, link_path='ancs/districts/')
 
         return html
 
