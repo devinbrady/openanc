@@ -14,6 +14,7 @@ from scripts.common import (
     , add_footer
     , edit_form_link
     , add_google_analytics
+    , add_geojson
     )
 
 
@@ -186,7 +187,7 @@ class BuildDistricts():
             output = output.replace('REPLACE_WITH_SMD', smd_display)
             
             output = add_google_analytics(output)
-            output = self.add_smd_geojson(smd_id, output)
+            output = add_geojson(self.smd_shape, 'smd_id', smd_id, output)
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
