@@ -4,6 +4,9 @@ These should all be fixed in candidates_dcboe.csv:
 
 * "ANC/SMD" has a bad character at the start
 
+* 5D06, Marina Budimir has pickup date in 1930
+* 1A02, Dieter Lehmann Morales has filing date in January
+
 
 
 No longer an issue:

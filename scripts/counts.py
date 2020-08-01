@@ -85,6 +85,16 @@ class Counts():
         return smd_html
 
 
+
+    def pickup_date_graph(self):
+        """
+        Create graph showing counts of candidate pickups and filing by date
+        """
+
+        return ''
+
+
+
     def contested_count(self):
         """
         Return HTML with number of candidates in each district, shows how many races are contested

@@ -265,6 +265,9 @@ def check_new_candidates_for_duplicates():
 
     new_candidates = pd.read_csv('data/dcboe/to_google_sheets/add_records_to_candidates.csv')
 
+    if len(new_candidates) == 0:
+        return
+
     rd = RefreshData()
     smd_df = rd.assemble_smd_info()
 
