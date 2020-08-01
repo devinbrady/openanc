@@ -86,24 +86,6 @@ def dc_coordinates():
 
 
 
-def list_of_smds_without_candidates():
-    """
-    Return a list of SMDs that don't currently have a candidate
-    """
-
-    districts = pd.read_csv('data/districts.csv')
-    candidates = pd.read_csv('data/candidates.csv')
-
-    district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
-    # todo: don't count withdrawn candidates here
-
-    no_candidate_districts = district_candidates[district_candidates['candidate_id'].isnull()]['smd_id'].unique().tolist()
-    districts_with_candidates = district_candidates[district_candidates['candidate_id'].notnull()]['smd_id'].unique().tolist()
-
-    return no_candidate_districts
-
-
-
 def anc_names(anc_id):
     """
     Return formatted ANC names

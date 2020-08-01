@@ -2,6 +2,7 @@
 Process data from the DC Board of Elections
 """
 
+import sys
 import hashlib
 import numpy as np
 import pandas as pd
@@ -18,8 +19,8 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-07-29.xlsx'
-    dcboe_updated_at = '2020-07-29 17:33'
+    excel_file = 'dcboe-2020-07-31.xlsx'
+    dcboe_updated_at = '2020-07-31 17:55'
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel('data/dcboe/excel/' + excel_file)
@@ -60,9 +61,7 @@ def clean_csv():
     # df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
 
     # Exclude candidates who dropped out
-    df = df[df['candidate_name'] != 'Andrew Spencer DeFrank']
-    df = df[df['candidate_name'] != 'Randy D Downs (withdrew 7/24/20)']
-    df = df[df['candidate_name'] != 'Pete Stamper (Withdrew 7/27/2020)']
+    df = remove_withdrew_candidates(df)
 
     # Fix data entry errors and convert to dates
     # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
@@ -93,6 +92,30 @@ def clean_csv():
 
     rd = RefreshData()
     rd.upload_to_google_sheets(df, columns_to_save, 'openanc_source', 'dcboe')
+
+
+
+def remove_withdrew_candidates(df):
+    """
+    Remove withdrew candidates from the DCBOE dataframe
+    """
+
+    # List of names as they appear in the current DCBOE sheet
+    # todo: maybe just search for "withdrew" in name
+    list_of_withdrew_names = [
+        'Andrew Spencer DeFrank'
+        , 'Randy D Downs (Withdrew 7/24/20)'
+        , 'Pete Stamper (Withdrew 7/27/2020)'
+        , 'Alexandra Morgan (Withdrew 7/30/20)'
+        , 'Rebecca Maydak (Withdrew 7/30/20)'
+    ]
+
+    print('List of withdrew candidates match DCBOE candidate names: {}'.format(
+        len(df[df['candidate_name'].isin(list_of_withdrew_names)]) == len(list_of_withdrew_names)
+        ))
+
+    return df[ ~(df['candidate_name'].isin(list_of_withdrew_names)) ].copy()    
+
 
 
 def hash_dataframe(df, columns_to_hash):
@@ -248,7 +271,7 @@ def check_new_candidates_for_duplicates():
     comparison = pd.merge(new_candidates, smd_df, how='inner', on='smd_id')
 
     print('Make sure that none of the new candidates duplicate existing candidates:')
-    print(comparison[['smd_id', 'candidate_name', 'list_of_candidates']])
+    print(comparison.loc[comparison['list_of_candidates'] != '(no known candidates)', ['smd_id', 'candidate_name', 'list_of_candidates']])
 
 
 if __name__ == '__main__':

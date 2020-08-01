@@ -7,13 +7,13 @@ import pandas as pd
 from scripts.common import (
     anc_names
     , add_footer
-    , list_of_smds_without_candidates
     , edit_form_link
     , add_google_analytics
     , build_smd_html_table
 )
 
 from scripts.counts import Counts
+from scripts.refresh_data import RefreshData
 
 
 class BuildIndex():
@@ -51,15 +51,16 @@ class BuildIndex():
         Build List View page
         """
 
+        rd = RefreshData()
+        smd_df = rd.assemble_smd_info()
+
         districts = pd.read_csv('data/districts.csv')
         commissioners = pd.read_csv('data/commissioners.csv')
         candidates = pd.read_csv('data/candidates.csv')
         candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
         cs = pd.merge(candidates, candidate_statuses, how='inner', on='candidate_status')
 
-        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
-
-        num_no_candidate_districts = len(list_of_smds_without_candidates())
+        num_no_candidate_districts = sum(smd_df['number_of_candidates'] == 0)
 
         with open('templates/list.html', 'r') as f:
             output = f.read()
@@ -68,7 +69,7 @@ class BuildIndex():
 
         output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
         output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
-        output = output.replace('NUMBER_OF_CANDIDATES', str(cs['count_as_candidate'].sum()))
+        output = output.replace('NUMBER_OF_CANDIDATES', str(smd_df['number_of_candidates'].sum()))
         output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_tables())

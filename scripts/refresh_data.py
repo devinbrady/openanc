@@ -148,9 +148,9 @@ class RefreshData():
         if print_counts:
             print('Candidate Count: {}'.format( cps['count_as_candidate'].sum()))
 
-            # print('\nDistricts by number of candidates: ')
-            # print(district_info_comm.groupby('number_of_candidates').size())
-            # print()
+            print('\nDistricts by number of candidates: ')
+            print(district_info_comm.groupby('number_of_candidates').size())
+            print()
 
         if publish_to_google_sheets:
 
