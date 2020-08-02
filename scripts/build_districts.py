@@ -3,10 +3,12 @@ Build Single Member District pages
 """
 
 import sys
+import pytz
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import geopandas as gpd
+from datetime import datetime
 
 from scripts.common import (
     build_district_list
@@ -65,10 +67,9 @@ class BuildDistricts():
         # Merge the order and status fields for sorting
         people_candidates['order_status'] = people_candidates['display_order'].astype(str) + ';' + people_candidates['candidate_status']
         
-        # Randomize the order of candidates
-        random_state = 0 # Perhaps use today's date
+        # Randomize the order of candidates. Changes every day
         smd_candidates = people_candidates[people_candidates['smd_id'] == smd_id].sample(
-            frac=1, random_state=random_state).reset_index()
+            frac=1, random_state=self.today_as_int()).reset_index()
         
         num_candidates = len(smd_candidates)
 
@@ -115,6 +116,18 @@ class BuildDistricts():
             ).format(edit_form_link('submit an edit'))
 
         return candidate_block
+
+
+    def today_as_int(self):
+        """
+        Return today's date in Eastern Time as an integer. Use as a seed for candidate order randomization
+        """
+
+        tz = pytz.timezone('America/New_York')
+        dc_now = datetime.now(tz)
+        dc_now_str = dc_now.strftime('%Y%m%d')
+
+        return int(dc_now_str)
 
 
     def build_better_know_a_district(self, smd_id):
