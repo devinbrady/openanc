@@ -14,7 +14,7 @@ def poll_dcboe():
 
     url = 'https://www.dcboe.org/Candidates/2020-Candidates'
     current_link_text = (
-        '<p><a href="/dcboe/media/PDFFiles/List-of-Advisory-Neighborhood-Commissioners_11.pdf">ANC Candidate List for the November 3 General Election</a></p>'
+        '<p><a href="/dcboe/media/PDFFiles/List-of-Advisory-Neighborhood-Commissioners_12.pdf">ANC Candidate List for the November 3 General Election</a></p>'
         )
 
     tz = pytz.timezone('America/New_York')
@@ -28,10 +28,19 @@ def poll_dcboe():
     page_has_changed = not current_link_text in website_text
 
     print(f'page_has_changed: {page_has_changed}')
+
+
+    log_file = 'log_dcboe_site.txt'
+
+    with open(log_file, 'a+') as f:
+        print(f'{current_timestamp} requesting: {url} > ', end='', file=f)
+        print(f'page_has_changed: {page_has_changed}', file=f)
+
     return page_has_changed
 
 
 if __name__ == "__main__":
+
 
     page_has_changed = poll_dcboe()
 
