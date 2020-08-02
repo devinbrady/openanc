@@ -188,10 +188,11 @@ class RefreshData():
     def add_data_to_geojson(self):
         """
         Save new GeoJSON files with updated data fields
+        # todo: push these tilesets to Mapbox via API
         """
 
         df = self.assemble_smd_info(
-            duplicate_check=True
+            duplicate_check=False
             , print_counts=True
             , publish_to_google_sheets=True
             )
@@ -202,14 +203,18 @@ class RefreshData():
         # Use the map_color_id field from the Google Sheets over what is stored in the GeoJSON
         smd.drop(columns=['map_color_id'], inplace=True)
 
-        # todo: push these tilesets to Mapbox via API
         smd_df = smd.merge(df, on='smd_id')
-        smd_df.to_file('maps/to_mapbox/smd-data.geojson', driver='GeoJSON')
+
+        # add ward to the SMD dataframe
+        districts = pd.read_csv('data/districts.csv')
+        smd_df = pd.merge(smd_df, districts[['smd_id', 'ward']], how='inner', on='smd_id')
+
+        smd_df.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
 
         # Add data to CSV with lat/long of SMD label points
         lp = pd.read_csv('maps/label-points.csv')
         lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates']], how='inner', on='smd_id')
-        lp_df.to_csv('maps/to_mapbox/label-points-data.csv', index=False)
+        lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
 
 
     def refresh_csv(self, csv_name, sheet_range, filter_dict=None):

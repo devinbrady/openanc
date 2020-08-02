@@ -249,12 +249,12 @@ def run_matching_process():
 
     add_records_to_people.reset_index(inplace=True)
     add_records_to_people.drop(columns=['index'], inplace=True)
-    add_records_to_people.to_csv('data/dcboe/to_google_sheets/add_records_to_people.csv', index=False)
+    add_records_to_people.to_csv('uploads/to-google-sheets-people.csv', index=False)
     print('Number of new people: {}'.format(len(add_records_to_people)))
 
     add_records_to_candidates.reset_index(inplace=True)
     add_records_to_candidates.drop(columns=['index'], inplace=True)
-    add_records_to_candidates.to_csv('data/dcboe/to_google_sheets/add_records_to_candidates.csv', index=False)
+    add_records_to_candidates.to_csv('uploads/to-google-sheets-candidates.csv', index=False)
     print('Number of new candidates: {}'.format(len(add_records_to_candidates)))
 
 
@@ -263,7 +263,7 @@ def check_new_candidates_for_duplicates():
     Look at the most recent records and confirm they don't duplicate any records in the same district
     """
 
-    new_candidates = pd.read_csv('data/dcboe/to_google_sheets/add_records_to_candidates.csv')
+    new_candidates = pd.read_csv('uploads/to-google-sheets-candidates.csv')
 
     if len(new_candidates) == 0:
         return
