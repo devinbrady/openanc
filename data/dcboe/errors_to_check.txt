@@ -3,7 +3,7 @@ pdf_errors_to_check.txt
 These should all be fixed in candidates_dcboe.csv: 
 
 * "ANC/SMD" has a bad character at the start
-
+* Benjamin Hart Butz is listed as running in 1C07 but his address (2480 16th Street, NW) puts him in 1C06
 * 5D06, Marina Budimir has pickup date in 1930
 * 1A02, Dieter Lehmann Morales has filing date in January
 
