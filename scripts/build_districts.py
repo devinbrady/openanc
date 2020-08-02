@@ -160,7 +160,7 @@ class BuildDistricts():
             # if smd_id != 'smd_1B01':
             #     continue
                     
-            with open('templates/smd.html', 'r') as f:
+            with open('templates/district.html', 'r') as f:
                 output = f.read()
                 
             output = output.replace('REPLACE_WITH_SMD', smd_display)
