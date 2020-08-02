@@ -2,14 +2,17 @@
 Pull down fresh data from Google Sheets to CSV
 """
 
+import pytz
 import pickle
 import string
 import os.path
 import pandas as pd
 import geopandas as gpd
+from datetime import datetime
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import InstalledAppFlow
+
 
 
 class RefreshData():
@@ -58,6 +61,25 @@ class RefreshData():
         service = build('sheets', 'v4', credentials=creds)
         
         return service
+
+
+    def test_google_connection(self):
+        """
+        Write some data to the OpenANC Published sheet to confirm that Google connection works
+        """
+
+        df = pd.DataFrame({'a': [1,2], 'b': [3,4]})
+
+        tz = pytz.timezone('America/New_York')
+        dc_now = datetime.now(tz)
+        dc_timestamp = dc_now.strftime('%Y-%m-%d %H:%M:%S') # Hour of day: %-I:%M %p
+
+        df['updated_at'] = dc_timestamp
+
+        self.upload_to_google_sheets(df, list(df.columns), 'openanc_published', 'ConnectionTest')
+
+        print('Successfully wrote data to Google Sheets.')
+
 
 
     def upload_to_google_sheets(self, df, columns_to_publish, destination_spreadsheet, destination_sheet):
