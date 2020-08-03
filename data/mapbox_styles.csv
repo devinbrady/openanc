@@ -2,12 +2,12 @@ id,mapbox_link,description
 no-candidates,mapbox://styles/devinbrady/ckct6u5ey0mgj1ho127gsjf2o,No-candidate SMDs are highlighted
 smd,mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie,"Main SMD map, all districts have color"
 smd-monochrome,mapbox://styles/devinbrady/ckdcpk2z11rds1jmrr5gsrmrh,Monotone SMDs for background of other maps
-smd-ward-1,mapbox://styles/devinbrady/ckddkcrf9466a1iphwjdcc04p,"Ward 1 SMDs in color, all others monochrome"
+smd-ward-1,mapbox://styles/devinbrady/ckddkcrf9466a1iphwjdcc04p,Ward 1
 smd-ward-2,mapbox://styles/devinbrady/ckddkmadn46kj1inzkk8zgy92,Ward 2
-smd-ward-3,mapbox://styles/devinbrady/ckddprppm4buc1mp34xnqmk9r,
-smd-ward-4,mapbox://styles/devinbrady/ckddps4ec1f6v1ivvqfjx6bah,
-smd-ward-5,mapbox://styles/devinbrady/ckddpruxk2hg81iun9vsl89j9,
-smd-ward-6,mapbox://styles/devinbrady/ckddxbh274j821mp3p73p8ati,
-smd-ward-7,mapbox://styles/devinbrady/ckddxclx54iy61jt7pqem4x7x,
-smd-ward-8,mapbox://styles/devinbrady/ckddxdpxz4iz51jt7qpq0w3ii,
+smd-ward-3,mapbox://styles/devinbrady/ckddprppm4buc1mp34xnqmk9r,Ward 3
+smd-ward-4,mapbox://styles/devinbrady/ckddps4ec1f6v1ivvqfjx6bah,Ward 4
+smd-ward-5,mapbox://styles/devinbrady/ckddpruxk2hg81iun9vsl89j9,Ward 5
+smd-ward-6,mapbox://styles/devinbrady/ckddxbh274j821mp3p73p8ati,Ward 6
+smd-ward-7,mapbox://styles/devinbrady/ckddxclx54iy61jt7pqem4x7x,Ward 7
+smd-ward-8,mapbox://styles/devinbrady/ckddxdpxz4iz51jt7qpq0w3ii,Ward 8
 ward-no-candidates,mapbox://styles/devinbrady/ckda869o50ml41insnabji3j4,Ward lines with no-candidate SMDs highlighted
