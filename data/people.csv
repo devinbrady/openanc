@@ -1,4 +1,4 @@
-person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link,website_link,googled
+person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link,website_link,researched
 10001,Layla Bonnot,smd_1A01,smd_1A01,https://twitter.com/LaylaBonnot,,https://www.votelayla.com/meet-layla,x
 10002,Teresa A. Edmondson,smd_1A02,not_currently_running,,https://www.facebook.com/Teresa4dc/,http://teresaedmondsonanc.com/,x
 10003,Zach Rybarczyk,smd_1A03,smd_1A03,https://twitter.com/zach_rybarczyk,,,x
@@ -331,7 +331,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10335,Ulas Doga Eralp,not_currently_serving,smd_3F01,,,,x
 10336,"Dipali (""Dipa"") Mehta",not_currently_serving,smd_3F03,,,,x
 10337,Lisa Cox,not_currently_serving,smd_3F07,,,,x
-10338,Lisa R. Gore,not_currently_serving,smd_3G01,,,,x
+10338,Lisa R. Gore,not_currently_serving,smd_3G01,https://twitter.com/GoreforANC34G01,,,x
 10339,Lucinda A. Wade,not_currently_serving,smd_3G01,,,,x
 10340,John K. Higgins,not_currently_serving,smd_3G02,,,,x
 10341,Connie K.N. Chang,not_currently_serving,smd_3G05,,,,x

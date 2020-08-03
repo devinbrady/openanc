@@ -259,6 +259,7 @@ class RefreshData():
         self.refresh_csv('districts', 'A:K')
         self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('map_colors', 'A:B') # Doesn't need to be run every time
+        self.refresh_csv('mapbox_styles', 'A:C')
         self.refresh_csv('people', 'A:H')
 
         self.add_data_to_geojson()

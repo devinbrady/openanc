@@ -26,6 +26,7 @@ class BuildWards():
 
         ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
+        mapbox_styles = pd.read_csv('data/mapbox_styles.csv')
 
         ward_gdf = gpd.read_file('maps/ward.geojson')
 
@@ -54,6 +55,10 @@ class BuildWards():
                     , '<p>Note that the Single Member Districts 3G01, 3G02, 3G03, and 3G04 are a part of ANC 3G but located in Ward 4.</p>'
                     )
             
+            mb_style_name = f'smd-ward-{ward}'
+            mb_style_link = mapbox_styles.loc[mapbox_styles['id'] == mb_style_name]['mapbox_link'].values[0]
+            
+            output = output.replace('REPLACE_WITH_MAPBOX_STYLE', mb_style_link)
             output = output.replace('REPLACE_WITH_LONGITUDE', '-77.03412954884507')
             output = output.replace('REPLACE_WITH_LATITUDE', '38.9361129455516')
             output = output.replace('REPLACE_WITH_ZOOM_LEVEL', '11')
