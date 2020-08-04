@@ -14,7 +14,7 @@ def poll_dcboe():
 
     url = 'https://www.dcboe.org/Candidates/2020-Candidates'
     current_link_text = (
-        '<p><a href="/dcboe/media/PDFFiles/List-of-Advisory-Neighborhood-Commissioners_12.pdf">ANC Candidate List for the November 3 General Election</a></p>'
+        '<p><a href="/dcboe/media/PDFFiles/Copy-of-List-of-Advisory-Neighborhood-Commissioners_2020-(00000004).pdf">ANC Candidate List for the November 3 General Election</a></p>'
         )
 
     tz = pytz.timezone('America/New_York')
