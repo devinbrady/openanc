@@ -206,8 +206,8 @@ class Counts():
         df = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
 
-        p = pd.DataFrame(df[df['pickup_date'] != 'unknown pickup date'].groupby('pickup_date').size(), columns=['Candidated Picked Up'])
-        p['Candidated Picked Up Running Total'] = p['Candidated Picked Up'].cumsum()
+        p = pd.DataFrame(df[df['pickup_date'] != 'unknown pickup date'].groupby('pickup_date').size(), columns=['Candidates Picked Up'])
+        p['Candidates Picked Up Running Total'] = p['Candidates Picked Up'].cumsum()
         p = p.reset_index()
         p.rename(columns={'pickup_date': 'Date'}, inplace=True)
 
@@ -219,7 +219,19 @@ class Counts():
 
         g = pd.merge(p, f, how='outer', on='Date').fillna(0)
 
-        g['Percentage Filed'] = g['Candidates Filed Running Total'] / g['Candidated Picked Up Running Total']
+        g['Percentage Filed'] = g['Candidates Filed Running Total'] / g['Candidates Picked Up Running Total']
+
+        column_tuples = [
+            ('', 'Date')
+            , ('Candidates Picked Up', 'Count')
+            , ('Candidates Picked Up', 'Running Total')
+            , ('Candidates Filed', 'Count')
+            , ('Candidates Filed', 'Running Total')
+            , ('', 'Percentage Filed')
+            ]
+
+        g.columns = pd.MultiIndex.from_tuples(column_tuples, names=('a', 'b'))
+
 
         pickups_html = (
             g.style
@@ -231,10 +243,11 @@ class Counts():
                     , 'padding': '4px'
                     })
                 .format({
-                    'Candidates Filed': '{:.0f}'
-                    , 'Candidates Filed Running Total': '{:.0f}'
-                    , 'Percentage Filed': '{:.1%}'
+                    ('Candidates Filed', 'Count'): '{:.0f}'
+                    , ('Candidates Filed', 'Running Total'): '{:.0f}'
+                    , ('', 'Percentage Filed'): '{:.1%}'
                 })
+                .bar(subset=[('', 'Percentage Filed')], color='#B3B3B3', vmin=0, vmax=1) # gray
                 .hide_index()
                 .render()
             )
