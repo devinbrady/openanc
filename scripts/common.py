@@ -123,7 +123,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
 
 
     display_df['SMD'] = (
-        f'<a href="{link_path}' + display_df['smd_id'].str.replace('smd_','') + '.html">' 
+        f'<a href="{link_path}' + display_df['smd_id'].str.replace('smd_','').str.lower() + '.html">' 
         + display_df['smd_id'].str.replace('smd_','') + '</a>'
         )
 
@@ -212,6 +212,7 @@ def build_district_list(smd_id_list=None, level=0):
 
         smd_id = district_row['smd_id']
         smd_display = smd_id.replace('smd_','')
+        smd_display_lower = smd_display.lower()
 
         if district_row['full_name'] == '(vacant)':
             commmissioner_name = '(vacant)'
@@ -225,7 +226,7 @@ def build_district_list(smd_id_list=None, level=0):
         elif level == 2:
             link_path = ''
 
-        district_list += f'<li><a href="{link_path}{smd_display}.html">{smd_display}: {commmissioner_name}</a></li>'
+        district_list += f'<li><a href="{link_path}{smd_display_lower}.html">{smd_display}: {commmissioner_name}</a></li>'
 
 
     district_list += '</ul>'
