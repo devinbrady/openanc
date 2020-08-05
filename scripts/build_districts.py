@@ -201,7 +201,6 @@ class BuildDistricts():
 
             output = add_footer(output, level=2)
 
-            # todo: make the urls all lowercase
             with open(f'docs/ancs/districts/{smd_display_lower}.html', 'w') as f:
                 f.write(output)
 

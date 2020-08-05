@@ -3,13 +3,14 @@ pdf_errors_to_check.txt
 These should all be fixed in candidates_dcboe.csv: 
 
 * "ANC/SMD" has a bad character at the start
-* Benjamin Hart Butz is listed as running in 1C07 but his address (2480 16th Street, NW) puts him in 1C06
 * 5D06, Marina Budimir has pickup date in 1930
 * 1A02, Dieter Lehmann Morales has filing date in January
 
 
 
 No longer an issue:
+* Benjamin Hart Butz is listed as running in 1C07 but his address (2480 16th Street, NW) puts him in 1C06
+
 * 7C02,Patricia Williams has pickup date of "6/302020"
 * 7F06,Carol E. Fletcher has filed date of "7F06"
 * 1C08,"Fiona Clem" has 2 spaces in the name, sometimes duplicated

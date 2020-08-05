@@ -19,8 +19,8 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-08-03.xlsx'
-    dcboe_updated_at = '2020-08-03 14:45'
+    excel_file = 'dcboe-2020-08-05_0940.xlsx'
+    dcboe_updated_at = '2020-08-05 09:40'
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel('data/dcboe/excel/' + excel_file)
@@ -108,6 +108,8 @@ def remove_withdrew_candidates(df):
         , 'Pete Stamper (Withdrew 7/27/2020)'
         , 'Alexandra Morgan (Withdrew 7/30/20)'
         , 'Rebecca Maydak (Withdrew 7/30/20)'
+        , 'Jonathan Alfuth (withdrew 8/4/20)'
+        , 'Carol E. Fletcher (withdrew 8/4/20)'
     ]
 
     print('List of withdrew candidates match DCBOE candidate names: {}'.format(
