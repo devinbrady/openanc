@@ -87,7 +87,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10086,Chuck Elkins,smd_3D01,smd_3D01,,,,x
 10087,Troy Kravitz,smd_3D02,smd_3D02,,,,x
 10088,Paige Ela,smd_3D03,smd_3D03,,,,x
-10089,Michael Sriqui,smd_3D04,smd_3D04,https://twitter.com/michael_sriqui,,,x
+10089,Michael Sriqui,smd_3D04,smd_3D04,https://twitter.com/michael_sriqui,,http://www.michaelsriqui.com/home.html,x
 10090,Alan Karnofsky,smd_3D05,not_currently_running,https://twitter.com/alankarnofsky,,,
 10091,Virginia Gorsevski,smd_3D06,not_currently_running,,,,
 10092,Taylor Berlin,smd_3D07,not_currently_running,https://twitter.com/taylorbberlin,,,
@@ -322,7 +322,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10325,Sauleh A. Siddiqui,not_currently_serving,smd_3C05,https://twitter.com/saulehsiddiqui,,,x
 10326,Kamolika Das,not_currently_serving,smd_3C06,https://twitter.com/Kamolika_Das,,,x
 10327,Carolin Jane Croft,not_currently_serving,smd_3D01,,,,x
-10329,Christian Damiana,not_currently_serving,smd_3D07,https://twitter.com/latestchristian,,http://www.michaelsriqui.com/home.html,x
+10329,Christian Damiana,not_currently_serving,smd_3D07,https://twitter.com/latestchristian,,https://www.electdamiana.com/,x
 10330,Benjamin Bergmann,not_currently_serving,smd_3D08,https://twitter.com/bzbergmann,,https://www.benb4anc.com/,x
 10331,Doreen Moses,not_currently_serving,smd_3D08,,,,x
 10332,Marc Hayes Robinson,not_currently_serving,smd_3D09,,,,x
