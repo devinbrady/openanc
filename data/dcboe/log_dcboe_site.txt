@@ -174,3 +174,7 @@
 2020-08-04 22:36:48 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False
 2020-08-04 22:41:48 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False
 2020-08-04 22:46:48 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False
+2020-08-04 22:51:49 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False
+2020-08-04 22:56:49 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False
+2020-08-04 23:01:50 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False
+2020-08-04 23:06:50 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False

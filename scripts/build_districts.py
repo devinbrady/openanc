@@ -165,6 +165,7 @@ class BuildDistricts():
 
             smd_id = row['smd_id']
             smd_display = smd_id.replace('smd_','')
+            smd_display_lower = smd_display.lower()
 
             anc_id = row['anc_id']
             anc_display_upper = 'ANC' + anc_id
@@ -200,7 +201,8 @@ class BuildDistricts():
 
             output = add_footer(output, level=2)
 
-            with open(f'docs/ancs/districts/{smd_display}.html', 'w') as f:
+            # todo: make the urls all lowercase
+            with open(f'docs/ancs/districts/{smd_display_lower}.html', 'w') as f:
                 f.write(output)
 
 
