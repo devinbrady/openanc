@@ -159,8 +159,8 @@ class BuildDistricts():
         map_colors = pd.read_csv('data/map_colors.csv')
         district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
 
-        
-        for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs'):
+        # todo: sort by smd_id first
+        for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs '):
         # for idx, row in district_colors.iterrows():
 
             smd_id = row['smd_id']

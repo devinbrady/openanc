@@ -35,7 +35,7 @@ class BuildANCs():
         districts = pd.read_csv('data/districts.csv')
 
         
-        for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs'):
+        for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs '):
 
             anc_id = row['anc_id']
             anc_upper, anc_lower = anc_names(anc_id)
