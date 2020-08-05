@@ -1,0 +1,218 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../nonmap.css">
+    <title>District 2F07</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward2.html">Ward 2</a> : <a href="../anc2f.html">ANC2F</a> : District 2F07</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.02780574922414, 38.90645100561851], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.02829166088151, 38.90724841711133]
+,[-77.02809054233475, 38.907247744974484]
+,[-77.02797029126957, 38.90724834135233]
+,[-77.02793847027544, 38.90724849310006]
+,[-77.0276880874886, 38.90724973280284]
+,[-77.02758518784839, 38.90724964003628]
+,[-77.02754782115467, 38.90724960381154]
+,[-77.02722921850007, 38.907249300152955]
+,[-77.0270583528127, 38.90724807868331]
+,[-77.02703830320063, 38.90724796621675]
+,[-77.02673368515326, 38.90724626167539]
+,[-77.0264962837835, 38.90724578426653]
+,[-77.02637027924169, 38.90724553351755]
+,[-77.02598981046074, 38.907246411512695]
+,[-77.02599009863836, 38.90708806268943]
+,[-77.02598497370312, 38.90662881817054]
+,[-77.02598652049959, 38.906127674290325]
+,[-77.0259865194296, 38.90612473756824]
+,[-77.02598553988724, 38.90565127686845]
+,[-77.02601205685227, 38.90565131600899]
+,[-77.02644739660697, 38.9056529298518]
+,[-77.02692539432104, 38.90565516283319]
+,[-77.02703953243862, 38.905654983329185]
+,[-77.02726032628406, 38.905654634741204]
+,[-77.02754839151858, 38.90565179259541]
+,[-77.027598808479, 38.90565222210492]
+,[-77.02760637160185, 38.905652292384765]
+,[-77.0276796278033, 38.90565291464385]
+,[-77.02808474970563, 38.90565425929084]
+,[-77.02945972315034, 38.90565500165744]
+,[-77.02962275647968, 38.905655455890994]
+,[-77.02962340250289, 38.90585071174459]
+,[-77.02962447832101, 38.90619248830882]
+,[-77.02962429168637, 38.90638157363461]
+,[-77.02962421966743, 38.906458000497246]
+,[-77.02962415518142, 38.906524806438945]
+,[-77.02962497056338, 38.90671141420303]
+,[-77.029625034249, 38.90672595366356]
+,[-77.02962511023466, 38.90674234884102]
+,[-77.0296254275444, 38.906812352646604]
+,[-77.02962586247527, 38.90705449697127]
+,[-77.02962502061399, 38.90724826677514]
+,[-77.02943952430877, 38.90724750291437]
+,[-77.02891988531488, 38.90725024512435]
+,[-77.02873610688769, 38.9072494797215]
+,[-77.0284908884001, 38.90724854886224]
+,[-77.02829166088151, 38.90724841711133]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2>
+
+
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Kevin J. Sylvester</td></tr>
+                        <tr>
+                        <th>Commissioner Email</th>
+                        <td><a href="mailto:2F07@anc.dc.gov">2F07@anc.dc.gov</a></td></tr>
+                </tbody>
+            </table>
+        
+
+<h2>2020 Candidates</h2>
+
+<h3>Pulled Papers for Ballot</h3>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Kevin J. Sylvester</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-07-30</td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <br/>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Rehana Mohammed</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-07-14</td></tr>
+                        <tr>
+                        <th>Website</th>
+                        <td><a href="http://rehanaforanc.com/">http://rehanaforanc.com/</a></td></tr>
+                        <tr>
+                        <th>Twitter</th>
+                        <td><a href="https://twitter.com/rehanamohammed">https://twitter.com/rehanamohammed</a></td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <p><em>Candidate order is randomized</em></p><p>The list of candidates comes from the Board of Elections and from edits to OpenANC. Write-in candidates are included. If you know a candidate who isn't listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">submit an edit</a>.</p>
+
+<h2>Better Know a District</h2>
+
+
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Landmarks</th>
+                        <td>El Sol restaurant, Capitol Supermarket</td></tr>
+                </tbody>
+            </table>
+        
+
+<h2>Neighboring Districts</h2>
+
+<ul><li><a href="2F04.html">2F04: Commissioner John Fanning</a></li><li><a href="2F05.html">2F05: Commissioner Madeleine G. Stirling</a></li><li><a href="2F06.html">2F06: Commissioner Ian D. Simon</a></li><li><a href="2F08.html">2F08: Commissioner Janice Ferebee</a></li></ul>
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../../index.html">Find your ANC district</a></li>
+    <li><a href="../../list.html">List of districts</a></li>
+    <li><a href="../../counts.html">Counts of districts</a></li>
+    <li><a href="../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: August 4, 2020</p>
+
+
+</body>
+
+</html>

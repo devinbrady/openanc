@@ -1,0 +1,234 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../nonmap.css">
+    <title>District 2C02</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward2.html">Ward 2</a> : <a href="../anc2c.html">ANC2C</a> : District 2C02</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.01685581010454, 38.89937372524932], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.0140785953812, 38.899441579531654]
+,[-77.01407724749905, 38.89833639778711]
+,[-77.01466908209656, 38.89834797277334]
+,[-77.01505970599328, 38.89834818430571]
+,[-77.01513763075302, 38.89832916658677]
+,[-77.01519222326813, 38.89831161120761]
+,[-77.01524358123561, 38.89831663118307]
+,[-77.01557914970957, 38.89832649610747]
+,[-77.01596108355487, 38.898336173574194]
+,[-77.01618766533095, 38.89833785398195]
+,[-77.01635810512326, 38.89833521781183]
+,[-77.01682528545673, 38.89833348490436]
+,[-77.0169637818378, 38.89833296941276]
+,[-77.01709394376623, 38.89833345490527]
+,[-77.01745302746146, 38.89833478909174]
+,[-77.01795933446347, 38.89833669418345]
+,[-77.01802447898584, 38.898337521927026]
+,[-77.01825398922158, 38.89834042301245]
+,[-77.01831808470482, 38.898341232739504]
+,[-77.01857331192664, 38.898337048588324]
+,[-77.0189335787541, 38.89832221703225]
+,[-77.01893051354425, 38.898587423735066]
+,[-77.01893043615291, 38.899034238522795]
+,[-77.01893043157258, 38.89906041682361]
+,[-77.01893042693543, 38.89912981724477]
+,[-77.01893095337674, 38.89937592560083]
+,[-77.01893298330651, 38.899683650891966]
+,[-77.01893360670401, 38.89981724478292]
+,[-77.01893097688374, 38.89994228125538]
+,[-77.01893095768567, 38.90017399430452]
+,[-77.01893088897599, 38.900870691842115]
+,[-77.01893102615418, 38.90099661967003]
+,[-77.01893098102343, 38.90100032211287]
+,[-77.01893040448176, 38.90104329207794]
+,[-77.01892921747827, 38.90113174534466]
+,[-77.01880030726225, 38.90108842694944]
+,[-77.01877623389208, 38.901080332306904]
+,[-77.01863305003822, 38.90103046694329]
+,[-77.01849883625185, 38.90098371687581]
+,[-77.01818592895737, 38.90087485494991]
+,[-77.01814175998281, 38.90085945752399]
+,[-77.01772001698369, 38.90071241575691]
+,[-77.01653142284404, 38.90030470951048]
+,[-77.01640373767334, 38.90026182970103]
+,[-77.0162002120549, 38.90018417000786]
+,[-77.015937359495, 38.90009217675913]
+,[-77.01558843151935, 38.8999700434539]
+,[-77.01556153419789, 38.89996063330363]
+,[-77.01515714136303, 38.89981909306625]
+,[-77.01428992036678, 38.899515548548784]
+,[-77.01426079830499, 38.89950535464306]
+,[-77.01416704515283, 38.899472539583385]
+,[-77.01415858293186, 38.8994695768586]
+,[-77.0140785953812, 38.899441579531654]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2>
+
+
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Jamaal T. Burton</td></tr>
+                        <tr>
+                        <th>Commissioner Email</th>
+                        <td><a href="mailto:2C02@anc.dc.gov">2C02@anc.dc.gov</a></td></tr>
+                </tbody>
+            </table>
+        
+
+<h2>2020 Candidates</h2>
+
+<h3>Pulled Papers for Ballot</h3>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Elizabeth Miske</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-07-31</td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <br/>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Jamaal T. Burton</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-07-14</td></tr>
+                        <tr>
+                        <th>Twitter</th>
+                        <td><a href="https://twitter.com/iJamaal">https://twitter.com/iJamaal</a></td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <br/>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>William Mascaro</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-08-03</td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <p><em>Candidate order is randomized</em></p><p>The list of candidates comes from the Board of Elections and from edits to OpenANC. Write-in candidates are included. If you know a candidate who isn't listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">submit an edit</a>.</p>
+
+<h2>Better Know a District</h2>
+
+<p>No landmarks for this district. <a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit one!</a></p>
+
+<h2>Neighboring Districts</h2>
+
+<ul><li><a href="2C01.html">2C01: Commissioner Michael D. Shankle</a></li><li><a href="2C03.html">2C03: Commissioner Kevin Wilsey</a></li><li><a href="6C02.html">6C02: Commissioner Karen Wirt</a></li><li><a href="6E05.html">6E05: Commissioner Alex Marriott</a></li><li><a href="6E07.html">6E07: Commissioner Kevin M. Rogers</a></li></ul>
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../../index.html">Find your ANC district</a></li>
+    <li><a href="../../list.html">List of districts</a></li>
+    <li><a href="../../counts.html">Counts of districts</a></li>
+    <li><a href="../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: August 4, 2020</p>
+
+
+</body>
+
+</html>

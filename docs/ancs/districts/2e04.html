@@ -1,0 +1,265 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../nonmap.css">
+    <title>District 2E04</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward2.html">Ward 2</a> : <a href="../anc2e.html">ANC2E</a> : District 2E04</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.07568790576477, 38.90816976841678], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.07552013266015, 38.91081292834423]
+,[-77.0755404705466, 38.9103657138695]
+,[-77.07391614713956, 38.910326332320125]
+,[-77.07394614996177, 38.90970560219703]
+,[-77.07393639817987, 38.90952996360701]
+,[-77.07394585550155, 38.909421587197386]
+,[-77.07395595257292, 38.9093408930335]
+,[-77.07395868716291, 38.90924279939966]
+,[-77.07395964215019, 38.90914082429234]
+,[-77.07396178299383, 38.90891491157163]
+,[-77.07396385071164, 38.908696322675745]
+,[-77.07396495195509, 38.90857974493145]
+,[-77.07398257614987, 38.908497559609756]
+,[-77.07399854911216, 38.908446337027364]
+,[-77.07404101949783, 38.90840865521938]
+,[-77.0740895568774, 38.90837337477786]
+,[-77.07415199857954, 38.90834893154508]
+,[-77.07422831873743, 38.908332614001964]
+,[-77.07429771525872, 38.90832172383864]
+,[-77.07438792823412, 38.908316252417094]
+,[-77.07445383430438, 38.9082972298434]
+,[-77.07465150708342, 38.90818594066937]
+,[-77.07467576570316, 38.90815338700643]
+,[-77.07470002147035, 38.90811813083503]
+,[-77.07471385186582, 38.908069314750364]
+,[-77.07473471630973, 38.907658412521194]
+,[-77.07431885404918, 38.907640625060324]
+,[-77.07433326429707, 38.90667667722374]
+,[-77.07309186161727, 38.90667746046143]
+,[-77.0728682883347, 38.90671374162817]
+,[-77.07246743874569, 38.90681641591566]
+,[-77.0721436107054, 38.90683468708224]
+,[-77.07157282489568, 38.90684160523648]
+,[-77.071572625318, 38.906838038051355]
+,[-77.07157237897229, 38.90683382229354]
+,[-77.07156894792851, 38.9067580641548]
+,[-77.07156577659185, 38.906688341451805]
+,[-77.07156258147991, 38.906617898094254]
+,[-77.07154526008866, 38.906130736987784]
+,[-77.07153768887521, 38.9059387736158]
+,[-77.0715280392446, 38.90584707448545]
+,[-77.07163110710252, 38.9058443989152]
+,[-77.07170373875871, 38.90584246260638]
+,[-77.07260009525571, 38.90582001873576]
+,[-77.07260852314309, 38.90582010358177]
+,[-77.07261682430165, 38.905820278589474]
+,[-77.0726251256437, 38.90582063376354]
+,[-77.07263342707759, 38.905821079020534]
+,[-77.07264172869506, 38.90582170444388]
+,[-77.07265003040442, 38.90582241995013]
+,[-77.07265820547713, 38.90582331570157]
+,[-77.07266650746216, 38.90582430145709]
+,[-77.07267470586878, 38.90582546744353]
+,[-77.07268288130933, 38.90582672352719]
+,[-77.07297139699295, 38.905882035137076]
+,[-77.07300299431071, 38.90588931216379]
+,[-77.07303471790206, 38.905896048601775]
+,[-77.07306664837793, 38.905902154317026]
+,[-77.07309883203898, 38.90590780944741]
+,[-77.07313099200032, 38.905912833999096]
+,[-77.07316340505295, 38.90591731788216]
+,[-77.07319592131736, 38.905921261190336]
+,[-77.07322854079275, 38.90592466392359]
+,[-77.0732612864443, 38.905927435983834]
+,[-77.07329403163556, 38.905929757617514]
+,[-77.07389335846324, 38.90596955734727]
+,[-77.07427467061181, 38.90599949353588]
+,[-77.07430267560072, 38.90600010631321]
+,[-77.07431802269751, 38.906001808138775]
+,[-77.07433347374518, 38.90600369006334]
+,[-77.07434879816077, 38.9060057522335]
+,[-77.0743641457295, 38.906007904470414]
+,[-77.07437936676016, 38.906010327036526]
+,[-77.07439458788579, 38.90601283968409]
+,[-77.07440980929445, 38.90601562258013]
+,[-77.07442490397747, 38.906018495638435]
+,[-77.07444002190805, 38.906021548847015]
+,[-77.07445501320724, 38.90602478230145]
+,[-77.07447000450773, 38.90602801575394]
+,[-77.07448499552734, 38.90603097895407]
+,[-77.07450009012257, 38.90603376191918]
+,[-77.07451531116334, 38.906036184467546]
+,[-77.07453053201691, 38.90603842684697]
+,[-77.07454587940981, 38.906040398893055]
+,[-77.07456120336862, 38.906042010617966]
+,[-77.07457665396046, 38.906043442092944]
+,[-77.07459200050789, 38.9060446033817]
+,[-77.07460755429813, 38.90604549428552]
+,[-77.07672430283804, 38.90623078545722]
+,[-77.07801030400474, 38.905976790101064]
+,[-77.07809230488044, 38.906160784993936]
+,[-77.07825206141064, 38.90623113243324]
+,[-77.07831441995909, 38.906270466162624]
+,[-77.07831747844695, 38.906745924986325]
+,[-77.07795421255517, 38.906660588583634]
+,[-77.07788651648065, 38.906748564263786]
+,[-77.07791508457785, 38.908108707201706]
+,[-77.07756400680094, 38.908634947364355]
+,[-77.07757603883819, 38.90909689652783]
+,[-77.07764026292996, 38.909513489981336]
+,[-77.07770279061333, 38.909695164808184]
+,[-77.07794737673292, 38.91014300502401]
+,[-77.07828004144605, 38.91081011191966]
+,[-77.07759809420124, 38.9108022521198]
+,[-77.07754209627461, 38.910805027834435]
+,[-77.07749661994144, 38.910824200741885]
+,[-77.07744066355392, 38.9108652528419]
+,[-77.07737420595076, 38.910898114274836]
+,[-77.07730771896563, 38.910914562483285]
+,[-77.07720973771542, 38.91092556340427]
+,[-77.07711523227584, 38.910920157751534]
+,[-77.07701021715712, 38.91090929088403]
+,[-77.0768422024093, 38.9108984653725]
+,[-77.0766482781705, 38.91089676405694]
+,[-77.07657131223728, 38.91089355350142]
+,[-77.07646721673723, 38.91086922707469]
+,[-77.07637349520473, 38.91082050818243]
+,[-77.07552013266015, 38.91081292834423]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2>
+
+
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Anna Landre</td></tr>
+                        <tr>
+                        <th>Commissioner Email</th>
+                        <td><a href="mailto:2E04@anc.dc.gov">2E04@anc.dc.gov</a></td></tr>
+                </tbody>
+            </table>
+        
+
+<h2>2020 Candidates</h2>
+
+<h3>Pulled Papers for Ballot</h3>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Anna Landre</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-07-28</td></tr>
+                        <tr>
+                        <th>Twitter</th>
+                        <td><a href="https://twitter.com/annalandre">https://twitter.com/annalandre</a></td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <p>The list of candidates comes from the Board of Elections and from edits to OpenANC. Write-in candidates are included. If you know a candidate who isn't listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">submit an edit</a>.</p>
+
+<h2>Better Know a District</h2>
+
+
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Landmarks</th>
+                        <td>Georgetown University</td></tr>
+                </tbody>
+            </table>
+        
+
+<h2>Neighboring Districts</h2>
+
+<ul><li><a href="2E01.html">2E01: Commissioner Kishan Putta</a></li><li><a href="2E05.html">2E05: Commissioner Lisa Palmer</a></li><li><a href="2E08.html">2E08: Commissioner Matias Burdman</a></li><li><a href="3D09.html">3D09: Commissioner J.P. Szymkowicz</a></li></ul>
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../../index.html">Find your ANC district</a></li>
+    <li><a href="../../list.html">List of districts</a></li>
+    <li><a href="../../counts.html">Counts of districts</a></li>
+    <li><a href="../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: August 4, 2020</p>
+
+
+</body>
+
+</html>

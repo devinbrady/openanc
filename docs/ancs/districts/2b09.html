@@ -1,0 +1,276 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../nonmap.css">
+    <title>District 2B09</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward2.html">Ward 2</a> : <a href="../anc2b.html">ANC2B</a> : District 2B09</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03494761033778, 38.91546225110191], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.0350287051393, 38.91700758847916]
+,[-77.03498601749355, 38.91700741209361]
+,[-77.0346986670824, 38.917008939112606]
+,[-77.03453446687942, 38.917009888591885]
+,[-77.03440404067678, 38.91701055765088]
+,[-77.034385487301, 38.91701038294562]
+,[-77.0340412751987, 38.91700652006779]
+,[-77.03326132121818, 38.91700467277765]
+,[-77.03324363274297, 38.91700465979489]
+,[-77.03247988031976, 38.91700399177818]
+,[-77.032189531295, 38.917004342377204]
+,[-77.03215309359587, 38.91700453257641]
+,[-77.03195302064486, 38.91700557837748]
+,[-77.03195308770677, 38.91687216494565]
+,[-77.03195332948559, 38.9163823817796]
+,[-77.03195332839577, 38.91637994952972]
+,[-77.0319538561912, 38.91629689254482]
+,[-77.03195427758448, 38.91620798017043]
+,[-77.03195738999227, 38.9156655874819]
+,[-77.0319578111352, 38.91557613459711]
+,[-77.03195695612371, 38.915495059811946]
+,[-77.0319547979306, 38.91531056968773]
+,[-77.0319547796857, 38.91526985201465]
+,[-77.03195451384666, 38.91490816738945]
+,[-77.03195449955773, 38.91487627788211]
+,[-77.03195458642053, 38.91483853292812]
+,[-77.03195478078503, 38.9147576380117]
+,[-77.0319555821351, 38.91448738768377]
+,[-77.03195429503369, 38.914188221149736]
+,[-77.03195371427985, 38.91410157911611]
+,[-77.0321284928693, 38.91410079250265]
+,[-77.03232958404456, 38.9141001064501]
+,[-77.03260008916031, 38.91410048170511]
+,[-77.03263396571657, 38.91410052629813]
+,[-77.03267452995169, 38.91410057801969]
+,[-77.03298174812844, 38.91410100517684]
+,[-77.03318376206927, 38.9141010380608]
+,[-77.03325640405353, 38.91410101740714]
+,[-77.03332569066983, 38.91410099766541]
+,[-77.03350430923747, 38.91410094658243]
+,[-77.03416141935601, 38.91410066622271]
+,[-77.03439792089945, 38.91410059683569]
+,[-77.0344119880772, 38.91410059269345]
+,[-77.03454758614072, 38.91409992209456]
+,[-77.03469609820036, 38.914098977254]
+,[-77.03471869788414, 38.9140988804574]
+,[-77.03533591347886, 38.91410049709137]
+,[-77.0361662334438, 38.914098351277595]
+,[-77.03638162327876, 38.914099455492355]
+,[-77.03648908784277, 38.91410050298139]
+,[-77.03651099574229, 38.91410049613755]
+,[-77.0366372428034, 38.91410027645224]
+,[-77.03665130998093, 38.9141002720404]
+,[-77.03716126845677, 38.9141005523692]
+,[-77.03717100018108, 38.91410055828199]
+,[-77.03807545094516, 38.91410107779565]
+,[-77.03835725489235, 38.914099454205704]
+,[-77.03848188743659, 38.914098782640444]
+,[-77.03848147895717, 38.914196523242204]
+,[-77.03847920300713, 38.91450884305818]
+,[-77.0384779469614, 38.91468126304684]
+,[-77.03847805681194, 38.91469252343205]
+,[-77.038478725166, 38.91484134093865]
+,[-77.03847911423418, 38.91494268459908]
+,[-77.03847990056163, 38.91511780640231]
+,[-77.03848004941749, 38.91515861411698]
+,[-77.03847975092698, 38.91526788533375]
+,[-77.03847916830429, 38.91547030283491]
+,[-77.03847977206966, 38.91549939956063]
+,[-77.03848166184765, 38.91558254587667]
+,[-77.03847681894827, 38.915582547471516]
+,[-77.03837396455243, 38.915581770546254]
+,[-77.03805858667923, 38.91557935136371]
+,[-77.03805581935637, 38.915579442348424]
+,[-77.03805051522863, 38.915579444075874]
+,[-77.03788644524715, 38.91558048830764]
+,[-77.03764489955363, 38.91584207835497]
+,[-77.03762784339987, 38.9158598302691]
+,[-77.03697183752752, 38.91655339317636]
+,[-77.03690917846494, 38.916619642256805]
+,[-77.03684382384044, 38.916691279136366]
+,[-77.03649460085873, 38.91701001348587]
+,[-77.03636038081005, 38.91701032558]
+,[-77.0363380107788, 38.917010332539085]
+,[-77.03624691645928, 38.91701063108312]
+,[-77.03617947169384, 38.91701011148591]
+,[-77.035928627436, 38.91700998169522]
+,[-77.03552356798578, 38.9170091957027]
+,[-77.03534013352689, 38.91700883694354]
+,[-77.0350287051393, 38.91700758847916]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2>
+
+
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Ed Hanlon</td></tr>
+                        <tr>
+                        <th>Commissioner Email</th>
+                        <td><a href="mailto:2B09@anc.dc.gov">2B09@anc.dc.gov</a></td></tr>
+                </tbody>
+            </table>
+        
+
+<h2>2020 Candidates</h2>
+
+<h3>On Ballot</h3>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Kyle Mulhall</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-06-30</td></tr>
+                        <tr>
+                        <th>Filed Date</th>
+                        <td>2020-07-16</td></tr>
+                        <tr>
+                        <th>Website</th>
+                        <td><a href="https://kyle4anc.com/">https://kyle4anc.com/</a></td></tr>
+                        <tr>
+                        <th>Twitter</th>
+                        <td><a href="https://twitter.com/kyle_mulhall_DC">https://twitter.com/kyle_mulhall_DC</a></td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <h3>Pulled Papers for Ballot</h3>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Ed Hanlon</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-07-29</td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <br/>
+            <table border="1">
+              <tbody>
+              
+                        <tr>
+                        <th>Name</th>
+                        <td>Amy Nasr</td></tr>
+                        <tr>
+                        <th>Candidate Source</th>
+                        <td>DCBOE</td></tr>
+                        <tr>
+                        <th>Candidate Source Link</th>
+                        <td><a href="https://www.dcboe.org/Candidates/2020-Candidates">https://www.dcboe.org/Candidates/2020-Candidates</a></td></tr>
+                        <tr>
+                        <th>Pickup Date</th>
+                        <td>2020-07-31</td></tr>
+                        <tr>
+                        <th>Last Updated</th>
+                        <td>2020-08-03</td></tr>
+                </tbody>
+            </table>
+        <p><em>Candidate order is randomized</em></p><p>The list of candidates comes from the Board of Elections and from edits to OpenANC. Write-in candidates are included. If you know a candidate who isn't listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">submit an edit</a>.</p>
+
+<h2>Better Know a District</h2>
+
+<p>No landmarks for this district. <a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit one!</a></p>
+
+<h2>Neighboring Districts</h2>
+
+<ul><li><a href="1B05.html">1B05: (vacant)</a></li><li><a href="1B12.html">1B12: Commissioner Dan Winston</a></li><li><a href="1C08.html">1C08: Commissioner Chris Jackson</a></li><li><a href="2B03.html">2B03: (vacant)</a></li><li><a href="2B04.html">2B04: Commissioner Aaron Landry</a></li><li><a href="2B08.html">2B08: Commissioner Beverly Schwartz</a></li><li><a href="2F01.html">2F01: Commissioner Jason Forman</a></li></ul>
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">Submit edits</a></li>
+    <li><a href="../../index.html">Find your ANC district</a></li>
+    <li><a href="../../list.html">List of districts</a></li>
+    <li><a href="../../counts.html">Counts of districts</a></li>
+    <li><a href="../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: August 4, 2020</p>
+
+
+</body>
+
+</html>
