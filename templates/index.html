@@ -173,7 +173,7 @@ map.on('load', function() {
 
                 document.getElementById('pd').innerHTML = 
                     "<b>" + "District " + smd_name + "</b>"
-                    + "<br/>" + "<a href='ancs/districts/" + smd_name + ".html'>District Page</a>"
+                    + "<br/>" + "<a href='ancs/districts/" + smd_name.toLowerCase() + ".html'>District Page</a>"
                     + "<br/>Commissioner: " + districts[0].properties['current_commissioner']
                     + "<br/>Candidates: " + districts[0].properties['list_of_candidates']
 
