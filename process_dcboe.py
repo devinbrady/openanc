@@ -19,8 +19,8 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-08-05_0940.xlsx'
-    dcboe_updated_at = '2020-08-05 09:40'
+    excel_file = 'dcboe-2020-08-05_1950.xlsx'
+    dcboe_updated_at = '2020-08-05 19:50'
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel('data/dcboe/excel/' + excel_file)
@@ -102,19 +102,26 @@ def remove_withdrew_candidates(df):
 
     # List of names as they appear in the current DCBOE sheet
     # todo: maybe just search for "withdrew" in name
-    list_of_withdrew_names = [
-        'Andrew Spencer DeFrank'
-        , 'Randy D Downs (Withdrew 7/24/20)'
-        , 'Pete Stamper (Withdrew 7/27/2020)'
-        , 'Alexandra Morgan (Withdrew 7/30/20)'
-        , 'Rebecca Maydak (Withdrew 7/30/20)'
-        , 'Jonathan Alfuth (withdrew 8/4/20)'
-        , 'Carol E. Fletcher (withdrew 8/4/20)'
-    ]
+    # list_of_withdrew_names = [
+    #     'Andrew Spencer DeFrank'
+    #     , 'Randy D Downs (Withdrew 7/24/20)'
+    #     , 'Pete Stamper (Withdrew 7/27/2020)'
+    #     , 'Alexandra Morgan (Withdrew 7/30/20)'
+    #     , 'Rebecca Maydak (Withdrew 7/30/20)'
+    #     , 'Jonathan Alfuth (withdrew 8/4/20)'
+    #     , 'Carol E. Fletcher (withdrew 8/4/20)'
+    # ]
 
-    print('List of withdrew candidates match DCBOE candidate names: {}'.format(
-        len(df[df['candidate_name'].isin(list_of_withdrew_names)]) == len(list_of_withdrew_names)
-        ))
+
+    list_of_withdrew_names = ['Andrew Spencer DeFrank'] + df[df['candidate_name'].str.contains('withdrew', case=False)]['candidate_name'].tolist()
+
+    print('Withdrawn candidates:')
+    for c in list_of_withdrew_names:
+        print('    ' + c)
+
+    # print('List of withdrew candidates match DCBOE candidate names: {}'.format(
+    #     len(df[df['candidate_name'].isin(list_of_withdrew_names)]) == len(list_of_withdrew_names)
+    #     ))
 
     return df[ ~(df['candidate_name'].isin(list_of_withdrew_names)) ].copy()    
 
@@ -260,6 +267,7 @@ def run_matching_process():
     print('Number of new candidates: {}'.format(len(add_records_to_candidates)))
 
 
+
 def check_new_candidates_for_duplicates():
     """
     Look at the most recent records and confirm they don't duplicate any records in the same district
@@ -275,8 +283,51 @@ def check_new_candidates_for_duplicates():
 
     comparison = pd.merge(new_candidates, smd_df, how='inner', on='smd_id')
 
+    pd.set_option('display.max_colwidth', 80)
     print('Make sure that none of the new candidates duplicate existing candidates:')
     print(comparison.loc[comparison['list_of_candidates'] != '(no known candidates)', ['smd_id', 'candidate_name', 'list_of_candidates']])
+
+
+
+def reconcile_candidates():
+    """
+    Check existing and new candidate hashes to see where there are mismatches
+
+    When a candidate's name changes, the hash from the new file should be written to the OpenANC Source candidate sheet
+    """
+
+    # people = pd.read_csv('data/people.csv')
+    candidates = pd.read_csv('data/candidates.csv')
+    dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
+
+    existing_hashes_not_in_new_file = ~( candidates['dcboe_hash_id'].isin(dcboe['dcboe_hash_id']) )
+    new_hashes = ~( dcboe['dcboe_hash_id'].isin(candidates['dcboe_hash_id']) )
+
+    pd.set_option('display.max_colwidth', 60)
+    
+    print('\nExisting hashes not in new DCBOE file: {}'.format(sum(existing_hashes_not_in_new_file)))
+    print(candidates.loc[existing_hashes_not_in_new_file, ['dcboe_hash_id', 'smd_id', 'candidate_name', 'candidate_status']])
+    
+    print('\nNew hashes not in OpenANC Source: {}'.format(sum(new_hashes)))
+    print(dcboe.loc[new_hashes, ['dcboe_hash_id', 'smd_id', 'candidate_name']])
+    print()
+
+
+
+def check_names():
+    """
+    Ensure that names are the same in the people and candidate objects
+
+    todo: the display name on OpenANC should generally be the name that DCBOE has for the candidate, 
+    except when the candidate has stated a different preference (like Japer)
+    """
+
+    candidates = pd.read_csv('data/candidates.csv')
+    people = pd.read_csv('data/people.csv')
+
+    cp = pd.merge(candidates, people, how='inner', on='person_id')
+    print(cp.loc[cp['full_name'] != cp['candidate_name'], ['full_name', 'candidate_name']])
+
 
 
 if __name__ == '__main__':
@@ -286,4 +337,8 @@ if __name__ == '__main__':
     run_matching_process()
 
     check_new_candidates_for_duplicates()
+
+    reconcile_candidates()
+
+    # check_names()
 

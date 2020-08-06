@@ -14,7 +14,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10013,Anita Norman,smd_1B01,not_currently_running,https://twitter.com/anc1b01,,,x
 10014,Dan Orlaskey,smd_1B02,smd_1B02,https://twitter.com/danielorlaskey,,https://www.facebook.com/dan4anc/,x
 10015,Sedrick Muhammad,smd_1B03,not_currently_running,,,,
-10016,Deborah Thomas,smd_1B04,not_currently_running,,,,
+10016,Deborah Thomas,smd_1B04,smd_1B04,,,,
 10017,Jennifer Bristol,not_currently_serving,not_currently_running,https://twitter.com/jenbristol_,,https://www.jenbristoldc.com/,x
 10018,Marcia Shia,smd_1B07,smd_1B07,https://twitter.com/loridcward1,,,x
 10019,Joshua R. Mater,smd_1B08,smd_1B08,,,,
@@ -117,7 +117,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10116,Stephen A. Whatley,smd_4A03,smd_4A03,,,,
 10117,Patience Singleton,smd_4A04,smd_4A04,https://twitter.com/Ladylaw1996,,,x
 10118,Candace Tiana Nelson,smd_4A06,smd_4A06,https://twitter.com/candacetiana,,,x
-10119,Marlene Moss,smd_4A07,not_currently_running,,,,
+10119,Marlene Moss,smd_4A07,smd_4A07,,,,
 10120,Gale B. Black,smd_4A08,not_currently_running,,,,
 10121,Evan Yeats,smd_4B01,smd_4B01,https://twitter.com/Evan_Yeats,,,x
 10122,Erin Palmer,smd_4B02,smd_4B02,https://twitter.com/Erinfor4B02,https://www.facebook.com/Erinfor4B02/,https://www.erinforanc.com/,x
@@ -149,7 +149,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10148,Emily Singer Lucio,smd_5A03,smd_5A03,,,,
 10149,Ronnie Edwards,smd_5A05,smd_5A05,,,,
 10150,Claudia Barragan,smd_5A06,not_currently_running,,,,
-10151,Sandi Washington,smd_5A07,not_currently_running,,,,
+10151,Sandi Washington,smd_5A07,smd_5A07,,,,
 10152,Gordon-Andrew Fletcher,smd_5A08,smd_5A08,https://twitter.com/ANCCommissioner,,,
 10153,Gayle Carley,smd_5B01,smd_5B01,,,,
 10154,Ursula Higgins,smd_5B02,smd_5B02,,,,
@@ -214,7 +214,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10213,Frank S. Wiggins,smd_6E03,smd_6E03,,,,
 10214,Rachelle Nigro,smd_6E04,smd_6E04,https://twitter.com/nigro4dc,,,
 10215,Alex Marriott,smd_6E05,not_currently_running,https://twitter.com/AlexMarriottANC,,,
-10216,Alvin Judd Sr.,smd_6E06,not_currently_running,,,,
+10216,Alvin Judd Sr.,smd_6E06,smd_6E06,,,,
 10217,Kevin M. Rogers,smd_6E07,smd_6E07,,,,
 10218,Patricia Howard-Chittams,smd_7B01,not_currently_running,,,,
 10219,Tiffany L. Brown,smd_7B02,smd_7B02,https://twitter.com/tlbrown1221,,,
@@ -232,7 +232,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10231,Tamara Blair,smd_7D01,smd_7D01,https://twitter.com/BlairTamara,,,
 10232,Siraaj M. Hasan,smd_7D02,smd_7D02,https://twitter.com/Siraaj_CEO_SMSB,,,
 10233,Dorothy Douglas,smd_7D03,smd_7D03,https://twitter.com/DDouglasANC7D03,,,
-10234,Cinque E. Culver,smd_7D04,not_currently_running,https://twitter.com/CinqueCulver,,,
+10234,Cinque E. Culver,smd_7D04,smd_7D04,https://twitter.com/CinqueCulver,,,
 10235,Aretha Jackson,smd_7D05,not_currently_running,https://twitter.com/ArethaJJack,,,
 10236,Artilie Wright,smd_7D07,not_currently_running,,,,
 10237,Veda Rasheed,smd_7E01,smd_7E01,,,,
@@ -568,5 +568,17 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10584,John Deignan,not_currently_serving,smd_6D02,,,,
 10585,David Retland,not_currently_serving,smd_7B04,,,,
 10586,James Goldfield,not_currently_serving,smd_7D05,,,,
-10587,Sharon B. Jafari,not_currently_serving,smd_7E04,,,,
+10587,Sharon B. Jafari,not_currently_serving,smd_7E05,,,,
 10588,Terri L. Acker,not_currently_serving,smd_8A07,,,,
+10589,Lucas Mccabe,not_currently_serving,smd_1B05,,,,
+10590,Adam Friend,not_currently_serving,smd_2A07,,,,
+10591,Sarah Mehrotra,not_currently_serving,smd_2B03,,,,
+10592,Cameron Powell,not_currently_serving,smd_2B06,,,,
+10593,Michael Zeldin,not_currently_serving,smd_3G04,,,,
+10594,Steve Donahoe,not_currently_serving,smd_4C04,,,,
+10595,Chelsea Skinner,not_currently_serving,smd_5E01,,,,
+10596,"Paul Biedlingmaier, III",not_currently_serving,smd_6D02,,,,
+10597,"David Brooks, II",not_currently_serving,smd_7B02,,,,
+10598,Ashley Ruff,not_currently_serving,smd_7F01,,,,
+10599,Travon Hawkins,not_currently_serving,smd_8C04,,,,
+10600,Zenobia Love,not_currently_serving,smd_8D01,,,,

@@ -20,6 +20,7 @@ from scripts.common import (
     )
 
 
+
 class BuildDistricts():
 
     def __init__(self):
@@ -51,6 +52,7 @@ class BuildDistricts():
             commissioner_table = build_data_table(current_commissioner, fields_to_try)
         
         return commissioner_table
+
 
 
     def add_candidates(self, smd_id):
@@ -118,6 +120,48 @@ class BuildDistricts():
         return candidate_block
 
 
+    def add_former_commissioners(self, smd_id):
+        """
+        Add blocks of information about former commissioners, if any are known
+        """
+
+        commissioners = pd.read_csv('data/commissioners.csv')
+        people = pd.read_csv('data/people.csv')
+        cp = pd.merge(commissioners, people, how='inner', on='smd_id')
+
+        former_comms = cp[(cp['commissioner_status'] == 'former') & (cp['smd_id'] == smd_id)].copy()
+        former_comms.sort_values(by='term_start_date', inplace=True)
+
+        fc_html = ''
+
+        if len(former_comms) > 0:
+
+            if len(former_comms) == 1:
+                former_plural = ''
+            else:
+                former_plural = 's'
+
+            fc_html += f'<h2>Former Commissioner{former_plural}</h2>'
+            
+            for idx, row in former_comms.reset_index().iterrows():
+
+                # Add break between former commissioner tables if there is more than one former commissioner
+                if idx > 0:
+                    fc_html += '<br/>'
+
+                fields_to_try = [
+                    'full_name'
+                    , 'term_start_date'
+                    , 'term_end_date'
+                    ]
+
+                fc_html += build_data_table(row, fields_to_try)
+
+        return fc_html
+
+
+
+
     def today_as_int(self):
         """
         Return today's date in Eastern Time as an integer. Use as a seed for candidate order randomization
@@ -128,6 +172,7 @@ class BuildDistricts():
         dc_now_str = dc_now.strftime('%Y%m%d')
 
         return int(dc_now_str)
+
 
 
     def build_better_know_a_district(self, smd_id):
@@ -184,6 +229,7 @@ class BuildDistricts():
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+            # output = output.replace('<!-- replace with former commissioner table -->', self.add_former_commissioners(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
             neighbor_smd_ids = [('smd_' + d) for d in row['neighbor_smds'].split(', ')]
