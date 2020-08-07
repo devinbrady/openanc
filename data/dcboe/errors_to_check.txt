@@ -2,20 +2,23 @@ pdf_errors_to_check.txt
 
 These should all be fixed in candidates_dcboe.csv: 
 
-* "ANC/SMD" has a bad character at the start
 * 5D06, Marina Budimir has pickup date in 1930
 * 1A02, Dieter Lehmann Morales has filing date in January
 * 5E01, Chelsea Skinner pickup date in 1950
-* 5A05  Ronnie Edwards has period in filing date
 * Jes'Terieuz 'JT' Howard should have double quotes
-* 4C03  Ceceila Waldeck has a space in name
-* 7F06  Betty J. Diggs has a space in name
-* Jeannina "W8 Matter" Williams needs space in name
-
-* 4A07 candidate missing from 8/6 PDF? 
+* 4C03  Ceceila Waldeck has 2 spaces in name
+* 7F06  Betty J. Diggs has 2 spaces in name
+* Jeannina "W8 Matter" Williams needs space in name, plus add 's' in Matters
+* smd_3D01  Carolin Jane Croft missing e
+* 3B02  Jackie Blumenthal has 2 spaces in name
 
 
 No longer an issue:
+* 4A07 candidate missing from 8/6 PDF? 
+* 5A05  Ronnie Edwards has period in filing date
+* "ANC/SMD" has a bad character at the start
+
+
 * Benjamin Hart Butz is listed as running in 1C07 but his address (2480 16th Street, NW) puts him in 1C06
 
 * 7C02,Patricia Williams has pickup date of "6/302020"

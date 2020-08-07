@@ -19,8 +19,8 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-08-06.xlsx'
-    dcboe_updated_at = '2020-08-06 12:00'
+    excel_file = 'dcboe-2020-08-07.xlsx'
+    dcboe_updated_at = '2020-08-07 11:29'
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel('data/dcboe/excel/' + excel_file)

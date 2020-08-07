@@ -321,7 +321,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10324,Trish Berman,not_currently_serving,smd_3C05,,,,x
 10325,Sauleh A. Siddiqui,not_currently_serving,smd_3C05,https://twitter.com/saulehsiddiqui,,,x
 10326,Kamolika Das,not_currently_serving,smd_3C06,https://twitter.com/Kamolika_Das,,,x
-10327,Carolin Jane Croft,not_currently_serving,smd_3D01,,,,x
+10327,Caroline Jane Croft,not_currently_serving,smd_3D01,,,,x
 10329,Christian Damiana,not_currently_serving,smd_3D07,https://twitter.com/latestchristian,,https://www.electdamiana.com/,x
 10330,Benjamin Bergmann,not_currently_serving,smd_3D08,https://twitter.com/bzbergmann,,https://www.benb4anc.com/,x
 10331,Doreen Moses,not_currently_serving,smd_3D08,,,,x
@@ -359,7 +359,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10364,D'Andre A. Phillips,not_currently_serving,smd_5C06,,,,
 10365,Sebrena L. Rhodes,not_currently_serving,smd_5D01,,,,
 10366,Salvador Sauceda-Guzman,not_currently_serving,smd_5D02,,,,
-10367,Sean Barry,not_currently_serving,smd_5D03,https://twitter.com/seanbbarry,,,
+10367,Sean Barry,not_currently_serving,smd_5D03,https://twitter.com/seanbbarry,https://www.facebook.com/seanbbarrydc/,https://www.seanbarrydc.com/,x
 10368,James Butler,not_currently_serving,smd_5D03,https://twitter.com/jamesbutler4dc,https://www.facebook.com/TheRealJamesButler/,http://www.butlerforanc.com/,x
 10369,Latoya Renee Moore,not_currently_serving,smd_5D03,,,,
 10370,Kathy Henderson,not_currently_serving,smd_5D05,,,,
@@ -581,3 +581,5 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10598,Ashley Ruff,not_currently_serving,smd_7F01,,,,
 10599,Travon Hawkins,not_currently_serving,smd_8C04,,,,
 10600,Zenobia Love,not_currently_serving,smd_8D01,,,,
+10601,Matthew O'Donnell,not_currently_serving,smd_2E06,,,,
+10602,Charles T. Lockett,not_currently_serving,smd_5A02,,,,
