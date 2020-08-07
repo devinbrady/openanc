@@ -31,8 +31,8 @@ pickup_date,Pickup Date
 running_for_smd_id,
 smd_id,
 suffix,
-term_end_date,
-term_start_date,
+term_end_date,End Date
+term_start_date,Start Date
 twitter_link,Twitter
 updated_at,Last Updated
 ward,

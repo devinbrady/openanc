@@ -19,8 +19,8 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-08-05_1950.xlsx'
-    dcboe_updated_at = '2020-08-05 19:50'
+    excel_file = 'dcboe-2020-08-06.xlsx'
+    dcboe_updated_at = '2020-08-06 12:00'
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel('data/dcboe/excel/' + excel_file)
@@ -322,11 +322,15 @@ def check_names():
     except when the candidate has stated a different preference (like Japer)
     """
 
+    dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
     candidates = pd.read_csv('data/candidates.csv')
     people = pd.read_csv('data/people.csv')
 
     cp = pd.merge(candidates, people, how='inner', on='person_id')
-    print(cp.loc[cp['full_name'] != cp['candidate_name'], ['full_name', 'candidate_name']])
+    cpd = pd.merge(cp, dcboe, how='inner', on='dcboe_hash_id')
+
+    # todo: may have x and y columns here
+    print(cpd.loc[cpd['full_name'] != cpd['candidate_name'], ['full_name', 'candidate_name']])
 
 
 

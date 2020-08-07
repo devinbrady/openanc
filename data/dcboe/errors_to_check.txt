@@ -8,6 +8,11 @@ These should all be fixed in candidates_dcboe.csv:
 * 5E01, Chelsea Skinner pickup date in 1950
 * 5A05  Ronnie Edwards has period in filing date
 * Jes'Terieuz 'JT' Howard should have double quotes
+* 4C03  Ceceila Waldeck has a space in name
+* 7F06  Betty J. Diggs has a space in name
+* Jeannina "W8 Matter" Williams needs space in name
+
+* 4A07 candidate missing from 8/6 PDF? 
 
 
 No longer an issue:

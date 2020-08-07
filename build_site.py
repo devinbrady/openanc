@@ -5,10 +5,10 @@ All steps necessary to build OpenANC pages
 import argparse
 
 from scripts.refresh_data import RefreshData
-from scripts.build_index import BuildIndex
-from scripts.build_districts import BuildDistricts
-from scripts.build_ancs import BuildANCs
-from scripts.build_wards import BuildWards
+from scripts.index import BuildIndex
+from scripts.districts import BuildDistricts
+from scripts.ancs import BuildANCs
+from scripts.wards import BuildWards
 
 
 parser = argparse.ArgumentParser()

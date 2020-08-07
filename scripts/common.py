@@ -98,6 +98,16 @@ def anc_names(anc_id):
 
 
 
+def current_commissioners():
+    """
+    Return dataframe with only current commissioners (exclude former)
+    """
+
+    commissioners = pd.read_csv('data/commissioners.csv')
+    return commissioners[commissioners['commissioner_status'] == 'current'].copy()
+
+
+
 def build_smd_html_table(list_of_smds, link_path=''):
     """
     Return an HTML table with one row per district for a given list of SMDs
@@ -106,7 +116,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
     """
 
     districts = pd.read_csv('data/districts.csv')
-    commissioners = pd.read_csv('data/commissioners.csv')
+    commissioners = current_commissioners()
     people = pd.read_csv('data/people.csv')
     candidates = pd.read_csv('data/candidates.csv')
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
@@ -194,7 +204,7 @@ def build_district_list(smd_id_list=None, level=0):
     """
 
     districts = pd.read_csv('data/districts.csv')
-    commissioners = pd.read_csv('data/commissioners.csv')
+    commissioners = current_commissioners()
     people = pd.read_csv('data/people.csv')
 
     dc = pd.merge(districts, commissioners, how='left', on='smd_id')

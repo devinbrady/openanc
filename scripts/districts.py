@@ -17,6 +17,7 @@ from scripts.common import (
     , edit_form_link
     , add_google_analytics
     , add_geojson
+    , current_commissioners
     )
 
 
@@ -37,7 +38,7 @@ class BuildDistricts():
         smd_display = smd_id.replace('smd_','')
         
         people = pd.read_csv('data/people.csv')
-        commissioners = pd.read_csv('data/commissioners.csv')
+        commissioners = current_commissioners()
 
         people_commissioners = pd.merge(people, commissioners, how='inner', on='person_id')
         
@@ -127,7 +128,7 @@ class BuildDistricts():
 
         commissioners = pd.read_csv('data/commissioners.csv')
         people = pd.read_csv('data/people.csv')
-        cp = pd.merge(commissioners, people, how='inner', on='smd_id')
+        cp = pd.merge(commissioners, people, how='inner', on='person_id')
 
         former_comms = cp[(cp['commissioner_status'] == 'former') & (cp['smd_id'] == smd_id)].copy()
         former_comms.sort_values(by='term_start_date', inplace=True)
@@ -216,9 +217,9 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_1B01':
+            # if smd_id != 'smd_4C09':
             #     continue
-                    
+
             with open('templates/district.html', 'r') as f:
                 output = f.read()
                 
@@ -229,7 +230,7 @@ class BuildDistricts():
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
-            # output = output.replace('<!-- replace with former commissioner table -->', self.add_former_commissioners(smd_id))
+            output = output.replace('<!-- replace with former commissioner table -->', self.add_former_commissioners(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
             neighbor_smd_ids = [('smd_' + d) for d in row['neighbor_smds'].split(', ')]

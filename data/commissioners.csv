@@ -5,6 +5,7 @@ person_id,smd_id,commissioner_name,is_chair,term_start_date,term_end_date,commis
 10004,smd_1A04,Matthew Goldschimdt,,2019-01-02,2021-01-02,1A04@anc.dc.gov,current
 10005,smd_1A05,Christine Miller,,2019-01-02,2021-01-02,1A05@anc.dc.gov,current
 10006,smd_1A06,Angelica Castañon,,2019-01-02,2021-01-02,1A06@anc.dc.gov,current
+10007,smd_1A07,Jen Bundy,,2019-01-02,2020-07-31,,former
 10008,smd_1A08,Kent C. Boese,TRUE,2019-01-02,2021-01-02,1A08@anc.dc.gov,current
 10009,smd_1A09,Michael Wray,,2019-01-02,2021-01-02,1A09@anc.dc.gov,current
 10010,smd_1A10,Rashida Brown,,2019-01-02,2021-01-02,1A10@anc.dc.gov,current
@@ -14,6 +15,7 @@ person_id,smd_id,commissioner_name,is_chair,term_start_date,term_end_date,commis
 10014,smd_1B02,Dan Orlaskey,,2019-01-02,2021-01-02,1B02@anc.dc.gov,current
 10015,smd_1B03,Sedrick Muhammad,,2019-01-02,2021-01-02,1B03@anc.dc.gov,current
 10016,smd_1B04,Deborah Thomas,,2019-01-02,2021-01-02,1B04@anc.dc.gov,current
+10017,smd_1B06,Jennifer Bristol,,2019-01-02,2020-07-10,,former
 10018,smd_1B07,Marcia Shia,,2019-01-02,2021-01-02,1B07@anc.dc.gov,current
 10019,smd_1B08,Joshua R. Mater,,2019-01-02,2021-01-02,1B08@anc.dc.gov,current
 10020,smd_1B09,James A. Turner,TRUE,2019-01-02,2021-01-02,1B09@anc.dc.gov,current
@@ -36,6 +38,7 @@ person_id,smd_id,commissioner_name,is_chair,term_start_date,term_end_date,commis
 10037,smd_2A02,Nicole Goldin,,2019-01-02,2021-01-02,2A02@anc.dc.gov,current
 10038,smd_2A03,Trupti J. Patel,,2019-01-02,2021-01-02,2A03@anc.dc.gov,current
 10039,smd_2A04,William Kennedy Smith,,2019-01-02,2021-01-02,2A04@anc.dc.gov,current
+10040,smd_2A05,Philip J. Schrefer,,2019-01-02,2019-11-20,,former
 10041,smd_2A06,Jeri Epstein,,2019-01-02,2021-01-02,2A06@anc.dc.gov,current
 10042,smd_2A07,Detrick Campbell,,2019-01-02,2021-01-02,2A07@anc.dc.gov,current
 10043,smd_2A08,James Harnett,TRUE,2019-01-02,2021-01-02,2A08@anc.dc.gov,current
@@ -91,6 +94,7 @@ person_id,smd_id,commissioner_name,is_chair,term_start_date,term_end_date,commis
 10093,smd_3D08,Christine Warnke,,2019-01-02,2021-01-02,3D08@anc.dc.gov,current
 10094,smd_3D09,J.P. Szymkowicz,,2019-01-02,2021-01-02,3D09@anc.dc.gov,current
 10095,smd_3D10,Jeremy Del Moral,,2019-01-02,2021-01-02,3D10@anc.dc.gov,current
+10096,smd_3E01,Greg Ehrhardt,,2019-01-02,2020-04-01,,former
 10097,smd_3E02,Amy B. Hall,,2019-01-02,2021-01-02,3E02@anc.dc.gov,current
 10098,smd_3E03,Jonathan Bender,TRUE,2019-01-02,2021-01-02,3E03@anc.dc.gov,current
 10099,smd_3E04,Tom Quinn,,2019-01-02,2021-01-02,3E04@anc.dc.gov,current
@@ -132,6 +136,7 @@ person_id,smd_id,commissioner_name,is_chair,term_start_date,term_end_date,commis
 10135,smd_4C06,Bennett Hilley,,2019-01-02,2021-01-02,4C06@anc.dc.gov,current
 10136,smd_4C07,Kim Varzi,,2019-01-02,2021-01-02,4C07@anc.dc.gov,current
 10137,smd_4C08,Leah Anderson,,2019-01-02,2021-01-02,4C08@anc.dc.gov,current
+10138,smd_4C09,Tearsa Coates,,2019-01-02,2020-07-07,,former
 10139,smd_4C10,Jonah Goodman,,2019-01-02,2021-01-02,4C10@anc.dc.gov,current
 10140,smd_4D01,Peter Tabor,,2019-01-02,2021-01-02,4D01@anc.dc.gov,current
 10141,smd_4D02,Renée L. Bowser,TRUE,2019-01-02,2021-01-02,4D02@anc.dc.gov,current
@@ -150,6 +155,7 @@ person_id,smd_id,commissioner_name,is_chair,term_start_date,term_end_date,commis
 10154,smd_5B02,Ursula Higgins,TRUE,2019-01-02,2021-01-02,5B02@anc.dc.gov,current
 10155,smd_5B03,Henri Makembe,,2019-01-02,2021-01-02,5B03@anc.dc.gov,current
 10156,smd_5B04,Ra Amin,,2019-01-02,2021-01-02,5B04@anc.dc.gov,current
+10157,smd_5B05,Landon Jones,,2019-01-02,2020-01-31,,former
 10158,smd_5C01,Gail Brevard,,2019-01-02,2021-01-02,5C01@anc.dc.gov,current
 10159,smd_5C02,Lauren Rogers,,2019-01-02,2021-01-02,5C02@anc.dc.gov,current
 10160,smd_5C03,Pierre Hines,,2019-01-02,2021-01-02,5C03@anc.dc.gov,current

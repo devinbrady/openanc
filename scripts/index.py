@@ -10,6 +10,7 @@ from scripts.common import (
     , edit_form_link
     , add_google_analytics
     , build_smd_html_table
+    , current_commissioners
 )
 
 from scripts.counts import Counts
@@ -55,7 +56,7 @@ class BuildIndex():
         smd_df = rd.assemble_smd_info()
 
         districts = pd.read_csv('data/districts.csv')
-        commissioners = pd.read_csv('data/commissioners.csv')
+        commissioners = current_commissioners()
         candidates = pd.read_csv('data/candidates.csv')
         candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
         cs = pd.merge(candidates, candidate_statuses, how='inner', on='candidate_status')
