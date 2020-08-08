@@ -137,6 +137,7 @@ class BuildIndex():
             output = f.read()
 
         output = add_google_analytics(output)
+        output = add_footer(output, level=0)
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
@@ -150,6 +151,5 @@ class BuildIndex():
         self.list_page()
         self.about_page()
         self.build_single_page('index')
-        self.build_single_page('needs-candidates')
-        self.build_single_page('find-my-district')
+        self.build_single_page('404')
 

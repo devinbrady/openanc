@@ -161,7 +161,7 @@ class BuildDistricts():
                         candidate_block += '<p><em>Candidate order is randomized</em></p>'
 
         candidate_block += (
-            "<p>The list of candidates comes from the Board of Elections and from edits to OpenANC. "
+            "<p>The list of candidates comes from the DC Board of Elections and from edits to OpenANC. "
             + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
             ).format(edit_form_link('submit an edit'))
 
