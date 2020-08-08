@@ -4,6 +4,9 @@ credentials.json
 *.pickle
 Scratch.ipynb
 
+# Excel temp files
+~$*
+
 scripts/__pycache__/*
 
 # Byte-compiled / optimized / DLL files
