@@ -78,7 +78,7 @@ class Counts():
                     , 'Percentage with Candidate': '{:.0%}'
                     })
                 .bar(subset=['Percentage with Candidate'], color=bar_color, vmin=0, vmax=1)
-                
+                .set_uuid(groupby_field + '_')
                 .hide_index()
                 .render()
             )
@@ -128,6 +128,7 @@ class Counts():
             .format({
                 'Percentage': '{:.1%}'
                 })
+            .set_uuid('election_status_count_')
             .hide_index()
             .render()
             )
@@ -156,6 +157,7 @@ class Counts():
             .format({
                 'Percentage': '{:.1%}'
                 })
+            .set_uuid('candidate_count_')
             .hide_index()
             .render()
             )
@@ -193,6 +195,7 @@ class Counts():
                     , 'border-collapse':'collapse'
                     , 'padding': '4px'
                     })
+                .set_uuid('status_count_df_')
                 .hide_index()
                 .render()
             )
@@ -251,6 +254,7 @@ class Counts():
                     , ('', 'Percentage Filed'): '{:.1%}'
                 })
                 .bar(subset=[('', 'Percentage Filed')], color='#B3B3B3', vmin=0, vmax=1) # gray
+                .set_uuid('g_')
                 .hide_index()
                 .render()
             )
