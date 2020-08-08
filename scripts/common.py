@@ -126,6 +126,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
 
     cp = pd.merge(candidates, people, how='inner', on='person_id')
     cpd = pd.merge(cp, districts, how='inner', on='smd_id')
+    cpds = pd.merge(cpd, candidate_statuses, how='inner', on='candidate_status')
 
     dcp['Current Commissioner'] = dcp['full_name'].fillna('(vacant)')
 
@@ -155,9 +156,9 @@ def build_smd_html_table(list_of_smds, link_path=''):
 
 
 
-    cpd['order_status'] = cpd['display_order'].astype(str) + ';' + cpd['candidate_status']
+    cpds['order_status'] = cpds['display_order'].astype(str) + ';' + cpds['candidate_status']
 
-    candidates_in_smds = cpd[cpd['smd_id'].isin(list_of_smds)].copy()
+    candidates_in_smds = cpds[cpds['smd_id'].isin(list_of_smds)].copy()
     statuses_in_smds = sorted(candidates_in_smds['order_status'].unique())
     
     for status in statuses_in_smds:

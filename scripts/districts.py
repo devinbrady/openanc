@@ -56,6 +56,11 @@ class BuildDistricts():
 
 
 
+    def add_candidates_in_status(self, html, candidates, status):
+        pass
+
+
+
     def add_candidates(self, smd_id):
         """
         Add blocks of information for each candidate in SMD
@@ -66,12 +71,13 @@ class BuildDistricts():
         statuses = pd.read_csv('data/candidate_statuses.csv')
 
         people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
+        people_candidate_statuses = pd.merge(people_candidates, statuses, how='inner', on='candidate_status')
 
         # Merge the order and status fields for sorting
-        people_candidates['order_status'] = people_candidates['display_order'].astype(str) + ';' + people_candidates['candidate_status']
+        people_candidate_statuses['order_status'] = people_candidate_statuses['display_order'].astype(str) + ';' + people_candidate_statuses['candidate_status']
         
         # Randomize the order of candidates. Changes every day
-        smd_candidates = people_candidates[people_candidates['smd_id'] == smd_id].sample(
+        smd_candidates = people_candidate_statuses[people_candidate_statuses['smd_id'] == smd_id].sample(
             frac=1, random_state=self.today_as_int()).reset_index()
         
         num_candidates = len(smd_candidates)
@@ -83,35 +89,76 @@ class BuildDistricts():
 
             candidate_block = ''
 
-            for status in sorted(smd_candidates['order_status'].unique()):
+            # todo: clean this up
 
-                candidate_block += '<h3>' + status[status.find(';')+1:] + '</h3>'
-                candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
+            if len(smd_candidates['count_as_candidate'] == True) > 0:
 
-                for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
+                candidate_block += '<h3>Active Candidates</h3>'
 
-                    # Add break between candidate tables if there is more than one candidate
-                    if idx > 0:
-                        candidate_block += '<br/>'
+                for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == True, 'order_status'].unique()):
 
-                    fields_to_try = [
-                        'full_name'
-                        , 'candidate_announced_date'
-                        , 'candidate_source'
-                        , 'candidate_source_description'
-                        , 'candidate_source_link'
-                        , 'pickup_date'
-                        , 'filed_date'
-                        , 'website_link'
-                        , 'twitter_link'
-                        , 'facebook_link'
-                        , 'updated_at'
-                        ]
+                    candidate_block += '<h4>' + status[status.find(';')+1:] + '</h4>'
+                    candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
 
-                    candidate_block += build_data_table(candidate_row, fields_to_try)
-                
-                if candidates_in_status > 1:
-                    candidate_block += '<p><em>Candidate order is randomized</em></p>'
+                    for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
+
+                        # Add break between candidate tables if there is more than one candidate
+                        if idx > 0:
+                            candidate_block += '<br/>'
+
+                        fields_to_try = [
+                            'full_name'
+                            , 'candidate_announced_date'
+                            , 'candidate_source'
+                            , 'candidate_source_description'
+                            , 'candidate_source_link'
+                            , 'pickup_date'
+                            , 'filed_date'
+                            , 'website_link'
+                            , 'twitter_link'
+                            , 'facebook_link'
+                            , 'updated_at'
+                            ]
+
+                        candidate_block += build_data_table(candidate_row, fields_to_try)
+                    
+                    if candidates_in_status > 1:
+                        candidate_block += '<p><em>Candidate order is randomized</em></p>'
+
+
+            if len(smd_candidates['count_as_candidate'] == False) > 0:
+
+                candidate_block += '<h3>Former Candidates</h3>'
+
+                for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == False, 'order_status'].unique()):
+
+                    candidate_block += '<h4>' + status[status.find(';')+1:] + '</h4>'
+                    candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
+
+                    for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
+
+                        # Add break between candidate tables if there is more than one candidate
+                        if idx > 0:
+                            candidate_block += '<br/>'
+
+                        fields_to_try = [
+                            'full_name'
+                            , 'candidate_announced_date'
+                            , 'candidate_source'
+                            , 'candidate_source_description'
+                            , 'candidate_source_link'
+                            , 'pickup_date'
+                            , 'filed_date'
+                            , 'website_link'
+                            , 'twitter_link'
+                            , 'facebook_link'
+                            , 'updated_at'
+                            ]
+
+                        candidate_block += build_data_table(candidate_row, fields_to_try)
+                    
+                    if candidates_in_status > 1:
+                        candidate_block += '<p><em>Candidate order is randomized</em></p>'
 
         candidate_block += (
             "<p>The list of candidates comes from the Board of Elections and from edits to OpenANC. "
@@ -217,7 +264,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_4C09':
+            # if smd_id != 'smd_1B05':
             #     continue
 
             with open('templates/district.html', 'r') as f:

@@ -172,9 +172,12 @@ class Counts():
         """
 
         candidates = pd.read_csv('data/candidates.csv')
+        statuses = pd.read_csv('data/candidate_statuses.csv')
 
-        status_count = candidates.groupby(['display_order', 'candidate_status']).size()
-        status_count.loc[('Total', 'Total')] = len(candidates)
+        candidate_statuses = pd.merge(candidates, statuses, how='inner', on='candidate_status')
+
+        status_count = candidate_statuses.groupby(['display_order', 'candidate_status']).size()
+        status_count.loc[('Total', 'Total')] = len(candidate_statuses)
         
         status_count_df = pd.DataFrame(status_count, columns=['Count']).reset_index()
         status_count_df.rename(columns={'candidate_status': 'Candidate Status'}, inplace=True)
