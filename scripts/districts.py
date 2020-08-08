@@ -91,9 +91,13 @@ class BuildDistricts():
 
             # todo: clean this up
 
-            if len(smd_candidates['count_as_candidate'] == True) > 0:
+            candidate_block += '<h3>Active Candidates</h3>'
 
-                candidate_block += '<h3>Active Candidates</h3>'
+            if sum(smd_candidates['count_as_candidate'] == True) == 0:
+
+                candidate_block += '<p>No active candidates.</p>'
+
+            else:
 
                 for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == True, 'order_status'].unique()):
 
@@ -126,7 +130,7 @@ class BuildDistricts():
                         candidate_block += '<p><em>Candidate order is randomized</em></p>'
 
 
-            if len(smd_candidates['count_as_candidate'] == False) > 0:
+            if sum(smd_candidates['count_as_candidate'] == False) > 0:
 
                 candidate_block += '<h3>Former Candidates</h3>'
 
@@ -264,7 +268,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_1B05':
+            # if smd_id != 'smd_4D05':
             #     continue
 
             with open('templates/district.html', 'r') as f:
