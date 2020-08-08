@@ -36,6 +36,7 @@ class RefreshData():
         self.service = self.google_auth()
 
 
+
     def google_auth(self):
         """
         Autheticate to Google Sheets API
@@ -65,6 +66,7 @@ class RefreshData():
         service = build('sheets', 'v4', credentials=creds)
         
         return service
+
 
 
     def test_google_connection(self):
@@ -192,6 +194,7 @@ class RefreshData():
         return district_info_comm
 
 
+
     def add_data_to_geojson(self):
         """
         Save new GeoJSON files with updated data fields
@@ -222,6 +225,7 @@ class RefreshData():
         lp = pd.read_csv('maps/label-points.csv')
         lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates']], how='inner', on='smd_id')
         lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
+
 
 
     def refresh_csv(self, csv_name, sheet_range, filter_dict=None):
@@ -257,17 +261,21 @@ class RefreshData():
             print(f'Data written to: {destination_path}')
 
 
+
     def run(self):
 
-        self.refresh_csv('ancs', 'A:H')
         self.refresh_csv('candidates', 'A:V', filter_dict={'publish_candidate': 'TRUE'})
-        self.refresh_csv('candidate_statuses', 'A:D')
-        self.refresh_csv('commissioners', 'A:H')
         self.refresh_csv('districts', 'A:K')
-        self.refresh_csv('field_names', 'A:B')
-        # self.refresh_csv('map_colors', 'A:B') # Doesn't need to be run every time
-        self.refresh_csv('mapbox_styles', 'A:C')
         self.refresh_csv('people', 'A:H')
+        
+        # Tables that don't need to be refreshed every time
+        # self.refresh_csv('ancs', 'A:H')
+        # self.refresh_csv('candidate_statuses', 'A:D')
+        # self.refresh_csv('commissioners', 'A:H')
+        # self.refresh_csv('field_names', 'A:B')
+        # self.refresh_csv('mapbox_styles', 'A:C')
+        # self.refresh_csv('map_colors', 'A:B') 
+        # self.refresh_csv('wards', 'A:B')
 
         self.add_data_to_geojson()
 
