@@ -180,6 +180,9 @@ class RefreshData():
 
         if publish_to_google_sheets:
 
+            if len(district_info_comm) != 296:
+                raise ValueError('The number of districts to publish to Google Sheets is not correct.')
+
             district_info_comm['openanc_link'] = 'https://openanc.org/ancs/districts/' + district_info_comm['smd_id'].str.replace('smd_', '') + '.html'
 
             columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
