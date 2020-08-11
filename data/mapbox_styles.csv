@@ -1,7 +1,9 @@
 id,mapbox_link,description
-no-candidates,mapbox://styles/devinbrady/ckct6u5ey0mgj1ho127gsjf2o,No-candidate SMDs are highlighted
 smd,mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie,"Main SMD map, all districts have color"
+smd-contested,mapbox://styles/devinbrady/ckdpxepsj0ncr1iqhvz3ojvnz,num candidates > 1
 smd-monochrome,mapbox://styles/devinbrady/ckdcpk2z11rds1jmrr5gsrmrh,Monotone SMDs for background of other maps
+smd-no-candidates,mapbox://styles/devinbrady/ckct6u5ey0mgj1ho127gsjf2o,No-candidate SMDs are highlighted
+smd-uncontested,mapbox://styles/devinbrady/ckdpx493r0n041inx2eoalxr6,num candidates == 1
 smd-ward-1,mapbox://styles/devinbrady/ckddkcrf9466a1iphwjdcc04p,Ward 1
 smd-ward-2,mapbox://styles/devinbrady/ckddkmadn46kj1inzkk8zgy92,Ward 2
 smd-ward-3,mapbox://styles/devinbrady/ckddprppm4buc1mp34xnqmk9r,Ward 3

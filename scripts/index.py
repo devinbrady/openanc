@@ -24,6 +24,7 @@ class BuildIndex():
         self.html_inserts = {}
 
 
+
     def district_tables(self):
         """
         Build HTML containing each ANC and its child SMDs with commissioners and candidates
@@ -45,6 +46,7 @@ class BuildIndex():
             html += build_smd_html_table(smds_in_anc, link_path='ancs/districts/')
 
         return html
+
 
 
     def list_page(self):
@@ -83,6 +85,7 @@ class BuildIndex():
         print('built: list.html')
 
 
+
     def count_page(self):
         """
         Build Count page
@@ -109,6 +112,7 @@ class BuildIndex():
         print('built: counts.html')
 
 
+
     def about_page(self):
         """
         Build About page
@@ -128,6 +132,45 @@ class BuildIndex():
         print('built: about.html')
 
 
+
+    def mapbox_slugs(self) -> dict:
+        """
+        Return dict containing mapping of mapbox style id -> url slug
+        """
+
+        mb_styles = pd.read_csv('data/mapbox_styles.csv')
+        mb_style_slugs = {}
+        for idx, row in mb_styles.iterrows():
+            mb_style_slugs[row['id']] = row['mapbox_link'][row['mapbox_link'].rfind('/')+1 :]
+
+        return mb_style_slugs
+
+
+
+    def build_map_page(self, html_name) -> None:
+        """
+        Builds HTML page from template that is a full-page map, inserting the necessary Mapbox styles from CSV
+        """
+
+        with open(f'templates/{html_name}.html', 'r') as f:
+            output = f.read()
+
+        output = add_google_analytics(output)
+        output = add_footer(output, level=0)
+
+        mb_style_slugs = self.mapbox_slugs()
+        output = output.replace('REPLACE_WITH_SMD_SLUG', mb_style_slugs['smd'])
+        output = output.replace('REPLACE_WITH_NO_CANDIDATE_SLUG', mb_style_slugs['smd-no-candidates'])
+        output = output.replace('REPLACE_WITH_UNCONTESTED_SLUG', mb_style_slugs['smd-uncontested'])
+        output = output.replace('REPLACE_WITH_CONTESTED_SLUG', mb_style_slugs['smd-contested'])
+
+        with open(f'docs/{html_name}.html', 'w') as f:
+            f.write(output)
+
+        print(f'built: {html_name}.html')
+
+
+
     def build_single_page(self, html_name):
         """
         Build a single page that just needs Google Analytics
@@ -145,11 +188,13 @@ class BuildIndex():
         print(f'built: {html_name}.html')
 
 
+
     def run(self):
 
         self.count_page()
         self.list_page()
         self.about_page()
         self.build_single_page('index')
+        self.build_map_page('map')
         self.build_single_page('404')
 

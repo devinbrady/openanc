@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OpenANC : Map View</title>
+    <title>OpenANC : Candidate Maps</title>
 <meta charset='utf-8' />
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
@@ -79,17 +79,7 @@ p {
 
 </style>
 
-
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-173043454-1');
-        </script>
-        
+<!-- replace with google analytics -->
 </head>
 
 
@@ -114,7 +104,18 @@ margin-left:25%;
 <div id='menu'>
     <strong>OpenANC</strong>
     <br/><a href="list.html">List View</a>
-    <br/><a href="map.html">Candidate Maps</a>
+    <br/><br/>
+    <input id='REPLACE_WITH_SMD_SLUG' type='radio' name='rtoggle' value='streets'>
+    <label for='REPLACE_WITH_SMD_SLUG'>All Districts</label>
+    <br/>
+    <input id='REPLACE_WITH_NO_CANDIDATE_SLUG' type='radio' name='rtoggle' value='light' checked='checked'>
+    <label for='REPLACE_WITH_NO_CANDIDATE_SLUG'>No Candidates</label>
+    <br/>
+    <input id='REPLACE_WITH_UNCONTESTED_SLUG' type='radio' name='rtoggle' value='light'>
+    <label for='REPLACE_WITH_UNCONTESTED_SLUG'>Uncontested</label>
+    <br/>
+    <input id='REPLACE_WITH_CONTESTED_SLUG' type='radio' name='rtoggle' value='light'>
+    <label for='REPLACE_WITH_CONTESTED_SLUG'>Contested</label>
 </div>
 
 
@@ -139,8 +140,8 @@ var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
 
 
- // Set the initial mapbox style to be used (in this case, the allSMDs style)
-var which_layer = 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie'
+ // Set the initial mapbox style to be used
+var which_layer = 'mapbox://styles/devinbrady/REPLACE_WITH_CONTESTED_SLUG'
 
 // Create a function that pulls in data from the toggle menu selections and updates the style being used
 function switchLayer(layer) {
@@ -190,20 +191,6 @@ map.on('load', function() {
 });
 
 
-
-// Set up geocoder
-var geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    placeholder: "Search your address",
-    mapboxgl: mapboxgl
-});
-
-map.addControl(geocoder);
-
-// todo: Change map-overlay to the district info of the district that the user geocodes to
-// geocoder.on('result', function() {
-//     console.log('A geocoder result event has occurred.')
-// });
 
 
 

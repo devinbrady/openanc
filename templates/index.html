@@ -104,12 +104,7 @@ margin-left:25%;
 <div id='menu'>
     <strong>OpenANC</strong>
     <br/><a href="list.html">List View</a>
-    <br/><br/>
-    <input id='ckcoaoonn01nd1ipdspkflwie' type='radio' name='rtoggle' value='streets' checked='checked'>
-    <label for='ckcoaoonn01nd1ipdspkflwie'>All Districts</label>
-    <br/>
-    <input id='ckct6u5ey0mgj1ho127gsjf2o' type='radio' name='rtoggle' value='light'>
-    <label for='ckct6u5ey0mgj1ho127gsjf2o'>No Candidates</label>
+    <br/><a href="map.html">Candidate Maps</a>
 </div>
 
 
@@ -186,7 +181,7 @@ map.on('load', function() {
 
 
 
-// Set up and geocoder
+// Set up geocoder
 var geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     placeholder: "Search your address",
