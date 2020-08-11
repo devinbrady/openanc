@@ -27,7 +27,7 @@ class BuildWards():
         districts = pd.read_csv('data/districts.csv')
         mapbox_styles = pd.read_csv('data/mapbox_styles.csv')
         ward_df = pd.read_csv('data/wards.csv')
-        ward_gdf = gpd.read_file('maps/ward.geojson')
+        ward_gdf = gpd.read_file('maps/ward-from-smd.geojson')
 
         wards = sorted(districts['ward'].unique())
         
@@ -37,7 +37,7 @@ class BuildWards():
                 output = f.read()
             
             output = add_google_analytics(output)
-            output = add_geojson(ward_gdf, 'WARD', ward, output)
+            output = add_geojson(ward_gdf, 'ward', ward, output)
             
             output = output.replace('REPLACE_WITH_WARD', str(ward))
             output = output.replace('REPLACE_WITH_CM', ward_df.loc[ward_df['ward'] == ward, 'councilmember'].values[0])

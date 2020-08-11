@@ -79,7 +79,6 @@ class BuildIndex():
             output = f.read()
 
         c = Counts()
-
         rd = RefreshData()
         smd_df = rd.assemble_smd_info()
 

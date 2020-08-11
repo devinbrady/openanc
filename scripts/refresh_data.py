@@ -217,9 +217,9 @@ class RefreshData():
 
         # add ward to the SMD dataframe
         districts = pd.read_csv('data/districts.csv')
-        smd_df = pd.merge(smd_df, districts[['smd_id', 'ward']], how='inner', on='smd_id')
+        smd_df_ward = pd.merge(smd_df, districts[['smd_id', 'ward']], how='inner', on='smd_id')
 
-        smd_df.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
+        smd_df_ward.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
 
         # Add data to CSV with lat/long of SMD label points
         lp = pd.read_csv('maps/label-points.csv')
