@@ -37,9 +37,9 @@ class BuildIndex():
 
         for anc_id in sorted(ancs['anc_id']):
 
-            anc_upper, anc_lower = anc_names(anc_id)
+            anc_upper, anc_lower, anc_neighborhoods = anc_names(anc_id)
 
-            html += f'<h3><a href="ancs/{anc_lower}.html">{anc_upper}</a></h3>'
+            html += f'<h3><a href="ancs/{anc_lower}.html">{anc_upper}</a> ({anc_neighborhoods})</h3>'
 
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
 

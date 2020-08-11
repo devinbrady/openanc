@@ -38,7 +38,7 @@ class BuildANCs():
         for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs '):
 
             anc_id = row['anc_id']
-            anc_upper, anc_lower = anc_names(anc_id)
+            anc_upper, anc_lower, anc_neighborhoods = anc_names(anc_id)
 
             # if anc_id != '6D':
             #     continue
@@ -50,6 +50,7 @@ class BuildANCs():
             output = add_geojson(self.geojson_shape, 'ANC_ID', anc_id, output)
             
             output = output.replace('REPLACE_WITH_ANC', anc_upper)
+            output = output.replace('REPLACE_WITH_NEIGHBORHOODS', anc_neighborhoods)
             
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
             output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_path='districts/'))
