@@ -54,26 +54,10 @@ class BuildIndex():
         Build List View page
         """
 
-        rd = RefreshData()
-        smd_df = rd.assemble_smd_info()
-
-        districts = pd.read_csv('data/districts.csv')
-        commissioners = current_commissioners()
-        candidates = pd.read_csv('data/candidates.csv')
-        candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
-        cs = pd.merge(candidates, candidate_statuses, how='inner', on='candidate_status')
-
-        num_no_candidate_districts = sum(smd_df['number_of_candidates'] == 0)
-
         with open('templates/list.html', 'r') as f:
             output = f.read()
 
         output = add_google_analytics(output)
-
-        output = output.replace('NUMBER_OF_COMMISSIONERS', str(len(commissioners)))
-        output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
-        output = output.replace('NUMBER_OF_CANDIDATES', str(smd_df['number_of_candidates'].sum()))
-        output = output.replace('NUMBER_OF_NO_CANDIDATES', str(num_no_candidate_districts))
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_tables())
 
@@ -95,6 +79,12 @@ class BuildIndex():
             output = f.read()
 
         c = Counts()
+
+        rd = RefreshData()
+        smd_df = rd.assemble_smd_info()
+
+        commissioners = current_commissioners()
+        output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
 
         output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_candidate_count('dc', '#fdbf6f')) # light orange
         output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_candidate_count('ward', '#b2df8a')) # light green
