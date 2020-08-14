@@ -51,9 +51,12 @@ class Counts():
 
         if 'Ward' in smd_count.columns:
             smd_count['Ward'] = smd_count['Ward'].apply(lambda row: '<a href="wards/ward{0}.html">Ward {0}</a>'.format(row))
-        
-        if 'ANC' in smd_count.columns:
+            first_column = 'Ward'
+        elif 'ANC' in smd_count.columns:
             smd_count['ANC'] = smd_count['ANC'].apply(lambda row: '<a href="ancs/anc{0}.html">ANC {1}</a>'.format(row.lower(), row))
+            first_column = 'ANC'
+        else:
+            first_column = 'District'
         
         smd_html = (
             smd_count.style
@@ -65,6 +68,10 @@ class Counts():
                     , 'padding': '4px'
                     # , 'border-collapse': 'collapse'
                     })
+                .set_properties(
+                    subset=first_column
+                    , **{'width': '80px'}
+                    )
                 .set_properties(
                     subset=['Percentage with Candidate']
                     , **{

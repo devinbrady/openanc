@@ -185,7 +185,7 @@ class RefreshData():
             if len(district_info_comm) != 296:
                 raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-            district_info_comm['openanc_link'] = 'https://openanc.org/ancs/districts/' + district_info_comm['smd_id'].str.replace('smd_', '') + '.html'
+            district_info_comm['openanc_link'] = 'https://openanc.org/ancs/districts/' + district_info_comm['smd_id'].str.replace('smd_', '').str.lower() + '.html'
 
             columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
 
@@ -270,7 +270,7 @@ class RefreshData():
         
         # Tables that don't need to be refreshed every time
         # self.refresh_csv('ancs', 'A:I')
-        # self.refresh_csv('candidate_statuses', 'A:D')
+        self.refresh_csv('candidate_statuses', 'A:D')
         # self.refresh_csv('commissioners', 'A:H')
         # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')

@@ -19,8 +19,8 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-08-07.xlsx'
-    dcboe_updated_at = '2020-08-07 11:29'
+    excel_file = 'dcboe-2020-08-13.xlsx'
+    dcboe_updated_at = '2020-08-13 09:49'
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel('data/dcboe/excel/' + excel_file)
@@ -307,6 +307,7 @@ def reconcile_candidates():
     
     print('\nExisting hashes not in new DCBOE file: {}'.format(sum(existing_hashes_not_in_new_file)))
     print(candidates.loc[existing_hashes_not_in_new_file, ['dcboe_hash_id', 'smd_id', 'candidate_name', 'candidate_status']])
+    candidates.loc[existing_hashes_not_in_new_file].to_csv('data/dcboe/existing_hashes_not_in_new_file.csv', index=False)
     
     print('\nNew hashes not in OpenANC Source: {}'.format(sum(new_hashes)))
     print(dcboe.loc[new_hashes, ['dcboe_hash_id', 'smd_id', 'candidate_name']])

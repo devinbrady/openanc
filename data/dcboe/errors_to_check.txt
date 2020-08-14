@@ -1,19 +1,28 @@
 pdf_errors_to_check.txt
 
+Outstanding questions Aug 13: 
+
+smd_3C06, Kamolika Das: was listed as on the ballot, now not in PDF at all
+smd_4A06, Aretha N. Jones: was listed as on the ballot, now not in PDF at all
+
+
+
 These should all be fixed in candidates_dcboe.csv: 
 
 * 5D06, Marina Budimir has pickup date in 1930
 * 1A02, Dieter Lehmann Morales has filing date in January
 * 5E01, Chelsea Skinner pickup date in 1950
 * Jes'Terieuz 'JT' Howard should have double quotes
-* 4C03  Ceceila Waldeck has 2 spaces in name
-* 7F06  Betty J. Diggs has 2 spaces in name
 * Jeannina "W8 Matter" Williams needs space in name, plus add 's' in Matters
-* smd_3D01  Carolin Jane Croft missing e
 * 3B02  Jackie Blumenthal has 2 spaces in name
 
 
 No longer an issue:
+* 4C03  Ceceila Waldeck has 2 spaces in name
+* 7F06  Betty J. Diggs has 2 spaces in name
+* smd_3D01  Carolin Jane Croft missing e
+
+
 * 4A07 candidate missing from 8/6 PDF? 
 * 5A05  Ronnie Edwards has period in filing date
 * "ANC/SMD" has a bad character at the start
