@@ -3,10 +3,41 @@
 import imgkit
 import pandas as pd
 from scripts.refresh_data import RefreshData
+from scripts.common import current_commissioners
 
 
 class Counts():
 
+
+
+    def commissioner_count(self):
+        """
+        Return HTML table with count of vacant districts
+        """
+
+        districts = pd.read_csv('data/districts.csv')
+        commissioners = current_commissioners()
+
+        df = pd.DataFrame(index=[0])
+        df['Single Member Districts'] = len(districts)
+        df['Vacancies'] = len(districts) - len(commissioners)
+
+        html = (
+            df.style
+            .set_properties(**{
+                'border-color': 'black'
+                , 'border-style': 'solid'
+                , 'border-width': '1px'
+                , 'text-align': 'center'
+                , 'padding': '4px'
+                # , 'border-collapse': 'collapse'
+                })
+            .set_uuid('commissioners_count')
+            .hide_index()
+            .render()
+            )
+
+        return html
 
     def smd_candidate_count(self, groupby_field, bar_color):
         """
@@ -94,15 +125,6 @@ class Counts():
 
 
 
-    def pickup_date_graph(self):
-        """
-        Create graph showing counts of candidate pickups and filing by date
-        """
-
-        return ''
-
-
-
     def contested_count(self):
         """
         Return HTML with number of candidates in each district, shows how many races are contested
@@ -173,6 +195,7 @@ class Counts():
 
 
         return html
+
 
 
     def candidate_status_count(self):

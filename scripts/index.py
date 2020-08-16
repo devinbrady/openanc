@@ -10,7 +10,6 @@ from scripts.common import (
     , edit_form_link
     , add_google_analytics
     , build_smd_html_table
-    , current_commissioners
 )
 
 from scripts.counts import Counts
@@ -82,9 +81,7 @@ class BuildIndex():
         rd = RefreshData()
         smd_df = rd.assemble_smd_info()
 
-        commissioners = current_commissioners()
-        output = output.replace('NUMBER_OF_VACANCIES', str(296 - len(commissioners)))
-
+        output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
         output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_candidate_count('dc', '#fdbf6f')) # light orange
         output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_candidate_count('ward', '#b2df8a')) # light green
         output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_candidate_count('anc_id', '#a6cee3')) # light blue
