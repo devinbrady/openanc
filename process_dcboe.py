@@ -192,7 +192,7 @@ def run_matching_process():
             candidates_dcboe.loc[idx, 'person_id'] = best_id
             # candidates_dcboe.loc[idx, 'new_person'] = False
     
-    candidates_dcboe.to_csv('data/dcboe/candidates_dcboe_match.csv', index=False)
+    # candidates_dcboe.to_csv('data/dcboe/candidates_dcboe_match.csv', index=False)
 
 
     # prepare records for adding to Google Sheets
