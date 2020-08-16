@@ -23,7 +23,7 @@ def clean_csv():
     dcboe_updated_at = '2020-08-14 19:21'
     print('Reading Excel file: ' + excel_file)
 
-    df = pd.read_excel('data/dcboe/excel/' + excel_file)
+    df = pd.read_excel('data/dcboe/excel-clean/' + excel_file)
     df['dcboe_updated_at'] = dcboe_updated_at
 
     df['candidate_source'] = 'DCBOE'
@@ -33,10 +33,10 @@ def clean_csv():
         columns={
             'ANC/SMD': 'smd'
             , 'Name': 'candidate_name'
-            , 'Address': 'address'
-            , 'Zip': 'zip'
-            , 'Phone': 'phone'
-            , 'Email Address': 'campaign_email'
+            # , 'Address': 'address'
+            # , 'Zip': 'zip'
+            # , 'Phone': 'phone'
+            # , 'Email Address': 'campaign_email'
             , 'Date of Pick-up': 'pickup_date'
             , 'Date Filed': 'filed_date'
             }, inplace=True
