@@ -24,14 +24,6 @@ class Counts():
 
         html = (
             df.style
-            .set_properties(**{
-                'border-color': 'black'
-                , 'border-style': 'solid'
-                , 'border-width': '1px'
-                , 'text-align': 'center'
-                , 'padding': '4px'
-                # , 'border-collapse': 'collapse'
-                })
             .set_uuid('commissioners_count')
             .hide_index()
             .render()
@@ -91,14 +83,6 @@ class Counts():
         
         smd_html = (
             smd_count.style
-                .set_properties(**{
-                    'border-color': 'black'
-                    , 'border-style': 'solid'
-                    , 'border-width': '1px'
-                    , 'text-align': 'center'
-                    , 'padding': '4px'
-                    # , 'border-collapse': 'collapse'
-                    })
                 .set_properties(
                     subset=first_column
                     , **{'width': '80px'}
@@ -147,13 +131,6 @@ class Counts():
         html += '<p>'
         html += (
             election_status_count.style
-            .set_properties(**{
-                'border-color': 'black'
-                , 'border-style' :'solid'
-                , 'border-width': '1px'
-                , 'border-collapse':'collapse'
-                , 'padding': '4px'
-                })
             .format({
                 'Percentage': '{:.1%}'
                 })
@@ -176,13 +153,6 @@ class Counts():
         html += '<p>'
         html += (
             candidate_count.style
-            .set_properties(**{
-                'border-color': 'black'
-                , 'border-style' :'solid'
-                , 'border-width': '1px'
-                , 'border-collapse':'collapse'
-                , 'padding': '4px'
-                })
             .format({
                 'Percentage': '{:.1%}'
                 })
@@ -218,13 +188,6 @@ class Counts():
         
         status_html = (
             status_count_df[['Candidate Status', 'Count']].style
-                .set_properties(**{
-                    'border-color': 'black'
-                    , 'border-style' :'solid'
-                    , 'border-width': '1px'
-                    , 'border-collapse':'collapse'
-                    , 'padding': '4px'
-                    })
                 .set_uuid('status_count_df_')
                 .hide_index()
                 .render()
@@ -271,13 +234,6 @@ class Counts():
 
         pickups_html = (
             g.style
-                .set_properties(**{
-                    'border-color': 'black'
-                    , 'border-style' :'solid'
-                    , 'border-width': '1px'
-                    , 'border-collapse':'collapse'
-                    , 'padding': '4px'
-                    })
                 .format({
                     ('Candidates Filed', 'Count'): '{:.0f}'
                     , ('Candidates Filed', 'Running Total'): '{:.0f}'

@@ -180,13 +180,6 @@ def build_smd_html_table(list_of_smds, link_path=''):
         display_df[columns_to_html]
         .fillna('')
         .style
-        .set_properties(**{
-            'border-color': 'black'
-            , 'border-style': 'solid'
-            , 'border-width': '1px'
-            , 'text-align': 'center'
-            , 'padding': '4px'
-            })
         .set_uuid('smd_')
         .hide_index()
         .render()
