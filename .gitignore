@@ -4,8 +4,9 @@ credentials.json
 *.pickle
 Scratch.ipynb
 
-# Temp or debugging files that may contain contact info
+# Files that may contain contact info
 candidates_dcboe_match.csv
+data/dcboe/pdf/
 
 
 # Excel temp files
