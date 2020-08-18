@@ -144,15 +144,6 @@ class BuildDistricts():
 
                         fields_to_try = [
                             'full_name'
-                            , 'candidate_announced_date'
-                            , 'candidate_source'
-                            , 'candidate_source_description'
-                            , 'candidate_source_link'
-                            , 'pickup_date'
-                            , 'filed_date'
-                            , 'website_link'
-                            , 'twitter_link'
-                            , 'facebook_link'
                             , 'updated_at'
                             ]
 
