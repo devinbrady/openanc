@@ -19,8 +19,8 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-08-14.xlsx'
-    dcboe_updated_at = '2020-08-14 19:21'
+    excel_file = 'dcboe-2020-08-17.xlsx'
+    dcboe_updated_at = '2020-08-17 21:51'
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel('data/dcboe/excel-clean/' + excel_file)
@@ -62,6 +62,13 @@ def clean_csv():
 
     # Exclude candidates who dropped out
     df = remove_withdrew_candidates(df)
+
+    # Fix bad dates and names
+    df.loc[df['candidate_name'] == 'Dieter Lehmann Morales', 'filed_date'] = '7/31/20'
+    df.loc[df['candidate_name'] == 'Marina Budimir', 'pickup_date'] = '7/30/20'
+    df.loc[df['candidate_name'] == 'Chelsea Skinner', 'pickup_date'] = '8/5/20'
+    df.loc[df['candidate_name'] == "Jes'Terieuz \"JT'' Howard", 'candidate_name'] = "Jes'Terieuz \"JT\" Howard"
+    df.loc[df['candidate_name'] == 'Jeannina"W8 Matter" Williams', 'candidate_name'] = "Jeannina \"W8 Matters\" Williams"
 
     # Fix data entry errors and convert to dates
     # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'

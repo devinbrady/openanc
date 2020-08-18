@@ -40,12 +40,12 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50346,10489,e2570087bf772067f3332d23e4c25bcbe6c20d27a29b2732e59da226,smd_1D01,Alexandra Morgan,Withdrew,DCBOE,,,2020-07-30,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-07-30
 50347,10490,27702113300b51613d0a11575b990a2228bf18d51209fbdd20bcfe4a,smd_5C05,Jonathan Alfuth,Withdrew,DCBOE,,,2020-08-04,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-08-04
 50366,10503,d2a7357ca51ea2c0a72b50d64f3a4c471c0b97236f24a235b3bb39c5,smd_3C08,Dora Currea,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50368,10505,273c8dde334cd3089757ffa7622a786b80700651e254e7c889f47fdb,smd_3D06,Jason Rao,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50370,10506,61cb23d43e125535720678f2c42f34e3dbdcb8ae9a382a7aa09e24c1,smd_4C01,Mia Bruner,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50374,10510,81c05afbfbe8e2ca416434d87f3ace97c0f0799fd1117247e09b58ec,smd_5D01,Aliyah McNeely,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50396,10527,f73801cfe457c99a0899071efabdda11d82aac217b19335f2c6892ad,smd_5D07,Simone Egwu,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50404,10531,77b26e11b2a0d9ab4033495264b11c2363c5821ec6ec3fb35edb248e,smd_2B09,Amy Nasr,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50409,10535,716ae4f298959477f444dd1f317296647d831039222ab3185bac8c9a,smd_3D06,Steven Faigen,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
+50410,10536,5d8bd41a4b7cee468182f1d6bffead72a225059a736d3c4837cf6a3d,smd_3F05,Mark Moran,,,,,,On Ballot,On Ballot,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,True,2020-07-31,2020-08-04,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,2020-08-14,2020-08-14
 50414,10540,58a6d969479ed1f4f7966404167f35e918fc37f98e7784a394e4f3e7,smd_4C05,Ursula Antares Miller,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50435,10555,079daf9973641fec81b0ca7a77be673f4a68b739d89eee55d17b37be,smd_4B04,Farrah Darbouze,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50436,10556,097b00a664b666e74bb8f0c7202cbf4e96a37e6c65389663b1e166e7,smd_4C03,Ceceila Waldeck,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
