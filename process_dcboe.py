@@ -89,9 +89,6 @@ def clean_csv():
         , 'candidate_name'
         , 'pickup_date'
         , 'filed_date'
-        , 'candidate_source'
-        , 'candidate_source_link'
-        , 'dcboe_updated_at'
         ]
 
     df.sort_values(by='smd_id', inplace=True)
