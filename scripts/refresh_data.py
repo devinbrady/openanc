@@ -270,7 +270,7 @@ class RefreshData():
         
         # Tables that don't need to be refreshed every time
         # self.refresh_csv('ancs', 'A:I')
-        self.refresh_csv('candidate_statuses', 'A:D')
+        # self.refresh_csv('candidate_statuses', 'A:D')
         # self.refresh_csv('commissioners', 'A:H')
         # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')
