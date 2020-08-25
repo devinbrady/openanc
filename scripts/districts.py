@@ -30,6 +30,7 @@ class BuildDistricts():
         self.smd_shape = gpd.read_file('maps/smd.geojson')
 
 
+
     def build_commissioner_table(self, smd_id):
         """
         Build table with information about the current commissioner
@@ -57,6 +58,7 @@ class BuildDistricts():
 
 
     def add_candidates_in_status(self, html, candidates, status):
+        # todo: remove this
         pass
 
 
@@ -160,6 +162,7 @@ class BuildDistricts():
         return candidate_block
 
 
+
     def add_former_commissioners(self, smd_id):
         """
         Add blocks of information about former commissioners, if any are known
@@ -198,7 +201,6 @@ class BuildDistricts():
                 fc_html += build_data_table(row, fields_to_try)
 
         return fc_html
-
 
 
 
@@ -244,7 +246,18 @@ class BuildDistricts():
         map_colors = pd.read_csv('data/map_colors.csv')
         district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
 
-        # todo: sort by smd_id first
+        # Calculate the updated_at for each SMD. Where the SMD has no more active candidates, use the max updated_at across all candidates
+        candidates = pd.read_csv('data/candidates.csv')
+        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
+        max_updated_at = district_candidates['updated_at'].dropna().max()
+        smd_updated_at = district_candidates[['smd_id', 'updated_at']].fillna(value={'updated_at': max_updated_at})
+        smd_max_updated_at = smd_updated_at.groupby('smd_id').agg({'updated_at': max})
+        smd_max_updated_at['updated_at'] = pd.to_datetime(smd_max_updated_at['updated_at'])
+        smd_max_updated_at['updated_at_formatted'] = smd_max_updated_at['updated_at'].dt.strftime('%B %-d, %Y')
+
+        # Process SMDs in order by smd_id
+        district_colors = district_colors.sort_values(by='smd_id')
+
         for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs '):
         # for idx, row in district_colors.iterrows():
 
@@ -285,7 +298,7 @@ class BuildDistricts():
 
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
-            output = add_footer(output, level=2)
+            output = add_footer(output, level=2, updated_at=smd_max_updated_at.loc[smd_id, 'updated_at_formatted'])
 
             with open(f'docs/ancs/districts/{smd_display_lower}.html', 'w') as f:
                 f.write(output)

@@ -302,6 +302,7 @@ def build_data_table(row, fields_to_try):
 
 
 def calculate_zoom(area):
+    # todo: remove this
 
     slope = -0.0000004570057419
     intercept = 15.0255174
@@ -319,13 +320,13 @@ def current_time():
 
     tz = pytz.timezone('America/New_York')
     dc_now = datetime.now(tz)
-    dc_timestamp = dc_now.strftime("%B %-d, %Y") # Hour of day: %-I:%M %p
+    dc_timestamp = dc_now.strftime('%B %-d, %Y') # Hour of day: %-I:%M %p
 
     return dc_timestamp
 
 
 
-def add_footer(input_html, level=0):
+def add_footer(input_html, level=0, updated_at=None):
     """
     Return HTML with footer included
 
@@ -338,7 +339,6 @@ def add_footer(input_html, level=0):
     with open('templates/footer.html', 'r') as f:
         footer_html = f.read()
 
-
     if level == 0:
         link_path = ''
     elif level == 1:
@@ -346,10 +346,13 @@ def add_footer(input_html, level=0):
     elif level == 2:
         link_path = '../../'
 
+    if not updated_at:
+        updated_at = current_time()
+
     footer_html = footer_html.replace('REPLACE_WITH_LINK_PATH___', link_path)
 
     footer_html = footer_html.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('Submit edits'))
-    footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', current_time())
+    footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', updated_at)
 
     output_html = input_html.replace('<!-- replace with footer -->', footer_html)
 
