@@ -28,7 +28,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10027,Damiana Dendy,smd_1C05,not_currently_running,https://twitter.com/laborisforever,,,
 10028,Michaela Wright,smd_1C06,not_currently_running,https://twitter.com/MichaelaWright_,,,
 10029,Japer Bowles,smd_1C07,smd_1C07,https://twitter.com/JaperBowles,,,x
-10030,Chris Jackson,smd_1C08,smd_1C08,https://twitter.com/chrisjackson_dc,,,x
+10030,Chris Jackson,smd_1C08,smd_1C08,,,,x
 10031,Jon Stewart,smd_1D01,not_currently_running,https://twitter.com/JonStewartANC1D,,,
 10032,Robin Sandenburgh,smd_1D02,smd_1D02,,,,x
 10033,Jack McKay,smd_1D03,smd_1D03,https://twitter.com/dc_jack,,http://dcjack.org/,x
@@ -393,7 +393,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10400,Donna Robinson,not_currently_serving,smd_7B05,,,,
 10401,Tony Dugger,not_currently_serving,smd_7B06,,,,
 10402,Andrew Carlyle Haynesworth,not_currently_serving,smd_7B06,,,,
-10403,Mandla Deskins,not_currently_serving,smd_7C02,,,,
+10403,Mandla Deskins,not_currently_serving,smd_7C02,https://twitter.com/MandlaTDeskins,,https://www.mandla4anc.com/,x
 10404,Yolanda Fields,not_currently_serving,smd_7C02,,,,
 10405,Patricia Williams,not_currently_serving,smd_7C02,,,,
 10406,Vincent Van,not_currently_serving,smd_7C03,https://twitter.com/VinceJVan,,https://www.vincevanfordc.com/,x
