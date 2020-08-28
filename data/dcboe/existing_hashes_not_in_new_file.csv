@@ -31,12 +31,12 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50271,10440,e870ff32c6234a58f3dcacc3a3fed77867abb2296f841f2b48e145bf,smd_8E04,Richard Martin Campbell,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50289,10450,0fa69c9bbd8d67109d5e3db63b8a9303a3a2c6f46687a08b7ea957ab,smd_6C06,Cindy Drabek,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50294,10454,adc258f268a231b8d3a7de61756463a0005213a1a3777d00a9ff2fe6,smd_8A06,Greta Fuller,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
+50298,10271,9bd61943b16542005aa92a0ab6066a18e51a92b76bc8e8f528689c2a,smd_8D01,Patricia Carmon,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50305,10461,82ea3c334167ebafbed2e00cefbc60026deb55cb82069a216cd546d6,smd_1C06,Nancy Shia,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50307,10110,fe083013e2be54408de9cdf0ade87d8df2b617f91019f6a9b6c4e34d,smd_3G04,Rebecca Maydak,Withdrew,DCBOE,,,2020-07-30,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-07-30
 50315,10466,4313c256378b0a9ba001d5a96bf57c7f25aea53eda16d77c19368952,smd_8C04,Veronica Proctor,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50333,10479,f98969c94e74ab6025439435e325207b692a794c805d5728312d2b19,smd_3F05,Alexander Armstrong,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50340,10484,02647cfc9fba7e5e15efc35629f391c7cb0be97813d4e85b12aec1bd,smd_6A07,Rico Dancy,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50343,10486,a18cc1ecaaf81f445eeb1e80ddc7d01168aa3d278ea46facd1f95df8,smd_8A06,Kristina Leszczak,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50346,10489,e2570087bf772067f3332d23e4c25bcbe6c20d27a29b2732e59da226,smd_1D01,Alexandra Morgan,Withdrew,DCBOE,,,2020-07-30,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-07-30
 50347,10490,27702113300b51613d0a11575b990a2228bf18d51209fbdd20bcfe4a,smd_5C05,Jonathan Alfuth,Withdrew,DCBOE,,,2020-08-04,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-08-04
 50352,10493,f6e57aaadec4cdf1e5ba01cebc3403a8f3e3cb6aaf15c79188100997,smd_3E03,Sara Cantos Kline,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
@@ -50,9 +50,9 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50410,10536,5d8bd41a4b7cee468182f1d6bffead72a225059a736d3c4837cf6a3d,smd_3F05,Mark Moran,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50414,10540,58a6d969479ed1f4f7966404167f35e918fc37f98e7784a394e4f3e7,smd_4C05,Ursula Antares Miller,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50435,10555,079daf9973641fec81b0ca7a77be673f4a68b739d89eee55d17b37be,smd_4B04,Farrah Darbouze,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50436,10556,097b00a664b666e74bb8f0c7202cbf4e96a37e6c65389663b1e166e7,smd_4C03,Ceceila Waldeck,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50439,10559,3adc803c63a4aa6d48cdcf835373c95161bc41240c77c9019f1d5fd6,smd_4D05,Peter Benzoni,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50444,10563,61a61d00ec7a9b125f792742a036524b3943c023397a5f70d2b03647,smd_6B01,Boaz Yavnai,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
+50458,10574,c9ccac3b4ddd343b3d7212e7d1fc8dab5f4fbe55f81440becd168c5f,smd_3F01,Noah Bell,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50460,10576,d3b588d376c2bed64cb6120dde16e95562c9dd462f8cd4be0b640915,smd_3G04,Lisa Jensen,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50468,10583,b58d69e3b5e6528e8be3de27f7d58e32a98401a914c742b811ed603f,smd_6B07,Sarah Rens,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50469,10584,89c2a5adde0c22367bc03adf4a2ceda7d42acac553071e095fc4edf1,smd_6D02,John Deignan,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
