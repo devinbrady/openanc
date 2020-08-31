@@ -46,7 +46,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10045,Daniel Warwick,smd_2B02,smd_2B02,https://twitter.com/danielmwarwick,,,x
 10046,Aaron Landry,smd_2B04,not_currently_running,https://twitter.com/s4xton,,,
 10047,Randy D. Downs,smd_2B05,smd_2B05,https://twitter.com/RandyDaleDowns,,,x
-10048,Mike Silverstein,smd_2B06,smd_2B06,,,,x
+10048,Mike Silverstein,smd_2B06,smd_2B06,https://twitter.com/mikeindeecee1,https://www.facebook.com/mike.silverstein.566,https://mike4dupont.com/,x
 10049,Kari Cunningham,smd_2B07,not_currently_running,https://twitter.com/KariLCunningha1,,,
 10050,Beverly Schwartz,smd_2B08,not_currently_running,https://twitter.com/beverlyschwartz,,,
 10051,Ed Hanlon,smd_2B09,smd_2B09,,,,
@@ -307,14 +307,14 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10309,Moshe 'Mo' Pasternak,not_currently_serving,smd_2B04,https://twitter.com/MoPasternakDC,https://facebook.com/MoPasternakANC,https://mopasternak.com/,x
 10310,Diane C. Quinn,not_currently_serving,smd_2B04,,,,x
 10311,Matthew Holden,not_currently_serving,smd_2B08,https://twitter.com/_matthewthomas,,https://matthew2b08.com/,x
-10312,Kyle Mulhall,not_currently_serving,smd_2B09,https://twitter.com/kyle_mulhall_DC,,https://kyle4anc.com/,x
+10312,Kyle Mulhall,not_currently_serving,smd_2B09,https://twitter.com/kyle_mulhall_DC,https://www.facebook.com/Kyle-Mulhall-for-ANC-103884294735452,https://kyle4anc.com/,x
 10313,Gigi Nelson,not_currently_serving,smd_2C03,,,,x
 10314,Thomas McDonough,not_currently_serving,smd_2D01,,,,x
 10315,Jenny Mitchell,not_currently_serving,smd_2E02,,,,x
 10316,Christopher Mathews,not_currently_serving,smd_2E02,https://twitter.com/GeorgetownMet,,,x
 10318,Brian Romanowski,not_currently_serving,smd_2F01,https://twitter.com/Anc2F01,,,x
 10319,Peyton Jane Gibson,not_currently_serving,smd_2F05,https://twitter.com/peytonjaneg,,,x
-10320,Rehana Mohammed,not_currently_serving,smd_2F07,https://twitter.com/rehanamohammed,,http://rehanaforanc.com/,x
+10320,Rehana Mohammed,not_currently_serving,smd_2F07,https://twitter.com/rehanamohammed,http://facebook.com/rehanaforanc,http://rehanaforanc.com/,x
 10321,Elizabeth Elson,not_currently_serving,smd_3B04,,,,x
 10322,Janell Marie Pagats,not_currently_serving,smd_3C03,,,,x
 10323,Meena Aladdin,not_currently_serving,smd_3C05,,,,x
@@ -504,9 +504,9 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10516,Stephanie Audain,not_currently_serving,smd_7D05,,,,
 10517,Michelle Kiah,not_currently_serving,smd_8B05,,,,
 10518,"Dolores ""Miracle"" Bryant",not_currently_serving,smd_8C03,,,,
-10519,Sabel Harris,not_currently_serving,smd_1B12,,,,
-10520,Sherene Joseph,not_currently_serving,smd_2F05,,,,
-10521,Alexandra Bailey,not_currently_serving,smd_2F08,,,,
+10519,Sabel Harris,not_currently_serving,smd_1B12,https://twitter.com/sabelharris,https://www.facebook.com/sabelfordc,https://www.sabelfordc.com/,x
+10520,Sherene Joseph,not_currently_serving,smd_2F05,https://twitter.com/ShereneJoseph,https://www.facebook.com/ShereneforANC,https://www.shereneforanc.com/,x
+10521,Alexandra Bailey,not_currently_serving,smd_2F08,https://twitter.com/alexfor2f08,,https://www.instagram.com/alexfor2f08/,
 10522,Katharine Nanavatty,not_currently_serving,smd_3D05,,,,
 10524,Katie Ann Snyder,not_currently_serving,smd_4A01,,,,
 10525,Brenda Dawson Parks,not_currently_serving,smd_4B04,,,,
@@ -548,7 +548,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10562,Sally Hobaugh,not_currently_serving,smd_5E10,,,,
 10563,Boaz Yavnai,not_currently_serving,smd_6B01,,,,
 10564,Peter Wright,not_currently_serving,smd_6B08,,,,
-10565,Alison Horn,not_currently_serving,smd_6B09,,,,
+10565,Alison Horn,not_currently_serving,smd_6B09,https://twitter.com/AlisonPHorn,,,
 10566,Tierra J. Fletcher,not_currently_serving,smd_7E02,,,,
 10567,Justyn Iman,not_currently_serving,smd_7E07,,,,
 10568,Frederick E. Wolf,not_currently_serving,smd_7F02,,,,
