@@ -69,7 +69,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10068,John Fanning,smd_2F04,smd_2F04,https://twitter.com/fanning_2,,,x
 10069,Madeleine G. Stirling,smd_2F05,not_currently_running,https://twitter.com/madelbean,,,
 10070,Ian D. Simon,smd_2F06,smd_2F06,,https://www.facebook.com/IanSimonANC/,,x
-10071,Kevin J. Sylvester,smd_2F07,smd_2F07,,,,
+10071,Kevin J. Sylvester,smd_2F07,smd_2F07,,,,x
 10072,Janice Ferebee,smd_2F08,smd_2F08,https://twitter.com/JFerebeeMSW,,https://www.janiceferebee.com/,x
 10073,Ann Lane Mladinov,smd_3B01,smd_3B01,,,,x
 10074,Jackie Blumenthal,smd_3B02,smd_3B02,,,,x
@@ -506,10 +506,10 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10518,"Dolores ""Miracle"" Bryant",not_currently_serving,smd_8C03,,,,
 10519,Sabel Harris,not_currently_serving,smd_1B12,https://twitter.com/sabelharris,https://www.facebook.com/sabelfordc,https://www.sabelfordc.com/,x
 10520,Sherene Joseph,not_currently_serving,smd_2F05,https://twitter.com/ShereneJoseph,https://www.facebook.com/ShereneforANC,https://www.shereneforanc.com/,x
-10521,Alexandra Bailey,not_currently_serving,smd_2F08,https://twitter.com/alexfor2f08,,https://www.instagram.com/alexfor2f08/,
-10522,Katharine Nanavatty,not_currently_serving,smd_3D05,,,,
+10521,Alexandra Bailey,not_currently_serving,smd_2F08,https://twitter.com/alexfor2f08,,https://www.instagram.com/alexfor2f08/,x
+10522,Katharine Nanavatty,not_currently_serving,smd_3D05,,,,x
 10524,Katie Ann Snyder,not_currently_serving,smd_4A01,,,,
-10525,Brenda Dawson Parks,not_currently_serving,smd_4B04,,,,
+10525,Brenda Dawson Parks,not_currently_serving,smd_4B04,,,,x
 10526,Bobby Curtis King II,not_currently_serving,smd_4C02,,,,
 10527,Simone Egwu,not_currently_serving,smd_5D07,,,,
 10528,Kimory S. Orendoff,not_currently_serving,smd_7D05,,,,
@@ -517,7 +517,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10530,Zack Brown,not_currently_serving,smd_1C07,,,,
 10531,Amy Nasr,not_currently_serving,smd_2B09,,,,
 10532,Elizabeth Miske,not_currently_serving,smd_2C02,,,,
-10533,Ron Rubin,not_currently_serving,smd_2F05,,,,
+10533,Ron Rubin,not_currently_serving,smd_2F05,https://twitter.com/ronaldlrubin,,,x
 10535,Steven Faigen,not_currently_serving,smd_3D06,,,,
 10536,Mark Moran,not_currently_serving,smd_3F05,,,,
 10537,Phyllis Green,not_currently_serving,smd_4A01,,,,
