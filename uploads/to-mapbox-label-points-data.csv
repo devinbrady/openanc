@@ -171,7 +171,7 @@ smd_5C05,-76.99074951174029,38.91759488801578,5C05,Darlene Oliver,3,"Justin R. R
 smd_5C06,-76.98204937044102,38.922862642895176,5C06,Kirsten Williams,3,"Thaddeus James, D'Andre A. Phillips, Harry L. Thomas III"
 smd_5C07,-76.97437258069037,38.927971427612746,5C07,Jeremiah Montague Jr.,1,Jeremiah Montague Jr.
 smd_5D01,-76.99064442256427,38.91061641442718,5D01,Ryan Linehan,1,Sebrena L. Rhodes
-smd_5D02,-76.9836910371288,38.90766055331324,5D02,Keisha L. Shropshire,2,"Salvador Sauceda-Guzman, Cameron Brown"
+smd_5D02,-76.9836910371288,38.90766055331324,5D02,Keisha L. Shropshire,1,Salvador Sauceda-Guzman
 smd_5D03,-76.97954574629608,38.90397226823643,5D03,Steven C. Motley Sr,3,"Sean Barry, James Butler, Latoya Renee Moore"
 smd_5D04,-76.96724274931964,38.901359210927275,5D04,Bernice S Blacknell,1,Bernice S Blacknell
 smd_5D05,-76.97590932436017,38.90138645159141,5D05,Sydelle Moore,2,"Kathy Henderson, Sydelle Moore"
@@ -193,7 +193,7 @@ smd_6A03,-76.99260809216042,38.89217575772842,6A03,Mike Soderman,1,Mike Soderman
 smd_6A04,-76.98725395884597,38.8915079011831,6A04,Amber Gove,2,"Ali Gardezi, Amber Gove"
 smd_6A05,-76.98814638312835,38.894852093131306,6A05,Ruth Ann Hudson,2,"Laura L. Gentile, Timothy William Drake"
 smd_6A06,-76.98556040892012,38.8983277643829,6A06,Stephanie Zimny,3,"H.J. Amons, Sr., Robb Dooling, Kate Robinson"
-smd_6A07,-76.98007437166936,38.89752689743157,6A07,Sondra Phillips-Gilbert,2,"Sondra Phillips-Gilbert, Daniel M. Lee"
+smd_6A07,-76.98007437166936,38.89752689743157,6A07,Sondra Phillips-Gilbert,3,"Sondra Phillips-Gilbert, Daniel M. Lee, Rico Dancy"
 smd_6A08,-76.9793258976424,38.892365696430005,6A08,Brian Alcorn,1,Brian Alcorn
 smd_6B01,-77.00501797127944,38.88563824251954,6B01,Jennifer E. Samolyk,1,Jennifer E. Samolyk
 smd_6B02,-76.99757543929242,38.88682076130325,6B02,Gerald Sroufe,1,Gerald Sroufe
@@ -208,7 +208,7 @@ smd_6B10,-76.9801097720375,38.88775067401043,6B10,Kathryn Denise Rucker Krepp,1,
 smd_6C01,-77.00202270531067,38.890919233190594,6C01,Christine Healey,1,Christine Healey
 smd_6C02,-77.01036656232371,38.89572954647416,6C02,Karen Wirt,1,Karen Wirt
 smd_6C03,-76.99760649411402,38.89448800846996,6C03,Jay Adelstein,1,Jay Adelstein
-smd_6C04,-77.00635713010301,38.89861744370039,6C04,Mark Eckenwiler,2,"Mark Eckenwiler, Pranav Nanda"
+smd_6C04,-77.00635713010301,38.89861744370039,6C04,Mark Eckenwiler,1,Mark Eckenwiler
 smd_6C05,-76.99805387022894,38.90018882169864,6C05,Joel Kelty,1,Joel Kelty
 smd_6C06,-77.00472658562312,38.904559695257134,6C06,Drew Courtney,2,"Tommy Howard, Drew Courtney"
 smd_6D01,-77.02354432274882,38.8833406445981,6D01,Gail Fast,1,Andrew Bossi
@@ -234,7 +234,7 @@ smd_7B06,-76.95373302654265,38.86150069775464,7B06,April Pradier,3,"Tony Dugger,
 smd_7B07,-76.95183753909572,38.87203566258208,7B07,D. L. Humphrey,1,Dexter Humphrey
 smd_7C01,-76.92816235466637,38.89816717664699,7C01,Patricia A. Malloy,1,Patricia A. Malloy
 smd_7C02,-76.92477030157829,38.89226874033289,7C02,(vacant),3,"Mandla Deskins, Yolanda Fields, Patricia Williams"
-smd_7C03,-76.93178598734984,38.893784258380954,7C03,Catherine A. Woods,1,Vincent Van
+smd_7C03,-76.93178598734984,38.893784258380954,7C03,Catherine A. Woods,1,Vince Van
 smd_7C04,-76.9249062152373,38.901840561344926,7C04,Anthony Lorenzo Green,2,"Anthony Lorenzo Green, Patricia Stamper"
 smd_7C05,-76.91597671619945,38.89314393419984,7C05,Mary L. Gaffney,1,Mary L. Gaffney
 smd_7C06,-76.92137980393385,38.898713272125185,7C06,Arnold Smith,1,Victoria Clark
@@ -281,7 +281,7 @@ smd_8C04,-77.00277161283013,38.834221398395535,8C04,Regina Sharlita Pixley,3,"Re
 smd_8C05,-77.01793180696436,38.842352335925604,8C05,Mustafa Abdul-Salaam,1,Mustafa Abdul-Salaam
 smd_8C06,-76.99491101017927,38.858526613965466,8C06,Rhonda L. Edwards-Hines,1,Rhonda L. Edwards-Hines
 smd_8C07,-76.99739545427774,38.83920553484315,8C07,Salim Adofo,1,Salim Adofo
-smd_8D01,-76.99605440126035,38.82720347426002,8D01,Patricia Carmon,1,Zenobia Love
+smd_8D01,-76.99605440126035,38.82720347426002,8D01,Patricia Carmon,2,"Patricia Carmon, Zenobia Love"
 smd_8D02,-77.00477134113453,38.82121146325203,8D02,Olivia L. Henderson,2,"Olivia L. Henderson, Emerald Holman"
 smd_8D03,-77.0021107234724,38.8287195056779,8D03,Absalom Jordan,1,Absalom Jordan
 smd_8D04,-77.0267329569124,38.8143977626866,8D04,Monique T. Diop,1,Monique T. Diop

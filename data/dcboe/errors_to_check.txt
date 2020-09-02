@@ -1,6 +1,9 @@
 pdf_errors_to_check.txt
 
 
+smd_8A06, Kristina Leszczak: added back to the list on Aug 27 but didn't have a filing date
+
+
 These should all be fixed in candidates_dcboe.csv: 
 
 * 5D06, Marina Budimir has pickup date in 1930

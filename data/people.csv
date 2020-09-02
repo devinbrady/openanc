@@ -159,7 +159,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10158,Gail Brevard,smd_5C01,smd_5C01,,,,
 10159,Lauren Rogers,smd_5C02,smd_5C02,,,,
 10160,Pierre Hines,smd_5C03,smd_5C03,,,,
-10161,Jacqueline Manning,smd_5C04,smd_5C04,,,,
+10161,Jacqueline Manning,smd_5C04,smd_5C04,https://twitter.com/JCMSpeaks,,,
 10162,Darlene Oliver,smd_5C05,smd_5C05,,,,
 10163,Kirsten Williams,smd_5C06,not_currently_running,,,,
 10164,Jeremiah Montague Jr.,smd_5C07,smd_5C07,,,,
@@ -396,7 +396,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10403,Mandla Deskins,not_currently_serving,smd_7C02,https://twitter.com/MandlaTDeskins,,https://www.mandla4anc.com/,x
 10404,Yolanda Fields,not_currently_serving,smd_7C02,,,,
 10405,Patricia Williams,not_currently_serving,smd_7C02,,,,
-10406,Vincent Van,not_currently_serving,smd_7C03,https://twitter.com/VinceJVan,,https://www.vincevanfordc.com/,x
+10406,Vince Van,not_currently_serving,smd_7C03,https://twitter.com/VinceJVan,,https://www.vincevanfordc.com/,x
 10407,Pete Stamper,not_currently_serving,smd_7C04,,,,
 10408,Victoria Clark,not_currently_serving,smd_7C06,https://twitter.com/Rayelle_ESQ,https://www.facebook.com/victoria4dc,https://www.victoria4dc.com/,x
 10409,Emmanuelle Klossou,not_currently_serving,smd_7C07,,,,
@@ -494,7 +494,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10506,Mia Bruner,not_currently_serving,smd_4C01,,,,
 10507,Aryan Rodriguez Bocquet,not_currently_serving,smd_4D03,https://twitter.com/abocq,,,x
 10508,Colleen Costello,not_currently_serving,smd_5B05,,,,
-10509,Raymond William Chandler,not_currently_serving,smd_5C05,,,,
+10509,Raymond William Chandler,not_currently_serving,smd_5C05,https://twitter.com/RCforANC5C05,,,
 10510,Aliyah McNeely,not_currently_serving,smd_5D01,,,,
 10511,Laura L. Gentile,not_currently_serving,smd_6A05,,,,
 10512,Patrick Parlej,not_currently_serving,smd_6E05,,,,
