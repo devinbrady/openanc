@@ -36,7 +36,7 @@ smd_1D02,1D,1,-77.03768010617725,38.9360753293596,75191,10,"1A01, 1A02, 1D01, 1D
 smd_1D03,1D,1,-77.04379954261577,38.93391521230428,354913,11,"1D01, 1D02, 1D05, 3C01, 3C04, 4A08",,,Stoddard Baptist Nursing Home
 smd_1D04,1D,1,-77.0376930132393,38.93091453218829,99052,12,"1A03, 1A05, 1D01, 1D05",,,Mount Pleasant Neighborhood Library
 smd_1D05,1D,1,-77.04278823275546,38.929610779360566,280071,1,"1A03, 1A05, 1C04, 1C05, 1D01, 1D03, 1D04, 3C01, 3C04",,,"Ercilia's, Each Peach, Francis Asbury Statue, the Harvard Street entrance to the National Zoo"
-smd_2A01,2A,2,-77.04425137504373,38.88557682952,4441176,1,"2A04, 2A05, 2A07, 2A08, 2B05, 2B06, 2C01, 6D01, 6D04",,,"The White House, Washington Monument, Tidal Basin, east half of the Lincoln Memorial"
+smd_2A01,2A,2,-77.04425137504373,38.88557682952,4441176,1,"2A04, 2A05, 2A07, 2A08, 2B05, 2B06, 2C01, 6D01, 6D04",,,"The White House, Washington Monument, Tidal Basin, east half of the Lincoln Memorial, west half of the National Mall, and southern Foggy Bottom"
 smd_2A02,2A,2,-77.05257873606229,38.905384180699755,174204,1,"2A03, 2A06, 2A07, 2B06, 2E05, 2E06",,,
 smd_2A03,2A,2,-77.05401822536216,38.90251432998385,129640,3,"2A02, 2A04, 2A06, 2A07, 2E05, 2E06",,,
 smd_2A04,2A,2,-77.05678402451187,38.892922961244686,1533482,5,"2A01, 2A03, 2A05, 2A07, 2E05",,,"Watergate Complex, Kennedy Center, west half of the Lincoln Memorial"

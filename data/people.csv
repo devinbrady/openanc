@@ -470,7 +470,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10481,Clara Haskell Botstein,not_currently_serving,smd_4C08,,,,
 10482,Zachary Israel,not_currently_serving,smd_4D04,https://twitter.com/Zachary_Israel,,,
 10483,Michael Anthony Lussier,not_currently_serving,smd_5D06,,,,
-10484,Rico Dancy,not_currently_serving,smd_6A07,,,,
+10484,Rico Dancy,not_currently_serving,smd_6A07,https://twitter.com/deafPolitics216,,,
 10485,Jordan A. Hibbs,not_currently_serving,smd_6E04,https://twitter.com/VoteJordanHibbs,,,
 10486,Kristina Leszczak,not_currently_serving,smd_8A06,,,,x
 10487,"Alan Kensek, Jr.",not_currently_serving,smd_1B05,,,,x
@@ -584,3 +584,4 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10601,Matthew O'Donnell,not_currently_serving,smd_2E06,,,,
 10602,Charles T. Lockett,not_currently_serving,smd_5A02,,,,
 10603,Andrew Bossi,not_currently_serving,smd_6D01,https://twitter.com/thisisbossi,,,x
+10604,Yannik Omictin,not_currently_serving,smd_2A01,https://twitter.com/igrecomictin,,,x
