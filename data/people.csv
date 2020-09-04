@@ -124,7 +124,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10123,Scot Knickerbocker,smd_4B03,not_currently_running,https://twitter.com/ScotANC,,,
 10124,Brenda Parks,smd_4B04,not_currently_running,,,,
 10125,Perry Redd,smd_4B05,not_currently_running,https://twitter.com/perryanc4B05,,,x
-10126,Tiffani Nichole Johnson,smd_4B06,smd_4B06,https://twitter.com/johnson4b06,,,x
+10126,Tiffani Nichole Johnson,smd_4B06,smd_4B06,https://twitter.com/johnson4b06,https://www.facebook.com/4B06CommissionerJohnson/,https://www.commissionerjohnson4b06.com/,x
 10127,Geoff Bromaghim,smd_4B07,smd_4B07,https://twitter.com/geoffbromaghim,,https://www.geoffbforanc.com/,x
 10128,Alison Brooks,smd_4B08,smd_4B08,,,,x
 10129,LaRoya A. Huff,smd_4B09,smd_4B09,https://twitter.com/laroya_ward4,https://www.facebook.com/LaRoyaHuffANC4B09/,,x
@@ -150,7 +150,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10149,Ronnie Edwards,smd_5A05,smd_5A05,,,,
 10150,Claudia Barragan,smd_5A06,not_currently_running,,,,
 10151,Sandi Washington,smd_5A07,smd_5A07,,,,
-10152,Gordon-Andrew Fletcher,smd_5A08,smd_5A08,https://twitter.com/ANCCommissioner,,,
+10152,Gordon-Andrew Fletcher,smd_5A08,smd_5A08,https://twitter.com/ANCCommissioner,https://www.facebook.com/gordonandrewfletcheranc5a0/,,x
 10153,Gayle Carley,smd_5B01,smd_5B01,,,,
 10154,Ursula Higgins,smd_5B02,smd_5B02,,,,
 10155,Henri Makembe,smd_5B03,not_currently_running,https://twitter.com/henrim,,,
@@ -167,7 +167,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10166,Keisha L. Shropshire,smd_5D02,not_currently_running,https://twitter.com/ShropANC5D02,,,
 10167,Steven C. Motley Sr,smd_5D03,not_currently_running,,,,
 10168,Bernice S Blacknell,smd_5D04,smd_5D04,,,,
-10169,Sydelle Moore,smd_5D05,smd_5D05,https://twitter.com/sydellebelle,,,
+10169,Sydelle Moore,smd_5D05,smd_5D05,https://twitter.com/sydellebelle,,https://www.sydelleforanc.com/,x
 10170,Clarence Lee,smd_5D07,not_currently_running,,,,
 10171,Nick Cheolas,smd_5E01,not_currently_running,https://twitter.com/Nick4Ward5,,https://www.anc5e01.org/,x
 10172,Patricia Williams,smd_5E02,smd_5E02,,,,
@@ -351,10 +351,10 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10355,Alan Wehler,not_currently_serving,smd_4C09,,,,
 10356,Monica P. Blair,not_currently_serving,smd_4C10,,,,
 10357,Damion McDuffie Sr.,not_currently_serving,smd_5A01,,,,
-10358,Nestride Yumga,not_currently_serving,smd_5A08,,,,
+10358,Nestride Yumga,not_currently_serving,smd_5A08,https://twitter.com/nestride,,,
 10360,Cynthia Woerner,not_currently_serving,smd_5B01,,,,
 10361,"John J. Feeley, Jr.",smd_5B05,smd_5B05,,,,
-10362,Michael Triebwasser,not_currently_serving,smd_5C01,,,,
+10362,Michael Triebwasser,not_currently_serving,smd_5C01,https://twitter.com/trieb4anc,https://www.facebook.com/trieb4anc,https://www.trieb4anc.com/,x
 10363,Thaddeus James,not_currently_serving,smd_5C06,,,,
 10364,D'Andre A. Phillips,not_currently_serving,smd_5C06,,,,
 10365,Sebrena L. Rhodes,not_currently_serving,smd_5D01,,,,

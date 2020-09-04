@@ -67,6 +67,8 @@ def clean_csv():
     df.loc[df['candidate_name'] == 'Dieter Lehmann Morales', 'filed_date'] = '7/31/20'
     df.loc[df['candidate_name'] == 'Marina Budimir', 'pickup_date'] = '7/30/20'
     df.loc[df['candidate_name'] == 'Chelsea Skinner', 'pickup_date'] = '8/5/20'
+    df.loc[df['candidate_name'] == 'Kristina Leszczak', 'pickup_date'] = '7/22/20'
+    df.loc[df['candidate_name'] == 'Kristina Leszczak', 'filed_date'] = '8/4/20'
     df.loc[df['candidate_name'] == "Jes'Terieuz \"JT'' Howard", 'candidate_name'] = "Jes'Terieuz \"JT\" Howard"
     df.loc[df['candidate_name'] == 'Jeannina"W8 Matter" Williams', 'candidate_name'] = "Jeannina \"W8 Matters\" Williams"
 
