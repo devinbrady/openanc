@@ -97,7 +97,15 @@ def clean_csv():
     df[columns_to_save].to_csv('data/dcboe/candidates_dcboe.csv', index=False)
 
     rd = RefreshData()
-    rd.upload_to_google_sheets(df, columns_to_save, 'openanc_source', 'dcboe')
+    columns_to_save_to_google = (
+        columns_to_save
+        + [
+            'candidate_source'
+            , 'candidate_source_link'
+            , 'dcboe_updated_at'
+            ]
+        )
+    rd.upload_to_google_sheets(df, columns_to_save_to_google, 'openanc_source', 'dcboe')
 
 
 
