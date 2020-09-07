@@ -3,6 +3,7 @@ Periodically check DCBOE's site and send an alert if it changes
 """
 
 import os
+import sys
 import pytz
 import time
 import argparse
@@ -28,7 +29,7 @@ class MonitorDCBOE():
         self.args = parser.parse_args()
 
         self.local_filename = 'current_link.txt'
-        self.log_file = 'log_dcboe_site.txt'
+        self.log_file = 'monitor_dcboe_site_changes_log.txt'
         self.url = 'https://www.dcboe.org/Candidates/2020-Candidates'
 
 
@@ -41,15 +42,22 @@ class MonitorDCBOE():
         r = requests.get(self.url, stream=True)
         soup = BeautifulSoup(r.text, 'html.parser')
 
+        current_link = ''
+
         for a in soup.find_all('a'):
             if a.text == 'ANC Candidate List for the November 3 General Election':
                 current_link = a['href']
                 break
 
-        with open(self.local_filename, 'w') as f:
-            f.write(current_link)
+        if current_link == '':
+            print('No link found on DCBOE site.')
+            sys.exit('Quitting.')
 
-        print(f'Current link saved to: {self.local_filename}')
+        else:
+            with open(self.local_filename, 'w') as f:
+                f.write(current_link)
+
+            print(f'Current link saved to: {self.local_filename}')
 
 
 
@@ -69,8 +77,7 @@ class MonitorDCBOE():
         print(f'page_has_changed: {page_has_changed}')
      
         with open(self.log_file, 'a+') as f:
-            print(f'{current_timestamp} requesting: {self.url} > ', end='', file=f)
-            print(f'page_has_changed: {page_has_changed}', file=f)
+            print(f'{current_timestamp} page_has_changed: {page_has_changed}', file=f)
 
         return page_has_changed
 

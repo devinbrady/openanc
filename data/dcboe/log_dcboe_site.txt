@@ -1,9 +1,0 @@
-2020-08-03 18:45:48 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: True
-
-2020-08-05 09:15:43 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: True
-
-2020-08-05 09:36:21 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: True
-
-2020-08-06 18:52:14 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: True
-
-2020-09-05 19:45:59 requesting: https://www.dcboe.org/Candidates/2020-Candidates > page_has_changed: False

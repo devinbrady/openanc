@@ -71,4 +71,4 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50486,10596,5cc022a8b9e62ce65b4f15b5e4627671cbb5445fe015542588e68fa9,smd_6D02,"Paul Biedlingmaier, III",,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50487,10216,7849da419ac935d1a0b7cd974f8257bb38a6c265adfff36ab42cf5f1,smd_6E06,"Alvin Judd, SR.",,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50495,10603,,smd_6D01,Andrew Bossi,Declared Write-In,OpenANC Form,,,2020-08-11,Not on DCBOE List,Declared Write-In,True,OpenANC Form,,False,,,,,,2020-08-11
-50496,10604,,smd_2A01,Yannik Omictin,Declared Write-In,OpenANC form,,,,Not on DCBOE List,Declared Write-In,True,OpenANC form,,False,,,,,,
+50496,10604,,smd_2A01,Yannik Omictin,Declared Write-In,OpenANC form,,,2020-09-02,Not on DCBOE List,Declared Write-In,True,OpenANC form,,False,,,,,,2020-09-02

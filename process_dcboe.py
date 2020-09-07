@@ -320,7 +320,7 @@ def reconcile_candidates():
     pd.set_option('display.max_colwidth', 60)
     
     print('\nExisting hashes not in new DCBOE file: {}'.format(sum(existing_hashes_not_in_new_file)))
-    print(candidates.loc[existing_hashes_not_in_new_file, ['dcboe_hash_id', 'smd_id', 'candidate_name', 'candidate_status']])
+    # print(candidates.loc[existing_hashes_not_in_new_file, ['dcboe_hash_id', 'smd_id', 'candidate_name', 'candidate_status']])
     candidates.loc[existing_hashes_not_in_new_file].to_csv('data/dcboe/existing_hashes_not_in_new_file.csv', index=False)
     
     print('\nNew hashes not in OpenANC Source: {}'.format(sum(new_hashes)))
