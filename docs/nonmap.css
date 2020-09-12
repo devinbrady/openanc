@@ -14,3 +14,14 @@ body {
     padding: 4px;
 }
 
+.attribute_heading {
+    background-color: #d9d9d9;
+    padding: 8px;
+    width: 150px;
+}
+
+.attribute_value {
+    border: 1px solid #d9d9d9;
+    padding: 4px;
+    text-align: left;
+}

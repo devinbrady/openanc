@@ -251,10 +251,13 @@ def build_data_table(row, fields_to_try):
         If no fields are valid, returns empty string
         """
 
+        th_class = 'attribute_heading'
+        td_class = 'attribute_value'
+
         field_names = pd.read_csv('data/field_names.csv')
             
         output_table = """
-            <table border="1">
+            <table>
               <tbody>
               """
 
@@ -274,15 +277,15 @@ def build_data_table(row, fields_to_try):
 
                     output_table += f"""
                         <tr>
-                        <th>{display_name}</th>
+                        <th class="{th_class}">{display_name}</th>
                         """
 
                     if '_link' in field_name:
-                        output_table += f'<td><a href="{field_value}">{field_value}</a></td>'
+                        output_table += f'<td class="{td_class}"><a href="{field_value}">{field_value}</a></td>'
                     elif '_email' in field_name:
-                        output_table += f'<td><a href="mailto:{field_value}">{field_value}</a></td>'
+                        output_table += f'<td class="{td_class}"><a href="mailto:{field_value}">{field_value}</a></td>'
                     else:
-                        output_table += f'<td>{field_value}</td>'
+                        output_table += f'<td class="{td_class}">{field_value}</td>'
                     
                     output_table += '</tr>'
 

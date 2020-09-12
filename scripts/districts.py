@@ -57,12 +57,6 @@ class BuildDistricts():
 
 
 
-    def add_candidates_in_status(self, html, candidates, status):
-        # todo: remove this
-        pass
-
-
-
     def add_candidates(self, smd_id):
         """
         Add blocks of information for each candidate in SMD
