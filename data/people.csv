@@ -223,24 +223,24 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10222,"Villareal ""VJ"" Johnson II",smd_7B05,smd_7B05,,,,
 10223,April Pradier,smd_7B06,no candidacy,,,,
 10224,D. L. Humphrey,smd_7B07,no candidacy,https://twitter.com/Anc7B07,,,
-10225,Patricia A. Malloy,smd_7C01,smd_7C01,,,,
+10225,Patricia A. Malloy,smd_7C01,smd_7C01,,,,x
 10226,Catherine A. Woods,smd_7C03,not an active candidate,,,,
-10227,Anthony Lorenzo Green,smd_7C04,smd_7C04,https://twitter.com/LorenzoWard7DC,,,
-10228,Mary L. Gaffney,smd_7C05,smd_7C05,,,,
+10227,Anthony Lorenzo Green,smd_7C04,smd_7C04,https://twitter.com/LorenzoWard7DC,,,x
+10228,Mary L. Gaffney,smd_7C05,smd_7C05,,,,x
 10229,Arnold Smith,smd_7C06,no candidacy,,,,
-10230,Antawan Holmes,smd_7C07,smd_7C07,https://twitter.com/AntawanHolmes,,,
-10231,Tamara Blair,smd_7D01,smd_7D01,https://twitter.com/BlairTamara,,,
-10232,Siraaj M. Hasan,smd_7D02,smd_7D02,https://twitter.com/Siraaj_CEO_SMSB,,,
-10233,Dorothy Douglas,smd_7D03,smd_7D03,https://twitter.com/DDouglasANC7D03,,,
+10230,Antawan Holmes,smd_7C07,smd_7C07,https://twitter.com/AntawanHolmes,,https://antawanholmes.com/,x
+10231,Tamara Blair,smd_7D01,smd_7D01,https://twitter.com/BlairTamara,,,x
+10232,Siraaj M. Hasan,smd_7D02,smd_7D02,https://twitter.com/Siraaj_CEO_SMSB,,,x
+10233,Dorothy Douglas,smd_7D03,smd_7D03,https://twitter.com/DDouglasANC7D03,,,x
 10234,Cinque E. Culver,smd_7D04,not an active candidate,https://twitter.com/CinqueCulver,,,x
 10235,Aretha Jackson,smd_7D05,no candidacy,https://twitter.com/ArethaJJack,,,
 10236,Artilie Wright,smd_7D07,no candidacy,,,,
-10237,Veda Rasheed,smd_7E01,smd_7E01,,,,
-10238,Linda S. Green,smd_7E02,smd_7E02,,,,
+10237,Veda Rasheed,smd_7E01,smd_7E01,https://twitter.com/VedaRasheed,,,x
+10238,Linda S. Green,smd_7E02,smd_7E02,,,,x
 10239,Ebbon A. Allen,smd_7E03,no candidacy,https://twitter.com/Anc7Eo3,,,
 10240,Takiyah Tate,smd_7E04,no candidacy,,,,
-10241,Victor L. Horton,smd_7E05,smd_7E05,https://twitter.com/1mV1ctor,,,
-10242,Delia Houseal,smd_7E06,smd_7E06,https://twitter.com/DeliaHouseal,,,
+10241,Victor L. Horton,smd_7E05,smd_7E05,https://twitter.com/1mV1ctor,,,x
+10242,Delia Houseal,smd_7E06,smd_7E06,https://twitter.com/DeliaHouseal,,,x
 10243,Yolanda Fields,smd_7E07,no candidacy,,,,
 10244,Tyrell M. Holcomb,smd_7F01,smd_7F01,https://twitter.com/tmholcomb,https://www.facebook.com/tmholcomb,https://www.tyrellholcomb.com/,x
 10245,Terrance Hunter,smd_7F02,smd_7F02,,,,x
@@ -394,19 +394,19 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10401,Tony Dugger,not_currently_serving,smd_7B06,,,,
 10402,Andrew Carlyle Haynesworth,not_currently_serving,smd_7B06,,,,
 10403,Mandla Deskins,not_currently_serving,smd_7C02,https://twitter.com/MandlaTDeskins,,https://www.mandla4anc.com/,x
-10404,Yolanda Fields,not_currently_serving,smd_7C02,,,,
-10405,Patricia Williams,not_currently_serving,smd_7C02,,,,
+10404,Yolanda Fields,not_currently_serving,smd_7C02,,,,x
+10405,Patricia Williams,not_currently_serving,smd_7C02,,,,x
 10406,Vince Van,not_currently_serving,smd_7C03,https://twitter.com/VinceJVan,,https://www.vincevanfordc.com/,x
 10407,Pete Stamper,not_currently_serving,not an active candidate,,,,
 10408,Victoria Clark,not_currently_serving,smd_7C06,https://twitter.com/Rayelle_ESQ,https://www.facebook.com/victoria4dc,https://www.victoria4dc.com/,x
-10409,Emmanuelle Klossou,not_currently_serving,smd_7C07,,,,
-10410,Milton Hardy,not_currently_serving,smd_7D04,,,,
-10411,Rebecca J. Morris,not_currently_serving,smd_7D06,https://twitter.com/ward7Rebecca,,,
-10412,Natasha Dupee,not_currently_serving,smd_7E04,,,,
-10413,Lorraine Miller,not_currently_serving,smd_7E04,,,,
+10409,Emmanuelle Klossou,not_currently_serving,smd_7C07,https://twitter.com/EKlossou,,https://www.klossou4ward7.com/,x
+10410,Milton Hardy,not_currently_serving,smd_7D04,,,,x
+10411,Rebecca J. Morris,not_currently_serving,smd_7D06,https://twitter.com/ward7Rebecca,,,x
+10412,Natasha Dupee,not_currently_serving,smd_7E04,https://twitter.com/DupeeforDC,,,x
+10413,Lorraine Miller,not_currently_serving,smd_7E04,,,,x
 10414,Keith Hasan-Towery,not_currently_serving,smd_7E04,https://twitter.com/towerykr,,http://www.hasan-towery.com/,x
-10415,Joel Savary,not_currently_serving,smd_7E06,,,,
-10416,Brandon M. Scott,not_currently_serving,smd_7E07,,,,
+10415,Joel Savary,not_currently_serving,smd_7E06,,,,x
+10416,Brandon M. Scott,not_currently_serving,smd_7E07,,,,x
 10417,Dawn R. Cook,not_currently_serving,smd_7F02,,,,x
 10418,Racquel Codling,not_currently_serving,smd_7F04,,,,x
 10420,Ira L. Lovelace,not_currently_serving,not an active candidate,,,,x
@@ -500,8 +500,8 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10512,Patrick K. Parlej,not_currently_serving,smd_6E05,,,,
 10513,Denise E Blackson,not_currently_serving,smd_6E06,,,,
 10514,Cydne Smith Nash,not_currently_serving,smd_7B04,,,,
-10515,Patricia Stamper,not_currently_serving,smd_7C04,,,,
-10516,Stephanie Audain,not_currently_serving,smd_7D05,,,,
+10515,Patricia Stamper,not_currently_serving,smd_7C04,,,,x
+10516,Stephanie Audain,not_currently_serving,smd_7D05,,,,x
 10517,Michelle Kiah,not_currently_serving,smd_8B05,,,,x
 10518,"Dolores ""Miracle"" Bryant",not_currently_serving,smd_8C03,,,,x
 10519,Sabel Harris,not_currently_serving,smd_1B12,https://twitter.com/sabelharris,https://www.facebook.com/sabelfordc,https://www.sabelfordc.com/,x
@@ -512,7 +512,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10525,Brenda Dawson Parks,not_currently_serving,smd_4B04,,,,x
 10526,Bobby Curtis King II,not_currently_serving,smd_4C02,,,,
 10527,Simone Egwu,not_currently_serving,not an active candidate,,,,
-10528,Kimory KSO Orendoff,not_currently_serving,smd_7D05,,,,
+10528,Kimory KSO Orendoff,not_currently_serving,smd_7D05,,,,x
 10529,Benjamin Hart Butz,not_currently_serving,smd_1C06,,,,
 10530,Zack Brown,not_currently_serving,not an active candidate,,,,
 10531,Amy Nasr,not_currently_serving,not an active candidate,,,,
@@ -532,7 +532,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10546,Eric S. Blaylock,not_currently_serving,smd_6D07,,,,
 10547,Kelvin Brown,not_currently_serving,smd_7B06,https://twitter.com/VoteKelvinBrown,,,
 10548,D.L. Humphrey,not_currently_serving,smd_7B07,https://twitter.com/Anc7B07,,,
-10549,Kimberly Martin,not_currently_serving,smd_7E07,,,,
+10549,Kimberly Martin,not_currently_serving,smd_7E07,,,,x
 10550,"George O. Reid, Jr.",not_currently_serving,smd_8A07,,,,x
 10551,Jason Hamacher,not_currently_serving,smd_1D01,,,,
 10552,Will Mascaro,not_currently_serving,smd_2C02,,,,
@@ -549,8 +549,8 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10563,Boaz Yavnai,not_currently_serving,not an active candidate,,,,
 10564,Peter Wright,not_currently_serving,smd_6B08,,,,
 10565,Alison Horn,not_currently_serving,smd_6B09,https://twitter.com/AlisonPHorn,,,
-10566,Tierra J. Fletcher,not_currently_serving,smd_7E02,,,,
-10567,Justyn Iman,not_currently_serving,smd_7E07,,,,
+10566,Tierra J. Fletcher,not_currently_serving,smd_7E02,,,,x
+10567,Justyn Iman,not_currently_serving,smd_7E07,https://twitter.com/msgorjuss,,,x
 10568,Frederick Wolf,not_currently_serving,smd_7F02,,,,x
 10570,Matthew Brandeburg,not_currently_serving,smd_1D04,,,,
 10572,Elizabeth R. Pemmerl,not_currently_serving,smd_3D02,,,,
@@ -566,8 +566,8 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10583,Sarah Rens,not_currently_serving,not an active candidate,,,,
 10584,John Deignan,not_currently_serving,not an active candidate,,,,
 10585,David L. Retland,not_currently_serving,smd_7B04,,,,
-10586,James Goldfield,not_currently_serving,smd_7D05,,,,
-10587,Sharon Jafari,not_currently_serving,smd_7E05,,,,
+10586,James Goldfield,not_currently_serving,smd_7D05,,,,x
+10587,Sharon Jafari,not_currently_serving,smd_7E05,,,,x
 10588,Terri L. Acker,not_currently_serving,smd_8A07,,,,x
 10589,Lucas Mccabe,not_currently_serving,not an active candidate,,,,
 10590,Adam Friend,not_currently_serving,not an active candidate,,,,
