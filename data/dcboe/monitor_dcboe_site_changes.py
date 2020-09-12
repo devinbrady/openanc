@@ -29,9 +29,10 @@ class MonitorDCBOE():
         self.args = parser.parse_args()
 
         self.local_filename = 'current_link.txt'
-        self.log_file = 'monitor_dcboe_site_changes_log.txt'
         self.url = 'https://www.dcboe.org/Candidates/2020-Candidates'
 
+        with open(self.local_filename, 'r') as f:
+            self.current_link_text = f.read()
 
 
     def reset(self):
@@ -63,22 +64,16 @@ class MonitorDCBOE():
 
     def poll_dcboe(self):
 
-        with open(self.local_filename, 'r') as f:
-            current_link_text = f.read()
-
         tz = pytz.timezone('America/New_York')
         current_timestamp = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
-        print(f'{current_timestamp} requesting: {self.url} > ', end='')
+        print(f'{current_timestamp} -> ', end='')
         
         r = requests.get(self.url, stream=True)
 
-        page_has_changed = not current_link_text in r.text
+        page_has_changed = not self.current_link_text in r.text
 
         print(f'page_has_changed: {page_has_changed}')
      
-        with open(self.log_file, 'a+') as f:
-            print(f'{current_timestamp} page_has_changed: {page_has_changed}', file=f)
-
         return page_has_changed
 
 
@@ -88,11 +83,17 @@ class MonitorDCBOE():
         if self.args.reset:
             self.reset()
 
+        if self.current_link_text == '':
+            # Don't run the check if there is no text to check for
+            return
+
         page_has_changed = self.poll_dcboe()
 
         if page_has_changed:
             os.system('terminal-notifier -title "OpenANC" -message "DCBOE link has changed" -sound Blow')
 
+            with open(self.local_filename, 'w') as f:
+                f.write('')
 
 
 if __name__ == "__main__":

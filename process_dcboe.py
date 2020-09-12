@@ -2,6 +2,7 @@
 Process data from the DC Board of Elections
 """
 
+import os
 import sys
 import hashlib
 import numpy as np
@@ -19,11 +20,12 @@ def clean_csv():
     Result is a CSV of current candidates
     """
 
-    excel_file = 'dcboe-2020-09-03.xlsx'
-    dcboe_updated_at = '2020-09-03 16:55'
+    excel_file_dir = 'data/dcboe/excel-clean/'
+    excel_file = most_recent_file(excel_file_dir, 'dcboe-')
+    dcboe_updated_at = excel_file.replace(excel_file_dir, '').replace('dcboe-', '').replace('.xlsx', '')
     print('Reading Excel file: ' + excel_file)
 
-    df = pd.read_excel('data/dcboe/excel-clean/' + excel_file)
+    df = pd.read_excel(excel_file)
     df['dcboe_updated_at'] = dcboe_updated_at
 
     df['candidate_source'] = 'DCBOE'
@@ -33,10 +35,6 @@ def clean_csv():
         columns={
             'ANC/SMD': 'smd'
             , 'Name': 'candidate_name'
-            # , 'Address': 'address'
-            # , 'Zip': 'zip'
-            # , 'Phone': 'phone'
-            # , 'Email Address': 'campaign_email'
             , 'Date of Pick-up': 'pickup_date'
             , 'Date Filed': 'filed_date'
             }, inplace=True
@@ -67,10 +65,10 @@ def clean_csv():
     df.loc[df['candidate_name'] == 'Dieter Lehmann Morales', 'filed_date'] = '7/31/20'
     df.loc[df['candidate_name'] == 'Marina Budimir', 'pickup_date'] = '7/30/20'
     df.loc[df['candidate_name'] == 'Chelsea Skinner', 'pickup_date'] = '8/5/20'
-    df.loc[df['candidate_name'] == 'Kristina Leszczak', 'pickup_date'] = '7/22/20'
-    df.loc[df['candidate_name'] == 'Kristina Leszczak', 'filed_date'] = '8/4/20'
+    df.loc[df['candidate_name'] == 'Kristina (K) Leszczak', 'pickup_date'] = '7/22/20'
+    df.loc[df['candidate_name'] == 'Kristina (K) Leszczak', 'filed_date'] = '8/4/20'
     df.loc[df['candidate_name'] == "Jes'Terieuz \"JT'' Howard", 'candidate_name'] = "Jes'Terieuz \"JT\" Howard"
-    df.loc[df['candidate_name'] == 'Jeannina"W8 Matter" Williams', 'candidate_name'] = "Jeannina \"W8 Matters\" Williams"
+    df.loc[df['candidate_name'] == 'Jeannina"W8 Matters" Williams', 'candidate_name'] = "Jeannina \"W8 Matters\" Williams"
 
     # Fix data entry errors and convert to dates
     # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
@@ -106,6 +104,24 @@ def clean_csv():
             ]
         )
     rd.upload_to_google_sheets(df, columns_to_save_to_google, 'openanc_source', 'dcboe')
+
+
+
+def most_recent_file(directory_name, filename_pattern):
+    """
+    Returns the most recent file in a directory. 
+    The filenames must have a timestamp in them. It's the max of the sorted text.
+
+    directory_name: the directory to search in. Include the slash at the end
+    filename_pattern: the text in the filename to narrow the results by
+    """
+
+    list_of_files = sorted(
+        [f for f in os.listdir(directory_name) if (filename_pattern in f and '~' not in f)]
+        )
+    mrf = directory_name + list_of_files[-1]
+
+    return mrf
 
 
 
@@ -324,7 +340,7 @@ def reconcile_candidates():
     candidates.loc[existing_hashes_not_in_new_file].to_csv('data/dcboe/existing_hashes_not_in_new_file.csv', index=False)
     
     print('\nNew hashes not in OpenANC Source: {}'.format(sum(new_hashes)))
-    print(dcboe.loc[new_hashes, ['dcboe_hash_id', 'smd_id', 'candidate_name']])
+    print(dcboe.loc[new_hashes, ['dcboe_hash_id', 'smd_id', 'candidate_name']].head(5))
     print()
 
 
