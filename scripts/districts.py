@@ -78,16 +78,14 @@ class BuildDistricts():
         
         num_candidates = len(smd_candidates)
 
+        candidate_block = '<h2>Active Candidates</h2>'
+
         if num_candidates == 0:
-            candidate_block = '<p>No known candidates.</p>'
+            candidate_block += '<p>No known candidates.</p>'
             
         else:
 
-            candidate_block = ''
-
             # todo: clean this up
-
-            candidate_block += '<h3>Active Candidates</h3>'
 
             if sum(smd_candidates['count_as_candidate'] == True) == 0:
 
@@ -97,7 +95,7 @@ class BuildDistricts():
 
                 for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == True, 'order_status'].unique()):
 
-                    candidate_block += '<h4>' + status[status.find(';')+1:] + '</h4>'
+                    candidate_block += '<h3>' + status[status.find(';')+1:] + '</h3>'
                     candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
 
                     for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
@@ -125,11 +123,11 @@ class BuildDistricts():
 
             if sum(smd_candidates['count_as_candidate'] == False) > 0:
 
-                candidate_block += '<h3>Former Candidates</h3>'
+                candidate_block += '<h2>Former Candidates</h2>'
 
                 for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == False, 'order_status'].unique()):
 
-                    candidate_block += '<h4>' + status[status.find(';')+1:] + '</h4>'
+                    candidate_block += '<h3>' + status[status.find(';')+1:] + '</h3>'
                     candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
 
                     for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():

@@ -220,7 +220,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10219,Tiffany L. Brown,smd_7B02,smd_7B02,https://twitter.com/tlbrown1221,,,
 10220,Benjamin Crane,smd_7B03,no candidacy,https://twitter.com/anc7b03,,,
 10221,Nicole Smith-McDermott,smd_7B04,not an active candidate,,,,
-10222,"Villareal ""VJ"" Johnson II",smd_7B05,smd_7B05,,,,
+10222,"Villareal ""VJ"" Johnson II",smd_7B05,smd_7B05,https://twitter.com/vjsthoughts,,,
 10223,April Pradier,smd_7B06,no candidacy,,,,
 10224,D. L. Humphrey,smd_7B07,no candidacy,https://twitter.com/Anc7B07,,,
 10225,Patricia A. Malloy,smd_7C01,smd_7C01,,,,x
@@ -303,7 +303,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10304,Evelyn Hudson,smd_2A05,smd_2A05,,,,x
 10305,Meg Roggensack,not_currently_serving,smd_2B01,,,,x
 10306,Yousef Bashir,not_currently_serving,smd_2B03,,,,x
-10307,Robin Linnett Nunn,not_currently_serving,smd_2B03,,,,x
+10307,Robin Linnett Nunn,not_currently_serving,smd_2B03,,https://www.facebook.com/Robin4anc/,https://robin4dc.com/,x
 10309,Moshe 'Mo' Pasternak,not_currently_serving,smd_2B04,https://twitter.com/MoPasternakDC,https://facebook.com/MoPasternakANC,https://mopasternak.com/,x
 10310,Diane C. Quinn,not_currently_serving,smd_2B04,,,,x
 10311,Matthew Holden,not_currently_serving,smd_2B08,https://twitter.com/_matthewthomas,,https://matthew2b08.com/,x
@@ -356,7 +356,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10361,"John J. Feeley, Jr.",smd_5B05,smd_5B05,,,,
 10362,Michael Triebwasser,not_currently_serving,smd_5C01,https://twitter.com/trieb4anc,https://www.facebook.com/trieb4anc,https://www.trieb4anc.com/,x
 10363,Thaddeus James,not_currently_serving,smd_5C06,,,,
-10364,D'Andre A. Phillips,not_currently_serving,not an active candidate,,,,
+10364,D'Andre A. Phillips,not_currently_serving,smd_5C06,,,https://www.dandrephillips.com/,x
 10365,Sebrena L. Rhodes,not_currently_serving,smd_5D01,,,,
 10366,Salvador Sauceda-Guzman,not_currently_serving,smd_5D02,,,,
 10367,Sean Barry,not_currently_serving,smd_5D03,https://twitter.com/seanbbarry,https://www.facebook.com/seanbbarrydc/,https://www.seanbarrydc.com/,x
@@ -389,9 +389,9 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10396,Eugene Simms,not_currently_serving,not an active candidate,,,,
 10397,Matthew R. Salmon,not_currently_serving,not an active candidate,,,,
 10398,"Nate Brown ""MW6""",not_currently_serving,smd_6E07,,,,
-10399,Chioma J. Iwuoha,not_currently_serving,smd_7B01,,,,
+10399,Chioma J. Iwuoha,not_currently_serving,smd_7B01,https://twitter.com/Chioma7B01,,,
 10400,Donna Robinson,not_currently_serving,smd_7B05,,,,
-10401,Tony Dugger,not_currently_serving,smd_7B06,,,,
+10401,Tony Dugger,not_currently_serving,smd_7B06,https://twitter.com/CFMBDUGGER/,,,
 10402,Andrew Carlyle Haynesworth,not_currently_serving,smd_7B06,,,,
 10403,Mandla Deskins,not_currently_serving,smd_7C02,https://twitter.com/MandlaTDeskins,,https://www.mandla4anc.com/,x
 10404,Yolanda Fields,not_currently_serving,smd_7C02,,,,x
@@ -499,7 +499,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10511,Laura Gentile,not_currently_serving,smd_6A05,,,https://lauragentile4anc6a05.com/,
 10512,Patrick K. Parlej,not_currently_serving,smd_6E05,,,,
 10513,Denise E Blackson,not_currently_serving,smd_6E06,,,,
-10514,Cydne Smith Nash,not_currently_serving,smd_7B04,,,,
+10514,Cydne Smith Nash,not_currently_serving,smd_7B04,https://twitter.com/CydneSmithNash,,,
 10515,Patricia Stamper,not_currently_serving,smd_7C04,,,,x
 10516,Stephanie Audain,not_currently_serving,smd_7D05,,,,x
 10517,Michelle Kiah,not_currently_serving,smd_8B05,,,,x
