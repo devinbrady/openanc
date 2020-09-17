@@ -290,15 +290,15 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10290,Mukta Ghorpadey,not_currently_serving,smd_1A07,,,,x
 10291,Victoria Sanchez,not_currently_serving,smd_1B05,,,,x
 10292,"Michael ""Mike"" Singer",not_currently_serving,smd_1B12,,,,x
-10293,Celeste Carano,not_currently_serving,smd_1C02,,,,x
+10293,Celeste Carano,not_currently_serving,smd_1C02,https://twitter.com/celestecarano,,,x
 10294,Elias Benda,not_currently_serving,smd_1C03,https://twitter.com/bendaelias,,,x
 10295,Jennifer Hughes,not_currently_serving,not an active candidate,,,,x
-10296,Peter Wood,not_currently_serving,smd_1C03,https://twitter.com/notPeterWood,,https://www.pdawood.com/,x
-10297,Meghan Faulkner,not_currently_serving,smd_1C04,,,,x
+10296,Peter Wood,not_currently_serving,smd_1C03,https://twitter.com/notPeterWood,https://www.facebook.com/peter.wood.50,https://www.pdawood.com/,x
+10297,Meghan Faulkner,not_currently_serving,smd_1C04,,,https://meghanforanc.com/,x
 10298,Dennis Jaffe,not_currently_serving,not an active candidate,https://twitter.com/dennisjaffe,,,x
 10299,Zack Gold,not_currently_serving,smd_1C05,https://twitter.com/zacycles,https://www.facebook.com/GoldForAdamsMorgan/,,x
-10301,Fiona Clem,not_currently_serving,smd_1C08,https://twitter.com/feejaysee,,,x
-10302,Joel Causey,not_currently_serving,smd_2A02,,,,x
+10301,Fiona Clem,not_currently_serving,smd_1C08,https://twitter.com/feejaysee,,https://fiona1c08.org/,x
+10302,Joel Causey,not_currently_serving,smd_2A02,,,https://causeyanc2a02.org/,x
 10303,John Didiuk,not_currently_serving,not an active candidate,,,,x
 10304,Evelyn Hudson,smd_2A05,smd_2A05,,,,x
 10305,Meg Roggensack,not_currently_serving,smd_2B01,,,,x
@@ -361,7 +361,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10366,Salvador Sauceda-Guzman,not_currently_serving,smd_5D02,,,,
 10367,Sean Barry,not_currently_serving,smd_5D03,https://twitter.com/seanbbarry,https://www.facebook.com/seanbbarrydc/,https://www.seanbarrydc.com/,x
 10368,James Butler,not_currently_serving,smd_5D03,https://twitter.com/jamesbutler4dc,https://www.facebook.com/TheRealJamesButler/,http://www.butlerforanc.com/,x
-10369,Latoya Moore,not_currently_serving,smd_5D03,,,,
+10369,Latoya Moore,not_currently_serving,smd_5D03,https://twitter.com/LatoyaM01766637,,https://www.mooreforanc.com/,x
 10370,Kathy Henderson,not_currently_serving,smd_5D05,,,,
 10371,Zachary Hoffman,not_currently_serving,smd_5D06,https://twitter.com/HoffmanANC5D06,https://www.facebook.com/HoffmanforANC5D/,https://www.hoffmananc5d.com/,x
 10372,Stephen Cobb,not_currently_serving,smd_5D07,https://twitter.com/StephenACobb,,,
@@ -513,7 +513,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10526,Bobby Curtis King II,not_currently_serving,smd_4C02,,,,
 10527,Simone Egwu,not_currently_serving,not an active candidate,,,,
 10528,Kimory KSO Orendoff,not_currently_serving,smd_7D05,,,,x
-10529,Benjamin Hart Butz,not_currently_serving,smd_1C06,,,,
+10529,Benjamin Hart Butz,not_currently_serving,smd_1C06,https://twitter.com/Benjamin_Hart82,,,x
 10530,Zack Brown,not_currently_serving,not an active candidate,,,,
 10531,Amy Nasr,not_currently_serving,not an active candidate,,,,
 10532,Elizabeth Miske,not_currently_serving,smd_2C02,,,,
