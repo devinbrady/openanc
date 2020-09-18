@@ -5,7 +5,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10004,Matthew Goldschmidt,smd_1A04,no candidacy,,,,x
 10005,Christine Miller,smd_1A05,smd_1A05,https://twitter.com/MillerANC1A05,,https://christinemillerdc.com/,x
 10006,Angelica Castañon,smd_1A06,no candidacy,https://twitter.com/angelicachanel,https://www.facebook.com/AngelicaANC1a6/,https://www.angelicaanc1a6.com/,x
-10007,Jen Bundy,not_currently_serving,no candidacy,https://twitter.com/jen_bundy,,,x
+10007,Jen Bundy,not_currently_serving,no candidacy,,,,x
 10008,Kent C. Boese,smd_1A08,smd_1A08,https://twitter.com/kentboesedc,,,x
 10009,Michael Wray,smd_1A09,smd_1A09,https://twitter.com/mwraydc,,,x
 10010,Rashida Brown,smd_1A10,smd_1A10,https://twitter.com/rashidabrowndc,https://www.facebook.com/RashidaBrownForANC1A10/,,x
@@ -33,7 +33,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10032,Robin Sandenburgh,smd_1D02,smd_1D02,,,,x
 10033,Jack McKay,smd_1D03,smd_1D03,https://twitter.com/dc_jack,,http://dcjack.org/,x
 10034,Yasmin Romero-Latin,smd_1D04,no candidacy,https://twitter.com/Yasminkiki,,,
-10035,Chelsea A. Allinger,smd_1D05,smd_1D05,https://twitter.com/allinsea/,https://www.facebook.com/ChelseaANC1D,,x
+10035,Chelsea A. Allinger,smd_1D05,smd_1D05,https://twitter.com/allinsea,https://www.facebook.com/ChelseaANC1D,,x
 10036,Patrick Kennedy,smd_2A01,no candidacy,https://twitter.com/PLKDC,,,
 10037,Nicole Goldin,smd_2A02,not an active candidate,https://twitter.com/nicolegoldin,,http://www.nicolegoldin.com/,x
 10038,"Trupti ""Trip"" J. Patel",smd_2A03,smd_2A03,https://twitter.com/TruptiANC2A03,,https://truptijpatel.com/,x
@@ -391,7 +391,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10398,"Nate Brown ""MW6""",not_currently_serving,smd_6E07,,,,
 10399,Chioma J. Iwuoha,not_currently_serving,smd_7B01,https://twitter.com/Chioma7B01,,,
 10400,Donna Robinson,not_currently_serving,smd_7B05,,,,
-10401,Tony Dugger,not_currently_serving,smd_7B06,https://twitter.com/CFMBDUGGER/,,,x
+10401,Tony Dugger,not_currently_serving,smd_7B06,https://twitter.com/CFMBDUGGER,,,x
 10402,Andrew Carlyle Haynesworth,not_currently_serving,smd_7B06,,,,
 10403,Mandla Deskins,not_currently_serving,smd_7C02,https://twitter.com/MandlaTDeskins,,https://www.mandla4anc.com/,x
 10404,Yolanda Fields,not_currently_serving,smd_7C02,,,,x
@@ -468,7 +468,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10479,Alexander Armstrong,not_currently_serving,not an active candidate,https://twitter.com/AlexJArmstrong,,,x
 10480,Paul Johnson,not_currently_serving,smd_4C07,,,,
 10481,Clara Haskell Botstein,not_currently_serving,smd_4C08,,,,
-10482,Zachary Israel,not_currently_serving,smd_4D04,https://twitter.com/Zachary_Israel,,,
+10482,Zachary Israel,not_currently_serving,smd_4D04,https://twitter.com/Zachfor4D04,,,
 10483,Michael Lussier,not_currently_serving,smd_5D06,,,,
 10484,Rico Dancy,not_currently_serving,smd_6A07,https://twitter.com/deafPolitics216,https://www.facebook.com/Rico-dancy-for-the-people-108304324342562,,
 10485,Jordan Hibbs,not_currently_serving,smd_6E04,https://twitter.com/VoteJordanHibbs,,,
