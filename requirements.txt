@@ -16,6 +16,8 @@ entrypoints==0.3
 Fiona==1.8.13.post1
 fuzzywuzzy==0.18.0
 geopandas==0.8.1
+gitdb==4.0.5
+GitPython==3.1.7
 google-api-core==1.21.0
 google-api-python-client==1.10.0
 google-auth==1.19.1
@@ -64,6 +66,7 @@ Pygments==2.6.1
 pyparsing==2.4.7
 pyproj==2.6.1.post1
 pyrsistent==0.16.0
+PySocks==1.7.1
 python-dateutil==2.8.1
 python-Levenshtein==0.12.0
 python-polylabel==0.6
@@ -80,12 +83,14 @@ seaborn==0.10.1
 Send2Trash==1.5.0
 Shapely==1.7.0
 six==1.15.0
+smmap==3.0.4
 soupsieve==2.0.1
 terminado==0.8.3
 testpath==0.4.4
 tornado==6.0.4
 tqdm==4.48.0
 traitlets==4.3.3
+tweepy==3.9.0
 uritemplate==3.0.1
 urllib3==1.25.9
 wcwidth==0.2.5
