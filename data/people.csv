@@ -10,7 +10,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10009,Michael Wray,smd_1A09,smd_1A09,https://twitter.com/mwraydc,,,x
 10010,Rashida Brown,smd_1A10,smd_1A10,https://twitter.com/rashidabrowndc,https://www.facebook.com/RashidaBrownForANC1A10/,,x
 10011,Dotti Love Wade,smd_1A11,smd_1A11,,,,x
-10012,Jason Clock,smd_1A12,z not an active candidate,https://twitter.com/jasonclock,,,x
+10012,Jason Clock,smd_1A12,smd_1A12,https://twitter.com/jasonclock,,,x
 10013,Anita Norman,smd_1B01,z no candidacy,https://twitter.com/anc1b01,,,x
 10014,Dan Orlaskey,smd_1B02,smd_1B02,https://twitter.com/danielorlaskey,,https://www.facebook.com/dan4anc/,x
 10015,Sedrick Muhammad,smd_1B03,z no candidacy,,,,
@@ -294,7 +294,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10294,Elias Benda,not_currently_serving,smd_1C03,https://twitter.com/bendaelias,,,x
 10295,Jennifer Hughes,not_currently_serving,z not an active candidate,,,,x
 10296,Peter Wood,not_currently_serving,smd_1C03,https://twitter.com/notPeterWood,https://www.facebook.com/peter.wood.50,https://www.pdawood.com/,x
-10297,Meghan Faulkner,not_currently_serving,smd_1C04,,,https://meghanforanc.com/,x
+10297,Meghan Faulkner,not_currently_serving,smd_1C04,,,https://meghanforanc.com,x
 10298,Dennis Jaffe,not_currently_serving,z not an active candidate,https://twitter.com/dennisjaffe,,,x
 10299,Zack Gold,not_currently_serving,smd_1C05,https://twitter.com/zacycles,https://www.facebook.com/GoldForAdamsMorgan/,,x
 10301,Fiona Clem,not_currently_serving,smd_1C08,https://twitter.com/feejaysee,,https://fiona1c08.org/,x
@@ -371,7 +371,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10376,Keya Chatterjee,not_currently_serving,smd_6A01,https://twitter.com/keya_chatterjee,,https://www.keyachatterjeeforanc6a01.com/,x
 10378,Ali Gardezi,not_currently_serving,smd_6A04,,https://www.facebook.com/TeamAli2020/,https://www.aligardezi2020.com/,x
 10379,"H.J. Amons, Sr.",not_currently_serving,smd_6A06,,,,x
-10380,Robb Dooling,not_currently_serving,smd_6A06,https://twitter.com/Robb4DC,https://www.facebook.com/Robb4DC,https://robbdooling.com/,x
+10380,Robb Dooling,not_currently_serving,smd_6A06,https://twitter.com/Robb4DC,https://www.facebook.com/Robb4DC,https://www.robbdooling.com/,x
 10381,Kate Robinson,not_currently_serving,smd_6A06,https://twitter.com/KateforANC,https://www.facebook.com/KateforANC,https://katetrobinson.com/,x
 10382,Daniel M. Lee,not_currently_serving,smd_6A07,,,,x
 10383,Gerardo Mijares,not_currently_serving,smd_6B03,,,,x
@@ -584,4 +584,4 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10601,Matthew O'Donnell,not_currently_serving,smd_2E06,,,,x
 10602,Charles T. Lockett,not_currently_serving,smd_5A02,,,,x
 10603,Andrew Bossi,not_currently_serving,smd_6D01,https://twitter.com/thisisbossi,,,x
-10604,Yannik Omictin,not_currently_serving,smd_2A01,https://twitter.com/Yannikfor2A01,,,x
+10604,Yannik Omictin,not_currently_serving,smd_2A01,https://twitter.com/Yannikfor2A01,https://www.facebook.com/Yannik-Omictin-for-ANC-2A01-104492221403072,,x
