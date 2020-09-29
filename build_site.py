@@ -40,3 +40,6 @@ if args.build_ancs:
 if args.build_districts:
     bd = BuildDistricts()
     bd.run()
+
+if not any([args.refresh_data, args.build_index, args.build_wards, args.build_ancs, args.build_districts]):
+    print('No arguments provided to build_site script, exiting.')

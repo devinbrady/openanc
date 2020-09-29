@@ -10,6 +10,7 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50036,10304,f8801298628778554338480834d1240d47fff0f24b04bd19477f773f,smd_2A05,Evelyn Hudson,Write-In,OpenANC Form,,,2020-09-02,Not on DCBOE List,Write-In,True,OpenANC Form,,False,,,,,,2020-09-02
 50046,10047,46e59d1554ea29082c4e3df8baca95dafbef00d75fd2787e81af7e1b,smd_2B05,Randy D. Downs,Withdrew,DCBOE,,https://www.dcboe.org/Candidates/2020-Candidates,2020-07-24,Not on DCBOE List,Withdrew,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,False,,,,,,2020-07-24
 50059,10319,fcba9c37c988d5e2d77e69c557bb4533c8ed2f565efce0789d86f1c5,smd_2F05,Peyton Jane Gibson,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
+50071,10323,2c90ebc206579e301515724f6a94f2d84e073e656bef6b8dffba6a99,smd_3C05,Meena Aladdin,,,,,,On Ballot,On Ballot,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,True,2020-06-29,2020-08-05,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,2020-09-22,2020-09-22
 50074,10326,c665d2b358d370327fdb40455808e1d87c99fb44e3afc8bf1daae904,smd_3C06,Kamolika Das,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50078,10087,4e02ad309aa3aeaffd9c85a5d938f0ad64d7e89591c68e0f41c9bb54,smd_3D02,Troy Kravitz,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50084,10093,eadeb940fa403ae756aa08db5850d4aee5da070a92035665204b4312,smd_3D08,Christine Warnke,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
@@ -40,6 +41,7 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50265,10436,41580b13d84d383b568f44e5009400f3c147c3e9bfa67f73d34d2c6f,smd_8D05,Shanquella 'Goldie' Ross,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50267,10437,7f12763c83cc511758fe50fbf8538d0609dd93d975fdc96fdf167dba,smd_8E01,Rufaro Jenkins,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50271,10440,e870ff32c6234a58f3dcacc3a3fed77867abb2296f841f2b48e145bf,smd_8E04,Richard Martin Campbell,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
+50283,10446,d30c739db11d22c11cf05dd2946c5c011603bdc3c6851282ff2dfeca,smd_4C04,Jeremy Foster,,,,,,On Ballot,On Ballot,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,True,2020-07-17,2020-08-05,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,2020-09-22,2020-09-22
 50289,10450,0fa69c9bbd8d67109d5e3db63b8a9303a3a2c6f46687a08b7ea957ab,smd_6C06,Cindy Drabek,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50291,10451,4081b89ed701721bbe9b12c2a0178e62cf1fe81727543e3ec679ed6c,smd_6E05,Katherine Kortum,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50294,10454,adc258f268a231b8d3a7de61756463a0005213a1a3777d00a9ff2fe6,smd_8A06,Greta Fuller,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
@@ -76,7 +78,7 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50477,10589,cc1e21db218a090257de7d90682bdfa55fd8678fcd9a9a04709dbfde,smd_1B05,Lucas McCabe,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50478,10590,b00b52f342c6abaae7ae7b86914cfed6e9ccf009da0766c7155f6dbe,smd_2A07,Adam Friend,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50479,10591,8468fcb269d12af5c486e1fc51feb2b555b22199048f90b774edac7a,smd_2B03,Sarah Mehrotra,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50480,10592,ee1dd94b32a2357f2944b778e7e0950ff5c4248ad0c43c5679be3961,smd_2B06,Cameron Powell,,,,,,On Ballot,On Ballot,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,True,2020-08-05,2020-08-05,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,2020-09-11,2020-09-11
+50480,10592,ee1dd94b32a2357f2944b778e7e0950ff5c4248ad0c43c5679be3961,smd_2B06,Cameron Powell,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50486,10596,5cc022a8b9e62ce65b4f15b5e4627671cbb5445fe015542588e68fa9,smd_6D02,"Paul Biedlingmaier, III",,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50487,10216,7849da419ac935d1a0b7cd974f8257bb38a6c265adfff36ab42cf5f1,smd_6E06,Alvin Judd Sr.,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
 50489,10234,8df6a6cff40e30aafbff0fe2df79dcbd81f3473afdf6e2b8dcb3f0d7,smd_7D04,Cinque E. Culver,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
