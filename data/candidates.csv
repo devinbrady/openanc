@@ -483,3 +483,4 @@ candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_
 50494,10602,66ecf1df8d01abafac41d5275a67ef61b5b1f7dc0260d2dea160d654,smd_5A02,Charles T. Lockett,,,,,,On Ballot,On Ballot,TRUE,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,TRUE,2020-08-05,2020-08-05,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,2020-09-29,2020-09-29
 50495,10603,,smd_6D01,Andrew Bossi,Write-In,OpenANC Form,,,2020-08-11,Not on DCBOE List,Write-In,TRUE,OpenANC Form,,FALSE,,,,,,2020-08-11
 50496,10604,,smd_2A01,Yannik Omictin,Write-In,OpenANC Form,,,2020-09-02,Not on DCBOE List,Write-In,TRUE,OpenANC Form,,FALSE,,,,,,2020-09-02
+50497,10605,,smd_6B07,Edward Ryder,Write-In,OpenANC Form,,https://thehillishome.com/2020/10/anc-candidate-statements-edward-ryder-anc-6b07/,2020-10-01,Not on DCBOE List,Write-In,TRUE,OpenANC Form,https://thehillishome.com/2020/10/anc-candidate-statements-edward-ryder-anc-6b07/,FALSE,,,,,,2020-10-01
