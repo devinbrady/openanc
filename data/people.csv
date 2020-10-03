@@ -570,7 +570,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10587,Sharon Jafari,not_currently_serving,smd_7E05,,,,x
 10588,Terri L. Acker,not_currently_serving,smd_8A07,,,,x
 10589,Lucas McCabe,not_currently_serving,z not an active candidate,,,,
-10590,Adam Friend,not_currently_serving,z not an active candidate,,,,
+10590,Adam Friend,not_currently_serving,smd_2A07,,,,
 10591,Sarah Mehrotra,not_currently_serving,z not an active candidate,,,,
 10592,Cameron Powell,not_currently_serving,z not an active candidate,,,,x
 10593,Michael Zeldin,not_currently_serving,smd_3G04,,https://www.facebook.com/Michael-Zeldin-for-Chevy-Chase-Advisory-Neighborhood-Commissioner-107572637732194,https://michaelzeldin.com/,x
@@ -586,3 +586,4 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10603,Andrew Bossi,not_currently_serving,smd_6D01,https://twitter.com/thisisbossi,,,x
 10604,Yannik Omictin,not_currently_serving,smd_2A01,https://twitter.com/Yannikfor2A01,https://www.facebook.com/Yannik-Omictin-for-ANC-2A01-104492221403072,,x
 10605,Edward Ryder,not_currently_serving,smd_6B07,https://twitter.com/EdwardRyder,,,x
+10606,Donna Barbisch,not_currently_serving,smd_2A04,,,,
