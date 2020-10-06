@@ -22,6 +22,7 @@ full_name,Name
 is_chair,
 landmarks,Landmarks
 last_name,
+manual_source_link,Candidate Announcement Link
 map_color_id,
 middle_name,
 neighbor_smds,

@@ -109,6 +109,7 @@ class BuildDistricts():
                             , 'candidate_announced_date'
                             , 'candidate_source'
                             , 'candidate_source_description'
+                            , 'manual_source_link'
                             , 'website_link'
                             , 'twitter_link'
                             , 'facebook_link'
