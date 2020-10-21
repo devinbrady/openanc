@@ -109,13 +109,13 @@ margin-left:25%;
     <input id='REPLACE_WITH_SMD_SLUG' type='radio' name='rtoggle' value='streets'>
     <label for='REPLACE_WITH_SMD_SLUG'>All Districts</label>
     <br/>
-    <input id='REPLACE_WITH_NO_CANDIDATE_SLUG' type='radio' name='rtoggle' value='light' checked='checked'>
+    <input id='REPLACE_WITH_NO_CANDIDATE_SLUG' type='radio' name='rtoggle' value='light'>
     <label for='REPLACE_WITH_NO_CANDIDATE_SLUG'>No Candidates</label>
     <br/>
     <input id='REPLACE_WITH_UNCONTESTED_SLUG' type='radio' name='rtoggle' value='light'>
     <label for='REPLACE_WITH_UNCONTESTED_SLUG'>Uncontested</label>
     <br/>
-    <input id='REPLACE_WITH_CONTESTED_SLUG' type='radio' name='rtoggle' value='light'>
+    <input id='REPLACE_WITH_CONTESTED_SLUG' type='radio' name='rtoggle' value='light' checked='checked'>
     <label for='REPLACE_WITH_CONTESTED_SLUG'>Contested</label>
 </div>
 
@@ -142,7 +142,7 @@ var inputs = layerList.getElementsByTagName('input');
 
 
  // Set the initial mapbox style to be used
-var which_layer = 'mapbox://styles/devinbrady/REPLACE_WITH_NO_CANDIDATE_SLUG'
+var which_layer = 'mapbox://styles/devinbrady/REPLACE_WITH_CONTESTED_SLUG'
 
 // Create a function that pulls in data from the toggle menu selections and updates the style being used
 function switchLayer(layer) {
