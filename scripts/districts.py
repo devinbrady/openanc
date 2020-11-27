@@ -166,7 +166,7 @@ class BuildDistricts():
         cp = pd.merge(commissioners, people, how='inner', on='person_id')
 
         former_comms = cp[(cp['commissioner_status'] == 'former') & (cp['smd_id'] == smd_id)].copy()
-        former_comms.sort_values(by='term_start_date', inplace=True)
+        former_comms.sort_values(by='start_date', inplace=True)
 
         fc_html = ''
 
@@ -187,8 +187,8 @@ class BuildDistricts():
 
                 fields_to_try = [
                     'full_name'
-                    , 'term_start_date'
-                    , 'term_end_date'
+                    , 'start_date'
+                    , 'end_date'
                     ]
 
                 fc_html += build_data_table(row, fields_to_try)
