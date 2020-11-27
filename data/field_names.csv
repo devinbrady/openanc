@@ -15,6 +15,7 @@ current_smd_id,
 dc_oanc_link,DC Office of ANCs Link
 dcboe_hash_id,
 description,Description
+end_date,End Date
 facebook_link,Facebook
 filed_date,Filed Date
 first_name,
@@ -31,10 +32,11 @@ person_id,
 pickup_date,Pickup Date
 running_for_smd_id,
 smd_id,
+start_date,Start Date
 suffix,
-term_end_date,End Date
-term_start_date,Start Date
 twitter_link,Twitter
 updated_at,Last Updated
+vote_share,Vote Share
+votes,Votes
 ward,
 website_link,Website

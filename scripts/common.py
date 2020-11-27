@@ -116,6 +116,66 @@ def build_smd_html_table(list_of_smds, link_path=''):
     """
     Return an HTML table with one row per district for a given list of SMDs
 
+    Contains current commissioner and all candidates with number of votes
+    """
+
+    districts = pd.read_csv('data/districts.csv')
+    commissioners = current_commissioners()
+    people = pd.read_csv('data/people.csv')
+    candidates = pd.read_csv('data/candidates.csv')
+    results = pd.read_csv('data/results.csv')
+
+    dc = pd.merge(districts, commissioners, how='left', on='smd_id')
+    dcp = pd.merge(dc, people, how='left', on='person_id')
+    dcp['Current Commissioner'] = dcp['full_name'].fillna('(vacant)')
+
+    cp = pd.merge(candidates, people, how='inner', on='person_id')
+    cpd = pd.merge(cp, districts, how='inner', on='smd_id')
+
+    results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
+    rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
+    rcp['full_name'] = rcp['full_name'].fillna('Write-in candidates')
+    rcp['Candidates and Results'] = rcp.apply(lambda row: '{} ({:,.0f} votes)'.format(row['full_name'], row['votes']), axis=1)
+    rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
+    district_results = rcp.groupby('smd_id').agg({'Candidates and Results': lambda x: ', '.join(x)})
+
+    dcp_results = pd.merge(dcp, district_results, how='left', on='smd_id')
+    dcp_results.to_clipboard()
+
+    
+
+    display_df = dcp_results[dcp_results['smd_id'].isin(list_of_smds)].copy()
+
+
+    display_df['SMD'] = (
+        f'<a href="{link_path}' + display_df['smd_id'].str.replace('smd_','').str.lower() + '.html">' 
+        + display_df['smd_id'].str.replace('smd_','') + '</a>'
+        )
+
+
+    columns_to_html = ['SMD', 'Current Commissioner', 'Candidates and Results']
+
+    html = (
+        display_df[columns_to_html]
+        .fillna('')
+        .style
+        .set_properties(
+            subset=['Candidates and Results']
+            , **{'text-align': 'left'}
+            )
+        .set_uuid('smd_')
+        .hide_index()
+        .render()
+        )
+
+    return html
+
+
+
+def build_smd_html_table_candidates(list_of_smds, link_path=''):
+    """
+    Return an HTML table with one row per district for a given list of SMDs
+
     Contains current commissioner and all candidates by status
     """
 

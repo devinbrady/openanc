@@ -56,6 +56,80 @@ class BuildDistricts():
         return commissioner_table
 
 
+    def row_style(self, row):
+        if row.full_name == 'Total':
+            return pd.Series('background-color: red', row.index)
+        else:
+            return pd.Series('', row.index)
+
+
+    def add_results(self, smd_id):
+        """
+        Add block of information about the results of the election
+        """
+
+        people = pd.read_csv('data/people.csv')
+        candidates = pd.read_csv('data/candidates.csv')
+        results = pd.read_csv('data/results.csv')
+        field_names = pd.read_csv('data/field_names.csv')
+
+        results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
+        rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
+
+        # Placeholder name when we don't know the name of the write-in candidates
+        rcp['full_name'] = rcp['full_name'].fillna('Write-in candidates')
+
+        # Show the candidate with the most votes first
+        smd_results = rcp[rcp['smd_id'] == smd_id].sort_values(by='votes', ascending=False).copy()
+
+        num_candidates = len(smd_results)
+
+        results_block = '<h2>2020 Election Results</h2>'
+
+        if num_candidates == 0:
+            results_block += '<p>No known candidates.</p>'
+
+        else:
+
+            # Add total row
+            smd_results.loc[9999, 'full_name'] = 'Total'
+            smd_results.loc[9999, 'votes'] = smd_results.votes.sum()
+            smd_results.loc[9999, 'vote_share'] = '100.00%'
+
+            fields_to_try = [
+                'full_name'
+                , 'votes'
+                , 'vote_share'
+            ]
+
+            fields_to_html = []
+            for field_name in fields_to_try:
+                display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
+                smd_results[display_name] = smd_results[field_name]
+                fields_to_html += [display_name]
+
+            results_block += (
+                smd_results[fields_to_html]
+                .fillna('')
+                .style
+                .set_properties(**{'text-align': 'right'})
+                .set_properties(
+                    subset=['Name']
+                    , **{'text-align': 'left'}
+                    )
+                .apply(
+                    lambda x: ['font-weight: bold' if x.Name == 'Total' else '' for i in x]
+                    , axis=1
+                    )
+                .format({'Votes': '{:,.0f}'})
+                .set_uuid('results_')
+                .hide_index()
+                .render()
+                )
+
+        return results_block
+
+
 
     def add_candidates(self, smd_id):
         """
@@ -78,7 +152,7 @@ class BuildDistricts():
         
         num_candidates = len(smd_candidates)
 
-        candidate_block = '<h2>Active Candidates</h2>'
+        candidate_block = '<h2>2020 Candidates</h2>'
 
         if num_candidates == 0:
             candidate_block += '<p>No known candidates.</p>'
@@ -262,7 +336,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_4D05':
+            # if smd_id != 'smd_2B09':
             #     continue
 
             with open('templates/district.html', 'r') as f:
@@ -274,7 +348,7 @@ class BuildDistricts():
             output = add_geojson(self.smd_shape, 'smd_id', smd_id, output)
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
-            output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+            output = output.replace('<!-- replace with candidate table -->', self.add_results(smd_id))
             output = output.replace('<!-- replace with former commissioner table -->', self.add_former_commissioners(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
