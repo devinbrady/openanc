@@ -108,7 +108,16 @@ def current_commissioners():
     """
 
     commissioners = pd.read_csv('data/commissioners.csv')
-    return commissioners[commissioners['commissioner_status'] == 'current'].copy()
+
+    tz = pytz.timezone('America/New_York')
+    dc_now = datetime.now(tz)
+
+    commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz='America/New_York')
+    commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz='America/New_York')
+
+    commissioners['is_current'] = (commissioners.start_date < dc_now) & (dc_now < commissioners.end_date)
+
+    return commissioners[commissioners['is_current']].copy()
 
 
 
