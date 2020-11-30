@@ -1,0 +1,63 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h2,
+h3 {
+    margin: 10px;
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+p {
+    font-size: 0.85em;
+    margin: 10px;
+    text-align: left;
+}
+
+/**
+* Create a position for the map
+* on the page */
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+.map-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
+    margin-right: 20px;
+    font-family: 'Work Sans', sans-serif;
+    overflow: auto;
+    border-radius: 3px;
+}
+
+/*Set the style of the layer toggle*/
+#menu {
+    position: absolute;
+    background: #fff;
+    padding: 10px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+
+#features {
+    top: 5;
+    height: 140px;
+    margin-top: 20px;
+    width: 250px;
+
+}
