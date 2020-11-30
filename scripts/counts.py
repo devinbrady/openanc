@@ -3,7 +3,7 @@
 import imgkit
 import pandas as pd
 from scripts.refresh_data import RefreshData
-from scripts.common import current_commissioners
+from scripts.common import list_commissioners
 
 
 class Counts():
@@ -16,7 +16,7 @@ class Counts():
         """
 
         districts = pd.read_csv('data/districts.csv')
-        commissioners = current_commissioners()
+        commissioners = list_commissioners(status='current')
 
         df = pd.DataFrame(index=[0])
         df['Single Member Districts'] = len(districts)

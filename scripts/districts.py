@@ -13,11 +13,12 @@ from datetime import datetime
 from scripts.common import (
     build_district_list
     , build_data_table
+    , build_link_block
     , add_footer
     , edit_form_link
     , add_google_analytics
     , add_geojson
-    , current_commissioners
+    , list_commissioners
     )
 
 
@@ -29,6 +30,9 @@ class BuildDistricts():
         # Load GeoJSON for all SMDs to memory
         self.smd_shape = gpd.read_file('maps/smd.geojson')
 
+        self.commissioners_current = list_commissioners(status='current')
+        self.commissioners_future = list_commissioners(status='future')
+
 
 
     def build_commissioner_table(self, smd_id):
@@ -39,9 +43,8 @@ class BuildDistricts():
         smd_display = smd_id.replace('smd_','')
         
         people = pd.read_csv('data/people.csv')
-        commissioners = current_commissioners()
 
-        people_commissioners = pd.merge(people, commissioners, how='inner', on='person_id')
+        people_commissioners = pd.merge(people, self.commissioners_current, how='inner', on='person_id')
         
         current_commissioner = people_commissioners[people_commissioners['smd_id'] == smd_id].squeeze()
         
@@ -50,17 +53,16 @@ class BuildDistricts():
 
         else:
 
-            fields_to_try = ['full_name', 'commissioner_email']
+            current_commissioner['link_block'] = build_link_block(
+                current_commissioner
+                , fields_to_try=['website_link', 'twitter_link', 'facebook_link']
+                )
+
+            fields_to_try = ['full_name', 'commissioner_email', 'link_block']
             commissioner_table = build_data_table(current_commissioner, fields_to_try)
         
         return commissioner_table
 
-
-    def row_style(self, row):
-        if row.full_name == 'Total':
-            return pd.Series('background-color: red', row.index)
-        else:
-            return pd.Series('', row.index)
 
 
     def add_results(self, smd_id):
@@ -92,15 +94,21 @@ class BuildDistricts():
         else:
 
             # Add total row
-            smd_results.loc[9999, 'full_name'] = 'Total'
+            smd_results.loc[9999, 'full_name'] = 'Total Votes'
             smd_results.loc[9999, 'votes'] = smd_results.votes.sum()
             smd_results.loc[9999, 'vote_share'] = '100.00%'
 
             fields_to_try = [
                 'full_name'
                 , 'votes'
+                , 'margin_of_victory'
                 , 'vote_share'
+                , 'margin_of_victory_percentage'
             ]
+
+            smd_results['margin_of_victory'] = smd_results['margin_of_victory'].apply(lambda x: '' if pd.isnull(x) else '+{:,.0f}'.format(x))
+            smd_results['margin_of_victory_percentage'] = smd_results['margin_of_victory_percentage'].apply(lambda x: '' if pd.isnull(x) else '+' + x )
+            smd_results['votes'] = smd_results['votes'].apply(lambda x: '{:,.0f}'.format(x)).fillna('')
 
             fields_to_html = []
             for field_name in fields_to_try:
@@ -118,10 +126,9 @@ class BuildDistricts():
                     , **{'text-align': 'left'}
                     )
                 .apply(
-                    lambda x: ['font-weight: bold' if x.Name == 'Total' else '' for i in x]
+                    lambda x: ['font-weight: bold' if x.Name == 'Total Votes' else '' for i in x]
                     , axis=1
                     )
-                .format({'Votes': '{:,.0f}'})
                 .set_uuid('results_')
                 .hide_index()
                 .render()
@@ -336,7 +343,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_2B09':
+            # if smd_id != 'smd_1C03':
             #     continue
 
             with open('templates/district.html', 'r') as f:

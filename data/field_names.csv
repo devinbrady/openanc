@@ -1,5 +1,5 @@
 field_name,display_name
-anc_homepage_link,ANC Homepage Link
+anc_homepage_link,ANC Homepage
 anc_id,
 candidate_id,
 candidate_name,
@@ -9,10 +9,10 @@ candidate_source_link,Candidate Source Link
 candidate_status,Candidate Status
 centroid_lat,
 centroid_lon,
-commissioner_email,Commissioner Email
+commissioner_email,Email
 commissioner_name,
 current_smd_id,
-dc_oanc_link,DC Office of ANCs Link
+dc_oanc_link,DC Office of ANCs
 dcboe_hash_id,
 description,Description
 end_date,End Date
@@ -23,8 +23,11 @@ full_name,Name
 is_chair,
 landmarks,Landmarks
 last_name,
+link_block,Links
 manual_source_link,Candidate Announcement Link
 map_color_id,
+margin_of_victory,Vote Margin
+margin_of_victory_percentage,Percentage Margin
 middle_name,
 neighbor_smds,
 notes,Notes
@@ -36,7 +39,7 @@ start_date,Start Date
 suffix,
 twitter_link,Twitter
 updated_at,Last Updated
-vote_share,Vote Share
+vote_share,Percentage
 votes,Votes
 ward,
 website_link,Website

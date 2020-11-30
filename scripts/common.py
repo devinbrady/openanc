@@ -102,9 +102,14 @@ def anc_names(anc_id):
 
 
 
-def current_commissioners():
+def list_commissioners(status='current'):
     """
-    Return dataframe with only current commissioners (exclude former)
+    Return dataframe with list of commissioners by status
+
+    Options:
+    status='former'
+    status='current' - default
+    status='future'
     """
 
     commissioners = pd.read_csv('data/commissioners.csv')
@@ -115,9 +120,11 @@ def current_commissioners():
     commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz='America/New_York')
     commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz='America/New_York')
 
+    commissioners['is_former'] = commissioners.end_date < dc_now
     commissioners['is_current'] = (commissioners.start_date < dc_now) & (dc_now < commissioners.end_date)
+    commissioners['is_future'] = dc_now < commissioners.start_date
 
-    return commissioners[commissioners['is_current']].copy()
+    return commissioners[commissioners['is_' + status]].copy()
 
 
 
@@ -129,7 +136,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
     """
 
     districts = pd.read_csv('data/districts.csv')
-    commissioners = current_commissioners()
+    commissioners = list_commissioners(status='current')
     people = pd.read_csv('data/people.csv')
     candidates = pd.read_csv('data/candidates.csv')
     results = pd.read_csv('data/results.csv')
@@ -189,7 +196,7 @@ def build_smd_html_table_candidates(list_of_smds, link_path=''):
     """
 
     districts = pd.read_csv('data/districts.csv')
-    commissioners = current_commissioners()
+    commissioners = list_commissioners(status='current')
     people = pd.read_csv('data/people.csv')
     candidates = pd.read_csv('data/candidates.csv')
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
@@ -272,7 +279,7 @@ def build_district_list(smd_id_list=None, level=0):
     """
 
     districts = pd.read_csv('data/districts.csv')
-    commissioners = current_commissioners()
+    commissioners = list_commissioners(status='current')
     people = pd.read_csv('data/people.csv')
 
     dc = pd.merge(districts, commissioners, how='left', on='smd_id')
@@ -338,7 +345,7 @@ def build_data_table(row, fields_to_try):
 
                 field_value = row[field_name]
 
-                if pd.notna(field_value):
+                if pd.notna(field_value) and len(field_value) > 0:
 
                     display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
                     if pd.isnull(display_name):
@@ -370,6 +377,30 @@ def build_data_table(row, fields_to_try):
             output_table = ''
         
         return output_table
+
+
+
+def build_link_block(row, fields_to_try):
+    """
+    Create HTML links in one block, intended to be one field within build_data_table()
+    """
+
+    field_names = pd.read_csv('data/field_names.csv')
+
+    link_block = ''
+
+    for field_name in fields_to_try:
+
+        if pd.notnull(row[field_name]):
+
+            if len(link_block) > 0:
+                link_block += ' | '
+
+            display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
+            link_block += '<a href="{}">{}</a>'.format(row[field_name], display_name)
+
+
+    return link_block
 
 
 

@@ -14,7 +14,7 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 from scripts.common import (
-    current_commissioners
+    list_commissioners
     )
 
 
@@ -126,7 +126,7 @@ class RefreshData():
 
         districts = pd.read_csv('data/districts.csv')
         candidates = pd.read_csv('data/candidates.csv')
-        commissioners = current_commissioners()
+        commissioners = list_commissioners(status='current')
         people = pd.read_csv('data/people.csv')
         candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 

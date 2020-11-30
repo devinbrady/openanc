@@ -12,6 +12,7 @@ from scripts.common import (
     build_smd_html_table
     , anc_names
     , build_data_table
+    , build_link_block
     , add_footer
     , calculate_zoom
     , add_google_analytics
@@ -34,6 +35,7 @@ class BuildANCs():
         ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
 
+        ancs['link_block'] = ancs.apply(lambda row: build_link_block(row, fields_to_try=['dc_oanc_link', 'anc_homepage_link', 'twitter_link']), axis=1)
         
         for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs '):
 
@@ -55,7 +57,7 @@ class BuildANCs():
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
             output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_path='districts/'))
 
-            fields_to_try = ['notes', 'dc_oanc_link', 'anc_homepage_link', 'twitter_link']
+            fields_to_try = ['notes', 'link_block']
             output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try))
 
             
