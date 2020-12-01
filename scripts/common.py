@@ -213,14 +213,27 @@ def build_smd_html_table(list_of_smds, link_path=''):
 
     results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
     rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
-    rcp['full_name'] = rcp['full_name'].fillna('Write-in candidates')
-    rcp['Candidates and Results'] = rcp.apply(lambda row: '{} ({:,.0f} votes)'.format(row['full_name'], row['votes']), axis=1)
+    
+    # Sort by SMD ascenting, Votes descending
     rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
+    
+    rcp['full_name'] = rcp['full_name'].fillna('Write-in candidates')
+    
+    # Bold the winners in this text field
+    results_field = 'Candidates and Results (Winner in Bold)'
+    rcp[results_field] = rcp.apply(
+        lambda row:
+            '<strong>{} ({:,.0f} votes)</strong>'.format(row['full_name'], row['votes'])
+            if row['winner']
+            else '{} ({:,.0f} votes)'.format(row['full_name'], row['votes'])
+        , axis=1
+        )
+    
 
     # Aggregate results by SMD
     district_results = rcp.groupby('smd_id').agg({
         'votes': sum
-        , 'Candidates and Results': lambda x: ', '.join(x)}
+        , results_field: lambda x: ', '.join(x)}
         )
 
     district_results['Total Votes'] = district_results['votes']
@@ -236,14 +249,14 @@ def build_smd_html_table(list_of_smds, link_path=''):
         )
 
 
-    columns_to_html = ['SMD', 'Current Commissioner', 'Total Votes', 'Candidates and Results']
+    columns_to_html = ['SMD', 'Current Commissioner', 'Total Votes', results_field]
 
     html = (
         display_df[columns_to_html]
         .fillna('')
         .style
         .set_properties(
-            subset=['Candidates and Results']
+            subset=[results_field]
             , **{'text-align': 'left'}
             )
         .set_properties(
