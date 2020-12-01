@@ -292,7 +292,7 @@ class BuildDistricts():
 
         district_row = districts[districts['smd_id'] == smd_id].squeeze().dropna()
 
-        fields_to_try = ['description', 'landmarks', 'notes']
+        fields_to_try = ['landmarks', 'notes']
 
         district_table = build_data_table(district_row, fields_to_try)
 
