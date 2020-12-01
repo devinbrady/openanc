@@ -20,6 +20,7 @@ from scripts.common import (
     , add_google_analytics
     , add_geojson
     , list_commissioners
+    , assemble_divo
     )
 
 
@@ -166,6 +167,15 @@ class BuildDistricts():
                 .hide_index()
                 .render()
                 )
+
+        # Add comparison of votes in this SMD to others
+        results_block += '<h3>SMD Vote Ranking</h3>'
+
+        divo, _ = assemble_divo()
+        divo_smd = divo[divo['smd_id'] == smd_id].squeeze()
+        
+        fields_to_try = ['string_dc', 'string_ward', 'string_anc']
+        results_block += build_data_table(divo_smd, fields_to_try)
 
         return results_block
 

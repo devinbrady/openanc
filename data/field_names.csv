@@ -36,6 +36,9 @@ pickup_date,Pickup Date
 running_for_smd_id,
 smd_id,
 start_date,Start Date
+string_anc,ANC Ranking
+string_dc,DC-wide Ranking
+string_ward,Ward Ranking
 suffix,
 twitter_link,Twitter
 updated_at,Last Updated

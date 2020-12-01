@@ -102,6 +102,55 @@ def anc_names(anc_id):
 
 
 
+def assemble_divo():
+    """
+    Return DataFrame with one row per SMD and various stats about each SMD's ranking
+
+    divo = district-votes
+    """
+
+    results = pd.read_csv('data/results.csv')
+    districts = pd.read_csv('data/districts.csv')
+
+    votes_per_smd = pd.DataFrame(results.groupby('smd_id').votes.sum()).reset_index()
+
+    # Calculate number of SMDs in each Ward and ANC
+    smds_per_ward = pd.DataFrame(districts.groupby('ward').size(), columns=['smds_in_ward']).reset_index()
+    smds_per_anc = pd.DataFrame(districts.groupby('anc_id').size(), columns=['smds_in_anc']).reset_index()
+
+    divo = pd.merge(districts, votes_per_smd, how='inner', on='smd_id')
+    divo = pd.merge(divo, smds_per_ward, how='inner', on='ward')
+    divo = pd.merge(divo, smds_per_anc, how='inner', on='anc_id')
+    divo['smds_in_dc'] = len(districts)
+
+    # Rank each SMD by the number of votes recorded for ANC races within that SMD
+    # method = min: assigns the lowest rank when multiple rows are tied
+    divo['rank_dc'] = divo['votes'].rank(method='min', ascending=False)
+    divo['rank_ward'] = divo.groupby('ward').votes.rank(method='min', ascending=False)
+    divo['rank_anc'] = divo.groupby('anc_id').votes.rank(method='min', ascending=False)
+
+    # Create strings showing the ranking of each SMD within its ANC, Ward, and DC-wide
+    divo['string_dc'] = divo.apply(
+        lambda row: f"{make_ordinal(row['rank_dc'])} out of {row['smds_in_dc']} SMDs", axis=1)
+
+    divo['string_ward'] = divo.apply(
+        lambda row: f"{make_ordinal(row['rank_ward'])} out of {row['smds_in_ward']} SMDs", axis=1)
+
+    divo['string_anc'] = divo.apply(
+        lambda row: f"{make_ordinal(row['rank_anc'])} out of {row['smds_in_anc']} SMDs", axis=1)
+
+
+    average_votes_in_dc = divo.votes.mean()
+    average_votes_by_ward = divo.groupby('ward').votes.mean()
+    average_votes_by_anc = divo.groupby('anc_id').votes.mean()
+
+    # Since ANC is the smallest grouping, it should always have the highest number of average votes
+    highest_average_votes_for_bar_chart = average_votes_by_anc.max()
+
+    return divo, highest_average_votes_for_bar_chart
+
+
+
 def list_commissioners(status=None):
     """
     Return dataframe with list of commissioners by status
@@ -167,15 +216,19 @@ def build_smd_html_table(list_of_smds, link_path=''):
     rcp['full_name'] = rcp['full_name'].fillna('Write-in candidates')
     rcp['Candidates and Results'] = rcp.apply(lambda row: '{} ({:,.0f} votes)'.format(row['full_name'], row['votes']), axis=1)
     rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
-    district_results = rcp.groupby('smd_id').agg({'Candidates and Results': lambda x: ', '.join(x)})
+
+    # Aggregate results by SMD
+    district_results = rcp.groupby('smd_id').agg({
+        'votes': sum
+        , 'Candidates and Results': lambda x: ', '.join(x)}
+        )
+
+    district_results['Total Votes'] = district_results['votes']
+    max_votes_for_bar_chart = district_results['Total Votes'].max()
 
     dcp_results = pd.merge(dcp, district_results, how='left', on='smd_id')
-    dcp_results.to_clipboard()
-
     
-
     display_df = dcp_results[dcp_results['smd_id'].isin(list_of_smds)].copy()
-
 
     display_df['SMD'] = (
         f'<a href="{link_path}' + display_df['smd_id'].str.replace('smd_','').str.lower() + '.html">' 
@@ -183,7 +236,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
         )
 
 
-    columns_to_html = ['SMD', 'Current Commissioner', 'Candidates and Results']
+    columns_to_html = ['SMD', 'Current Commissioner', 'Total Votes', 'Candidates and Results']
 
     html = (
         display_df[columns_to_html]
@@ -193,7 +246,22 @@ def build_smd_html_table(list_of_smds, link_path=''):
             subset=['Candidates and Results']
             , **{'text-align': 'left'}
             )
-        .set_uuid('smd_')
+        .set_properties(
+            subset=['Total Votes']
+            , **{'width': '700px', 'text-align': 'left'}
+            )
+        .set_properties(
+            subset=['Current Commissioner']
+            , **{'width': '120px', 'text-align': 'left'}
+            ) # why is the width in pixels so different between these columns? 
+        .format({'Total Votes': '{:,.0f}'})
+        .bar(
+            subset=['Total Votes']
+            , color='#cab2d6' # light purple
+            , vmin=0
+            , vmax=3116
+            )
+        # .set_uuid('smd_')
         .hide_index()
         .render()
         )
@@ -365,6 +433,7 @@ def build_data_table(row, fields_to_try):
 
                 if pd.notna(field_value) and len(field_value) > 0:
 
+                    # TODO: handle case when display name does not yet exist for a field
                     display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
                     if pd.isnull(display_name):
                         display_name = field_name

@@ -5,7 +5,8 @@ import pandas as pd
 from scripts.refresh_data import RefreshData
 from scripts.common import (
     list_commissioners
-    , make_ordinal
+    , assemble_divo
+    , anc_names
     )
 
 
@@ -35,61 +36,13 @@ class Counts():
         return html
 
 
-    def assemble_divo(self):
-        """
-        Return DataFrame with one row per SMD and various stats about each SMD's ranking
-
-        divo = district-votes
-        """
-
-        results = pd.read_csv('data/results.csv')
-        districts = pd.read_csv('data/districts.csv')
-
-        votes_per_smd = pd.DataFrame(results.groupby('smd_id').votes.sum()).reset_index()
-
-        # Calculate number of SMDs in each Ward and ANC
-        smds_per_ward = pd.DataFrame(districts.groupby('ward').size(), columns=['smds_in_ward']).reset_index()
-        smds_per_anc = pd.DataFrame(districts.groupby('anc_id').size(), columns=['smds_in_anc']).reset_index()
-
-        divo = pd.merge(districts, votes_per_smd, how='inner', on='smd_id')
-        divo = pd.merge(divo, smds_per_ward, how='inner', on='ward')
-        divo = pd.merge(divo, smds_per_anc, how='inner', on='anc_id')
-        divo['smds_in_dc'] = len(districts)
-
-        # Rank each SMD by the number of votes recorded for ANC races within that SMD
-        # method = min: assigns the lowest rank when multiple rows are tied
-        divo['rank_dc'] = divo['votes'].rank(method='min', ascending=False)
-        divo['rank_ward'] = divo.groupby('ward').votes.rank(method='min', ascending=False)
-        divo['rank_anc'] = divo.groupby('anc_id').votes.rank(method='min', ascending=False)
-
-        # Create strings showing the ranking of each SMD within its ANC, Ward, and DC-wide
-        divo['string_dc'] = divo.apply(
-            lambda row: f"{make_ordinal(row['rank_dc'])} out of {row['smds_in_dc']} SMDs", axis=1)
-
-        divo['string_ward'] = divo.apply(
-            lambda row: f"{make_ordinal(row['rank_ward'])} out of {row['smds_in_ward']} SMDs", axis=1)
-
-        divo['string_anc'] = divo.apply(
-            lambda row: f"{make_ordinal(row['rank_anc'])} out of {row['smds_in_anc']} SMDs", axis=1)
-
-
-        average_votes_in_dc = divo.votes.mean()
-        average_votes_by_ward = divo.groupby('ward').votes.mean()
-        average_votes_by_anc = divo.groupby('anc_id').votes.mean()
-
-        # Since ANC is the smallest grouping, it should always have the highest number of average votes
-        highest_average_votes_for_bar_chart = average_votes_by_anc.max()
-
-        return divo, highest_average_votes_for_bar_chart
-
-
 
     def smd_vote_counts(self, groupby_field, bar_color):
         """
         Count the number of votes in each grouping
         """
 
-        divo, highest_average_votes_for_bar_chart = self.assemble_divo()
+        divo, highest_average_votes_for_bar_chart = assemble_divo()
 
         if groupby_field == 'dc':
 
@@ -110,6 +63,12 @@ class Counts():
         smd_count['Average Votes per SMD'] = smd_count['total_votes'] / smd_count['num_smds']
 
         smd_count = smd_count.reset_index()
+
+        if groupby_field == 'anc_id':
+            # Join in the ANC table to get neighborhood names
+            ancs = pd.read_csv('data/ancs.csv')
+            smd_count = pd.merge(smd_count, ancs[['anc_id', 'neighborhoods']], how='inner', on='anc_id')
+
         smd_count.rename(columns={
             'ward': 'Ward'
             , 'anc_id': 'ANC'
@@ -122,16 +81,22 @@ class Counts():
             smd_count['Ward'] = smd_count['Ward'].apply(lambda row: '<a href="wards/ward{0}.html">Ward {0}</a>'.format(row))
             first_column = 'Ward'
         elif 'ANC' in smd_count.columns:
-            smd_count['ANC'] = smd_count['ANC'].apply(lambda row: '<a href="ancs/anc{0}.html">ANC {1}</a>'.format(row.lower(), row))
+            smd_count['ANC'] = smd_count.apply(
+                lambda row: '<a href="ancs/anc{0}.html">ANC {1}</a> ({2})'.format(row['ANC'].lower(), row['ANC'], row['neighborhoods'])
+                , axis=1
+                )
             first_column = 'ANC'
         else:
             first_column = 'District'
         
+        # Remove the 'neighborhoods' field from display, keep all others
+        fields_to_html = [c for c in list(smd_count.columns) if c != 'neighborhoods']
+
         smd_html = (
-            smd_count.style
+            smd_count[fields_to_html].style
                 .set_properties(
                     subset=first_column
-                    , **{'width': '80px'}
+                    , **{'text-align': 'left'}
                     )
                 .set_properties(
                     subset=['Average Votes per SMD']
@@ -259,6 +224,10 @@ class Counts():
         html += '<p>'
         html += (
             election_status_count.style
+            .set_properties(
+                subset=['Election Status']
+                , **{'text-align': 'left'}
+                )
             .format({
                 'Percentage': '{:.1%}'
                 })
