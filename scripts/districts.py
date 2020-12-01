@@ -9,6 +9,7 @@ import pandas as pd
 from tqdm import tqdm
 import geopandas as gpd
 from datetime import datetime
+from collections import OrderedDict
 
 from scripts.common import (
     build_district_list
@@ -30,8 +31,7 @@ class BuildDistricts():
         # Load GeoJSON for all SMDs to memory
         self.smd_shape = gpd.read_file('maps/smd.geojson')
 
-        self.commissioners_current = list_commissioners(status='current')
-        self.commissioners_future = list_commissioners(status='future')
+        self.commissioners = list_commissioners(status=None)
 
 
 
@@ -40,28 +40,61 @@ class BuildDistricts():
         Build table with information about the current commissioner
         """
 
+        comm_status = OrderedDict({
+            'future': 'Commissioner-Elect'
+            , 'current': 'Current Commissioner'
+            , 'former': 'Former Commissioner'
+            })
+
         smd_display = smd_id.replace('smd_','')
         
         people = pd.read_csv('data/people.csv')
 
-        people_commissioners = pd.merge(people, self.commissioners_current, how='inner', on='person_id')
+        people_commissioners = pd.merge(people, self.commissioners, how='inner', on='person_id')
         
-        current_commissioner = people_commissioners[people_commissioners['smd_id'] == smd_id].squeeze()
-        
-        if len(current_commissioner) == 0:
-            commissioner_table = '<p>Office is vacant.</p>'
+        smd_commissioners = people_commissioners[people_commissioners['smd_id'] == smd_id].sort_values(by='start_date').copy()
 
+        if len(smd_commissioners) == 0:
+            commissioner_block = '<h2>Current Commissioner</h2> <p>No known commissioners for this district.</p>'
+        
         else:
 
-            current_commissioner['link_block'] = build_link_block(
-                current_commissioner
-                , fields_to_try=['website_link', 'twitter_link', 'facebook_link']
+            commissioner_block = ''
+
+            smd_commissioners['link_block'] = smd_commissioners.apply(
+                lambda row: build_link_block(
+                    row, fields_to_try=['website_link', 'twitter_link', 'facebook_link'])
+                , axis=1
                 )
 
-            fields_to_try = ['full_name', 'commissioner_email', 'link_block']
-            commissioner_table = build_data_table(current_commissioner, fields_to_try)
+            for status in comm_status:
+
+                commissioners_in_status = smd_commissioners[smd_commissioners['is_' + status]].copy()
+
+                if len(commissioners_in_status) == 0:
+                    continue
+                elif len(commissioners_in_status) == 1:
+                    plural = ''
+                else:
+                    plural = 's'
+
+                commissioner_block += f'<h2>{comm_status[status]}{plural}</h2>'
+
+                # Don't display links for former commissioners
+                if status == 'former':
+                    fields_to_try = ['full_name', 'start_date', 'end_date']
+                else:
+                    fields_to_try = ['full_name', 'link_block', 'start_date', 'end_date']
+
+                for idx, row in commissioners_in_status.iterrows():
+
+                    # Add line breaks between commissioners
+                    if commissioner_block[-5:] != '</h2>':
+                        commissioner_block += '<br/>'
+
+                    commissioner_block += build_data_table(row, fields_to_try)
         
-        return commissioner_table
+        return commissioner_block
 
 
 
@@ -79,7 +112,7 @@ class BuildDistricts():
         rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
 
         # Placeholder name when we don't know the name of the write-in candidates
-        rcp['full_name'] = rcp['full_name'].fillna('Write-in candidates')
+        rcp['full_name'] = rcp['full_name'].fillna('Other write-in candidates')
 
         # Show the candidate with the most votes first
         smd_results = rcp[rcp['smd_id'] == smd_id].sort_values(by='votes', ascending=False).copy()
@@ -237,47 +270,6 @@ class BuildDistricts():
 
 
 
-    def add_former_commissioners(self, smd_id):
-        """
-        Add blocks of information about former commissioners, if any are known
-        """
-
-        commissioners = pd.read_csv('data/commissioners.csv')
-        people = pd.read_csv('data/people.csv')
-        cp = pd.merge(commissioners, people, how='inner', on='person_id')
-
-        former_comms = cp[(cp['commissioner_status'] == 'former') & (cp['smd_id'] == smd_id)].copy()
-        former_comms.sort_values(by='start_date', inplace=True)
-
-        fc_html = ''
-
-        if len(former_comms) > 0:
-
-            if len(former_comms) == 1:
-                former_plural = ''
-            else:
-                former_plural = 's'
-
-            fc_html += f'<h2>Former Commissioner{former_plural}</h2>'
-            
-            for idx, row in former_comms.reset_index().iterrows():
-
-                # Add break between former commissioner tables if there is more than one former commissioner
-                if idx > 0:
-                    fc_html += '<br/>'
-
-                fields_to_try = [
-                    'full_name'
-                    , 'start_date'
-                    , 'end_date'
-                    ]
-
-                fc_html += build_data_table(row, fields_to_try)
-
-        return fc_html
-
-
-
     def today_as_int(self):
         """
         Return today's date in Eastern Time as an integer. Use as a seed for candidate order randomization
@@ -343,7 +335,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_1C03':
+            # if smd_id != 'smd_1C04':
             #     continue
 
             with open('templates/district.html', 'r') as f:
@@ -356,7 +348,6 @@ class BuildDistricts():
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
             output = output.replace('<!-- replace with candidate table -->', self.add_results(smd_id))
-            output = output.replace('<!-- replace with former commissioner table -->', self.add_former_commissioners(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
             neighbor_smd_ids = [('smd_' + d) for d in row['neighbor_smds'].split(', ')]

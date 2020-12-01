@@ -102,13 +102,14 @@ def anc_names(anc_id):
 
 
 
-def list_commissioners(status='current'):
+def list_commissioners(status=None):
     """
     Return dataframe with list of commissioners by status
 
     Options:
+    status=None (all statuses returned) -- default
     status='former'
-    status='current' - default
+    status='current'
     status='future'
     """
 
@@ -124,7 +125,20 @@ def list_commissioners(status='current'):
     commissioners['is_current'] = (commissioners.start_date < dc_now) & (dc_now < commissioners.end_date)
     commissioners['is_future'] = dc_now < commissioners.start_date
 
-    return commissioners[commissioners['is_' + status]].copy()
+    # Test here that there is, at most, one "Current" and one "Future" commissioner per SMD. 
+    # Multiple "Former" commissioners is allowed
+    smd_count = commissioners.groupby('smd_id')[['is_former', 'is_current', 'is_future']].sum().astype(int)
+    # smd_count.to_csv('smd_commissioner_count.csv')
+    
+    if smd_count['is_current'].max() > 1 or smd_count['is_future'].max() > 1:
+        raise Exception('Too many commissioners per SMD')
+
+    if status:
+        commissioner_output = commissioners[commissioners['is_' + status]].copy()
+    else:
+        commissioner_output = commissioners.copy()
+
+    return commissioner_output
 
 
 
@@ -345,6 +359,10 @@ def build_data_table(row, fields_to_try):
 
                 field_value = row[field_name]
 
+                # Convert timestamp to human-readable string
+                if isinstance(field_value, datetime):
+                    field_value = field_value.strftime('%B %-d, %Y')
+
                 if pd.notna(field_value) and len(field_value) > 0:
 
                     display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
@@ -426,6 +444,26 @@ def current_time():
     dc_timestamp = dc_now.strftime('%B %-d, %Y') # Hour of day: %-I:%M %p
 
     return dc_timestamp
+
+
+
+def make_ordinal(n):
+    """
+    Convert an integer into its ordinal representation::
+
+        make_ordinal(0)   => '0th'
+        make_ordinal(3)   => '3rd'
+        make_ordinal(122) => '122nd'
+        make_ordinal(213) => '213th'
+
+    Source: https://stackoverflow.com/a/50992575/3443926
+    """
+
+    n = int(n)
+    suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
+    if 11 <= (n % 100) <= 13:
+        suffix = 'th'
+    return str(n) + suffix
 
 
 

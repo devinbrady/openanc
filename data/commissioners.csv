@@ -1,4 +1,4 @@
-person_id,smd_id,commissioner_name,is_chair,start_date,end_date,commissioner_email,commissioner_status
+person_id,smd_id,commissioner_name,is_chair,start_date,end_date,commissioner_email,z_delete_commissioner_status
 10001,smd_1A01,Layla Bonnot,,2019-01-02,2021-01-02,1A01@anc.dc.gov,current
 10002,smd_1A02,Teresa A. Edmondson,,2019-01-02,2021-01-02,1A02@anc.dc.gov,current
 10003,smd_1A03,Zach Rybarczyk,,2019-01-02,2021-01-02,1A03@anc.dc.gov,current
@@ -283,6 +283,6 @@ person_id,smd_id,commissioner_name,is_chair,start_date,end_date,commissioner_ema
 10282,smd_8E05,Christopher L. Hawthorne,,2019-01-02,2021-01-02,8E05@anc.dc.gov,current
 10283,smd_8E06,"Karlene ""K"" Armstead",,2019-01-02,2021-01-02,8E06@anc.dc.gov,current
 10284,smd_8E07,Stephen A. Slaughter,TRUE,2019-01-02,2021-01-02,8E07@anc.dc.gov,current
-10297,smd_1C04,Meghan Faulkner,,2021-01-03,2023-01-03,,future
+10297,smd_1C04,Meghan Faulkner,,2021-01-02,2023-01-02,,future
 10304,smd_2A05,Evelyn Hudson,,2019-11-20,2021-01-02,2A05@anc.dc.gov,current
 10361,smd_5B05,"John J. Feeley, Jr.",,2020-01-31,2021-01-02,5B05@anc.dc.gov,current

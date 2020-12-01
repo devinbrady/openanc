@@ -204,7 +204,7 @@ class RefreshData():
         df = self.assemble_smd_info(
             duplicate_check=False
             , print_counts=False
-            , publish_to_google_sheets=True
+            , publish_to_google_sheets=False
             )
 
         # Add data to GeoJSON file with SMD shapes
