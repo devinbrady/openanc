@@ -195,6 +195,37 @@ class RefreshData():
 
 
 
+    def build_map_display_box(self, cp):
+        """
+        Build a string containing names of the commissioner and commissioner-elect. 
+        This entire string will be displayed in the map display box on the lower right of all maps
+        """
+
+        # If there is not a current commissioner for the SMD, mark the row as "vacant"
+        cp['current_commissioner'] = cp['current_commissioner'].fillna('(vacant)')
+
+        for idx, row in cp.iterrows():
+
+            smd_id = row['smd_id']
+            smd_display = smd_id.replace('smd_','')
+            smd_display_lower = smd_display.lower()
+
+            map_display_box = (
+                f'<b>District {smd_display}</b>'
+                + f'<br/><a href="ancs/districts/{smd_display_lower}.html">District Page</a>'
+                + f'<br/>Commissioner: {row.current_commissioner}'
+                )
+
+            # If a commissioner with a future start_date exists for the SMD, append the Commissioner-Elect string
+            if pd.notnull(row.commissioner_elect):
+                map_display_box += f'<br/>Commissioner-Elect: {row.commissioner_elect}'
+
+            cp.loc[idx, 'map_display_box'] = map_display_box
+
+        return cp
+
+
+
     def add_data_to_geojson(self):
         """
         Save new GeoJSON files with updated data fields based off of the results of the election
@@ -209,16 +240,12 @@ class RefreshData():
         
         # left join to both current commissioners and commissioners-elect
         cp_current = pd.merge(districts, cp.loc[cp['is_current'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
-        cp_current = cp_current.rename(columns={'full_name': 'current_commissioner'})
+        cp_current = cp_current.rename(columns={'full_name': 'current_commissioner', 'person_id': 'current_person_id'})
 
         cp_current_future = pd.merge(cp_current, cp.loc[cp['is_future'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
-        cp_current_future = cp_current_future.rename(columns={'full_name': 'commissioner_elect'})
+        cp_current_future = cp_current_future.rename(columns={'full_name': 'commissioner_elect', 'person_id': 'future_person_id'})
 
-        df = self.assemble_smd_info(
-            duplicate_check=False
-            , print_counts=False
-            , publish_to_google_sheets=False
-            )
+        cp_current_future = self.build_map_display_box(cp_current_future)
 
         # Add data to GeoJSON file with SMD shapes
         smd = gpd.read_file('maps/smd.geojson')
@@ -230,13 +257,11 @@ class RefreshData():
 
         # add ward to the SMD dataframe
         
-        smd_df_ward = pd.merge(smd_df, districts[['smd_id', 'ward']], how='inner', on='smd_id')
-
-        smd_df_ward.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
+        smd_df.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
 
         # Add data to CSV with lat/long of SMD label points
         lp = pd.read_csv('maps/label-points.csv')
-        lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'commissioner_elect']], how='inner', on='smd_id')
+        lp_df = pd.merge(lp, cp_current_future[['smd_id', 'current_commissioner', 'commissioner_elect']], how='inner', on='smd_id')
         lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
 
 
