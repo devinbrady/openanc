@@ -197,6 +197,54 @@ class RefreshData():
 
     def add_data_to_geojson(self):
         """
+        Save new GeoJSON files with updated data fields based off of the results of the election
+        # todo: push these tilesets to Mapbox via API
+        """
+
+        districts = pd.read_csv('data/districts.csv')
+        commissioners = list_commissioners(status=None)
+        people = pd.read_csv('data/people.csv')
+
+        cp = pd.merge(commissioners, people, how='inner', on='person_id')
+        
+        # left join to both current commissioners and commissioners-elect
+        cp_current = pd.merge(districts, cp.loc[cp['is_current'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
+        cp_current = cp_current.rename(columns={'full_name': 'current_commissioner'})
+
+        cp_current_future = pd.merge(cp_current, cp.loc[cp['is_future'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
+        cp_current_future = cp_current_future.rename(columns={'full_name': 'commissioner_elect'})
+
+        df = self.assemble_smd_info(
+            duplicate_check=False
+            , print_counts=False
+            , publish_to_google_sheets=False
+            )
+
+        # Add data to GeoJSON file with SMD shapes
+        smd = gpd.read_file('maps/smd.geojson')
+
+        # Use the map_color_id field from the Google Sheets over what is stored in the GeoJSON
+        smd.drop(columns=['map_color_id'], inplace=True)
+
+        smd_df = smd.merge(cp_current_future, on='smd_id')
+
+        # add ward to the SMD dataframe
+        
+        smd_df_ward = pd.merge(smd_df, districts[['smd_id', 'ward']], how='inner', on='smd_id')
+
+        smd_df_ward.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
+
+        # Add data to CSV with lat/long of SMD label points
+        lp = pd.read_csv('maps/label-points.csv')
+        lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'commissioner_elect']], how='inner', on='smd_id')
+        lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
+
+
+
+
+
+    def add_data_to_geojson_candidates(self):
+        """
         Save new GeoJSON files with updated data fields
         # todo: push these tilesets to Mapbox via API
         """
