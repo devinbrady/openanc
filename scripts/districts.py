@@ -21,6 +21,7 @@ from scripts.common import (
     , add_geojson
     , list_commissioners
     , assemble_divo
+    , build_results_candidate_people
     )
 
 
@@ -41,6 +42,7 @@ class BuildDistricts():
         Build table with information about the current commissioner
         """
 
+        # Dict is status_name: display_name
         comm_status = OrderedDict({
             'future': 'Commissioner-Elect'
             , 'current': 'Current Commissioner'
@@ -73,6 +75,7 @@ class BuildDistricts():
                 commissioners_in_status = smd_commissioners[smd_commissioners['is_' + status]].copy()
 
                 if len(commissioners_in_status) == 0:
+                    # There are no commissioners in this status, display nothing, continue to next iteration
                     continue
                 elif len(commissioners_in_status) == 1:
                     plural = ''
@@ -109,11 +112,7 @@ class BuildDistricts():
         results = pd.read_csv('data/results.csv')
         field_names = pd.read_csv('data/field_names.csv')
 
-        results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
-        rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
-
-        # Placeholder name when we don't know the name of the write-in candidates
-        rcp['full_name'] = rcp['full_name'].fillna('Other write-in candidates')
+        rcp = build_results_candidate_people()
 
         # Show the candidate with the most votes first
         smd_results = rcp[rcp['smd_id'] == smd_id].sort_values(by='votes', ascending=False).copy()
@@ -135,8 +134,8 @@ class BuildDistricts():
             fields_to_try = [
                 'full_name'
                 , 'votes'
-                , 'margin_of_victory'
                 , 'vote_share'
+                , 'margin_of_victory'
                 , 'margin_of_victory_percentage'
             ]
 
@@ -169,13 +168,13 @@ class BuildDistricts():
                 )
 
         # Add comparison of votes in this SMD to others
-        results_block += '<h3>SMD Vote Ranking</h3>'
+        # results_block += '<h3>SMD Vote Ranking</h3>'
 
-        divo, _ = assemble_divo()
-        divo_smd = divo[divo['smd_id'] == smd_id].squeeze()
+        # divo = assemble_divo()
+        # divo_smd = divo[divo['smd_id'] == smd_id].squeeze()
         
-        fields_to_try = ['string_dc', 'string_ward', 'string_anc']
-        results_block += build_data_table(divo_smd, fields_to_try)
+        # fields_to_try = ['string_dc', 'string_ward', 'string_anc']
+        # results_block += build_data_table(divo_smd, fields_to_try)
 
         return results_block
 

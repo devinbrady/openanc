@@ -115,20 +115,11 @@ map.on('load', function() {
     // change info window on click
     map.on('click', function (e) {
         var districts = map.queryRenderedFeatures(e.point)
-
             if (districts.length > 0) {
-                var smd_name = districts[0].properties['smd_id'].replace('smd_', '')
-
-                document.getElementById('pd').innerHTML = 
-                    "<b>" + "District " + smd_name + "</b>"
-                    + "<br/>" + "<a href='ancs/districts/" + smd_name.toLowerCase() + ".html'>District Page</a>"
-                    + "<br/>Commissioner: " + districts[0].properties['current_commissioner']
-                    + "<br/>Candidates: " + districts[0].properties['list_of_candidates']
-
-
+                document.getElementById('pd').innerHTML = districts[0].properties['map_display_box']
             } else {
-            document.getElementById('pd').innerHTML = '<p>Click on the map to see district information</p>';
-        }
+                document.getElementById('pd').innerHTML = '<p>Click on the map to see district information</p>';
+            }
     });
 
 });

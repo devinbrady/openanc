@@ -105,14 +105,10 @@ map.on('load', function() {
         var districts = map.queryRenderedFeatures(e.point)
 
             if (districts.length > 0) {
-                var smd_name = districts[0].properties['smd_id'].replace('smd_', '')
-
                 document.getElementById('pd').innerHTML = districts[0].properties['map_display_box']
-
-
             } else {
-            document.getElementById('pd').innerHTML = '<p>Click on the map to see district information</p>';
-        }
+                document.getElementById('pd').innerHTML = '<p>Click on the map to see district information</p>';
+            }
     });
 
 });

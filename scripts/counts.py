@@ -42,7 +42,12 @@ class Counts():
         Count the number of votes in each grouping
         """
 
-        divo, highest_average_votes_for_bar_chart = assemble_divo()
+        divo = assemble_divo()
+
+        # Since ANC is the smallest grouping, it should always have the highest number of average votes
+        average_votes_by_anc = divo.groupby('anc_id').votes.mean()
+        highest_average_votes_for_bar_chart = average_votes_by_anc.max()
+
 
         if groupby_field == 'dc':
 

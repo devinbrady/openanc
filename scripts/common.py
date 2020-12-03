@@ -144,10 +144,7 @@ def assemble_divo():
     average_votes_by_ward = divo.groupby('ward').votes.mean()
     average_votes_by_anc = divo.groupby('anc_id').votes.mean()
 
-    # Since ANC is the smallest grouping, it should always have the highest number of average votes
-    highest_average_votes_for_bar_chart = average_votes_by_anc.max()
-
-    return divo, highest_average_votes_for_bar_chart
+    return divo
 
 
 
@@ -191,6 +188,55 @@ def list_commissioners(status=None):
 
 
 
+def build_results_candidate_people():
+    """
+    Return DataFrame containing results, candidates, and people joined
+    """
+
+    people = pd.read_csv('data/people.csv')
+    candidates = pd.read_csv('data/candidates.csv')
+    results = pd.read_csv('data/results.csv')
+
+    results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
+    rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
+    
+    # Sort by SMD ascenting, Votes descending
+    rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
+
+    # Placeholder name for all write-in candidates. 
+    # We do not know the combination of name and vote count for write-in candidates
+    # We only know the name of the write-in winners
+    rcp['full_name'] = rcp['full_name'].fillna('Write-ins combined')
+    
+    return rcp
+
+
+
+def build_district_comm_commelect():
+    """
+    Build DataFrame showing commissioner and commissioner-elect for every district
+    """
+
+    districts = pd.read_csv('data/districts.csv')
+    commissioners = list_commissioners(status=None)
+    people = pd.read_csv('data/people.csv')
+
+    cp = pd.merge(commissioners, people, how='inner', on='person_id')
+    
+    # left join to both current commissioners and commissioners-elect
+    cp_current = pd.merge(districts, cp.loc[cp['is_current'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
+    cp_current = cp_current.rename(columns={'full_name': 'current_commissioner', 'person_id': 'current_person_id'})
+
+    cp_current_future = pd.merge(cp_current, cp.loc[cp['is_future'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
+    cp_current_future = cp_current_future.rename(columns={'full_name': 'commissioner_elect', 'person_id': 'future_person_id'})
+
+    # If there is not a current commissioner for the SMD, mark the row as "vacant"
+    cp_current_future['current_commissioner'] = cp_current_future['current_commissioner'].fillna('(vacant)')
+
+    return cp_current_future
+
+
+
 def build_smd_html_table(list_of_smds, link_path=''):
     """
     Return an HTML table with one row per district for a given list of SMDs
@@ -198,37 +244,23 @@ def build_smd_html_table(list_of_smds, link_path=''):
     Contains current commissioner and all candidates with number of votes
     """
 
-    districts = pd.read_csv('data/districts.csv')
-    commissioners = list_commissioners(status='current')
-    people = pd.read_csv('data/people.csv')
-    candidates = pd.read_csv('data/candidates.csv')
-    results = pd.read_csv('data/results.csv')
+    rcp = build_results_candidate_people()
 
-    dc = pd.merge(districts, commissioners, how='left', on='smd_id')
-    dcp = pd.merge(dc, people, how='left', on='person_id')
-    dcp['Current Commissioner'] = dcp['full_name'].fillna('(vacant)')
-
-    cp = pd.merge(candidates, people, how='inner', on='person_id')
-    cpd = pd.merge(cp, districts, how='inner', on='smd_id')
-
-    results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
-    rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
-    
-    # Sort by SMD ascenting, Votes descending
-    rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
-    
-    rcp['full_name'] = rcp['full_name'].fillna('Write-in candidates')
-    
     # Bold the winners in this text field
-    results_field = 'Candidates and Results (Winner in Bold)'
+    # results_field = 'Candidates and Results (Winner in Bold)'
+    # rcp[results_field] = rcp.apply(
+    #     lambda row:
+    #         '<strong>{} ({:,.0f} votes)</strong>'.format(row['full_name'], row['votes'])
+    #         if row['winner']
+    #         else '{} ({:,.0f} votes)'.format(row['full_name'], row['votes'])
+    #     , axis=1
+    #     )
+
+    results_field = 'Candidates and Results'
     rcp[results_field] = rcp.apply(
-        lambda row:
-            '<strong>{} ({:,.0f} votes)</strong>'.format(row['full_name'], row['votes'])
-            if row['winner']
-            else '{} ({:,.0f} votes)'.format(row['full_name'], row['votes'])
+        lambda row: '{} ({:,.0f} votes)'.format(row['full_name'], row['votes'])
         , axis=1
         )
-    
 
     # Aggregate results by SMD
     district_results = rcp.groupby('smd_id').agg({
@@ -236,10 +268,12 @@ def build_smd_html_table(list_of_smds, link_path=''):
         , results_field: lambda x: ', '.join(x)}
         )
 
-    district_results['Total Votes'] = district_results['votes']
-    max_votes_for_bar_chart = district_results['Total Votes'].max()
+    total_votes_display_name = 'ANC Votes'
+    district_results[total_votes_display_name] = district_results['votes']
+    max_votes_for_bar_chart = district_results[total_votes_display_name].max()
 
-    dcp_results = pd.merge(dcp, district_results, how='left', on='smd_id')
+    district_comm_commelect = build_district_comm_commelect()
+    dcp_results = pd.merge(district_comm_commelect, district_results, how='left', on='smd_id')
     
     display_df = dcp_results[dcp_results['smd_id'].isin(list_of_smds)].copy()
 
@@ -248,8 +282,10 @@ def build_smd_html_table(list_of_smds, link_path=''):
         + display_df['smd_id'].str.replace('smd_','') + '</a>'
         )
 
+    display_df['Current Commissioner'] = display_df['current_commissioner']
+    display_df['Commissioner-Elect'] = display_df['commissioner_elect']
 
-    columns_to_html = ['SMD', 'Current Commissioner', 'Total Votes', results_field]
+    columns_to_html = ['SMD', 'Current Commissioner', 'Commissioner-Elect', total_votes_display_name, results_field]
 
     html = (
         display_df[columns_to_html]
@@ -260,16 +296,16 @@ def build_smd_html_table(list_of_smds, link_path=''):
             , **{'text-align': 'left'}
             )
         .set_properties(
-            subset=['Total Votes']
+            subset=[total_votes_display_name]
             , **{'width': '700px', 'text-align': 'left'}
             )
         .set_properties(
             subset=['Current Commissioner']
             , **{'width': '120px', 'text-align': 'left'}
             ) # why is the width in pixels so different between these columns? 
-        .format({'Total Votes': '{:,.0f}'})
+        .format({total_votes_display_name: '{:,.0f}'})
         .bar(
-            subset=['Total Votes']
+            subset=[total_votes_display_name]
             , color='#cab2d6' # light purple
             , vmin=0
             , vmax=3116

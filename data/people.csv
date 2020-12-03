@@ -256,7 +256,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10255,Tyón Jones,smd_8A06,z no candidacy,https://twitter.com/DC_TJ23,,,
 10256,Hanna Baker,smd_8A07,z no candidacy,https://twitter.com/IBHanna,,,
 10257,Leonard Lee Watson Jr.,smd_8B01,z no candidacy,,,,
-10258,Paul Trantham,smd_8B02,z no candidacy,,,,
+10258,Paul Trantham,smd_8B02,smd_8B02,,,,
 10259,Charles H. Wilson,smd_8B03,smd_8B03,,,,x
 10260,Darrell Danny Gaston,smd_8B04,z not an active candidate,https://twitter.com/DarrellGastonDC,https://www.facebook.com/darrellgastondc,,x
 10261,Betty Scippio,smd_8B05,smd_8B05,,https://www.facebook.com/pages/category/Political-Organization/8b05-ANC-Commissioner-Betty-Scippio-325546191438020/,,x
@@ -596,3 +596,8 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10613,Maliha Luqman,not_currently_serving,smd_2D02,,,,x
 10614,Benjamin Preis,not_currently_serving,smd_2D02,,,,x
 10615,Hannah Untereiner,not_currently_serving,smd_2D02,,,,x
+10616,Lindsey Botts,not_currently_serving,smd_7B03,,,,x
+10617,Wendell Felder,not_currently_serving,smd_7D07,,,,x
+10618,Whitney Weston,not_currently_serving,smd_7F03,,,,x
+10619,Shirley Thompson-Wright,not_currently_serving,smd_7F07,,,,x
+10620,Khadijah Watson,not_currently_serving,smd_8B01,,,,x
