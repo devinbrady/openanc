@@ -263,10 +263,12 @@ def build_smd_html_table(list_of_smds, link_path=''):
         )
 
     # Aggregate results by SMD
+    rcp['write_in_winner_int'] = rcp['write_in_winner'].astype(int)
     district_results = rcp.groupby('smd_id').agg({
         'votes': sum
-        , results_field: lambda x: ', '.join(x)}
-        )
+        , results_field: lambda x: ', '.join(x)
+        , 'write_in_winner_int': sum
+        })
 
     total_votes_display_name = 'ANC Votes'
     district_results[total_votes_display_name] = district_results['votes']
@@ -284,6 +286,9 @@ def build_smd_html_table(list_of_smds, link_path=''):
 
     display_df['Current Commissioner'] = display_df['current_commissioner']
     display_df['Commissioner-Elect'] = display_df['commissioner_elect']
+
+    # Append "write-in" to Commissioners-Elect who were write-in candidates
+    display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] = display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] + ' (write-in)'
 
     columns_to_html = ['SMD', 'Current Commissioner', 'Commissioner-Elect', total_votes_display_name, results_field]
 
