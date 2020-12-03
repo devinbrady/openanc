@@ -119,6 +119,7 @@ class BuildDistricts():
         write_in_winners_people = pd.merge(self.write_in_winners, people, how='inner', on='person_id')
 
         rcp = build_results_candidate_people()
+        rcp.loc[rcp.is_incumbent, 'full_name'] = rcp.loc[rcp.is_incumbent, 'full_name'] + ' (incumbent)'
 
         # Show the candidate with the most votes first
         smd_results = rcp[rcp['smd_id'] == smd_id].sort_values(by='votes', ascending=False).copy()
@@ -372,7 +373,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_6D01':
+            # if smd_id != 'smd_1C07':
             #     continue
 
             with open('templates/district.html', 'r') as f:

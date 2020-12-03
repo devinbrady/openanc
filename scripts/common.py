@@ -199,6 +199,16 @@ def build_results_candidate_people():
 
     results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
     rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
+
+    # Determine who were incumbent candidates at the time of the election
+    election_date = datetime(2020, 11, 3, tzinfo=pytz.timezone('America/New_York'))
+    commissioners = list_commissioners(status=None)
+    incumbents = commissioners[(commissioners.start_date < election_date) & (election_date < commissioners.end_date)]
+    incumbent_candidates = pd.merge(incumbents, candidates, how='inner', on='person_id')
+    incumbent_candidates['is_incumbent'] = True
+
+    rcp = pd.merge(rcp, incumbent_candidates[['candidate_id', 'is_incumbent']], how='left', on='candidate_id')
+    rcp['is_incumbent'] = rcp['is_incumbent'].fillna(False)
     
     # Sort by SMD ascenting, Votes descending
     rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
@@ -208,7 +218,7 @@ def build_results_candidate_people():
     # We only know the name of the write-in winners
     rcp['full_name'] = rcp['full_name'].fillna('Write-ins combined')
     rcp['write_in_winner_int'] = rcp['write_in_winner'].astype(int)
-    
+
     return rcp
 
 
