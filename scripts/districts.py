@@ -182,7 +182,7 @@ class BuildDistricts():
                     commissioner_elect = write_in_winners_people[write_in_winners_people.smd_id == smd_id]['full_name'].values[0]
 
                     results_block += (
-                        f'<p>This election was won by <strong>{commissioner_elect}</strong>, a candidate who filed an "Affirmation of Write-in Candidacy".</p>'
+                        f'<p>This election was won by <strong>{commissioner_elect}</strong>, a write-in candidate who filed an "Affirmation of Write-in Candidacy".</p>'
                         )
 
                 else:
