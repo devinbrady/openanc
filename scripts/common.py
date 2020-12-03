@@ -207,6 +207,7 @@ def build_results_candidate_people():
     # We do not know the combination of name and vote count for write-in candidates
     # We only know the name of the write-in winners
     rcp['full_name'] = rcp['full_name'].fillna('Write-ins combined')
+    rcp['write_in_winner_int'] = rcp['write_in_winner'].astype(int)
     
     return rcp
 
@@ -263,7 +264,6 @@ def build_smd_html_table(list_of_smds, link_path=''):
         )
 
     # Aggregate results by SMD
-    rcp['write_in_winner_int'] = rcp['write_in_winner'].astype(int)
     district_results = rcp.groupby('smd_id').agg({
         'votes': sum
         , results_field: lambda x: ', '.join(x)

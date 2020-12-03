@@ -35,6 +35,8 @@ class BuildDistricts():
 
         self.commissioners = list_commissioners(status=None)
 
+        self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
+
 
 
     def build_commissioner_table(self, smd_id):
@@ -107,10 +109,14 @@ class BuildDistricts():
         Add block of information about the results of the election
         """
 
+        smd_display = smd_id.replace('smd_','')
+
         people = pd.read_csv('data/people.csv')
         candidates = pd.read_csv('data/candidates.csv')
         results = pd.read_csv('data/results.csv')
         field_names = pd.read_csv('data/field_names.csv')
+
+        write_in_winners_people = pd.merge(self.write_in_winners, people, how='inner', on='person_id')
 
         rcp = build_results_candidate_people()
 
@@ -166,6 +172,28 @@ class BuildDistricts():
                 .hide_index()
                 .render()
                 )
+
+            if smd_results['write_in_winner_int'].sum() > 0:
+
+                # If there is a write-in winner, include their name here. Otherwise, no one won and the district will be vacant.
+
+                if (write_in_winners_people.smd_id == smd_id).sum() > 0:
+
+                    commissioner_elect = write_in_winners_people[write_in_winners_people.smd_id == smd_id]['full_name'].values[0]
+
+                    results_block += (
+                        f'<p>This election was won by <strong>{commissioner_elect}</strong>, a candidate who filed an "Affirmation of Write-in Candidacy".</p>'
+                        )
+
+                else:
+
+                    results_block += (
+                        '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy". '
+                        + f'The office of {smd_display} Commissioner will be vacant.</p>'
+                        )
+
+                results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
+
 
         # Add comparison of votes in this SMD to others
         # results_block += '<h3>SMD Vote Ranking</h3>'
@@ -344,7 +372,7 @@ class BuildDistricts():
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_1C04':
+            # if smd_id != 'smd_6D01':
             #     continue
 
             with open('templates/district.html', 'r') as f:

@@ -1,0 +1,26 @@
+candidate_id,person_id,smd_id,write_in_winner_name,total votes in race,candidates in results (1 = only write-ins),candidates in candidates
+,,smd_8E03,,104,1,0
+,,smd_8B07,,100,1,0
+,,smd_7F07,,23,1,1
+,,smd_7E03,,106,1,0
+,,smd_5A04,,3,1,0
+,,smd_2A08,,13,1,0
+50012,10012,smd_1A12,Jason Clock,144,1,2
+50036,10304,smd_2A05,Evelyn Hudson,51,1,1
+50256,10269,smd_8C06,Rhonda L. Edwards-Hines,78,1,1
+50264,10275,smd_8D05,Ellen Armstead,142,1,2
+50455,10064,smd_2E08,Matias Burdman,13,1,1
+50478,10590,smd_2A07,Adam Friend,27,1,1
+50495,10603,smd_6D01,Andrew Bossi,425,1,2
+50496,10604,smd_2A01,Yannik Omictin,33,1,1
+50497,10605,smd_6B07,Edward Ryder,301,1,4
+50498,10606,smd_2A04,Donna Barbisch,221,1,1
+50502,10610,smd_6D02,Jared Weiss,611,1,3
+50503,10611,smd_3G06,Peter Gosselin,350,1,1
+50504,10612,smd_4D05,Eric Smith,186,1,2
+50507,10615,smd_2D02,Hannah Untereiner,166,1,3
+50508,10616,smd_7B03,Lindsey Botts,170,1,1
+50509,10617,smd_7D07,Wendell Felder,193,1,1
+50510,10618,smd_7F03,Whitney Weston,113,1,1
+50512,10620,smd_8B01,Khadijah Watson,165,1,1
+50513,10258,smd_8B02,Paul Trantham,103,1,1
