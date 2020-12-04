@@ -212,7 +212,12 @@ def build_results_candidate_people():
     candidates = pd.read_csv('data/candidates.csv')
     results = pd.read_csv('data/results.csv')
 
-    results_candidates = pd.merge(results, candidates, how='left', on=['candidate_id', 'smd_id'])
+    results_candidates = pd.merge(
+        results #[['candidate_id', 'person_id', 'smd_id']]
+        , candidates #[['candidate_id']]
+        , how='left'
+        , on=['candidate_id', 'smd_id']
+        )
     rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
 
     # Determine who were incumbent candidates at the time of the election
@@ -263,7 +268,7 @@ def build_district_comm_commelect():
 
 
 
-def build_smd_html_table(list_of_smds, link_path=''):
+def build_smd_html_table(list_of_smds, link_path='', table_uuid_prefix=None):
     """
     Return an HTML table with one row per district for a given list of SMDs
 
@@ -340,7 +345,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
             , vmin=0
             , vmax=3116
             )
-        .set_uuid('smd_results_')
+        # .set_uuid(table_uuid_prefix)
         .hide_index()
         .render()
         )
