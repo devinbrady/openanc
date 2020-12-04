@@ -335,10 +335,10 @@ class RefreshData():
         self.refresh_csv('write_in_winners', 'A1:G26')
         
         # Tables that don't need to be refreshed every time
-        # self.refresh_csv('ancs', 'A:I')
+        self.refresh_csv('ancs', 'A:I')
         # self.refresh_csv('candidate_statuses', 'A:D')
         self.refresh_csv('commissioners', 'A:G')
-        self.refresh_csv('field_names', 'A:B')
+        # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')
         # self.refresh_csv('map_colors', 'A:B') 
         # self.refresh_csv('wards', 'A:B')
