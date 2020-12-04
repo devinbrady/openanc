@@ -340,7 +340,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
             , vmin=0
             , vmax=3116
             )
-        # .set_uuid('smd_')
+        .set_uuid('smd_results_')
         .hide_index()
         .render()
         )
