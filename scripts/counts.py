@@ -1,7 +1,9 @@
 # counts.py
 
+import pytz
 import imgkit
 import pandas as pd
+from datetime import datetime
 from scripts.refresh_data import RefreshData
 from scripts.common import (
     list_commissioners
@@ -25,6 +27,11 @@ class Counts():
         df = pd.DataFrame(index=[0])
         df['Single Member Districts'] = len(districts)
         df['Current Vacancies'] = len(districts) - len(commissioners)
+
+        # Count number of seats that will be vacant in 2021
+        date_point_2021 = datetime(2021, 1, 5, tzinfo=pytz.timezone('America/New_York'))
+        commissioners_2021 = list_commissioners(date_point=date_point_2021)
+        df['Vacancies in 2021'] = len(districts) - commissioners_2021['is_current'].sum()
 
         html = (
             df.style
