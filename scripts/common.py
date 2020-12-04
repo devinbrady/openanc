@@ -148,7 +148,7 @@ def assemble_divo():
 
 
 
-def list_commissioners(status=None):
+def list_commissioners(status=None, current_date='now'):
     """
     Return dataframe with list of commissioners by status
 
@@ -166,6 +166,16 @@ def list_commissioners(status=None):
 
     commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz='America/New_York')
     commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz='America/New_York')
+
+    # Create combined field with start and end dates, showing ambiguity
+    commissioners['start_date_str'] = commissioners['start_date'].dt.strftime('%B %-d, %Y')
+    commissioners['end_date_str'] = commissioners['end_date'].dt.strftime('%B %-d, %Y')
+
+    # We don't have exact dates when these commissioners started, so show "circa 2019"
+    commissioners.loc[commissioners['start_date_str'] == 'January 2, 2019', 'start_date_str'] = '~2019'
+
+    # Combine start and end dates into one field
+    commissioners['term_in_office'] = commissioners['start_date_str'] + ' to ' + commissioners['end_date_str']
 
     commissioners['is_former'] = commissioners.end_date < dc_now
     commissioners['is_current'] = (commissioners.start_date < dc_now) & (dc_now < commissioners.end_date)
@@ -209,7 +219,7 @@ def build_results_candidate_people():
 
     rcp = pd.merge(rcp, incumbent_candidates[['candidate_id', 'is_incumbent']], how='left', on='candidate_id')
     rcp['is_incumbent'] = rcp['is_incumbent'].fillna(False)
-    
+
     # Sort by SMD ascenting, Votes descending
     rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
 
@@ -497,10 +507,11 @@ def build_data_table(row, fields_to_try):
 
                 if pd.notna(field_value) and len(field_value) > 0:
 
-                    # TODO: handle case when display name does not yet exist for a field
-                    display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
-                    if pd.isnull(display_name):
+                    # If no display_name has been defined for the field_name, use the field_name as the display_name
+                    if sum(field_names['field_name'] == field_name) == 0:
                         display_name = field_name
+                    else:
+                        display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
 
                     output_table += f"""
                         <tr>

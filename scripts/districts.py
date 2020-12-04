@@ -88,9 +88,9 @@ class BuildDistricts():
 
                 # Don't display links for former commissioners
                 if status == 'former':
-                    fields_to_try = ['full_name', 'start_date', 'end_date']
+                    fields_to_try = ['full_name', 'term_in_office']
                 else:
-                    fields_to_try = ['full_name', 'link_block', 'start_date', 'end_date']
+                    fields_to_try = ['full_name', 'link_block', 'term_in_office', 'ok']
 
                 for idx, row in commissioners_in_status.iterrows():
 
