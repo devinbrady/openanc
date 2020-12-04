@@ -1,6 +1,7 @@
 
 import sys
 import pytz
+import hashlib
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -268,7 +269,7 @@ def build_district_comm_commelect():
 
 
 
-def build_smd_html_table(list_of_smds, link_path='', table_uuid_prefix=None):
+def build_smd_html_table(list_of_smds, link_path=''):
     """
     Return an HTML table with one row per district for a given list of SMDs
 
@@ -322,6 +323,8 @@ def build_smd_html_table(list_of_smds, link_path='', table_uuid_prefix=None):
 
     columns_to_html = ['SMD', 'Current Commissioner', 'Commissioner-Elect', total_votes_display_name, results_field]
 
+    css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
+
     html = (
         display_df[columns_to_html]
         .fillna('')
@@ -345,7 +348,7 @@ def build_smd_html_table(list_of_smds, link_path='', table_uuid_prefix=None):
             , vmin=0
             , vmax=3116
             )
-        # .set_uuid(table_uuid_prefix)
+        .set_uuid(css_uuid)
         .hide_index()
         .render()
         )
