@@ -148,7 +148,7 @@ def assemble_divo():
 
 
 
-def list_commissioners(status=None, current_date='now'):
+def list_commissioners(status=None, date_point=None):
     """
     Return dataframe with list of commissioners by status
 
@@ -157,12 +157,17 @@ def list_commissioners(status=None, current_date='now'):
     status='former'
     status='current'
     status='future'
+
+    date_point=None -- all statuses calculated from current DC time (default)
+    date_point=(some other datetime) -- all statuses calculated from that datetime
     """
 
     commissioners = pd.read_csv('data/commissioners.csv')
 
-    tz = pytz.timezone('America/New_York')
-    dc_now = datetime.now(tz)
+    if not date_point:
+        tz = pytz.timezone('America/New_York')
+        dc_now = datetime.now(tz)
+        date_point = dc_now
 
     commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz='America/New_York')
     commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz='America/New_York')
@@ -177,9 +182,9 @@ def list_commissioners(status=None, current_date='now'):
     # Combine start and end dates into one field
     commissioners['term_in_office'] = commissioners['start_date_str'] + ' to ' + commissioners['end_date_str']
 
-    commissioners['is_former'] = commissioners.end_date < dc_now
-    commissioners['is_current'] = (commissioners.start_date < dc_now) & (dc_now < commissioners.end_date)
-    commissioners['is_future'] = dc_now < commissioners.start_date
+    commissioners['is_former'] = commissioners.end_date < date_point
+    commissioners['is_current'] = (commissioners.start_date < date_point) & (date_point < commissioners.end_date)
+    commissioners['is_future'] = date_point < commissioners.start_date
 
     # Test here that there is, at most, one "Current" and one "Future" commissioner per SMD. 
     # Multiple "Former" commissioners is allowed
