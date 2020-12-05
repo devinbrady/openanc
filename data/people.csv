@@ -298,7 +298,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10298,Dennis Jaffe,not_currently_serving,z not an active candidate,https://twitter.com/dennisjaffe,,,x
 10299,Zack Gold,not_currently_serving,smd_1C05,https://twitter.com/zacycles,https://www.facebook.com/GoldForAdamsMorgan/,,x
 10301,Fiona Clem,not_currently_serving,smd_1C08,https://twitter.com/feejaysee,,https://fiona1c08.org/,x
-10302,Joel Causey,not_currently_serving,smd_2A02,,,https://causeyanc2a02.org/,x
+10302,Joel Causey,not_currently_serving,smd_2A02,https://twitter.com/joelcausey1,,https://causeyanc2a02.org/,x
 10303,John Didiuk,not_currently_serving,z not an active candidate,,,,x
 10304,Evelyn Hudson,not_currently_serving,smd_2A05,,,,x
 10305,Meg Roggensack,not_currently_serving,smd_2B01,https://twitter.com/ancmeg,,https://meg4anc.com/,x
@@ -466,7 +466,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10477,Toni A. Ghazi,not_currently_serving,smd_3D02,,,,x
 10478,Alexandria Appah,not_currently_serving,smd_3F02,,,,x
 10479,Alexander Armstrong,not_currently_serving,z not an active candidate,https://twitter.com/AlexJArmstrong,,,x
-10480,Paul Johnson,not_currently_serving,smd_4C07,,,,x
+10480,Paul Johnson,not_currently_serving,smd_4C07,https://twitter.com/paulotjoao,,,x
 10481,Clara Haskell Botstein,not_currently_serving,smd_4C08,,,https://www.claraforanc.com/,x
 10482,Zachary Israel,not_currently_serving,smd_4D04,https://twitter.com/Zachfor4D04,https://www.facebook.com/Zachfor4D04/,https://www.zachisrael.com/,x
 10483,Michael Lussier,not_currently_serving,smd_5D06,,,https://www.michaellussieranc5d.com/,x
@@ -532,7 +532,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10547,Kelvin Brown,not_currently_serving,smd_7B06,https://twitter.com/VoteKelvinBrown,,https://www.votekelvinbrown.com/,x
 10549,Kimberly Martin,not_currently_serving,smd_7E07,,,,x
 10550,"George O. Reid, Jr.",not_currently_serving,smd_8A07,,,,x
-10551,Jason Hamacher,not_currently_serving,smd_1D01,,,,x
+10551,Jason Hamacher,not_currently_serving,smd_1D01,https://twitter.com/jasonhamacher,,,x
 10552,Will Mascaro,not_currently_serving,smd_2C02,https://twitter.com/thewillmascaro,,,x
 10553,Sabra Horne,not_currently_serving,z not an active candidate,,,,
 10554,Carolyn C. Steptoe,not_currently_serving,smd_4A05,,,,x
@@ -550,7 +550,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10566,Tierra J. Fletcher,not_currently_serving,smd_7E02,,,,x
 10567,Justyn Iman,not_currently_serving,smd_7E07,https://twitter.com/msgorjuss,,,x
 10568,Frederick Wolf,not_currently_serving,smd_7F02,,,,x
-10570,Matthew Brandeburg,not_currently_serving,smd_1D04,,,,x
+10570,Matthew Brandeburg,not_currently_serving,smd_1D04,https://twitter.com/matt_brandeburg,,,x
 10572,Elizabeth R. Pemmerl,not_currently_serving,smd_3D02,,,,x
 10573,Wendy Lynch,not_currently_serving,z not an active candidate,,,,
 10574,Noah Bell,not_currently_serving,z not an active candidate,,,,
@@ -584,7 +584,7 @@ person_id,full_name,current_smd_id,running_for_smd_id,twitter_link,facebook_link
 10603,Andrew Bossi,not_currently_serving,smd_6D01,https://twitter.com/thisisbossi,,,x
 10604,Yannik Omictin,not_currently_serving,smd_2A01,https://twitter.com/Yannikfor2A01,https://www.facebook.com/Yannik-Omictin-for-ANC-2A01-104492221403072,,x
 10605,Edward Ryder,not_currently_serving,smd_6B07,https://twitter.com/EdwardRyder,,,x
-10606,Donna Barbisch,not_currently_serving,smd_2A04,,,,
+10606,Donna Barbisch,not_currently_serving,smd_2A04,https://twitter.com/donnabarbisch,,,
 10607,David Reinersmann,not_currently_serving,smd_6B07,,,,
 10608,Jeremy Munro,not_currently_serving,smd_1A12,https://twitter.com/porchrates,,,x
 10609,Misha Pettway,not_currently_serving,smd_6B07,,,,
