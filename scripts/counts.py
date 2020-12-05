@@ -271,6 +271,12 @@ class Counts():
             )
         html += '</p>'
 
+        html += (
+            '<p>These counts include both candidates on the ballot and write-in candidates who were known to OpenANC. '
+            + 'Sources of write-in candidates include those who filled out the OpenANC Edit Form, as well as write-in candidates who won their election. '
+            + 'There were almost certainly other write-in candidates who did not fall into those categories. </p>'
+            )
+
         return html
 
 
