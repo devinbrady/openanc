@@ -3,6 +3,7 @@ All steps necessary to build OpenANC pages
 """
 
 import argparse
+from datetime import datetime
 
 from scripts.refresh_data import RefreshData
 from scripts.index import BuildIndex
@@ -10,6 +11,7 @@ from scripts.districts import BuildDistricts
 from scripts.ancs import BuildANCs
 from scripts.wards import BuildWards
 
+start_time = datetime.now()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-r', '--refresh-data', action='store_true', help='Refresh local CSVs from Google Sheets')
@@ -43,3 +45,9 @@ if args.build_districts:
 
 if not any([args.refresh_data, args.build_index, args.build_wards, args.build_ancs, args.build_districts]):
     print('No arguments provided to build_site script, exiting.')
+
+end_time = datetime.now()
+
+time_elapsed = end_time - start_time
+seconds_elapsed = time_elapsed.total_seconds()
+print(f'build_site: {seconds_elapsed:.1f} seconds')
