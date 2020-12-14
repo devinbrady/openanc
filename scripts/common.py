@@ -321,7 +321,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
     # Append "write-in" to Commissioners-Elect who were write-in candidates
     display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] = display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] + ' (write-in)'
 
-    columns_to_html = ['SMD', 'Current Commissioner', 'Commissioner-Elect', total_votes_display_name, results_field]
+    columns_to_html = ['SMD', 'Current Commissioner', 'Commissioner-Elect'] #, total_votes_display_name, results_field]
 
     css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
 
@@ -329,25 +329,29 @@ def build_smd_html_table(list_of_smds, link_path=''):
         display_df[columns_to_html]
         .fillna('')
         .style
+        # .set_properties(
+        #     subset=[results_field]
+        #     , **{
+        #         'text-align': 'left'
+        #         , 'width': '700px'
+        #         , 'height': '45px'
+        #         }
+        #     )
+        # .set_properties(
+        #     subset=[total_votes_display_name]
+        #     , **{'text-align': 'left'}
+        #     )
         .set_properties(
-            subset=[results_field]
-            , **{'text-align': 'left'}
-            )
-        .set_properties(
-            subset=[total_votes_display_name]
-            , **{'width': '700px', 'text-align': 'left'}
-            )
-        .set_properties(
-            subset=['Current Commissioner']
-            , **{'width': '120px', 'text-align': 'left'}
+            subset=['Current Commissioner', 'Commissioner-Elect']
+            , **{'width': '230px', 'text-align': 'left'} # 230px fits the longest commissioner name on one row
             ) # why is the width in pixels so different between these columns? 
-        .format({total_votes_display_name: '{:,.0f}'})
-        .bar(
-            subset=[total_votes_display_name]
-            , color='#cab2d6' # light purple
-            , vmin=0
-            , vmax=3116
-            )
+        # .format({total_votes_display_name: '{:,.0f}'})
+        # .bar(
+        #     subset=[total_votes_display_name]
+        #     , color='#cab2d6' # light purple
+        #     , vmin=0
+        #     , vmax=3116
+        #     )
         .set_uuid(css_uuid)
         .hide_index()
         .render()
