@@ -255,7 +255,8 @@ class RefreshData():
         # Add data to CSV with lat/long of SMD label points
         lp = pd.read_csv('maps/label-points.csv')
         lp_df = pd.merge(lp, cp_divo[['smd_id', 'current_commissioner', 'commissioner_elect', 'votes_2020']], how='inner', on='smd_id')
-        lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
+        lp_df_cp = pd.merge(lp_df, cp_current_future[['smd_id', 'map_display_box']], how='inner', on='smd_id')
+        lp_df_cp.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
 
 
 
