@@ -191,7 +191,7 @@ class RefreshData():
 
             columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
 
-            self.upload_to_google_sheets(district_info_comm, columns_to_publish, 'openanc_published', 'Single_Member_Districts')
+            self.upload_to_google_sheets(district_info_comm, columns_to_publish, 'openanc_published', 'SMD Candidates 2020')
 
         return district_info_comm
 
