@@ -93,6 +93,8 @@ class RefreshData():
     def upload_to_google_sheets(self, df, columns_to_publish, destination_spreadsheet, destination_sheet):
         """
         Push values to a Google Sheet
+
+        Note that dates are not JSON serializable, so dates have to be converted to strings
         """
 
         for c in columns_to_publish:
@@ -115,7 +117,7 @@ class RefreshData():
             valueInputOption=value_input_option, body=body).execute()
 
         cells_updated = result.get('updatedCells')
-        print(f'{cells_updated} cells updated in Google Sheet: {destination_spreadsheet}')
+        print(f'{cells_updated} cells updated in Google Sheet: {destination_spreadsheet}, sheet: {destination_sheet}')
 
 
 
@@ -293,6 +295,126 @@ class RefreshData():
 
 
 
+    def publish_commissioner_list(self):
+        """
+        Publish list of commissioners to OpenANC Published
+
+        Based off of the notebook, Twitter_Accounts_of_Commissioners.ipynb
+        """
+
+        # Commissioners active in 2021
+        # TODO_JAN set this to be active commissioners
+        date_point_2021 = datetime(2021, 1, 5, tzinfo=pytz.timezone('America/New_York'))
+        commissioners_2021 = list_commissioners(status='current', date_point=date_point_2021)
+
+        people = pd.read_csv('data/people.csv')
+        districts = pd.read_csv('data/districts.csv')
+
+        dc = pd.merge(districts, commissioners_2021, how='left', on='smd_id')
+        dcp = pd.merge(dc, people, how='left', on='person_id')
+
+        dcp['start'] = dcp['start_date'].dt.strftime('%Y-%m-%d')
+        dcp['end'] = dcp['end_date'].dt.strftime('%Y-%m-%d')
+
+        twttr = dcp.sort_values(by='smd_id')
+
+        if len(twttr) != 296:
+            raise ValueError('The number of districts to publish to Google Sheets is not correct.')
+
+        twttr['openanc_link'] = 'https://openanc.org/ancs/districts/' + twttr['smd_id'].str.replace('smd_', '').str.lower() + '.html'
+
+        columns_to_publish = ['smd_id', 'person_id', 'full_name', 'start', 'end', 'twitter_link', 'openanc_link']
+
+        self.upload_to_google_sheets(twttr, columns_to_publish, 'openanc_published', 'Commissioners 2021')
+
+
+
+    def publish_results(self):
+        """
+        Publish results from 2020 elections to OpenANC Published
+        """
+
+        people = pd.read_csv('data/people.csv')
+        candidates = pd.read_csv('data/candidates.csv')
+        results = pd.read_csv('data/results.csv')
+        write_in_winners = pd.read_csv('data/write_in_winners.csv')
+
+        cp = pd.merge(
+            candidates[['candidate_id', 'person_id', 'smd_id', 'candidate_status']]
+            , people[['person_id', 'full_name']]
+            , how='inner'
+            , on='person_id'
+            )
+
+        # Determine who were incumbent candidates at the time of the election
+        election_date = datetime(2020, 11, 3, tzinfo=pytz.timezone('America/New_York'))
+        commissioners = list_commissioners(status=None)
+        incumbents = commissioners[(commissioners.start_date < election_date) & (election_date < commissioners.end_date)]
+        incumbent_candidates = pd.merge(incumbents, candidates, how='inner', on='person_id')
+        incumbent_candidates['is_incumbent'] = True
+
+        cpi = pd.merge(cp, incumbent_candidates[['candidate_id', 'is_incumbent']], how='left', on='candidate_id')
+        cpi['is_incumbent'] = cpi['is_incumbent'].fillna(False)
+
+
+        results['is_on_ballot_winner'] = results['winner']
+        cpr = pd.merge(
+            cpi[['candidate_id', 'person_id', 'full_name', 'smd_id', 'candidate_status', 'is_incumbent']]
+            , results[['candidate_id', 'votes', 'is_on_ballot_winner']]
+            , how='left'
+            , on='candidate_id'
+            )
+
+        write_in_winners['is_write_in_winner'] = True
+        cpr_ww = pd.merge(
+            cpr
+            , write_in_winners[['candidate_id', 'is_write_in_winner']]
+            , how='left'
+            , on='candidate_id'
+            )
+
+        write_in_results = results.loc[
+            results['name_from_results'] == 'Write-in'
+            , ['smd_id', 'votes']
+            ].copy()
+
+        write_in_results['full_name'] = 'Write-ins combined'
+        write_in_results['person_id'] = None
+        write_in_results['candidate_id'] = None
+        write_in_results['candidate_status'] = None
+        write_in_results['is_write_in_winner'] = None
+        write_in_results['is_on_ballot_winner'] = None
+        write_in_results['is_incumbent'] = None
+
+        # Do a UNION ALL
+        columns_to_concat = [
+            'candidate_id'
+            , 'person_id'
+            , 'smd_id'
+            , 'full_name'
+            , 'candidate_status'
+            , 'is_incumbent'
+            , 'votes'
+            , 'is_write_in_winner'
+            , 'is_on_ballot_winner'
+            ]
+
+        cpr_ww_wr = pd.concat([
+            cpr_ww[columns_to_concat]
+            , write_in_results[columns_to_concat]
+            ])
+
+        cpr_ww_wr['is_winner'] = cpr_ww_wr[['is_write_in_winner', 'is_on_ballot_winner']].any(axis=1)
+        print(f'Winners: {cpr_ww_wr.is_winner.sum()}')
+
+        cpr_ww_wr = cpr_ww_wr.sort_values(by=['smd_id', 'person_id'])
+        print(f'Total votes: {cpr_ww_wr.votes.sum():,.0f}')
+
+        self.upload_to_google_sheets(cpr_ww_wr, list(cpr_ww_wr.columns), 'openanc_published', 'Results 2020')
+
+
+
+
     def refresh_csv(self, csv_name, sheet_range, filter_dict=None):
         """
         Pull down one sheet to CSV
@@ -330,20 +452,23 @@ class RefreshData():
     def run(self):
 
         # self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
-        self.refresh_csv('districts', 'A:K')
-        self.refresh_csv('people', 'A:H')
+        # self.refresh_csv('districts', 'A:K')
+        # self.refresh_csv('people', 'A:H')
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
         # Tables that don't need to be refreshed every time
         # self.refresh_csv('ancs', 'A:I')
         # self.refresh_csv('candidate_statuses', 'A:D')
-        self.refresh_csv('commissioners', 'A:G')
+        # self.refresh_csv('commissioners', 'A:G')
         # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')
         # self.refresh_csv('map_colors', 'A:B') 
         # self.refresh_csv('wards', 'A:B')
 
-        self.add_data_to_geojson()
+        # self.add_data_to_geojson()
+
+        # self.publish_commissioner_list()
+        self.publish_results()
 
 
