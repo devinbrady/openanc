@@ -220,7 +220,7 @@ class Counts():
         """
 
         rd = RefreshData()
-        smd_df = rd.assemble_smd_info(publish_to_google_sheets=True)
+        smd_df = rd.assemble_smd_info(publish_to_google_sheets=False)
         smd_df.rename(columns={'number_of_candidates': 'Number of Candidates'}, inplace=True)
         html = ''
 
