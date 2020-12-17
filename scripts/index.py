@@ -86,7 +86,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward', '#b2df8a')) # light green
         output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_vote_counts('anc_id', '#a6cee3')) # light blue
         output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count())
-        # output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
+        output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
         # output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
 
         output = add_google_analytics(output)
