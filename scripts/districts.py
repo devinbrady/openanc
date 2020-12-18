@@ -183,14 +183,15 @@ class BuildDistricts():
                     commissioner_elect = write_in_winners_people[write_in_winners_people.smd_id == smd_id]['full_name'].values[0]
 
                     results_block += (
-                        f'<p>This election was won by <strong>{commissioner_elect}</strong>, a write-in candidate who filed an "Affirmation of Write-in Candidacy".</p>'
+                        f'<p>This election was won by <strong>{commissioner_elect}</strong>, a write-in candidate whose "Affirmation of Write-in Candidacy" was accepted by the DC Board of Elections.</p>'
                         )
 
                 else:
 
                     results_block += (
-                        '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy". '
-                        + f'The office of {smd_display} Commissioner will be vacant.</p>'
+                        '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
+                        + 'that was accepted by the the DC Board of Elections. '
+                        + f'The office of {smd_display} Commissioner will be vacant and can be filled through the normal ANC vacancy procedure.</p>'
                         )
 
                 results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
