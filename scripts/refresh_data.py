@@ -323,9 +323,9 @@ class RefreshData():
 
         twttr['openanc_link'] = 'https://openanc.org/ancs/districts/' + twttr['smd_id'].str.replace('smd_', '').str.lower() + '.html'
 
-        columns_to_publish = ['smd_id', 'person_id', 'full_name', 'start', 'end', 'twitter_link', 'openanc_link']
+        columns_to_publish = ['smd_id', 'person_id', 'full_name', 'start', 'end', 'twitter_link', 'facebook_link', 'website_link', 'openanc_link']
 
-        self.upload_to_google_sheets(twttr, columns_to_publish, 'openanc_published', 'Commissioners 2021')
+        self.upload_to_google_sheets(twttr, columns_to_publish, 'openanc_published', 'Commissioners')
 
 
 
@@ -452,7 +452,7 @@ class RefreshData():
     def run(self):
 
         # self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
-        self.refresh_csv('districts', 'A:K')
+        # self.refresh_csv('districts', 'A:K')
         # self.refresh_csv('people', 'A:H')
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
@@ -468,7 +468,7 @@ class RefreshData():
 
         # self.add_data_to_geojson()
 
-        # self.publish_commissioner_list()
+        self.publish_commissioner_list()
         # self.publish_results()
 
 
