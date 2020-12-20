@@ -191,7 +191,7 @@ class BuildDistricts():
                     results_block += (
                         '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
                         + 'that was accepted by the the DC Board of Elections. '
-                        + f'The office of {smd_display} Commissioner will be vacant and can be filled through the normal ANC vacancy procedure.</p>'
+                        + f'The office of {smd_display} Commissioner will be vacant.</p>'
                         )
 
                 results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
