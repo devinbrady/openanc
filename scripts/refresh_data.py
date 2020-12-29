@@ -453,7 +453,7 @@ class RefreshData():
 
         # self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
         # self.refresh_csv('districts', 'A:K')
-        # self.refresh_csv('people', 'A:H')
+        self.refresh_csv('people', 'A:H')
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
