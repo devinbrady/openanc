@@ -464,9 +464,10 @@ class RefreshData():
         # self.refresh_csv('map_colors', 'A:B') 
         # self.refresh_csv('wards', 'A:B')
 
-        # self.add_data_to_geojson()
+        self.add_data_to_geojson()
 
         self.publish_commissioner_list()
+
         # self.publish_results()
 
 
