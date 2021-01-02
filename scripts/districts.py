@@ -402,7 +402,13 @@ class BuildDistricts():
 
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
-            output = add_footer(output, level=2, updated_at=smd_max_updated_at.loc[smd_id, 'updated_at_formatted'])
+            # Use the date this script was run on as the updated_at date
+            tz = pytz.timezone('America/New_York')
+            dc_now = datetime.now(tz).strftime('%B %-d, %Y')
+            output = add_footer(output, level=2, updated_at=dc_now)
+
+            # Use the date when the underlying data was updated as the updated_at date
+            # output = add_footer(output, level=2, updated_at=smd_max_updated_at.loc[smd_id, 'updated_at_formatted'])
 
             with open(f'docs/ancs/districts/{smd_display_lower}.html', 'w') as f:
                 f.write(output)

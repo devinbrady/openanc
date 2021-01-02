@@ -167,8 +167,7 @@ def list_commissioners(status=None, date_point=None):
 
     if not date_point:
         tz = pytz.timezone('America/New_York')
-        dc_now = datetime.now(tz)
-        date_point = dc_now
+        date_point = datetime.now(tz)
 
     commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz='America/New_York')
     commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz='America/New_York')
@@ -321,7 +320,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
     # Append "write-in" to Commissioners-Elect who were write-in candidates
     display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] = display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] + ' (write-in)'
 
-    columns_to_html = ['SMD', 'Current Commissioner', 'Commissioner-Elect'] #, total_votes_display_name, results_field]
+    columns_to_html = ['SMD', 'Current Commissioner']
 
     css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
 
@@ -342,7 +341,7 @@ def build_smd_html_table(list_of_smds, link_path=''):
         #     , **{'text-align': 'left'}
         #     )
         .set_properties(
-            subset=['Current Commissioner', 'Commissioner-Elect']
+            subset=['Current Commissioner']
             , **{'width': '230px', 'text-align': 'left'} # 230px fits the longest commissioner name on one row
             ) # why is the width in pixels so different between these columns? 
         # .format({total_votes_display_name: '{:,.0f}'})

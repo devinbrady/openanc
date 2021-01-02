@@ -302,15 +302,13 @@ class RefreshData():
         Based off of the notebook, Twitter_Accounts_of_Commissioners.ipynb
         """
 
-        # Commissioners active in 2021
-        # TODO_JAN set this to be active commissioners
-        date_point_2021 = datetime(2021, 1, 5, tzinfo=pytz.timezone('America/New_York'))
-        commissioners_2021 = list_commissioners(status='current', date_point=date_point_2021)
+        # Commissioners currently active
+        commissioners = list_commissioners(status='current')
 
         people = pd.read_csv('data/people.csv')
         districts = pd.read_csv('data/districts.csv')
 
-        dc = pd.merge(districts, commissioners_2021, how='left', on='smd_id')
+        dc = pd.merge(districts, commissioners, how='left', on='smd_id')
         dcp = pd.merge(dc, people, how='left', on='person_id')
 
         dcp['start'] = dcp['start_date'].dt.strftime('%Y-%m-%d')

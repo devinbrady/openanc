@@ -28,11 +28,6 @@ class Counts():
         df['Single Member Districts'] = len(districts)
         df['Current Vacancies'] = len(districts) - len(commissioners)
 
-        # Count number of seats that will be vacant in 2021
-        date_point_2021 = datetime(2021, 1, 5, tzinfo=pytz.timezone('America/New_York'))
-        commissioners_2021 = list_commissioners(date_point=date_point_2021)
-        df['Vacancies in 2021'] = len(districts) - commissioners_2021['is_current'].sum()
-
         html = (
             df.style
             .set_uuid('commissioners_count')
