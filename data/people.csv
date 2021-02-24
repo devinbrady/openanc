@@ -521,7 +521,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10535,Steven Faigen,smd_3D06,,smd_3D06,,,
 10536,Mark Moran,smd_3F05,,smd_3F05,,,
 10538,I-Ra A. Abubaker,smd_4B05,,smd_4B05,,,
-10539,Joseph P. Brennan III,smd_4B05,smd_4B05,smd_4B05,,,
+10539,Joseph P. Brennan III,smd_4B05,,smd_4B05,,,
 10540,Ursula Antares Miller,smd_4C05,,smd_4C05,,,
 10541,"Sukhprita ""Prita"" Piekara",smd_5B03,smd_5B03,smd_5B03,https://twitter.com/PritaPiekara,,
 10542,Ashlee Gates Mercer,smd_5C02,,smd_5C02,,,

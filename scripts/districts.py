@@ -59,8 +59,9 @@ class BuildDistricts():
         
         smd_commissioners = people_commissioners[people_commissioners['smd_id'] == smd_id].sort_values(by='start_date').copy()
 
+        vacant_string = '<h2>Current Commissioner</h2><p>This office is vacant.</p>'
         if len(smd_commissioners) == 0:
-            commissioner_block = '<h2>Current Commissioner</h2> <p>No known commissioners for this district.</p>'
+            commissioner_block = vacant_string
         
         else:
 
@@ -77,6 +78,11 @@ class BuildDistricts():
                 commissioners_in_status = smd_commissioners[smd_commissioners['is_' + status]].copy()
 
                 if len(commissioners_in_status) == 0:
+
+                    # If there are former commissioners but no one currently, note that. 
+                    if status == 'current':
+                        commissioner_block += vacant_string
+                    
                     # There are no commissioners in this status, display nothing, continue to next iteration
                     continue
                 elif len(commissioners_in_status) == 1:
