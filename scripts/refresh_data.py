@@ -462,7 +462,7 @@ class RefreshData():
         # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')
         # self.refresh_csv('map_colors', 'A:B') 
-        self.refresh_csv('wards', 'A:B')
+        # self.refresh_csv('wards', 'A:B')
 
         self.add_data_to_geojson()
 
