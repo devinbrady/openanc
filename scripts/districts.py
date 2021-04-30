@@ -57,7 +57,7 @@ class BuildDistricts():
 
         people_commissioners = pd.merge(people, self.commissioners, how='inner', on='person_id')
         
-        smd_commissioners = people_commissioners[people_commissioners['smd_id'] == smd_id].sort_values(by='start_date').copy()
+        smd_commissioners = people_commissioners[people_commissioners['smd_id'] == smd_id].sort_values(by='start_date', ascending=False).copy()
 
         vacant_string = '<h2>Current Commissioner</h2><p>This office is vacant.</p>'
         if len(smd_commissioners) == 0:
