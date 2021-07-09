@@ -102,7 +102,7 @@ tqdm==4.48.0
 traitlets==4.3.3
 tweepy==3.9.0
 uritemplate==3.0.1
-urllib3==1.25.9
+urllib3==1.26.5
 wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.5.1
