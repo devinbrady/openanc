@@ -196,7 +196,7 @@ class BuildDistricts():
 
                     results_block += (
                         '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
-                        + 'that was accepted by the the DC Board of Elections. '
+                        + 'that was accepted by the DC Board of Elections. '
                         + f'The office of {smd_display} Commissioner was vacant after the 2020 election.</p>'
                         )
 
