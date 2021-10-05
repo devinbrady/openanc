@@ -43,7 +43,7 @@ person_id,smd_id,commissioner_name,is_chair,start_date,end_date,notes
 10042,smd_2A07,Detrick Campbell,,2019-01-02,2021-01-02,
 10043,smd_2A08,James Harnett,TRUE,2019-01-02,2021-01-02,
 10044,smd_2B01,Matthew H. Sampson,,2019-01-02,2021-01-02,
-10045,smd_2B02,Daniel Warwick,TRUE,2019-01-02,2021-10-02,
+10045,smd_2B02,Daniel Warwick,TRUE,2019-01-02,2021-10-02,Resignation announcement: https://twitter.com/danielmwarwick/status/1444336406596186113
 10046,smd_2B04,Aaron Landry,,2019-01-02,2021-01-02,
 10047,smd_2B05,Randy D. Downs,,2019-01-02,2021-01-02,
 10048,smd_2B06,Mike Silverstein,,2019-01-02,2023-01-02,
@@ -290,7 +290,7 @@ person_id,smd_id,commissioner_name,is_chair,start_date,end_date,notes
 10293,smd_1C02,Celeste Carano,,2021-01-02,2023-01-02,
 10296,smd_1C03,Peter Wood,,2021-01-02,2023-01-02,
 10297,smd_1C04,Meghan Faulkner,,2021-01-02,2023-01-02,
-10299,smd_1C05,Zack Gold,,2021-01-02,2023-01-02,
+10299,smd_1C05,Zack Gold,,2021-01-02,2021-10-05,Resignation announcement: https://twitter.com/zacycles/status/1444663597930618881
 10301,smd_1C08,Fiona Clem,,2021-01-02,2023-01-02,
 10302,smd_2A02,Joel Causey,,2021-01-02,2023-01-02,
 10304,smd_2A05,Evelyn Hudson,,2019-11-20,2023-01-02,
