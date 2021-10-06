@@ -120,7 +120,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10119,Marlene Moss,smd_4A07,smd_4A07,smd_4A07,,,
 10120,Gale B. Black,smd_4A08,smd_4A08,,,,
 10121,Evan Yeats,smd_4B01,smd_4B01,smd_4B01,https://twitter.com/Evan_Yeats,,
-10122,Erin Palmer,smd_4B02,smd_4B02,smd_4B02,https://twitter.com/Erinfor4B02,https://www.facebook.com/Erinfor4B02/,https://www.erinforanc.com/
+10122,Erin Palmer,smd_4B02,smd_4B02,smd_4B02,https://twitter.com/ErinPalmerDC,https://www.facebook.com/Erinfor4B02/,https://www.erinforanc.com/
 10123,Scot Knickerbocker,smd_4B03,smd_4B03,,https://twitter.com/ScotANC,,
 10124,Brenda Parks,smd_4B04,smd_4B04,,,,
 10125,Perry Redd,smd_4B05,smd_4B05,,https://twitter.com/perryanc4B05,,
@@ -150,7 +150,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10149,Ronnie Edwards,smd_5A05,smd_5A05,smd_5A05,,,
 10150,Claudia Barragan,smd_5A06,smd_5A06,,,,
 10151,Sandi Washington,smd_5A07,smd_5A07,smd_5A07,,,
-10152,Gordon-Andrew Fletcher,smd_5A08,smd_5A08,smd_5A08,https://twitter.com/g_afletcher,https://www.facebook.com/gordonandrewfletcheranc5a0/,
+10152,Gordon-Andrew Fletcher,smd_5A08,smd_5A08,smd_5A08,,https://www.facebook.com/gordonandrewfletcheranc5a0/,
 10153,Gayle Carley,smd_5B01,smd_5B01,smd_5B01,,,
 10154,Ursula Higgins,smd_5B02,smd_5B02,smd_5B02,,,
 10155,Henri Makembe,smd_5B03,smd_5B03,,https://twitter.com/henrim,,
@@ -285,7 +285,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10284,Stephen A. Slaughter,smd_8E07,smd_8E07,smd_8E07,,https://www.facebook.com/anccommissioner.slaughter.5,
 10285,Dieter Lehmann Morales,smd_1A02,smd_1A02,smd_1A02,https://twitter.com/commishdieter,,
 10287,Sean McGrath,smd_1A06,,smd_1A06,,,
-10288,Judson Wood,smd_1A06,smd_1A06,smd_1A06,https://twitter.com/Judson4DC,,https://www.judsonwood.com/
+10288,Judson Wood,smd_1A06,smd_1A06,smd_1A06,,,https://www.judsonwood.com/
 10289,Benjamin Tingle,smd_1A07,,smd_1A07,,,
 10290,Mukta Ghorpadey,smd_1A07,smd_1A07,smd_1A07,,,
 10291,Victoria Sanchez,smd_1B05,smd_1B05,smd_1B05,,,
@@ -460,7 +460,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10471,Michael Scott McKernan,smd_2B07,smd_2B07,smd_2B07,,,
 10472,Michelle Yan,smd_2F03,smd_2F03,smd_2F03,https://twitter.com/MichelleYan26,,
 10473,Jacob Mason,smd_4C07,,smd_4C07,https://twitter.com/mason_transport,,
-10474,Michael Braeuninger,smd_5E01,smd_5E01,smd_5E01,https://twitter.com/BraeuningerMk,,
+10474,Michael Braeuninger,smd_5E01,smd_5E01,smd_5E01,,,
 10475,Joseph B. Johnson,smd_8B03,,smd_8B03,,,
 10476,Alyse Newhouse,smd_8D06,smd_8D06,smd_8D06,https://twitter.com/Alyse4DC,,
 10477,Toni A. Ghazi,smd_3D02,,smd_3D02,,,
@@ -468,7 +468,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10479,Alexander Armstrong,smd_3F05,,smd_3F05,https://twitter.com/AlexJArmstrong,,
 10480,Paul Johnson,smd_4C07,smd_4C07,smd_4C07,https://twitter.com/paulotjoao,,
 10481,Clara Haskell Botstein,smd_4C08,smd_4C08,smd_4C08,https://twitter.com/CBotstein,,https://www.claraforanc.com/
-10482,Zachary Israel,smd_4D04,smd_4D04,smd_4D04,https://twitter.com/Zachfor4D04,https://www.facebook.com/Zachfor4D04/,https://www.zachisrael.com/
+10482,Zachary Israel,smd_4D04,smd_4D04,smd_4D04,https://twitter.com/Zach__Israel,,https://www.zachisrael.com/
 10483,Michael Lussier,smd_5D06,,smd_5D06,,,https://www.michaellussieranc5d.com/
 10484,Rico Dancy,smd_6A07,,smd_6A07,https://twitter.com/deafPolitics216,https://www.facebook.com/Rico-dancy-for-the-people-108304324342562,
 10485,Jordan Hibbs,smd_6E04,,smd_6E04,https://twitter.com/VoteJordanHibbs,,https://www.votejordanhibbs.com/
@@ -529,7 +529,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10544,Michael Kaercher,smd_5E03,,smd_5E03,https://twitter.com/suederaincoat,,
 10545,Timothy W. Drake,smd_6A05,,smd_6A05,,,
 10546,Eric S. Blaylock,smd_6D07,,smd_6D07,,,https://www.ericblaylock4anc.com/
-10547,Kelvin Brown,smd_7B06,smd_7B06,smd_7B06,https://twitter.com/VoteKelvinBrown,,https://www.votekelvinbrown.com/
+10547,Kelvin Brown,smd_7B06,smd_7B06,smd_7B06,https://twitter.com/commr_brown,,https://www.votekelvinbrown.com/
 10549,Kimberly Martin,smd_7E07,smd_7E07,smd_7E07,https://twitter.com/KNMar10,,
 10550,"George O. Reid, Jr.",smd_8A07,,smd_8A07,,,
 10551,Jason Hamacher,smd_1D01,smd_1D01,smd_1D01,https://twitter.com/jasonhamacher,,
