@@ -29,7 +29,18 @@ class MonitorDCBOE():
         self.args = parser.parse_args()
 
         self.local_filename = 'current_link.txt'
-        self.url = 'https://www.dcboe.org/Candidates/2020-Candidates'
+
+        # 2020 candidate list
+        # self.url = 'https://www.dcboe.org/Candidates/2020-Candidates'
+        # self.link_text_body = 'ANC Candidate List for the November 3 General Election'
+
+
+        # List of current commissioners
+        self.url = 'https://dcboe.org/Candidates/ANC-Commissioners'
+        self.link_text_body = 'Current List of Advisory Neighborhood Commissioners'
+
+        # Link text body is the text that is inside the HTML link tag. For example: <a href="">link_text_body</a>
+
 
         with open(self.local_filename, 'r') as f:
             self.current_link_text = f.read()
@@ -46,7 +57,7 @@ class MonitorDCBOE():
         current_link = ''
 
         for a in soup.find_all('a'):
-            if a.text == 'ANC Candidate List for the November 3 General Election':
+            if a.text == self.link_text_body:
                 current_link = a['href']
                 break
 
@@ -64,8 +75,8 @@ class MonitorDCBOE():
 
     def poll_dcboe(self):
 
-        tz = pytz.timezone('America/New_York')
-        current_timestamp = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
+        tz = pytz.timezone('America/Denver')
+        current_timestamp = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S %Z')
         print(f'{current_timestamp} -> ', end='')
         
         r = requests.get(self.url, stream=True)
