@@ -353,7 +353,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10357,"Damion McDuffie, Sr.",smd_5A01,smd_5A01,smd_5A01,https://twitter.com/1handsometaurus,,
 10358,Nestride Yumga,smd_5A08,,smd_5A08,https://twitter.com/nestride,,
 10360,Cynthia Woerner,smd_5B01,,smd_5B01,,,
-10361,"John J. Feeley, Jr.",smd_5B05,smd_5B05,smd_5B05,,,https://smd5b05.blogspot.com/
+10361,John J. Feeley Jr.,smd_5B05,smd_5B05,smd_5B05,,,https://smd5b05.blogspot.com/
 10362,Michael Triebwasser,smd_5C01,,smd_5C01,https://twitter.com/trieb4anc,https://www.facebook.com/trieb4anc,https://www.trieb4anc.com/
 10363,Thaddeus James,smd_5C06,,smd_5C06,,,
 10364,D'Andre A. Phillips,smd_5C06,,smd_5C06,,,https://www.dandrephillips.com/
@@ -473,7 +473,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10484,Rico Dancy,smd_6A07,,smd_6A07,https://twitter.com/deafPolitics216,https://www.facebook.com/Rico-dancy-for-the-people-108304324342562,
 10485,Jordan Hibbs,smd_6E04,,smd_6E04,https://twitter.com/VoteJordanHibbs,,https://www.votejordanhibbs.com/
 10486,Kristina (K) Leszczak,smd_8A06,,smd_8A06,https://twitter.com/FirstHomeDC,https://www.facebook.com/FirstHomeDC,https://www.vote4k.com/
-10487,"Alan Kensek, Jr.",smd_1B05,,smd_1B05,,,
+10487,Alan Kensek Jr.,smd_1B05,,smd_1B05,,,
 10488,Andre Denegri,smd_1B12,,smd_1B12,,,
 10489,Alexandra Morgan,smd_1D01,,smd_1D01,,,
 10490,Jonathan Alfuth,smd_5C05,,smd_5C05,,,
@@ -531,7 +531,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10546,Eric S. Blaylock,smd_6D07,,smd_6D07,,,https://www.ericblaylock4anc.com/
 10547,Kelvin Brown,smd_7B06,smd_7B06,smd_7B06,https://twitter.com/commr_brown,,https://www.votekelvinbrown.com/
 10549,Kimberly Martin,smd_7E07,smd_7E07,smd_7E07,https://twitter.com/KNMar10,,
-10550,"George O. Reid, Jr.",smd_8A07,,smd_8A07,,,
+10550,George O. Reid Jr.,smd_8A07,,smd_8A07,,,
 10551,Jason Hamacher,smd_1D01,smd_1D01,smd_1D01,https://twitter.com/jasonhamacher,,
 10552,Will Mascaro,smd_2C02,,smd_2C02,https://twitter.com/thewillmascaro,,
 10553,Sabra Horne,smd_3D05,,smd_3D05,,,
@@ -609,3 +609,5 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10628,Graham Button,smd_4B05,smd_4B05,,,,
 10629,Brandolon Barnett,smd_1A06,smd_1A06,,https://twitter.com/BrandolonB,,
 10630,LaQueta Tate,smd_8E03,smd_8E03,,,,
+10631,Harry Thomas Jr.,smd_5C06,smd_5C06,,,,
+10632,Jake Faleschini,smd_1C07,smd_1C07,,https://twitter.com/soundpolicy,,
