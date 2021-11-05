@@ -81,6 +81,8 @@ class MonitorDCBOE():
         
         r = requests.get(self.url, stream=True)
 
+        # todo: handle situation where internet isn't working, right now it returns True
+
         page_has_changed = not self.current_link_text in r.text
 
         print(f'page_has_changed: {page_has_changed}')
