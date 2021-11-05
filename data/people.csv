@@ -350,7 +350,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10354,Charles Andrew Sinks,smd_4C08,,smd_4C08,https://twitter.com/notfloats,,https://www.charlieforanc.com/
 10355,Alan Wehler,smd_4C09,smd_4C09,smd_4C09,https://twitter.com/alanwehler,,
 10356,Monica P. Blair,smd_4C10,,smd_4C10,,,
-10357,"Damion McDuffie, Sr.",smd_5A01,smd_5A01,smd_5A01,https://twitter.com/1handsometaurus,,
+10357,Damion McDuffie Sr.,smd_5A01,smd_5A01,smd_5A01,https://twitter.com/1handsometaurus,,
 10358,Nestride Yumga,smd_5A08,,smd_5A08,https://twitter.com/nestride,,
 10360,Cynthia Woerner,smd_5B01,,smd_5B01,,,
 10361,John J. Feeley Jr.,smd_5B05,smd_5B05,smd_5B05,,,https://smd5b05.blogspot.com/
@@ -370,7 +370,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10375,Kirby Vining,smd_5E09,,smd_5E09,,https://www.facebook.com/KirbyForANC/,
 10376,Keya Chatterjee,smd_6A01,smd_6A01,smd_6A01,https://twitter.com/keya_chatterjee,,https://www.keyachatterjeeforanc6a01.com/
 10378,Ali Gardezi,smd_6A04,,smd_6A04,,https://www.facebook.com/TeamAli2020/,https://www.aligardezi2020.com/
-10379,"H.J. Amons, Sr.",smd_6A06,,smd_6A06,,,
+10379,H.J. Amons Sr.,smd_6A06,,smd_6A06,,,
 10380,Robb Dooling,smd_6A06,smd_6A06,smd_6A06,https://twitter.com/Robb4DC,https://www.facebook.com/Robb4DC,https://www.robbdooling.com/
 10381,Kate Robinson,smd_6A06,,smd_6A06,https://twitter.com/Kate4dc,https://www.facebook.com/KateforANC,https://katetrobinson.com/
 10382,Daniel M. Lee,smd_6A07,,smd_6A07,,,
@@ -541,7 +541,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10557,Erik Lindsjo,smd_4D01,smd_4D01,smd_4D01,https://twitter.com/ErikLindsjo,,
 10558,Misha G. Cornelius,smd_4D02,,smd_4D02,,,
 10559,Peter Benzoni,smd_4D05,,smd_4D05,,,
-10560,"Derrick O. Holloway, Sr.",smd_5A06,smd_5A06,smd_5A06,,,
+10560,Derrick O. Holloway Sr.,smd_5A06,smd_5A06,smd_5A06,,,
 10561,Cameron Brown,smd_5D02,,smd_5D02,,,
 10562,Sally Hobaugh,smd_5E10,smd_5E10,smd_5E10,https://twitter.com/LifeontheEdgewd,,https://www.edgewoodanc.com/
 10563,Boaz Yavnai,smd_6B01,,smd_6B01,,,
@@ -574,8 +574,8 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10593,Michael Zeldin,smd_3G04,smd_3G04,smd_3G04,https://twitter.com/MichaelZeldin,https://www.facebook.com/Michael-Zeldin-for-Chevy-Chase-Advisory-Neighborhood-Commissioner-107572637732194,https://michaelzeldin.com/
 10594,Steve Donahoe,smd_4C04,,smd_4C04,,,
 10595,Chelsea Skinner,smd_5E01,,smd_5E01,,,
-10596,"Paul Biedlingmaier, III",smd_6D02,,smd_6D02,,,
-10597,"David Brooks, II",smd_7B02,,smd_7B02,,,
+10596,Paul Biedlingmaier III,smd_6D02,,smd_6D02,,,
+10597,David Brooks II,smd_7B02,,smd_7B02,,,
 10598,Ashley R. Ruff,smd_7F01,,smd_7F01,,,
 10599,"Travon ""Ward8"" Hawkins",smd_8C04,smd_8C04,smd_8C04,,,
 10600,Zenobia Love,smd_8D01,,smd_8D01,,,
@@ -599,7 +599,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10618,Whitney Weston,smd_7F03,smd_7F03,smd_7F03,,,
 10619,Shirley Thompson-Wright,smd_7F07,,smd_7F07,,,
 10620,Khadijah Watson,smd_8B01,smd_8B01,smd_8B01,,,
-10621,"Walter Leroy Peacock, III",smd_7B03,,smd_7B03,,,
+10621,Walter Leroy Peacock III,smd_7B03,,smd_7B03,,,
 10622,Amanda Farnan,smd_1B11,smd_1B11,,https://twitter.com/farnan4dc,,https://www.farnan4dc.com/
 10623,Margaret McDonald,smd_2A08,smd_2A08,,https://twitter.com/margareteileenn,,
 10624,Travis R. Swanson,smd_7B03,smd_7B03,,https://twitter.com/TeeSwanJr,https://www.facebook.com/SwansonDC,
