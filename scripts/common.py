@@ -6,6 +6,8 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
 
 def edit_form_link(link_text='Submit edits'):
@@ -658,4 +660,37 @@ def add_footer(input_html, level=0, updated_at=None):
     output_html = input_html.replace('<!-- replace with footer -->', footer_html)
 
     return output_html
+
+
+
+def hash_dataframe(df, columns_to_hash):
+    """
+    Given a DataFrame, hash certain columns
+
+    df = pandas DataFrame
+    columns_to_hash = a list containing the column names that should be hashed
+    """
+
+    hash_of_data = []
+
+    for idx, row in df.iterrows():
+        list_to_hash = row[columns_to_hash]
+        string_to_hash = ','.join(list_to_hash)
+        hash_of_data += [hashlib.sha224(string_to_hash.encode()).hexdigest()]
+
+    return hash_of_data
+
+
+
+def match_names(source_value, list_to_search, list_of_ids):
+    """
+    Take one name, compare to list of names, return the best match and the match score
+    """
+
+    matches = process.extract(source_value, list_to_search, scorer=fuzz.ratio, limit=1)
+
+    best_id = list_of_ids[matches[0][2]]
+    best_score = matches[0][1]
+
+    return best_id, best_score
 
