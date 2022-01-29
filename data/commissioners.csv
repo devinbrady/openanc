@@ -285,7 +285,7 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 10285,smd_1A02,Dieter Lehmann Morales,2021-01-02,2023-01-02,,
 10288,smd_1A06,Judson Wood,2021-01-02,2021-07-23,,
 10290,smd_1A07,Mukta Ghorpadey,2021-01-02,2023-01-02,,
-10291,smd_1B05,Victoria Sanchez,2021-01-02,2023-01-02,,
+10291,smd_1B05,Victoria Sanchez,2021-01-02,2022-01-28,,
 10293,smd_1C02,Celeste Carano,2021-01-02,2023-01-02,,
 10296,smd_1C03,Peter Wood,2021-01-02,2023-01-02,,
 10297,smd_1C04,Meghan Faulkner,2021-01-02,2023-01-02,,
@@ -438,3 +438,4 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 11341,smd_1C05,Deb Felsenthal,2022-01-07,2023-01-02,,
 11342,smd_8D06,Devon Lesesne,2022-01-07,2023-01-02,,
 11343,smd_3G07,Charles Cadwell,2022-01-14,2023-01-02,,
+11344,smd_1C01,Howard Bauleke,2022-01-28,2023-01-02,,
