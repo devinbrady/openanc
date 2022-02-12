@@ -68,7 +68,7 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 10067,smd_2F03,John Bottino,2019-01-02,2021-01-02,,
 10068,smd_2F04,John Fanning,2019-01-02,2023-01-02,TRUE,
 10069,smd_2F05,Madeleine G. Stirling,2019-01-02,2021-01-02,,
-10070,smd_2F06,Ian D. Simon,2019-01-02,2023-01-02,,
+10070,smd_2F06,Ian D. Simon,2019-01-02,2022-02-11,,
 10071,smd_2F07,Kevin J. Sylvester,2019-01-02,2021-01-02,,
 10072,smd_2F08,Janice Ferebee,2019-01-02,2021-01-02,,
 10073,smd_3B01,Ann Lane Mladinov,2019-01-02,2023-01-02,,
@@ -439,3 +439,4 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 11342,smd_8D06,Devon Lesesne,2022-01-07,2023-01-02,,
 11343,smd_3G07,Charles Cadwell,2022-01-14,2023-01-02,,
 11344,smd_1C01,Howard Bauleke,2022-01-28,2023-01-02,,
+11345,smd_1A03,Carlo Perri,2022-02-11,2023-01-02,,
