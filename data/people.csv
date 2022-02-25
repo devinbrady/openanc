@@ -533,7 +533,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10550,George O. Reid Jr.,smd_8A07,,smd_8A07,,,
 10551,Jason Hamacher,smd_1D01,smd_1D01,smd_1D01,https://twitter.com/jasonhamacher,,
 10552,Will Mascaro,smd_2C02,,smd_2C02,https://twitter.com/thewillmascaro,,
-10553,Sabra Horne,smd_3D05,,smd_3D05,,,
+10553,Sabra Horne,smd_3D05,smd_3D05,smd_3D05,,,
 10554,Carolyn C. Steptoe,smd_4A05,smd_4A05,smd_4A05,,,
 10555,Farrah Darbouze,smd_4B04,,smd_4B04,,,
 10556,Cecelia Waldeck,smd_4C03,,smd_4C03,,,
@@ -1322,3 +1322,4 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11343,Charles Cadwell,,,,https://twitter.com/ChasCadwell,,
 11344,Howard Bauleke,,,,,,
 11345,Carlo Perri,,,,,,
+11346,Cimrun Srivastara,,,,,,
