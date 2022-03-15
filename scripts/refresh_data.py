@@ -327,6 +327,31 @@ class RefreshData():
 
 
 
+    def publish_anc_list(self):
+        """
+        Publish list of ANCs to OpenANC Published
+        """
+
+        # Commissioners currently active
+        ancs = pd.read_csv('data/ancs.csv')
+        # districts = pd.read_csv('data/districts.csv')
+
+        ancs['openanc_link'] = 'https://openanc.org/ancs/anc' + ancs['anc_id'].str.lower() + '.html'
+
+        columns_to_publish = [
+            'anc_id'
+            , 'neighborhoods'
+            , 'openanc_link'
+            , 'dc_oanc_link'
+            , 'anc_homepage_link'
+            , 'twitter_link'
+            , 'notes'
+            ]
+
+        self.upload_to_google_sheets(ancs, columns_to_publish, 'openanc_published', 'ANCs')
+
+
+
     def publish_results(self):
         """
         Publish results from 2020 elections to OpenANC Published
@@ -456,7 +481,7 @@ class RefreshData():
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
         # Tables that don't need to be refreshed every time
-        # self.refresh_csv('ancs', 'A:I')
+        self.refresh_csv('ancs', 'A:I')
         # self.refresh_csv('candidate_statuses', 'A:D')
         self.refresh_csv('commissioners', 'A:G')
         # self.refresh_csv('field_names', 'A:B')
@@ -467,6 +492,7 @@ class RefreshData():
         self.add_data_to_geojson()
 
         self.publish_commissioner_list()
+        self.publish_anc_list()
 
         # self.publish_results()
 
