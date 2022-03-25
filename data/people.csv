@@ -472,7 +472,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10484,Rico Dancy,smd_6A07,,smd_6A07,https://twitter.com/deafPolitics216,https://www.facebook.com/Rico-dancy-for-the-people-108304324342562,
 10485,Jordan Hibbs,smd_6E04,,smd_6E04,https://twitter.com/VoteJordanHibbs,,https://www.votejordanhibbs.com/
 10486,Kristina (K) Leszczak,smd_8A06,,smd_8A06,https://twitter.com/FirstHomeDC,https://www.facebook.com/FirstHomeDC,https://www.vote4k.com/
-10487,Alan Kensek Jr.,smd_1B05,,smd_1B05,,,
+10487,Alan Kensek Jr.,smd_1B05,smd_1B05,smd_1B05,,,
 10488,Andre Denegri,smd_1B12,,smd_1B12,,,
 10489,Alexandra Morgan,smd_1D01,,smd_1D01,,,
 10490,Jonathan Alfuth,smd_5C05,,smd_5C05,,,
@@ -1323,3 +1323,4 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11344,Howard Bauleke,,,,,,
 11345,Carlo Perri,,,,,,
 11346,Cimrun Srivastara,,,,,,
+11347,Maxime Devilliers,,,,https://twitter.com/maxdevilliers,,
