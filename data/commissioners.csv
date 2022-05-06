@@ -1,4 +1,5 @@
 person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
+,,#N/A,,,,
 10001,smd_1A01,Layla Bonnot,2019-01-02,2023-01-02,,
 10002,smd_1A02,Teresa A. Edmondson,2019-01-02,2021-01-02,,
 10003,smd_1A03,Zach Rybarczyk,2019-01-02,2021-08-31,,asked for actual date
@@ -46,6 +47,7 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 10045,smd_2B02,Daniel Warwick,2019-01-02,2021-10-02,TRUE,Resignation announcement: https://twitter.com/danielmwarwick/status/1444336406596186113
 10046,smd_2B04,Aaron Landry,2019-01-02,2021-01-02,,
 10047,smd_2B05,Randy D. Downs,2019-01-02,2021-01-02,,
+10047,smd_2B07,Randy D. Downs,2022-05-06,2023-01-02,,
 10048,smd_2B06,Mike Silverstein,2019-01-02,2023-01-02,,
 10049,smd_2B07,Kari Cunningham,2019-01-02,2021-01-02,,
 10050,smd_2B08,Beverly Schwartz,2019-01-02,2021-01-02,,
@@ -389,7 +391,7 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 10522,smd_3D05,Katharine Nanavatty,2021-01-02,2022-01-14,,
 10525,smd_4B04,Brenda Dawson Parks,2019-01-02,2023-01-02,,
 10529,smd_1C06,Benjamin Hart Butz,2021-01-02,2023-01-02,,
-10532,smd_2C02,Elizabeth Miske,2021-01-02,2023-01-02,,
+10532,smd_2C02,Elizabeth Miske,2021-01-02,2022-05-06,,
 10541,smd_5B03,"Sukhprita ""Prita"" Piekara",2021-01-02,2023-01-02,,
 10547,smd_7B06,Kelvin Brown,2021-01-02,2023-01-02,,
 10549,smd_7E07,Kimberly Martin,2021-01-02,2023-01-02,,
@@ -447,3 +449,4 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 11348,smd_2E08,Arnav Kumar,2022-04-08,2023-01-02,,
 11349,smd_3E05,Alexandra Gianinno,2022-04-08,2023-01-02,,
 11350,smd_5C03,Tequia Hicks Delgado,2022-04-08,2023-01-02,,
+11351,smd_3C08,Jocelyn Dyer,2022-05-06,2023-01-02,,
