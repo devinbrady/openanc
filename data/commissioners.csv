@@ -1,5 +1,4 @@
 person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
-,,#N/A,,,,
 10001,smd_1A01,Layla Bonnot,2019-01-02,2023-01-02,,
 10002,smd_1A02,Teresa A. Edmondson,2019-01-02,2021-01-02,,
 10003,smd_1A03,Zach Rybarczyk,2019-01-02,2021-08-31,,asked for actual date
@@ -408,6 +407,7 @@ person_id,smd_id,commissioner_name,start_date,end_date,is_chair,notes
 10572,smd_3D02,Elizabeth R. Pemmerl,2021-01-02,2023-01-02,,
 10575,smd_3F04,Stanley Wall,2021-01-02,2023-01-02,,
 10581,smd_5C06,Harry L. Thomas III,2021-01-02,2021-04-29,,
+10585,smd_7B04,David L. Retland,2022-05-26,2023-01-02,,Won in a special election by drawing lots: https://twitter.com/TeeSwanJr/status/1529962685323960322
 10587,smd_7E05,Sharon Jafari,2021-01-02,2023-01-02,,
 10590,smd_2A07,Adam Friend,2021-01-02,2023-01-02,,
 10593,smd_3G04,Michael Zeldin,2021-01-02,2023-01-02,,

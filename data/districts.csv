@@ -228,7 +228,7 @@ smd_6E07,6E,6,-77.01257217640469,38.901861645152735,405329,10,"2C02, 5E05, 6C02,
 smd_7B01,7B,7,-76.96446978774888,38.88170628383664,1091571,11,"6B09, 7B03, 7B04, 7F04, 7F06, 7F07",,,Randle Circle
 smd_7B02,7B,7,-76.96665104952886,38.86518962987186,609125,10,"7B03, 7B04, 7B05, 8A03, 8B01, 8B02",,,Skyland Town Center
 smd_7B03,7B,7,-76.97047966425197,38.87403724313869,609016,7,"6B06, 6B09, 7B01, 7B02, 7B04, 8A01, 8A03","The 2020 election in 7B03 ended in a tie between two write-in candidates: Lindsey Botts and Walter Leroy Peacock III. The tie was broken by a drawing of names from a pot by DCBOE, and Lindsey Botts won the drawing.",,"Landmarks: L'Enfant Square, John Philip Sousa Bridge, Anacostia Park, Twining Square Park; Notable Restaurants: Thai Orchid's Kitchen, Wah Sing Chinese Restaurant, Mimi's Ethiopian BBQ, Pizza Day. Notable Apartment Buildings: The Grays on Pennsylvania."
-smd_7B04,7B,7,-76.96010860791625,38.86901916997947,1136288,2,"7B01, 7B02, 7B03, 7B05, 7B06, 7B07, 7F04",,,Penn Branch Shopping Center
+smd_7B04,7B,7,-76.96010860791625,38.86901916997947,1136288,2,"7B01, 7B02, 7B03, 7B05, 7B06, 7B07, 7F04","David L. Retland won a tiebreaker in a special election on May 26, 2022 for the vacant seat, defeating Jamaal Pearsall. Both candidates received 15 votes and Retland won in the drawing of lots. ",,Penn Branch Shopping Center
 smd_7B05,7B,7,-76.96224153287842,38.857206634623,696143,3,"7B02, 7B04, 7B06, 8B02, 8B05",,,Portion of Hillcrest neighborhood
 smd_7B06,7B,7,-76.95373140166129,38.86149987715828,547027,4,"7B04, 7B05, 7B07, 7E02",,,Portion of Hillcrest neighborhood
 smd_7B07,7B,7,-76.95247832747695,38.8721679690779,1296815,5,"7B04, 7B06, 7E02, 7F04",,,Penn Branch neighborhood

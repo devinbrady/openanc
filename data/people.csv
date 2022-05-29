@@ -172,7 +172,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10172,Patricia Williams,smd_5E02,smd_5E02,smd_5E02,,,
 10173,Cortney Segmen,smd_5E03,smd_5E03,,https://twitter.com/cortneyfor5e03,,
 10174,Sylvia M. Pinkney,smd_5E04,smd_5E04,smd_5E04,,,
-10175,Bradley Ashton Thomas,smd_5E05,smd_5E05,smd_5E05,https://twitter.com/bradleythomasdc,,
+10175,Bradley Ashton Thomas,smd_5E05,smd_5E05,smd_5E05,https://twitter.com/votebradley4dc,,
 10176,Karla M. Lewis,smd_5E06,smd_5E06,smd_5E06,https://twitter.com/ANC_5E06,,https://karlamlewis4anc.wordpress.com/
 10177,Bertha G. Holliday,smd_5E07,smd_5E07,smd_5E07,,,https://www.berthaholliday.com/
 10178,Robert Vinson Brannum,smd_5E08,smd_5E08,smd_5E08,https://twitter.com/Anc5E08,,
@@ -263,7 +263,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10263,Keeon Johnson,smd_8B07,smd_8B07,,,,
 10264,Mike Austin,smd_8C01,smd_8C01,,https://twitter.com/Mike8Austin,,
 10265,Chyla D. Evans,smd_8C02,smd_8C02,,,,
-10266,Robbie Woodland,smd_8C03,smd_8C03,smd_8C03,https://twitter.com/robbieanc8c03,,
+10266,Robbie Woodland,smd_8C03,smd_8C03,smd_8C03,,,
 10267,Regina Sharlita Pixley,smd_8C04,smd_8C04,smd_8C04,,,
 10268,Mustafa Abdul-Salaam,smd_8C05,smd_8C05,smd_8C05,,https://www.facebook.com/mabdulsalaam1,
 10269,Rhonda L. Edwards-Hines,smd_8C06,smd_8C06,smd_8C06,,,
@@ -358,7 +358,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10364,D'Andre A. Phillips,smd_5C06,,smd_5C06,,,https://www.dandrephillips.com/
 10365,Sebrena L. Rhodes,smd_5D01,smd_5D01,smd_5D01,https://twitter.com/ivycitybree,,
 10366,Salvador Sauceda-Guzman,smd_5D02,smd_5D02,smd_5D02,https://twitter.com/salvadorfor5d02,,https://www.salvadorfordc.com/
-10367,Sean Barry,smd_5D03,,smd_5D03,https://twitter.com/seanbbarry,https://www.facebook.com/seanbbarrydc/,https://www.seanbarrydc.com/
+10367,Sean Barry,smd_5D03,,smd_5D03,,https://www.facebook.com/seanbbarrydc/,https://www.seanbarrydc.com/
 10368,James Butler,smd_5D03,,smd_5D03,https://twitter.com/jamesbutler4dc,https://www.facebook.com/TheRealJamesButler/,http://www.butlerforanc.com/
 10369,Latoya Moore,smd_5D03,smd_5D03,smd_5D03,https://twitter.com/LatoyaM01766637,,https://www.mooreforanc.com/
 10370,Kathy Henderson,smd_5D05,,smd_5D05,https://twitter.com/khenderson029,,
@@ -467,7 +467,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10479,Alexander Armstrong,smd_3F05,,smd_3F05,https://twitter.com/AlexJArmstrong,,
 10480,Paul Johnson,smd_4C07,smd_4C07,smd_4C07,https://twitter.com/paulotjoao,,
 10481,Clara Haskell Botstein,smd_4C08,smd_4C08,smd_4C08,https://twitter.com/CBotstein,,https://www.claraforanc.com/
-10482,Zachary Israel,smd_4D04,smd_4D04,smd_4D04,https://twitter.com/Zach__Israel,,https://www.zachisrael.com/
+10482,Zachary Israel,smd_4D04,smd_4D04,smd_4D04,https://twitter.com/ZachBIsrael,,
 10483,Michael Lussier,smd_5D06,,smd_5D06,,,https://www.michaellussieranc5d.com/
 10484,Rico Dancy,smd_6A07,,smd_6A07,https://twitter.com/deafPolitics216,https://www.facebook.com/Rico-dancy-for-the-people-108304324342562,
 10485,Jordan Hibbs,smd_6E04,,smd_6E04,https://twitter.com/VoteJordanHibbs,,https://www.votejordanhibbs.com/
@@ -562,7 +562,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10582,Brandon Robert Watts,smd_5E09,,smd_5E09,https://twitter.com/iambrandonwatts,,
 10583,Sarah Rens,smd_6B07,,smd_6B07,,,
 10584,John Deignan,smd_6D02,,smd_6D02,,,
-10585,David L. Retland,smd_7B04,,smd_7B04,,,
+10585,David L. Retland,smd_7B04,smd_7B04,smd_7B04,,,
 10586,James Goldfield,smd_7D05,,smd_7D05,,,
 10587,Sharon Jafari,smd_7E05,smd_7E05,smd_7E05,,,
 10588,Terri L. Acker,smd_8A07,,smd_8A07,,,
