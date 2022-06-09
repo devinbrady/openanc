@@ -10,6 +10,7 @@ from scripts.index import BuildIndex
 from scripts.districts import BuildDistricts
 from scripts.ancs import BuildANCs
 from scripts.wards import BuildWards
+from scripts.people import BuildPeople
 
 start_time = datetime.now()
 
@@ -19,6 +20,7 @@ parser.add_argument('-i', '--build-index', action='store_true', help='Build inde
 parser.add_argument('-w', '--build-wards', action='store_true', help='Build page for each Ward')
 parser.add_argument('-a', '--build-ancs', action='store_true', help='Build page for each ANC')
 parser.add_argument('-d', '--build-districts', action='store_true', help='Build page for each SMD')
+parser.add_argument('-p', '--build-people', action='store_true', help='Build page for each person')
 
 args = parser.parse_args()
 
@@ -43,7 +45,20 @@ if args.build_districts:
     bd = BuildDistricts()
     bd.run()
 
-if not any([args.refresh_data, args.build_index, args.build_wards, args.build_ancs, args.build_districts]):
+if args.build_people:
+    bp = BuildPeople()
+    bp.run()
+
+
+if not any([
+        args.refresh_data
+        , args.build_index
+        , args.build_wards
+        , args.build_ancs
+        , args.build_districts
+        , args.build_people
+        ]):
+
     print('No arguments provided to build_site script, exiting.')
 
 end_time = datetime.now()
