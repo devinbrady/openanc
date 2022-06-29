@@ -146,9 +146,7 @@ class BuildIndex():
 
         mb_style_slugs = self.mapbox_slugs()
         output = output.replace('REPLACE_WITH_SMD_SLUG', mb_style_slugs['smd'])
-        output = output.replace('REPLACE_WITH_NO_CANDIDATE_SLUG', mb_style_slugs['smd-no-candidates'])
-        output = output.replace('REPLACE_WITH_UNCONTESTED_SLUG', mb_style_slugs['smd-uncontested'])
-        output = output.replace('REPLACE_WITH_CONTESTED_SLUG', mb_style_slugs['smd-contested'])
+        output = output.replace('REPLACE_WITH_SMD_2022_SLUG', mb_style_slugs['smd-2022'])
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
@@ -159,7 +157,7 @@ class BuildIndex():
 
     def build_single_page(self, html_name):
         """
-        Build a single page that just needs Google Analytics
+        Build a single page that just needs Google Analytics and the footer
         """
 
         with open(f'templates/{html_name}.html', 'r') as f:
@@ -181,6 +179,6 @@ class BuildIndex():
         self.list_page()
         self.about_page()
         self.build_single_page('index')
-        # self.build_map_page('map')
+        self.build_map_page('map')
         self.build_single_page('404')
 
