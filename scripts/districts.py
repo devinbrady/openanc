@@ -409,6 +409,7 @@ class BuildDistricts():
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
             # Use the date this script was run on as the updated_at date
+            # todo: take this bit out, handled by add_footer
             tz = pytz.timezone('America/New_York')
             dc_now = datetime.now(tz).strftime('%B %-d, %Y')
             output = add_footer(output, level=2, updated_at=dc_now)
