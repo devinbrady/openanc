@@ -3,11 +3,15 @@ Build People list and individual person pages
 """
 
 import pandas as pd
-import urllib.parse
+from tqdm import tqdm
+from nameparser import HumanName
+from string import ascii_letters
 
 from scripts.common import (
     add_footer
     , add_google_analytics
+    , build_data_table
+    , list_commissioners
 )
 
 from scripts.counts import Counts
@@ -17,7 +21,39 @@ from scripts.refresh_data import RefreshData
 class BuildPeople():
 
     def __init__(self):
-        pass
+
+        self.people = pd.read_csv('data/people.csv')
+        self.commissioners = list_commissioners()
+
+        self.people['name_url'] = self.people.full_name.apply(lambda x: self.format_name_for_url(x))
+
+        self.commissioners['smd_display'] = self.commissioners['smd_id'].str.replace('smd_','')
+        self.commissioners['smd_display_lower'] = self.commissioners['smd_display'].str.lower()
+
+        self.commissioners['smd_url'] = self.commissioners.apply(
+            lambda x: f'<a href="../ancs/districts/{x.smd_display_lower}.html">{x.smd_display}</a>'
+            , axis=1
+            )
+
+        self.people_comm = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
+
+
+
+    def format_name_for_url(self, name):
+        """
+        Strip out the non-ASCII characters from a person's full name to use as the URL.
+        This is somewhat like Wikipedia's URL formatting but not exactly.
+
+        Spaces become underscores, numbers and letters with accents are preserved as they are.
+        """
+
+        name_formatted = name.replace(' ', '_')
+
+        characters_to_strip = ['"' , '(' , ')' , '.' , '-' , ',' , '\'']
+        for c in characters_to_strip:
+            name_formatted = name_formatted.replace(c, '')
+
+        return name_formatted
 
 
 
@@ -44,26 +80,79 @@ class BuildPeople():
 
     def list_of_people(self):
         """
-        Build HTML containing each person
+        Build HTML list containing each person
         """
 
-        people = pd.read_csv('data/people.csv')
-        people = people.sort_values(by='full_name').copy()
+        self.people['last_name'] = self.people.full_name.apply(lambda x: HumanName(x).last)
+        self.people['first_letter'] = self.people.last_name.str.upper().str[0]
+        first_letter_list = sorted(self.people['first_letter'].unique())
 
-        html = '<ul>'
+        html = ''
 
-        for p in people['full_name']:
+        for letter in first_letter_list:
 
-            name_url = urllib.parse.quote(p)
+            html += f'<h3>{letter}</h3>'
 
-            html += f'<li><a href="people/{name_url}.html">{p}</a> {name_url} </li>'
+            html += '<ul>'
 
-        html += '</ul>'
+            for idx, person in self.people[self.people.first_letter == letter].sort_values(by='full_name').iterrows():
+
+                html += f'<li><a href="{person.name_url}.html">{person.full_name}</a></li>'
+
+            html += '</ul>'
 
         return html
+
+
+
+    def build_all_person_pages(self):
+        """
+        Loop through all people and build a page for each
+        """
+
+        for idx, person in tqdm(self.people.iterrows(), total=len(self.people), desc='People '):
+
+            # if person.person_id != 10029:
+            #     continue
+
+            self.build_person_page(person)
+
+
+
+    def build_person_page(self, person):
+        """
+        Build a page for one person
+        """
+
+        with open('templates/person.html', 'r') as f:
+            output = f.read()
+
+        output = output.replace('REPLACE_WITH_PERSON_FULL_NAME', person.full_name)
+
+        person_districts = self.people_comm.loc[self.people_comm.person_id == person.person_id].copy()
+
+        district_block = ''
+
+        if len(person_districts) > 0:
+            district_block += '<h2>Districts Represented</h2><ul>'
+
+            for idx, pd in person_districts.iterrows():
+
+                district_block += build_data_table(pd, ['smd_url', 'term_in_office'])
+
+            district_block += '</ul>'
+
+            output = output.replace('<!-- replace with districts represented -->', district_block)
+
+        output = add_footer(output, level=2)
+
+        with open(f'docs/people/{person.name_url}.html', 'w') as f:
+            f.write(output)
 
 
 
     def run(self):
 
         self.people_list_page()
+        self.build_all_person_pages()
+

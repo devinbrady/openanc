@@ -598,7 +598,7 @@ def calculate_zoom(area):
 
 def current_time():
     """
-    Return current time in DC
+    Return current time in DC, formatted as a string for human readability
     """
 
     tz = pytz.timezone('America/New_York')

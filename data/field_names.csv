@@ -35,6 +35,7 @@ person_id,
 pickup_date,Pickup Date
 running_for_smd_id,
 smd_id,
+smd_url,District
 start_date,Start Date
 string_anc,ANC Ranking
 string_dc,DC-wide Ranking
