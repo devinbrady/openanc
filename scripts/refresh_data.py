@@ -308,6 +308,9 @@ class RefreshData():
         people = pd.read_csv('data/people.csv')
         districts = pd.read_csv('data/districts.csv')
 
+        # Only use the current, 2012, districts for the list of active commissioners
+        districts = districts[districts.redistricting_cycle == 2012].copy()
+
         dc = pd.merge(districts, commissioners, how='left', on='smd_id')
         dcp = pd.merge(dc, people, how='left', on='person_id')
 
