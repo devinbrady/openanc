@@ -11,7 +11,7 @@ from fuzzywuzzy import process
 
 
 # The redistricting cycle of the current serving commissioners
-CURRENT_REDISTRICTING_CYCLE = '2012'
+# CURRENT_REDISTRICTING_CYCLE = '2012'
 
 
 
@@ -29,17 +29,32 @@ def mapbox_slugs():
 
 
 
-def district_url(smd_id):
+def district_url(smd_id, level=0):
     """
-    Generate a complete url for a smd_id, going to the root of the HTML directory
+    Generate a complete url for a smd_id
+
+    link level, relative to where the source page is on the directory tree:
+        -2: two levels up from the source page (like, from a district to a previous redistricting map)
+        0: html root
+        1: ANC page
+        2: SMD page
     """
 
     if '2022' in smd_id:
-        redistricting_cycle = '2022'
+        redistricting_year = '2022'
     else:
-        redistricting_cycle = '2012'
+        redistricting_year = '2012'
 
-    return f'ancs/map_{redistricting_cycle}/districts/{district_slug(smd_id)}.html' 
+    if level == -2:
+        link_path = f'../../map_{redistricting_year}/districts/'
+    elif level == 0:
+        link_path = f'ancs/map_{redistricting_year}/districts/'
+    elif level == 1:
+        link_path = 'districts/'
+    elif level == 2:
+        link_path = ''
+
+    return f'{link_path}{district_slug(smd_id)}.html' 
 
 
 
@@ -62,6 +77,27 @@ def edit_form_link(link_text='Submit edits'):
     """Return HTML for link to form for edits"""
 
     return f'<a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">{link_text}</a>'
+
+
+
+def candidate_form_link(link_text='Candidate Declaration Form', smd_id=None):
+    """
+    Link to form for candidates to declare themselves, can optionally also pre-fill the smd_id
+    """
+
+    link_destination = 'https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform'
+
+    if smd_id:
+
+        smd_id_form = smd_id.replace('smd_', '').replace('2022_', '')
+
+        link_destination += f'?usp=pp_url&entry.1452324632=SMD+{smd_id_form}'
+
+
+    return f'<a href="{link_destination}">{link_text}</a>'
+
+
+
 
 
 
@@ -99,7 +135,6 @@ def add_geojson(shape_gdf, field_name, field_value, input_html):
     
     shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy()
 
-    # print(shape_row.geometry.boundary[0])
     geo_bounds = shape_row.geometry.boundary.iloc[0].xy
 
 
@@ -489,17 +524,19 @@ def build_smd_html_table_candidates(list_of_smds, link_path=''):
 
 
 
-def build_district_list(smd_id_list=None, level=0):
+def build_district_list(smd_id_list=None, level=0, show_redistricting_cycle=False):
     """
     Bulleted list of districts and current commmissioners
 
     If smd_id_list is None, all districts are returned
     If smd_id_list is a list, those SMDs are returned
 
-    link level: 
-        0: homepage
+    link level:
+        0: html root
         1: ANC page
         2: SMD page
+
+    If show_redistricting_cycle is True, then the year of the cycle will be displayed.
     """
 
     districts = pd.read_csv('data/districts.csv')
@@ -520,25 +557,25 @@ def build_district_list(smd_id_list=None, level=0):
     for idx, district_row in dcp[dcp['smd_id'].isin(smd_id_list)].iterrows():
 
         smd_id = district_row['smd_id']
-        smd_display = district_row['smd_name']
 
         if district_row['full_name'] == '(vacant)':
-            if district_row['redistricting_cycle'] == 2022:
-                commissioner_name = '(new district)'
+            if district_row['redistricting_year'] == 2022:
+                commissioner_name = ''
             else:
-                commissioner_name = '(vacant)'
+                commissioner_name = ': (vacant)'
         else:
-            commissioner_name = 'Commissioner ' + district_row['full_name']
-
-        if level == 0:
-            link_path = f'ancs/map_{CURRENT_REDISTRICTING_CYCLE}/districts/'
-        elif level == 1:
-            link_path = 'districts/'
-        elif level == 2:
-            link_path = ''
+            commissioner_name = ': Commissioner ' + district_row['full_name']
 
 
-        district_list += f'<li><a href="{link_path}{district_slug(smd_id)}.html">{smd_display}: {commissioner_name}</a></li>'
+        if show_redistricting_cycle:
+            redistricting_string = f'[{district_row.redistricting_cycle} Cycle] '
+        else:
+            redistricting_string = ''
+
+
+        link_body = f'{redistricting_string}{district_row.smd_name}{commissioner_name}'
+
+        district_list += f'<li><a href="{district_url(smd_id, level)}">{link_body}</a></li>'
 
 
     district_list += '</ul>'
@@ -707,13 +744,19 @@ def add_footer(input_html, level=0, updated_at=None):
 
     footer_html = footer_html.replace('REPLACE_WITH_LINK_PATH___', link_path)
 
-    footer_html = footer_html.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('Submit edits'))
+    footer_html = footer_html.replace('<!-- replace with edit items -->', edit_item_list())
     footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', updated_at)
 
     output_html = input_html.replace('<!-- replace with footer -->', footer_html)
 
     return output_html
 
+
+def edit_item_list():
+
+    edit_items = f'<li>{candidate_form_link()}</li>'
+
+    return edit_items
 
 
 def hash_dataframe(df, columns_to_hash):
