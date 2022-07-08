@@ -22,6 +22,8 @@ from scripts.common import (
     , list_commissioners
     , assemble_divo
     , build_results_candidate_people
+    , district_url
+    , mapbox_slugs
     )
 
 
@@ -30,8 +32,17 @@ class BuildDistricts():
 
     def __init__(self):
 
-        # Load GeoJSON for all SMDs to memory
-        self.smd_shape = gpd.read_file('maps/smd.geojson')
+        # Load GeoJSONs for all SMDs to memory. Concatenate 2012 and 2022 GeoJSONs
+
+        map_2012 = gpd.read_file('maps/smd.geojson')
+        map_2022 = gpd.read_file('maps/to-mapbox-2022-smd-data.geojson')
+
+        # Turn the 2012 MultiPolygons into Polygons to match 2022
+        map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
+
+        self.smd_shape = gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
+
+        self.mapbox_style_slugs = mapbox_slugs()
 
         self.commissioners = list_commissioners(status=None)
 
@@ -369,24 +380,30 @@ class BuildDistricts():
         # Process SMDs in order by smd_id
         district_colors = district_colors.sort_values(by='smd_id')
 
-        for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs '):
-        # for idx, row in district_colors.iterrows():
+        # for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs '):
+        for idx, row in district_colors.iterrows():
 
             smd_id = row['smd_id']
-            smd_display = smd_id.replace('smd_','')
-            smd_display_lower = smd_display.lower()
+
+            # debug: Dorchester House
+            if smd_id not in ('smd_1C06', 'smd_2022_1C09'):
+                continue
 
             anc_id = row['anc_id']
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_1C07':
-            #     continue
-
             with open('templates/district.html', 'r') as f:
                 output = f.read()
                 
-            output = output.replace('REPLACE_WITH_SMD', smd_display)
+            output = output.replace('REPLACE_WITH_SMD_NAME', row['smd_name'])
+
+            if row['redistricting_cycle'] == 2012:
+                mapbox_slug_id = 'smd'
+            else:
+                mapbox_slug_id = 'smd-2022'
+
+            output = output.replace('REPLACE_WITH_MAPBOX_SLUG', self.mapbox_style_slugs[mapbox_slug_id])
             
             output = add_google_analytics(output)
             output = add_geojson(self.smd_shape, 'smd_id', smd_id, output)
@@ -395,7 +412,7 @@ class BuildDistricts():
             output = output.replace('<!-- replace with candidate table -->', self.add_results(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
-            neighbor_smd_ids = [('smd_' + d) for d in row['neighbor_smds'].split(', ')]
+            neighbor_smd_ids = row['neighbor_smds'].split(', ')
             output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=2))
 
 
@@ -417,7 +434,7 @@ class BuildDistricts():
             # Use the date when the underlying data was updated as the updated_at date
             # output = add_footer(output, level=2, updated_at=smd_max_updated_at.loc[smd_id, 'updated_at_formatted'])
 
-            with open(f'docs/ancs/districts/{smd_display_lower}.html', 'w') as f:
+            with open('docs/' + district_url(smd_id), 'w') as f:
                 f.write(output)
 
 
