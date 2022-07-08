@@ -10,6 +10,7 @@ from scripts.common import (
     , edit_form_link
     , add_google_analytics
     , build_smd_html_table
+    , mapbox_slugs
 )
 
 from scripts.counts import Counts
@@ -119,20 +120,6 @@ class BuildIndex():
 
 
 
-    def mapbox_slugs(self) -> dict:
-        """
-        Return dict containing mapping of mapbox style id -> url slug
-        """
-
-        mb_styles = pd.read_csv('data/mapbox_styles.csv')
-        mb_style_slugs = {}
-        for idx, row in mb_styles.iterrows():
-            mb_style_slugs[row['id']] = row['mapbox_link'][row['mapbox_link'].rfind('/')+1 :]
-
-        return mb_style_slugs
-
-
-
     def build_map_page(self, html_name) -> None:
         """
         Builds HTML page from template that is a full-page map, inserting the necessary Mapbox styles from CSV
@@ -144,7 +131,7 @@ class BuildIndex():
         output = add_google_analytics(output)
         output = add_footer(output, level=0)
 
-        mb_style_slugs = self.mapbox_slugs()
+        mb_style_slugs = mapbox_slugs()
         output = output.replace('REPLACE_WITH_SMD_SLUG', mb_style_slugs['smd'])
         output = output.replace('REPLACE_WITH_SMD_2022_SLUG', mb_style_slugs['smd-2022'])
 
