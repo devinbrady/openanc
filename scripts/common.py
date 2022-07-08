@@ -10,6 +10,54 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
 
+# The redistricting cycle of the current serving commissioners
+CURRENT_REDISTRICTING_CYCLE = '2012'
+
+
+
+def mapbox_slugs():
+    """
+    Return dict containing mapping of mapbox style id -> url slug
+    """
+
+    mb_styles = pd.read_csv('data/mapbox_styles.csv')
+    mb_style_slugs = {}
+    for idx, row in mb_styles.iterrows():
+        mb_style_slugs[row['id']] = row['mapbox_link'][row['mapbox_link'].rfind('/')+1 :]
+
+    return mb_style_slugs
+
+
+
+def district_url(smd_id):
+    """
+    Generate a complete url for a smd_id, going to the root of the HTML directory
+    """
+
+    if '2022' in smd_id:
+        redistricting_cycle = '2022'
+    else:
+        redistricting_cycle = '2012'
+
+    return f'ancs/map_{redistricting_cycle}/districts/{district_slug(smd_id)}.html' 
+
+
+
+def district_slug(smd_id):
+    """
+    Generate the final part of a district URL, that will go before the '.html'
+    """
+
+    items_to_strip_out = ['2022', 'smd', '_', '/']
+
+    district_slug = smd_id
+    for i in items_to_strip_out:
+        district_slug = district_slug.replace(i, '')
+
+    return district_slug
+
+
+
 def edit_form_link(link_text='Submit edits'):
     """Return HTML for link to form for edits"""
 
@@ -45,13 +93,15 @@ def add_geojson(shape_gdf, field_name, field_value, input_html):
     Add a GeoJSON feature as a Javascript variable to an HTML string
 
     This variable will be used to calculate the bounds of the map
+
+    todo: this should be just a 4 value bounding box, easier to deal with and faster pages
     """
     
-    shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy() 
+    shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy()
 
-    shape_geo = shape_row.geometry.iloc[0]
-    
-    geo_bounds = shape_geo.boundary[0].xy
+    # print(shape_row.geometry.boundary[0])
+    geo_bounds = shape_row.geometry.boundary.iloc[0].xy
+
 
     output_string = '[['
 
@@ -470,22 +520,25 @@ def build_district_list(smd_id_list=None, level=0):
     for idx, district_row in dcp[dcp['smd_id'].isin(smd_id_list)].iterrows():
 
         smd_id = district_row['smd_id']
-        smd_display = smd_id.replace('smd_','')
-        smd_display_lower = smd_display.lower()
+        smd_display = district_row['smd_name']
 
         if district_row['full_name'] == '(vacant)':
-            commmissioner_name = '(vacant)'
+            if district_row['redistricting_cycle'] == 2022:
+                commissioner_name = '(new district)'
+            else:
+                commissioner_name = '(vacant)'
         else:
-            commmissioner_name = 'Commissioner ' + district_row['full_name']
+            commissioner_name = 'Commissioner ' + district_row['full_name']
 
         if level == 0:
-            link_path = 'ancs/districts/'
+            link_path = f'ancs/map_{CURRENT_REDISTRICTING_CYCLE}/districts/'
         elif level == 1:
             link_path = 'districts/'
         elif level == 2:
             link_path = ''
 
-        district_list += f'<li><a href="{link_path}{smd_display_lower}.html">{smd_display}: {commmissioner_name}</a></li>'
+
+        district_list += f'<li><a href="{link_path}{district_slug(smd_id)}.html">{smd_display}: {commissioner_name}</a></li>'
 
 
     district_list += '</ul>'
@@ -635,8 +688,8 @@ def add_footer(input_html, level=0, updated_at=None):
 
     level for relative links: 
         0: same dir as homepage, index.html
-        1: one directory down, like ancs/
-        2: two directories down, like ancs/districts/
+        1: one directory down, like ancs/map_2012/
+        2: two directories down, like ancs/map_2012/districts/
     """
 
     with open('templates/footer.html', 'r') as f:
