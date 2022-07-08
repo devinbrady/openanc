@@ -17,6 +17,7 @@ from scripts.common import (
     list_commissioners
     , assemble_divo
     , build_district_comm_commelect
+    , district_url
     )
 
 
@@ -189,7 +190,7 @@ class RefreshData():
             if len(district_info_comm) != 296:
                 raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-            district_info_comm['openanc_link'] = 'https://openanc.org/ancs/districts/' + district_info_comm['smd_id'].str.replace('smd_', '').str.lower() + '.html'
+            district_info_comm['openanc_link'] = district_info_comm['smd_id'].apply(lambda x: 'https://openanc.org/' + district_url(x))
 
             columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
 
@@ -207,13 +208,11 @@ class RefreshData():
 
         for idx, row in cp.iterrows():
 
-            smd_id = row['smd_id']
-            smd_display = smd_id.replace('smd_','')
-            smd_display_lower = smd_display.lower()
+            # smd_id = row['smd_id']
 
             map_display_box = (
-                f'<b>District {smd_display}</b>'
-                + f'<br/><a href="ancs/districts/{smd_display_lower}.html">District Page</a>'
+                f'<b>District {row.smd_name}</b>'
+                + f'<br/><a href="{district_url(row.smd_id)}">District Page</a>'
                 + f'<br/>Commissioner: {row.current_commissioner}'
                 )
 
