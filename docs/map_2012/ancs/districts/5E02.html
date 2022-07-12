@@ -1,0 +1,268 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../../nonmap.css">
+    <title>District 5E02 [2012-2020 Cycle]</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+<!-- Add back with ANC links when those links are fixed for 2022 -->
+<!-- <h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward5.html">Ward 5</a> : <a href="../anc5e.html">ANC5E</a> : District 5E02 [2012-2020 Cycle]</h1> -->
+<h1><a href="../../../index.html">OpenANC</a> : Ward 5 : ANC5E : District 5E02 [2012-2020 Cycle]</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-76.99780229245499, 38.923036951109964], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-76.99825131953766, 38.925591355401444]
+,[-76.99782669912697, 38.92558909620441]
+,[-76.99717143194903, 38.925590883856984]
+,[-76.99661165270045, 38.925587445816795]
+,[-76.9962817241458, 38.9255888771221]
+,[-76.99617539602055, 38.92558932410855]
+,[-76.99606109905253, 38.92558977073008]
+,[-76.99600564005212, 38.925590039098225]
+,[-76.9955934745778, 38.925588763126854]
+,[-76.9954860970176, 38.9255890292802]
+,[-76.9950224972014, 38.925590001377586]
+,[-76.99496829524014, 38.92558999905743]
+,[-76.99454131064154, 38.92558997990109]
+,[-76.99443984925264, 38.9255890832962]
+,[-76.99442588360839, 38.92558895651474]
+,[-76.9942853045802, 38.925587715587945]
+,[-76.99439820177074, 38.92520239023026]
+,[-76.99464341703782, 38.92437295169903]
+,[-76.99499747021716, 38.9234780717764]
+,[-76.9953673154846, 38.92254707689146]
+,[-76.99587901768147, 38.92135165538908]
+,[-76.9961888091508, 38.921252250019485]
+,[-76.99704172296768, 38.9209785657428]
+,[-76.99788370976336, 38.920708388277276]
+,[-76.99829400561086, 38.92055957742768]
+,[-76.99868700213808, 38.920430673342835]
+,[-76.99885915679413, 38.92037278763926]
+,[-76.99919577374817, 38.92025960981496]
+,[-76.99946156335488, 38.92015988915589]
+,[-76.99952718902237, 38.92013529670533]
+,[-77.00057176243037, 38.91976251363345]
+,[-77.00057239722732, 38.919833337103604]
+,[-77.00057342445183, 38.91994855360927]
+,[-77.00057365531953, 38.919978191005725]
+,[-77.0005730917909, 38.92016556421749]
+,[-77.00057286172823, 38.920235829170316]
+,[-77.00057263176902, 38.9203189760298]
+,[-77.00057240165606, 38.92038311531837]
+,[-77.00057204594656, 38.92060255815736]
+,[-77.00057097605912, 38.92091920983706]
+,[-77.00057067694057, 38.9210066716744]
+,[-77.00057020522823, 38.921141616395374]
+,[-77.00057056340412, 38.92122827648492]
+,[-77.00057089841769, 38.9213025050843]
+,[-77.00057136044381, 38.92139709249684]
+,[-77.0005724692828, 38.92162053498357]
+,[-77.00057274650993, 38.92167842247688]
+,[-77.00057172467471, 38.922235947666884]
+,[-77.00057172523863, 38.92230603242516]
+,[-77.00057172581849, 38.92237809901363]
+,[-77.00057172650058, 38.922462867337096]
+,[-77.00057172838632, 38.92269722787246]
+,[-77.00057172934848, 38.922816804350184]
+,[-77.00057172966015, 38.922855540137924]
+,[-77.00057160391454, 38.92299291705796]
+,[-77.00057150133512, 38.923143085791956]
+,[-77.00057137583485, 38.92331109099932]
+,[-77.00057160693287, 38.92336811367573]
+,[-77.00057196506067, 38.923447206739134]
+,[-77.00057219631196, 38.923523146889444]
+,[-77.0005723002044, 38.923536118872015]
+,[-77.00057276568377, 38.92405707008018]
+,[-77.000572664988, 38.92444082452812]
+,[-77.00057266561386, 38.9245184762463]
+,[-77.00044038021682, 38.92451811648921]
+,[-76.9999900263497, 38.92451714442797]
+,[-76.99993965388063, 38.924517036313866]
+,[-76.9992886750711, 38.924515502761764]
+,[-76.99906024605814, 38.92451694248336]
+,[-76.9986738841016, 38.92451937099104]
+,[-76.99855015556717, 38.92451936952373]
+,[-76.99844636613577, 38.924519368191824]
+,[-76.99844727550347, 38.92459629925538]
+,[-76.998447851084, 38.92464359294164]
+,[-76.99844865720212, 38.92522661137159]
+,[-76.99844795908415, 38.925511003976744]
+,[-76.99844772666941, 38.92559234908678]
+,[-76.99834749917957, 38.92559180721523]
+,[-76.99825131953766, 38.925591355401444]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2>
+            <table>
+              <tbody>
+              
+                        <tr>
+                        <th class="attribute_heading">Name</th>
+                        <td class="attribute_value"><a href="../../../people/Patricia_Williams.html">Patricia Williams</a></td></tr>
+                        <tr>
+                        <th class="attribute_heading">Term in Office</th>
+                        <td class="attribute_value">~2019 to January 2, 2023</td></tr>
+                </tbody>
+            </table>
+        
+
+
+
+<h2>2020 Election Results</h2><style  type="text/css" >
+    #T_results_row0_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row0_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row1_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col0 {
+            text-align:  right;
+            text-align:  left;
+            font-weight:  bold;
+        }    #T_results_row2_col1 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row2_col2 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row2_col3 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row2_col4 {
+            text-align:  right;
+            font-weight:  bold;
+        }</style><table id="T_results_" ><thead>    <tr>        <th class="col_heading level0 col0" >Name</th>        <th class="col_heading level0 col1" >Votes</th>        <th class="col_heading level0 col2" >Percentage</th>        <th class="col_heading level0 col3" >Vote Margin</th>        <th class="col_heading level0 col4" >Percentage Margin</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_results_row0_col0" class="data row0 col0" >Patricia Williams (incumbent)</td>
+                        <td id="T_results_row0_col1" class="data row0 col1" >614</td>
+                        <td id="T_results_row0_col2" class="data row0 col2" >97.15%</td>
+                        <td id="T_results_row0_col3" class="data row0 col3" >+596</td>
+                        <td id="T_results_row0_col4" class="data row0 col4" >+94.30%</td>
+            </tr>
+            <tr>
+                                <td id="T_results_row1_col0" class="data row1 col0" >Write-ins combined</td>
+                        <td id="T_results_row1_col1" class="data row1 col1" >18</td>
+                        <td id="T_results_row1_col2" class="data row1 col2" >2.85%</td>
+                        <td id="T_results_row1_col3" class="data row1 col3" ></td>
+                        <td id="T_results_row1_col4" class="data row1 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_results_row2_col0" class="data row2 col0" >Total Votes</td>
+                        <td id="T_results_row2_col1" class="data row2 col1" >632</td>
+                        <td id="T_results_row2_col2" class="data row2 col2" >100.00%</td>
+                        <td id="T_results_row2_col3" class="data row2 col3" ></td>
+                        <td id="T_results_row2_col4" class="data row2 col4" ></td>
+            </tr>
+    </tbody></table>
+
+<h2>New Districts</h2><p>These districts, from the next redistricting cycle, cover the same area as this district.</p>
+
+<ul><li><a href="../../../map_2022/ancs/districts/5B04.html">[2022-2030 Cycle] 5B04</a></li><li><a href="../../../map_2022/ancs/districts/5F01.html">[2022-2030 Cycle] 5F01</a></li><li><a href="../../../map_2022/ancs/districts/5F02.html">[2022-2030 Cycle] 5F02</a></li><li><a href="../../../map_2022/ancs/districts/5F03.html">[2022-2030 Cycle] 5F03</a></li></ul>
+
+<h2>Neighboring Districts</h2>
+<p>These districts, from the same redistricting cycle, border this district.</p>
+
+<ul><li><a href="../../../map_2012/ancs/districts/5B04.html">[2012-2020 Cycle] 5B04: Commissioner Ra Amin</a></li><li><a href="../../../map_2012/ancs/districts/5C05.html">[2012-2020 Cycle] 5C05: Commissioner Darlene Oliver</a></li><li><a href="../../../map_2012/ancs/districts/5E01.html">[2012-2020 Cycle] 5E01: Commissioner Michael Braeuninger</a></li><li><a href="../../../map_2012/ancs/districts/5E03.html">[2012-2020 Cycle] 5E03: Commissioner Denise L. Wright</a></li><li><a href="../../../map_2012/ancs/districts/5E10.html">[2012-2020 Cycle] 5E10: Commissioner Sally Hobaugh</a></li></ul>
+
+
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../../index.html">Find your ANC district</a></li>
+    <li><a href="../../../list.html">List of districts</a></li>
+    <li><a href="../../../people/people_list.html">List of people</a></li>
+    <!-- <li><a href="../../../map.html">Map of districts by number of candidates</a></li> -->
+    <li><a href="../../../counts.html">Counts</a></li>
+    <li><a href="../../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 12, 2022</p>
+
+
+</body>
+
+</html>

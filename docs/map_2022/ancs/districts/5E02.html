@@ -1,0 +1,222 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../../nonmap.css">
+    <title>District 5E02 [2022-2030 Cycle]</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+<!-- Add back with ANC links when those links are fixed for 2022 -->
+<!-- <h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward5.html">Ward 5</a> : <a href="../anc5e.html">ANC5E</a> : District 5E02 [2022-2030 Cycle]</h1> -->
+<h1><a href="../../../index.html">OpenANC</a> : Ward 5 : ANC5E : District 5E02 [2022-2030 Cycle]</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/cl4yg387b000u14msjowbcvcq', // stylesheet location
+    center: [-77.01591973, 38.91224653], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.01778222880692, 38.91377259312072]
+,[-77.01776383954208, 38.913719473748806]
+,[-77.01772819297437, 38.913616243608026]
+,[-77.01764248735414, 38.913382463174244]
+,[-77.01762237984899, 38.91332763245141]
+,[-77.01750745826399, 38.91300461069334]
+,[-77.01739300150035, 38.9126921284916]
+,[-77.01739046306676, 38.91268483211427]
+,[-77.01736497185712, 38.91261321960426]
+,[-77.0173384342066, 38.91253872457426]
+,[-77.01721866915798, 38.91220183036013]
+,[-77.01712613677238, 38.91195015092009]
+,[-77.0170976386995, 38.9118723230276]
+,[-77.01708137066603, 38.911828184535686]
+,[-77.01707732440424, 38.91181710486755]
+,[-77.01695294892392, 38.91147660767414]
+,[-77.0168554630906, 38.911201687182505]
+,[-77.01682915713984, 38.911127372151185]
+,[-77.01670313435285, 38.91112757040377]
+,[-77.01644822933008, 38.91112793087032]
+,[-77.01627260451654, 38.91112817166486]
+,[-77.01617344661189, 38.91112836560107]
+,[-77.01608449273077, 38.911128467965334]
+,[-77.01574856634387, 38.911128423648506]
+,[-77.01570790006791, 38.91112848317337]
+,[-77.01536185047088, 38.91112901563933]
+,[-77.01528759729139, 38.91112893529605]
+,[-77.01518509564646, 38.91112894866417]
+,[-77.0151849619896, 38.911042738845126]
+,[-77.0151848353344, 38.91098940947415]
+,[-77.01518427456836, 38.910521786466816]
+,[-77.01518426240784, 38.91046467357166]
+,[-77.01518447687451, 38.910388913375385]
+,[-77.01509742626718, 38.91038865440716]
+,[-77.01507448181762, 38.91038865737003]
+,[-77.01505684112927, 38.910388749728405]
+,[-77.0146646756323, 38.91038934912292]
+,[-77.01464706951985, 38.91038937835669]
+,[-77.01441774038625, 38.910389731184495]
+,[-77.01376145969542, 38.91038854916737]
+,[-77.01365389752013, 38.91038866988848]
+,[-77.01305905989344, 38.91038935046415]
+,[-77.01278398006848, 38.91038891245637]
+,[-77.01247484098921, 38.91038842339295]
+,[-77.01226603485979, 38.91038781491974]
+,[-77.01225012363365, 38.91038781658929]
+,[-77.01216491784899, 38.91038773540964]
+,[-77.01206576093216, 38.91038774569303]
+,[-77.01167256913467, 38.91038758745837]
+,[-77.01153215831701, 38.91038752933696]
+,[-77.01142285509688, 38.9103874499925]
+,[-77.01103545156685, 38.91038901864964]
+,[-77.0105634183537, 38.910387981286014]
+,[-77.01011848054993, 38.91038829092316]
+,[-77.00966316567107, 38.91038723946491]
+,[-77.00966111335232, 38.910387230626334]
+,[-77.00963122790918, 38.91038716102739]
+,[-77.00923759773086, 38.910385030815874]
+,[-77.00905313115295, 38.91038402731485]
+,[-77.0090531842889, 38.91080255493076]
+,[-77.00905322499219, 38.91112315282831]
+,[-77.009053225723, 38.91112890915892]
+,[-77.00905265575399, 38.91145281314608]
+,[-77.00905254830114, 38.91151462839463]
+,[-77.00905239797902, 38.91160205436059]
+,[-77.00905193583166, 38.91186709781166]
+,[-77.00905088290855, 38.9124739537592]
+,[-77.00905089995035, 38.912608214055545]
+,[-77.00910886242035, 38.9126081194669]
+,[-77.00919983593576, 38.91260793217108]
+,[-77.0092159782504, 38.912607840815326]
+,[-77.0095844841091, 38.912604928493565]
+,[-77.00965003362604, 38.91260599508957]
+,[-77.00996613567393, 38.91261111231204]
+,[-77.0103760353702, 38.91261035595671]
+,[-77.01081810449043, 38.91261013568929]
+,[-77.0114553805879, 38.912610705521566]
+,[-77.0115325178786, 38.91261087809904]
+,[-77.01162970625305, 38.91261109367293]
+,[-77.01203131597482, 38.91261199887861]
+,[-77.01206809746586, 38.91261226533504]
+,[-77.01215999355102, 38.912612976473135]
+,[-77.01224335698654, 38.912612066932354]
+,[-77.0123760697254, 38.91261061161422]
+,[-77.01251777632547, 38.91261077668317]
+,[-77.01253999508677, 38.912610783308686]
+,[-77.01291349395237, 38.91261082369561]
+,[-77.01294289596581, 38.912610370024936]
+,[-77.01300700391532, 38.91260955215441]
+,[-77.01331036500663, 38.912613031238]
+,[-77.01354456311505, 38.9127133572252]
+,[-77.01360579365809, 38.91273911396168]
+,[-77.01368466694075, 38.91277216535568]
+,[-77.01393443270976, 38.912876272236645]
+,[-77.01398678465206, 38.91289914716276]
+,[-77.0140875680016, 38.91294318583267]
+,[-77.01421014561649, 38.91299668052263]
+,[-77.01422824976254, 38.91300460565766]
+,[-77.01437192939152, 38.913064763776404]
+,[-77.01455089533998, 38.91314113233847]
+,[-77.0150089208716, 38.91333709584691]
+,[-77.01507430378747, 38.913364652945205]
+,[-77.01518073855486, 38.91340968085658]
+,[-77.0152661862743, 38.9134457931598]
+,[-77.01529455355013, 38.91345777053975]
+,[-77.01564557086955, 38.91360744264321]
+,[-77.01570841757167, 38.913634909641615]
+,[-77.01585924987442, 38.91370092038266]
+,[-77.01609875942117, 38.913802501677516]
+,[-77.01622549103948, 38.91385626392291]
+,[-77.01622837391466, 38.91385743460643]
+,[-77.0163613321058, 38.913910925588766]
+,[-77.0167393383181, 38.914073922951424]
+,[-77.01682068253531, 38.91410902576773]
+,[-77.01754408854022, 38.913856289557614]
+,[-77.01778222880692, 38.91377259312072]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+
+
+<h2>2022 Candidates</h2><p>No known candidates. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform?usp=pp_url&entry.1452324632=SMD+5E02">Declare your candidacy using this form</a>.</p><p>The list of candidates comes from the DC Board of Elections and from submissions to OpenANC. Write-in candidates are included. If you know a candidate who isn't listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform?usp=pp_url&entry.1452324632=SMD+5E02">fill out this form</a>.</p>
+
+
+
+<h2>Old Districts</h2><p>These districts, from the previous redistricting cycle, cover the same area as this district.</p>
+
+<ul><li><a href="../../../map_2012/ancs/districts/5E05.html">[2012-2020 Cycle] 5E05: Commissioner Bradley Ashton Thomas</a></li><li><a href="../../../map_2012/ancs/districts/5E06.html">[2012-2020 Cycle] 5E06: Commissioner Karla M. Lewis</a></li></ul>
+
+<h2>Neighboring Districts</h2>
+<p>These districts, from the same redistricting cycle, border this district.</p>
+
+<ul><li><a href="../../../map_2022/ancs/districts/1B01.html">[2022-2030 Cycle] 1B01</a></li><li><a href="../../../map_2022/ancs/districts/2G01.html">[2022-2030 Cycle] 2G01</a></li><li><a href="../../../map_2022/ancs/districts/2G03.html">[2022-2030 Cycle] 2G03</a></li><li><a href="../../../map_2022/ancs/districts/5E01.html">[2022-2030 Cycle] 5E01</a></li><li><a href="../../../map_2022/ancs/districts/5E03.html">[2022-2030 Cycle] 5E03</a></li><li><a href="../../../map_2022/ancs/districts/5F07.html">[2022-2030 Cycle] 5F07</a></li></ul>
+
+
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../../index.html">Find your ANC district</a></li>
+    <li><a href="../../../list.html">List of districts</a></li>
+    <li><a href="../../../people/people_list.html">List of people</a></li>
+    <!-- <li><a href="../../../map.html">Map of districts by number of candidates</a></li> -->
+    <li><a href="../../../counts.html">Counts</a></li>
+    <li><a href="../../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 12, 2022</p>
+
+
+</body>
+
+</html>

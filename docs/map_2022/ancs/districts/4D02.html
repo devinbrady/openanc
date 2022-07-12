@@ -1,0 +1,228 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../../nonmap.css">
+    <title>District 4D02 [2022-2030 Cycle]</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+<!-- Add back with ANC links when those links are fixed for 2022 -->
+<!-- <h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward4.html">Ward 4</a> : <a href="../anc4d.html">ANC4D</a> : District 4D02 [2022-2030 Cycle]</h1> -->
+<h1><a href="../../../index.html">OpenANC</a> : Ward 4 : ANC4D : District 4D02 [2022-2030 Cycle]</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/cl4yg387b000u14msjowbcvcq', // stylesheet location
+    center: [-77.01927341, 38.95601438], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.01616138294835, 38.95710701882647]
+,[-77.01628334255084, 38.957146187850014]
+,[-77.01637518732304, 38.95717563204341]
+,[-77.01645361335468, 38.95720176301286]
+,[-77.01675376047785, 38.95730178417532]
+,[-77.01701798881217, 38.95738732451225]
+,[-77.01712333417741, 38.95742145044749]
+,[-77.01723156423317, 38.95745647668875]
+,[-77.01724598722657, 38.95746115885883]
+,[-77.01754840922501, 38.95756029483116]
+,[-77.01772748590726, 38.957619001687945]
+,[-77.0177488320583, 38.9576260248942]
+,[-77.01786456286597, 38.95766402213591]
+,[-77.01786929363377, 38.95766555281761]
+,[-77.01787596287267, 38.95766774981414]
+,[-77.01796760147191, 38.95769787741333]
+,[-77.01803094775956, 38.957718676747334]
+,[-77.01814148665557, 38.957755413358214]
+,[-77.01827625656013, 38.95780016343247]
+,[-77.0185740654905, 38.9578957842444]
+,[-77.01892218385184, 38.95800950277124]
+,[-77.01937980515096, 38.95816013603259]
+,[-77.01980038897565, 38.95829771179794]
+,[-77.01981319691534, 38.95830194351103]
+,[-77.01995731488927, 38.958348491710794]
+,[-77.01995950249817, 38.958332276466265]
+,[-77.01996145932837, 38.9583159711784]
+,[-77.01996318540516, 38.958299665929914]
+,[-77.019964680754, 38.95828345080329]
+,[-77.0199659453245, 38.95826714563348]
+,[-77.01996709451821, 38.958250840483224]
+,[-77.01996732368053, 38.95824516523913]
+,[-77.0199678975578, 38.958234445309444]
+,[-77.0199684698701, 38.958218140257664]
+,[-77.01996881142992, 38.95820183524521]
+,[-77.01996892223742, 38.95818553027208]
+,[-77.01996785598875, 38.95808607924098]
+,[-77.01996100226053, 38.957919877971854]
+,[-77.01995717907353, 38.95786348690132]
+,[-77.01995433740106, 38.95781001433959]
+,[-77.01994372475062, 38.95761062726116]
+,[-77.01994349311812, 38.95760747440865]
+,[-77.01993977888469, 38.95752802216185]
+,[-77.02004326921548, 38.95752431107682]
+,[-77.02016821907816, 38.95751987553894]
+,[-77.02042618370197, 38.957511822405785]
+,[-77.02052507070198, 38.957508733268604]
+,[-77.02076977908091, 38.95750211401777]
+,[-77.02094768585313, 38.957497307896034]
+,[-77.02141633478713, 38.95748362050621]
+,[-77.02187123090299, 38.95747009596024]
+,[-77.02193159450158, 38.957468301015695]
+,[-77.02227079351653, 38.957458057553545]
+,[-77.02236782285755, 38.9574550663025]
+,[-77.02236456923774, 38.9573813793304]
+,[-77.02236421991931, 38.95737120005949]
+,[-77.02235255171027, 38.95713829363341]
+,[-77.02234177754849, 38.95692322338797]
+,[-77.02232428123108, 38.95657379614723]
+,[-77.02232022202985, 38.956506325017806]
+,[-77.02231929072104, 38.95647975081376]
+,[-77.02231533804662, 38.95638399370988]
+,[-77.02231150182732, 38.95629165972268]
+,[-77.02230507342423, 38.9561374034105]
+,[-77.02229871480232, 38.955984840633995]
+,[-77.02229209634851, 38.95584985302948]
+,[-77.02227433100241, 38.95548704848285]
+,[-77.02226991813944, 38.9553950749186]
+,[-77.02226620187835, 38.95531706403389]
+,[-77.0222624858224, 38.95523968372656]
+,[-77.02221905500417, 38.954335261877674]
+,[-77.02221835927493, 38.95432400167384]
+,[-77.0222132579881, 38.9542437389671]
+,[-77.02211669432292, 38.954246189508325]
+,[-77.02195240917318, 38.95425036427749]
+,[-77.02169720209639, 38.95425767258734]
+,[-77.02162949220457, 38.954259612904266]
+,[-77.0212855782939, 38.95427030578712]
+,[-77.0208497153368, 38.95428353640899]
+,[-77.02076884188264, 38.95428607312022]
+,[-77.02034451578713, 38.95429957005649]
+,[-77.02031133573189, 38.954300593760465]
+,[-77.01989157794875, 38.95431352073802]
+,[-77.01988361748347, 38.95431370225767]
+,[-77.01978993798839, 38.9543165107172]
+,[-77.01969314350137, 38.954319319626514]
+,[-77.01952655084247, 38.95432421203698]
+,[-77.01925391119657, 38.95433271602356]
+,[-77.0190475393704, 38.95433915471035]
+,[-77.0186318646893, 38.95435003162261]
+,[-77.01826314544061, 38.954360989813296]
+,[-77.01824190600922, 38.95436162370836]
+,[-77.01794991858526, 38.95437031684514]
+,[-77.01780766859952, 38.95437466256985]
+,[-77.01771606560075, 38.95437746905127]
+,[-77.01762723145, 38.95438018496078]
+,[-77.01758662155669, 38.95438145223486]
+,[-77.0173823953566, 38.9543880408001]
+,[-77.01734550034813, 38.954389235371785]
+,[-77.01719817408728, 38.95439389639738]
+,[-77.0170480789505, 38.95439864772382]
+,[-77.0168128410882, 38.954404717333]
+,[-77.0167884981796, 38.954405351410294]
+,[-77.01663724932341, 38.95441023749905]
+,[-77.01656943292531, 38.9545011405603]
+,[-77.01653552465098, 38.954546547034255]
+,[-77.01638305258359, 38.95475231734692]
+,[-77.01624130573626, 38.95494322232119]
+,[-77.01612170223237, 38.95510250504633]
+,[-77.0160360072091, 38.95521665157925]
+,[-77.01604610794973, 38.95549842878213]
+,[-77.01604843029334, 38.955564639222885]
+,[-77.01605121709105, 38.955644001667906]
+,[-77.01608060539628, 38.956220067224756]
+,[-77.01608343297875, 38.95627538659318]
+,[-77.01610286125027, 38.95647725913974]
+,[-77.01611107205943, 38.956562656359296]
+,[-77.01612043913033, 38.956659133582875]
+,[-77.0161217112761, 38.95667255572168]
+,[-77.01615107823443, 38.9569464029042]
+,[-77.01615350974681, 38.95698459760787]
+,[-77.01616138294835, 38.95710701882647]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+
+
+<h2>2022 Candidates</h2><p>No known candidates. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform?usp=pp_url&entry.1452324632=SMD+4D02">Declare your candidacy using this form</a>.</p><p>The list of candidates comes from the DC Board of Elections and from submissions to OpenANC. Write-in candidates are included. If you know a candidate who isn't listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform?usp=pp_url&entry.1452324632=SMD+4D02">fill out this form</a>.</p>
+
+
+
+<h2>Old Districts</h2><p>These districts, from the previous redistricting cycle, cover the same area as this district.</p>
+
+<ul><li><a href="../../../map_2012/ancs/districts/4B05.html">[2012-2020 Cycle] 4B05: (vacant)</a></li><li><a href="../../../map_2012/ancs/districts/4D01.html">[2012-2020 Cycle] 4D01: Commissioner Erik Lindsjo</a></li><li><a href="../../../map_2012/ancs/districts/4D02.html">[2012-2020 Cycle] 4D02: Commissioner Renée L. Bowser</a></li><li><a href="../../../map_2012/ancs/districts/4D03.html">[2012-2020 Cycle] 4D03: Commissioner Aryan Rodriguez Bocquet</a></li></ul>
+
+<h2>Neighboring Districts</h2>
+<p>These districts, from the same redistricting cycle, border this district.</p>
+
+<ul><li><a href="../../../map_2022/ancs/districts/4B06.html">[2022-2030 Cycle] 4B06</a></li><li><a href="../../../map_2022/ancs/districts/4B08.html">[2022-2030 Cycle] 4B08</a></li><li><a href="../../../map_2022/ancs/districts/4D01.html">[2022-2030 Cycle] 4D01</a></li><li><a href="../../../map_2022/ancs/districts/4D03.html">[2022-2030 Cycle] 4D03</a></li><li><a href="../../../map_2022/ancs/districts/4D07.html">[2022-2030 Cycle] 4D07</a></li><li><a href="../../../map_2022/ancs/districts/4D08.html">[2022-2030 Cycle] 4D08</a></li></ul>
+
+
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../../index.html">Find your ANC district</a></li>
+    <li><a href="../../../list.html">List of districts</a></li>
+    <li><a href="../../../people/people_list.html">List of people</a></li>
+    <!-- <li><a href="../../../map.html">Map of districts by number of candidates</a></li> -->
+    <li><a href="../../../counts.html">Counts</a></li>
+    <li><a href="../../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 12, 2022</p>
+
+
+</body>
+
+</html>

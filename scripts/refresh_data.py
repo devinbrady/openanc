@@ -240,9 +240,7 @@ class RefreshData():
         """
 
         smd = gpd.read_file(source_geojson)
-
-        # Use the map_color_id field from the Google Sheets over what is stored in the GeoJSON
-        smd.drop(columns=['map_color_id'], inplace=True)
+        smd = smd[['smd_id', 'geometry']].copy()
 
         smd_df = smd.merge(self.map_display_df, on='smd_id')
 
@@ -255,7 +253,7 @@ class RefreshData():
 
         lp = pd.read_csv(source_csv)
 
-        lp_df = pd.merge(lp, self.map_display_df[['smd_id', 'current_commissioner', 'commissioner_elect', 'map_display_box']], how='inner', on='smd_id')
+        lp_df = pd.merge(lp, self.map_display_df[['smd_id', 'smd_name', 'current_commissioner', 'commissioner_elect', 'map_display_box']], how='inner', on='smd_id')
         
         lp_df.to_csv(destination_filename, index=False)
 
@@ -475,7 +473,7 @@ class RefreshData():
 
 
 
-    def run(self):
+    def download_google_sheets(self):
 
         # self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('districts', 'A:O')
@@ -484,7 +482,7 @@ class RefreshData():
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
         # Tables that don't need to be refreshed every time
-        self.refresh_csv('ancs', 'A:I')
+        self.refresh_csv('ancs', 'A:J')
         # self.refresh_csv('candidate_statuses', 'A:D')
         self.refresh_csv('commissioners', 'A:G')
         # self.refresh_csv('field_names', 'A:B')
@@ -492,14 +490,19 @@ class RefreshData():
         # self.refresh_csv('map_colors', 'A:B') 
         # self.refresh_csv('wards', 'A:B')
 
+
+    def run(self):
+
+        # self.download_google_sheets()
+
         self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
         self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')
 
         self.add_data_to_label_points('maps/label-points-2012.csv', 'uploads/to-mapbox-label-points-2012-data.csv')
         self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.csv')
 
-        self.publish_commissioner_list()
-        self.publish_anc_list()
+        # self.publish_commissioner_list()
+        # self.publish_anc_list()
 
         # self.publish_results()
 

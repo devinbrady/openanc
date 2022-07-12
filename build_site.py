@@ -2,6 +2,7 @@
 All steps necessary to build OpenANC pages
 """
 
+import os
 import argparse
 from datetime import datetime
 
@@ -23,6 +24,10 @@ parser.add_argument('-d', '--build-districts', action='store_true', help='Build 
 parser.add_argument('-p', '--build-people', action='store_true', help='Build page for each person')
 
 args = parser.parse_args()
+
+
+# Make directories if they don't already exist
+# os.makedirs('/docs/map_2012/ancs/districts', exist_ok=True)
 
 
 if args.refresh_data:
