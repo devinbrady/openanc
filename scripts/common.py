@@ -4,16 +4,143 @@ import pytz
 import hashlib
 import numpy as np
 import pandas as pd
+import geopandas as gpd
 from datetime import datetime
 
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
 
+# The redistricting cycle of the current serving commissioners
+# CURRENT_REDISTRICTING_CYCLE = '2012'
+
+
+def smd_geojson():
+    """Return a GeoDataFrame with SMDs from all redistricting cycles"""
+
+    map_2012 = gpd.read_file('maps/smd-2012-preprocessed.geojson')
+    map_2022 = gpd.read_file('maps/smd-2022-preprocessed.geojson')
+
+    # Turn the 2012 MultiPolygons into Polygons to match 2022
+    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
+
+    return gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
+
+
+
+def people_dataframe():
+    """Return dataframe of people.csv with the name URLs added."""
+
+    people = pd.read_csv('data/people.csv')
+    people['name_url'] = people.full_name.apply(lambda x: format_name_for_url(x))
+
+    return people
+
+
+
+def format_name_for_url(name):
+    """
+    Strip out the non-ASCII characters from a person's full name to use as the URL.
+    This is somewhat like Wikipedia's URL formatting but not exactly.
+
+    Spaces become underscores, numbers and letters with accents are preserved as they are.
+    """
+
+    name_formatted = name.replace(' ', '_')
+
+    characters_to_strip = ['"' , '(' , ')' , '.' , '-' , ',' , '\'']
+    for c in characters_to_strip:
+        name_formatted = name_formatted.replace(c, '')
+
+    return name_formatted
+
+
+
+def mapbox_slugs():
+    """
+    Return dict containing mapping of mapbox style id -> url slug
+    """
+
+    mb_styles = pd.read_csv('data/mapbox_styles.csv')
+    mb_style_slugs = {}
+    for idx, row in mb_styles.iterrows():
+        mb_style_slugs[row['id']] = row['mapbox_link'][row['mapbox_link'].rfind('/')+1 :]
+
+    return mb_style_slugs
+
+
+
+def district_url(smd_id, level=0):
+    """
+    Generate a complete url for a smd_id
+
+    link level, relative to where the source page is on the directory tree:
+        -2: two levels up from the source page (like, from a district to a previous redistricting map)
+        0: html root
+        1: ANC page
+        2: SMD page
+    """
+
+    if '2022' in smd_id:
+        redistricting_year = '2022'
+    else:
+        redistricting_year = '2012'
+
+    if level == -2:
+        link_path = f'../../map_{redistricting_year}/districts/'
+    elif level == -1:
+        link_path = f'../ancs/map_{redistricting_year}/districts/'
+    elif level == 0:
+        link_path = f'ancs/map_{redistricting_year}/districts/'
+    elif level == 1:
+        link_path = 'districts/'
+    elif level == 2:
+        link_path = ''
+
+    return f'{link_path}{district_slug(smd_id)}.html' 
+
+
+
+def district_slug(smd_id):
+    """
+    Generate the final part of a district URL, that will go before the '.html'
+    """
+
+    items_to_strip_out = ['2022', 'smd', '_', '/']
+
+    district_slug = smd_id
+    for i in items_to_strip_out:
+        district_slug = district_slug.replace(i, '')
+
+    return district_slug
+
+
+
 def edit_form_link(link_text='Submit edits'):
     """Return HTML for link to form for edits"""
 
     return f'<a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">{link_text}</a>'
+
+
+
+def candidate_form_link(link_text='Candidate Declaration Form', smd_id=None):
+    """
+    Link to form for candidates to declare themselves, can optionally also pre-fill the smd_id
+    """
+
+    link_destination = 'https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform'
+
+    if smd_id:
+
+        smd_id_form = smd_id.replace('smd_', '').replace('2022_', '')
+
+        link_destination += f'?usp=pp_url&entry.1452324632=SMD+{smd_id_form}'
+
+
+    return f'<a href="{link_destination}">{link_text}</a>'
+
+
+
 
 
 
@@ -45,13 +172,14 @@ def add_geojson(shape_gdf, field_name, field_value, input_html):
     Add a GeoJSON feature as a Javascript variable to an HTML string
 
     This variable will be used to calculate the bounds of the map
+
+    todo: this should be just a 4 value bounding box, easier to deal with and faster pages
     """
     
-    shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy() 
+    shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy()
 
-    shape_geo = shape_row.geometry.iloc[0]
-    
-    geo_bounds = shape_geo.boundary[0].xy
+    geo_bounds = shape_row.geometry.boundary.iloc[0].xy
+
 
     output_string = '[['
 
@@ -439,17 +567,19 @@ def build_smd_html_table_candidates(list_of_smds, link_path=''):
 
 
 
-def build_district_list(smd_id_list=None, level=0):
+def build_district_list(smd_id_list=None, level=0, show_redistricting_cycle=False):
     """
     Bulleted list of districts and current commmissioners
 
     If smd_id_list is None, all districts are returned
     If smd_id_list is a list, those SMDs are returned
 
-    link level: 
-        0: homepage
+    link level:
+        0: html root
         1: ANC page
         2: SMD page
+
+    If show_redistricting_cycle is True, then the year of the cycle will be displayed.
     """
 
     districts = pd.read_csv('data/districts.csv')
@@ -470,22 +600,25 @@ def build_district_list(smd_id_list=None, level=0):
     for idx, district_row in dcp[dcp['smd_id'].isin(smd_id_list)].iterrows():
 
         smd_id = district_row['smd_id']
-        smd_display = smd_id.replace('smd_','')
-        smd_display_lower = smd_display.lower()
 
         if district_row['full_name'] == '(vacant)':
-            commmissioner_name = '(vacant)'
+            if district_row['redistricting_year'] == 2022:
+                commissioner_name = ''
+            else:
+                commissioner_name = ': (vacant)'
         else:
-            commmissioner_name = 'Commissioner ' + district_row['full_name']
+            commissioner_name = ': Commissioner ' + district_row['full_name']
 
-        if level == 0:
-            link_path = 'ancs/districts/'
-        elif level == 1:
-            link_path = 'districts/'
-        elif level == 2:
-            link_path = ''
 
-        district_list += f'<li><a href="{link_path}{smd_display_lower}.html">{smd_display}: {commmissioner_name}</a></li>'
+        if show_redistricting_cycle:
+            redistricting_string = f'[{district_row.redistricting_cycle} Cycle] '
+        else:
+            redistricting_string = ''
+
+
+        link_body = f'{redistricting_string}{district_row.smd_name}{commissioner_name}'
+
+        district_list += f'<li><a href="{district_url(smd_id, level)}">{link_body}</a></li>'
 
 
     district_list += '</ul>'
@@ -494,7 +627,24 @@ def build_district_list(smd_id_list=None, level=0):
 
 
 
-def build_data_table(row, fields_to_try):
+def district_link(smd_id, smd_name, redistricting_year, level=0, show_redistricting_cycle=False, redistricting_cycle=None):
+    """Return an HTML link for one district page"""
+
+    if show_redistricting_cycle:
+        redistricting_string = f'[{redistricting_cycle} Cycle] '
+    else:
+        redistricting_string = ''
+
+    link_body = f'{redistricting_string}{smd_name}'
+
+    link_text = f'<a href="{district_url(smd_id, level)}">{link_body}</a>'
+
+    return link_text
+
+
+
+
+def build_data_table(row, fields_to_try, people_level=0):
         """
         Create HTML table for one row of data
 
@@ -517,7 +667,15 @@ def build_data_table(row, fields_to_try):
 
             if field_name in row:
 
-                field_value = row[field_name]
+                if field_name == 'full_name':
+                    # Write link to person page for full name
+                    if people_level == -3:
+                        prefix = '../../../'
+                    
+                    field_value = f'<a href="{prefix}people/{row.name_url}.html">{row.full_name}</a>'
+                else:
+                    field_value = row[field_name]
+
 
                 # Convert timestamp to human-readable string
                 if isinstance(field_value, datetime):
@@ -635,8 +793,8 @@ def add_footer(input_html, level=0, updated_at=None):
 
     level for relative links: 
         0: same dir as homepage, index.html
-        1: one directory down, like ancs/
-        2: two directories down, like ancs/districts/
+        1: one directory down, like ancs/map_2012/
+        2: two directories down, like ancs/map_2012/districts/
     """
 
     with open('templates/footer.html', 'r') as f:
@@ -654,13 +812,19 @@ def add_footer(input_html, level=0, updated_at=None):
 
     footer_html = footer_html.replace('REPLACE_WITH_LINK_PATH___', link_path)
 
-    footer_html = footer_html.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('Submit edits'))
+    footer_html = footer_html.replace('<!-- replace with edit items -->', edit_item_list())
     footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', updated_at)
 
     output_html = input_html.replace('<!-- replace with footer -->', footer_html)
 
     return output_html
 
+
+def edit_item_list():
+
+    edit_items = f'<li>{candidate_form_link()}</li>'
+
+    return edit_items
 
 
 def hash_dataframe(df, columns_to_hash):

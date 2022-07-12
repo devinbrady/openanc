@@ -1,7 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../../nonmap.css">
-    <title>District REPLACE_WITH_SMD</title>
+    <link rel="stylesheet" type="text/css" href="../../../nonmap.css">
+    <title>District REPLACE_WITH_SMD_NAME</title>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
@@ -11,15 +11,16 @@
 
 <body>
 
-
-<h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/wardREPLACE_WITH_WARD.html">Ward REPLACE_WITH_WARD</a> : <a href="../REPLACE_WITH_ANC_LOWER.html">REPLACE_WITH_ANC_UPPER</a> : District REPLACE_WITH_SMD</h1>
+<!-- Add back with ANC links when those links are fixed for 2022 -->
+<!-- <h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/wardREPLACE_WITH_WARD.html">Ward REPLACE_WITH_WARD</a> : <a href="../REPLACE_WITH_ANC_LOWER.html">REPLACE_WITH_ANC_UPPER</a> : District REPLACE_WITH_SMD_NAME</h1> -->
+<h1><a href="../../index.html">OpenANC</a> : Ward REPLACE_WITH_WARD : REPLACE_WITH_ANC_UPPER : District REPLACE_WITH_SMD_NAME</h1>
 
 <div id='map' style='width: 700px; height: 400px;'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    style: 'mapbox://styles/devinbrady/REPLACE_WITH_MAPBOX_SLUG', // stylesheet location
     center: [REPLACE_WITH_LONGITUDE, REPLACE_WITH_LATITUDE], // starting position [lng, lat]
     zoom: 13
 });
@@ -60,13 +61,18 @@ map.addControl(new mapboxgl.NavigationControl());
 
 <!-- replace with candidate table -->
 
-<h2>Better Know a District</h2>
+<!-- replace with results table -->
 
-<!-- replace with better know a district -->
+<!-- replace with old/new heading -->
+
+<!-- replace with overlap -->
 
 <h2>Neighboring Districts</h2>
+<p>These districts, from the same redistricting cycle, border this district.</p>
 
 <!-- replace with neighbors -->
+
+<!-- replace with better know a district -->
 
 <!-- replace with footer -->
 

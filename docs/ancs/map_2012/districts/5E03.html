@@ -1,0 +1,351 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../../nonmap.css">
+    <title>District 5E03 [2012-2020 Cycle]</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward5.html">Ward 5</a> : <a href="../anc5e.html">ANC5E</a> : District 5E03 [2012-2020 Cycle]</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.00160297853327, 38.91530770596847], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-76.99625758081663, 38.92108920154886]
+,[-76.99759109531588, 38.91836256889832]
+,[-76.99760323750603, 38.91836628958814]
+,[-76.9999351312342, 38.91373835456331]
+,[-76.9999678199588, 38.913748425898035]
+,[-77.00175250087784, 38.910117024417154]
+,[-77.00195809258692, 38.90981769189196]
+,[-77.00211386465756, 38.90958800341482]
+,[-77.00235058726585, 38.90905311938709]
+,[-77.00252560865698, 38.90876097507693]
+,[-77.0028078695613, 38.90828969698543]
+,[-77.00288258761965, 38.90816957786663]
+,[-77.0028857006436, 38.90817092904182]
+,[-77.0031474140271, 38.90828199519782]
+,[-77.0037061476622, 38.908521060320666]
+,[-77.00378191018855, 38.90855321768829]
+,[-77.00381811388239, 38.90856853069901]
+,[-77.00427515807745, 38.9087626447224]
+,[-77.00434572121584, 38.90879408124556]
+,[-77.00440406267815, 38.9088200230964]
+,[-77.00441523518742, 38.908824977264864]
+,[-77.00459507937447, 38.90890488336349]
+,[-77.00467317186703, 38.90893964347122]
+,[-77.00481522129132, 38.909002696120865]
+,[-77.00483620589029, 38.90901206393326]
+,[-77.00509850189387, 38.909123305844936]
+,[-77.00518072239066, 38.90915663310484]
+,[-77.0053337142863, 38.90921860363433]
+,[-77.00528921918468, 38.90934643407643]
+,[-77.0052825333769, 38.90936562215406]
+,[-77.00518169717748, 38.909719159162485]
+,[-77.00514157220606, 38.90985982623328]
+,[-77.00497696830136, 38.910454023719254]
+,[-77.0049668245569, 38.91049068810813]
+,[-77.00493939021979, 38.91058888021189]
+,[-77.0048935124942, 38.910753554651976]
+,[-77.00483472412338, 38.91096426223436]
+,[-77.0048186898235, 38.911021736121526]
+,[-77.00479022916294, 38.911123711726844]
+,[-77.00477685760019, 38.91117190690502]
+,[-77.00475736503346, 38.911241812434945]
+,[-77.00467995913537, 38.91151805636261]
+,[-77.00465684675856, 38.91160052865261]
+,[-77.00461188986371, 38.91176096899462]
+,[-77.00458181475577, 38.91186852977047]
+,[-77.00456877717635, 38.911915013320375]
+,[-77.00455517475329, 38.91196383905911]
+,[-77.0045266441203, 38.91206520201821]
+,[-77.0044874273358, 38.91220452652612]
+,[-77.00445247562112, 38.91232868080995]
+,[-77.0044055464973, 38.91249488646386]
+,[-77.00437362627417, 38.91260803241193]
+,[-77.00423594381462, 38.91260893832083]
+,[-77.00415501313915, 38.912609481728566]
+,[-77.0036536785212, 38.9126080571551]
+,[-77.00351277905526, 38.91260770114493]
+,[-77.00351024828647, 38.912727151804674]
+,[-77.00350943129285, 38.91276075293559]
+,[-77.003506683934, 38.91316531752953]
+,[-77.0035066888267, 38.913264769589084]
+,[-77.00350669275771, 38.91334467355224]
+,[-77.003506696897, 38.91342881143328]
+,[-77.00350683456726, 38.91364906529825]
+,[-77.00350687077444, 38.91368190969747]
+,[-77.00350753207383, 38.91399885903147]
+,[-77.0035077783541, 38.914082996895154]
+,[-77.00350801343026, 38.914173755885706]
+,[-77.00351044462637, 38.91460674152082]
+,[-77.00351068246971, 38.91475357739565]
+,[-77.00351081298444, 38.9148282564983]
+,[-77.00351092026958, 38.914899512432946]
+,[-77.00351092168061, 38.91492815894117]
+,[-77.00351037372168, 38.91527416912888]
+,[-77.00350956514426, 38.91547928894489]
+,[-77.00350911996193, 38.915570993807755]
+,[-77.0035091201748, 38.915575317808475]
+,[-77.00361531803053, 38.915575134402424]
+,[-77.0038188235608, 38.915574767591764]
+,[-77.00395970575615, 38.91557381702495]
+,[-77.0042074084248, 38.91557214182209]
+,[-77.00478002359041, 38.91557202970743]
+,[-77.0050052299189, 38.9155718401071]
+,[-77.00509181403696, 38.915571836364684]
+,[-77.00509205080255, 38.91565795603484]
+,[-77.00509218268525, 38.915728581372754]
+,[-77.00509219892302, 38.91595590669068]
+,[-77.00509221756101, 38.916216833084086]
+,[-77.00509232644113, 38.916288269165754]
+,[-77.00509233148605, 38.916358894501016]
+,[-77.00509296020633, 38.91692786079051]
+,[-77.0050930693265, 38.91700262994583]
+,[-77.00509320157957, 38.91707839001568]
+,[-77.00509320254497, 38.91709190251415]
+,[-77.00509321666047, 38.91728947325459]
+,[-77.00509321720622, 38.917297112320114]
+,[-77.00509307178598, 38.91735985535839]
+,[-77.00509277062663, 38.917502322138404]
+,[-77.00509265756236, 38.917533761220675]
+,[-77.00509254449146, 38.91756511021945]
+,[-77.00509231786693, 38.91762105196796]
+,[-77.00509218178387, 38.917653103617084]
+,[-77.00509163770786, 38.91778491354418]
+,[-77.00509129562116, 38.91783875635429]
+,[-77.00509060008818, 38.917948865214406]
+,[-77.00509290841836, 38.91797841243905]
+,[-77.00509903353377, 38.91800777933037]
+,[-77.00510702579521, 38.918024597534775]
+,[-77.00512548821112, 38.918040046013374]
+,[-77.00517163721308, 38.91806064603162]
+,[-77.0052494390093, 38.918079190713954]
+,[-77.00533915257792, 38.91809886084194]
+,[-77.00528390839632, 38.91811799704825]
+,[-77.00511198350561, 38.91817610843118]
+,[-77.00483402059221, 38.918273239075994]
+,[-77.00351500671555, 38.91873413436486]
+,[-77.00267792006512, 38.91902662998996]
+,[-77.00203322467246, 38.91925188725332]
+,[-77.00057176243037, 38.91976251363345]
+,[-76.99952718902237, 38.92013529670533]
+,[-76.99946156335488, 38.92015988915589]
+,[-76.99919577374817, 38.92025960981496]
+,[-76.99885915679413, 38.92037278763926]
+,[-76.99868700213808, 38.920430673342835]
+,[-76.99829400561086, 38.92055957742768]
+,[-76.99788370976336, 38.920708388277276]
+,[-76.99704172296768, 38.9209785657428]
+,[-76.9961888091508, 38.921252250019485]
+,[-76.99623840169134, 38.921128414174895]
+,[-76.99625758081663, 38.92108920154886]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2>
+            <table>
+              <tbody>
+              
+                        <tr>
+                        <th class="attribute_heading">Name</th>
+                        <td class="attribute_value"><a href="../../../people/Denise_L_Wright.html">Denise L. Wright</a></td></tr>
+                        <tr>
+                        <th class="attribute_heading">Term in Office</th>
+                        <td class="attribute_value">January 2, 2021 to January 2, 2023</td></tr>
+                </tbody>
+            </table>
+        <h2>Former Commissioner</h2>
+            <table>
+              <tbody>
+              
+                        <tr>
+                        <th class="attribute_heading">Name</th>
+                        <td class="attribute_value"><a href="../../../people/Cortney_Segmen.html">Cortney Segmen</a></td></tr>
+                        <tr>
+                        <th class="attribute_heading">Term in Office</th>
+                        <td class="attribute_value">~2019 to January 2, 2021</td></tr>
+                </tbody>
+            </table>
+        
+
+
+
+<h2>2020 Election Results</h2><style  type="text/css" >
+    #T_results_row0_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row0_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row1_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row2_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row3_col0 {
+            text-align:  right;
+            text-align:  left;
+            font-weight:  bold;
+        }    #T_results_row3_col1 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row3_col2 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row3_col3 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row3_col4 {
+            text-align:  right;
+            font-weight:  bold;
+        }</style><table id="T_results_" ><thead>    <tr>        <th class="col_heading level0 col0" >Name</th>        <th class="col_heading level0 col1" >Votes</th>        <th class="col_heading level0 col2" >Percentage</th>        <th class="col_heading level0 col3" >Vote Margin</th>        <th class="col_heading level0 col4" >Percentage Margin</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_results_row0_col0" class="data row0 col0" >Denise L. Wright</td>
+                        <td id="T_results_row0_col1" class="data row0 col1" >1,130</td>
+                        <td id="T_results_row0_col2" class="data row0 col2" >64.24%</td>
+                        <td id="T_results_row0_col3" class="data row0 col3" >+528</td>
+                        <td id="T_results_row0_col4" class="data row0 col4" >+30.02%</td>
+            </tr>
+            <tr>
+                                <td id="T_results_row1_col0" class="data row1 col0" >Michael Kaercher</td>
+                        <td id="T_results_row1_col1" class="data row1 col1" >602</td>
+                        <td id="T_results_row1_col2" class="data row1 col2" >34.22%</td>
+                        <td id="T_results_row1_col3" class="data row1 col3" ></td>
+                        <td id="T_results_row1_col4" class="data row1 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_results_row2_col0" class="data row2 col0" >Write-ins combined</td>
+                        <td id="T_results_row2_col1" class="data row2 col1" >27</td>
+                        <td id="T_results_row2_col2" class="data row2 col2" >1.53%</td>
+                        <td id="T_results_row2_col3" class="data row2 col3" ></td>
+                        <td id="T_results_row2_col4" class="data row2 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_results_row3_col0" class="data row3 col0" >Total Votes</td>
+                        <td id="T_results_row3_col1" class="data row3 col1" >1,759</td>
+                        <td id="T_results_row3_col2" class="data row3 col2" >100.00%</td>
+                        <td id="T_results_row3_col3" class="data row3 col3" ></td>
+                        <td id="T_results_row3_col4" class="data row3 col4" ></td>
+            </tr>
+    </tbody></table>
+
+<h2>New Districts</h2><p>These districts, from the next redistricting cycle, cover the same area as this district.</p>
+
+<ul><li><a href="../../map_2022/districts/5F04.html">[2022-2030 Cycle] 5F04</a></li><li><a href="../../map_2022/districts/5F05.html">[2022-2030 Cycle] 5F05</a></li><li><a href="../../map_2022/districts/5F06.html">[2022-2030 Cycle] 5F06</a></li></ul>
+
+<h2>Neighboring Districts</h2>
+<p>These districts, from the same redistricting cycle, border this district.</p>
+
+<ul><li><a href="5C05.html">[2012-2020 Cycle] 5C05: Commissioner Darlene Oliver</a></li><li><a href="5D01.html">[2012-2020 Cycle] 5D01: Commissioner Sebrena L. Rhodes</a></li><li><a href="5E02.html">[2012-2020 Cycle] 5E02: Commissioner Patricia Williams</a></li><li><a href="5E04.html">[2012-2020 Cycle] 5E04: Commissioner Sylvia M. Pinkney</a></li><li><a href="5E10.html">[2012-2020 Cycle] 5E10: Commissioner Sally Hobaugh</a></li><li><a href="6C06.html">[2012-2020 Cycle] 6C06: Commissioner Drew Courtney</a></li></ul>
+
+
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../index.html">Find your ANC district</a></li>
+    <li><a href="../../list.html">List of commissioners and districts</a></li>
+    <!-- <li><a href="../../map.html">Map of districts by number of candidates</a></li> -->
+    <li><a href="../../counts.html">Counts</a></li>
+    <li><a href="../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 12, 2022</p>
+
+
+</body>
+
+</html>

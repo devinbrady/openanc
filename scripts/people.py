@@ -12,6 +12,8 @@ from scripts.common import (
     , add_google_analytics
     , build_data_table
     , list_commissioners
+    , people_dataframe
+    , district_link
 )
 
 from scripts.counts import Counts
@@ -22,38 +24,24 @@ class BuildPeople():
 
     def __init__(self):
 
-        self.people = pd.read_csv('data/people.csv')
         self.commissioners = list_commissioners()
+        self.people = people_dataframe()
+        self.districts = pd.read_csv('data/districts.csv')
 
-        self.people['name_url'] = self.people.full_name.apply(lambda x: self.format_name_for_url(x))
+        self.comm_districts = pd.merge(self.commissioners, self.districts, how='inner', on='smd_id')
 
-        self.commissioners['smd_display'] = self.commissioners['smd_id'].str.replace('smd_','')
-        self.commissioners['smd_display_lower'] = self.commissioners['smd_display'].str.lower()
-
-        self.commissioners['smd_url'] = self.commissioners.apply(
-            lambda x: f'<a href="../ancs/districts/{x.smd_display_lower}.html">{x.smd_display}</a>'
+        self.comm_districts['smd_url'] = self.comm_districts.apply(
+            lambda x: district_link(
+                x.smd_id
+                , x.smd_name
+                , x.redistricting_year
+                , level=-1
+                , show_redistricting_cycle=False
+                )
             , axis=1
             )
 
-        self.people_comm = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
-
-
-
-    def format_name_for_url(self, name):
-        """
-        Strip out the non-ASCII characters from a person's full name to use as the URL.
-        This is somewhat like Wikipedia's URL formatting but not exactly.
-
-        Spaces become underscores, numbers and letters with accents are preserved as they are.
-        """
-
-        name_formatted = name.replace(' ', '_')
-
-        characters_to_strip = ['"' , '(' , ')' , '.' , '-' , ',' , '\'']
-        for c in characters_to_strip:
-            name_formatted = name_formatted.replace(c, '')
-
-        return name_formatted
+        self.people_comm = pd.merge(self.people, self.comm_districts, how='inner', on='person_id')
 
 
 
@@ -112,7 +100,8 @@ class BuildPeople():
 
         for idx, person in tqdm(self.people.iterrows(), total=len(self.people), desc='People '):
 
-            # if person.person_id != 10029:
+            # debug - Benjamin Hart Butz
+            # if person.person_id != 10529:
             #     continue
 
             self.build_person_page(person)

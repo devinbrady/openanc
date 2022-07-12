@@ -22,6 +22,11 @@ from scripts.common import (
     , list_commissioners
     , assemble_divo
     , build_results_candidate_people
+    , district_url
+    , mapbox_slugs
+    , candidate_form_link
+    , people_dataframe
+    , smd_geojson
     )
 
 
@@ -30,10 +35,14 @@ class BuildDistricts():
 
     def __init__(self):
 
-        # Load GeoJSON for all SMDs to memory
-        self.smd_shape = gpd.read_file('maps/smd.geojson')
+
+        self.smd_shape = smd_geojson()
+
+        self.mapbox_style_slugs = mapbox_slugs()
 
         self.commissioners = list_commissioners(status=None)
+
+        self.people = people_dataframe()
 
         self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
 
@@ -53,15 +62,18 @@ class BuildDistricts():
 
         smd_display = smd_id.replace('smd_','')
         
-        people = pd.read_csv('data/people.csv')
-
-        people_commissioners = pd.merge(people, self.commissioners, how='inner', on='person_id')
+        people_commissioners = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
         
         smd_commissioners = people_commissioners[people_commissioners['smd_id'] == smd_id].sort_values(by='start_date', ascending=False).copy()
 
         vacant_string = '<h2>Current Commissioner</h2><p>This office is vacant.</p>'
         if len(smd_commissioners) == 0:
-            commissioner_block = vacant_string
+
+            if '_2022_' in smd_id:
+                # Leave this block empty for new districts
+                commissioner_block = ''
+            else:
+                commissioner_block = vacant_string
         
         else:
 
@@ -96,6 +108,7 @@ class BuildDistricts():
                 if status == 'former':
                     fields_to_try = ['full_name', 'term_in_office']
                 else:
+                    # todo: take out ok
                     fields_to_try = ['full_name', 'link_block', 'term_in_office', 'ok']
 
                 for idx, row in commissioners_in_status.iterrows():
@@ -104,7 +117,7 @@ class BuildDistricts():
                     if commissioner_block[-5:] != '</h2>':
                         commissioner_block += '<br/>'
 
-                    commissioner_block += build_data_table(row, fields_to_try)
+                    commissioner_block += build_data_table(row, fields_to_try, people_level=-3)
         
         return commissioner_block
 
@@ -115,14 +128,16 @@ class BuildDistricts():
         Add block of information about the results of the election
         """
 
+        if '_2022_' in smd_id:
+            return ''
+
         smd_display = smd_id.replace('smd_','')
 
-        people = pd.read_csv('data/people.csv')
         candidates = pd.read_csv('data/candidates.csv')
         results = pd.read_csv('data/results.csv')
         field_names = pd.read_csv('data/field_names.csv')
 
-        write_in_winners_people = pd.merge(self.write_in_winners, people, how='inner', on='person_id')
+        write_in_winners_people = pd.merge(self.write_in_winners, self.people, how='inner', on='person_id')
 
         rcp = build_results_candidate_people()
         rcp.loc[rcp.is_incumbent, 'full_name'] = rcp.loc[rcp.is_incumbent, 'full_name'] + ' (incumbent)'
@@ -203,15 +218,6 @@ class BuildDistricts():
                 results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
 
 
-        # Add comparison of votes in this SMD to others
-        # results_block += '<h3>SMD Vote Ranking</h3>'
-
-        # divo = assemble_divo()
-        # divo_smd = divo[divo['smd_id'] == smd_id].squeeze()
-        
-        # fields_to_try = ['string_dc', 'string_ward', 'string_anc']
-        # results_block += build_data_table(divo_smd, fields_to_try)
-
         return results_block
 
 
@@ -221,11 +227,13 @@ class BuildDistricts():
         Add blocks of information for each candidate in SMD
         """
         
-        people = pd.read_csv('data/people.csv')
+        if '_2022_' not in smd_id:
+            return ''
+
         candidates = pd.read_csv('data/candidates.csv')
         statuses = pd.read_csv('data/candidate_statuses.csv')
 
-        people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
+        people_candidates = pd.merge(self.people, candidates, how='inner', on='person_id')
         people_candidate_statuses = pd.merge(people_candidates, statuses, how='inner', on='candidate_status')
 
         # Merge the order and status fields for sorting
@@ -237,10 +245,11 @@ class BuildDistricts():
         
         num_candidates = len(smd_candidates)
 
-        candidate_block = '<h2>2020 Candidates</h2>'
+        candidate_block = '<h2>2022 Candidates</h2>'
 
         if num_candidates == 0:
-            candidate_block += '<p>No known candidates.</p>'
+            candidate_form = candidate_form_link('Declare your candidacy using this form', smd_id=smd_id)
+            candidate_block += f'<p>No known candidates. {candidate_form}.</p>'
             
         else:
 
@@ -307,9 +316,9 @@ class BuildDistricts():
                         candidate_block += '<p><em>Candidate order is randomized</em></p>'
 
         candidate_block += (
-            "<p>The list of candidates comes from the DC Board of Elections and from edits to OpenANC. "
+            "<p>The list of candidates comes from the DC Board of Elections and from submissions to OpenANC. "
             + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
-            ).format(edit_form_link('submit an edit'))
+            ).format(candidate_form_link('fill out this form', smd_id=smd_id))
 
         return candidate_block
 
@@ -341,10 +350,28 @@ class BuildDistricts():
 
         district_table = build_data_table(district_row, fields_to_try)
 
-        if district_table == '':
-            district_table = '<p>No landmarks for this district. {}</p>'.format(edit_form_link('Submit one!'))
+        # Take out the edit form link here. Only display district info if it exists.
+        if district_table != '':
+            district_table = '<h2>Better Know a District</h2>\n' + district_table
         
         return district_table
+
+
+
+    def old_new_heading(self, smd_id):
+
+        if '_2022_' in smd_id:
+            heading = (
+                '<h2>Old Districts</h2>'
+                + '<p>These districts, from the previous redistricting cycle, cover the same area as this district.</p>'
+                )
+        else:
+            heading = (
+                '<h2>New Districts</h2>'
+                + '<p>These districts, from the next redistricting cycle, cover the same area as this district.</p>'
+                )
+
+        return heading
 
 
 
@@ -373,30 +400,41 @@ class BuildDistricts():
         # for idx, row in district_colors.iterrows():
 
             smd_id = row['smd_id']
-            smd_display = smd_id.replace('smd_','')
-            smd_display_lower = smd_display.lower()
+
+            # debug: Dorchester House
+            if smd_id not in ('smd_1C06', 'smd_2022_1C09'):
+                continue
 
             anc_id = row['anc_id']
             anc_display_upper = 'ANC' + anc_id
             anc_display_lower = anc_display_upper.lower()
 
-            # if smd_id != 'smd_1C07':
-            #     continue
-
             with open('templates/district.html', 'r') as f:
                 output = f.read()
                 
-            output = output.replace('REPLACE_WITH_SMD', smd_display)
+            output = output.replace('REPLACE_WITH_SMD_NAME', f'{row.smd_name} [{row.redistricting_cycle} Cycle]')
+
+            if row['redistricting_year'] == 2012:
+                mapbox_slug_id = 'smd'
+            else:
+                mapbox_slug_id = 'smd-2022'
+
+            output = output.replace('REPLACE_WITH_MAPBOX_SLUG', self.mapbox_style_slugs[mapbox_slug_id])
             
             output = add_google_analytics(output)
             output = add_geojson(self.smd_shape, 'smd_id', smd_id, output)
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
-            output = output.replace('<!-- replace with candidate table -->', self.add_results(smd_id))
+            output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+            output = output.replace('<!-- replace with results table -->', self.add_results(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
-            neighbor_smd_ids = [('smd_' + d) for d in row['neighbor_smds'].split(', ')]
-            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=2))
+            output = output.replace('<!-- replace with old/new heading -->', self.old_new_heading(smd_id))
+            overlap_smd_ids = row['overlap_smds'].split(', ')
+            output = output.replace('<!-- replace with overlap -->', build_district_list(overlap_smd_ids, level=-2, show_redistricting_cycle=True))
+
+            neighbor_smd_ids = row['neighbor_smds'].split(', ')
+            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=2, show_redistricting_cycle=True))
 
 
             output = output.replace('REPLACE_WITH_WARD', str(row['ward']))
@@ -417,7 +455,7 @@ class BuildDistricts():
             # Use the date when the underlying data was updated as the updated_at date
             # output = add_footer(output, level=2, updated_at=smd_max_updated_at.loc[smd_id, 'updated_at_formatted'])
 
-            with open(f'docs/ancs/districts/{smd_display_lower}.html', 'w') as f:
+            with open('docs/' + district_url(smd_id), 'w') as f:
                 f.write(output)
 
 

@@ -17,6 +17,7 @@ from scripts.common import (
     list_commissioners
     , assemble_divo
     , build_district_comm_commelect
+    , district_url
     )
 
 
@@ -37,6 +38,9 @@ class RefreshData():
 
         self.service = self.google_auth()
 
+        district_comm_commelect = build_district_comm_commelect()
+
+        self.map_display_df = self.build_map_display_box(district_comm_commelect)
 
 
     def google_auth(self):
@@ -189,7 +193,7 @@ class RefreshData():
             if len(district_info_comm) != 296:
                 raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-            district_info_comm['openanc_link'] = 'https://openanc.org/ancs/districts/' + district_info_comm['smd_id'].str.replace('smd_', '').str.lower() + '.html'
+            district_info_comm['openanc_link'] = district_info_comm['smd_id'].apply(lambda x: 'https://openanc.org/' + district_url(x))
 
             columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
 
@@ -207,15 +211,17 @@ class RefreshData():
 
         for idx, row in cp.iterrows():
 
-            smd_id = row['smd_id']
-            smd_display = smd_id.replace('smd_','')
-            smd_display_lower = smd_display.lower()
+            # smd_id = row['smd_id']
 
             map_display_box = (
-                f'<b>District {smd_display}</b>'
-                + f'<br/><a href="ancs/districts/{smd_display_lower}.html">District Page</a>'
-                + f'<br/>Commissioner: {row.current_commissioner}'
+                f'<b>District {row.smd_name}</b>'
+                + f'<br/><a href="{district_url(row.smd_id)}">District Page</a>'
                 )
+
+            if '_2022_' in row.smd_id:
+                map_display_box += f'<br/>Candidates: No known candidates.'
+            else:
+                map_display_box += f'<br/>Commissioner: {row.current_commissioner}'
 
             # If a commissioner with a future start_date exists for the SMD, append the Commissioner-Elect string
             if pd.notnull(row.commissioner_elect):
@@ -227,38 +233,32 @@ class RefreshData():
 
 
 
-    def add_data_to_geojson(self):
+    def add_data_to_geojson(self, source_geojson, destination_filename):
         """
         Save new GeoJSON files with updated data fields based off of the results of the election
         # todo: push these tilesets to Mapbox via API
         """
 
-        district_comm_commelect = build_district_comm_commelect()
-
-        cp_current_future = self.build_map_display_box(district_comm_commelect)
-
-        divo = assemble_divo()
-
-        cp_divo = pd.merge(cp_current_future, divo[['smd_id', 'votes']], how='inner', on='smd_id')
-        cp_divo = cp_divo.rename(columns={'votes': 'votes_2020'})
-
-        # Add data to GeoJSON file with SMD shapes
-        smd = gpd.read_file('maps/smd.geojson')
+        smd = gpd.read_file(source_geojson)
 
         # Use the map_color_id field from the Google Sheets over what is stored in the GeoJSON
         smd.drop(columns=['map_color_id'], inplace=True)
 
-        smd_df = smd.merge(cp_divo, on='smd_id')
+        smd_df = smd.merge(self.map_display_df, on='smd_id')
 
-        # add ward to the SMD dataframe
+        smd_df.to_file(destination_filename, driver='GeoJSON')
+
+
+
+    def add_data_to_label_points(self, source_csv, destination_filename):
+        """Add data to CSV with lat/long of SMD label points"""
+
+        lp = pd.read_csv(source_csv)
+
+        lp_df = pd.merge(lp, self.map_display_df[['smd_id', 'current_commissioner', 'commissioner_elect', 'map_display_box']], how='inner', on='smd_id')
         
-        smd_df.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
+        lp_df.to_csv(destination_filename, index=False)
 
-        # Add data to CSV with lat/long of SMD label points
-        lp = pd.read_csv('maps/label-points.csv')
-        lp_df = pd.merge(lp, cp_divo[['smd_id', 'current_commissioner', 'commissioner_elect', 'votes_2020']], how='inner', on='smd_id')
-        lp_df_cp = pd.merge(lp_df, cp_current_future[['smd_id', 'map_display_box']], how='inner', on='smd_id')
-        lp_df_cp.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
 
 
 
@@ -307,6 +307,9 @@ class RefreshData():
 
         people = pd.read_csv('data/people.csv')
         districts = pd.read_csv('data/districts.csv')
+
+        # Only use the current, 2012, districts for the list of active commissioners
+        districts = districts[districts.redistricting_year == 2012].copy()
 
         dc = pd.merge(districts, commissioners, how='left', on='smd_id')
         dcp = pd.merge(dc, people, how='left', on='person_id')
@@ -475,7 +478,7 @@ class RefreshData():
     def run(self):
 
         # self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
-        self.refresh_csv('districts', 'A:K')
+        self.refresh_csv('districts', 'A:O')
         self.refresh_csv('people', 'A:H')
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
@@ -489,7 +492,11 @@ class RefreshData():
         # self.refresh_csv('map_colors', 'A:B') 
         # self.refresh_csv('wards', 'A:B')
 
-        self.add_data_to_geojson()
+        self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
+        self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')
+
+        self.add_data_to_label_points('maps/label-points-2012.csv', 'uploads/to-mapbox-label-points-2012-data.csv')
+        self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.csv')
 
         self.publish_commissioner_list()
         self.publish_anc_list()
