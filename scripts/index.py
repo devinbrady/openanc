@@ -166,7 +166,7 @@ class BuildIndex():
         self.count_page()
         self.list_page()
         self.about_page()
-        self.build_single_page('index')
+        # self.build_single_page('index')
         self.build_map_page('map')
         self.build_single_page('404')
 
