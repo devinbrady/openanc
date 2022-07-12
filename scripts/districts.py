@@ -402,8 +402,8 @@ class BuildDistricts():
             smd_id = row['smd_id']
 
             # debug: Dorchester House
-            if smd_id not in ('smd_1C06', 'smd_2022_1C09'):
-                continue
+            # if smd_id not in ('smd_1C06', 'smd_2022_1C09'):
+            #     continue
 
             anc_id = row['anc_id']
             anc_display_upper = 'ANC' + anc_id
@@ -431,10 +431,10 @@ class BuildDistricts():
 
             output = output.replace('<!-- replace with old/new heading -->', self.old_new_heading(smd_id))
             overlap_smd_ids = row['overlap_smds'].split(', ')
-            output = output.replace('<!-- replace with overlap -->', build_district_list(overlap_smd_ids, level=-2, show_redistricting_cycle=True))
+            output = output.replace('<!-- replace with overlap -->', build_district_list(overlap_smd_ids, level=-3, show_redistricting_cycle=True))
 
             neighbor_smd_ids = row['neighbor_smds'].split(', ')
-            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=2, show_redistricting_cycle=True))
+            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=-3, show_redistricting_cycle=True))
 
 
             output = output.replace('REPLACE_WITH_WARD', str(row['ward']))
@@ -446,14 +446,8 @@ class BuildDistricts():
 
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
-            # Use the date this script was run on as the updated_at date
-            # todo: take this bit out, handled by add_footer
-            tz = pytz.timezone('America/New_York')
-            dc_now = datetime.now(tz).strftime('%B %-d, %Y')
-            output = add_footer(output, level=2, updated_at=dc_now)
+            output = add_footer(output, level=3)
 
-            # Use the date when the underlying data was updated as the updated_at date
-            # output = add_footer(output, level=2, updated_at=smd_max_updated_at.loc[smd_id, 'updated_at_formatted'])
 
             with open('docs/' + district_url(smd_id), 'w') as f:
                 f.write(output)

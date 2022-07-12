@@ -86,12 +86,14 @@ def district_url(smd_id, level=0):
     else:
         redistricting_year = '2012'
 
-    if level == -2:
-        link_path = f'../../map_{redistricting_year}/districts/'
+    if level == -3:
+        link_path = f'../../../map_{redistricting_year}/ancs/districts/'
+    elif level == -2:
+        link_path = f'../../map_{redistricting_year}/ancs/districts/'
     elif level == -1:
-        link_path = f'../ancs/map_{redistricting_year}/districts/'
+        link_path = f'../map_{redistricting_year}/ancs/districts/'
     elif level == 0:
-        link_path = f'ancs/map_{redistricting_year}/districts/'
+        link_path = f'map_{redistricting_year}/ancs/districts/'
     elif level == 1:
         link_path = 'districts/'
     elif level == 2:
@@ -806,6 +808,8 @@ def add_footer(input_html, level=0, updated_at=None):
         link_path = '../'
     elif level == 2:
         link_path = '../../'
+    elif level == 3:
+        link_path = '../../../'
 
     if not updated_at:
         updated_at = current_time()

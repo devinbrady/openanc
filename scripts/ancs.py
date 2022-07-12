@@ -65,7 +65,7 @@ class BuildANCs():
             output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))
             output = output.replace('REPLACE_WITH_ZOOM_LEVEL', str(calculate_zoom(row['area'])))
 
-            output = add_footer(output, level=1)
+            output = add_footer(output, level=2)
 
             with open(f'docs/ancs/{anc_lower}.html', 'w') as f:
                 f.write(output)

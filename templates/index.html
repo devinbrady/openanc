@@ -2,13 +2,14 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="map.css">
-    <title>OpenANC : Map View</title>
+    <title>OpenANC : Redistricting Maps</title>
 <meta charset='utf-8' />
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
 <!-- Pull in the mapbox libraries -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
 
 <!-- replace with google analytics -->
 </head>
@@ -34,9 +35,13 @@ margin-left:25%;
 <!-- Set up the layer toggle menu -->
 <div id='menu'>
     <strong>OpenANC</strong>
-    <br/><a href="list.html">List View</a>
     <br/><a href="about.html">About</a>
-    <!-- <br/><a href="map.html">Additional Maps</a> -->
+    <br/><br/>
+    <input id='REPLACE_WITH_SMD_SLUG' type='radio' name='rtoggle' value='streets'>
+    <label for='REPLACE_WITH_SMD_SLUG'>Old Map (2012 - 2020)</label>
+    <br/>
+    <input id='REPLACE_WITH_SMD_2022_SLUG' type='radio' name='rtoggle' value='light' checked='checked'>
+    <label for='REPLACE_WITH_SMD_2022_SLUG'>New Map (2022 - 2030)</label>
 </div>
 
 
@@ -61,8 +66,8 @@ var layerList = document.getElementById('menu');
 var inputs = layerList.getElementsByTagName('input');
 
 
- // Set the initial mapbox style to be used (in this case, the allSMDs style)
-var which_layer = 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie'
+ // Set the initial mapbox style to be used
+var which_layer = 'mapbox://styles/devinbrady/REPLACE_WITH_SMD_2022_SLUG'
 
 // Create a function that pulls in data from the toggle menu selections and updates the style being used
 function switchLayer(layer) {
@@ -93,7 +98,6 @@ map.on('load', function() {
     // change info window on click
     map.on('click', function (e) {
         var districts = map.queryRenderedFeatures(e.point)
-
             if (districts.length > 0) {
                 document.getElementById('pd').innerHTML = districts[0].properties['map_display_box']
             } else {
@@ -104,20 +108,6 @@ map.on('load', function() {
 });
 
 
-
-// Set up geocoder
-var geocoder = new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken,
-    placeholder: "Search your address",
-    mapboxgl: mapboxgl
-});
-
-map.addControl(geocoder);
-
-// todo: Change map-overlay to the district info of the district that the user geocodes to
-// geocoder.on('result', function() {
-//     console.log('A geocoder result event has occurred.')
-// });
 
 
 

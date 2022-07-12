@@ -1,0 +1,378 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../../nonmap.css">
+    <title>District 2F04 [2012-2020 Cycle]</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+<!-- Add back with ANC links when those links are fixed for 2022 -->
+<!-- <h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward2.html">Ward 2</a> : <a href="../anc2f.html">ANC2F</a> : District 2F04 [2012-2020 Cycle]</h1> -->
+<h1><a href="../../../index.html">OpenANC</a> : Ward 2 : ANC2F : District 2F04 [2012-2020 Cycle]</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.02818745115592, 38.90939753414465], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.0270402347007, 38.911156533836945]
+,[-77.02704035087422, 38.91112842778132]
+,[-77.02704044009388, 38.91109005222125]
+,[-77.02704043046207, 38.9110646486972]
+,[-77.02704054762586, 38.91103915506025]
+,[-77.02704053799401, 38.91101375153598]
+,[-77.02704074642644, 38.910955287342986]
+,[-77.02704095489261, 38.91089691323277]
+,[-77.0270411633585, 38.91083853912193]
+,[-77.02704137182398, 38.91078016501047]
+,[-77.02704168402435, 38.91072170079097]
+,[-77.02704189614397, 38.91067296560478]
+,[-77.02704223509232, 38.910624230388784]
+,[-77.02704170178629, 38.910555686026925]
+,[-77.02704113169872, 38.91048135831611]
+,[-77.0270401588952, 38.91034839538774]
+,[-77.02703992638526, 38.910343350769]
+,[-77.02703958897933, 38.91033533342106]
+,[-77.02703900108985, 38.91000116002287]
+,[-77.0270385434828, 38.90973690934739]
+,[-77.0270384108562, 38.90966078886359]
+,[-77.02703840952428, 38.90965727560936]
+,[-77.02703840768007, 38.9096524111035]
+,[-77.02688148795521, 38.90965307789849]
+,[-77.02681034950295, 38.9096534545788]
+,[-77.02650958385294, 38.90965228005976]
+,[-77.02649164352773, 38.90965221206238]
+,[-77.02630821637995, 38.90965149680995]
+,[-77.02607590361679, 38.909652269559324]
+,[-77.02599137908288, 38.909652558644474]
+,[-77.02599102134555, 38.90958841930759]
+,[-77.0259903931862, 38.90944662809426]
+,[-77.02598932311203, 38.90907296215683]
+,[-77.02598968651478, 38.90899446334916]
+,[-77.02598981509455, 38.90896763646603]
+,[-77.02598994279772, 38.90893840435451]
+,[-77.02599114974316, 38.90867524326432]
+,[-77.02599101526847, 38.90865425384669]
+,[-77.02599075877485, 38.90858317804869]
+,[-77.02599075765869, 38.90858011521104]
+,[-77.02599050087022, 38.90850822866094]
+,[-77.02599049427175, 38.90849012188526]
+,[-77.02599009045112, 38.90829950535223]
+,[-77.02598848732194, 38.9081715061024]
+,[-77.02598918594524, 38.90768407325692]
+,[-77.02598981046074, 38.907246411512695]
+,[-77.02637027924169, 38.90724553351755]
+,[-77.0264962837835, 38.90724578426653]
+,[-77.02673368515326, 38.90724626167539]
+,[-77.02703830320063, 38.90724796621675]
+,[-77.0270583528127, 38.90724807868331]
+,[-77.02722921850007, 38.907249300152955]
+,[-77.02754782115467, 38.90724960381154]
+,[-77.02758518784839, 38.90724964003628]
+,[-77.0276880874886, 38.90724973280284]
+,[-77.02793847027544, 38.90724849310006]
+,[-77.02797029126957, 38.90724834135233]
+,[-77.02809054233475, 38.907247744974484]
+,[-77.02829166088151, 38.90724841711133]
+,[-77.0284908884001, 38.90724854886224]
+,[-77.02873610688769, 38.9072494797215]
+,[-77.02891988531488, 38.90725024512435]
+,[-77.02943952430877, 38.90724750291437]
+,[-77.02962502061399, 38.90724826677514]
+,[-77.0298686480628, 38.9072491956608]
+,[-77.02997863839421, 38.9072495908809]
+,[-77.03008009698054, 38.90724995216109]
+,[-77.03041052819603, 38.90724887569806]
+,[-77.03072630301605, 38.90724185664584]
+,[-77.03102094731416, 38.90724142745592]
+,[-77.03085235266487, 38.90753292821814]
+,[-77.03071765107994, 38.90776584753512]
+,[-77.0302609702062, 38.908555485319575]
+,[-77.03024990995019, 38.908574675962655]
+,[-77.03024645363571, 38.9085807124499]
+,[-77.03024540876066, 38.90859089215234]
+,[-77.03006453416336, 38.908922716241115]
+,[-77.03005867115937, 38.908935960018724]
+,[-77.03005301568666, 38.90894920374263]
+,[-77.03003379543892, 38.909003168678865]
+,[-77.0300298810855, 38.909016772287735]
+,[-77.03002607053536, 38.90903046595319]
+,[-77.03002261744096, 38.90904424961013]
+,[-77.02999822897974, 38.909173615722914]
+,[-77.03000619776802, 38.909177847599075]
+,[-77.03001865327055, 38.90918604199415]
+,[-77.03003098198737, 38.90919432650394]
+,[-77.03004333376644, 38.90920261100643]
+,[-77.0300554319713, 38.909211075739805]
+,[-77.03006857964617, 38.909220170786]
+,[-77.03008172740039, 38.90922944599761]
+,[-77.03009464456422, 38.90923872126714]
+,[-77.03010756176944, 38.909248086618646]
+,[-77.03012037524894, 38.90925754207892]
+,[-77.03013306194329, 38.90926708765393]
+,[-77.03014574864102, 38.909276633227506]
+,[-77.03016315247336, 38.90928969083679]
+,[-77.03017965730065, 38.90930346934333]
+,[-77.0301952169658, 38.90931787867599]
+,[-77.03020641707421, 38.90932913621278]
+,[-77.03021702932394, 38.909340754234364]
+,[-77.03022705371474, 38.90935273274089]
+,[-77.0302364095005, 38.90936498166994]
+,[-77.03024781933532, 38.90938137390536]
+,[-77.03025820326015, 38.909398306906056]
+,[-77.03026743437118, 38.90941560053823]
+,[-77.0302749471456, 38.909431921713676]
+,[-77.03027551262957, 38.909433164718806]
+,[-77.03028797685353, 38.90946171794316]
+,[-77.03029813537144, 38.909490812264735]
+,[-77.03030749861395, 38.90952053737578]
+,[-77.03031489043225, 38.90955062333127]
+,[-77.03032043757453, 38.90958088993174]
+,[-77.03032390944341, 38.909611337237365]
+,[-77.03032517036097, 38.9096211560063]
+,[-77.03032563576447, 38.90963106506516]
+,[-77.03032647073296, 38.90966953048196]
+,[-77.03032609341874, 38.909676980481244]
+,[-77.03032451549967, 38.90970799662273]
+,[-77.03031968927493, 38.90974628334141]
+,[-77.03031498455013, 38.90977204842872]
+,[-77.0303083081151, 38.90979754377691]
+,[-77.03030070982852, 38.90982430053188]
+,[-77.03028585052478, 38.90985754517699]
+,[-77.03026822371284, 38.90988997978595]
+,[-77.03024781778312, 38.90992142419376]
+,[-77.03022477101422, 38.909951698196174]
+,[-77.03019918709585, 38.909980621598066]
+,[-77.0301712966607, 38.910008284421636]
+,[-77.03014099578697, 38.91003432635827]
+,[-77.03010849204888, 38.910058837436054]
+,[-77.03007401589082, 38.9100814572601]
+,[-77.03003771727724, 38.910102365957044]
+,[-77.02997984886605, 38.910129315770234]
+,[-77.02995366927179, 38.91014040274859]
+,[-77.0299262320857, 38.91014950820742]
+,[-77.02991539574118, 38.91015356473753]
+,[-77.02986351793086, 38.910168982278165]
+,[-77.0298102551993, 38.910181247228586]
+,[-77.02975606874668, 38.910190359469546]
+,[-77.02970108529541, 38.91019604871714]
+,[-77.02965819581703, 38.910199753033694]
+,[-77.02963033988438, 38.910200165477164]
+,[-77.02962360929827, 38.910512351342156]
+,[-77.02962202654237, 38.91058802182963]
+,[-77.02962220384579, 38.91065402591733]
+,[-77.02962326670449, 38.911047717266264]
+,[-77.0296234063954, 38.911134197320784]
+,[-77.02951271852547, 38.911134405500235]
+,[-77.02950902892731, 38.91113440643217]
+,[-77.02942578229448, 38.91113424726142]
+,[-77.0291215170558, 38.91113378299679]
+,[-77.0289826958161, 38.91113354726599]
+,[-77.02892491890587, 38.91113329133396]
+,[-77.02875588897446, 38.91113279255834]
+,[-77.02868319547916, 38.91125523380213]
+,[-77.02860380726486, 38.91138884698141]
+,[-77.02851024026995, 38.9115600283501]
+,[-77.02829419777434, 38.911928558073875]
+,[-77.02814765632647, 38.91217854790996]
+,[-77.02812493460054, 38.912218505373424]
+,[-77.0279586919631, 38.912510992041256]
+,[-77.02789633103322, 38.91261481005195]
+,[-77.0275402526195, 38.913207553193374]
+,[-77.02744809641182, 38.913342258556625]
+,[-77.027295159224, 38.91352668607177]
+,[-77.02721380933734, 38.91360936556265]
+,[-77.02715685605885, 38.91365769954173]
+,[-77.02713081420234, 38.91367169554131]
+,[-77.02708036101414, 38.913681877660146]
+,[-77.02703773359767, 38.913683193741505]
+,[-77.02703771279835, 38.91362833296547]
+,[-77.02703769951277, 38.91359329053188]
+,[-77.02703766392523, 38.9134994236521]
+,[-77.02703762181456, 38.91338835084508]
+,[-77.02703735038612, 38.912946131536295]
+,[-77.02703713055669, 38.91270083449515]
+,[-77.02703709797575, 38.91261489493867]
+,[-77.02703696175942, 38.91252931573841]
+,[-77.02703694512752, 38.91248544512502]
+,[-77.0270380306594, 38.912216194583095]
+,[-77.02703989836283, 38.91175955232968]
+,[-77.02704017618622, 38.91127589438753]
+,[-77.02704025604773, 38.91121283597246]
+,[-77.02704024539129, 38.911184729946456]
+,[-77.0270402347007, 38.911156533836945]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2>
+            <table>
+              <tbody>
+              
+                        <tr>
+                        <th class="attribute_heading">Name</th>
+                        <td class="attribute_value"><a href="../../../people/John_Fanning.html">John Fanning</a></td></tr>
+                        <tr>
+                        <th class="attribute_heading">Links</th>
+                        <td class="attribute_value"><a href="https://twitter.com/fanning_2">Twitter</a></td></tr>
+                        <tr>
+                        <th class="attribute_heading">Term in Office</th>
+                        <td class="attribute_value">~2019 to January 2, 2023</td></tr>
+                </tbody>
+            </table>
+        
+
+
+
+<h2>2020 Election Results</h2><style  type="text/css" >
+    #T_results_row0_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row0_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row1_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col0 {
+            text-align:  right;
+            text-align:  left;
+            font-weight:  bold;
+        }    #T_results_row2_col1 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row2_col2 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row2_col3 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row2_col4 {
+            text-align:  right;
+            font-weight:  bold;
+        }</style><table id="T_results_" ><thead>    <tr>        <th class="col_heading level0 col0" >Name</th>        <th class="col_heading level0 col1" >Votes</th>        <th class="col_heading level0 col2" >Percentage</th>        <th class="col_heading level0 col3" >Vote Margin</th>        <th class="col_heading level0 col4" >Percentage Margin</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_results_row0_col0" class="data row0 col0" >John Fanning (incumbent)</td>
+                        <td id="T_results_row0_col1" class="data row0 col1" >842</td>
+                        <td id="T_results_row0_col2" class="data row0 col2" >97.68%</td>
+                        <td id="T_results_row0_col3" class="data row0 col3" >+822</td>
+                        <td id="T_results_row0_col4" class="data row0 col4" >+95.36%</td>
+            </tr>
+            <tr>
+                                <td id="T_results_row1_col0" class="data row1 col0" >Write-ins combined</td>
+                        <td id="T_results_row1_col1" class="data row1 col1" >20</td>
+                        <td id="T_results_row1_col2" class="data row1 col2" >2.32%</td>
+                        <td id="T_results_row1_col3" class="data row1 col3" ></td>
+                        <td id="T_results_row1_col4" class="data row1 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_results_row2_col0" class="data row2 col0" >Total Votes</td>
+                        <td id="T_results_row2_col1" class="data row2 col1" >862</td>
+                        <td id="T_results_row2_col2" class="data row2 col2" >100.00%</td>
+                        <td id="T_results_row2_col3" class="data row2 col3" ></td>
+                        <td id="T_results_row2_col4" class="data row2 col4" ></td>
+            </tr>
+    </tbody></table>
+
+<h2>New Districts</h2><p>These districts, from the next redistricting cycle, cover the same area as this district.</p>
+
+<ul><li><a href="../../../map_2022/ancs/districts/2F02.html">[2022-2030 Cycle] 2F02</a></li><li><a href="../../../map_2022/ancs/districts/2F04.html">[2022-2030 Cycle] 2F04</a></li><li><a href="../../../map_2022/ancs/districts/2F07.html">[2022-2030 Cycle] 2F07</a></li><li><a href="../../../map_2022/ancs/districts/2G02.html">[2022-2030 Cycle] 2G02</a></li></ul>
+
+<h2>Neighboring Districts</h2>
+<p>These districts, from the same redistricting cycle, border this district.</p>
+
+<ul><li><a href="../../../map_2012/ancs/districts/2F01.html">[2012-2020 Cycle] 2F01: Commissioner Brian Romanowski</a></li><li><a href="../../../map_2012/ancs/districts/2F02.html">[2012-2020 Cycle] 2F02: Commissioner John Guggenmos</a></li><li><a href="../../../map_2012/ancs/districts/2F03.html">[2012-2020 Cycle] 2F03: Commissioner Michelle Yan</a></li><li><a href="../../../map_2012/ancs/districts/2F05.html">[2012-2020 Cycle] 2F05: Commissioner Sherene Joseph</a></li><li><a href="../../../map_2012/ancs/districts/2F06.html">[2012-2020 Cycle] 2F06: Commissioner Maxime Devilliers</a></li><li><a href="../../../map_2012/ancs/districts/2F07.html">[2012-2020 Cycle] 2F07: (vacant)</a></li><li><a href="../../../map_2012/ancs/districts/6E01.html">[2012-2020 Cycle] 6E01: Commissioner Michael Eichler</a></li></ul>
+
+
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../../index.html">Find your ANC district</a></li>
+    <li><a href="../../../list.html">List of districts</a></li>
+    <li><a href="../../../people/people_list.html">List of people</a></li>
+    <!-- <li><a href="../../../map.html">Map of districts by number of candidates</a></li> -->
+    <li><a href="../../../counts.html">Counts</a></li>
+    <li><a href="../../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 12, 2022</p>
+
+
+</body>
+
+</html>

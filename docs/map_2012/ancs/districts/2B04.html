@@ -1,0 +1,305 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../../nonmap.css">
+    <title>District 2B04 [2012-2020 Cycle]</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+<!-- Add back with ANC links when those links are fixed for 2022 -->
+<!-- <h1><a href="../../index.html">OpenANC</a> : <a href="../../wards/ward2.html">Ward 2</a> : <a href="../anc2b.html">ANC2B</a> : District 2B04 [2012-2020 Cycle]</h1> -->
+<h1><a href="../../../index.html">OpenANC</a> : Ward 2 : ANC2B : District 2B04 [2012-2020 Cycle]</h1>
+
+<div id='map' style='width: 700px; height: 400px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
+    center: [-77.03651872987554, 38.9126170469346], // starting position [lng, lat]
+    zoom: 13
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.03716126845677, 38.9141005523692]
+,[-77.03665130998093, 38.9141002720404]
+,[-77.0366372428034, 38.91410027645224]
+,[-77.03651099574229, 38.91410049613755]
+,[-77.03648908784277, 38.91410050298139]
+,[-77.03638162327876, 38.914099455492355]
+,[-77.0361662334438, 38.914098351277595]
+,[-77.03533591347886, 38.91410049709137]
+,[-77.03471869788414, 38.9140988804574]
+,[-77.03469609820036, 38.914098977254]
+,[-77.03454758614072, 38.91409992209456]
+,[-77.03454763946823, 38.913995785691476]
+,[-77.03454785412465, 38.913701032797796]
+,[-77.03454786458155, 38.913698816743434]
+,[-77.03454891447203, 38.91355729543208]
+,[-77.0345504082995, 38.91335631894776]
+,[-77.03455193498118, 38.91315177514389]
+,[-77.0345532774191, 38.91297154489592]
+,[-77.03455358018574, 38.91293009743491]
+,[-77.03455244300267, 38.91270101568413]
+,[-77.03455194076777, 38.912616337433846]
+,[-77.03455052069887, 38.91254111821125]
+,[-77.03455061447691, 38.912520489083754]
+,[-77.03455251158312, 38.91222379881959]
+,[-77.03455254355943, 38.91221840281389]
+,[-77.0345542578579, 38.911948998853724]
+,[-77.03455468484395, 38.91187837332994]
+,[-77.03455511043246, 38.91180486513626]
+,[-77.03455683589657, 38.911534749493356]
+,[-77.03455685651674, 38.91152971382404]
+,[-77.03455810947575, 38.91133147587241]
+,[-77.0345581803022, 38.911215898816224]
+,[-77.03455814066751, 38.91113410307591]
+,[-77.03470411004052, 38.91113333914175]
+,[-77.03471725418967, 38.911133245153344]
+,[-77.03531404733789, 38.911134417545526]
+,[-77.03581868003181, 38.91113316491054]
+,[-77.03585098703812, 38.91113308293485]
+,[-77.03638379962402, 38.91113300831]
+,[-77.03640386181301, 38.91113300206072]
+,[-77.03651985271937, 38.911131344360776]
+,[-77.03666477362353, 38.911132109723226]
+,[-77.03669303373046, 38.91113228101825]
+,[-77.03688881418606, 38.91113447145381]
+,[-77.03720185363804, 38.91113459740643]
+,[-77.03726571829795, 38.91113462209546]
+,[-77.03777142411666, 38.91113500020287]
+,[-77.03816011126032, 38.91113397306497]
+,[-77.03831886614728, 38.91113094835262]
+,[-77.03835829901502, 38.9111314759137]
+,[-77.03848871583934, 38.911133414859364]
+,[-77.03848871783254, 38.911137108279306]
+,[-77.03848818084782, 38.911231696056426]
+,[-77.0384866231514, 38.911528701623574]
+,[-77.03848660943457, 38.91154601566199]
+,[-77.03848661263326, 38.91155194315015]
+,[-77.03848617973918, 38.91179669994678]
+,[-77.03848599249899, 38.91187705441735]
+,[-77.03848592363127, 38.91194173433332]
+,[-77.0384855708786, 38.91214271054758]
+,[-77.0384855988838, 38.912194607592326]
+,[-77.03848561594114, 38.91220485007068]
+,[-77.03848587731366, 38.912518268182524]
+,[-77.03848593098171, 38.91261772024506]
+,[-77.03848610851728, 38.91271167717736]
+,[-77.03848598518464, 38.912718163223076]
+,[-77.03848552880156, 38.912919409693124]
+,[-77.03848510681983, 38.91299210713561]
+,[-77.03848476623915, 38.91302334817045]
+,[-77.03848203427118, 38.91328109568393]
+,[-77.03848115384022, 38.91335892802596]
+,[-77.03848107177322, 38.91344189485728]
+,[-77.03848114837777, 38.9135838662553]
+,[-77.03848147248901, 38.913693047215226]
+,[-77.03848228138088, 38.91397410711033]
+,[-77.03848220011264, 38.91401581574321]
+,[-77.03848188743659, 38.914098782640444]
+,[-77.03835725489235, 38.914099454205704]
+,[-77.03807545094516, 38.91410107779565]
+,[-77.03717100018108, 38.91410055828199]
+,[-77.03716126845677, 38.9141005523692]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 50
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+<br/>
+
+<h2>Current Commissioner</h2><p>This office is vacant.</p><h2>Former Commissioners</h2>
+            <table>
+              <tbody>
+              
+                        <tr>
+                        <th class="attribute_heading">Name</th>
+                        <td class="attribute_value"><a href="../../../people/Moshe_Mo_Pasternak.html">Moshe 'Mo' Pasternak</a></td></tr>
+                        <tr>
+                        <th class="attribute_heading">Term in Office</th>
+                        <td class="attribute_value">January 2, 2021 to April 8, 2022</td></tr>
+                </tbody>
+            </table>
+        <br/>
+            <table>
+              <tbody>
+              
+                        <tr>
+                        <th class="attribute_heading">Name</th>
+                        <td class="attribute_value"><a href="../../../people/Aaron_Landry.html">Aaron Landry</a></td></tr>
+                        <tr>
+                        <th class="attribute_heading">Term in Office</th>
+                        <td class="attribute_value">~2019 to January 2, 2021</td></tr>
+                </tbody>
+            </table>
+        
+
+
+
+<h2>2020 Election Results</h2><style  type="text/css" >
+    #T_results_row0_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row0_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row0_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row1_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row1_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col0 {
+            text-align:  right;
+            text-align:  left;
+            : ;
+        }    #T_results_row2_col1 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col2 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col3 {
+            text-align:  right;
+            : ;
+        }    #T_results_row2_col4 {
+            text-align:  right;
+            : ;
+        }    #T_results_row3_col0 {
+            text-align:  right;
+            text-align:  left;
+            font-weight:  bold;
+        }    #T_results_row3_col1 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row3_col2 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row3_col3 {
+            text-align:  right;
+            font-weight:  bold;
+        }    #T_results_row3_col4 {
+            text-align:  right;
+            font-weight:  bold;
+        }</style><table id="T_results_" ><thead>    <tr>        <th class="col_heading level0 col0" >Name</th>        <th class="col_heading level0 col1" >Votes</th>        <th class="col_heading level0 col2" >Percentage</th>        <th class="col_heading level0 col3" >Vote Margin</th>        <th class="col_heading level0 col4" >Percentage Margin</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_results_row0_col0" class="data row0 col0" >Moshe 'Mo' Pasternak</td>
+                        <td id="T_results_row0_col1" class="data row0 col1" >561</td>
+                        <td id="T_results_row0_col2" class="data row0 col2" >54.26%</td>
+                        <td id="T_results_row0_col3" class="data row0 col3" >+99</td>
+                        <td id="T_results_row0_col4" class="data row0 col4" >+9.57%</td>
+            </tr>
+            <tr>
+                                <td id="T_results_row1_col0" class="data row1 col0" >Diane C. Quinn</td>
+                        <td id="T_results_row1_col1" class="data row1 col1" >462</td>
+                        <td id="T_results_row1_col2" class="data row1 col2" >44.68%</td>
+                        <td id="T_results_row1_col3" class="data row1 col3" ></td>
+                        <td id="T_results_row1_col4" class="data row1 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_results_row2_col0" class="data row2 col0" >Write-ins combined</td>
+                        <td id="T_results_row2_col1" class="data row2 col1" >11</td>
+                        <td id="T_results_row2_col2" class="data row2 col2" >1.06%</td>
+                        <td id="T_results_row2_col3" class="data row2 col3" ></td>
+                        <td id="T_results_row2_col4" class="data row2 col4" ></td>
+            </tr>
+            <tr>
+                                <td id="T_results_row3_col0" class="data row3 col0" >Total Votes</td>
+                        <td id="T_results_row3_col1" class="data row3 col1" >1,034</td>
+                        <td id="T_results_row3_col2" class="data row3 col2" >100.00%</td>
+                        <td id="T_results_row3_col3" class="data row3 col3" ></td>
+                        <td id="T_results_row3_col4" class="data row3 col4" ></td>
+            </tr>
+    </tbody></table>
+
+<h2>New Districts</h2><p>These districts, from the next redistricting cycle, cover the same area as this district.</p>
+
+<ul><li><a href="../../../map_2022/ancs/districts/2B03.html">[2022-2030 Cycle] 2B03</a></li><li><a href="../../../map_2022/ancs/districts/2B04.html">[2022-2030 Cycle] 2B04</a></li><li><a href="../../../map_2022/ancs/districts/2B09.html">[2022-2030 Cycle] 2B09</a></li></ul>
+
+<h2>Neighboring Districts</h2>
+<p>These districts, from the same redistricting cycle, border this district.</p>
+
+<ul><li><a href="../../../map_2012/ancs/districts/2B03.html">[2012-2020 Cycle] 2B03: Commissioner Robin Nunn</a></li><li><a href="../../../map_2012/ancs/districts/2B05.html">[2012-2020 Cycle] 2B05: Commissioner William Herbig</a></li><li><a href="../../../map_2012/ancs/districts/2B07.html">[2012-2020 Cycle] 2B07: Commissioner Randy D. Downs</a></li><li><a href="../../../map_2012/ancs/districts/2B09.html">[2012-2020 Cycle] 2B09: Commissioner Kyle Mulhall</a></li><li><a href="../../../map_2012/ancs/districts/2F01.html">[2012-2020 Cycle] 2F01: Commissioner Brian Romanowski</a></li><li><a href="../../../map_2012/ancs/districts/2F02.html">[2012-2020 Cycle] 2F02: Commissioner John Guggenmos</a></li></ul>
+
+
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../../index.html">Find your ANC district</a></li>
+    <li><a href="../../../list.html">List of districts</a></li>
+    <li><a href="../../../people/people_list.html">List of people</a></li>
+    <!-- <li><a href="../../../map.html">Map of districts by number of candidates</a></li> -->
+    <li><a href="../../../counts.html">Counts</a></li>
+    <li><a href="../../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 12, 2022</p>
+
+
+</body>
+
+</html>
