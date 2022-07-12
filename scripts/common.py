@@ -4,6 +4,7 @@ import pytz
 import hashlib
 import numpy as np
 import pandas as pd
+import geopandas as gpd
 from datetime import datetime
 
 from fuzzywuzzy import fuzz
@@ -12,6 +13,46 @@ from fuzzywuzzy import process
 
 # The redistricting cycle of the current serving commissioners
 # CURRENT_REDISTRICTING_CYCLE = '2012'
+
+
+def smd_geojson():
+    """Return a GeoDataFrame with SMDs from all redistricting cycles"""
+
+    map_2012 = gpd.read_file('maps/smd-2012-preprocessed.geojson')
+    map_2022 = gpd.read_file('maps/smd-2022-preprocessed.geojson')
+
+    # Turn the 2012 MultiPolygons into Polygons to match 2022
+    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
+
+    return gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
+
+
+
+def people_dataframe():
+    """Return dataframe of people.csv with the name URLs added."""
+
+    people = pd.read_csv('data/people.csv')
+    people['name_url'] = people.full_name.apply(lambda x: format_name_for_url(x))
+
+    return people
+
+
+
+def format_name_for_url(name):
+    """
+    Strip out the non-ASCII characters from a person's full name to use as the URL.
+    This is somewhat like Wikipedia's URL formatting but not exactly.
+
+    Spaces become underscores, numbers and letters with accents are preserved as they are.
+    """
+
+    name_formatted = name.replace(' ', '_')
+
+    characters_to_strip = ['"' , '(' , ')' , '.' , '-' , ',' , '\'']
+    for c in characters_to_strip:
+        name_formatted = name_formatted.replace(c, '')
+
+    return name_formatted
 
 
 
@@ -47,6 +88,8 @@ def district_url(smd_id, level=0):
 
     if level == -2:
         link_path = f'../../map_{redistricting_year}/districts/'
+    elif level == -1:
+        link_path = f'../ancs/map_{redistricting_year}/districts/'
     elif level == 0:
         link_path = f'ancs/map_{redistricting_year}/districts/'
     elif level == 1:
@@ -584,7 +627,24 @@ def build_district_list(smd_id_list=None, level=0, show_redistricting_cycle=Fals
 
 
 
-def build_data_table(row, fields_to_try):
+def district_link(smd_id, smd_name, redistricting_year, level=0, show_redistricting_cycle=False, redistricting_cycle=None):
+    """Return an HTML link for one district page"""
+
+    if show_redistricting_cycle:
+        redistricting_string = f'[{redistricting_cycle} Cycle] '
+    else:
+        redistricting_string = ''
+
+    link_body = f'{redistricting_string}{smd_name}'
+
+    link_text = f'<a href="{district_url(smd_id, level)}">{link_body}</a>'
+
+    return link_text
+
+
+
+
+def build_data_table(row, fields_to_try, people_level=0):
         """
         Create HTML table for one row of data
 
@@ -607,7 +667,15 @@ def build_data_table(row, fields_to_try):
 
             if field_name in row:
 
-                field_value = row[field_name]
+                if field_name == 'full_name':
+                    # Write link to person page for full name
+                    if people_level == -3:
+                        prefix = '../../../'
+                    
+                    field_value = f'<a href="{prefix}people/{row.name_url}.html">{row.full_name}</a>'
+                else:
+                    field_value = row[field_name]
+
 
                 # Convert timestamp to human-readable string
                 if isinstance(field_value, datetime):

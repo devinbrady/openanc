@@ -25,6 +25,8 @@ from scripts.common import (
     , district_url
     , mapbox_slugs
     , candidate_form_link
+    , people_dataframe
+    , smd_geojson
     )
 
 
@@ -33,19 +35,14 @@ class BuildDistricts():
 
     def __init__(self):
 
-        # Load GeoJSONs for all SMDs to memory. Concatenate 2012 and 2022 GeoJSONs
 
-        map_2012 = gpd.read_file('maps/smd.geojson')
-        map_2022 = gpd.read_file('maps/to-mapbox-2022-smd-data.geojson')
-
-        # Turn the 2012 MultiPolygons into Polygons to match 2022
-        map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
-
-        self.smd_shape = gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
+        self.smd_shape = smd_geojson()
 
         self.mapbox_style_slugs = mapbox_slugs()
 
         self.commissioners = list_commissioners(status=None)
+
+        self.people = people_dataframe()
 
         self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
 
@@ -65,9 +62,7 @@ class BuildDistricts():
 
         smd_display = smd_id.replace('smd_','')
         
-        people = pd.read_csv('data/people.csv')
-
-        people_commissioners = pd.merge(people, self.commissioners, how='inner', on='person_id')
+        people_commissioners = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
         
         smd_commissioners = people_commissioners[people_commissioners['smd_id'] == smd_id].sort_values(by='start_date', ascending=False).copy()
 
@@ -113,6 +108,7 @@ class BuildDistricts():
                 if status == 'former':
                     fields_to_try = ['full_name', 'term_in_office']
                 else:
+                    # todo: take out ok
                     fields_to_try = ['full_name', 'link_block', 'term_in_office', 'ok']
 
                 for idx, row in commissioners_in_status.iterrows():
@@ -121,7 +117,7 @@ class BuildDistricts():
                     if commissioner_block[-5:] != '</h2>':
                         commissioner_block += '<br/>'
 
-                    commissioner_block += build_data_table(row, fields_to_try)
+                    commissioner_block += build_data_table(row, fields_to_try, people_level=-3)
         
         return commissioner_block
 
@@ -137,12 +133,11 @@ class BuildDistricts():
 
         smd_display = smd_id.replace('smd_','')
 
-        people = pd.read_csv('data/people.csv')
         candidates = pd.read_csv('data/candidates.csv')
         results = pd.read_csv('data/results.csv')
         field_names = pd.read_csv('data/field_names.csv')
 
-        write_in_winners_people = pd.merge(self.write_in_winners, people, how='inner', on='person_id')
+        write_in_winners_people = pd.merge(self.write_in_winners, self.people, how='inner', on='person_id')
 
         rcp = build_results_candidate_people()
         rcp.loc[rcp.is_incumbent, 'full_name'] = rcp.loc[rcp.is_incumbent, 'full_name'] + ' (incumbent)'
@@ -235,11 +230,10 @@ class BuildDistricts():
         if '_2022_' not in smd_id:
             return ''
 
-        people = pd.read_csv('data/people.csv')
         candidates = pd.read_csv('data/candidates.csv')
         statuses = pd.read_csv('data/candidate_statuses.csv')
 
-        people_candidates = pd.merge(people, candidates, how='inner', on='person_id')
+        people_candidates = pd.merge(self.people, candidates, how='inner', on='person_id')
         people_candidate_statuses = pd.merge(people_candidates, statuses, how='inner', on='candidate_status')
 
         # Merge the order and status fields for sorting

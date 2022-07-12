@@ -32,6 +32,7 @@ class BuildIndex():
 
         ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
+        districts = districts[districts.redistricting_year == 2012].copy()
 
         html = ''
 
