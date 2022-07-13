@@ -67,7 +67,7 @@ class BuildANCs():
 
 
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
-            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_path='districts/'))
+            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, level=1))
 
             fields_to_try = ['notes', 'link_block']
             output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try))

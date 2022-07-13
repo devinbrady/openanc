@@ -8,7 +8,6 @@ from scripts.refresh_data import RefreshData
 from scripts.common import (
     list_commissioners
     , assemble_divo
-    , anc_names
     )
 
 

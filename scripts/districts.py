@@ -28,6 +28,7 @@ from scripts.common import (
     , people_dataframe
     , smd_geojson
     , anc_url
+    , ward_url
     )
 
 
@@ -384,8 +385,11 @@ class BuildDistricts():
         districts = pd.read_csv('data/districts.csv')
         map_colors = pd.read_csv('data/map_colors.csv')
         ancs = pd.read_csv('data/ancs.csv')
+        wards = pd.read_csv('data/wards.csv')
+
         district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
         district_ancs = pd.merge(district_colors, ancs[['anc_id', 'anc_name']], how='inner', on='anc_id')
+        district_wards = pd.merge(district_ancs, wards[['ward_id', 'ward_name']], how='inner', on='ward_id')
 
         # Calculate the updated_at for each SMD. Where the SMD has no more active candidates, use the max updated_at across all candidates
         candidates = pd.read_csv('data/candidates.csv')
@@ -397,20 +401,16 @@ class BuildDistricts():
         smd_max_updated_at['updated_at_formatted'] = smd_max_updated_at['updated_at'].dt.strftime('%B %-d, %Y')
 
         # Process SMDs in order by smd_id
-        district_ancs = district_ancs.sort_values(by=['redistricting_year', 'smd_id'])
+        district_wards = district_wards.sort_values(by=['redistricting_year', 'smd_id'])
 
-        for idx, row in tqdm(district_ancs.iterrows(), total=len(district_ancs), desc='SMDs '):
-        # for idx, row in district_ancs.iterrows():
+        for idx, row in tqdm(district_wards.iterrows(), total=len(district_wards), desc='SMDs '):
+        # for idx, row in district_wards.iterrows():
 
             smd_id = row['smd_id']
 
             # debug: Dorchester House
             # if smd_id not in ('smd_1C06', 'smd_2022_1C09'):
             #     continue
-
-            anc_id = row['anc_id']
-            anc_display_upper = 'ANC' + anc_id
-            anc_display_lower = anc_display_upper.lower()
 
             with open('templates/district.html', 'r') as f:
                 output = f.read()
@@ -440,7 +440,8 @@ class BuildDistricts():
             output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=-3, show_redistricting_cycle=True))
 
 
-            output = output.replace('REPLACE_WITH_WARD', str(row['ward']))
+            output = output.replace('REPLACE_WITH_WARD_URL', ward_url(row.ward_id, level=-1))
+            output = output.replace('REPLACE_WITH_WARD_NAME', row.ward_name)
             output = output.replace('REPLACE_WITH_ANC_URL', anc_url(row.anc_id, level=-1))
             output = output.replace('REPLACE_WITH_ANC_NAME', row.anc_name)
 

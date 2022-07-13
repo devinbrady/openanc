@@ -59,10 +59,10 @@ class BuildPeople():
 
         output = add_footer(output, level=1)
 
-        with open('docs/people/people_list.html', 'w') as f:
+        with open('docs/people/index.html', 'w') as f:
             f.write(output)
 
-        print('built: people_list.html')
+        print('built: people index.html')
 
 
 
@@ -133,7 +133,7 @@ class BuildPeople():
 
             output = output.replace('<!-- replace with districts represented -->', district_block)
 
-        output = add_footer(output, level=2)
+        output = add_footer(output, level=1)
 
         with open(f'docs/people/{person.name_url}.html', 'w') as f:
             f.write(output)

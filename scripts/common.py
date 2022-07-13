@@ -111,6 +111,10 @@ def district_url(smd_id, level=0):
         link_path = 'districts/'
     elif level == 2:
         link_path = ''
+    elif level == 9:
+        link_path = '../ancs/districts/'
+    else:
+        raise ValueError(f'Link level {level} is not implemented yet')
 
     return f'{link_path}{district_slug(smd_id)}.html' 
 
@@ -132,21 +136,41 @@ def anc_url(anc_id, level=0):
     else:
         redistricting_year = '2012'
 
-    if level == -3:
-        # link_path = f'../../../map_{redistricting_year}/ancs/'
-        raise ValueError('Not implemented yet')
-    elif level == -2:
-        # link_path = f'../../map_{redistricting_year}/ancs/'
-        raise ValueError('Not implemented yet')
-    elif level == -1:
+    if level == -1:
         link_path = f'../ancs/'
     elif level == 0:
         link_path = f'map_{redistricting_year}/ancs/'
-    elif level == 1:
-        # link_path = ''
-        raise ValueError('Not implemented yet')
+    else:
+        raise ValueError(f'Link level {level} is not implemented yet')
 
     return f'{link_path}{district_slug(anc_id)}.html' 
+
+
+
+def ward_url(ward_id, level=0):
+    """
+    Generate a complete url for an ward_id
+
+    link level, relative to where the source page is on the directory tree:
+        -2: two levels up from the source page (like, from a district to a previous redistricting map)
+        0: html root
+        1: ANC page
+        2: SMD page
+    """
+
+    if '2022' in ward_id:
+        redistricting_year = '2022'
+    else:
+        redistricting_year = '2012'
+
+    if level == -1:
+        link_path = f'../map_{redistricting_year}/wards/'
+    elif level == 0:
+        link_path = f'map_{redistricting_year}/wards/'
+    else:
+        raise ValueError(f'Link level {level} is not implemented yet')
+
+    return f'{link_path}{district_slug(ward_id)}.html' 
 
 
 
@@ -266,22 +290,6 @@ def dc_coordinates():
 
 
 
-def anc_names(anc_id):
-    """
-    Return formatted ANC names
-    """
-
-    ancs = pd.read_csv('data/ancs.csv')
-
-    anc_upper = 'ANC' + anc_id
-    anc_lower = anc_upper.lower()
-
-    anc_neighborhoods = ancs[ancs['anc_id'] == anc_id]['neighborhoods'].values[0]
-
-    return anc_upper, anc_lower, anc_neighborhoods
-
-
-
 def assemble_divo():
     """
     Return DataFrame with one row per SMD and various stats about each SMD's ranking
@@ -295,18 +303,18 @@ def assemble_divo():
     votes_per_smd = pd.DataFrame(results.groupby('smd_id').votes.sum()).reset_index()
 
     # Calculate number of SMDs in each Ward and ANC
-    smds_per_ward = pd.DataFrame(districts.groupby('ward').size(), columns=['smds_in_ward']).reset_index()
+    smds_per_ward = pd.DataFrame(districts.groupby('ward_id').size(), columns=['smds_in_ward']).reset_index()
     smds_per_anc = pd.DataFrame(districts.groupby('anc_id').size(), columns=['smds_in_anc']).reset_index()
 
     divo = pd.merge(districts, votes_per_smd, how='inner', on='smd_id')
-    divo = pd.merge(divo, smds_per_ward, how='inner', on='ward')
+    divo = pd.merge(divo, smds_per_ward, how='inner', on='ward_id')
     divo = pd.merge(divo, smds_per_anc, how='inner', on='anc_id')
     divo['smds_in_dc'] = len(districts)
 
     # Rank each SMD by the number of votes recorded for ANC races within that SMD
     # method = min: assigns the lowest rank when multiple rows are tied
     divo['rank_dc'] = divo['votes'].rank(method='min', ascending=False)
-    divo['rank_ward'] = divo.groupby('ward').votes.rank(method='min', ascending=False)
+    divo['rank_ward'] = divo.groupby('ward_id').votes.rank(method='min', ascending=False)
     divo['rank_anc'] = divo.groupby('anc_id').votes.rank(method='min', ascending=False)
 
     # Create strings showing the ranking of each SMD within its ANC, Ward, and DC-wide
@@ -321,7 +329,7 @@ def assemble_divo():
 
 
     average_votes_in_dc = divo.votes.mean()
-    average_votes_by_ward = divo.groupby('ward').votes.mean()
+    average_votes_by_ward = divo.groupby('ward_id').votes.mean()
     average_votes_by_anc = divo.groupby('anc_id').votes.mean()
 
     return divo
@@ -447,57 +455,23 @@ def build_district_comm_commelect():
 
 
 
-def build_smd_html_table(list_of_smds, link_path=''):
+def build_smd_html_table(list_of_smds, level=0):
     """
     Return an HTML table with one row per district for a given list of SMDs
 
-    Contains current commissioner and all candidates with number of votes
+    Contains current commissioner and all candidates
     """
 
-    rcp = build_results_candidate_people()
+    district_comm_commelect = build_district_comm_commelect()
+    
+    display_df = district_comm_commelect[district_comm_commelect['smd_id'].isin(list_of_smds)].copy()
 
-    # Bold the winners in this text field
-    # results_field = 'Candidates and Results (Winner in Bold)'
-    # rcp[results_field] = rcp.apply(
-    #     lambda row:
-    #         '<strong>{} ({:,.0f} votes)</strong>'.format(row['full_name'], row['votes'])
-    #         if row['winner']
-    #         else '{} ({:,.0f} votes)'.format(row['full_name'], row['votes'])
-    #     , axis=1
-    #     )
-
-    results_field = 'Candidates and Results'
-    rcp[results_field] = rcp.apply(
-        lambda row: '{} ({:,.0f} votes)'.format(row['full_name'], row['votes'])
+    display_df['SMD'] = display_df.apply(lambda x: 
+        f'<a href="{district_url(x.smd_id, level=level)}">{x.smd_name}</a>'
         , axis=1
         )
 
-    # Aggregate results by SMD
-    district_results = rcp.groupby('smd_id').agg({
-        'votes': sum
-        , results_field: lambda x: ', '.join(x)
-        , 'write_in_winner_int': sum
-        })
-
-    total_votes_display_name = 'ANC Votes'
-    district_results[total_votes_display_name] = district_results['votes']
-    max_votes_for_bar_chart = district_results[total_votes_display_name].max()
-
-    district_comm_commelect = build_district_comm_commelect()
-    dcp_results = pd.merge(district_comm_commelect, district_results, how='left', on='smd_id')
-    
-    display_df = dcp_results[dcp_results['smd_id'].isin(list_of_smds)].copy()
-
-    display_df['SMD'] = (
-        f'<a href="{link_path}' + display_df['smd_id'].str.replace('smd_','').str.lower() + '.html">' 
-        + display_df['smd_id'].str.replace('smd_','') + '</a>'
-        )
-
     display_df['Current Commissioner'] = display_df['current_commissioner']
-    display_df['Commissioner-Elect'] = display_df['commissioner_elect']
-
-    # Append "write-in" to Commissioners-Elect who were write-in candidates
-    display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] = display_df.loc[display_df['write_in_winner_int'] == 1, 'Commissioner-Elect'] + ' (write-in)'
 
     columns_to_html = ['SMD', 'Current Commissioner']
 

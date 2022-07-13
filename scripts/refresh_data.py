@@ -18,6 +18,7 @@ from scripts.common import (
     , assemble_divo
     , build_district_comm_commelect
     , district_url
+    , anc_url
     )
 
 
@@ -282,7 +283,7 @@ class RefreshData():
 
         # add ward to the SMD dataframe
         districts = pd.read_csv('data/districts.csv')
-        smd_df_ward = pd.merge(smd_df, districts[['smd_id', 'ward']], how='inner', on='smd_id')
+        smd_df_ward = pd.merge(smd_df, districts[['smd_id', 'ward_id']], how='inner', on='smd_id')
 
         smd_df_ward.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
 
@@ -320,7 +321,7 @@ class RefreshData():
         if len(twttr) != 296:
             raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-        twttr['openanc_link'] = 'https://openanc.org/ancs/districts/' + twttr['smd_id'].str.replace('smd_', '').str.lower() + '.html'
+        twttr['openanc_link'] = 'https://openanc.org/' + district_url(twttr['smd_id'], level=0)
 
         columns_to_publish = ['smd_id', 'person_id', 'full_name', 'start', 'end', 'twitter_link', 'facebook_link', 'website_link', 'openanc_link']
 
@@ -337,7 +338,7 @@ class RefreshData():
         ancs = pd.read_csv('data/ancs.csv')
         # districts = pd.read_csv('data/districts.csv')
 
-        ancs['openanc_link'] = 'https://openanc.org/ancs/anc' + ancs['anc_id'].str.lower() + '.html'
+        ancs['openanc_link'] = 'https://openanc.org/' + anc_url(ancs['anc_id'])
 
         columns_to_publish = [
             'anc_id'
@@ -488,7 +489,7 @@ class RefreshData():
         # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')
         # self.refresh_csv('map_colors', 'A:B') 
-        # self.refresh_csv('wards', 'A:B')
+        self.refresh_csv('wards', 'A:B')
 
 
     def run(self):

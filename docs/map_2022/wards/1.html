@@ -1,0 +1,392 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../nonmap.css">
+    <title>OpenANC : Ward Ward 1</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+<meta charset="UTF-8">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../../index.html">OpenANC</a> : Ward 1</h1>
+
+<div id='map' style='width: 1000px; height: 600px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'REPLACE_WITH_MAPBOX_STYLE',
+    center: [-77.03412954884507, 38.9361129455516], // starting position [lng, lat]
+    zoom: 11
+});
+
+var geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ REPLACE_WITH_XY ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 30
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Council Member</h2>
+
+<p>REPLACE_WITH_CM</p>
+
+<h2>Districts and Commissioners in Ward 1</h2>
+
+<style  type="text/css" >
+    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row0_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row1_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row2_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row3_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row4_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row5_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row6_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row7_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row8_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row9_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row10_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row11_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row12_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row13_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row14_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row15_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row16_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row17_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row18_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row19_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row20_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row21_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row22_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row23_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row24_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row25_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row26_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row27_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row28_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row29_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row30_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row31_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row32_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row33_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row34_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row35_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row36_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row37_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row38_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row39_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row40_col1 {
+            width:  230px;
+            text-align:  left;
+        }    #T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row41_col1 {
+            width:  230px;
+            text-align:  left;
+        }</style><table id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Current Commissioner</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row0_col0" class="data row0 col0" ><a href="../ancs/districts/1A01.html">1A01</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row0_col1" class="data row0 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row1_col0" class="data row1 col0" ><a href="../ancs/districts/1A02.html">1A02</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row1_col1" class="data row1 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row2_col0" class="data row2 col0" ><a href="../ancs/districts/1A03.html">1A03</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row2_col1" class="data row2 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row3_col0" class="data row3 col0" ><a href="../ancs/districts/1A04.html">1A04</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row3_col1" class="data row3 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row4_col0" class="data row4 col0" ><a href="../ancs/districts/1A05.html">1A05</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row4_col1" class="data row4 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row5_col0" class="data row5 col0" ><a href="../ancs/districts/1A06.html">1A06</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row5_col1" class="data row5 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row6_col0" class="data row6 col0" ><a href="../ancs/districts/1A07.html">1A07</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row6_col1" class="data row6 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row7_col0" class="data row7 col0" ><a href="../ancs/districts/1A08.html">1A08</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row7_col1" class="data row7 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row8_col0" class="data row8 col0" ><a href="../ancs/districts/1A09.html">1A09</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row8_col1" class="data row8 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row9_col0" class="data row9 col0" ><a href="../ancs/districts/1A10.html">1A10</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row9_col1" class="data row9 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row10_col0" class="data row10 col0" ><a href="../ancs/districts/1B01.html">1B01</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row10_col1" class="data row10 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row11_col0" class="data row11 col0" ><a href="../ancs/districts/1B02.html">1B02</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row11_col1" class="data row11 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row12_col0" class="data row12 col0" ><a href="../ancs/districts/1B03.html">1B03</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row12_col1" class="data row12 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row13_col0" class="data row13 col0" ><a href="../ancs/districts/1B04.html">1B04</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row13_col1" class="data row13 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row14_col0" class="data row14 col0" ><a href="../ancs/districts/1B05.html">1B05</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row14_col1" class="data row14 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row15_col0" class="data row15 col0" ><a href="../ancs/districts/1B06.html">1B06</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row15_col1" class="data row15 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row16_col0" class="data row16 col0" ><a href="../ancs/districts/1B07.html">1B07</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row16_col1" class="data row16 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row17_col0" class="data row17 col0" ><a href="../ancs/districts/1B08.html">1B08</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row17_col1" class="data row17 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row18_col0" class="data row18 col0" ><a href="../ancs/districts/1B09.html">1B09</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row18_col1" class="data row18 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row19_col0" class="data row19 col0" ><a href="../ancs/districts/1C01.html">1C01</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row19_col1" class="data row19 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row20_col0" class="data row20 col0" ><a href="../ancs/districts/1C02.html">1C02</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row20_col1" class="data row20 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row21_col0" class="data row21 col0" ><a href="../ancs/districts/1C03.html">1C03</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row21_col1" class="data row21 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row22_col0" class="data row22 col0" ><a href="../ancs/districts/1C04.html">1C04</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row22_col1" class="data row22 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row23_col0" class="data row23 col0" ><a href="../ancs/districts/1C05.html">1C05</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row23_col1" class="data row23 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row24_col0" class="data row24 col0" ><a href="../ancs/districts/1C06.html">1C06</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row24_col1" class="data row24 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row25_col0" class="data row25 col0" ><a href="../ancs/districts/1C07.html">1C07</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row25_col1" class="data row25 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row26_col0" class="data row26 col0" ><a href="../ancs/districts/1C08.html">1C08</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row26_col1" class="data row26 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row27_col0" class="data row27 col0" ><a href="../ancs/districts/1C09.html">1C09</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row27_col1" class="data row27 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row28_col0" class="data row28 col0" ><a href="../ancs/districts/1D01.html">1D01</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row28_col1" class="data row28 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row29_col0" class="data row29 col0" ><a href="../ancs/districts/1D02.html">1D02</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row29_col1" class="data row29 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row30_col0" class="data row30 col0" ><a href="../ancs/districts/1D03.html">1D03</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row30_col1" class="data row30 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row31_col0" class="data row31 col0" ><a href="../ancs/districts/1D04.html">1D04</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row31_col1" class="data row31 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row32_col0" class="data row32 col0" ><a href="../ancs/districts/1D05.html">1D05</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row32_col1" class="data row32 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row33_col0" class="data row33 col0" ><a href="../ancs/districts/1D06.html">1D06</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row33_col1" class="data row33 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row34_col0" class="data row34 col0" ><a href="../ancs/districts/1D07.html">1D07</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row34_col1" class="data row34 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row35_col0" class="data row35 col0" ><a href="../ancs/districts/1E01.html">1E01</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row35_col1" class="data row35 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row36_col0" class="data row36 col0" ><a href="../ancs/districts/1E02.html">1E02</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row36_col1" class="data row36 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row37_col0" class="data row37 col0" ><a href="../ancs/districts/1E03.html">1E03</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row37_col1" class="data row37 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row38_col0" class="data row38 col0" ><a href="../ancs/districts/1E04.html">1E04</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row38_col1" class="data row38 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row39_col0" class="data row39 col0" ><a href="../ancs/districts/1E05.html">1E05</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row39_col1" class="data row39 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row40_col0" class="data row40 col0" ><a href="../ancs/districts/1E06.html">1E06</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row40_col1" class="data row40 col1" >(vacant)</td>
+            </tr>
+            <tr>
+                                <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row41_col0" class="data row41 col0" ><a href="../ancs/districts/1E07.html">1E07</a></td>
+                        <td id="T_130300de653146b63e9d176d78aea4a95ce2af59c3d51c57bfa8cfde_row41_col1" class="data row41 col1" >(vacant)</td>
+            </tr>
+    </tbody></table>
+
+<!-- replace with 3/4 info -->
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../index.html">Find your ANC district</a></li>
+    <li><a href="../../list.html">List of districts</a></li>
+    <li><a href="../../people/index.html">List of people</a></li>
+    <!-- <li><a href="../../map.html">Map of districts by number of candidates</a></li> -->
+    <!-- <li><a href="../../counts.html">Counts</a></li> -->
+    <li><a href="../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 13, 2022</p>
+
+
+</body>
+
+</html>

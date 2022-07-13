@@ -5,12 +5,12 @@ Build Index page
 import pandas as pd
 
 from scripts.common import (
-    anc_names
-    , add_footer
+    add_footer
     , edit_form_link
     , add_google_analytics
     , build_smd_html_table
     , mapbox_slugs
+    , anc_url
 )
 
 from scripts.counts import Counts
@@ -32,19 +32,25 @@ class BuildIndex():
 
         ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
-        districts = districts[districts.redistricting_year == 2012].copy()
 
         html = ''
 
-        for anc_id in sorted(ancs['anc_id']):
+        redist_header = ['Elections 2012-2020', 'Elections 2022-2030']
 
-            anc_upper, anc_lower, anc_neighborhoods = anc_names(anc_id)
+        for idx, redistricting_yr in enumerate([2012, 2022]):
 
-            html += f'<h3><a href="ancs/{anc_lower}.html">{anc_upper}</a> ({anc_neighborhoods})</h3>'
+            html += f'<h2>{redist_header[idx]}</h2>'
 
-            smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
+            districts_cycle = districts[districts.redistricting_year == redistricting_yr].copy()
+            ancs_cycle = ancs[ancs.redistricting_year == redistricting_yr].copy()
 
-            html += build_smd_html_table(smds_in_anc, link_path='ancs/districts/')
+            for _, row in ancs_cycle.iterrows():
+
+                html += f'<h3><a href="{anc_url(row.anc_id)}">{row.anc_name}</a></h3>'
+
+                smds_in_anc = districts_cycle[districts_cycle['anc_id'] == row.anc_id]['smd_id'].to_list()
+
+                html += build_smd_html_table(smds_in_anc, level=0)
 
         return html
 
@@ -163,7 +169,7 @@ class BuildIndex():
 
     def run(self):
 
-        self.count_page()
+        # self.count_page()
         self.list_page()
         self.about_page()
         # self.build_single_page('index')
