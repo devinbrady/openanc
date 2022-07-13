@@ -43,7 +43,7 @@ class BuildDistricts():
         self.mapbox_style_slugs = mapbox_slugs()
 
         self.commissioners = list_commissioners(status=None)
-
+        self.districts = pd.read_csv('data/districts.csv')
         self.people = people_dataframe()
 
         self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
@@ -344,9 +344,7 @@ class BuildDistricts():
         Create table for district landmarks
         """
         
-        districts = pd.read_csv('data/districts.csv')
-
-        district_row = districts[districts['smd_id'] == smd_id].squeeze().dropna()
+        district_row = self.districts[self.districts['smd_id'] == smd_id].squeeze().dropna()
 
         fields_to_try = ['landmarks', 'notes']
 
@@ -377,23 +375,87 @@ class BuildDistricts():
 
 
 
+    def overlap_list(self, smd_id):
+        """
+        For one SMD, list the districts that overlap it with the percentage of overlap
+
+        Bulleted list of districts and current commmissioners
+
+        If smd_id_list is None, all districts are returned
+        If smd_id_list is a list, those SMDs are returned
+
+        link level:
+            0: html root
+            1: ANC page
+            2: SMD page
+
+        If show_redistricting_cycle is True, then the year of the cycle will be displayed.
+        """
+
+        dc = pd.merge(self.districts, list_commissioners(status='current'), how='left', on='smd_id')
+        dcp = pd.merge(dc, self.people, how='left', on='person_id')
+
+        dcp['full_name'] = dcp['full_name'].fillna('(vacant)')
+
+        try:
+            overlap_smd_id_list = self.districts[self.districts.smd_id == smd_id].squeeze().overlap_smds.split(', ')
+        except:
+            print('bad: ' + smd_id)
+            print(self.districts[self.districts.smd_id == smd_id].squeeze().overlap_smds)
+
+        overlap_percentage_list = self.districts[self.districts.smd_id == smd_id].squeeze().overlap_percentage.split(', ')
+        smd_name = dcp[dcp.smd_id == smd_id].smd_name.iloc[0]
+
+        district_list = '<ul>'
+
+        for i, overlap_smd_id in enumerate(overlap_smd_id_list):
+
+            district_row = dcp[dcp.smd_id == overlap_smd_id].squeeze()
+
+            if district_row['full_name'] == '(vacant)':
+                if district_row['redistricting_year'] == 2022:
+                    commissioner_name = ''
+                else:
+                    commissioner_name = ': (vacant)'
+            else:
+                commissioner_name = ': Commissioner ' + district_row['full_name']
+
+            if district_row['redistricting_year'] == 2022:
+                oldnew = ['New', 'old']
+            else:
+                oldnew = ['Old', 'new']
+
+            overlap_percentage_display = '{:.1%}'.format(float(overlap_percentage_list[i]))
+
+            link_body = f'{oldnew[0]} {district_row.smd_name}{commissioner_name} ({overlap_percentage_display} of {oldnew[1]} {smd_name})'
+
+            district_list += f'<li><a href="{district_url(district_row.smd_id, level=-3)}">{link_body}</a></li>'
+
+
+        district_list += '</ul>'
+
+        return district_list
+
+        return
+
+
+
     def run(self):
         """
         Build pages for each SMD
         """
 
-        districts = pd.read_csv('data/districts.csv')
         map_colors = pd.read_csv('data/map_colors.csv')
         ancs = pd.read_csv('data/ancs.csv')
         wards = pd.read_csv('data/wards.csv')
 
-        district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
+        district_colors = pd.merge(self.districts, map_colors, how='inner', on='map_color_id')
         district_ancs = pd.merge(district_colors, ancs[['anc_id', 'anc_name']], how='inner', on='anc_id')
         district_wards = pd.merge(district_ancs, wards[['ward_id', 'ward_name']], how='inner', on='ward_id')
 
         # Calculate the updated_at for each SMD. Where the SMD has no more active candidates, use the max updated_at across all candidates
         candidates = pd.read_csv('data/candidates.csv')
-        district_candidates = pd.merge(districts, candidates, how='left', on='smd_id')
+        district_candidates = pd.merge(self.districts, candidates, how='left', on='smd_id')
         max_updated_at = district_candidates['updated_at'].dropna().max()
         smd_updated_at = district_candidates[['smd_id', 'updated_at']].fillna(value={'updated_at': max_updated_at})
         smd_max_updated_at = smd_updated_at.groupby('smd_id').agg({'updated_at': max})
@@ -433,8 +495,7 @@ class BuildDistricts():
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
             output = output.replace('<!-- replace with old/new heading -->', self.old_new_heading(smd_id))
-            overlap_smd_ids = row['overlap_smds'].split(', ')
-            output = output.replace('<!-- replace with overlap -->', build_district_list(overlap_smd_ids, level=-3, show_redistricting_cycle=True))
+            output = output.replace('<!-- replace with overlap -->', self.overlap_list(smd_id))
 
             neighbor_smd_ids = row['neighbor_smds'].split(', ')
             output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=-3, show_redistricting_cycle=True))
