@@ -27,6 +27,7 @@ from scripts.common import (
     , candidate_form_link
     , people_dataframe
     , smd_geojson
+    , anc_url
     )
 
 
@@ -382,7 +383,9 @@ class BuildDistricts():
 
         districts = pd.read_csv('data/districts.csv')
         map_colors = pd.read_csv('data/map_colors.csv')
+        ancs = pd.read_csv('data/ancs.csv')
         district_colors = pd.merge(districts, map_colors, how='inner', on='map_color_id')
+        district_ancs = pd.merge(district_colors, ancs[['anc_id', 'anc_name']], how='inner', on='anc_id')
 
         # Calculate the updated_at for each SMD. Where the SMD has no more active candidates, use the max updated_at across all candidates
         candidates = pd.read_csv('data/candidates.csv')
@@ -394,10 +397,10 @@ class BuildDistricts():
         smd_max_updated_at['updated_at_formatted'] = smd_max_updated_at['updated_at'].dt.strftime('%B %-d, %Y')
 
         # Process SMDs in order by smd_id
-        district_colors = district_colors.sort_values(by='smd_id')
+        district_ancs = district_ancs.sort_values(by=['redistricting_year', 'smd_id'])
 
-        for idx, row in tqdm(district_colors.iterrows(), total=len(district_colors), desc='SMDs '):
-        # for idx, row in district_colors.iterrows():
+        for idx, row in tqdm(district_ancs.iterrows(), total=len(district_ancs), desc='SMDs '):
+        # for idx, row in district_ancs.iterrows():
 
             smd_id = row['smd_id']
 
@@ -438,8 +441,8 @@ class BuildDistricts():
 
 
             output = output.replace('REPLACE_WITH_WARD', str(row['ward']))
-            output = output.replace('REPLACE_WITH_ANC_UPPER', anc_display_upper)
-            output = output.replace('REPLACE_WITH_ANC_LOWER', anc_display_lower)
+            output = output.replace('REPLACE_WITH_ANC_URL', anc_url(row.anc_id, level=-1))
+            output = output.replace('REPLACE_WITH_ANC_NAME', row.anc_name)
 
             output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
             output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))

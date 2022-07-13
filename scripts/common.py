@@ -28,6 +28,19 @@ def smd_geojson():
 
 
 
+def anc_geojson():
+    """Return a GeoDataFrame with SMDs from all redistricting cycles"""
+
+    map_2012 = gpd.read_file('maps/anc-2012.geojson')
+    map_2022 = gpd.read_file('maps/anc-2022.geojson')
+
+    # Turn the 2012 MultiPolygons into Polygons to match 2022
+    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
+
+    return gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
+
+
+
 def people_dataframe():
     """Return dataframe of people.csv with the name URLs added."""
 
@@ -100,6 +113,40 @@ def district_url(smd_id, level=0):
         link_path = ''
 
     return f'{link_path}{district_slug(smd_id)}.html' 
+
+
+
+def anc_url(anc_id, level=0):
+    """
+    Generate a complete url for an anc_id
+
+    link level, relative to where the source page is on the directory tree:
+        -2: two levels up from the source page (like, from a district to a previous redistricting map)
+        0: html root
+        1: ANC page
+        2: SMD page
+    """
+
+    if '2022' in anc_id:
+        redistricting_year = '2022'
+    else:
+        redistricting_year = '2012'
+
+    if level == -3:
+        # link_path = f'../../../map_{redistricting_year}/ancs/'
+        raise ValueError('Not implemented yet')
+    elif level == -2:
+        # link_path = f'../../map_{redistricting_year}/ancs/'
+        raise ValueError('Not implemented yet')
+    elif level == -1:
+        link_path = f'../ancs/'
+    elif level == 0:
+        link_path = f'map_{redistricting_year}/ancs/'
+    elif level == 1:
+        # link_path = ''
+        raise ValueError('Not implemented yet')
+
+    return f'{link_path}{district_slug(anc_id)}.html' 
 
 
 

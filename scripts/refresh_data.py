@@ -482,7 +482,7 @@ class RefreshData():
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
         # Tables that don't need to be refreshed every time
-        self.refresh_csv('ancs', 'A:J')
+        self.refresh_csv('ancs', 'A:L')
         # self.refresh_csv('candidate_statuses', 'A:D')
         self.refresh_csv('commissioners', 'A:G')
         # self.refresh_csv('field_names', 'A:B')
@@ -493,7 +493,7 @@ class RefreshData():
 
     def run(self):
 
-        # self.download_google_sheets()
+        self.download_google_sheets()
 
         self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
         self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')
