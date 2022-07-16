@@ -22,12 +22,22 @@ parser.add_argument('-w', '--build-wards', action='store_true', help='Build page
 parser.add_argument('-a', '--build-ancs', action='store_true', help='Build page for each ANC')
 parser.add_argument('-d', '--build-districts', action='store_true', help='Build page for each SMD')
 parser.add_argument('-p', '--build-people', action='store_true', help='Build page for each person')
+parser.add_argument('--all', action='store_true', help='Run all site building steps')
 
 args = parser.parse_args()
 
 
 # Make directories if they don't already exist
 # os.makedirs('/docs/map_2012/ancs/districts', exist_ok=True)
+
+
+if args.all:
+    args.refresh_data = True
+    args.build_index = True
+    args.build_wards = True
+    args.build_ancs = True
+    args.build_districts = True
+    args.build_people = True
 
 
 if args.refresh_data:

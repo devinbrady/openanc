@@ -29,7 +29,7 @@ class BuildWards():
         wards = pd.read_csv('data/wards.csv')
         # ward_gdf = gpd.read_file('maps/ward-from-smd.geojson')
         
-        for idx, row in tqdm(wards.iterrows(), total=len(wards), desc='Wards '):
+        for idx, row in tqdm(wards.iterrows(), total=len(wards), desc='Wards  '):
                     
             with open('templates/ward.html', 'r') as f:
                 output = f.read()

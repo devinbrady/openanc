@@ -14,13 +14,16 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 from scripts.common import (
-    list_commissioners
-    , assemble_divo
-    , build_district_comm_commelect
+    assemble_divo
     , district_url
     , anc_url
     )
 
+from scripts.data_transformations import (
+    list_commissioners
+    , districts_candidates_commissioners
+    , districts_comm_commelect
+    )
 
 
 class RefreshData():
@@ -39,9 +42,10 @@ class RefreshData():
 
         self.service = self.google_auth()
 
-        district_comm_commelect = build_district_comm_commelect()
+        dcc = districts_candidates_commissioners()
 
-        self.map_display_df = self.build_map_display_box(district_comm_commelect)
+        self.map_display_df = self.build_map_display_box(dcc)
+
 
 
     def google_auth(self):
@@ -126,88 +130,12 @@ class RefreshData():
 
 
 
-    def assemble_smd_info(self, duplicate_check=False, print_counts=False, publish_to_google_sheets=False):
-        """
-        Return DataFrame, one row per district, with candidate names and counts
-
-        Destination is a Mapbox dataset
-        """
-
-        districts = pd.read_csv('data/districts.csv')
-        candidates = pd.read_csv('data/candidates.csv')
-        commissioners = list_commissioners(status='current')
-        people = pd.read_csv('data/people.csv')
-        candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
-
-
-        candidate_people = pd.merge(candidates, people, how='inner', on='person_id')
-        candidate_people.rename(columns={'full_name': 'full_name_candidate'}, inplace=True)
-        cps = pd.merge(candidate_people, candidate_statuses, how='inner', on='candidate_status')
-
-        commissioner_people = pd.merge(commissioners, people, how='inner', on='person_id')
-        commissioner_people.rename(columns={'full_name': 'full_name_commissioner'}, inplace=True)
-
-        # Only include active candidates
-        district_candidates = pd.merge(districts, cps[cps['count_as_candidate']].copy(), how='left', on='smd_id')
-
-
-        # todo: make this candidate order also randomized
-        district_info = district_candidates.groupby(['smd_id', 'map_color_id']).agg({
-            'full_name_candidate': list
-            , 'candidate_id': 'count'
-            }).reset_index()
-
-
-        district_info_comm = pd.merge(district_info, commissioner_people[['smd_id', 'full_name_commissioner']], how='left', on='smd_id')
-
-
-        district_info_comm.rename(columns={
-            'full_name_commissioner': 'current_commissioner'
-            , 'full_name_candidate': 'list_of_candidates'
-            , 'candidate_id': 'number_of_candidates'
-            }, inplace=True)
-
-
-        district_info_comm['current_commissioner'] = district_info_comm['current_commissioner'].fillna('(vacant)')
-
-        district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates'] = (
-            district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates'].apply(
-                lambda x: ['(no known candidates)'])
-            )
-
-        district_info_comm['list_of_candidates'] = district_info_comm['list_of_candidates'].apply(', '.join)
-
-        # Maybe add Last Updated to this? 
-
-        if duplicate_check:
-            district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
-
-        if print_counts:
-            print('Candidate Count: {}'.format( cps['count_as_candidate'].sum()))
-
-            print('\nDistricts by number of candidates: ')
-            print(district_info_comm.groupby('number_of_candidates').size())
-            print()
-
-        if publish_to_google_sheets:
-
-            if len(district_info_comm) != 296:
-                raise ValueError('The number of districts to publish to Google Sheets is not correct.')
-
-            district_info_comm['openanc_link'] = district_info_comm['smd_id'].apply(lambda x: 'https://openanc.org/' + district_url(x))
-
-            columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
-
-            self.upload_to_google_sheets(district_info_comm, columns_to_publish, 'openanc_published', 'SMD Candidates 2020')
-
-        return district_info_comm
-
-
-
     def build_map_display_box(self, cp):
         """
         Build a string containing names of the commissioner and commissioner-elect. 
         This entire string will be displayed in the map display box on the lower right of all maps
+
+        todo: make this function more like a usual pandas function
         """
 
         for idx, row in cp.iterrows():
@@ -220,7 +148,7 @@ class RefreshData():
                 )
 
             if '_2022_' in row.smd_id:
-                map_display_box += f'<br/>Candidates: No known candidates.'
+                map_display_box += f'<br/>Candidates: {row.list_of_candidates}'
             else:
                 map_display_box += f'<br/>Commissioner: {row.current_commissioner}'
 
@@ -230,7 +158,7 @@ class RefreshData():
 
             cp.loc[idx, 'map_display_box'] = map_display_box
 
-        return cp
+        return cp[['smd_id', 'smd_name', 'map_color_id', 'number_of_candidates', 'map_display_box']]
 
 
 
@@ -254,10 +182,9 @@ class RefreshData():
 
         lp = pd.read_csv(source_csv)
 
-        lp_df = pd.merge(lp, self.map_display_df[['smd_id', 'smd_name', 'current_commissioner', 'commissioner_elect', 'map_display_box']], how='inner', on='smd_id')
+        lp_df = pd.merge(lp, self.map_display_df, how='inner', on='smd_id')
         
         lp_df.to_csv(destination_filename, index=False)
-
 
 
 
@@ -267,10 +194,9 @@ class RefreshData():
         # todo: push these tilesets to Mapbox via API
         """
 
-        df = self.assemble_smd_info(
+        df = districts_candidates_commissioners(
             duplicate_check=False
             , print_counts=False
-            , publish_to_google_sheets=False
             )
 
         # Add data to GeoJSON file with SMD shapes
@@ -291,6 +217,24 @@ class RefreshData():
         lp = pd.read_csv('maps/label-points.csv')
         lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates']], how='inner', on='smd_id')
         lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
+
+
+
+    def publish_candidate_list(self):
+        """
+        Publish list of candidates to OpenANC Published
+        """
+
+        district_info_comm = districts_candidates_commissioners()
+
+        if len(district_info_comm) != 296:
+            raise ValueError('The number of districts to publish to Google Sheets is not correct.')
+
+        district_info_comm['openanc_link'] = district_info_comm['smd_id'].apply(lambda x: 'https://openanc.org/' + district_url(x))
+
+        columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
+
+        self.upload_to_google_sheets(district_info_comm, columns_to_publish, 'openanc_published', 'SMD Candidates 2020')
 
 
 
@@ -439,7 +383,6 @@ class RefreshData():
 
 
 
-
     def refresh_csv(self, csv_name, sheet_range, filter_dict=None):
         """
         Pull down one sheet to CSV
@@ -474,27 +417,43 @@ class RefreshData():
 
 
 
+    def confirm_key_uniqueness(self, table, primary_key):
+        """Throw an error if a primary key exists more than once in a table"""
+
+        df = pd.read_csv(f'data/{table}.csv')
+        key_count = df.groupby(primary_key).size()
+
+        if any(key_count > 1):
+            bad_key = key_count[key_count > 1]
+            raise RuntimeError(f'The primary key "{primary_key}" has at least one duplicate key in table "{table}" (key "{bad_key.index.values[0]}")')
+
+
+
     def download_google_sheets(self):
 
-        # self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
+        self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('districts', 'A:Q')
         self.refresh_csv('people', 'A:H')
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
         # Tables that don't need to be refreshed every time
-        self.refresh_csv('ancs', 'A:L')
+        # self.refresh_csv('ancs', 'A:L')
         # self.refresh_csv('candidate_statuses', 'A:D')
-        self.refresh_csv('commissioners', 'A:G')
+        self.refresh_csv('commissioners', 'A:E')
         # self.refresh_csv('field_names', 'A:B')
-        # self.refresh_csv('mapbox_styles', 'A:C')
+        self.refresh_csv('mapbox_styles', 'A:C')
         # self.refresh_csv('map_colors', 'A:B') 
-        self.refresh_csv('wards', 'A:B')
+        # self.refresh_csv('wards', 'A:B')
+
 
 
     def run(self):
 
         self.download_google_sheets()
+
+        self.confirm_key_uniqueness('people', 'person_id')
+        self.confirm_key_uniqueness('candidates', 'candidate_id')
 
         self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
         self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')
@@ -504,7 +463,6 @@ class RefreshData():
 
         # self.publish_commissioner_list()
         # self.publish_anc_list()
-
         # self.publish_results()
 
 

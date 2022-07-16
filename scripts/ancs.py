@@ -41,7 +41,7 @@ class BuildANCs():
 
         ancs['link_block'] = ancs.apply(lambda row: build_link_block(row, fields_to_try=['dc_oanc_link', 'anc_homepage_link', 'twitter_link']), axis=1)
         
-        for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs '):
+        for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs   '):
 
             anc_id = row['anc_id']
 

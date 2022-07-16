@@ -13,8 +13,10 @@ from scripts.common import (
     , anc_url
 )
 
+from scripts.data_transformations import districts_candidates_commissioners
+
 from scripts.counts import Counts
-from scripts.refresh_data import RefreshData
+
 
 
 class BuildIndex():
@@ -35,9 +37,9 @@ class BuildIndex():
 
         html = ''
 
-        redist_header = ['Elections 2012-2020', 'Elections 2022-2030']
+        redist_header = ['Election 2022', 'Election 2020']
 
-        for idx, redistricting_yr in enumerate([2012, 2022]):
+        for idx, redistricting_yr in enumerate([2022, 2012]):
 
             html += f'<h2>{redist_header[idx]}</h2>'
 
@@ -86,8 +88,7 @@ class BuildIndex():
             output = f.read()
 
         c = Counts()
-        rd = RefreshData()
-        smd_df = rd.assemble_smd_info()
+        # smd_df = districts_candidates_commissioners()
 
         output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
         output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
@@ -141,6 +142,7 @@ class BuildIndex():
         mb_style_slugs = mapbox_slugs()
         output = output.replace('REPLACE_WITH_SMD_SLUG', mb_style_slugs['smd'])
         output = output.replace('REPLACE_WITH_SMD_2022_SLUG', mb_style_slugs['smd-2022'])
+        output = output.replace('REPLACE_WITH_SMD_2022_NO_CANDIDATES_SLUG', mb_style_slugs['smd-2022-no-candidates'])
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
