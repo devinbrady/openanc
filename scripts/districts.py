@@ -19,7 +19,6 @@ from scripts.common import (
     , edit_form_link
     , add_google_analytics
     , add_geojson
-    , list_commissioners
     , assemble_divo
     , build_results_candidate_people
     , district_url
@@ -30,6 +29,11 @@ from scripts.common import (
     , anc_url
     , ward_url
     )
+
+
+from scripts.data_transformations import (
+    list_commissioners
+)
 
 
 
@@ -119,7 +123,7 @@ class BuildDistricts():
                     if commissioner_block[-5:] != '</h2>':
                         commissioner_block += '<br/>'
 
-                    commissioner_block += build_data_table(row, fields_to_try, people_level=-3)
+                    commissioner_block += build_data_table(row, fields_to_try, people_level = -3)
         
         return commissioner_block
 
@@ -265,7 +269,7 @@ class BuildDistricts():
 
                 for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == True, 'order_status'].unique()):
 
-                    candidate_block += '<h3>' + status[status.find(';')+1:] + '</h3>'
+                    candidate_block += '<h3>Status: ' + status[status.find(';')+1:] + '</h3>'
                     candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
 
                     for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
@@ -286,7 +290,7 @@ class BuildDistricts():
                             , 'updated_at'
                             ]
 
-                        candidate_block += build_data_table(candidate_row, fields_to_try)
+                        candidate_block += build_data_table(candidate_row, fields_to_try, people_level = -3)
                     
                     if candidates_in_status > 1:
                         candidate_block += '<p><em>Candidate order is randomized</em></p>'
@@ -312,7 +316,7 @@ class BuildDistricts():
                             , 'updated_at'
                             ]
 
-                        candidate_block += build_data_table(candidate_row, fields_to_try)
+                        candidate_block += build_data_table(candidate_row, fields_to_try, people_level = -3)
                     
                     if candidates_in_status > 1:
                         candidate_block += '<p><em>Candidate order is randomized</em></p>'
@@ -465,7 +469,7 @@ class BuildDistricts():
         # Process SMDs in order by smd_id
         district_wards = district_wards.sort_values(by=['redistricting_year', 'smd_id'])
 
-        for idx, row in tqdm(district_wards.iterrows(), total=len(district_wards), desc='SMDs '):
+        for idx, row in tqdm(district_wards.iterrows(), total=len(district_wards), desc='SMDs   '):
         # for idx, row in district_wards.iterrows():
 
             smd_id = row['smd_id']
@@ -473,6 +477,11 @@ class BuildDistricts():
             # debug: Dorchester House
             # if smd_id not in ('smd_1C06', 'smd_2022_1C09'):
             #     continue
+
+            # debug: Santiago Lakatos
+            # if smd_id not in ('smd_2022_1B04'):
+            #     continue
+
 
             with open('templates/district.html', 'r') as f:
                 output = f.read()

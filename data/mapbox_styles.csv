@@ -1,6 +1,7 @@
 id,mapbox_link,description
 smd,mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie,"Main SMD map, all districts have color"
 smd-2022,mapbox://styles/devinbrady/cl4yg387b000u14msjowbcvcq,New map for SMDs starting with the 2022 election
+smd-2022-no-candidates,mapbox://styles/devinbrady/cl5mpzyw6000015o3fv5vme3x,2022 SMD map that only shows the districts without candidates
 smd-contested,mapbox://styles/devinbrady/ckdpxepsj0ncr1iqhvz3ojvnz,num candidates > 1
 smd-monochrome,mapbox://styles/devinbrady/ckdcpk2z11rds1jmrr5gsrmrh,Monotone SMDs for background of other maps
 smd-no-candidates,mapbox://styles/devinbrady/ckct6u5ey0mgj1ho127gsjf2o,No-candidate SMDs are highlighted

@@ -4,11 +4,16 @@ import pytz
 import imgkit
 import pandas as pd
 from datetime import datetime
-from scripts.refresh_data import RefreshData
+
 from scripts.common import (
-    list_commissioners
-    , assemble_divo
+    assemble_divo
     )
+
+from scripts.data_transformations import (
+    list_commissioners
+    , districts_candidates_commissioners
+    )
+
 
 
 class Counts():
@@ -135,8 +140,7 @@ class Counts():
         Count the number of SMDs and number of SMDs with candidates in each ANC or ward
         """
 
-        rd = RefreshData()
-        df = rd.assemble_smd_info()
+        df = districts_candidates_commissioners()
 
         df['has_candidate'] = df['number_of_candidates'] > 0
 
@@ -213,8 +217,7 @@ class Counts():
         Return HTML with number of candidates in each district, shows how many races are contested
         """
 
-        rd = RefreshData()
-        smd_df = rd.assemble_smd_info(publish_to_google_sheets=False)
+        smd_df = districts_candidates_commissioners()
         smd_df.rename(columns={'number_of_candidates': 'Number of Candidates'}, inplace=True)
         html = ''
 

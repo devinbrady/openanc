@@ -11,13 +11,14 @@ from scripts.common import (
     add_footer
     , add_google_analytics
     , build_data_table
-    , list_commissioners
     , people_dataframe
     , district_link
 )
 
-from scripts.counts import Counts
-from scripts.refresh_data import RefreshData
+from scripts.data_transformations import (
+    list_commissioners
+)
+
 
 
 class BuildPeople():
