@@ -26,6 +26,7 @@ from scripts.data_transformations import (
     )
 
 
+
 class RefreshData():
 
     def __init__(self):
