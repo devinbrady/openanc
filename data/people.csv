@@ -224,7 +224,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10224,D.L. Humphrey,smd_7B07,smd_7B07,,https://twitter.com/Anc7B07,,
 10225,Patricia A. Malloy,smd_7C01,smd_7C01,,,,
 10226,Catherine A. Woods,smd_7C03,smd_7C03,,,,
-10227,Anthony Lorenzo Green,smd_7C04,smd_7C04,,https://twitter.com/LorenzoWard7DC,,
+10227,Anthony Lorenzo Green,smd_7C04,smd_7C04,smd_2022_7C04,https://twitter.com/TeamALGWard7,https://www.facebook.com/ALGWard7,https://www.algdc.com
 10228,Mary L. Gaffney,smd_7C05,smd_7C05,,,,
 10229,Arnold Smith,smd_7C06,smd_7C06,,,,
 10230,Antawan Holmes,smd_7C07,smd_7C07,,https://twitter.com/AntawanHolmes,,https://antawanholmes.com/
@@ -325,7 +325,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10330,Ben Bergmann,smd_3D08,smd_3D08,smd_2022_3B06,https://twitter.com/bzbergmann,,
 10331,Doreen Moses,,,,,,
 10332,Marc Hayes Robinson,,,,,,
-10333,Matthew Cohen,smd_3E01,smd_3E01,,,,
+10333,Matthew Cohen,smd_3E01,smd_3E01,smd_2022_3E01,https://twitter.com/matthewcohenanc,,
 10334,Laila Kunaish,,,,,,
 10335,Ulas Doga Eralp,,,,,,
 10336,"Dipali (""Dipa"") Mehta",smd_3F03,smd_3F03,,,,
