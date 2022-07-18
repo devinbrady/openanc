@@ -18,7 +18,7 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
     """
 
     districts = pd.read_csv('data/districts.csv')
-    candidates = pd.read_csv('data/candidates.csv')
+    candidates = list_candidates(election_year=2022)
     commissioners = list_commissioners(status=None)
     people = pd.read_csv('data/people.csv')
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
@@ -188,3 +188,29 @@ def list_commissioners(status=None, date_point=None):
         commissioner_output = commissioners.copy()
 
     return commissioner_output
+
+
+
+def list_candidates(election_year=2022):
+    """
+    Return DataFrame with candidates, either in a particular year or for all time
+
+    election_year=2022 : only return candidates with the election year of 2022 (default)
+    election_year=None : return candidates from all years
+    """
+
+    candidates = pd.read_csv('data/candidates.csv')
+
+    if election_year:
+        candidates_year = candidates[candidates.election_year == election_year].copy()
+    else:
+        candidates_year = candidates.copy()
+
+    return candidates_year
+
+
+
+
+
+
+

@@ -33,6 +33,7 @@ from scripts.common import (
 
 from scripts.data_transformations import (
     list_commissioners
+    , list_candidates
 )
 
 
@@ -139,7 +140,7 @@ class BuildDistricts():
 
         smd_display = smd_id.replace('smd_','')
 
-        candidates = pd.read_csv('data/candidates.csv')
+        candidates = list_candidates(election_year=None)
         results = pd.read_csv('data/results.csv')
         field_names = pd.read_csv('data/field_names.csv')
 
@@ -236,7 +237,7 @@ class BuildDistricts():
         if '_2022_' not in smd_id:
             return ''
 
-        candidates = pd.read_csv('data/candidates.csv')
+        candidates = list_candidates(election_year=2022)
         statuses = pd.read_csv('data/candidate_statuses.csv')
 
         people_candidates = pd.merge(self.people, candidates, how='inner', on='person_id')
@@ -458,7 +459,7 @@ class BuildDistricts():
         district_wards = pd.merge(district_ancs, wards[['ward_id', 'ward_name']], how='inner', on='ward_id')
 
         # Calculate the updated_at for each SMD. Where the SMD has no more active candidates, use the max updated_at across all candidates
-        candidates = pd.read_csv('data/candidates.csv')
+        candidates = list_candidates(election_year=2022)
         district_candidates = pd.merge(self.districts, candidates, how='left', on='smd_id')
         max_updated_at = district_candidates['updated_at'].dropna().max()
         smd_updated_at = district_candidates[['smd_id', 'updated_at']].fillna(value={'updated_at': max_updated_at})
