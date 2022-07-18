@@ -11,6 +11,7 @@ from scripts.common import (
 
 from scripts.data_transformations import (
     list_commissioners
+    , list_candidates
     , districts_candidates_commissioners
     )
 
@@ -283,7 +284,7 @@ class Counts():
         Return HTML table with count of candidates by candidate status
         """
 
-        candidates = pd.read_csv('data/candidates.csv')
+        candidates = list_candidates(election_year=2022)
         statuses = pd.read_csv('data/candidate_statuses.csv')
 
         candidate_statuses = pd.merge(candidates, statuses, how='inner', on='candidate_status')

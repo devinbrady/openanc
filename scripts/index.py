@@ -151,7 +151,7 @@ class BuildIndex():
 
 
 
-    def build_single_page(self, html_name):
+    def build_single_page(self, html_name, level=0):
         """
         Build a single page that just needs Google Analytics and the footer
         """
@@ -160,7 +160,7 @@ class BuildIndex():
             output = f.read()
 
         output = add_google_analytics(output)
-        output = add_footer(output, level=0)
+        output = add_footer(output, level=level)
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
@@ -176,5 +176,5 @@ class BuildIndex():
         self.about_page()
         # self.build_single_page('index')
         self.build_map_page('index')
-        self.build_single_page('404')
+        self.build_single_page('404', level=99)
 

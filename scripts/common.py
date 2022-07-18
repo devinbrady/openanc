@@ -13,6 +13,7 @@ from fuzzywuzzy import process
 
 from scripts.data_transformations import (
     list_commissioners
+    , list_candidates
     , districts_candidates_commissioners
     )
 
@@ -336,7 +337,7 @@ def build_results_candidate_people():
     """
 
     people = pd.read_csv('data/people.csv')
-    candidates = pd.read_csv('data/candidates.csv')
+    candidates = list_candidates(election_year=2020)
     results = pd.read_csv('data/results.csv')
 
     results_candidates = pd.merge(
@@ -448,12 +449,13 @@ def build_smd_html_table_candidates(list_of_smds, link_path=''):
     Return an HTML table with one row per district for a given list of SMDs
 
     Contains current commissioner and all candidates by status
+    todo: this is not used anywhere, remove it
     """
 
     districts = pd.read_csv('data/districts.csv')
     commissioners = list_commissioners(status='current')
     people = pd.read_csv('data/people.csv')
-    candidates = pd.read_csv('data/candidates.csv')
+    candidates = list_candidates(election_year=2022)
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 
     dc = pd.merge(districts, commissioners, how='left', on='smd_id')
@@ -755,6 +757,7 @@ def add_footer(input_html, level=0, updated_at=None):
     with open('templates/footer.html', 'r') as f:
         footer_html = f.read()
 
+    # todo: this should be a separate function for relative links, with clear parameters
     if level == 0:
         link_path = ''
     elif level == 1:
@@ -763,6 +766,9 @@ def add_footer(input_html, level=0, updated_at=None):
         link_path = '../../'
     elif level == 3:
         link_path = '../../../'
+    elif level == 99:
+        # absolute, for 404 page
+        link_path = 'https://openanc.org/'
 
     if not updated_at:
         updated_at = current_time()

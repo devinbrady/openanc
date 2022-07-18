@@ -21,6 +21,7 @@ from scripts.common import (
 
 from scripts.data_transformations import (
     list_commissioners
+    , list_candidates
     , districts_candidates_commissioners
     , districts_comm_commelect
     )
@@ -305,7 +306,7 @@ class RefreshData():
         """
 
         people = pd.read_csv('data/people.csv')
-        candidates = pd.read_csv('data/candidates.csv')
+        candidates = list_candidates(election_year=2020)
         results = pd.read_csv('data/results.csv')
         write_in_winners = pd.read_csv('data/write_in_winners.csv')
 
@@ -432,7 +433,7 @@ class RefreshData():
 
     def download_google_sheets(self):
 
-        self.refresh_csv('candidates', 'A:W', filter_dict={'publish_candidate': 'TRUE'})
+        self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('districts', 'A:Q')
         self.refresh_csv('people', 'A:H')
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
