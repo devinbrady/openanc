@@ -268,6 +268,13 @@ class BuildDistricts():
 
             else:
 
+                smd_candidates['link_block'] = smd_candidates.apply(
+                    lambda row: build_link_block(
+                        row, fields_to_try=['website_link', 'twitter_link', 'facebook_link'])
+                    , axis=1
+                    )
+
+
                 for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == True, 'order_status'].unique()):
 
                     candidate_block += '<h3>Status: ' + status[status.find(';')+1:] + '</h3>'
@@ -285,9 +292,7 @@ class BuildDistricts():
                             , 'candidate_source'
                             , 'candidate_source_description'
                             , 'manual_source_link'
-                            , 'website_link'
-                            , 'twitter_link'
-                            , 'facebook_link'
+                            , 'link_block'
                             , 'updated_at'
                             ]
 

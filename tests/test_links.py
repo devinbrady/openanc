@@ -32,15 +32,30 @@ class TestLinks():
 
         for h in tqdm(html_files, desc='Scanning HTML files'):
 
-            with h.open('r') as f:
-                html_text = f.read()
+            # Read HTML files as text
+            if h.suffix == '.html':
+                with h.open('r') as f:
+                    html_text = f.read()
+                link_source = h
+
+            # Read CSV files with pandas, then output as text
+            elif h.suffix == '.csv':
+                temp_df = pd.read_csv(h)
+                html_text = pd.DataFrame(temp_df['map_display_box']).to_string(index=False)
+
+                # CSVs are being used by the Mapbox map, which is embedded in index.html
+                link_source = Path(html_root / 'index.html')
+
+            else:
+                raise Exception(f'Unsupported file type: {h}')
+
 
             df_file = pd.DataFrame()
             soup = BeautifulSoup(html_text, features='html.parser')
             links = [link.get('href') for link in soup.find_all('a')]
             
             df_file['destination'] = links
-            df_file['source'] = h
+            df_file['source'] = link_source
             
             self.link_df = pd.concat([self.link_df, df_file], ignore_index=True)
 
@@ -101,9 +116,25 @@ class TestLinks():
 
 
         # Find orphan HTML pages, those not linked by anything else
-        # [x for x in self.link_df_local.destination_resolved.unique() if x not in self.link_df_local.source.unique()]
+        print('Checking for orphan pages')
+        destination_unique = self.link_df_local.destination_resolved.unique()
+        source_unique = self.link_df_local.source.unique()
+
+        orphan_destinations = [x for x in destination_unique if x not in source_unique]
+        orphan_sources = [x for x in source_unique if x not in destination_unique]
+
+        num_orphan_destinations = len(orphan_destinations)
+        print(f'Number of orphan destinations: {num_orphan_destinations}')
+
+        if num_orphan_destinations > 0:
+            print('Orphan destinations:')
+            print(orphan_destinations)
 
 
+        num_orphan_sources = len(orphan_sources)
+        print(f'Number of orphan sources: {num_orphan_sources}')
 
-        # [x for x in self.link_df_local.source.unique() if x not in self.link_df_local.destination_resolved.unique()]
+        if num_orphan_sources > 0:
+            print('Orphan sources:')
+            print(orphan_sources)
 
