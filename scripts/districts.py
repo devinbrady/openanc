@@ -53,6 +53,8 @@ class BuildDistricts():
 
         self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
 
+        self.candidates_all_years = list_candidates(election_year=None)
+
 
 
     def build_commissioner_table(self, smd_id):
@@ -140,7 +142,6 @@ class BuildDistricts():
 
         smd_display = smd_id.replace('smd_','')
 
-        candidates = list_candidates(election_year=None)
         results = pd.read_csv('data/results.csv')
         field_names = pd.read_csv('data/field_names.csv')
 
