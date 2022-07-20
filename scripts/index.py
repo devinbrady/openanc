@@ -91,9 +91,9 @@ class BuildIndex():
         # smd_df = districts_candidates_commissioners()
 
         output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
-        output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
-        output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward', '#b2df8a')) # light green
-        output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_vote_counts('anc_id', '#a6cee3')) # light blue
+        # output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
+        # output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward_id', '#b2df8a')) # light green
+        # output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_vote_counts('anc_id', '#a6cee3')) # light blue
         output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count())
         output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
         # output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
@@ -171,7 +171,7 @@ class BuildIndex():
 
     def run(self):
 
-        # self.count_page()
+        self.count_page()
         self.list_page()
         self.about_page()
         # self.build_single_page('index')

@@ -315,7 +315,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10319,Peyton Jane Gibson,smd_2F05,,smd_2F05,https://twitter.com/peytonjaneg,,
 10320,Rehana Mohammed,smd_2F07,smd_2F07,smd_2F07,https://twitter.com/Rehana2F07,http://facebook.com/rehanaforanc,http://rehanaforanc.com/
 10321,Elizabeth Elson,smd_3B04,smd_3B04,smd_3B04,,,
-10322,Janell Marie Pagats,smd_3C03,smd_3C03,smd_3C03,https://twitter.com/janell105janell,,
+10322,Janell Pagats,smd_3C03,smd_3C03,smd_3C03,https://twitter.com/janell105janell,,
 10323,Meena Aladdin,smd_3C05,,smd_3C05,,,
 10324,Trish Berman,smd_3C05,,smd_3C05,,,
 10325,Sauleh A. Siddiqui,smd_3C05,smd_3C05,smd_3C05,https://twitter.com/saulehforanc,,
@@ -1337,3 +1337,6 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11361,Thaddeus Bradley-Lewis,smd_2022_3A01,,smd_2022_3A01,https://twitter.com/Thad3A01,,
 11362,VJ Kapur,smd_2022_5C07,,smd_2022_5C07,https://twitter.com/vjkapur,https://facebook.com/vkapur,https://vj4anc.com
 11363,Tucker Jones,,,smd_2022_1B09,,,
+11364,Quentin Colón Roosevelt,,,smd_2022_3D03,https://twitter.com/qcolonroosevelt,,
+11365,Zachary Adams,,,smd_2022_2B08,https://twitter.com/zacheadams,,
+11366,Jamie Sycamore,,,smd_2022_1B03,,,

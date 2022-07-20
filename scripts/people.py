@@ -11,12 +11,14 @@ from scripts.common import (
     add_footer
     , add_google_analytics
     , build_data_table
-    , people_dataframe
     , district_link
+    , make_ordinal
 )
 
 from scripts.data_transformations import (
     list_commissioners
+    , people_dataframe
+    , results_candidate_people
 )
 
 
@@ -27,11 +29,10 @@ class BuildPeople():
 
         self.commissioners = list_commissioners()
         self.people = people_dataframe()
+        self.rcp = results_candidate_people()
+
         self.districts = pd.read_csv('data/districts.csv')
-
-        self.comm_districts = pd.merge(self.commissioners, self.districts, how='inner', on='smd_id')
-
-        self.comm_districts['smd_url'] = self.comm_districts.apply(
+        self.districts['smd_url'] = self.districts.apply(
             lambda x: district_link(
                 x.smd_id
                 , x.smd_name
@@ -42,8 +43,20 @@ class BuildPeople():
             , axis=1
             )
 
+        self.comm_districts = pd.merge(self.commissioners, self.districts, how='inner', on='smd_id')
         self.people_comm = pd.merge(self.people, self.comm_districts, how='inner', on='person_id')
 
+        self.rcp['ranking_ordinal'] = self.rcp['ranking'].apply(lambda x: make_ordinal(x))
+        self.rcp['votes'] = self.rcp['votes'].apply(lambda x: '{:,.0f}'.format(x)).fillna('')
+
+        self.candidates = pd.read_csv('data/candidates.csv')
+        self.cd = pd.merge(self.candidates, self.districts, how='inner', on='smd_id')
+        self.hemispheres = pd.merge(
+            self.cd
+            , self.rcp[['candidate_id', 'ranking_ordinal', 'votes']]
+            , how='left'
+            , on='candidate_id'
+            )
 
 
     def people_list_page(self):
@@ -101,8 +114,8 @@ class BuildPeople():
 
         for idx, person in tqdm(self.people.iterrows(), total=len(self.people), desc='People '):
 
-            # debug - Benjamin Hart Butz
-            # if person.person_id != 10529:
+            # debug
+            # if person.person_id != 11362:
             #     continue
 
             self.build_person_page(person)
@@ -121,18 +134,36 @@ class BuildPeople():
 
         person_districts = self.people_comm.loc[self.people_comm.person_id == person.person_id].copy()
 
-        district_block = ''
-
         if len(person_districts) > 0:
-            district_block += '<h2>Districts Represented</h2><ul>'
+            district_block = '<h2>Districts Represented</h2><ul>'
 
             for idx, pd in person_districts.iterrows():
-
                 district_block += build_data_table(pd, ['smd_url', 'term_in_office'])
 
             district_block += '</ul>'
 
             output = output.replace('<!-- replace with districts represented -->', district_block)
+
+
+        person_candidacies = self.hemispheres.loc[self.hemispheres.person_id == person.person_id].copy()
+
+        if len(person_candidacies) > 0:
+            candidacies_block = '<h2>Candidacies</h2><ul>'
+
+            for idx, pd in person_candidacies.reset_index().iterrows():
+
+                # Add break between candidate tables if there is more than one candidate
+                if idx > 0:
+                    candidacies_block += '<br/>'
+
+                candidacies_block += build_data_table(pd, ['election_year', 'smd_url', 'votes', 'ranking_ordinal'])
+
+
+
+            candidacies_block += '</ul>'
+
+            output = output.replace('<!-- replace with candidacies -->', candidacies_block)
+            
 
         output = add_footer(output, level=1)
 

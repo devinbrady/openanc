@@ -15,6 +15,7 @@ current_smd_id,
 dc_oanc_link,DC Office of ANCs
 dcboe_hash_id,
 description,Description
+election_year,Election Year
 end_date,End Date
 facebook_link,Facebook
 filed_date,Filed Date
@@ -33,6 +34,7 @@ neighbor_smds,
 notes,Notes
 person_id,
 pickup_date,Pickup Date
+ranking_ordinal,Results Place
 running_for_smd_id,
 smd_id,
 smd_url,District

@@ -20,11 +20,9 @@ from scripts.common import (
     , add_google_analytics
     , add_geojson
     , assemble_divo
-    , build_results_candidate_people
     , district_url
     , mapbox_slugs
     , candidate_form_link
-    , people_dataframe
     , smd_geojson
     , anc_url
     , ward_url
@@ -34,6 +32,8 @@ from scripts.common import (
 from scripts.data_transformations import (
     list_commissioners
     , list_candidates
+    , people_dataframe
+    , results_candidate_people
 )
 
 
@@ -48,14 +48,20 @@ class BuildDistricts():
         self.mapbox_style_slugs = mapbox_slugs()
 
         self.commissioners = list_commissioners(status=None)
-        self.districts = pd.read_csv('data/districts.csv')
+        self.commissioners_current = list_commissioners(status='current')
         self.people = people_dataframe()
+        self.candidates_this_year = list_candidates(election_year=2022)
+        
+        self.rcp = results_candidate_people()
+        self.rcp.loc[self.rcp.is_incumbent, 'full_name'] = self.rcp.loc[self.rcp.is_incumbent, 'full_name'] + ' (incumbent)'
 
+        self.districts = pd.read_csv('data/districts.csv')
         self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
-
-        self.candidates_all_years = list_candidates(election_year=None)
-
-
+        self.field_names = pd.read_csv('data/field_names.csv')
+        self.map_colors = pd.read_csv('data/map_colors.csv')
+        self.ancs = pd.read_csv('data/ancs.csv')
+        self.wards = pd.read_csv('data/wards.csv')
+        self.statuses = pd.read_csv('data/candidate_statuses.csv')
 
     def build_commissioner_table(self, smd_id):
         """
@@ -68,8 +74,6 @@ class BuildDistricts():
             , 'current': 'Current Commissioner'
             , 'former': 'Former Commissioner'
             })
-
-        smd_display = smd_id.replace('smd_','')
         
         people_commissioners = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
         
@@ -140,18 +144,10 @@ class BuildDistricts():
         if '_2022_' in smd_id:
             return ''
 
-        smd_display = smd_id.replace('smd_','')
-
-        results = pd.read_csv('data/results.csv')
-        field_names = pd.read_csv('data/field_names.csv')
-
         write_in_winners_people = pd.merge(self.write_in_winners, self.people, how='inner', on='person_id')
 
-        rcp = build_results_candidate_people()
-        rcp.loc[rcp.is_incumbent, 'full_name'] = rcp.loc[rcp.is_incumbent, 'full_name'] + ' (incumbent)'
-
         # Show the candidate with the most votes first
-        smd_results = rcp[rcp['smd_id'] == smd_id].sort_values(by='votes', ascending=False).copy()
+        smd_results = self.rcp[self.rcp['smd_id'] == smd_id].sort_values(by='votes', ascending=False).copy()
 
         num_candidates = len(smd_results)
 
@@ -175,13 +171,20 @@ class BuildDistricts():
                 , 'margin_of_victory_percentage'
             ]
 
+            
+            # todo: turn this into a function, it's ugly
+            smd_results['full_name'] = smd_results.apply(
+                lambda x: f'<a href="../../../people/{x.name_url}.html">{x.full_name}</a>' if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
+                , axis=1
+                )
+
             smd_results['margin_of_victory'] = smd_results['margin_of_victory'].apply(lambda x: '' if pd.isnull(x) else '+{:,.0f}'.format(x))
             smd_results['margin_of_victory_percentage'] = smd_results['margin_of_victory_percentage'].apply(lambda x: '' if pd.isnull(x) else '+' + x )
             smd_results['votes'] = smd_results['votes'].apply(lambda x: '{:,.0f}'.format(x)).fillna('')
 
             fields_to_html = []
             for field_name in fields_to_try:
-                display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
+                display_name = self.field_names.loc[self.field_names['field_name'] == field_name, 'display_name'].values[0]
                 smd_results[display_name] = smd_results[field_name]
                 fields_to_html += [display_name]
 
@@ -217,10 +220,12 @@ class BuildDistricts():
 
                 else:
 
+                    smd_name = self.districts[self.districts['smd_id'] == smd_id]['smd_name'].iloc[0]
+
                     results_block += (
                         '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
                         + 'that was accepted by the DC Board of Elections. '
-                        + f'The office of {smd_display} Commissioner was vacant after the 2020 election.</p>'
+                        + f'The office of {smd_name} Commissioner was vacant after the 2020 election.</p>'
                         )
 
                 results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
@@ -237,19 +242,17 @@ class BuildDistricts():
         
         if '_2022_' not in smd_id:
             return ''
-
-        candidates = list_candidates(election_year=2022)
-        statuses = pd.read_csv('data/candidate_statuses.csv')
-
-        people_candidates = pd.merge(self.people, candidates, how='inner', on='person_id')
-        people_candidate_statuses = pd.merge(people_candidates, statuses, how='inner', on='candidate_status')
+        
+        people_candidates = pd.merge(self.people, self.candidates_this_year, how='inner', on='person_id')
+        people_candidate_statuses = pd.merge(people_candidates, self.statuses, how='inner', on='candidate_status')
 
         # Merge the order and status fields for sorting
         people_candidate_statuses['order_status'] = people_candidate_statuses['display_order'].astype(str) + ';' + people_candidate_statuses['candidate_status']
         
         # Randomize the order of candidates. Changes every day
         smd_candidates = people_candidate_statuses[people_candidate_statuses['smd_id'] == smd_id].sample(
-            frac=1, random_state=self.today_as_int()).reset_index()
+            frac=1, random_state=self.today_as_int()
+            ).reset_index()
         
         num_candidates = len(smd_candidates)
 
@@ -403,7 +406,7 @@ class BuildDistricts():
         If show_redistricting_cycle is True, then the year of the cycle will be displayed.
         """
 
-        dc = pd.merge(self.districts, list_commissioners(status='current'), how='left', on='smd_id')
+        dc = pd.merge(self.districts, self.commissioners_current, how='left', on='smd_id')
         dcp = pd.merge(dc, self.people, how='left', on='person_id')
 
         dcp['full_name'] = dcp['full_name'].fillna('(vacant)')
@@ -456,17 +459,12 @@ class BuildDistricts():
         Build pages for each SMD
         """
 
-        map_colors = pd.read_csv('data/map_colors.csv')
-        ancs = pd.read_csv('data/ancs.csv')
-        wards = pd.read_csv('data/wards.csv')
-
-        district_colors = pd.merge(self.districts, map_colors, how='inner', on='map_color_id')
-        district_ancs = pd.merge(district_colors, ancs[['anc_id', 'anc_name']], how='inner', on='anc_id')
-        district_wards = pd.merge(district_ancs, wards[['ward_id', 'ward_name']], how='inner', on='ward_id')
+        district_colors = pd.merge(self.districts, self.map_colors, how='inner', on='map_color_id')
+        district_ancs = pd.merge(district_colors, self.ancs[['anc_id', 'anc_name']], how='inner', on='anc_id')
+        district_wards = pd.merge(district_ancs, self.wards[['ward_id', 'ward_name']], how='inner', on='ward_id')
 
         # Calculate the updated_at for each SMD. Where the SMD has no more active candidates, use the max updated_at across all candidates
-        candidates = list_candidates(election_year=2022)
-        district_candidates = pd.merge(self.districts, candidates, how='left', on='smd_id')
+        district_candidates = pd.merge(self.districts, self.candidates_this_year, how='left', on='smd_id')
         max_updated_at = district_candidates['updated_at'].dropna().max()
         smd_updated_at = district_candidates[['smd_id', 'updated_at']].fillna(value={'updated_at': max_updated_at})
         smd_max_updated_at = smd_updated_at.groupby('smd_id').agg({'updated_at': max})

@@ -27,6 +27,8 @@ class Counts():
         """
 
         districts = pd.read_csv('data/districts.csv')
+        districts = districts[districts.redistricting_year == 2012].copy()
+
         commissioners = list_commissioners(status='current')
 
         df = pd.DataFrame(index=[0])
@@ -82,7 +84,7 @@ class Counts():
             smd_count = pd.merge(smd_count, ancs[['anc_id', 'neighborhoods']], how='inner', on='anc_id')
 
         smd_count.rename(columns={
-            'ward': 'Ward'
+            'ward_id': 'Ward'
             , 'anc_id': 'ANC'
             , 'num_smds': 'Count of SMDs'
             , 'total_votes': 'Total ANC Votes'
@@ -169,7 +171,7 @@ class Counts():
 
         smd_count = smd_count.reset_index()
         smd_count.rename(columns={
-            'ward': 'Ward'
+            'ward_id': 'Ward'
             , 'anc_id': 'ANC'
             , 'num_smds': 'Count of SMDs'
             , 'has_candidate': 'Has Candidate'
@@ -218,9 +220,15 @@ class Counts():
         Return HTML with number of candidates in each district, shows how many races are contested
         """
 
-        smd_df = districts_candidates_commissioners()
+        smd_df = districts_candidates_commissioners(redistricting_year=2022)
         smd_df.rename(columns={'number_of_candidates': 'Number of Candidates'}, inplace=True)
-        html = ''
+
+        html = (
+            '<p>These counts include both candidates on the ballot and write-in candidates who fill out the OpenANC Candidate Declaration Form.</p>'
+            )
+            # + 'Sources of write-in candidates include those who filled out the OpenANC Edit Form, as well as write-in candidates who won their election. '
+            # + 'There were almost certainly other write-in candidates who did not fall into those categories. </p>'
+            # )
 
 
         # Count of contested vs uncontested
@@ -268,12 +276,6 @@ class Counts():
             .render()
             )
         html += '</p>'
-
-        html += (
-            '<p>These counts include both candidates on the ballot and write-in candidates who were known to OpenANC. '
-            + 'Sources of write-in candidates include those who filled out the OpenANC Edit Form, as well as write-in candidates who won their election. '
-            + 'There were almost certainly other write-in candidates who did not fall into those categories. </p>'
-            )
 
         return html
 
