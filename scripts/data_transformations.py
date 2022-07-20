@@ -6,10 +6,49 @@ import pytz
 import pandas as pd
 from datetime import datetime
 
-# from scripts.refresh_data import RefreshData
 
 
-def districts_candidates_commissioners(duplicate_check=False, print_counts=False):
+def results_candidate_people():
+    """
+    Return DataFrame containing results, candidates, and people joined
+    """
+
+    people = people_dataframe()
+    candidates = list_candidates(election_year=2020)
+    results = pd.read_csv('data/results.csv')
+
+    results_candidates = pd.merge(
+        results #[['candidate_id', 'person_id', 'smd_id']]
+        , candidates #[['candidate_id']]
+        , how='left'
+        , on=['candidate_id', 'smd_id']
+        )
+    rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
+
+    # Determine who were incumbent candidates at the time of the election
+    election_date = datetime(2020, 11, 3, tzinfo=pytz.timezone('America/New_York'))
+    commissioners = list_commissioners(status=None)
+    incumbents = commissioners[(commissioners.start_date < election_date) & (election_date < commissioners.end_date)]
+    incumbent_candidates = pd.merge(incumbents, candidates, how='inner', on='person_id')
+    incumbent_candidates['is_incumbent'] = True
+
+    rcp = pd.merge(rcp, incumbent_candidates[['candidate_id', 'is_incumbent']], how='left', on='candidate_id')
+    rcp['is_incumbent'] = rcp['is_incumbent'].fillna(False)
+
+    # Sort by SMD ascenting, Votes descending
+    rcp = rcp.sort_values(by=['smd_id', 'votes'], ascending=[True, False])
+
+    # Placeholder name for all write-in candidates. 
+    # We do not know the combination of name and vote count for write-in candidates
+    # We only know the name of the write-in winners
+    rcp['full_name'] = rcp['full_name'].fillna('Write-ins combined')
+    rcp['write_in_winner_int'] = rcp['write_in_winner'].astype(int)
+
+    return rcp
+
+
+
+def districts_candidates_commissioners(duplicate_check=False, print_counts=False, redistricting_year=None):
     """
     Return DataFrame, one row per district, with candidate names and counts
 
@@ -23,11 +62,9 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
     people = pd.read_csv('data/people.csv')
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 
-
     candidate_people = pd.merge(candidates, people, how='inner', on='person_id')
     candidate_people.rename(columns={'full_name': 'full_name_candidate'}, inplace=True)
     cps = pd.merge(candidate_people, candidate_statuses, how='inner', on='candidate_status')
-
 
     """
     Group candidates by district so that each row has a string containing
@@ -93,6 +130,9 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
 
 
     district_info_comm['number_of_candidates'] = district_info_comm['number_of_candidates'].astype(int)
+
+    if redistricting_year:
+        district_info_comm = district_info_comm[district_info_comm.redistricting_year == redistricting_year].copy()
 
     output_columns = [
         'smd_id'
@@ -210,7 +250,29 @@ def list_candidates(election_year=2022):
 
 
 
+def people_dataframe():
+    """Return dataframe of people.csv with the name URLs added."""
+
+    people = pd.read_csv('data/people.csv')
+    people['name_url'] = people.full_name.apply(lambda x: format_name_for_url(x))
+
+    return people
 
 
 
+def format_name_for_url(name):
+    """
+    Strip out the non-ASCII characters from a person's full name to use as the URL.
+    This is somewhat like Wikipedia's URL formatting but not exactly.
+
+    Spaces become underscores, numbers and letters with accents are preserved as they are.
+    """
+
+    name_formatted = name.replace(' ', '_')
+
+    characters_to_strip = ['"' , '(' , ')' , '.' , '-' , ',' , '\'']
+    for c in characters_to_strip:
+        name_formatted = name_formatted.replace(c, '')
+
+    return name_formatted
 
