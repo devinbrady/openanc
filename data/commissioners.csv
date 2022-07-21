@@ -241,6 +241,7 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10240,smd_7E04,Takiyah Tate,2019-01-02,2021-01-02
 10241,smd_7E05,Victor L. Horton,2019-01-02,2021-01-02
 10242,smd_7E06,Delia Houseal,2019-01-02,2023-01-02
+10243,smd_7C02,Yolanda Fields,2021-01-02,2023-01-02
 10243,smd_7E07,Yolanda Fields,2019-01-02,2021-01-02
 10244,smd_7F01,Tyrell M. Holcomb,2019-01-02,2023-01-02
 10245,smd_7F02,Terrance Hunter,2019-01-02,2023-01-02
@@ -333,7 +334,6 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10394,smd_6E02,Alex Lopez,2021-01-02,2023-01-02
 10399,smd_7B01,Chioma J. Iwuoha,2021-01-02,2023-01-02
 10400,smd_7B05,Donna Robinson,2021-01-02,2023-01-02
-10404,smd_7C02,Yolanda Fields,2021-01-02,2023-01-02
 10406,smd_7C03,Vince Van,2021-01-02,2023-01-02
 10408,smd_7C06,Victoria Clark,2021-01-02,2023-01-02
 10410,smd_7D04,Milton Hardy,2021-01-02,2023-01-02

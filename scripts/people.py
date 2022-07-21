@@ -30,6 +30,12 @@ class BuildPeople():
         self.commissioners = list_commissioners()
         self.people = people_dataframe()
         self.rcp = results_candidate_people()
+        self.candidates = pd.read_csv('data/candidates.csv')
+
+        # Only build person pages for people who have been candidates or commissioners
+        all_person_ids = pd.concat([self.candidates.person_id, self.commissioners.person_id]).reset_index()
+        valid_person_ids = sorted(all_person_ids.person_id.unique())
+        self.people_valid = self.people[self.people.person_id.isin(valid_person_ids)].copy()
 
         self.districts = pd.read_csv('data/districts.csv')
         self.districts['smd_url'] = self.districts.apply(
@@ -49,14 +55,14 @@ class BuildPeople():
         self.rcp['ranking_ordinal'] = self.rcp['ranking'].apply(lambda x: make_ordinal(x))
         self.rcp['votes'] = self.rcp['votes'].apply(lambda x: '{:,.0f}'.format(x)).fillna('')
 
-        self.candidates = pd.read_csv('data/candidates.csv')
-        self.cd = pd.merge(self.candidates, self.districts, how='inner', on='smd_id')
-        self.hemispheres = pd.merge(
-            self.cd
+        self.candidates_districts = pd.merge(self.candidates, self.districts, how='inner', on='smd_id')
+        self.candidates_districts_results = pd.merge(
+            self.candidates_districts
             , self.rcp[['candidate_id', 'ranking_ordinal', 'votes']]
             , how='left'
             , on='candidate_id'
             )
+
 
 
     def people_list_page(self):
@@ -85,9 +91,9 @@ class BuildPeople():
         Build HTML list containing each person
         """
 
-        self.people['last_name'] = self.people.full_name.apply(lambda x: HumanName(x).last)
-        self.people['first_letter'] = self.people.last_name.str.upper().str[0]
-        first_letter_list = sorted(self.people['first_letter'].unique())
+        self.people_valid['last_name'] = self.people_valid.full_name.apply(lambda x: HumanName(x).last)
+        self.people_valid['first_letter'] = self.people_valid.last_name.str.upper().str[0]
+        first_letter_list = sorted(self.people_valid['first_letter'].unique())
 
         html = ''
 
@@ -97,7 +103,7 @@ class BuildPeople():
 
             html += '<ul>'
 
-            for idx, person in self.people[self.people.first_letter == letter].sort_values(by='full_name').iterrows():
+            for idx, person in self.people_valid[self.people_valid.first_letter == letter].sort_values(by='full_name').iterrows():
 
                 html += f'<li><a href="{person.name_url}.html">{person.full_name}</a></li>'
 
@@ -112,10 +118,10 @@ class BuildPeople():
         Loop through all people and build a page for each
         """
 
-        for idx, person in tqdm(self.people.iterrows(), total=len(self.people), desc='People '):
+        for idx, person in tqdm(self.people_valid.iterrows(), total=len(self.people_valid), desc='People '):
 
             # debug
-            # if person.person_id != 11362:
+            # if person.person_id != 10380:
             #     continue
 
             self.build_person_page(person)
@@ -137,7 +143,12 @@ class BuildPeople():
         if len(person_districts) > 0:
             district_block = '<h2>Districts Represented</h2><ul>'
 
-            for idx, pd in person_districts.iterrows():
+            for idx, pd in person_districts.reset_index().iterrows():
+                
+                # Add break between commission tables if there is more than one commission
+                if idx > 0:
+                    district_block += '<br/>'
+
                 district_block += build_data_table(pd, ['smd_url', 'term_in_office'])
 
             district_block += '</ul>'
@@ -145,7 +156,7 @@ class BuildPeople():
             output = output.replace('<!-- replace with districts represented -->', district_block)
 
 
-        person_candidacies = self.hemispheres.loc[self.hemispheres.person_id == person.person_id].copy()
+        person_candidacies = self.candidates_districts_results.loc[self.candidates_districts_results.person_id == person.person_id].copy()
 
         if len(person_candidacies) > 0:
             candidacies_block = '<h2>Candidacies</h2><ul>'
