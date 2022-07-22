@@ -10,8 +10,11 @@ from scripts.common import (
     , add_google_analytics
     , build_smd_html_table
     , mapbox_slugs
-    , anc_url
 )
+
+from scripts.urls import (
+    anc_url
+    )
 
 from scripts.data_transformations import districts_candidates_commissioners
 
@@ -22,8 +25,7 @@ from scripts.counts import Counts
 class BuildIndex():
 
     def __init__(self):
-        # todo: find a cleaner way to track insert text and related functions
-        self.html_inserts = {}
+        pass
 
 
 
@@ -34,6 +36,7 @@ class BuildIndex():
 
         ancs = pd.read_csv('data/ancs.csv')
         districts = pd.read_csv('data/districts.csv')
+        district_comm_commelect = districts_candidates_commissioners(link_source='root')
 
         html = ''
 
@@ -52,7 +55,7 @@ class BuildIndex():
 
                 smds_in_anc = districts_cycle[districts_cycle['anc_id'] == row.anc_id]['smd_id'].to_list()
 
-                html += build_smd_html_table(smds_in_anc, level=0)
+                html += build_smd_html_table(smds_in_anc, link_source='root', district_comm_commelect=district_comm_commelect)
 
         return html
 
@@ -88,7 +91,6 @@ class BuildIndex():
             output = f.read()
 
         c = Counts()
-        # smd_df = districts_candidates_commissioners()
 
         output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
         # output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
@@ -172,9 +174,9 @@ class BuildIndex():
     def run(self):
 
         self.count_page()
-        self.list_page()
         self.about_page()
         # self.build_single_page('index')
         self.build_map_page('index')
         self.build_single_page('404', level=99)
+        self.list_page()
 

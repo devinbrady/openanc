@@ -11,7 +11,6 @@ from scripts.common import (
     add_footer
     , add_google_analytics
     , build_data_table
-    , district_link
     , make_ordinal
 )
 
@@ -21,6 +20,10 @@ from scripts.data_transformations import (
     , results_candidate_people
 )
 
+
+from scripts.urls import (
+    district_link
+    )
 
 
 class BuildPeople():
@@ -42,8 +45,7 @@ class BuildPeople():
             lambda x: district_link(
                 x.smd_id
                 , x.smd_name
-                , x.redistricting_year
-                , level=-1
+                , link_source='person'
                 , show_redistricting_cycle=False
                 )
             , axis=1
@@ -105,7 +107,7 @@ class BuildPeople():
 
             for idx, person in self.people_valid[self.people_valid.first_letter == letter].sort_values(by='full_name').iterrows():
 
-                html += f'<li><a href="{person.name_url}.html">{person.full_name}</a></li>'
+                html += f'<li><a href="{person.name_slug}.html">{person.full_name}</a></li>'
 
             html += '</ul>'
 
@@ -178,7 +180,7 @@ class BuildPeople():
 
         output = add_footer(output, level=1)
 
-        with open(f'docs/people/{person.name_url}.html', 'w') as f:
+        with open(f'docs/people/{person.name_slug}.html', 'w') as f:
             f.write(output)
 
 

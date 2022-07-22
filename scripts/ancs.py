@@ -17,8 +17,11 @@ from scripts.common import (
     , add_google_analytics
     , add_geojson
     , anc_geojson
-    , anc_url
     , mapbox_slugs
+    )
+
+from scripts.urls import (
+    anc_url
     )
 
 
@@ -67,7 +70,7 @@ class BuildANCs():
 
 
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
-            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, level=1))
+            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_source='anc'))
 
             fields_to_try = ['notes', 'link_block']
             output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try))

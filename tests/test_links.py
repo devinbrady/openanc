@@ -92,6 +92,8 @@ class TestLinks():
         Make sure that every local link points to a file that exists under the HTML root
         """
 
+        print(f'Count of internal links: {len(self.link_df_local):,.0f}')
+
         print('Checking validity of each link')
         self.link_df_local['exists'] = self.link_df_local.apply(
             lambda x: (Path(x.source).parent / Path(x.destination_resolved)).exists(), axis=1

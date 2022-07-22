@@ -13,7 +13,10 @@ from scripts.common import (
     , calculate_zoom
     , add_google_analytics
     , add_geojson
-    , ward_url
+    )
+
+from scripts.urls import (
+    ward_url
     )
 
 
@@ -43,7 +46,7 @@ class BuildWards():
             ward_smd_ids = districts[districts['ward_id'] == row.ward_id]['smd_id'].to_list()
             output = output.replace(
                 '<!-- replace with district list -->'
-                , build_smd_html_table(ward_smd_ids, level=9)
+                , build_smd_html_table(ward_smd_ids, link_source='ward')
                 )
 
 
