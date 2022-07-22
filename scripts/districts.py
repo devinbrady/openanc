@@ -20,12 +20,15 @@ from scripts.common import (
     , add_google_analytics
     , add_geojson
     , assemble_divo
-    , district_url
     , mapbox_slugs
     , candidate_form_link
-    , smd_geojson
-    , anc_url
+    , smd_geojson    
+    )
+
+from scripts.urls import (
+    anc_url
     , ward_url
+    , district_url
     )
 
 
@@ -174,7 +177,7 @@ class BuildDistricts():
             
             # todo: turn this into a function, it's ugly
             smd_results['full_name'] = smd_results.apply(
-                lambda x: f'<a href="../../../people/{x.name_url}.html">{x.full_name}</a>' if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
+                lambda x: f'<a href="../../../people/{x.name_slug}.html">{x.full_name}</a>' if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
                 , axis=1
                 )
 
@@ -442,8 +445,9 @@ class BuildDistricts():
             overlap_percentage_display = '{:.1%}'.format(float(overlap_percentage_list[i]))
 
             link_body = f'{oldnew[0]} {district_row.smd_name}{commissioner_name} ({overlap_percentage_display} of {oldnew[1]} {smd_name})'
+            link_url = district_url(district_row.smd_id, link_source='district')
 
-            district_list += f'<li><a href="{district_url(district_row.smd_id, level=-3)}">{link_body}</a></li>'
+            district_list += f'<li><a href="{link_url}">{link_body}</a></li>'
 
 
         district_list += '</ul>'
@@ -512,7 +516,7 @@ class BuildDistricts():
             output = output.replace('<!-- replace with overlap -->', self.overlap_list(smd_id))
 
             neighbor_smd_ids = row['neighbor_smds'].split(', ')
-            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, level=-3, show_redistricting_cycle=True))
+            output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, link_source='district', show_redistricting_cycle=True))
 
 
             output = output.replace('REPLACE_WITH_WARD_URL', ward_url(row.ward_id, level=-1))

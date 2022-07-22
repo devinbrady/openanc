@@ -12,6 +12,7 @@ from fuzzywuzzy import process
 
 from scripts.refresh_data import RefreshData
 
+from scripts.data_transformations import districts_candidates_commissioners
 
 def clean_csv():
     """
@@ -29,7 +30,7 @@ def clean_csv():
     df['dcboe_updated_at'] = dcboe_updated_at
 
     df['candidate_source'] = 'DCBOE'
-    df['candidate_source_link'] = 'https://www.dcboe.org/Candidates/2020-Candidates'
+    df['candidate_source_link'] = 'https://dcboe.org/Elections/2022-Elections'
 
     df.rename(
         columns={
@@ -52,23 +53,23 @@ def clean_csv():
     for c in ['smd', 'candidate_name']:
         df[c] = df[c].apply(lambda row: row.strip())
 
-    df['smd_id'] = 'smd_' + df['smd']
+    df['smd_id'] = 'smd_2022_' + df['smd'].str.replace('3G', '3/4G')
 
 
     # Lisa Palmer is duplicated by DCBOE. She IS NOT running in 2B03. She IS running in 2E05
     # df = df[ ~((df['candidate_name'] == 'Lisa Palmer') & (df['smd_id'] == 'smd_2B03') )]
 
     # Exclude candidates who dropped out
-    df = remove_withdrew_candidates(df)
+    # df = remove_withdrew_candidates(df)
 
     # Fix bad dates and names
-    df.loc[df['candidate_name'] == 'Dieter Lehmann Morales', 'filed_date'] = '7/31/20'
-    df.loc[df['candidate_name'] == 'Marina Budimir', 'pickup_date'] = '7/30/20'
-    df.loc[df['candidate_name'] == 'Chelsea Skinner', 'pickup_date'] = '8/5/20'
-    df.loc[df['candidate_name'] == 'Kristina (K) Leszczak', 'pickup_date'] = '7/22/20'
-    df.loc[df['candidate_name'] == 'Kristina (K) Leszczak', 'filed_date'] = '8/4/20'
-    df.loc[df['candidate_name'] == "Jes'Terieuz \"JT'' Howard", 'candidate_name'] = "Jes'Terieuz \"JT\" Howard"
-    df.loc[df['candidate_name'] == 'Jeannina"W8 Matters" Williams', 'candidate_name'] = "Jeannina \"W8 Matters\" Williams"
+    # df.loc[df['candidate_name'] == 'Dieter Lehmann Morales', 'filed_date'] = '7/31/20'
+    # df.loc[df['candidate_name'] == 'Marina Budimir', 'pickup_date'] = '7/30/20'
+    # df.loc[df['candidate_name'] == 'Chelsea Skinner', 'pickup_date'] = '8/5/20'
+    # df.loc[df['candidate_name'] == 'Kristina (K) Leszczak', 'pickup_date'] = '7/22/20'
+    # df.loc[df['candidate_name'] == 'Kristina (K) Leszczak', 'filed_date'] = '8/4/20'
+    # df.loc[df['candidate_name'] == "Jes'Terieuz \"JT'' Howard", 'candidate_name'] = "Jes'Terieuz \"JT\" Howard"
+    # df.loc[df['candidate_name'] == 'Jeannina"W8 Matters" Williams', 'candidate_name'] = "Jeannina \"W8 Matters\" Williams"
 
     # Fix data entry errors and convert to dates
     # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
@@ -210,7 +211,7 @@ def run_matching_process():
 
     for idx, row in candidates_dcboe.iterrows():
 
-        current_comm = people[people['current_smd_id'] == row['smd_id']]
+        current_comm = people[people['any_smd'] == row['smd_id']]
         
         if len(current_comm) == 0:
             continue
@@ -249,6 +250,8 @@ def run_matching_process():
             new_person = pd.DataFrame({
                 'person_id': new_person_id
                 , 'full_name': row['candidate_name']
+                , 'dcboe_hash_id': row['dcboe_hash_id']
+                , 'smd_id': row['smd_id']
                 }, index=[1 + add_records_to_people.index.max()])
             
             add_records_to_people = add_records_to_people.append(new_person)
@@ -298,7 +301,7 @@ def run_matching_process():
 
 
 
-def check_new_candidates_for_duplicates():
+def check_new_candidates_for_duplicates_against_candidates():
     """
     Look at the most recent records and confirm they don't duplicate any records in the same district
     """
@@ -308,15 +311,30 @@ def check_new_candidates_for_duplicates():
     if len(new_candidates) == 0:
         return
 
-    rd = RefreshData()
-    smd_df = rd.assemble_smd_info()
+    # rd = RefreshData()
+    smd_df = districts_candidates_commissioners()
 
     comparison = pd.merge(new_candidates, smd_df, how='inner', on='smd_id')
 
     pd.set_option('display.max_colwidth', 80)
     print('Make sure that none of the new candidates duplicate existing candidates:')
-    print(comparison.loc[comparison['list_of_candidates'] != '(no known candidates)', ['smd_id', 'candidate_name', 'list_of_candidates']])
+    print(comparison.loc[comparison['list_of_candidate_names'] != '(no known candidates)', ['smd_id', 'candidate_name', 'list_of_candidate_names']])
 
+
+
+def check_new_candidates_for_duplicates_against_people():
+    """
+    Look at the most recent records and confirm they don't duplicate any existing people
+    """
+
+    new_candidates = pd.read_csv('uploads/to-google-sheets-candidates.csv')
+    people = pd.read_csv('data/people.csv')
+
+    df = pd.merge(new_candidates[['candidate_name', 'smd_id', 'dcboe_hash_id']], people, how='inner', left_on='candidate_name', right_on='full_name')
+
+    if len(df) > 0:
+        print('\nPossible person matches, add these directly to candidates table:')
+        print(df[['person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']].head())
 
 
 def reconcile_candidates():
@@ -328,6 +346,7 @@ def reconcile_candidates():
 
     # people = pd.read_csv('data/people.csv')
     candidates = pd.read_csv('data/candidates.csv')
+    candidates = candidates[candidates.election_year == 2022].copy()
     dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
     existing_hashes_not_in_new_file = ~( candidates['dcboe_hash_id'].isin(dcboe['dcboe_hash_id']) )
@@ -335,13 +354,14 @@ def reconcile_candidates():
 
     pd.set_option('display.max_colwidth', 60)
     
-    print('\nExisting hashes not in new DCBOE file: {}'.format(sum(existing_hashes_not_in_new_file)))
+    print('\nExisting hashes not in new DCBOE file (this should go to zero as candidates file): {}'.format(sum(existing_hashes_not_in_new_file)))
     # print(candidates.loc[existing_hashes_not_in_new_file, ['dcboe_hash_id', 'smd_id', 'candidate_name', 'candidate_status']])
     candidates.loc[existing_hashes_not_in_new_file].to_csv('data/dcboe/existing_hashes_not_in_new_file.csv', index=False)
     
-    print('\nNew hashes not in OpenANC Source: {}'.format(sum(new_hashes)))
-    print(dcboe.loc[new_hashes, ['dcboe_hash_id', 'smd_id', 'candidate_name']].head(5))
-    print()
+    if sum(new_hashes) > 0:
+        print('\nNew hashes not in OpenANC Source, candidates table (add them, delete manual status): {}'.format(sum(new_hashes)))
+        print(dcboe.loc[new_hashes, ['dcboe_hash_id', 'smd_id', 'candidate_name']].head(5))
+        print()
 
 
 
@@ -371,7 +391,8 @@ if __name__ == '__main__':
 
     run_matching_process()
 
-    check_new_candidates_for_duplicates()
+    check_new_candidates_for_duplicates_against_candidates()
+    check_new_candidates_for_duplicates_against_people()
 
     reconcile_candidates()
 

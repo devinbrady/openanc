@@ -7,6 +7,10 @@ import pandas as pd
 from datetime import datetime
 
 
+from scripts.urls import (
+    relative_link_prefix
+    )
+
 
 def results_candidate_people():
     """
@@ -48,7 +52,13 @@ def results_candidate_people():
 
 
 
-def districts_candidates_commissioners(duplicate_check=False, print_counts=False, redistricting_year=None):
+def districts_candidates_commissioners(
+    duplicate_check=False
+    , print_counts=False
+    , link_source=None
+    , redistricting_year=None
+    ):
+
     """
     Return DataFrame, one row per district, with candidate names and counts
 
@@ -59,11 +69,19 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
     districts = pd.read_csv('data/districts.csv')
     candidates = list_candidates(election_year=2022)
     commissioners = list_commissioners(status=None)
-    people = pd.read_csv('data/people.csv')
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 
+    people = people_dataframe()
+    
+    if link_source:
+        # create links for each person's page, if a link is requested by the calling function
+        link_prefix = relative_link_prefix(source=link_source, destination='person')
+        people['name_url'] = people.apply(lambda x: f'<a href="{link_prefix}{x.name_slug}.html">{x.full_name}</a>', axis=1)
+    else:
+        people['name_url'] = 'x'
+
     candidate_people = pd.merge(candidates, people, how='inner', on='person_id')
-    candidate_people.rename(columns={'full_name': 'full_name_candidate'}, inplace=True)
+    candidate_people.rename(columns={'name_url': 'name_url_candidate', 'full_name': 'full_name_candidate'}, inplace=True)
     cps = pd.merge(candidate_people, candidate_statuses, how='inner', on='candidate_status')
 
     """
@@ -74,7 +92,8 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
     """
 
     candidates_by_district = cps[cps['count_as_candidate']].groupby('smd_id').agg({
-        'full_name_candidate': list
+        'name_url_candidate': list
+        , 'full_name_candidate': list
         , 'candidate_id': 'count'
         }).reset_index()
 
@@ -87,21 +106,22 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
 
     commissioner_people = pd.merge(commissioners, people, how='inner', on='person_id')
 
-    comm_columns = ['smd_id', 'full_name']
+    comm_columns = ['smd_id', 'name_url']
     orange = pd.merge(district_candidates, commissioner_people[commissioner_people.is_current][comm_columns], how='left', on='smd_id')
-    orange.rename(columns={'full_name': 'full_name_commissioner'}, inplace=True)
+    orange.rename(columns={'name_url': 'name_url_commissioner'}, inplace=True)
 
     banana = pd.merge(orange, commissioner_people[commissioner_people.is_future][comm_columns], how='left', on='smd_id')
-    banana.rename(columns={'full_name': 'full_name_commissioner_elect'}, inplace=True)
+    banana.rename(columns={'name_url': 'name_url_commissioner_elect'}, inplace=True)
 
 
     district_info_comm = banana.copy()
 
     # todo: use the new agg() format to obviate this
     district_info_comm.rename(columns={
-        'full_name_commissioner': 'current_commissioner'
-        , 'full_name_commissioner_elect': 'commissioner_elect'
-        , 'full_name_candidate': 'list_of_candidates_to_join'
+        'name_url_commissioner': 'current_commissioner'
+        , 'name_url_commissioner_elect': 'commissioner_elect'
+        , 'name_url_candidate': 'list_of_candidates_to_join'
+        , 'full_name_candidate': 'list_of_candidate_names_to_join'
         , 'candidate_id': 'number_of_candidates'
         }, inplace=True)
 
@@ -114,10 +134,17 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
             lambda x: ['(no known candidates)'])
         )
 
+    district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidate_names_to_join'] = (
+        district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidate_names_to_join'].apply(
+            lambda x: ['(no known candidates)'])
+        )
+
     district_info_comm['list_of_candidates'] = district_info_comm['list_of_candidates_to_join'].apply(', '.join)
+    district_info_comm['list_of_candidate_names'] = district_info_comm['list_of_candidate_names_to_join'].apply(', '.join)
 
     # Maybe add Last Updated to this? 
 
+    # todo: remove this option, the test should be done somewhere else
     if duplicate_check:
         district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
 
@@ -140,6 +167,7 @@ def districts_candidates_commissioners(duplicate_check=False, print_counts=False
         , 'smd_name'
         , 'map_color_id'
         , 'list_of_candidates'
+        , 'list_of_candidate_names'
         , 'number_of_candidates'
         , 'current_commissioner'
         , 'commissioner_elect'
@@ -156,7 +184,7 @@ def districts_comm_commelect():
 
     districts = pd.read_csv('data/districts.csv')
     commissioners = list_commissioners(status=None)
-    people = pd.read_csv('data/people.csv')
+    people = people_dataframe()
 
     cp = pd.merge(commissioners, people, how='inner', on='person_id')
     
@@ -254,7 +282,7 @@ def people_dataframe():
     """Return dataframe of people.csv with the name URLs added."""
 
     people = pd.read_csv('data/people.csv')
-    people['name_url'] = people.full_name.apply(lambda x: format_name_for_url(x))
+    people['name_slug'] = people.full_name.apply(lambda x: format_name_for_url(x))
 
     return people
 

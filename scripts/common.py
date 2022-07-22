@@ -1,5 +1,4 @@
 
-import sys
 import pytz
 import hashlib
 import numpy as np
@@ -14,12 +13,14 @@ from fuzzywuzzy import process
 from scripts.data_transformations import (
     list_commissioners
     , list_candidates
+    , people_dataframe
     , districts_candidates_commissioners
     )
 
+from scripts.urls import (
+    district_url 
+    )
 
-# The redistricting cycle of the current serving commissioners
-# CURRENT_REDISTRICTING_CYCLE = '2012'
 
 
 def smd_geojson():
@@ -59,114 +60,6 @@ def mapbox_slugs():
         mb_style_slugs[row['id']] = row['mapbox_link'][row['mapbox_link'].rfind('/')+1 :]
 
     return mb_style_slugs
-
-
-
-def district_url(smd_id, level=0):
-    """
-    Generate a complete url for a smd_id
-
-    link level, relative to where the source page is on the directory tree:
-        -2: two levels up from the source page (like, from a district to a previous redistricting map)
-        0: html root
-        1: ANC page
-        2: SMD page
-
-    todo: clear up this whole level nonsense
-    """
-
-    if '2022' in smd_id:
-        redistricting_year = '2022'
-    else:
-        redistricting_year = '2012'
-
-    if level == -3:
-        link_path = f'../../../map_{redistricting_year}/ancs/districts/'
-    elif level == -2:
-        link_path = f'../../map_{redistricting_year}/ancs/districts/'
-    elif level == -1:
-        link_path = f'../map_{redistricting_year}/ancs/districts/'
-    elif level == 0:
-        link_path = f'map_{redistricting_year}/ancs/districts/'
-    elif level == 1:
-        link_path = 'districts/'
-    elif level == 2:
-        link_path = ''
-    elif level == 9:
-        link_path = '../ancs/districts/'
-    else:
-        raise ValueError(f'Link level {level} is not implemented yet')
-
-    return f'{link_path}{district_slug(smd_id)}.html' 
-
-
-
-def anc_url(anc_id, level=0):
-    """
-    Generate a complete url for an anc_id
-
-    link level, relative to where the source page is on the directory tree:
-        -2: two levels up from the source page (like, from a district to a previous redistricting map)
-        0: html root
-        1: ANC page
-        2: SMD page
-    """
-
-    if '2022' in anc_id:
-        redistricting_year = '2022'
-    else:
-        redistricting_year = '2012'
-
-    if level == -1:
-        link_path = f'../ancs/'
-    elif level == 0:
-        link_path = f'map_{redistricting_year}/ancs/'
-    else:
-        raise ValueError(f'Link level {level} is not implemented yet')
-
-    return f'{link_path}{district_slug(anc_id)}.html' 
-
-
-
-def ward_url(ward_id, level=0):
-    """
-    Generate a complete url for an ward_id
-
-    link level, relative to where the source page is on the directory tree:
-        -2: two levels up from the source page (like, from a district to a previous redistricting map)
-        0: html root
-        1: ANC page
-        2: SMD page
-    """
-
-    if '2022' in ward_id:
-        redistricting_year = '2022'
-    else:
-        redistricting_year = '2012'
-
-    if level == -1:
-        link_path = f'../map_{redistricting_year}/wards/'
-    elif level == 0:
-        link_path = f'map_{redistricting_year}/wards/'
-    else:
-        raise ValueError(f'Link level {level} is not implemented yet')
-
-    return f'{link_path}{district_slug(ward_id)}.html' 
-
-
-
-def district_slug(smd_id):
-    """
-    Generate the final part of a district URL, that will go before the '.html'
-    """
-
-    items_to_strip_out = ['2022', 'smd', '_', '/']
-
-    district_slug = smd_id
-    for i in items_to_strip_out:
-        district_slug = district_slug.replace(i, '')
-
-    return district_slug
 
 
 
@@ -303,19 +196,20 @@ def assemble_divo():
 
 
 
-def build_smd_html_table(list_of_smds, level=0):
+def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect=pd.DataFrame()):
     """
     Return an HTML table with one row per district for a given list of SMDs
 
     Contains current commissioner and all candidates
     """
 
-    district_comm_commelect = districts_candidates_commissioners()
+    if len(district_comm_commelect) == 0:
+        district_comm_commelect = districts_candidates_commissioners(link_source=link_source)
     
     display_df = district_comm_commelect[district_comm_commelect['smd_id'].isin(list_of_smds)].copy()
 
     display_df['SMD'] = display_df.apply(lambda x: 
-        f'<a href="{district_url(x.smd_id, level=level)}">{x.smd_name}</a>'
+        f'<a href="{district_url(x.smd_id, link_source=link_source)}">{x.smd_name}</a>'
         , axis=1
         )
 
@@ -376,85 +270,7 @@ def build_smd_html_table(list_of_smds, level=0):
 
 
 
-def build_smd_html_table_candidates(list_of_smds, link_path=''):
-    """
-    Return an HTML table with one row per district for a given list of SMDs
-
-    Contains current commissioner and all candidates by status
-    todo: this is not used anywhere, remove it
-    """
-
-    districts = pd.read_csv('data/districts.csv')
-    commissioners = list_commissioners(status='current')
-    people = pd.read_csv('data/people.csv')
-    candidates = list_candidates(election_year=2022)
-    candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
-
-    dc = pd.merge(districts, commissioners, how='left', on='smd_id')
-    dcp = pd.merge(dc, people, how='left', on='person_id')
-
-    cp = pd.merge(candidates, people, how='inner', on='person_id')
-    cpd = pd.merge(cp, districts, how='inner', on='smd_id')
-    cpds = pd.merge(cpd, candidate_statuses, how='inner', on='candidate_status')
-
-    dcp['Current Commissioner'] = dcp['full_name'].fillna('(vacant)')
-
-    display_df = dcp[dcp['smd_id'].isin(list_of_smds)].copy()
-
-
-    display_df['SMD'] = (
-        f'<a href="{link_path}' + display_df['smd_id'].str.replace('smd_','').str.lower() + '.html">' 
-        + display_df['smd_id'].str.replace('smd_','') + '</a>'
-        )
-
-
-    # Number of candidates in each SMD
-    # todo: make this a function
-    cps = pd.merge(cp, candidate_statuses, how='inner', on='candidate_status')
-
-    # Only include active candidates
-    district_candidates = pd.merge(districts, cps[cps['count_as_candidate']].copy(), how='left', on='smd_id')
-
-    candidate_count = pd.DataFrame(district_candidates.groupby('smd_id')['candidate_id'].count()).reset_index()
-    candidate_count.rename(columns={'candidate_id': 'Number of Candidates'}, inplace=True)
-    display_df = pd.merge(display_df, candidate_count, how='inner', on='smd_id')
-
-
-
-    columns_to_html = ['SMD', 'Current Commissioner', 'Number of Candidates']
-
-
-
-    cpds['order_status'] = cpds['display_order'].astype(str) + ';' + cpds['candidate_status']
-
-    candidates_in_smds = cpds[cpds['smd_id'].isin(list_of_smds)].copy()
-    statuses_in_smds = sorted(candidates_in_smds['order_status'].unique())
-    
-    for status in statuses_in_smds:
-
-        status_name = status[status.find(';')+1:]
-        columns_to_html += [status_name]
-        
-        cs_df = candidates_in_smds[candidates_in_smds['order_status'] == status][['smd_id', 'full_name']].copy()
-        cs_smd = cs_df.groupby('smd_id').agg({'full_name': list}).reset_index()
-        cs_smd[status_name] = cs_smd['full_name'].apply(lambda row: ', '.join(row))
-        
-        display_df = pd.merge(display_df, cs_smd, how='left', on='smd_id')            
-
-    html = (
-        display_df[columns_to_html]
-        .fillna('')
-        .style
-        .set_uuid('smd_')
-        .hide_index()
-        .render()
-        )
-
-    return html
-
-
-
-def build_district_list(smd_id_list=None, level=0, show_redistricting_cycle=False):
+def build_district_list(smd_id_list=None, link_source='root', show_redistricting_cycle=False):
     """
     Bulleted list of districts and current commmissioners
 
@@ -471,7 +287,7 @@ def build_district_list(smd_id_list=None, level=0, show_redistricting_cycle=Fals
 
     districts = pd.read_csv('data/districts.csv')
     commissioners = list_commissioners(status='current')
-    people = pd.read_csv('data/people.csv')
+    people = people_dataframe()
 
     dc = pd.merge(districts, commissioners, how='left', on='smd_id')
     dcp = pd.merge(dc, people, how='left', on='person_id')
@@ -505,7 +321,7 @@ def build_district_list(smd_id_list=None, level=0, show_redistricting_cycle=Fals
 
         link_body = f'{redistricting_string}{district_row.smd_name}{commissioner_name}'
 
-        district_list += f'<li><a href="{district_url(smd_id, level)}">{link_body}</a></li>'
+        district_list += f'<li><a href="{district_url(smd_id, link_source=link_source)}">{link_body}</a></li>'
 
 
     district_list += '</ul>'
@@ -514,96 +330,83 @@ def build_district_list(smd_id_list=None, level=0, show_redistricting_cycle=Fals
 
 
 
-def district_link(smd_id, smd_name, redistricting_year, level=0, show_redistricting_cycle=False, redistricting_cycle=None):
-    """Return an HTML link for one district page"""
-
-    if show_redistricting_cycle:
-        redistricting_string = f'[{redistricting_cycle} Cycle] '
-    else:
-        redistricting_string = ''
-
-    link_body = f'{redistricting_string}{smd_name}'
-
-    link_text = f'<a href="{district_url(smd_id, level)}">{link_body}</a>'
-
-    return link_text
-
-
 
 def build_data_table(row, fields_to_try, people_level=0):
-        """
-        Create HTML table for one row of data
+    """
+    Create HTML table for one row of data
 
-        If no fields are valid, returns empty string
-        """
+    If no fields are valid, returns empty string
 
-        th_class = 'attribute_heading'
-        td_class = 'attribute_value'
+    todo: rename this to be clearer
+    """
 
-        field_names = pd.read_csv('data/field_names.csv')
-            
-        output_table = """
-            <table>
-              <tbody>
-              """
+    th_class = 'attribute_heading'
+    td_class = 'attribute_value'
 
-        fields_written = 0
-
-        for field_name in fields_to_try:
-
-            if field_name in row:
-
-                if field_name in ['full_name', 'Name']:
-                    # Write link to person page for full name
-                    if people_level == -3:
-                        prefix = '../../../'
-                    
-                    field_value = f'<a href="{prefix}people/{row.name_url}.html">{row.full_name}</a>'
-                else:
-                    field_value = row[field_name]
-
-
-                # Convert timestamp to human-readable string
-                if isinstance(field_value, datetime):
-                    field_value = field_value.strftime('%B %-d, %Y')
-
-                if field_name[-3:] == '_at':
-                    field_value = pd.to_datetime(field_value).strftime('%B %-d, %Y')
-
-                if pd.notna(field_value) and len(str(field_value)) > 0:
-
-                    # If no display_name has been defined for the field_name, use the field_name as the display_name
-                    if sum(field_names['field_name'] == field_name) == 0:
-                        display_name = field_name
-                    else:
-                        display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
-
-                    output_table += f"""
-                        <tr>
-                        <th class="{th_class}">{display_name}</th>
-                        """
-
-                    if '_link' in field_name:
-                        output_table += f'<td class="{td_class}"><a href="{field_value}">{field_value}</a></td>'
-                    elif '_email' in field_name:
-                        output_table += f'<td class="{td_class}"><a href="mailto:{field_value}">{field_value}</a></td>'
-                    else:
-                        output_table += f'<td class="{td_class}">{field_value}</td>'
-                    
-                    output_table += '</tr>'
-
-                    fields_written += 1
-
-        output_table += """
-                </tbody>
-            </table>
-        """
-
-        # or could use: if any([(f in row.index) for f in fields_to_try]):
-        if fields_written == 0:
-            output_table = ''
+    field_names = pd.read_csv('data/field_names.csv')
         
-        return output_table
+    output_table = """
+        <table>
+          <tbody>
+          """
+
+    fields_written = 0
+
+    for field_name in fields_to_try:
+
+        if field_name in row:
+
+            if field_name in ['full_name', 'Name']:
+                # Write link to person page for full name
+                if people_level == -3:
+                    prefix = '../../../'
+                
+                field_value = f'<a href="{prefix}people/{row.name_slug}.html">{row.full_name}</a>'
+            else:
+                field_value = row[field_name]
+
+
+            # Convert timestamp to human-readable string
+            if isinstance(field_value, datetime):
+                field_value = field_value.strftime('%B %-d, %Y')
+
+            if field_name[-3:] == '_at':
+                field_value = pd.to_datetime(field_value).strftime('%B %-d, %Y')
+
+            if pd.notna(field_value) and len(str(field_value)) > 0:
+
+                # If no display_name has been defined for the field_name, use the field_name as the display_name
+                if sum(field_names['field_name'] == field_name) == 0:
+                    display_name = field_name
+                else:
+                    display_name = field_names.loc[field_names['field_name'] == field_name, 'display_name'].values[0]
+
+                output_table += f"""
+                    <tr>
+                    <th class="{th_class}">{display_name}</th>
+                    """
+
+                if '_link' in field_name:
+                    output_table += f'<td class="{td_class}"><a href="{field_value}">{field_value}</a></td>'
+                elif '_email' in field_name:
+                    output_table += f'<td class="{td_class}"><a href="mailto:{field_value}">{field_value}</a></td>'
+                else:
+                    output_table += f'<td class="{td_class}">{field_value}</td>'
+                
+                output_table += '</tr>'
+
+                fields_written += 1
+
+    output_table += """
+            </tbody>
+        </table>
+    """
+
+    # or could use: if any([(f in row.index) for f in fields_to_try]):
+    if fields_written == 0:
+        output_table = ''
+    
+    return output_table
 
 
 

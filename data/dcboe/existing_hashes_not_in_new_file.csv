@@ -1,86 +1,14 @@
-candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_source,candidate_source_description,manual_source_link,manual_updated_at,dcboe_status,candidate_status,publish_candidate,candidate_source,candidate_source_link,match_to_dcboe,pickup_date,filed_date,dcboe_source,dcboe_source_link,dcboe_updated_at,updated_at
-50004,10287,b22ba95ab2f748013492092ef9c9e208c7f00490b657c9c3b65240ed,smd_1A06,Sean McGrath,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50006,10289,2ec2b7b53beafc8d0c6de1f6de096895cb477913bb0be75eacafb193,smd_1A07,Benjamin Tingle,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50012,10012,caa2bc3567541c0803bc4bc60fb5e8d638ae730c9dfcb17aef60acbf,smd_1A12,Jason Clock,Write-In,OpenANC Form,,,2020-09-21,Not on DCBOE List,Write-In,True,OpenANC Form,,False,,,,,,2020-09-21
-50015,10018,52354346602018fe77f962d7ddfc6a9075922430770977deeea5cd0c,smd_1B07,Marcia Shia,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50021,10295,0a3c278320dad6f6bc9d04f813b00c7a4ead3a608e944cb4dc6f53fa,smd_1C03,Jennifer Hughes,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50025,10298,acede56c0b79161daa88adc4386480aa3201cd6fa17131d502ed7a21,smd_1C05,Dennis Jaffe,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50032,10037,3feb98caf9bcae00ee8887856ad410358734a1d2cbe3414a23249be1,smd_2A02,Nicole Goldin,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50035,10303,5e8120d284327bd48dbe33a275a60df1c4a7ba2e3b4bea09ec079954,smd_2A03,John Didiuk,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50036,10304,f8801298628778554338480834d1240d47fff0f24b04bd19477f773f,smd_2A05,Evelyn Hudson,Write-In,OpenANC Form,,,2020-09-02,Not on DCBOE List,Write-In,True,OpenANC Form,,False,,,,,,2020-09-02
-50046,10047,46e59d1554ea29082c4e3df8baca95dafbef00d75fd2787e81af7e1b,smd_2B05,Randy D. Downs,Withdrew,DCBOE,,https://www.dcboe.org/Candidates/2020-Candidates,2020-07-24,Not on DCBOE List,Withdrew,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,False,,,,,,2020-07-24
-50059,10319,fcba9c37c988d5e2d77e69c557bb4533c8ed2f565efce0789d86f1c5,smd_2F05,Peyton Jane Gibson,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50071,10323,2c90ebc206579e301515724f6a94f2d84e073e656bef6b8dffba6a99,smd_3C05,Meena Aladdin,,,,,,On Ballot,On Ballot,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,True,2020-06-29,2020-08-05,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,2020-09-22,2020-09-22
-50074,10326,c665d2b358d370327fdb40455808e1d87c99fb44e3afc8bf1daae904,smd_3C06,Kamolika Das,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50078,10087,4e02ad309aa3aeaffd9c85a5d938f0ad64d7e89591c68e0f41c9bb54,smd_3D02,Troy Kravitz,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50084,10093,eadeb940fa403ae756aa08db5850d4aee5da070a92035665204b4312,smd_3D08,Christine Warnke,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50086,10332,d95b91a00fbe658aaa46ead4f1ac15bd49168c3cf1d2166a766b96d4,smd_3D09,Marc Hayes Robinson,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50089,10334,31a651f872a02c5978c5ca804b102f9f113a0a0311d141d588d3a77e,smd_3E04,Laila Kunaish,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50093,10335,dd33d393762c5ff764bce725bfd4d45d9ebd9c7fe3b6e50bc6ff0bac,smd_3F01,Ulas Doga Eralp,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50096,10337,f1e441c78c392c92ab93d0898dcaa0c870ced72b4c3f5887a0a79ec0,smd_3F07,Lisa Cox,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50106,10344,ea6b0e10ac139fc139ab97f4cbaae78be653a4a080813c43b967dbb7,smd_4A06,Aretha N. Jones,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50132,10360,9c6bd2bd3d1b6c62117c05c645a51d492d9b3a69c6185a178def5ea8,smd_5B01,Cynthia Woerner,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50142,10364,48730005128325c8f89d16dc6dd835fbb2228df87ec4f0f294ca4742,smd_5C06,D'Andre A. Phillips,Write-In,Candidate's website,,,2020-09-13,Not on DCBOE List,Write-In,True,Candidate's website,,False,,,,,,2020-09-13
-50181,10385,eae1705ed1c30e069a0dcb2f3b67fb5480695fbb002d44113b665fa4,smd_6B09,Michael Morris,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50187,10387,97dc1b7950240e70ca562b808b8017f4d334573452e36fc6e9e8e56d,smd_6C04,Pranav Nanda,Write-In,Twitter,"Did not qualify for the ballot due to a petition challenge, is running as a write-in",https://twitter.com/PranavNandaDC/status/1301302067789795329,2020-09-02,Not on DCBOE List,Write-In,True,Twitter,https://twitter.com/PranavNandaDC/status/1301302067789795329,False,,,,,,2020-09-02
-50189,10388,957612d6693de7f86563bf9d162c6307b0a44ebc3c593fb4ac54c867,smd_6C06,Tommy Howard,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50191,10204,e8e09e0717fa161d1882296c491fd927da4edcd7890aaa67335bba56,smd_6D01,Gail Fast,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50199,10392,bc8b6864b9a87c225f3ff87a7e9a444b598c23c877a5758bf613e890,smd_6E01,Mary A. Sutherland,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50203,10396,d06d6ed846f83c8f3316499204839bb26a4d6c94e599a75b60d8fd74,smd_6E02,Eugene Simms,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50204,10397,8652057b0e41d2649ec27d7533aa15ba7f140a0b016cd5536f477de1,smd_6E04,Matthew R. Salmon,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50218,10226,5f89d075f1b4c24674074151f5dc5a8e60b2b06c122954cbb1113f7b,smd_7C03,Catherine A. Woods,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50220,10407,1d131035eb09ab78ad60435543f83bab4fdff1ae5f65790a2152fc31,smd_7C04,Pete Stamper,Withdrew,DCBOE,,,2020-07-27,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-07-27
-50237,10249,429e56c5c4188892896204594a856447d969857a97fd644accabfc97,smd_7F06,Carol E. Fletcher,Withdrew,DCBOE,,,2020-08-04,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-08-04
-50239,10420,6fcdb1860223c7ed2336ee615f8bdaac96507c6237f85cb7c2cb003c,smd_8A02,Ira L. Lovelace,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50248,10260,9e36b19f4e3070ec258c9cd049d9f1df1fe0620f23f81e182e99e112,smd_8B04,Darrell Danny Gaston,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50256,10269,63eb3582e3f12bc76a5d0e08d0a05ded2217ce880284f009368a0ece,smd_8C06,Rhonda L. Edwards-Hines,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50257,10432,e58f61516fdd8882f09205d6000b0ce5d134b2531ee176ef6dbe0ce2,smd_8C07,Jonathan Steele,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50258,10433,34d31b42d2260e4297e00cbd13fba596a260dba0c37e460b506fd4f4,smd_8C07,Mary J. Cuthbert,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50260,10434,d8e28e48f555e104c65667b8a818f233d592e1c60364efb29a6104ca,smd_8D01,"Rowena ""Joyce"" Scott",,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50264,10275,6eea7afc1f7cdb741e4a791498eac19f47f52b6b9de99df4053ca1fd,smd_8D05,Ellen Armstead,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50265,10436,41580b13d84d383b568f44e5009400f3c147c3e9bfa67f73d34d2c6f,smd_8D05,Shanquella 'Goldie' Ross,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50267,10437,7f12763c83cc511758fe50fbf8538d0609dd93d975fdc96fdf167dba,smd_8E01,Rufaro Jenkins,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50271,10440,e870ff32c6234a58f3dcacc3a3fed77867abb2296f841f2b48e145bf,smd_8E04,Richard Martin Campbell,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50283,10446,d30c739db11d22c11cf05dd2946c5c011603bdc3c6851282ff2dfeca,smd_4C04,Jeremy Foster,,,,,,On Ballot,On Ballot,True,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,True,2020-07-17,2020-08-05,DCBOE,https://www.dcboe.org/Candidates/2020-Candidates,2020-09-22,2020-09-22
-50289,10450,0fa69c9bbd8d67109d5e3db63b8a9303a3a2c6f46687a08b7ea957ab,smd_6C06,Cindy Drabek,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50291,10451,4081b89ed701721bbe9b12c2a0178e62cf1fe81727543e3ec679ed6c,smd_6E05,Katherine Kortum,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50294,10454,adc258f268a231b8d3a7de61756463a0005213a1a3777d00a9ff2fe6,smd_8A06,Greta Fuller,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50305,10461,82ea3c334167ebafbed2e00cefbc60026deb55cb82069a216cd546d6,smd_1C06,Nancy Shia,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50307,10110,fe083013e2be54408de9cdf0ade87d8df2b617f91019f6a9b6c4e34d,smd_3G04,Rebecca Maydak,Withdrew,DCBOE,,,2020-07-30,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-07-30
-50315,10466,4313c256378b0a9ba001d5a96bf57c7f25aea53eda16d77c19368952,smd_8C04,Veronica Proctor,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50333,10479,f98969c94e74ab6025439435e325207b692a794c805d5728312d2b19,smd_3F05,Alexander Armstrong,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50345,10488,b257750bf016eb4051efe5517382cbdfc0c883a0dece84bc8a3aad9d,smd_1B12,Andre Denegri,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50346,10489,e2570087bf772067f3332d23e4c25bcbe6c20d27a29b2732e59da226,smd_1D01,Alexandra Morgan,Withdrew,DCBOE,,,2020-07-30,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-07-30
-50347,10490,27702113300b51613d0a11575b990a2228bf18d51209fbdd20bcfe4a,smd_5C05,Jonathan Alfuth,Withdrew,DCBOE,,,2020-08-04,Not on DCBOE List,Withdrew,True,DCBOE,,False,,,,,,2020-08-04
-50352,10493,f6e57aaadec4cdf1e5ba01cebc3403a8f3e3cb6aaf15c79188100997,smd_3E03,Sara Cantos Kline,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50366,10503,d2a7357ca51ea2c0a72b50d64f3a4c471c0b97236f24a235b3bb39c5,smd_3C08,Dora Currea,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50370,10506,61cb23d43e125535720678f2c42f34e3dbdcb8ae9a382a7aa09e24c1,smd_4C01,Mia Bruner,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50374,10510,81c05afbfbe8e2ca416434d87f3ace97c0f0799fd1117247e09b58ec,smd_5D01,Aliyah McNeely,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50396,10527,f73801cfe457c99a0899071efabdda11d82aac217b19335f2c6892ad,smd_5D07,Simone Egwu,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50403,10530,469e6682a270cc965c5b8ca4f72e2ca0ecff9be9d8649130c05a0866,smd_1C07,Zack Brown,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50404,10531,77b26e11b2a0d9ab4033495264b11c2363c5821ec6ec3fb35edb248e,smd_2B09,Amy Nasr,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50409,10535,716ae4f298959477f444dd1f317296647d831039222ab3185bac8c9a,smd_3D06,Steven Faigen,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50410,10536,5d8bd41a4b7cee468182f1d6bffead72a225059a736d3c4837cf6a3d,smd_3F05,Mark Moran,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50414,10540,58a6d969479ed1f4f7966404167f35e918fc37f98e7784a394e4f3e7,smd_4C05,Ursula Antares Miller,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50430,10053,b1b004f1f9b396a9b057fde8e9e5c16cb1fbafef6d17c79a6c03917e,smd_2C02,Jamaal T. Burton,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50433,10553,6e464cc0b7b23e6f84663cfc97beee7daa5a7b9b468096f0b216fc30,smd_3D05,Sabra Horne,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50435,10555,079daf9973641fec81b0ca7a77be673f4a68b739d89eee55d17b37be,smd_4B04,Farrah Darbouze,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50439,10559,3adc803c63a4aa6d48cdcf835373c95161bc41240c77c9019f1d5fd6,smd_4D05,Peter Benzoni,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50441,10561,0412ea8a9cf9c03d0744c9e8f6c89064f8692ec6ca32fe385f0f7369,smd_5D02,Cameron Brown,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50444,10563,61a61d00ec7a9b125f792742a036524b3943c023397a5f70d2b03647,smd_6B01,Boaz Yavnai,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50455,10064,286f8ee7b8a8a2f2b39a0a8907c64baefbd4df6ed29211388cf5fa6f,smd_2E08,Matias Burdman,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50457,10573,fed6eac47661fb99ccf87f7e7b13910cdddb652eeadb7780d205cf04,smd_3D06,Wendy Lynch,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50458,10574,c9ccac3b4ddd343b3d7212e7d1fc8dab5f4fbe55f81440becd168c5f,smd_3F01,Noah Bell,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50460,10576,d3b588d376c2bed64cb6120dde16e95562c9dd462f8cd4be0b640915,smd_3G04,Lisa Jensen,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50468,10583,b58d69e3b5e6528e8be3de27f7d58e32a98401a914c742b811ed603f,smd_6B07,Sarah Rens,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50469,10584,89c2a5adde0c22367bc03adf4a2ceda7d42acac553071e095fc4edf1,smd_6D02,John Deignan,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50471,10221,c84251318dc5ff73cf399b347ac62c5045d45f7e2450cb79e79b253d,smd_7B04,Nicole Smith-McDermott,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50477,10589,cc1e21db218a090257de7d90682bdfa55fd8678fcd9a9a04709dbfde,smd_1B05,Lucas McCabe,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50478,10590,b00b52f342c6abaae7ae7b86914cfed6e9ccf009da0766c7155f6dbe,smd_2A07,Adam Friend,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50479,10591,8468fcb269d12af5c486e1fc51feb2b555b22199048f90b774edac7a,smd_2B03,Sarah Mehrotra,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50480,10592,ee1dd94b32a2357f2944b778e7e0950ff5c4248ad0c43c5679be3961,smd_2B06,Cameron Powell,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50486,10596,5cc022a8b9e62ce65b4f15b5e4627671cbb5445fe015542588e68fa9,smd_6D02,"Paul Biedlingmaier, III",,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50487,10216,7849da419ac935d1a0b7cd974f8257bb38a6c265adfff36ab42cf5f1,smd_6E06,Alvin Judd Sr.,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50489,10234,8df6a6cff40e30aafbff0fe2df79dcbd81f3473afdf6e2b8dcb3f0d7,smd_7D04,Cinque E. Culver,,,,,,Not on DCBOE List,Withdrew,True,,,False,,,,,,
-50495,10603,,smd_6D01,Andrew Bossi,Write-In,OpenANC Form,,,2020-08-11,Not on DCBOE List,Write-In,True,OpenANC Form,,False,,,,,,2020-08-11
-50496,10604,,smd_2A01,Yannik Omictin,Write-In,OpenANC Form,,,2020-09-02,Not on DCBOE List,Write-In,True,OpenANC Form,,False,,,,,,2020-09-02
+candidate_id,person_id,election_year,dcboe_hash_id,smd_id,candidate_name,manual_status,manual_source,write-in winner according to DCBOE,candidate_source_description,manual_source_link,manual_updated_at,dcboe_status,candidate_status,publish_candidate,candidate_source,candidate_source_link,match_to_dcboe,pickup_date,filed_date,dcboe_source,dcboe_source_link,dcboe_updated_at,updated_at
+50516,10330,2022,,smd_2022_3B06,Ben Bergmann,Declared Intention to Run,,,,,2022-07-13,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-13
+50519,11356,2022,,smd_2022_7D07,Brian Voorhees,Declared Intention to Run,,,,,2022-07-14,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-14
+50521,11358,2022,,smd_2022_1B04,Santiago Lakatos,Declared Intention to Run,,,,,2022-07-14,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-14
+50522,10196,2022,,smd_2022_6B06,Chander Jayaraman,Declared Intention to Run,,,,,2022-07-14,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-14
+50524,10333,2022,,smd_2022_3E01,Matthew Cohen,Declared Intention to Run,,,,,2022-07-16,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-16
+50525,11359,2022,,smd_2022_2G04,Amanda Gore,Declared Intention to Run,,,,,2022-07-17,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-17
+50526,10380,2022,,smd_2022_6A06,Robb Dooling,Declared Intention to Run,,,,,2022-07-17,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-17
+50528,10605,2022,,smd_2022_6B08,Edward Ryder,Declared Intention to Run,,,,,2022-07-18,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-18
+50532,10627,2022,,smd_2022_3F05,James Tandaric,Declared Intention to Run,,,,,2022-07-19,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-19
+50535,11363,2022,,smd_2022_1B09,Tucker Jones,Declared Intention to Run,,,,,2022-07-19,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-19
+50539,10322,2022,,smd_2022_3C03,Janell Pagats,Declared Intention to Run,,,,,2022-07-20,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-20
+50542,10366,2022,,smd_2022_5D05,Salvador Sauceda-Guzman,Declared Intention to Run,,,,,2022-07-20,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-20
+50546,11370,2022,,smd_2022_3E04,Thomas Marabello,Declared Intention to Run,,,,,2022-07-21,Not on DCBOE List,Declared Intention to Run,True,,,False,,,,,,2022-07-21

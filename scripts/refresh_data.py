@@ -15,13 +15,17 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 from scripts.common import (
     assemble_divo
-    , district_url
+    )
+
+from scripts.urls import (
+    district_url
     , anc_url
     )
 
 from scripts.data_transformations import (
     list_commissioners
     , list_candidates
+    , people_dataframe
     , districts_candidates_commissioners
     , districts_comm_commelect
     )
@@ -47,6 +51,11 @@ class RefreshData():
         dcc = districts_candidates_commissioners()
 
         self.map_display_df = self.build_map_display_box(dcc)
+
+        # self.map_display_df = dcc.apply(
+        #     lambda x: self.build_map_display_box(x)
+        #     , axis=1
+        #     )
 
 
 
@@ -145,8 +154,7 @@ class RefreshData():
             # smd_id = row['smd_id']
 
             map_display_box = (
-                f'<b>District {row.smd_name}</b>'
-                + f'<br/><a href="{district_url(row.smd_id)}">District Page</a>'
+                f'<b><a href="{district_url(row.smd_id)}">District {row.smd_name}</a></b>'
                 )
 
             if '_2022_' in row.smd_id:
@@ -250,7 +258,7 @@ class RefreshData():
         # Commissioners currently active
         commissioners = list_commissioners(status='current')
 
-        people = pd.read_csv('data/people.csv')
+        people = people_dataframe()
         districts = pd.read_csv('data/districts.csv')
 
         # Only use the current, 2012, districts for the list of active commissioners
@@ -267,7 +275,7 @@ class RefreshData():
         if len(twttr) != 296:
             raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-        twttr['openanc_link'] = 'https://openanc.org/' + district_url(twttr['smd_id'], level=0)
+        twttr['openanc_link'] = 'https://openanc.org/' + district_url(twttr['smd_id'])
 
         columns_to_publish = ['smd_id', 'person_id', 'full_name', 'start', 'end', 'twitter_link', 'facebook_link', 'website_link', 'openanc_link']
 
@@ -305,7 +313,7 @@ class RefreshData():
         Publish results from 2020 elections to OpenANC Published
         """
 
-        people = pd.read_csv('data/people.csv')
+        people = people_dataframe()
         candidates = list_candidates(election_year=2020)
         results = pd.read_csv('data/results.csv')
         write_in_winners = pd.read_csv('data/write_in_winners.csv')
