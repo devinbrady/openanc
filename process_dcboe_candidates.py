@@ -415,6 +415,9 @@ def something_else():
 
 
 def list_candidates_to_add():
+    """
+    List candidates that need to be added to the OpenANC candidate table
+    """
 
     candidates = pd.read_csv('data/candidates.csv')
     candidates = candidates[candidates.election_year == ELECTION_YEAR].copy()
@@ -431,7 +434,7 @@ def list_candidates_to_add():
         if matches.match_person_id.notnull().sum() > 0:
     
             print('\nThese candidates are likely matches to existing people, so add their person_id to the candidates table:')
-            print('If they are already in the candidates table for this election year, add this new dcboe_hash_id to the candidates table, replacing the dcboe_hash_id they have there currently.\n')
+            print('If they are already in the candidates table for this election year, add this new dcboe_hash_id to the candidates table, replacing the dcboe_hash_id they have there currently (and delete any manual status info).\n')
 
             # todo: make this easier to copy
             print(matches[matches.match_person_id.notnull()])
