@@ -357,7 +357,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10363,Thaddeus James,smd_5C06,,smd_5C06,,,
 10364,D'Andre A. Phillips,smd_5C06,,smd_5C06,,,https://www.dandrephillips.com/
 10365,Sebrena L. Rhodes,smd_5D01,smd_5D01,smd_5D01,https://twitter.com/ivycitybree,,
-10366,Salvador Sauceda-Guzman,smd_5D02,smd_5D02,smd_5D02,https://twitter.com/salvadorfor5d02,,https://www.salvadorfordc.com/
+10366,Salvador Sauceda-Guzman,smd_5D02,smd_5D02,smd_5D02,https://twitter.com/SalvadorFor5D05,,https://www.salvadorfordc.com/
 10367,Sean Barry,smd_5D03,,smd_5D03,,https://www.facebook.com/seanbbarrydc/,https://www.seanbarrydc.com/
 10368,James Butler,smd_5D03,,smd_5D03,https://twitter.com/jamesbutler4dc,https://www.facebook.com/TheRealJamesButler/,http://www.butlerforanc.com/
 10369,Latoya Moore,smd_5D03,smd_5D03,smd_5D03,https://twitter.com/LatoyaM01766637,,https://www.mooreforanc.com/
@@ -439,7 +439,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10452,John F. Adams,smd_7B01,,smd_7B01,,,
 10453,Betty J. Diggs,smd_7F06,smd_7F06,smd_7F06,,,
 10454,Greta Fuller,smd_8A06,,smd_8A06,https://twitter.com/greta4ward8,,
-10456,Kwasi Seitu,smd_8C01,smd_8C01,smd_8C01,https://twitter.com/kwazeetu,,
+10456,Kwasi Seitu,smd_8C01,smd_8C01,smd_8C01,,,
 10457,Kendrick Daniel,smd_8C02,,smd_8C02,https://twitter.com/kendrickjdaniel,,
 10458,Patricia Janifer,smd_8D07,smd_8D07,smd_8D07,,,
 10459,"Shekita ""Ki-Ki"" McBroom",smd_8E01,smd_8E01,smd_8E01,,,
@@ -608,7 +608,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10630,LaQueta Tate,smd_8E03,smd_8E03,,,,
 10631,Harry Thomas Jr.,smd_5C06,smd_5C06,,,,
 10632,Jake Faleschini,smd_1C07,smd_1C07,,https://twitter.com/soundpolicy,,
-10633,Jeff Rueckgauer,smd_2B02,smd_2B02,smd_2022_2B02,https://twitter.com/CapitalJeff2B02,,
+10633,Jeff Rueckgauer,smd_2B02,smd_2B02,smd_2022_2B02,https://twitter.com/Jeff2B02,,
 10634,Alex Rojas,smd_5A04,smd_5A04,,,,
 10635,Marjorie Lightman,smd_6D01,smd_6D01,,,,
 10636,Lisa Kralovic,smd_1A01,,,,,
@@ -1356,7 +1356,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11393,Michelle Hammond,smd_2022_7E02,,smd_2022_7E02,,,
 11394,Tim Howard,smd_2022_7E05,,smd_2022_7E05,,,
 11395,Obbie English III,smd_2022_7F02,,smd_2022_7F02,,,
-11396,Clyde Darren Thopson,smd_2022_7F05,,smd_2022_7F05,,,
+11396,Clyde Darren Thompson,smd_2022_7F05,,smd_2022_7F05,,,
 11397,Beatrice Evans,smd_2022_7F07,,smd_2022_7F07,,,
 11398,Devon Myers,smd_2022_7F07,,smd_2022_7F07,,,
 11399,Elizabeth Carter,smd_2022_8A02,,smd_2022_8A02,,,
@@ -1367,4 +1367,10 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11404,Melody Moore,smd_2022_8D08,,smd_2022_8D08,,,
 11405,Deborah Wells,smd_2022_8E01,,smd_2022_8E01,,,
 11406,Brian Strege,smd_2022_8F03,,smd_2022_8F03,,,
-11407,Christopher Davis,smd_2B04,smd_2B04,,https://twitter.com/cdavisgreen,,
+11407,Christopher Davis,smd_2B04,smd_2B04,smd_2022_2B04,https://twitter.com/cdavisgreen,,
+11408,Margaret Stevens,smd_2022_1C05,,smd_2022_1C05,,,
+11409,Mimsy Lindner,smd_2022_2E05,,smd_2022_2E05,,,
+11410,Gawain Kripke,smd_2022_3C07,,smd_2022_3C07,,,
+11411,Ryan Cudemas-Brunoli,smd_2022_3F02,,smd_2022_3F02,,,
+11412,Thomas Seidman,smd_2022_6D02,,smd_2022_6D02,,,
+11413,Mohamed K. Azab,smd_2022_8A02,,smd_2022_8A02,,,

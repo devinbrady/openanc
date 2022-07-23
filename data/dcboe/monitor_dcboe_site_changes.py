@@ -31,13 +31,12 @@ class MonitorDCBOE():
         self.local_filename = 'current_link.txt'
 
         # 2020 candidate list
-        # self.url = 'https://www.dcboe.org/Candidates/2020-Candidates'
-        # self.link_text_body = 'ANC Candidate List for the November 3 General Election'
-
+        self.url = 'https://dcboe.org/Elections/2022-Elections'
+        self.link_text_body = 'Candidates for Advisory Neighborhood Commissioner'
 
         # List of current commissioners
-        self.url = 'https://dcboe.org/Candidates/ANC-Commissioners'
-        self.link_text_body = 'Current List of Advisory Neighborhood Commissioners'
+        # self.url = 'https://dcboe.org/Candidates/ANC-Commissioners'
+        # self.link_text_body = 'Current List of Advisory Neighborhood Commissioners'
 
         # Link text body is the text that is inside the HTML link tag. For example: <a href="">link_text_body</a>
 
@@ -75,7 +74,9 @@ class MonitorDCBOE():
 
     def poll_dcboe(self):
 
-        tz = pytz.timezone('America/Denver')
+        # Local timezone for this computer
+        tz = datetime.utcnow().astimezone().tzinfo
+
         current_timestamp = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S %Z')
         print(f'{current_timestamp} -> ', end='')
         
@@ -85,7 +86,7 @@ class MonitorDCBOE():
 
         page_has_changed = not self.current_link_text in r.text
 
-        print(f'page_has_changed: {page_has_changed}')
+        print(f'DCBOE page_has_changed: {page_has_changed}')
      
         return page_has_changed
 
@@ -105,8 +106,8 @@ class MonitorDCBOE():
         if page_has_changed:
             os.system('terminal-notifier -title "OpenANC" -message "DCBOE link has changed" -sound Blow')
 
-            with open(self.local_filename, 'w') as f:
-                f.write('')
+            # Save the new filename to the current_link text file
+            self.reset()
 
 
 if __name__ == "__main__":

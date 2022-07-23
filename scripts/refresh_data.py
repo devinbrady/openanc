@@ -48,7 +48,7 @@ class RefreshData():
 
         self.service = self.google_auth()
 
-        dcc = districts_candidates_commissioners()
+        dcc = districts_candidates_commissioners(link_source='root')
 
         self.map_display_df = self.build_map_display_box(dcc)
 

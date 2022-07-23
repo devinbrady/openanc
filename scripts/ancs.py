@@ -80,7 +80,7 @@ class BuildANCs():
             output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))
             output = output.replace('REPLACE_WITH_ZOOM_LEVEL', str(calculate_zoom(row['area'])))
 
-            output = add_footer(output, level=2)
+            output = add_footer(output, link_source='anc')
 
             with open(f'docs/' + anc_url(row.anc_id, level=0), 'w') as f:
                 f.write(output)

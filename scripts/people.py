@@ -79,7 +79,7 @@ class BuildPeople():
 
         output = output.replace('REPLACE_WITH_PEOPLE_LIST', self.list_of_people())
 
-        output = add_footer(output, level=1)
+        output = add_footer(output, link_source='person')
 
         with open('docs/people/index.html', 'w') as f:
             f.write(output)
@@ -178,7 +178,7 @@ class BuildPeople():
             output = output.replace('<!-- replace with candidacies -->', candidacies_block)
             
 
-        output = add_footer(output, level=1)
+        output = add_footer(output, link_source='person')
 
         with open(f'docs/people/{person.name_slug}.html', 'w') as f:
             f.write(output)
