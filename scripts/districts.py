@@ -529,7 +529,7 @@ class BuildDistricts():
 
             output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
-            output = add_footer(output, level=3)
+            output = add_footer(output, link_source='district')
 
 
             with open('docs/' + district_url(smd_id), 'w') as f:

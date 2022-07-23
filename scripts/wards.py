@@ -64,7 +64,7 @@ class BuildWards():
             output = output.replace('REPLACE_WITH_LATITUDE', '38.9361129455516')
             output = output.replace('REPLACE_WITH_ZOOM_LEVEL', '11')
 
-            output = add_footer(output, level=2)
+            output = add_footer(output, link_source='ward')
 
             with open(f'docs/' + ward_url(row.ward_id, level=0), 'w') as f:
                 f.write(output)

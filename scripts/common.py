@@ -18,7 +18,8 @@ from scripts.data_transformations import (
     )
 
 from scripts.urls import (
-    district_url 
+    district_url
+    , relative_link_prefix
     )
 
 
@@ -479,7 +480,7 @@ def make_ordinal(n):
 
 
 
-def add_footer(input_html, level=0, updated_at=None):
+def add_footer(input_html, link_source='root', updated_at=None):
     """
     Return HTML with footer included
 
@@ -492,18 +493,7 @@ def add_footer(input_html, level=0, updated_at=None):
     with open('templates/footer.html', 'r') as f:
         footer_html = f.read()
 
-    # todo: this should be a separate function for relative links, with clear parameters
-    if level == 0:
-        link_path = ''
-    elif level == 1:
-        link_path = '../'
-    elif level == 2:
-        link_path = '../../'
-    elif level == 3:
-        link_path = '../../../'
-    elif level == 99:
-        # absolute, for 404 page
-        link_path = 'https://openanc.org/'
+    link_path = relative_link_prefix(source=link_source, destination='root')
 
     if not updated_at:
         updated_at = current_time()

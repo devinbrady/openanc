@@ -73,7 +73,7 @@ class BuildIndex():
 
         output = output.replace('REPLACE_WITH_DISTRICT_LIST', self.district_tables())
 
-        output = add_footer(output, level=0)
+        output = add_footer(output, link_source='root')
 
         with open('docs/list.html', 'w') as f:
             f.write(output)
@@ -101,7 +101,7 @@ class BuildIndex():
         # output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
 
         output = add_google_analytics(output)
-        output = add_footer(output, level=0)
+        output = add_footer(output, link_source='root')
 
         with open('docs/counts.html', 'w') as f:
             f.write(output)
@@ -121,7 +121,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
         output = output.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
         output = add_google_analytics(output)
-        output = add_footer(output, level=0)
+        output = add_footer(output, link_source='root')
 
         with open('docs/about.html', 'w') as f:
             f.write(output)
@@ -139,7 +139,7 @@ class BuildIndex():
             output = f.read()
 
         output = add_google_analytics(output)
-        output = add_footer(output, level=0)
+        output = add_footer(output, link_source='root')
 
         mb_style_slugs = mapbox_slugs()
         output = output.replace('REPLACE_WITH_SMD_SLUG', mb_style_slugs['smd'])
@@ -153,7 +153,7 @@ class BuildIndex():
 
 
 
-    def build_single_page(self, html_name, level=0):
+    def build_single_page(self, html_name, link_source='root'):
         """
         Build a single page that just needs Google Analytics and the footer
         """
@@ -162,7 +162,7 @@ class BuildIndex():
             output = f.read()
 
         output = add_google_analytics(output)
-        output = add_footer(output, level=level)
+        output = add_footer(output, link_source=link_source)
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
@@ -177,6 +177,6 @@ class BuildIndex():
         self.about_page()
         # self.build_single_page('index')
         self.build_map_page('index')
-        self.build_single_page('404', level=99)
+        self.build_single_page('404')
         self.list_page()
 

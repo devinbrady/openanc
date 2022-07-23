@@ -219,6 +219,9 @@ def list_commissioners(status=None, date_point=None):
     date_point=(some other datetime) -- all statuses calculated from that datetime
     """
 
+    if status and status not in ('former', 'current', 'future'):
+        raise ValueError(f'Commissioner status {status} is not valid.')
+
     commissioners = pd.read_csv('data/commissioners.csv')
 
     if not date_point:
