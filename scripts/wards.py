@@ -16,7 +16,8 @@ from scripts.common import (
     )
 
 from scripts.urls import (
-    ward_url
+    relative_link_prefix
+    , district_slug
     )
 
 
@@ -49,7 +50,6 @@ class BuildWards():
                 , build_smd_html_table(ward_smd_ids, link_source='ward')
                 )
 
-
             # if row.ward_name in (3,4):
             #     output = output.replace(
             #         '<!-- replace with 3/4 info -->'
@@ -66,6 +66,6 @@ class BuildWards():
 
             output = add_footer(output, link_source='ward')
 
-            with open(f'docs/' + ward_url(row.ward_id, level=0), 'w') as f:
+            with open(f'docs/' + relative_link_prefix(source='root', destination='ward', redistricting_year=row.redistricting_year) + district_slug(row.ward_id) + '.html', 'w') as f:
                 f.write(output)
 

@@ -29,6 +29,8 @@ from scripts.urls import (
     anc_url
     , ward_url
     , district_url
+    , relative_link_prefix
+    , district_slug
     )
 
 
@@ -65,6 +67,8 @@ class BuildDistricts():
         self.ancs = pd.read_csv('data/ancs.csv')
         self.wards = pd.read_csv('data/wards.csv')
         self.statuses = pd.read_csv('data/candidate_statuses.csv')
+
+
 
     def build_commissioner_table(self, smd_id):
         """
@@ -133,7 +137,7 @@ class BuildDistricts():
                     if commissioner_block[-5:] != '</h2>':
                         commissioner_block += '<br/>'
 
-                    commissioner_block += build_data_table(row, fields_to_try, people_level = -3)
+                    commissioner_block += build_data_table(row, fields_to_try, link_source='district')
         
         return commissioner_block
 
@@ -177,7 +181,14 @@ class BuildDistricts():
             
             # todo: turn this into a function, it's ugly
             smd_results['full_name'] = smd_results.apply(
-                lambda x: f'<a href="../../../people/{x.name_slug}.html">{x.full_name}</a>' if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
+                lambda x: (
+                        '<a href="'
+                        + relative_link_prefix(source='district', destination='person')
+                        + x.name_slug
+                        + '.html">'
+                        + x.full_name
+                        + '</a>'
+                    ) if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
                 , axis=1
                 )
 
@@ -303,7 +314,7 @@ class BuildDistricts():
                             , 'updated_at'
                             ]
 
-                        candidate_block += build_data_table(candidate_row, fields_to_try, people_level = -3)
+                        candidate_block += build_data_table(candidate_row, fields_to_try, link_source='district')
                     
                     if candidates_in_status > 1:
                         candidate_block += '<p><em>Candidate order is randomized</em></p>'
@@ -329,7 +340,7 @@ class BuildDistricts():
                             , 'updated_at'
                             ]
 
-                        candidate_block += build_data_table(candidate_row, fields_to_try, people_level = -3)
+                        candidate_block += build_data_table(candidate_row, fields_to_try, link_source='district')
                     
                     if candidates_in_status > 1:
                         candidate_block += '<p><em>Candidate order is randomized</em></p>'
@@ -365,7 +376,7 @@ class BuildDistricts():
 
         fields_to_try = ['landmarks', 'notes']
 
-        district_table = build_data_table(district_row, fields_to_try)
+        district_table = build_data_table(district_row, fields_to_try, link_source='district')
 
         # Take out the edit form link here. Only display district info if it exists.
         if district_table != '':
@@ -400,11 +411,6 @@ class BuildDistricts():
 
         If smd_id_list is None, all districts are returned
         If smd_id_list is a list, those SMDs are returned
-
-        link level:
-            0: html root
-            1: ANC page
-            2: SMD page
 
         If show_redistricting_cycle is True, then the year of the cycle will be displayed.
         """
@@ -519,9 +525,9 @@ class BuildDistricts():
             output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, link_source='district', show_redistricting_cycle=True))
 
 
-            output = output.replace('REPLACE_WITH_WARD_URL', ward_url(row.ward_id, level=-1))
+            output = output.replace('REPLACE_WITH_WARD_URL', relative_link_prefix(source='district', destination='ward', redistricting_year=row.redistricting_year) + district_slug(row.ward_id) + '.html')
             output = output.replace('REPLACE_WITH_WARD_NAME', row.ward_name)
-            output = output.replace('REPLACE_WITH_ANC_URL', anc_url(row.anc_id, level=-1))
+            output = output.replace('REPLACE_WITH_ANC_URL', relative_link_prefix(source='district', destination='anc', redistricting_year=row.redistricting_year) + district_slug(row.anc_id) + '.html')
             output = output.replace('REPLACE_WITH_ANC_NAME', row.anc_name)
 
             output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))

@@ -109,12 +109,14 @@ class TestLinks():
         print(f'Number of broken links: {num_broken_links}')
 
         if num_broken_links > 0:
-            print('\nSources of broken links:')
-            print(sorted(self.link_df_local[self.link_df_local.is_broken].source.unique().tolist()))
+            self.link_df_local[self.link_df_local.is_broken].to_csv('broken_links.csv', index=False)
+            print('Links saved to: broken_links.csv')
 
-            print('\nDestinations of broken links:')
-            print(sorted(self.link_df_local[self.link_df_local.is_broken].destination_resolved.unique().tolist()))
-
+            unique_bad_destinations = self.link_df_local[self.link_df_local.is_broken].destination_resolved.unique()
+            print(f'Number of unique bad destinations: {len(unique_bad_destinations)}')
+            
+            unique_bad_sources = self.link_df_local[self.link_df_local.is_broken].source.unique()
+            print(f'Number of unique bad sources: {len(unique_bad_sources)}')
 
 
         # Find orphan HTML pages, those not linked by anything else
@@ -123,20 +125,23 @@ class TestLinks():
         source_unique = self.link_df_local.source.unique()
 
         orphan_destinations = [x for x in destination_unique if x not in source_unique]
-        orphan_sources = [x for x in source_unique if x not in destination_unique]
+
+        # 404 page is an orphan on purpose - no pages should link to it
+        orphan_sources = [x for x in source_unique if (x not in destination_unique) and ('404' not in x)]
 
         num_orphan_destinations = len(orphan_destinations)
+        # todo: should be assert?
         print(f'Number of orphan destinations: {num_orphan_destinations}')
 
-        if num_orphan_destinations > 0:
-            print('Orphan destinations:')
-            print(orphan_destinations)
+        # if num_orphan_destinations > 0:
+        #     print('Orphan destinations:')
+        #     print(orphan_destinations)
 
 
         num_orphan_sources = len(orphan_sources)
         print(f'Number of orphan sources: {num_orphan_sources}')
 
-        if num_orphan_sources > 0:
-            print('Orphan sources:')
-            print(orphan_sources)
+        # if num_orphan_sources > 0:
+        #     print('Orphan sources:')
+        #     print(orphan_sources)
 

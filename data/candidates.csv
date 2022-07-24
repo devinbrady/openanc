@@ -622,3 +622,5 @@ candidate_id,person_id,election_year,dcboe_hash_id,smd_id,candidate_name,manual_
 50633,10202,2022,457b945691b3c5785484ca5ecb438369e2427f822ee353555234eabf,smd_2022_6C05,Joel Kelty,,,,,,,Pulled Papers for Ballot,Pulled Papers for Ballot,TRUE,DCBOE,https://dcboe.org/Elections/2022-Elections,TRUE,2022-07-20,,DCBOE,https://dcboe.org/Elections/2022-Elections,2022-07-22,2022-07-22
 50634,11414,2022,,smd_2022_6C01,Christy Kwan,Declared Intention to Run,,,,,2022-07-22,Not on DCBOE List,Declared Intention to Run,TRUE,,,FALSE,,,,,,2022-07-22
 50635,11415,2022,,smd_2022_7B05,Dexter Williams,Declared Intention to Run,,,,,2022-07-23,Not on DCBOE List,Declared Intention to Run,TRUE,,,FALSE,,,,,,2022-07-23
+50636,10081,2022,,smd_2022_3C04,Beau Finley,Declared Intention to Run,,,,,2022-07-23,Not on DCBOE List,Declared Intention to Run,TRUE,,,FALSE,,,,,,2022-07-23
+50637,11416,2022,,smd_2022_1B02,Sean Holihan,Declared Intention to Run,,,,,2022-07-24,Not on DCBOE List,Declared Intention to Run,TRUE,,,FALSE,,,,,,2022-07-24

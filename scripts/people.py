@@ -151,7 +151,7 @@ class BuildPeople():
                 if idx > 0:
                     district_block += '<br/>'
 
-                district_block += build_data_table(pd, ['smd_url', 'term_in_office'])
+                district_block += build_data_table(pd, ['smd_url', 'term_in_office'], link_source='person')
 
             district_block += '</ul>'
 
@@ -169,7 +169,7 @@ class BuildPeople():
                 if idx > 0:
                     candidacies_block += '<br/>'
 
-                candidacies_block += build_data_table(pd, ['election_year', 'smd_url', 'votes', 'ranking_ordinal'])
+                candidacies_block += build_data_table(pd, ['election_year', 'smd_url', 'votes', 'ranking_ordinal'], link_source='person')
 
 
 

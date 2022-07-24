@@ -58,6 +58,10 @@ def relative_link_prefix(source, destination, redistricting_year='xxxx'):
     elif source == 'district':
         if destination == 'root':
             link_prefix = '../../../'
+        elif destination == 'ward':
+            link_prefix = f'../map_{redistricting_year}/wards/'
+        elif destination == 'anc':
+            link_prefix = f'../../map_{redistricting_year}/ancs/'
         elif destination == 'district':
             link_prefix = f'../../../map_{redistricting_year}/ancs/districts/'
         elif destination == 'person':
@@ -97,12 +101,6 @@ def relative_link_prefix(source, destination, redistricting_year='xxxx'):
 def district_url(smd_id, link_source='root'):
     """
     Generate a complete url for a smd_id
-
-    link level, relative to where the source page is on the directory tree:
-        -2: two levels up from the source page (like, from a district to a previous redistricting map)
-        0: html root
-        1: ANC page
-        2: SMD page
     """
     
     if '2022' in smd_id:
@@ -116,36 +114,13 @@ def district_url(smd_id, link_source='root'):
         , redistricting_year=redistricting_year
         )
 
-    # if level == -3:
-    #     link_path = f'../../../map_{redistricting_year}/ancs/districts/'
-    # elif level == -2:
-    #     link_path = f'../../map_{redistricting_year}/ancs/districts/'
-    # elif level == -1:
-    #     link_path = f'../map_{redistricting_year}/ancs/districts/'
-    # elif level == 0:
-    #     link_path = f'map_{redistricting_year}/ancs/districts/'
-    # elif level == 1:
-    #     link_path = 'districts/'
-    # elif level == 2:
-    #     link_path = ''
-    # elif level == 9:
-    #     link_path = '../ancs/districts/'
-    # else:
-    #     raise ValueError(f'Link level {level} is not implemented yet')
-
     return f'{link_prefix}{district_slug(smd_id)}.html' 
 
 
 
-def anc_url(anc_id, level=0):
+def anc_url(anc_id, link_source):
     """
     Generate a complete url for an anc_id
-
-    link level, relative to where the source page is on the directory tree:
-        -2: two levels up from the source page (like, from a district to a previous redistricting map)
-        0: html root
-        1: ANC page
-        2: SMD page
     """
 
     if '2022' in anc_id:
@@ -153,26 +128,19 @@ def anc_url(anc_id, level=0):
     else:
         redistricting_year = '2012'
 
-    if level == -1:
-        link_path = f'../ancs/'
-    elif level == 0:
-        link_path = f'map_{redistricting_year}/ancs/'
-    else:
-        raise ValueError(f'Link level {level} is not implemented yet')
+    link_prefix = relative_link_prefix(
+        source=link_source
+        , destination='anc'
+        , redistricting_year=redistricting_year
+        )
 
-    return f'{link_path}{district_slug(anc_id)}.html' 
+    return f'{link_prefix}{district_slug(anc_id)}.html' 
 
 
 
 def ward_url(ward_id, level=0):
     """
     Generate a complete url for an ward_id
-
-    link level, relative to where the source page is on the directory tree:
-        -2: two levels up from the source page (like, from a district to a previous redistricting map)
-        0: html root
-        1: ANC page
-        2: SMD page
     """
 
     if '2022' in ward_id:

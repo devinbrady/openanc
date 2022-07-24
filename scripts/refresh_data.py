@@ -292,7 +292,7 @@ class RefreshData():
         ancs = pd.read_csv('data/ancs.csv')
         # districts = pd.read_csv('data/districts.csv')
 
-        ancs['openanc_link'] = 'https://openanc.org/' + anc_url(ancs['anc_id'])
+        ancs['openanc_link'] = anc_url(ancs['anc_id'], link_source='absolute')
 
         columns_to_publish = [
             'anc_id'
@@ -455,7 +455,7 @@ class RefreshData():
         # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')
         # self.refresh_csv('map_colors', 'A:B') 
-        # self.refresh_csv('wards', 'A:B')
+        # self.refresh_csv('wards', 'A:D')
 
 
 

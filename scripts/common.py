@@ -278,11 +278,6 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
     If smd_id_list is None, all districts are returned
     If smd_id_list is a list, those SMDs are returned
 
-    link level:
-        0: html root
-        1: ANC page
-        2: SMD page
-
     If show_redistricting_cycle is True, then the year of the cycle will be displayed.
     """
 
@@ -332,7 +327,7 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
 
 
 
-def build_data_table(row, fields_to_try, people_level=0):
+def build_data_table(row, fields_to_try, link_source):
     """
     Create HTML table for one row of data
 
@@ -359,10 +354,9 @@ def build_data_table(row, fields_to_try, people_level=0):
 
             if field_name in ['full_name', 'Name']:
                 # Write link to person page for full name
-                if people_level == -3:
-                    prefix = '../../../'
+                prefix = relative_link_prefix(source=link_source, destination='person')
                 
-                field_value = f'<a href="{prefix}people/{row.name_slug}.html">{row.full_name}</a>'
+                field_value = f'<a href="{prefix}{row.name_slug}.html">{row.full_name}</a>'
             else:
                 field_value = row[field_name]
 
@@ -483,11 +477,6 @@ def make_ordinal(n):
 def add_footer(input_html, link_source='root', updated_at=None):
     """
     Return HTML with footer included
-
-    level for relative links: 
-        0: same dir as homepage, index.html
-        1: one directory down, like ancs/map_2012/
-        2: two directories down, like ancs/map_2012/districts/
     """
 
     with open('templates/footer.html', 'r') as f:

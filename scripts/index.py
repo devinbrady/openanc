@@ -51,7 +51,8 @@ class BuildIndex():
 
             for _, row in ancs_cycle.iterrows():
 
-                html += f'<h3><a href="{anc_url(row.anc_id)}">{row.anc_name}</a></h3>'
+                anc_link = anc_url(row.anc_id, link_source='root')
+                html += f'<h3><a href="{anc_link}">{row.anc_name}</a></h3>'
 
                 smds_in_anc = districts_cycle[districts_cycle['anc_id'] == row.anc_id]['smd_id'].to_list()
 

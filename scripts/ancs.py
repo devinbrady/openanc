@@ -21,7 +21,8 @@ from scripts.common import (
     )
 
 from scripts.urls import (
-    anc_url
+    relative_link_prefix
+    , district_slug
     )
 
 
@@ -73,7 +74,7 @@ class BuildANCs():
             output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_source='anc'))
 
             fields_to_try = ['notes', 'link_block']
-            output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try))
+            output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try, link_source='anc'))
 
             
             output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
@@ -82,6 +83,6 @@ class BuildANCs():
 
             output = add_footer(output, link_source='anc')
 
-            with open(f'docs/' + anc_url(row.anc_id, level=0), 'w') as f:
+            with open('docs/' + relative_link_prefix(source='root', destination='anc', redistricting_year=row.redistricting_year) + district_slug(row.anc_id) + '.html', 'w') as f:
                 f.write(output)
 
