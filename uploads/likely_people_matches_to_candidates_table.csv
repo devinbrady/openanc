@@ -1,0 +1,3 @@
+candidate_id,candidate_id_suggested,match_person_id,dcboe_hash_id,smd_id,candidate_name,match_score,match_person_full_name,match_person_any_smd
+50544,50544,11368,044338b436cb354aaa243735e9a84058a2faeb5d7d7ee386e5f30517,smd_2022_4C07,Matthew Bradfield,100.0,Matthew Bradfield,smd_2022_4C07
+50567,50567,10204,ac2cf6da5a33ae20f9f93dddaf0b64ed65b5e8abe32a4a2d44634ae7,smd_2022_6D03,Gail Fast,100.0,Gail Fast,smd_6D01

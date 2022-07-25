@@ -13,7 +13,7 @@ from scripts.common import (
 )
 
 from scripts.urls import (
-    anc_url
+    generate_url
     )
 
 from scripts.data_transformations import districts_candidates_commissioners
@@ -51,7 +51,7 @@ class BuildIndex():
 
             for _, row in ancs_cycle.iterrows():
 
-                anc_link = anc_url(row.anc_id, link_source='root')
+                anc_link = generate_url(row.anc_id, link_source='root')
                 html += f'<h3><a href="{anc_link}">{row.anc_name}</a></h3>'
 
                 smds_in_anc = districts_cycle[districts_cycle['anc_id'] == row.anc_id]['smd_id'].to_list()
@@ -178,6 +178,6 @@ class BuildIndex():
         self.about_page()
         # self.build_single_page('index')
         self.build_map_page('index')
-        self.build_single_page('404')
+        self.build_single_page('404', link_source='absolute')
         self.list_page()
 

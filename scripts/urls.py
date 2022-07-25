@@ -1,18 +1,61 @@
+"""
+Scripts for handling URLs within the OpenANC project
+"""
+
+import pandas as pd
 
 
-def district_link(smd_id, smd_name, link_source='root', show_redistricting_cycle=False, redistricting_cycle=None):
-    """Return an HTML link for one district page"""
 
-    if show_redistricting_cycle:
-        redistricting_string = f'[{redistricting_cycle} Cycle] '
+def generate_url(page_id, link_source='root'):
+    """
+    Return a relative link to a given smd_id, anc_id, or ward_id's page from a source page
+
+    The page_id sent to this function for a person must be the person_name_id
+    """
+
+    if page_id.startswith('smd_'):
+        destination = 'district'
+    elif page_id.startswith('anc_'):
+        destination = 'anc'
+    elif page_id.startswith('ward_'):
+        destination = 'ward'
+    elif page_id.startswith('person_'):
+        destination = 'person'
     else:
-        redistricting_string = ''
+        raise ValueError(f'District ID {page_id} is not a valid OpenANC ID.')
 
-    link_body = f'{redistricting_string}{smd_name}'
+    if destination != 'person' and '2022' in page_id:
+        redistricting_year = 2022
+    else:
+        redistricting_year = 2012
 
-    link_text = f'<a href="{district_url(smd_id, link_source=link_source)}">{link_body}</a>'
+    return (
+        relative_link_prefix(source=link_source, destination=destination, redistricting_year=redistricting_year)
+        + link_slug(page_id) + '.html'
+        )
 
-    return link_text
+
+
+def generate_link(page_id, link_body, link_source='root'):
+    """Generate a relative internal link to a destination specified by page_id"""
+
+    return f'<a href="{generate_url(page_id, link_source=link_source)}">{link_body}</a>'
+
+
+
+# def district_link(smd_id, smd_name, link_source='root', show_redistricting_cycle=False, redistricting_cycle=None):
+#     """Return an HTML link for one district page"""
+
+#     if show_redistricting_cycle:
+#         redistricting_string = f'[{redistricting_cycle} Cycle] '
+#     else:
+#         redistricting_string = ''
+
+#     link_body = f'{redistricting_string}{smd_name}'
+
+#     link_text = f'<a href="{generate_url(smd_id, link_source=link_source)}">{link_body}</a>'
+
+#     return link_text
 
 
 
@@ -98,76 +141,42 @@ def relative_link_prefix(source, destination, redistricting_year='xxxx'):
 
 
 
-def district_url(smd_id, link_source='root'):
-    """
-    Generate a complete url for a smd_id
-    """
-    
-    if '2022' in smd_id:
-        redistricting_year = '2022'
-    else:
-        redistricting_year = '2012'
-
-    link_prefix = relative_link_prefix(
-        source=link_source
-        , destination='district'
-        , redistricting_year=redistricting_year
-        )
-
-    return f'{link_prefix}{district_slug(smd_id)}.html' 
-
-
-
-def anc_url(anc_id, link_source):
-    """
-    Generate a complete url for an anc_id
-    """
-
-    if '2022' in anc_id:
-        redistricting_year = '2022'
-    else:
-        redistricting_year = '2012'
-
-    link_prefix = relative_link_prefix(
-        source=link_source
-        , destination='anc'
-        , redistricting_year=redistricting_year
-        )
-
-    return f'{link_prefix}{district_slug(anc_id)}.html' 
-
-
-
-def ward_url(ward_id, level=0):
-    """
-    Generate a complete url for an ward_id
-    """
-
-    if '2022' in ward_id:
-        redistricting_year = '2022'
-    else:
-        redistricting_year = '2012'
-
-    if level == -1:
-        link_path = f'../map_{redistricting_year}/wards/'
-    elif level == 0:
-        link_path = f'map_{redistricting_year}/wards/'
-    else:
-        raise ValueError(f'Link level {level} is not implemented yet')
-
-    return f'{link_path}{district_slug(ward_id)}.html' 
-
-
-
-def district_slug(smd_id):
+def link_slug(smd_id):
     """
     Generate the final part of a district URL, that will go before the '.html'
     """
 
-    items_to_strip_out = ['2022', 'smd', '_', '/']
+    items_to_strip_out = ['2022', 'smd', 'anc', 'ward', 'person', '_', '/']
 
-    district_slug = smd_id
+    slug = smd_id
     for i in items_to_strip_out:
-        district_slug = district_slug.replace(i, '')
+        slug = slug.replace(i, '')
 
-    return district_slug
+    return slug
+
+
+
+def format_name_for_url_from_person_id(person_id):
+
+    people = pd.read_csv('data/people.csv')
+
+    person_name = people[people.person_id == person_id].full_name.iloc[0]
+
+    return format_name_for_url(person_name)
+
+
+
+def format_name_for_url(name):
+    """
+    Strip out the non-ASCII characters from a person's full name to use as the URL.
+    This is somewhat like Wikipedia's URL formatting but not exactly.
+
+    Spaces stripped out, numbers and letters with accents are preserved as they are.
+    """
+
+    characters_to_strip = [' ', '_', '"' , '(' , ')' , '.' , '-' , ',' , '\'']
+    for c in characters_to_strip:
+        name = name.replace(c, '')
+
+    return name
+

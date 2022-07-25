@@ -18,11 +18,13 @@ from scripts.data_transformations import (
     )
 
 from scripts.urls import (
-    district_url
+    generate_url
+    , generate_link
     , relative_link_prefix
     )
 
-
+CURRENT_ELECTION_YEAR = 2022
+CURRENT_REDISTRICTING_YEAR = 2022
 
 def smd_geojson():
     """Return a GeoDataFrame with SMDs from all redistricting cycles"""
@@ -210,7 +212,7 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
     display_df = district_comm_commelect[district_comm_commelect['smd_id'].isin(list_of_smds)].copy()
 
     display_df['SMD'] = display_df.apply(lambda x: 
-        f'<a href="{district_url(x.smd_id, link_source=link_source)}">{x.smd_name}</a>'
+        f'<a href="{generate_url(x.smd_id, link_source=link_source)}">{x.smd_name}</a>'
         , axis=1
         )
 
@@ -317,7 +319,7 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
 
         link_body = f'{redistricting_string}{district_row.smd_name}{commissioner_name}'
 
-        district_list += f'<li><a href="{district_url(smd_id, link_source=link_source)}">{link_body}</a></li>'
+        district_list += f'<li><a href="{generate_url(smd_id, link_source=link_source)}">{link_body}</a></li>'
 
 
     district_list += '</ul>'
@@ -327,7 +329,7 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
 
 
 
-def build_data_table(row, fields_to_try, link_source):
+def build_data_table(row, fields_to_try, link_source='root'):
     """
     Create HTML table for one row of data
 
@@ -354,9 +356,7 @@ def build_data_table(row, fields_to_try, link_source):
 
             if field_name in ['full_name', 'Name']:
                 # Write link to person page for full name
-                prefix = relative_link_prefix(source=link_source, destination='person')
-                
-                field_value = f'<a href="{prefix}{row.name_slug}.html">{row.full_name}</a>'
+                field_value = generate_link(row.person_name_id, link_source=link_source, link_body=row.full_name)
             else:
                 field_value = row[field_name]
 

@@ -12,6 +12,7 @@ from scripts.common import (
     , add_google_analytics
     , build_data_table
     , make_ordinal
+    , CURRENT_ELECTION_YEAR
 )
 
 from scripts.data_transformations import (
@@ -22,8 +23,10 @@ from scripts.data_transformations import (
 
 
 from scripts.urls import (
-    district_link
+    generate_url
+    , generate_link
     )
+
 
 
 class BuildPeople():
@@ -42,11 +45,10 @@ class BuildPeople():
 
         self.districts = pd.read_csv('data/districts.csv')
         self.districts['smd_url'] = self.districts.apply(
-            lambda x: district_link(
+            lambda x: generate_link(
                 x.smd_id
-                , x.smd_name
                 , link_source='person'
-                , show_redistricting_cycle=False
+                , link_body=x.smd_name
                 )
             , axis=1
             )
@@ -107,7 +109,7 @@ class BuildPeople():
 
             for idx, person in self.people_valid[self.people_valid.first_letter == letter].sort_values(by='full_name').iterrows():
 
-                html += f'<li><a href="{person.name_slug}.html">{person.full_name}</a></li>'
+                html += '<li>' + generate_link(person.person_name_id, link_source='person', link_body=person.full_name) + '</li>'
 
             html += '</ul>'
 
@@ -140,7 +142,17 @@ class BuildPeople():
 
         output = output.replace('REPLACE_WITH_PERSON_FULL_NAME', person.full_name)
 
+        # Determine if this person has run for office or served as a commissioner
         person_districts = self.people_comm.loc[self.people_comm.person_id == person.person_id].copy()
+        person_candidacies = self.candidates_districts_results.loc[self.candidates_districts_results.person_id == person.person_id].copy()
+
+        # Only add the link for people with active candidacy or currently serving as commissioner
+        if (person_districts['is_current'].sum() > 0) or ((person_candidacies.election_year == CURRENT_ELECTION_YEAR).sum() > 0):
+            link_table = build_data_table(person, ['website_link', 'twitter_link', 'facebook_link'])
+            if link_table != '':
+                link_table = '<h2>Links</h2><ul>' + link_table + '</ul>'
+            output = output.replace('<!-- replace with person links -->', link_table)
+        
 
         if len(person_districts) > 0:
             district_block = '<h2>Districts Represented</h2><ul>'
@@ -157,8 +169,6 @@ class BuildPeople():
 
             output = output.replace('<!-- replace with districts represented -->', district_block)
 
-
-        person_candidacies = self.candidates_districts_results.loc[self.candidates_districts_results.person_id == person.person_id].copy()
 
         if len(person_candidacies) > 0:
             candidacies_block = '<h2>Candidacies</h2><ul>'
@@ -180,7 +190,7 @@ class BuildPeople():
 
         output = add_footer(output, link_source='person')
 
-        with open(f'docs/people/{person.name_slug}.html', 'w') as f:
+        with open('docs/' + generate_url(person.person_name_id, link_source='root'), 'w') as f:
             f.write(output)
 
 
