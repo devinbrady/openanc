@@ -92,7 +92,21 @@ class MonitorDCBOE():
 
 
 
+    def is_internet_connected(self):
+        
+        try:
+            response = requests.get('https://google.com')
+        except requests.exceptions.ConnectionError:
+            return False
+        
+        return response.status_code == 200
+
+
     def run(self):
+
+        if not self.is_internet_connected():
+            print('No internet connection, exiting.')
+            return
 
         if self.args.reset:
             self.reset()

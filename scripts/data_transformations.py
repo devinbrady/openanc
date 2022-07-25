@@ -8,8 +8,7 @@ from datetime import datetime
 
 
 from scripts.urls import (
-    relative_link_prefix
-    , format_name_for_url
+    generate_link
     )
 
 
@@ -76,8 +75,8 @@ def districts_candidates_commissioners(
     
     if link_source:
         # create links for each person's page, if a link is requested by the calling function
-        link_prefix = relative_link_prefix(source=link_source, destination='person')
-        people['name_url'] = people.apply(lambda x: f'<a href="{link_prefix}{x.name_slug}.html">{x.full_name}</a>', axis=1)
+        # todo: rename to name_link
+        people['name_url'] = people.apply(lambda x: generate_link(x.person_name_id, link_source=link_source, link_body=x.full_name), axis=1)
     else:
         people['name_url'] = 'x'
 
@@ -221,7 +220,7 @@ def list_commissioners(status=None, date_point=None):
     """
 
     if status and status not in ('former', 'current', 'future'):
-        raise ValueError(f'Commissioner status {status} is not valid.')
+        raise ValueError(f'Commissioner status "{status}" is not valid. Must be: former, current, future')
 
     commissioners = pd.read_csv('data/commissioners.csv')
 
@@ -286,7 +285,7 @@ def people_dataframe():
     """Return dataframe of people.csv with the name URLs added."""
 
     people = pd.read_csv('data/people.csv')
-    people['name_slug'] = people.full_name.apply(lambda x: format_name_for_url(x))
+    # people['name_slug'] = people.full_name.apply(lambda x: format_name_for_url(x))
 
     return people
 

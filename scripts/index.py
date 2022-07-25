@@ -178,6 +178,6 @@ class BuildIndex():
         self.about_page()
         # self.build_single_page('index')
         self.build_map_page('index')
-        self.build_single_page('404')
+        self.build_single_page('404', link_source='absolute')
         self.list_page()
 

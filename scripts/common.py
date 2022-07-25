@@ -19,10 +19,12 @@ from scripts.data_transformations import (
 
 from scripts.urls import (
     generate_url
+    , generate_link
     , relative_link_prefix
     )
 
-
+CURRENT_ELECTION_YEAR = 2022
+CURRENT_REDISTRICTING_YEAR = 2022
 
 def smd_geojson():
     """Return a GeoDataFrame with SMDs from all redistricting cycles"""
@@ -327,7 +329,7 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
 
 
 
-def build_data_table(row, fields_to_try, link_source):
+def build_data_table(row, fields_to_try, link_source='root'):
     """
     Create HTML table for one row of data
 
@@ -354,9 +356,7 @@ def build_data_table(row, fields_to_try, link_source):
 
             if field_name in ['full_name', 'Name']:
                 # Write link to person page for full name
-                prefix = relative_link_prefix(source=link_source, destination='person')
-                
-                field_value = f'<a href="{prefix}{row.name_slug}.html">{row.full_name}</a>'
+                field_value = generate_link(row.person_name_id, link_source=link_source, link_body=row.full_name)
             else:
                 field_value = row[field_name]
 

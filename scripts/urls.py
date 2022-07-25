@@ -2,52 +2,60 @@
 Scripts for handling URLs within the OpenANC project
 """
 
+import pandas as pd
 
-def generate_url(district_id, link_source='root'):
+
+
+def generate_url(page_id, link_source='root'):
     """
     Return a relative link to a given smd_id, anc_id, or ward_id's page from a source page
+
+    The page_id sent to this function for a person must be the person_name_id
     """
 
-    if 'smd_' in district_id:
+    if page_id.startswith('smd_'):
         destination = 'district'
-    elif 'anc_' in district_id:
+    elif page_id.startswith('anc_'):
         destination = 'anc'
-    elif 'ward_' in district_id:
+    elif page_id.startswith('ward_'):
         destination = 'ward'
-    else: # person_id
+    elif page_id.startswith('person_'):
         destination = 'person'
+    else:
+        raise ValueError(f'District ID {page_id} is not a valid OpenANC ID.')
 
-    if '2022' in district_id:
+    if destination != 'person' and '2022' in page_id:
         redistricting_year = 2022
     else:
         redistricting_year = 2012
 
-    if destination == 'person':
-        link_slug = format_name_for_url_from_person_id(district_id)
-    else:
-        link_slug = district_slug(district_id)
-
     return (
         relative_link_prefix(source=link_source, destination=destination, redistricting_year=redistricting_year)
-        + link_slug
-        + '.html'
+        + link_slug(page_id) + '.html'
         )
 
 
-# should be generate_link, make it work for all destinations
-def district_link(smd_id, smd_name, link_source='root', show_redistricting_cycle=False, redistricting_cycle=None):
-    """Return an HTML link for one district page"""
 
-    if show_redistricting_cycle:
-        redistricting_string = f'[{redistricting_cycle} Cycle] '
-    else:
-        redistricting_string = ''
+def generate_link(page_id, link_body, link_source='root'):
+    """Generate a relative internal link to a destination specified by page_id"""
 
-    link_body = f'{redistricting_string}{smd_name}'
+    return f'<a href="{generate_url(page_id, link_source=link_source)}">{link_body}</a>'
 
-    link_text = f'<a href="{generate_url(smd_id, link_source=link_source)}">{link_body}</a>'
 
-    return link_text
+
+# def district_link(smd_id, smd_name, link_source='root', show_redistricting_cycle=False, redistricting_cycle=None):
+#     """Return an HTML link for one district page"""
+
+#     if show_redistricting_cycle:
+#         redistricting_string = f'[{redistricting_cycle} Cycle] '
+#     else:
+#         redistricting_string = ''
+
+#     link_body = f'{redistricting_string}{smd_name}'
+
+#     link_text = f'<a href="{generate_url(smd_id, link_source=link_source)}">{link_body}</a>'
+
+#     return link_text
 
 
 
@@ -133,18 +141,18 @@ def relative_link_prefix(source, destination, redistricting_year='xxxx'):
 
 
 
-def district_slug(smd_id):
+def link_slug(smd_id):
     """
     Generate the final part of a district URL, that will go before the '.html'
     """
 
-    items_to_strip_out = ['2022', 'smd', 'anc', 'ward', '_', '/']
+    items_to_strip_out = ['2022', 'smd', 'anc', 'ward', 'person', '_', '/']
 
-    district_slug = smd_id
+    slug = smd_id
     for i in items_to_strip_out:
-        district_slug = district_slug.replace(i, '')
+        slug = slug.replace(i, '')
 
-    return district_slug
+    return slug
 
 
 
@@ -157,19 +165,18 @@ def format_name_for_url_from_person_id(person_id):
     return format_name_for_url(person_name)
 
 
+
 def format_name_for_url(name):
     """
     Strip out the non-ASCII characters from a person's full name to use as the URL.
     This is somewhat like Wikipedia's URL formatting but not exactly.
 
-    Spaces become underscores, numbers and letters with accents are preserved as they are.
+    Spaces stripped out, numbers and letters with accents are preserved as they are.
     """
 
-    name_formatted = name.replace(' ', '_')
-
-    characters_to_strip = ['"' , '(' , ')' , '.' , '-' , ',' , '\'']
+    characters_to_strip = [' ', '_', '"' , '(' , ')' , '.' , '-' , ',' , '\'']
     for c in characters_to_strip:
-        name_formatted = name_formatted.replace(c, '')
+        name = name.replace(c, '')
 
-    return name_formatted
+    return name
 

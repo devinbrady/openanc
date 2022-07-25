@@ -19,6 +19,7 @@ from scripts.common import (
 
 from scripts.urls import (
     generate_url
+    , format_name_for_url
     )
 
 from scripts.data_transformations import (
@@ -46,15 +47,6 @@ class RefreshData():
         }
 
         self.service = self.google_auth()
-
-        dcc = districts_candidates_commissioners(link_source='root')
-
-        self.map_display_df = self.build_map_display_box(dcc)
-
-        # self.map_display_df = dcc.apply(
-        #     lambda x: self.build_map_display_box(x)
-        #     , axis=1
-        #     )
 
 
 
@@ -444,6 +436,7 @@ class RefreshData():
         self.refresh_csv('districts', 'A:Q')
         self.refresh_csv('people', 'A:H')
         self.refresh_csv('commissioners', 'A:E')
+        self.refresh_csv('incumbents_not_running', 'A:C')
 
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
@@ -458,12 +451,25 @@ class RefreshData():
 
 
 
+    def add_name_id_to_people_csv(self):
+        """Calculate the name slug once for the people CSV and save it"""
+
+        people = pd.read_csv('data/people.csv')
+        people['person_name_id'] = 'person_' + people.full_name.apply(lambda x: format_name_for_url(x))
+        people.to_csv('data/people.csv', index=False)
+
+
+
     def run(self):
 
         self.download_google_sheets()
+        self.add_name_id_to_people_csv()
 
         self.confirm_key_uniqueness('people', 'person_id')
         self.confirm_key_uniqueness('candidates', 'candidate_id')
+
+        dcc = districts_candidates_commissioners(link_source='root')
+        self.map_display_df = self.build_map_display_box(dcc)
 
         self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
         self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')

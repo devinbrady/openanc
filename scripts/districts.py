@@ -27,8 +27,7 @@ from scripts.common import (
 
 from scripts.urls import (
     generate_url
-    , relative_link_prefix
-    , district_slug
+    , generate_link
     )
 
 
@@ -179,14 +178,8 @@ class BuildDistricts():
             
             # todo: turn this into a function, it's ugly
             smd_results['full_name'] = smd_results.apply(
-                lambda x: (
-                        '<a href="'
-                        + relative_link_prefix(source='district', destination='person')
-                        + x.name_slug
-                        + '.html">'
-                        + x.full_name
-                        + '</a>'
-                    ) if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
+                lambda x: generate_link(x.person_name_id, link_source='district', link_body=x.full_name)
+                        if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
                 , axis=1
                 )
 
@@ -522,10 +515,9 @@ class BuildDistricts():
             neighbor_smd_ids = row['neighbor_smds'].split(', ')
             output = output.replace('<!-- replace with neighbors -->', build_district_list(neighbor_smd_ids, link_source='district', show_redistricting_cycle=True))
 
-
-            output = output.replace('REPLACE_WITH_WARD_URL', relative_link_prefix(source='district', destination='ward', redistricting_year=row.redistricting_year) + district_slug(row.ward_id) + '.html')
+            output = output.replace('REPLACE_WITH_WARD_URL', generate_url(row.ward_id, link_source='district'))
             output = output.replace('REPLACE_WITH_WARD_NAME', row.ward_name)
-            output = output.replace('REPLACE_WITH_ANC_URL', relative_link_prefix(source='district', destination='anc', redistricting_year=row.redistricting_year) + district_slug(row.anc_id) + '.html')
+            output = output.replace('REPLACE_WITH_ANC_URL', generate_url(row.anc_id, link_source='district'))
             output = output.replace('REPLACE_WITH_ANC_NAME', row.anc_name)
 
             output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
