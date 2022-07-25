@@ -26,9 +26,7 @@ from scripts.common import (
     )
 
 from scripts.urls import (
-    anc_url
-    , ward_url
-    , district_url
+    generate_url
     , relative_link_prefix
     , district_slug
     )
@@ -451,7 +449,7 @@ class BuildDistricts():
             overlap_percentage_display = '{:.1%}'.format(float(overlap_percentage_list[i]))
 
             link_body = f'{oldnew[0]} {district_row.smd_name}{commissioner_name} ({overlap_percentage_display} of {oldnew[1]} {smd_name})'
-            link_url = district_url(district_row.smd_id, link_source='district')
+            link_url = generate_url(district_row.smd_id, link_source='district')
 
             district_list += f'<li><a href="{link_url}">{link_body}</a></li>'
 
@@ -538,7 +536,7 @@ class BuildDistricts():
             output = add_footer(output, link_source='district')
 
 
-            with open('docs/' + district_url(smd_id), 'w') as f:
+            with open('docs/' + generate_url(smd_id, link_source='root'), 'w') as f:
                 f.write(output)
 
 

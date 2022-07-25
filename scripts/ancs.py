@@ -21,8 +21,7 @@ from scripts.common import (
     )
 
 from scripts.urls import (
-    relative_link_prefix
-    , district_slug
+    generate_url
     )
 
 
@@ -83,6 +82,6 @@ class BuildANCs():
 
             output = add_footer(output, link_source='anc')
 
-            with open('docs/' + relative_link_prefix(source='root', destination='anc', redistricting_year=row.redistricting_year) + district_slug(row.anc_id) + '.html', 'w') as f:
+            with open('docs/' + generate_url(row.anc_id, link_source='root'), 'w') as f:
                 f.write(output)
 

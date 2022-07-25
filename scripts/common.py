@@ -18,7 +18,7 @@ from scripts.data_transformations import (
     )
 
 from scripts.urls import (
-    district_url
+    generate_url
     , relative_link_prefix
     )
 
@@ -210,7 +210,7 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
     display_df = district_comm_commelect[district_comm_commelect['smd_id'].isin(list_of_smds)].copy()
 
     display_df['SMD'] = display_df.apply(lambda x: 
-        f'<a href="{district_url(x.smd_id, link_source=link_source)}">{x.smd_name}</a>'
+        f'<a href="{generate_url(x.smd_id, link_source=link_source)}">{x.smd_name}</a>'
         , axis=1
         )
 
@@ -317,7 +317,7 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
 
         link_body = f'{redistricting_string}{district_row.smd_name}{commissioner_name}'
 
-        district_list += f'<li><a href="{district_url(smd_id, link_source=link_source)}">{link_body}</a></li>'
+        district_list += f'<li><a href="{generate_url(smd_id, link_source=link_source)}">{link_body}</a></li>'
 
 
     district_list += '</ul>'

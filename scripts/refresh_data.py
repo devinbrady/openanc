@@ -18,8 +18,7 @@ from scripts.common import (
     )
 
 from scripts.urls import (
-    district_url
-    , anc_url
+    generate_url
     )
 
 from scripts.data_transformations import (
@@ -154,7 +153,7 @@ class RefreshData():
             # smd_id = row['smd_id']
 
             map_display_box = (
-                f'<b><a href="{district_url(row.smd_id)}">District {row.smd_name}</a></b>'
+                f'<b><a href="{generate_url(row.smd_id)}">District {row.smd_name}</a></b>'
                 )
 
             if '_2022_' in row.smd_id:
@@ -240,7 +239,7 @@ class RefreshData():
         if len(district_info_comm) != 296:
             raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-        district_info_comm['openanc_link'] = district_info_comm['smd_id'].apply(lambda x: 'https://openanc.org/' + district_url(x))
+        district_info_comm['openanc_link'] = district_info_comm['smd_id'].apply(lambda x: generate_url(x, link_source='absolute'))
 
         columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
 
@@ -275,7 +274,7 @@ class RefreshData():
         if len(twttr) != 296:
             raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-        twttr['openanc_link'] = 'https://openanc.org/' + district_url(twttr['smd_id'])
+        twttr['openanc_link'] = generate_url(twttr.smd_id, link_source='absolute')
 
         columns_to_publish = ['smd_id', 'person_id', 'full_name', 'start', 'end', 'twitter_link', 'facebook_link', 'website_link', 'openanc_link']
 
@@ -292,7 +291,7 @@ class RefreshData():
         ancs = pd.read_csv('data/ancs.csv')
         # districts = pd.read_csv('data/districts.csv')
 
-        ancs['openanc_link'] = anc_url(ancs['anc_id'], link_source='absolute')
+        ancs['openanc_link'] = generate_url(ancs.anc_id, link_source='absolute')
 
         columns_to_publish = [
             'anc_id'

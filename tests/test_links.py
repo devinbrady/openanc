@@ -127,7 +127,7 @@ class TestLinks():
         orphan_destinations = [x for x in destination_unique if x not in source_unique]
 
         # 404 page is an orphan on purpose - no pages should link to it
-        orphan_sources = [x for x in source_unique if (x not in destination_unique) and ('404' not in x)]
+        orphan_sources = [x for x in source_unique if (x not in destination_unique) and ('404' not in str(x))]
 
         num_orphan_destinations = len(orphan_destinations)
         # todo: should be assert?
