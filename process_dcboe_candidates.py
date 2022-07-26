@@ -40,7 +40,7 @@ def clean_csv():
 
     excel_file_dir = 'data/dcboe/excel-clean/'
     excel_file = most_recent_file(excel_file_dir, 'dcboe-')
-    dcboe_updated_at = excel_file.replace(excel_file_dir, '').replace('dcboe-', '').replace('.xlsx', '')
+    dcboe_updated_at = excel_file.replace(excel_file_dir, '').replace('dcboe-', '').replace('a.xlsx', '').replace('b.xlsx', '').replace('.xlsx', '')
     print('Reading Excel file: ' + excel_file)
 
     df = pd.read_excel(excel_file)
@@ -435,7 +435,6 @@ def list_candidates_to_add():
 
                 mc.loc[idx, 'candidate_id_suggested'] = max_id_candidate+1
                 max_id_candidate += 1
-            
             
             (
                 mc[[

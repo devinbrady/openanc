@@ -573,7 +573,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10595,Chelsea Skinner,smd_5E01,,smd_5E01,,,,person_ChelseaSkinner
 10596,Paul Biedlingmaier III,smd_6D02,,smd_6D02,,,,person_PaulBiedlingmaierIII
 10597,David Brooks II,smd_7B02,,smd_7B02,,,,person_DavidBrooksII
-10598,Ashley R. Ruff,smd_7F01,,smd_7F01,,,,person_AshleyRRuff
+10598,Ashley R. Ruff,smd_7F01,,smd_7F01,https://twitter.com/ThawtfulWard7,,,person_AshleyRRuff
 10599,"Travon ""Ward8"" Hawkins",smd_8C04,smd_8C04,smd_8C04,,,,person_TravonWard8Hawkins
 10600,Zenobia Love,smd_8D01,,smd_8D01,,,,person_ZenobiaLove
 10601,Matthew O'Donnell,smd_2E06,,smd_2E06,,,,person_MatthewODonnell
@@ -605,7 +605,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10627,James Tandaric,smd_3F07,smd_3F07,smd_2022_3F05,https://twitter.com/JamesTandaric,,,person_JamesTandaric
 10628,Graham Button,smd_4B05,smd_4B05,,,,,person_GrahamButton
 10629,Brandolon Barnett,smd_1A06,smd_1A06,,https://twitter.com/BrandolonB,,,person_BrandolonBarnett
-10630,LaQueta Tate,smd_8E03,smd_8E03,,,,,person_LaQuetaTate
+10630,LaQueta Tate,smd_8E03,smd_8E03,smd_2022_8E02,,,,person_LaQuetaTate
 10631,Harry Thomas Jr.,smd_5C06,smd_5C06,,,,,person_HarryThomasJr
 10632,Jake Faleschini,smd_1C07,smd_1C07,,https://twitter.com/soundpolicy,,,person_JakeFaleschini
 10633,Jeff Rueckgauer,smd_2B02,smd_2B02,smd_2022_2B02,https://twitter.com/Jeff2B02,,,person_JeffRueckgauer
@@ -643,7 +643,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10665,Zach Teutsch,smd_1A12,,,,,,person_ZachTeutsch
 10667,Margaret Hundley,smd_1A12,,,,,,person_MargaretHundley
 10668,Marc Morgan,smd_1B01,,,,,,person_MarcMorgan
-10669,Brian Footer,smd_1B01,,,,,,person_BrianFooter
+10669,Brian Footer,smd_1B01,,smd_2022_1E07,,,,person_BrianFooter
 10670,Jonathan Goldman,smd_1B01,,,,,,person_JonathanGoldman
 10671,Jeremy C. Leffler,smd_1B02,,,,,,person_JeremyCLeffler
 10672,Ellen Nedrow Sullivan,smd_1B02,,,,,,person_EllenNedrowSullivan
@@ -667,7 +667,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10690,Tony Norman,smd_1B10,,,,,,person_TonyNorman
 10691,Allyson N. Carpenter,smd_1B10,,,,,,person_AllysonNCarpenter
 10692,Paul Glicksman,smd_1B10,,,,,,person_PaulGlicksman
-10693,E. Gail Anderson Holness,smd_1B11,,,,,,person_EGailAndersonHolness
+10693,E. Gail Anderson Holness,smd_1B11,,smd_2022_1E06,,,,person_EGailAndersonHolness
 10694,Erling (Erl) Bailey,smd_1B12,,,,,,person_ErlingErlBailey
 10695,John Carlos Green,smd_1B12,,,,,,person_JohnCarlosGreen
 10696,Zahra Jilani,smd_1B12,,,,,,person_ZahraJilani
@@ -1132,7 +1132,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11161,Josh Hart,smd_6D07,,,,,,person_JoshHart
 11162,Meredith Fascett,smd_6D07,,,,,,person_MeredithFascett
 11163,Td Stanger,smd_6D07,,,,,,person_TdStanger
-11164,Brant J Miller,smd_6D07,,,,,,person_BrantJMiller
+11164,Brant J. Miller,smd_6D07,,smd_2022_2F07,https://twitter.com/brantjmiller,,,person_BrantJMiller
 11165,Patrick Witte,smd_6D07,,,,,,person_PatrickWitte
 11166,Kevin Chapple,smd_6E02,,,,,,person_KevinChapple
 11167,Leroy Joseph Thorpe Jr.,smd_6E02,,,,,,person_LeroyJosephThorpeJr
@@ -1313,7 +1313,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11349,Alexandra Gianinno,smd_3E05,smd_3E05,,,,,person_AlexandraGianinno
 11350,Tequia Hicks Delgado,smd_5C03,smd_5C03,,,,,person_TequiaHicksDelgado
 11351,Jocelyn Dyer,smd_3C08,smd_3C08,,,,,person_JocelynDyer
-11352,Carole Feld,smd_2D02,smd_2D02,,,,,person_CaroleFeld
+11352,Carole Feld,smd_2D02,smd_2D02,smd_2022_2D02,,,,person_CaroleFeld
 11353,Matt LaFortune,smd_2022_6B09,,smd_2022_6B09,https://twitter.com/mattlafortune,,,person_MattLaFortune
 11354,Josh Jacobson,smd_2022_1E06,,smd_2022_1E06,https://twitter.com/jacobsonjh,,https://joshforanc.com/,person_JoshJacobson
 11355,Ashley Schapitl,smd_2022_7D09,,smd_2022_7D09,,,,person_AshleySchapitl
@@ -1327,7 +1327,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11363,Tucker Jones,smd_2022_1B09,,smd_2022_1B09,,,,person_TuckerJones
 11364,Quentin Colón Roosevelt,smd_2022_3D03,,smd_2022_3D03,https://twitter.com/qcolonroosevelt,,,person_QuentinColónRoosevelt
 11365,Zachary Adams,smd_2022_2B08,,smd_2022_2B08,https://twitter.com/zacheadams,,,person_ZacharyAdams
-11366,Jamie Sycamore,smd_2022_1B03,,smd_2022_1B03,,,,person_JamieSycamore
+11366,Jamie S. Sycamore,smd_2022_1B03,,smd_2022_1B03,,,,person_JamieSSycamore
 11367,Shane Seger,smd_2022_7D09,,smd_2022_7D09,,,,person_ShaneSeger
 11368,Matthew Bradfield,smd_2022_4C07,,smd_2022_4C07,https://twitter.com/palerider318,,https://matthewbforanc.blogspot.com/,person_MatthewBradfield
 11369,"Wendy ""Hope Dealer"" Hamilton",smd_2022_8D06,,smd_2022_8D06,https://twitter.com/revwendy3,https://www.facebook.com/RevWendyHamilton,https://www.revwendyhamilton.com/,person_WendyHopeDealerHamilton
@@ -1335,12 +1335,12 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11371,Jeremy Sherman,smd_2022_1A04,,smd_2022_1A04,,,,person_JeremySherman
 11372,Eric Jonathan Sheptok,smd_2022_1E06,,smd_2022_1E06,,,,person_EricJonathanSheptok
 11373,Carson Colton Robb,smd_2022_2A04,,smd_2022_2A04,,,,person_CarsonColtonRobb
-11374,Patrick Lyell Clawson,smd_2022_2E02,,smd_2022_2E02,,,,person_PatrickLyellClawson
+11374,Patrick Clawson,smd_2022_2E02,,smd_2022_2E02,,,,person_PatrickClawson
 11375,Brian J. McCabe,smd_2022_2F04,,smd_2022_2F04,,,,person_BrianJMcCabe
 11376,Willie Doggett,smd_2022_2G05,,smd_2022_2G05,,,,person_WillieDoggett
 11377,Adam J. Prinzo,smd_2022_3C02,,smd_2022_3C02,,,,person_AdamJPrinzo
 11379,Earle Douglass,smd_2022_3E04,,smd_2022_3E04,,,,person_EarleDouglass
-11380,Rona Walter,smd_2022_3F06,,smd_2022_3F06,,,,person_RonaWalter
+11380,Rona Walters,smd_2022_3F06,,smd_2022_3F06,,,,person_RonaWalters
 11381,Neena Murphy Martin,smd_2022_4A01,,smd_2022_4A01,,,,person_NeenaMurphyMartin
 11382,Kim Patterson,smd_2022_4A05,,smd_2022_4A05,,,,person_KimPatterson
 11383,Antonia M. Kirby,smd_2022_4C02,,smd_2022_4C02,,,,person_AntoniaMKirby
@@ -1367,7 +1367,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11404,Melody Moore,smd_2022_8D08,,smd_2022_8D08,,,,person_MelodyMoore
 11405,Deborah Wells,smd_2022_8E01,,smd_2022_8E01,,,,person_DeborahWells
 11406,Brian Strege,smd_2022_8F03,,smd_2022_8F03,,,,person_BrianStrege
-11407,Christopher Davis,smd_2B04,smd_2B04,smd_2022_2B04,,,,person_ChristopherDavis
+11407,Christopher Davis,smd_2B04,smd_2B04,smd_2022_2B09,,,,person_ChristopherDavis
 11408,Margaret Stevens,smd_2022_1C05,,smd_2022_1C05,,,,person_MargaretStevens
 11409,Mimsy Lindner,smd_2022_2E05,,smd_2022_2E05,,,,person_MimsyLindner
 11410,Gawain Kripke,smd_2022_3C07,,smd_2022_3C07,,,,person_GawainKripke
@@ -1393,3 +1393,28 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11430,Tonya Crawford,smd_2022_8A01,,smd_2022_8A01,,,,person_TonyaCrawford
 11431,Dascha Cleckley,smd_2022_8C03,,smd_2022_8C03,,,,person_DaschaCleckley
 11432,Gordon Chaffin,smd_2022_5F03,,smd_2022_5F03,https://twitter.com/GordonByBike,,https://linktr.ee/gordonchaffin,person_GordonChaffin
+11433,Elan Strait,smd_2022_1A10,,smd_2022_1A10,,,,person_ElanStrait
+11434,Erika Nunez,smd_2022_1D03,,smd_2022_1D03,,,,person_ErikaNunez
+11435,Angela Allison,smd_2022_1D06,,smd_2022_1D06,,,,person_AngelaAllison
+11436,Jim Malec,smd_2022_2A02,,smd_2022_2A02,,,,person_JimMalec
+11437,Bernard Kramer,smd_2022_2A05,,smd_2022_2A05,,,,person_BernardKramer
+11438,Jordan Nassar,smd_2022_2A08,,smd_2022_2A08,,,,person_JordanNassar
+11439,James Nash,smd_2022_3/4G03,,smd_2022_3/4G03,,,,person_JamesNash
+11440,Hayden Gise,smd_2022_3C01,,smd_2022_3C01,,,,person_HaydenGise
+11441,"Charles ""Chuck"" Elkins",smd_2022_3D01,,smd_2022_3D01,,,,person_CharlesChuckElkins
+11442,Kathy Hudson,smd_2022_3F02,,smd_2022_3F02,,,,person_KathyHudson
+11443,Andrew Koval,smd_2022_3F05,,smd_2022_3F05,,,,person_AndrewKoval
+11444,T. Michelle Colson,smd_2022_4B01,,smd_2022_4B01,,,,person_TMichelleColson
+11445,M'Bahlia Colson,smd_2022_4B07,,smd_2022_4B07,,,,person_MBahliaColson
+11446,Joy Pinkney,smd_2022_4D01,,smd_2022_4D01,,,,person_JoyPinkney
+11447,Edward Borrego,smd_2022_5B01,,smd_2022_5B01,,,,person_EdwardBorrego
+11448,"Nicole ""Nikki"" Delcasale",smd_2022_6A03,,smd_2022_6A03,,,,person_NicoleNikkiDelcasale
+11449,Frank Avery,smd_2022_6B01,,smd_2022_6B01,,,,person_FrankAvery
+11450,"Francis ""Frank"" D'Andrea",smd_2022_6B04,,smd_2022_6B04,,,,person_FrancisFrankDAndrea
+11451,Vincent James Mareino,smd_2022_6B07,,smd_2022_6B07,,,,person_VincentJamesMareino
+11452,Carl P. Jordan,smd_2022_7D07,,smd_2022_7D07,,,,person_CarlPJordan
+11453,Shelena Hollinger,smd_2022_8C04,,smd_2022_8C04,,,,person_ShelenaHollinger
+11454,Lacey Cleckley,smd_2022_8E01,,smd_2022_8E01,,,,person_LaceyCleckley
+11455,Veronica Adams,smd_2022_8E04,,smd_2022_8E04,,,,person_VeronicaAdams
+11456,Duane A. Moody,smd_2022_8E05,,smd_2022_8E05,,,,person_DuaneAMoody
+11457,Prokoshia Juannette Long,smd_2022_8E06,,smd_2022_8E06,,,,person_ProkoshiaJuannetteLong
