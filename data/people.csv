@@ -497,7 +497,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10512,Patrick K. Parlej,smd_6E05,smd_6E05,smd_6E05,https://twitter.com/PatrickForANC,,http://www.patrickforanc.com/,person_PatrickKParlej
 10513,Denise E Blackson,smd_6E06,smd_6E06,smd_6E06,,,,person_DeniseEBlackson
 10514,Cydne Smith Nash,smd_7B04,smd_7B04,smd_7B04,https://twitter.com/CydneNash,,,person_CydneSmithNash
-10515,Patricia Stamper,smd_7C04,,smd_7C04,,,,person_PatriciaStamper
+10515,Patricia Stamper,smd_7C04,,smd_7C04,https://twitter.com/stamper4dc,,,person_PatriciaStamper
 10516,Stephanie Audain,smd_7D05,smd_7D05,smd_7D05,https://twitter.com/AudainANC7D05,,,person_StephanieAudain
 10517,Michelle Kiah,smd_8B05,smd_8B05,smd_8B05,,,,person_MichelleKiah
 10518,"Dolores ""Miracle"" Bryant",smd_8C03,,smd_8C03,,,,person_DoloresMiracleBryant
@@ -1360,7 +1360,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11397,Beatrice Evans,smd_2022_7F07,,smd_2022_7F07,,,,person_BeatriceEvans
 11398,Devon Myers,smd_2022_7F07,,smd_2022_7F07,,,,person_DevonMyers
 11399,Elizabeth Carter,smd_2022_8A02,,smd_2022_8A02,,,,person_ElizabethCarter
-11400,Takema Keyes,smd_2022_8B01,,smd_2022_8B01,,,,person_TakemaKeyes
+11400,Takema Keyes,smd_2022_8B01,,smd_2022_8B01,https://twitter.com/TakemaKeyes,,,person_TakemaKeyes
 11401,Georgette Johnson,smd_2022_8C01,,smd_2022_8C01,,,,person_GeorgetteJohnson
 11402,Erica Green,smd_2022_8C03,,smd_2022_8C03,,,,person_EricaGreen
 11403,Lakiah Williams,smd_2022_8D08,,smd_2022_8D08,,,,person_LakiahWilliams
@@ -1408,7 +1408,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11445,M'Bahlia Colson,smd_2022_4B07,,smd_2022_4B07,,,,person_MBahliaColson
 11446,Joy Pinkney,smd_2022_4D01,,smd_2022_4D01,,,,person_JoyPinkney
 11447,Edward Borrego,smd_2022_5B01,,smd_2022_5B01,,,,person_EdwardBorrego
-11448,"Nicole ""Nikki"" Delcasale",smd_2022_6A03,,smd_2022_6A03,,,,person_NicoleNikkiDelcasale
+11448,"Nicole ""Nikki"" Delcasale",smd_2022_6A03,,smd_2022_6A03,https://twitter.com/nikkidc4anc6a03,,,person_NicoleNikkiDelcasale
 11449,Frank Avery,smd_2022_6B01,,smd_2022_6B01,,,,person_FrankAvery
 11450,"Francis ""Frank"" D'Andrea",smd_2022_6B04,,smd_2022_6B04,,,,person_FrancisFrankDAndrea
 11451,Vincent James Mareino,smd_2022_6B07,,smd_2022_6B07,,,,person_VincentJamesMareino
