@@ -241,7 +241,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10241,Victor L. Horton,smd_7E05,smd_7E05,smd_7E05,https://twitter.com/1mV1ctor,,,person_VictorLHorton
 10242,Delia Houseal,smd_7E06,smd_7E06,smd_7E06,https://twitter.com/DeliaHouseal,,,person_DeliaHouseal
 10243,Yolanda Fields,smd_7C02,smd_7C02,smd_7C02,,,,person_YolandaFields
-10244,Tyrell M. Holcomb,smd_7F01,smd_7F01,smd_7F01,https://twitter.com/tmholcomb,https://www.facebook.com/tmholcomb,https://www.tyrellholcomb.com/,person_TyrellMHolcomb
+10244,Tyrell M. Holcomb,smd_7F01,smd_7F01,smd_7F01,https://twitter.com/tmholcomb,https://www.facebook.com/tmholcomb,,person_TyrellMHolcomb
 10245,Terrance Hunter,smd_7F02,smd_7F02,smd_7F02,,,,person_TerranceHunter
 10246,Sheila Carson Carr,smd_7F03,smd_7F03,,,,,person_SheilaCarsonCarr
 10247,C Exum,smd_7F04,smd_7F04,smd_7F04,,,,person_CExum
@@ -535,7 +535,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10554,Carolyn C. Steptoe,smd_4A05,smd_4A05,smd_4A05,,,,person_CarolynCSteptoe
 10555,Farrah Darbouze,smd_4B04,,smd_4B04,,,,person_FarrahDarbouze
 10556,Cecelia Waldeck,smd_4C03,,smd_4C03,,,,person_CeceliaWaldeck
-10557,Erik Lindsjo,smd_4D01,smd_4D01,smd_4D01,https://twitter.com/ErikLindsjo,,,person_ErikLindsjo
+10557,Erik Lindsjö,smd_4D01,smd_4D01,smd_4D01,https://twitter.com/ErikLindsjo,,,person_ErikLindsjö
 10558,Misha G. Cornelius,smd_4D02,,smd_4D02,,,,person_MishaGCornelius
 10559,Peter Benzoni,smd_4D05,,smd_4D05,,,,person_PeterBenzoni
 10560,Derrick O. Holloway Sr.,smd_5A06,smd_5A06,smd_5A06,,,,person_DerrickOHollowaySr
@@ -1327,7 +1327,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11363,Tucker Jones,smd_2022_1B09,,smd_2022_1B09,,,,person_TuckerJones
 11364,Quentin Colón Roosevelt,smd_2022_3D03,,smd_2022_3D03,https://twitter.com/qcolonroosevelt,,,person_QuentinColónRoosevelt
 11365,Zachary Adams,smd_2022_2B08,,smd_2022_2B08,https://twitter.com/zacheadams,,,person_ZacharyAdams
-11366,Jamie S. Sycamore,smd_2022_1B03,,smd_2022_1B03,,,,person_JamieSSycamore
+11366,Jamie S. Sycamore,smd_2022_1B03,,smd_2022_1B03,https://twitter.com/SycamoreANC,,,person_JamieSSycamore
 11367,Shane Seger,smd_2022_7D09,,smd_2022_7D09,,,,person_ShaneSeger
 11368,Matthew Bradfield,smd_2022_4C07,,smd_2022_4C07,https://twitter.com/palerider318,,https://matthewbforanc.blogspot.com/,person_MatthewBradfield
 11369,"Wendy ""Hope Dealer"" Hamilton",smd_2022_8D06,,smd_2022_8D06,https://twitter.com/revwendy3,https://www.facebook.com/RevWendyHamilton,https://www.revwendyhamilton.com/,person_WendyHopeDealerHamilton
