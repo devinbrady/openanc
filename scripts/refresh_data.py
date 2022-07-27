@@ -15,6 +15,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 from scripts.common import (
     assemble_divo
+    , CURRENT_ELECTION_YEAR
     )
 
 from scripts.urls import (
@@ -109,6 +110,9 @@ class RefreshData():
         """
 
         for c in columns_to_publish:
+            if c not in df.columns:
+                raise ValueError(f'Column "{c}" not in the DataFrame to be uploaded to Google Sheets.')
+
             df[c] = df[c].fillna('')
 
         values = [columns_to_publish]
@@ -426,7 +430,22 @@ class RefreshData():
 
         if any(key_count > 1):
             bad_key = key_count[key_count > 1]
-            raise RuntimeError(f'The primary key "{primary_key}" has at least one duplicate key in table "{table}" (key "{bad_key.index.values[0]}")')
+            raise ValueError(f'The primary key "{primary_key}" has at least one duplicate key in table "{table}" (key "{bad_key.index.values[0]}")')
+
+
+
+    def confirm_column_notnull_candidates(self):
+        """Throw an error if a column has NULLs in it, if those NULLs are not supposed to be there"""
+
+        df = pd.read_csv('data/candidates.csv')
+        df = df[df.election_year == CURRENT_ELECTION_YEAR].copy()
+        col = 'updated_at'
+        table = 'candidates'
+
+        null_count = df[col].isnull().sum()
+
+        if null_count > 0:
+            raise ValueError(f'The column "{col}" has at least one NULL value in table "{table}"')
 
 
 
@@ -467,6 +486,7 @@ class RefreshData():
 
         self.confirm_key_uniqueness('people', 'person_id')
         self.confirm_key_uniqueness('candidates', 'candidate_id')
+        self.confirm_column_notnull_candidates()
 
         dcc = districts_candidates_commissioners(link_source='root')
         self.map_display_df = self.build_map_display_box(dcc)

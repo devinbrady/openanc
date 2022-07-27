@@ -119,18 +119,25 @@ def clean_csv():
     df.sort_values(by='smd_id', inplace=True)
     df[columns_to_save].to_csv('data/dcboe/candidates_dcboe.csv', index=False)
 
+    return df
+
+
 
 def upload_dcboe_to_google_sheets(df):
 
     rd = RefreshData()
-    columns_to_save_to_google = (
-        columns_to_save
-        + [
-            'candidate_source'
-            , 'candidate_source_link'
-            , 'dcboe_updated_at'
-            ]
-        )
+
+    columns_to_save_to_google = [
+        'dcboe_hash_id'
+        , 'smd_id'
+        , 'candidate_name'
+        , 'pickup_date'
+        , 'filed_date'
+        , 'candidate_source'
+        , 'candidate_source_link'
+        , 'dcboe_updated_at'
+        ]
+
     print()
     rd.upload_to_google_sheets(df, columns_to_save_to_google, 'openanc_source', 'dcboe')
 
@@ -454,10 +461,11 @@ def list_candidates_to_add():
             candidates_change_hash_id[change_hash_columns].sort_values(by='candidate_id').to_csv('data/dcboe/candidates_change_hash_id.csv', index=False)
 
             # Candidates who are existing people
-            candidates_create[mc.candidate_id.isnull()].copy()
+            candidates_create = mc[mc.candidate_id.isnull()].copy()
             print(f'\nExisting people need to be added to the candidates table ({len(candidates_create)} people): candidates_create.csv')
             candidates_create = candidates_create.sort_values(by='match_person_id')
 
+            candidates_create['candidate_id_suggested'] = None
             for idx, row in candidates_create.iterrows():
                 candidates_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
                 max_id_candidate += 1
@@ -472,6 +480,8 @@ def list_candidates_to_add():
 
             people_create = people_create.sort_values(by='smd_id')
 
+            people_create['candidate_id_suggested'] = None
+            people_create['person_id_suggested'] = None
             for idx, row in people_create.iterrows():
                 people_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
                 max_id_candidate += 1
@@ -498,9 +508,12 @@ def list_candidates_to_add():
         print(candidates_this_year[candidates_this_year.dcboe_hash_id.isin(openanc_not_in_dcboe)][['dcboe_hash_id', 'smd_id', 'candidate_name']])
 
 
+
 if __name__ == '__main__':
 
-    clean_csv()
+    df = clean_csv()
+
+    upload_dcboe_to_google_sheets(df)
 
     candidate_counts()
 

@@ -1,40 +1,20 @@
 dcboe_hash_id,match_score,candidate_name,match_person_full_name,smd_id,match_person_any_smd,match_person_id,good_match
-270bceb8c065d77aad09982ebe8cf16bc7ec45b6d7898661f9017409,100,Anthony Dale,Anthony Dale,smd_2022_5C01,smd_6D05,11159,x
-60707bc854949d8aa96376c99bb9713b55b50da5ac5ceddaf016cc61,100,Jackie Blumenthal,Jackie Blumenthal,smd_2022_3B02,smd_3B02,10074,x
-fcb469ba8a6a27a48cc0638b1439f340920cb5a5587063b77cd8cb8f,100,Sharon Burns,Sharon Burns,smd_2022_5E03,smd_5E07,10374,x
-dbee180588a458c5112d0bd0930a78426e2966e99b3293f8fe6e2dab,100,Nicole Mcentee,Nicole McEntee,smd_2022_5E02,smd_2022_5E02,11458,x
-5322194826be79d195ab489478b42dd9cd2f204113bd0fb51c6673a5,100,Natasha Dupee,Natasha Dupee,smd_2022_7E04,smd_7E04,10412,x
-f2fe703213579be4f91205f5f6a16e3fd0d8446bc2bbb8442f240ca2,100,Kevin B. Coleman,Kevin B. Coleman,smd_2022_8B04,smd_8B04,10428,x
-f33bedf5936f9f3fe1f266ec27beedd142ab92073b19fc80df14b084,100,Pavan Ishwar Khoobchandani,Pavan Ishwar Khoobchandani,smd_2022_4E06,smd_4A08,10345,x
-b53220af0d770c30d75d50982d894da34402b62bbb4c1ac37d2cb89b,100,Alexandra Gianinno,Alexandra Gianinno,smd_2022_3E06,smd_3E05,11349,x
-73a66ad3c89a8c64405d8439b3114124d9c39656e3d531327c5dbd1e,100,Tom Quinn,Tom Quinn,smd_2022_3E04,smd_3E04,10099,x
-8713cb5f42d7648a549f5de486cd9556b47da73bd8b28948034eda15,100,Jonathan Bender,Jonathan Bender,smd_2022_3E03,smd_3E03,10098,x
-9f733869fcafbac181be783cb5815dee7f4e7e175cdf93e6931c1350,100,Melissa Lane,Melissa Lane,smd_2022_3B03,smd_3B03,10075,x
-9b810aaf102f03091377c7a6781c6168960aaaef7e3563d750d720b8,100,Kimberly Martin,Kimberly Martin,smd_2022_7C08,smd_7E07,10549,x
-0e4bbfc695b8fd5de406ed3d9c81ab882ac7b0fbb71a2b4efc731d80,100,Michael Zeldin,Michael Zeldin,smd_2022_3/4G04,smd_3G04,10593,x
-15f49ce38e97683a2ba7941c4fb144faa2c6bab8fbd178396b6fdd53,100,Brant J. Miller,Brant J. Miller,smd_2022_2F07,smd_6D07,11164,x
-99c7555c4f179566b7a7d111d16efad7dfe8b7b2706ff85de090317a,100,"Christopher ""Topher"" Mathews","Christopher ""Topher"" Mathews",smd_2022_2E02,smd_2E02,10316,x
-07d88013e18396e8a719f77ccb12e2bcb60365ea081fc30707357420,100,Joel Causey,Joel Causey,smd_2022_2A06,smd_2A02,10302,x
-a00c6ebb54f8cca4e5561049b05f89fd54a08b7aea3497f7730be887,97,J. P. Szymkowicz,J.P. Szymkowicz,smd_2022_3D07,smd_3D09,10094,x
-c8d7361c5e2dd2542ab57a77f5b6085177dddb87f69fc240688b9600,89,Anthony Adc Muhammad,Anthony Muhammad,smd_2022_8C05,smd_8E02,10439,x
-e68cf62e1e3c5148da18c1eb901bbe1cc5a8ae6e8b2fe01c6699915c,88,Carole L. Feld,Carole Feld,smd_2022_2D02,smd_2D02,11352,x
-02cd17604d81373032a42689df71117eee820942252b50f3f6154550,84,Ashley Renee Ruff,Ashley R. Ruff,smd_2022_7F02,smd_7F01,10598,x
-11108c853031a8c8c64a716d59dc878ac589ba5988156ff13ea00d09,83,Rhonda Natalie Hamilton,Rhonda N. Hamilton,smd_2022_6D08,smd_6D06,10209,x
-d4d78df60dbdd91376f7fce91534e1a9d856fc96bea70a918229da98,78,Matt Johnson,Amy Johnson,smd_2022_2B06,smd_2B01,10747,
-c8b6837a97db47ca166b78b94bf03f9dc0ed6e456604f32fff5d70f9,76,Hans B. Miller,Brant J. Miller,smd_2022_3A03,smd_6D07,11164,
-68ea31124a2830283917d8160cc1464beda8003c4e4e9b8a1fcb86d6,69,Mike Mclaughlin,Mike Austin,smd_2022_1E04,smd_8C01,10264,
-dcd221927a59f29cfd742a52de8dad6364599dc00bace0dd7a394de8,69,VíCtor De LeóN,Victor Wexler,smd_2022_6D05,smd_2B05,10759,
-572df650e57eb9582d3d3bc85f874cb363e87901d6f2ed2c01683761,67,Diego Rojas,Alex Rojas,smd_2022_5A04,smd_5A04,10634,
-fbba2c7922eee5cd7e69ea0a8a80d8480030d99b59571d91d410b7eb,67,Kimberly Little,Kimberly Martin,smd_2022_8B04,smd_7E07,10549,
-887c4d1e8c23950d96b387531727ac119acdf6a00969020f17597033,65,"Shaquan ""Living Proof"" Hudson",Shaquan Hudson,smd_2022_8E04,smd_8E05,10441,x
-84d7307f2ddda3bef276280b9e48d1885cfab2a95b39660bec0f9b9e,64,Donna Arrendell,Diona Lane,smd_2022_6D06,smd_7E01,11237,
-bbcfa048c8b2f7fea30fd996c56ef23ec697135161e58c74a5970408,64,Rebecca Strauss,Rebecca Coder,smd_2022_2C02,smd_2A02,10736,
-4dcd136f267c14222255826bbe1f2ae49026ce7bfb7c3e568c1c75e5,62,J. Peter Loftus,Peter Gould,smd_2022_5D02,smd_6B10,11132,
-142e3b4c7e02b8818e161cb1ece059f7deda2556502fa8dd0e56df84,62,Shawn Nelson,Shaquan Hudson,smd_2022_5C04,smd_8E05,10441,
-535506ac27876a3d8309f3853dc0eb532e9a883ef52fbd41ab6057ac,60,Billy Easley,Will Gee,smd_2022_1A10,smd_5A03,10981,
-64d97b5d6679ef5c1089a46badf4050cdcd2477582fa04342afb6027,57,Jill Perry,Karin Berry,smd_2022_5D07,smd_2F02,10796,
-8742cd088f7dbdfea76fe2e5ccbae4c908fad589030cd19768c61664,57,Shayla Mack,Joshua Ryan Mater,smd_2022_8E02,smd_1B08,10019,
-bb9d1bdd5bc39d1dd706b4846ca54c7df128b162a0f8bda8b4cd91a8,56,"Myeasha ""My Ty"" Smith",Moses Smith,smd_2022_8C02,smd_8A04,10421,
-93a1827e8ccf427cd5d7535dd50d374391354af53bab30ec34f3fe73,55,Julie Levy,Gayle Carley,smd_2022_7C04,smd_5B01,10153,
-3d185c3de0d3903144c9270ab43bb6fd327f2ba67920be69456f282b,55,Greg Boyd,Greg Ehrhardt,smd_2022_1D05,smd_3E01,10096,
-fbd77f4433c1abcfd35556a4a21f2c9c25b2af2e27afe4e80b79f170,52,Tiye Kinlow,Tiffany L. Brown,smd_2022_7B07,smd_7B02,10219,
+cff994565f00e16b5710be29eb2d662aec7cbc9003e8c900a5b5d574,100,James A. Turner,James A. Turner,smd_2022_1A09,smd_1B09,10020,x
+a3a1aca02836f7a361688a4031b7eebb21ee77bea84c20915ec174df,100,Yannik Omictin,Yannik Omictin,smd_2022_2A01,smd_2A01,10604,x
+5dd16079a66aea88427ecc000dcf8fec06dcb45ae7648b99bcc8b3c0,100,Donna Barbisch,Donna Barbisch,smd_2022_2A04,smd_2A04,10606,x
+825d3bccff0b3c6a7e38e016ff8b934adf04de324b67c8ff88eb2eb4,100,Dasia Bandy,Dasia Bandy,smd_2022_2A07,smd_2022_2A07,11478,x
+f78e6c477cfcd9302f52da5b81554793728053a2556d063b7fcec6db,100,Kishan Putta,Kishan Putta,smd_2022_2E01,smd_2E01,10057,x
+504361df185cddf9788f1aba3f2dba846f0054089656cf880eaf2020,100,Ann Lane Mladinov,Ann Lane Mladinov,smd_2022_3A05,smd_3B01,10073,x
+237a1f43d6d5811903f760d7781f6f716b8f34d127fc7f8ced4c94bf,100,Rashida Brown,Rashida Brown,smd_2022_1E04,smd_1A10,10010,x
+2b609d4159316d20e2fce9e4aa9c67db31ffe55548079b449ce63f0d,100,Paul Trantham,Paul Trantham,smd_2022_8B02,smd_8B02,10258,x
+c232916b06db1f545bbb8543541be5728d974d89f12029d79a564dd2,100,"Stephen A. ""Steve"" Whatley","Stephen A. ""Steve"" Whatley",smd_2022_4A03,smd_4A03,10116,x
+f0002372cbf1f3db5a4ee0bcb4db1ae8823be52ee100db07a0438d82,77,Jeremy Joseph,Jeremy Foster,smd_2022_3D04,smd_4C04,10446,
+f3f12958552353eaf96bf081c611b0b6f0a44b4b75736411e297d9df,76,David R. Rubenstein,David R. Bender,smd_2022_2F01,smd_2D01,10055,
+964c895f20326871b61836bcff48f4744df76527b91cfca04e3e07f0,67,"Bobby ""Slli'M"" Williams",Rosalind M. Gilliam,smd_2022_8A03,smd_1A12,10664,
+ba8ce1f69df552e9bea3337e8c3d6e2c669b8e8b88993562b762a96e,65,Andrew Mccarthy-Clark,Andy Clark,smd_2022_8F03,smd_6A01,11087,
+412e57c75a4844c5c4f081a30ec7a7bff7a9be031b227db8d3581a9f,65,Brittany Kademian,Christian Damiana,smd_2022_4C05,smd_3D07,10329,
+56bcf726cb01f30aa214d99dcf036e235510eb5dabbf845cf419b746,64,Tricia Duncan,Patricia Eguino,smd_2022_3D02,smd_2022_6C06,11389,
+3085df4f9e572df1da6761bd7c6c7857387affbabb928b663a3c0a25,62,Marilyn Nowalk,Martin Espinoza,smd_2022_3D06,smd_2B04,10755,
+850058670dfd3c8f14acf9b1d29be1535f029f54a09be8944f649034,59,"Fred ""Phil"" Carver","Fredrica ""Rikki"" Kramer",smd_2022_5E03,smd_6D05,10208,
+a71d2683166e6e2819bd48314616ae064b3cbe22860c2d499ac6182b,59,Carl Edgar Rohde Iii,Grady Edwards III,smd_2022_2G06,smd_8C02,11308,
+7041f0cce37efd3ec781b6ac45caac7999162ee31c43b945c748a7a8,59,Clayton Aristotle Rosenberg,Chaz Rotenberg,smd_2022_8F04,smd_3C08,10830,
