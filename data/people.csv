@@ -602,7 +602,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10624,Travis R. Swanson,smd_7B03,smd_7B03,smd_2022_7B03,https://twitter.com/CommissionerTRS,https://www.facebook.com/SwansonDC,https://travisforanc.weebly.com/,person_TravisRSwanson
 10625,De'ashia Deas,smd_7E03,smd_7E03,,,,,person_DeashiaDeas
 10626,Joel Castόn,smd_7F07,smd_7F07,,,,,person_JoelCastόn
-10627,James Tandaric,smd_3F07,smd_3F07,smd_2022_3F05,https://twitter.com/JamesTandaric,,,person_JamesTandaric
+10627,James Tandaric,smd_3F07,smd_3F07,smd_2022_3F05,https://twitter.com/JamesTandaric,,https://jamestandaric.wordpress.com/,person_JamesTandaric
 10628,Graham Button,smd_4B05,smd_4B05,,,,,person_GrahamButton
 10629,Brandolon Barnett,smd_1A06,smd_1A06,,https://twitter.com/BrandolonB,,,person_BrandolonBarnett
 10630,LaQueta Tate,smd_8E03,smd_8E03,smd_2022_8E02,,,,person_LaQuetaTate
@@ -1424,7 +1424,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11461,Billy Easley,smd_2022_1A10,,smd_2022_1A10,,,,person_BillyEasley
 11462,Greg Boyd,smd_2022_1D05,,smd_2022_1D05,,,,person_GregBoyd
 11463,Mike McLaughlin,smd_2022_1E04,,smd_2022_1E04,,,,person_MikeMcLaughlin
-11464,Matt Johnson,smd_2022_2B06,,smd_2022_2B06,,,,person_MattJohnson
+11464,Matt Johnson,smd_2022_2B06,,smd_2022_2B06,https://twitter.com/MattFor2B06,,,person_MattJohnson
 11465,Rebecca Strauss,smd_2022_2C02,,smd_2022_2C02,,,,person_RebeccaStrauss
 11466,Hans B. Miller,smd_2022_3A03,,smd_2022_3A03,,,,person_HansBMiller
 11467,Diego Rojas,smd_2022_5A04,,smd_2022_5A04,,,,person_DiegoRojas
@@ -1438,3 +1438,4 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11475,Kimberly Little,smd_2022_8B04,,smd_2022_8B04,,,,person_KimberlyLittle
 11476,"Myeasha ""My Ty"" Smith",smd_2022_8C02,,smd_2022_8C02,,,,person_MyeashaMyTySmith
 11477,Shayla Mack,smd_2022_8E02,,smd_2022_8E02,,,,person_ShaylaMack
+11478,Dasia Bandy,smd_2022_2A07,,smd_2022_2A07,,,,person_DasiaBandy
