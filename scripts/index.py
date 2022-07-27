@@ -52,7 +52,7 @@ class BuildIndex():
             html += f'<h2>{redist_header[idx]}</h2>'
 
             districts_cycle = districts[districts.redistricting_year == redistricting_yr].copy()
-            ancs_cycle = ancs[ancs.redistricting_year == redistricting_yr].copy()
+            ancs_cycle = ancs[ancs.redistricting_year == redistricting_yr].sort_values(by='sort_order').copy()
 
             for _, row in ancs_cycle.iterrows():
 

@@ -244,7 +244,18 @@ def run_matching_process():
         candidates_to_match.loc[idx, 'match_person_any_smd'] = people[people.person_id == best_id].any_smd.iloc[0]
     
     candidates_to_match['good_match'] = None
-    candidates_to_match.sort_values(by='match_score', ascending=False).to_csv(
+    match_columns = [
+        'dcboe_hash_id'
+        , 'match_score'
+        , 'candidate_name'
+        , 'match_person_full_name'
+        , 'smd_id'
+        , 'match_person_any_smd'
+        , 'match_person_id'
+        , 'good_match'
+        ]
+
+    candidates_to_match[match_columns].sort_values(by='match_score', ascending=False).to_csv(
         'data/dcboe/candidates_dcboe_match.csv', index=False
         )
 
@@ -442,6 +453,7 @@ def list_candidates_to_add():
                 )
 
             if mc.candidate_id.isnull().sum() > 0:
+                # todo: candidate_id here
                 print(f'\nExisting people need to be added to the candidates table ({mc.candidate_id.isnull().sum()} people): candidates_create.csv')
                 (
                     mc[mc.candidate_id.isnull()]
@@ -460,8 +472,14 @@ def list_candidates_to_add():
 
 
         if len(no_matches) > 0:
+            # todo: suggest person_id and candidate_id here
+            people_create_columns = [
+                'candidate_name'
+                , 'dcboe_hash_id'
+                , 'smd_id'
+            ]
             print(f'\nNew people need to be created ({len(no_matches)} people): people_create.csv')
-            no_matches.to_csv('data/dcboe/people_create.csv', index=False)
+            no_matches[people_create_columns].sort_values(by=['smd_id']).to_csv('data/dcboe/people_create.csv', index=False)
             
 
             
@@ -486,7 +504,7 @@ def list_candidates_to_add():
 
 
     openanc_not_in_dcboe = [h for h in candidates_this_year[candidates_this_year.dcboe_hash_id.notnull()].dcboe_hash_id.tolist() if h not in dcboe.dcboe_hash_id.tolist()]
-    print(f'Candidates hash_ids in OpenANC that are no longer in the DCBOE list: {len(openanc_not_in_dcboe)}')
+    print(f'Candidates hash_ids in OpenANC that are no longer in the DCBOE list (should be zero): {len(openanc_not_in_dcboe)}')
     if openanc_not_in_dcboe:
         print('\nThese candidates have a hash_id in the OpenANC candidates list but are no longer on the DCBOE list:')
         print(candidates_this_year[candidates_this_year.dcboe_hash_id.isin(openanc_not_in_dcboe)][['dcboe_hash_id', 'smd_id', 'candidate_name']])
