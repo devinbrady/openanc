@@ -52,6 +52,19 @@ def anc_geojson():
 
 
 
+def ward_geojson():
+    """Return a GeoDataFrame with wards from all redistricting cycles"""
+
+    map_2012 = gpd.read_file('maps/ward-from-smd-2012.geojson')
+    map_2022 = gpd.read_file('maps/ward-from-smd-2022.geojson')
+
+    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
+    map_2022['geometry'] = map_2022.geometry.apply(lambda x: x[0])
+
+    return gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
+
+
+
 def mapbox_slugs():
     """
     Return dict containing mapping of mapbox style id -> url slug
@@ -125,8 +138,9 @@ def add_geojson(shape_gdf, field_name, field_value, input_html):
     
     shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy()
 
-    geo_bounds = shape_row.geometry.boundary.iloc[0].xy
-
+    # Calculate the bounds of this shape, which will determine the view window on this district's page
+    bounds_df = shape_row.geometry.bounds.squeeze()
+    geo_bounds = [[bounds_df.minx, bounds_df.maxx], [bounds_df.miny, bounds_df.maxy]]
 
     output_string = '[['
 
@@ -220,7 +234,10 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
     display_df['Candidates'] = display_df['list_of_candidates']
     display_df['Commissioner-Elect'] = display_df['commissioner_elect']
 
-    columns_to_html = ['SMD']
+    columns_to_html = ['SMD', 'Election Year']
+
+    display_df['Election Year'] = '2022'
+    display_df.loc[display_df.redistricting_year == 2012, 'Election Year'] = '2020'
 
     # Display these columns if they are valid in this list of SMDs
     if any(display_df.redistricting_year == 2012):
@@ -235,7 +252,7 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
     css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
 
     # The non-SMD columns should be formatted with left alignment
-    subset_columns = [c for c in columns_to_html if c != 'SMD']
+    subset_columns = [c for c in columns_to_html if c not in ('SMD', 'Election Year')]
 
     html = (
         display_df[columns_to_html]

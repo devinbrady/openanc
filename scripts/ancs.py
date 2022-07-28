@@ -31,7 +31,6 @@ class BuildANCs():
 
         # Load GeoJSON for all ANCs to memory
         self.geojson_shape = anc_geojson()
-
         self.mapbox_style_slugs = mapbox_slugs()
 
 
@@ -60,7 +59,6 @@ class BuildANCs():
             
             output = output.replace('REPLACE_WITH_ANC_NAME', f'{row.anc_name} [{row.redistricting_cycle} Cycle]')
             
-
             if row['redistricting_year'] == 2012:
                 mapbox_slug_id = 'smd'
             else:
