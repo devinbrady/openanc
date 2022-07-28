@@ -19,8 +19,6 @@ from scripts.data_transformations import (
 
 class Counts():
 
-
-
     def commissioner_count(self):
         """
         Return HTML table with count of vacant districts
@@ -215,13 +213,38 @@ class Counts():
 
 
 
-    def contested_count(self):
+    def contested_count_df(self):
+        """Return DataFrame with the count of contested districts"""
+
+        smd_df = districts_candidates_commissioners(redistricting_year=2022)
+        smd_df.rename(columns={'number_of_candidates': 'Number of Candidates'}, inplace=True)
+
+        election_status_count = pd.DataFrame(columns=['Election Status', 'Count of Districts', 'Percentage'])
+        election_status_count.loc[0] = ['No Candidates Running', sum(smd_df['Number of Candidates'] == 0), 0]
+        election_status_count.loc[1] = ['Uncontested (1 candidate)', sum(smd_df['Number of Candidates'] == 1), 0]
+        election_status_count.loc[2] = ['Contested (2 or more candidates)', sum(smd_df['Number of Candidates'] > 1), 0]
+
+        election_status_count['Percentage'] = election_status_count['Count of Districts'] / election_status_count['Count of Districts'].sum()
+        election_status_count.loc[3] = ['Total', smd_df.smd_id.nunique(), 1]
+
+        # Count by number of candidates
+        candidate_count = pd.DataFrame(
+            smd_df.groupby('Number of Candidates').size()
+            , columns=['Count of Districts']
+            ).reset_index()
+
+        candidate_count['Percentage'] = candidate_count['Count of Districts'] / candidate_count['Count of Districts'].sum()
+
+        return election_status_count, candidate_count
+
+
+
+    def contested_count_html(self):
         """
         Return HTML with number of candidates in each district, shows how many races are contested
         """
 
-        smd_df = districts_candidates_commissioners(redistricting_year=2022)
-        smd_df.rename(columns={'number_of_candidates': 'Number of Candidates'}, inplace=True)
+        election_status_count, candidate_count = self.contested_count_df()
 
         html = (
             '<p>These counts include both candidates on the ballot and write-in candidates who fill out the OpenANC Candidate Declaration Form.</p>'
@@ -229,15 +252,6 @@ class Counts():
             # + 'Sources of write-in candidates include those who filled out the OpenANC Edit Form, as well as write-in candidates who won their election. '
             # + 'There were almost certainly other write-in candidates who did not fall into those categories. </p>'
             # )
-
-
-        # Count of contested vs uncontested
-        election_status_count = pd.DataFrame(columns=['Election Status', 'Count of Districts', 'Percentage'])
-        election_status_count.loc[0] = ['No Candidates Running', sum(smd_df['Number of Candidates'] == 0), 0]
-        election_status_count.loc[1] = ['Uncontested (1 candidate)', sum(smd_df['Number of Candidates'] == 1), 0]
-        election_status_count.loc[2] = ['Contested (2 or more candidates)', sum(smd_df['Number of Candidates'] > 1), 0]
-
-        election_status_count['Percentage'] = election_status_count['Count of Districts'] / election_status_count['Count of Districts'].sum()
 
         html += '<p>'
         html += (
@@ -254,16 +268,6 @@ class Counts():
             .render()
             )
         html += '</p>'
-
-
-        # Count by number of candidates
-
-        candidate_count = pd.DataFrame(
-            smd_df.groupby('Number of Candidates').size()
-            , columns=['Count of Districts']
-            ).reset_index()
-
-        candidate_count['Percentage'] = candidate_count['Count of Districts'] / candidate_count['Count of Districts'].sum()
 
         html += '<p>'
         html += (

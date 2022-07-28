@@ -199,7 +199,7 @@ class BuildIndex():
         # output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
         # output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward_id', '#b2df8a')) # light green
         # output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_vote_counts('anc_id', '#a6cee3')) # light blue
-        output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count())
+        output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
         output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
         output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
 
@@ -271,6 +271,23 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_SMD_2022_NO_CANDIDATES_SLUG', mb_style_slugs['smd-2022-no-candidates'])
         output = output.replace('REPLACE_WITH_SMD_2022_ONE_CANDIDATE_SLUG', mb_style_slugs['smd-2022-one-candidate'])
         output = output.replace('REPLACE_WITH_SMD_2022_TWO_PLUS_CANDIDATES_SLUG', mb_style_slugs['smd-2022-two-plus-candidates'])
+
+        # c = Counts()
+        # election_status_count, _ = c.contested_count_df()
+        # election_status_count.set_index('Election Status', inplace=True)
+
+        # output = output.replace(
+        #     'REPLACE_WITH_NO_CANDIDATE_COUNT'
+        #     , str(election_status_count.loc['No Candidates Running', 'Count of Districts'])
+        #     )
+        # output = output.replace(
+        #     'REPLACE_WITH_ONE_CANDIDATE_COUNT'
+        #     , str(election_status_count.loc['Uncontested (1 candidate)', 'Count of Districts'])
+        #     )
+        # output = output.replace(
+        #     'REPLACE_WITH_TWO_PLUS_CANDIDATES_COUNT'
+        #     , str(election_status_count.loc['Contested (2 or more candidates)', 'Count of Districts'])
+        #     )
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
