@@ -1,0 +1,149 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../nonmap.css">
+    <title>OpenANC : ANC 6/8F [2022-2030 Cycle]</title>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
+
+<meta charset="UTF-8">
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173043454-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-173043454-1');
+        </script>
+        
+</head>
+
+<body>
+
+
+<h1><a href="../../index.html">OpenANC</a> : ANC 6/8F [2022-2030 Cycle]</h1>
+
+<div id='map' style='width: 1000px; height: 600px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/devinbrady/cl4yg387b000u14msjowbcvcq', // stylesheet location
+    center: [-77.00063333, 38.87419232], // starting position [lng, lat]
+    zoom: 14.19327155551778
+});
+
+var smd_geojson = {
+    "type": "Feature"
+    , "geometry": {
+        "type": "MultiPolygon"
+        , "coordinates": [ [[[-77.00910467851982, 38.867722314055676]
+,[-76.98954996756333, 38.88153866033703]
+]] ]
+        }
+    }
+
+
+// Geographic coordinates of the smd object
+var coordinates = smd_geojson.geometry.coordinates[0][0];
+ 
+// Pass the first coordinates in the LineString to `lngLatBounds` &
+// wrap each coordinate pair in `extend` to include them in the bounds
+// result. A variation of this technique could be applied to zooming
+// to the bounds of multiple Points or Polygon geomteries - it just
+// requires wrapping all the coordinates with the extend method.
+var bounds = coordinates.reduce(function(bounds, coord) {
+    return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0])
+);
+ 
+
+map.fitBounds(bounds, {
+    padding: 30
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+
+<h2>Districts and Commissioners</h2>
+
+<style  type="text/css" >
+    #T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row0_col2 {
+            width:  230px;
+            text-align:  left;
+        }    #T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row1_col2 {
+            width:  230px;
+            text-align:  left;
+        }    #T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row2_col2 {
+            width:  230px;
+            text-align:  left;
+        }    #T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row3_col2 {
+            width:  230px;
+            text-align:  left;
+        }    #T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row4_col2 {
+            width:  230px;
+            text-align:  left;
+        }</style><table id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Election Year</th>        <th class="col_heading level0 col2" >Candidates</th>    </tr></thead><tbody>
+                <tr>
+                                <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row0_col0" class="data row0 col0" ><a href="../../map_2022/ancs/districts/8F01.html">6/8F01</a></td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row0_col1" class="data row0 col1" >2022</td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row0_col2" class="data row0 col2" >(no known candidates)</td>
+            </tr>
+            <tr>
+                                <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row1_col0" class="data row1 col0" ><a href="../../map_2022/ancs/districts/8F02.html">6/8F02</a></td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row1_col1" class="data row1 col1" >2022</td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row1_col2" class="data row1 col2" ><a href="../../people/EricSBlaylock.html">Eric S. Blaylock</a></td>
+            </tr>
+            <tr>
+                                <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row2_col0" class="data row2 col0" ><a href="../../map_2022/ancs/districts/8F03.html">6/8F03</a></td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row2_col1" class="data row2 col1" >2022</td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row2_col2" class="data row2 col2" ><a href="../../people/BrianStrege.html">Brian Strege</a>, <a href="../../people/AndrewMcCarthyClark.html">Andrew McCarthy-Clark</a></td>
+            </tr>
+            <tr>
+                                <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row3_col0" class="data row3 col0" ><a href="../../map_2022/ancs/districts/8F04.html">6/8F04</a></td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row3_col1" class="data row3 col1" >2022</td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row3_col2" class="data row3 col2" ><a href="../../people/EdDaniels.html">Edward Daniels</a>, <a href="../../people/ClaytonAristotleRosenberg.html">Clayton Aristotle Rosenberg</a></td>
+            </tr>
+            <tr>
+                                <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row4_col0" class="data row4 col0" ><a href="../../map_2022/ancs/districts/8F05.html">6/8F05</a></td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row4_col1" class="data row4 col1" >2022</td>
+                        <td id="T_d0e3b38a9bdbdc6b5bafdbaa2e0b24b14bf04c446c21f4793659486d_row4_col2" class="data row4 col2" >(no known candidates)</td>
+            </tr>
+    </tbody></table>
+
+<h2>ANC Info</h2>
+
+
+        <table>
+          <tbody>
+          
+                    <tr>
+                    <th class="attribute_heading">Notes</th>
+                    <td class="attribute_value">This ANC is new in 2022. Also, this ANC has two Single Member Districts in Ward 6: 8F04 and 8F05</td></tr>
+            </tbody>
+        </table>
+    
+
+
+<h2>Links</h2>
+<ul>
+    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdt0eG_GnVSM5vqL4OHDFEMn6d2g_La8nj94pUswzt_uY1K-A/viewform">Candidate Declaration Form</a></li>
+    <li><a href="../../index.html">Find your ANC district</a></li>
+    <li><a href="../../list.html">List of districts</a></li>
+    <li><a href="../../people/index.html">List of people</a></li>
+    <li><a href="../../incumbents.html">List of incumbents</a></li>
+    <!-- <li><a href="../../map.html">Map of districts by number of candidates</a></li> -->
+    <li><a href="../../counts.html">Counts</a></li>
+    <li><a href="../../about.html">About OpenANC</a></li>
+    <li><a href="https://twitter.com/OpenANC">@OpenANC on Twitter</a></li>
+    <li><a href="../../index.html">OpenANC Home</a></li>
+</ul>
+
+<p>Last updated: July 28, 2022</p>
+
+
+</body>
+
+</html>

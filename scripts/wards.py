@@ -13,6 +13,8 @@ from scripts.common import (
     , calculate_zoom
     , add_google_analytics
     , add_geojson
+    , ward_geojson
+    , mapbox_slugs
     )
 
 from scripts.urls import (
@@ -21,6 +23,11 @@ from scripts.urls import (
 
 
 class BuildWards():
+
+    def __init__(self):
+        self.geojson_shape = ward_geojson()
+        self.mapbox_style_slugs = mapbox_slugs()
+
 
 
     def run(self):
@@ -38,10 +45,10 @@ class BuildWards():
                 output = f.read()
             
             output = add_google_analytics(output)
-            # output = add_geojson(ward_gdf, 'ward_id', ward_id, output)
+            output = add_geojson(self.geojson_shape, 'ward_id', row.ward_id, output)
             
-            output = output.replace('REPLACE_WITH_WARD_NAME', row.ward_name)
-            # output = output.replace('REPLACE_WITH_CM', row.councilmember)
+            output = output.replace('REPLACE_WITH_WARD_NAME', f'{row.ward_name} [{row.redistricting_cycle} Cycle]')
+            output = output.replace('REPLACE_WITH_CM', row.councilmember)
             
             ward_smd_ids = districts[districts['ward_id'] == row.ward_id]['smd_id'].to_list()
             output = output.replace(
@@ -49,16 +56,18 @@ class BuildWards():
                 , build_smd_html_table(ward_smd_ids, link_source='ward')
                 )
 
-            # if row.ward_name in (3,4):
-            #     output = output.replace(
-            #         '<!-- replace with 3/4 info -->'
-            #         , '<p>Note that the Single Member Districts 3G01, 3G02, 3G03, and 3G04 are a part of ANC 3G but located in Ward 4.</p>'
-            #         )
-            
-            # mb_style_name = f'smd-ward-{ward}'
-            # mb_style_link = mapbox_styles.loc[mapbox_styles['id'] == mb_style_name]['mapbox_link'].values[0]
-            
-            # output = output.replace('REPLACE_WITH_MAPBOX_STYLE', mb_style_link)
+            if row.ward_name in (3,4):
+                output = output.replace(
+                    '<!-- replace with 3/4 info -->'
+                    , '<p>Note that the Single Member Districts 3G01, 3G02, 3G03, and 3G04 are a part of ANC 3G but located in Ward 4.</p>'
+                    )            
+
+            if row['redistricting_year'] == 2012:
+                mapbox_slug_id = 'smd'
+            else:
+                mapbox_slug_id = 'smd-2022'
+
+            output = output.replace('REPLACE_WITH_MAPBOX_SLUG', self.mapbox_style_slugs[mapbox_slug_id])
             output = output.replace('REPLACE_WITH_LONGITUDE', '-77.03412954884507')
             output = output.replace('REPLACE_WITH_LATITUDE', '38.9361129455516')
             output = output.replace('REPLACE_WITH_ZOOM_LEVEL', '11')

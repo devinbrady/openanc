@@ -1,17 +1,17 @@
-ward_id,ward_name,redistricting_year,redistricting_cycle
-ward_1,Ward 1,2012,2012-2020
-ward_1_2022,Ward 1,2022,2022-2030
-ward_2,Ward 2,2012,2012-2020
-ward_2_2022,Ward 2,2022,2022-2030
-ward_3,Ward 3,2012,2012-2020
-ward_3_2022,Ward 3,2022,2022-2030
-ward_4,Ward 4,2012,2012-2020
-ward_4_2022,Ward 4,2022,2022-2030
-ward_5,Ward 5,2012,2012-2020
-ward_5_2022,Ward 5,2022,2022-2030
-ward_6,Ward 6,2012,2012-2020
-ward_6_2022,Ward 6,2022,2022-2030
-ward_7,Ward 7,2012,2012-2020
-ward_7_2022,Ward 7,2022,2022-2030
-ward_8,Ward 8,2012,2012-2020
-ward_8_2022,Ward 8,2022,2022-2030
+ward_id,ward_name,redistricting_year,redistricting_cycle,councilmember
+ward_1,Ward 1,2012,2012-2020,Brianne Nadeau
+ward_1_2022,Ward 1,2022,2022-2030,Brianne Nadeau
+ward_2,Ward 2,2012,2012-2020,Brooke Pinto
+ward_2_2022,Ward 2,2022,2022-2030,Brooke Pinto
+ward_3,Ward 3,2012,2012-2020,Mary Cheh
+ward_3_2022,Ward 3,2022,2022-2030,Mary Cheh
+ward_4,Ward 4,2012,2012-2020,Janeese Lewis George
+ward_4_2022,Ward 4,2022,2022-2030,Janeese Lewis George
+ward_5,Ward 5,2012,2012-2020,Kenyan McDuffie
+ward_5_2022,Ward 5,2022,2022-2030,Kenyan McDuffie
+ward_6,Ward 6,2012,2012-2020,Charles Allen
+ward_6_2022,Ward 6,2022,2022-2030,Charles Allen
+ward_7,Ward 7,2012,2012-2020,Vincent Gray
+ward_7_2022,Ward 7,2022,2022-2030,Vincent Gray
+ward_8,Ward 8,2012,2012-2020,Trayon White
+ward_8_2022,Ward 8,2022,2022-2030,Trayon White
