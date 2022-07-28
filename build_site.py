@@ -8,6 +8,7 @@ import argparse
 from datetime import datetime
 
 from scripts.refresh_data import RefreshData
+from scripts.process_candidates import ProcessCandidates
 from scripts.index import BuildIndex
 from scripts.districts import BuildDistricts
 from scripts.ancs import BuildANCs
@@ -19,6 +20,7 @@ start_time = datetime.now()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-r', '--refresh-data', action='store_true', help='Refresh local CSVs from Google Sheets')
+parser.add_argument('-c', '--candidates', action='store_true', help='Process list of candidates from DCBOE')
 parser.add_argument('-i', '--build-index', action='store_true', help='Build index and other top-level pages')
 parser.add_argument('-w', '--build-wards', action='store_true', help='Build page for each Ward')
 parser.add_argument('-a', '--build-ancs', action='store_true', help='Build page for each ANC')
@@ -37,6 +39,7 @@ args = parser.parse_args()
 if args.all:
 
     args.refresh_data = True
+    # args.candidates = True
     args.build_index = True
     args.build_wards = True
     args.build_ancs = True
@@ -48,6 +51,10 @@ if args.all:
 if args.refresh_data:
     r = RefreshData()
     r.run()
+
+if args.candidates:
+    pc = ProcessCandidates()
+    pc.run()
 
 if args.build_index:
     bi = BuildIndex()

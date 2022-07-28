@@ -107,7 +107,7 @@ class BuildPeople():
 
             html += '<ul>'
 
-            for idx, person in self.people_valid[self.people_valid.first_letter == letter].sort_values(by='full_name').iterrows():
+            for _, person in self.people_valid[self.people_valid.first_letter == letter].sort_values(by='full_name').iterrows():
 
                 html += '<li>' + generate_link(person.person_name_id, link_source='person', link_body=person.full_name) + '</li>'
 
@@ -122,7 +122,7 @@ class BuildPeople():
         Loop through all people and build a page for each
         """
 
-        for idx, person in tqdm(self.people_valid.iterrows(), total=len(self.people_valid), desc='People '):
+        for _, person in tqdm(self.people_valid.iterrows(), total=len(self.people_valid), desc='People '):
 
             # debug
             # if person.person_id != 10380:

@@ -152,7 +152,7 @@ class BuildIndex():
     def list_page(self):
         """Build List View page"""
 
-        with open('templates/list.html', 'r') as f:
+        with open('templates/list_all.html', 'r') as f:
             output = f.read()
 
         output = add_google_analytics(output)
@@ -256,6 +256,29 @@ class BuildIndex():
 
 
 
+    def build_map_page_contested(self, html_name) -> None:
+        """
+        Builds HTML page from template that is a full-page map, inserting the necessary Mapbox styles from CSV
+        """
+
+        with open(f'templates/{html_name}.html', 'r') as f:
+            output = f.read()
+
+        output = add_google_analytics(output)
+        output = add_footer(output, link_source='root')
+
+        mb_style_slugs = mapbox_slugs()
+        output = output.replace('REPLACE_WITH_SMD_2022_NO_CANDIDATES_SLUG', mb_style_slugs['smd-2022-no-candidates'])
+        output = output.replace('REPLACE_WITH_SMD_2022_ONE_CANDIDATE_SLUG', mb_style_slugs['smd-2022-one-candidate'])
+        output = output.replace('REPLACE_WITH_SMD_2022_TWO_PLUS_CANDIDATES_SLUG', mb_style_slugs['smd-2022-two-plus-candidates'])
+
+        with open(f'docs/{html_name}.html', 'w') as f:
+            f.write(output)
+
+        print(f'built: {html_name}.html')
+
+
+
     def build_single_page(self, html_name, link_source='root'):
         """
         Build a single page that just needs Google Analytics and the footer
@@ -281,6 +304,7 @@ class BuildIndex():
         self.about_page()
         # self.build_single_page('index')
         self.build_map_page('index')
+        self.build_map_page_contested('contested')
         self.build_single_page('404', link_source='absolute')
         self.list_page()
 

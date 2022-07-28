@@ -163,6 +163,12 @@ class RefreshData():
 
             cp.loc[idx, 'map_display_box'] = map_display_box
 
+        """
+        Mapbox Styles, in order to display the "contested" map, needs the number_of_candidates to be 2,
+        even if the actual number is higher. It's the only way I could figure out how to do it
+        """
+        cp.loc[cp.number_of_candidates >= 2, 'number_of_candidates'] = 2
+
         return cp[['smd_id', 'smd_name', 'map_color_id', 'number_of_candidates', 'map_display_box']]
 
 

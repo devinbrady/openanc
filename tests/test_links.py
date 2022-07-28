@@ -108,10 +108,9 @@ class TestLinks():
         num_broken_links = self.link_df_local.is_broken.sum()
         print(f'Number of broken links: {num_broken_links}')
 
+        self.link_df_local[self.link_df_local.is_broken].to_csv('tests/results/broken_links.csv', index=False)
+        
         if num_broken_links > 0:
-            self.link_df_local[self.link_df_local.is_broken].to_csv('broken_links.csv', index=False)
-            print('Links saved to: broken_links.csv')
-
             unique_bad_destinations = self.link_df_local[self.link_df_local.is_broken].destination_resolved.unique()
             print(f'Number of unique bad destinations: {len(unique_bad_destinations)}')
             
@@ -133,19 +132,15 @@ class TestLinks():
         # todo: should be assert?
         print(f'Number of orphan destinations: {num_orphan_destinations}')
 
-        if num_orphan_destinations > 0:
-            with open('orphan_destinations.txt', 'w') as f:
-                for x in orphan_destinations:
-                    f.write(str(x) + '\n')
-            print('Orphan sources saved to: orphan_destinations.txt')
+        with open('tests/results/orphan_destinations.txt', 'w') as f:
+            for x in orphan_destinations:
+                f.write(str(x) + '\n')
 
 
         num_orphan_sources = len(orphan_sources)
         print(f'Number of orphan sources: {num_orphan_sources}')
 
-        if num_orphan_sources > 0:
-            with open('orphan_sources.txt', 'w') as f:
-                for x in orphan_sources:
-                    f.write(str(x) + '\n')
-            print('Orphan sources saved to: orphan_sources.txt')
+        with open('tests/results/orphan_sources.txt', 'w') as f:
+            for x in orphan_sources:
+                f.write(str(x) + '\n')
 
