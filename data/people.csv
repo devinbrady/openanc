@@ -599,7 +599,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10621,Walter Leroy Peacock III,smd_7B03,,smd_7B03,,,,person_WalterLeroyPeacockIII
 10622,Amanda Farnan,smd_1B11,smd_1B11,smd_2022_1E07,https://twitter.com/farnan4dc,,https://www.farnan4dc.com/,person_AmandaFarnan
 10623,Margaret McDonald,smd_2A08,smd_2A08,,https://twitter.com/margareteileenn,,,person_MargaretMcDonald
-10624,Travis R. Swanson,smd_7B03,smd_7B03,smd_2022_7B03,https://twitter.com/CommissionerTRS,https://www.facebook.com/SwansonDC,https://travisforanc.weebly.com/,person_TravisRSwanson
+10624,Travis R. Swanson,smd_7B03,smd_7B03,smd_2022_7B03,https://twitter.com/CommissionerTRS,https://www.facebook.com/SwansonDC,http://www.travisfor7b.com,person_TravisRSwanson
 10625,De'ashia Deas,smd_7E03,smd_7E03,,,,,person_DeashiaDeas
 10626,Joel Castόn,smd_7F07,smd_7F07,,,,,person_JoelCastόn
 10627,James Tandaric,smd_3F07,smd_3F07,smd_2022_3F05,https://twitter.com/JamesTandaric,,https://jamestandaric.wordpress.com/,person_JamesTandaric
@@ -1318,7 +1318,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11354,Josh Jacobson,smd_2022_1E06,,smd_2022_1E06,https://twitter.com/jacobsonjh,,https://joshforanc.com/,person_JoshJacobson
 11355,Ashley Schapitl,smd_2022_7D09,,smd_2022_7D09,,,,person_AshleySchapitl
 11356,Brian Voorhees,smd_2022_7D07,,smd_2022_7D07,,,,person_BrianVoorhees
-11357,Keith Mantel,smd_2022_3C08,,smd_2022_3C08,,,,person_KeithMantel
+11357,Keith Mantel,smd_2022_3C08,,smd_2022_3C08,https://twitter.com/Anc3C08,,https://anc3c08.com/,person_KeithMantel
 11358,Santiago Lakatos,smd_2022_1B04,,smd_2022_1B04,https://twitter.com/Santi4DC,,,person_SantiagoLakatos
 11359,Amanda Gore,smd_2022_2G04,,smd_2022_2G04,,,,person_AmandaGore
 11360,Luc Saint-Genies,smd_2022_5D01,,smd_2022_5D01,https://twitter.com/lucrsaintgenies,,https://linktr.ee/lucsaintgenies,person_LucSaintGenies
@@ -1458,3 +1458,4 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11495,Carson C. Lucarelli,smd_2022_4D03,,smd_2022_4D03,,,,person_CarsonCLucarelli
 11496,Shirley A. Boykins,smd_2022_7C05,,smd_2022_7C05,,,,person_ShirleyABoykins
 11497,Lonita Sheppard,smd_2022_8F05,,smd_2022_8F05,,,,person_LonitaSheppard
+11498,Huma Imtiaz,smd_2022_5E04,,smd_2022_5E04,https://twitter.com/HumaImtiaz5E04,,,person_HumaImtiaz
