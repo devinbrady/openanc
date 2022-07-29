@@ -348,8 +348,13 @@ class Counts():
 
         g.columns = pd.MultiIndex.from_tuples(column_tuples, names=('a', 'b'))
 
-
         pickups_html = (
+            '<p><em>Some candidates who have filled out the OpenANC Candidate Declaration form have not '
+            + 'yet picked up petitions from DCBOE, so they do not have a pickup date yet, and thus the total '
+            + 'number of candidates here does not match the actual number of candidates. Excludes withdrawn candidates.</em></p>'
+            )
+
+        pickups_html += (
             g.style
                 .format({
                     ('Candidates Filed', 'Count'): '{:.0f}'
@@ -362,7 +367,8 @@ class Counts():
                 .render()
             )
 
-        # imgkit.from_string(pickups_html, 'pickups_by_day.png')
+
+        pickups_html += '<p><img src="images/Candidates_Picking_Up_and_Filing.png" alt="Line graph showing candidates picking up and filing petitions comparing 2020 and 2022"></p>'
 
         return pickups_html
 
