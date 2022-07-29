@@ -75,7 +75,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10074,Jackie Blumenthal,smd_3B02,smd_3B02,smd_3B02,,,,person_JackieBlumenthal
 10075,Melissa Lane,smd_3B03,smd_3B03,smd_3B03,,,,person_MelissaLane
 10076,Mary C. Young,smd_3B04,smd_3B04,,,,,person_MaryCYoung
-10077,Brian G. Turmail,smd_3B05,smd_3B05,smd_3B05,https://twitter.com/BTurmail,,,person_BrianGTurmail
+10077,Brian G. Turmail,smd_3B05,smd_3B05,smd_3B05,,,,person_BrianGTurmail
 10078,Lee Brian Reba,smd_3C01,smd_3C01,smd_3C01,,,,person_LeeBrianReba
 10079,Jason Fink,smd_3C02,smd_3C02,smd_3C02,https://twitter.com/FINKJM,,,person_JasonFink
 10080,Jimmy Dubois,smd_3C03,smd_3C03,,https://twitter.com/JimmyDinDC,,,person_JimmyDubois
@@ -307,7 +307,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10310,Diane C. Quinn,smd_2B04,,smd_2B04,,,,person_DianeCQuinn
 10311,Matthew Holden,smd_2B08,smd_2B08,smd_2B08,https://twitter.com/_matthewthomas,,https://matthew2b08.com/,person_MatthewHolden
 10312,Kyle Mulhall,smd_2B09,smd_2B09,smd_2B09,https://twitter.com/kyle_mulhall_DC,https://www.facebook.com/Kyle-Mulhall-for-ANC-103884294735452,https://kyle4anc.com/,person_KyleMulhall
-10313,Gigi Nelson,smd_2C03,smd_2C03,smd_2C03,https://twitter.com/Gigi_ANC2C03,,,person_GigiNelson
+10313,Gigi Nelson,smd_2C03,smd_2C03,smd_2C03,https://twitter.com/Gigi_ANC2C03,https://www.facebook.com/gigi.anc.3,,person_GigiNelson
 10314,Thomas McDonough,smd_2D01,,smd_2D01,,,,person_ThomasMcDonough
 10315,Jenny Mitchell,smd_2E02,smd_2E02,smd_2E02,,,,person_JennyMitchell
 10316,"Christopher ""Topher"" Mathews",smd_2E02,,smd_2E02,https://twitter.com/GeorgetownMet,,,person_ChristopherTopherMathews
@@ -330,7 +330,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10335,Ulas Doga Eralp,smd_3F01,,smd_3F01,,,,person_UlasDogaEralp
 10336,"Dipali (""Dipa"") Mehta",smd_3F03,smd_3F03,smd_3F03,,,,person_DipaliDipaMehta
 10337,Lisa Cox,smd_3F07,,smd_3F07,,,,person_LisaCox
-10338,Lisa R. Gore,smd_3G01,smd_3G01,smd_3G01,https://twitter.com/GoreforANC34G01,,,person_LisaRGore
+10338,Lisa R. Gore,smd_3G01,smd_3G01,smd_3G01,https://twitter.com/GoreforANC34G01,,https://www.lisa4anc.com/,person_LisaRGore
 10339,Lucinda A. Wade,smd_3G01,,smd_3G01,,,,person_LucindaAWade
 10340,John K. Higgins,smd_3G02,smd_3G02,smd_3G02,,,,person_JohnKHiggins
 10341,Connie K.N. Chang,smd_3G05,smd_3G05,smd_3G05,https://twitter.com/ConnieKNChang,,https://connieknchangforanc.com/,person_ConnieKNChang
@@ -604,7 +604,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10626,Joel Castόn,smd_7F07,smd_7F07,,,,,person_JoelCastόn
 10627,James Tandaric,smd_3F07,smd_3F07,smd_2022_3F05,https://twitter.com/JamesTandaric,,https://jamestandaric.wordpress.com/,person_JamesTandaric
 10628,Graham Button,smd_4B05,smd_4B05,,,,,person_GrahamButton
-10629,Brandolon Barnett,smd_1A06,smd_1A06,,https://twitter.com/BrandolonB,,,person_BrandolonBarnett
+10629,Brandolon Barnett,smd_1A06,smd_1A06,,https://twitter.com/BrandolonB,,https://brandolonbarnett.com/,person_BrandolonBarnett
 10630,LaQueta Tate,smd_8E03,smd_8E03,smd_2022_8E02,,,,person_LaQuetaTate
 10631,Harry Thomas Jr.,smd_5C06,smd_5C06,,,,,person_HarryThomasJr
 10632,Jake Faleschini,smd_1C07,smd_1C07,,https://twitter.com/soundpolicy,,,person_JakeFaleschini
@@ -1331,7 +1331,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11367,Shane Seger,smd_2022_7D09,,smd_2022_7D09,,,,person_ShaneSeger
 11368,Matthew Bradfield,smd_2022_4C07,,smd_2022_4C07,https://twitter.com/palerider318,,https://matthewbforanc.blogspot.com/,person_MatthewBradfield
 11369,"Wendy ""Hope Dealer"" Hamilton",smd_2022_8D06,,smd_2022_8D06,https://twitter.com/revwendy3,https://www.facebook.com/RevWendyHamilton,https://www.revwendyhamilton.com/,person_WendyHopeDealerHamilton
-11370,Thomas Marabello,smd_2022_3E04,,smd_2022_3E04,https://twitter.com/TomMarabello,,,person_ThomasMarabello
+11370,Thomas Marabello,smd_2022_3E03,,smd_2022_3E03,https://twitter.com/TomMarabello,,,person_ThomasMarabello
 11371,Jeremy Sherman,smd_2022_1A04,,smd_2022_1A04,,,,person_JeremySherman
 11372,Eric Jonathan Sheptok,smd_2022_1E06,,smd_2022_1E06,,,,person_EricJonathanSheptok
 11373,Carson Colton Robb,smd_2022_2A04,,smd_2022_2A04,,,,person_CarsonColtonRobb
