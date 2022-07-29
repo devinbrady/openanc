@@ -3,17 +3,15 @@ pdf_errors_to_check.txt
 
 ****************************************** 2022 ******************************************
 
-"Hasan Rasheedah" should be: Rasheedah Hasan
 
 Quentin Col√≥n Roosevelt to: Quentin Colón Roosevelt
-
-Clyde Darren Thopson: seems like a typo but have no way of knowing otherwise
-
 
 resolved: 
 "Patricia Egvino" should be: Patricia Eguino
 Amy Hall is duplicated. Delete from 2E03, leave in 3E02
 Add space: Rachelle P.Nigro to Rachelle P. Nigro
+"Hasan Rasheedah" should be: Rasheedah Hasan
+Clyde Darren Thopson: seems like a typo but have no way of knowing otherwise
 
 
 ****************************************** 2020 ******************************************

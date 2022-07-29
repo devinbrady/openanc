@@ -87,7 +87,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10086,Chuck Elkins,smd_3D01,smd_3D01,smd_3D01,https://twitter.com/ChuckElkins,,,person_ChuckElkins
 10087,Troy Kravitz,smd_3D02,smd_3D02,smd_3D02,,,,person_TroyKravitz
 10088,Paige Ela,smd_3D03,smd_3D03,smd_3D03,,,,person_PaigeEla
-10089,Michael Sriqui,smd_3D04,smd_3D04,smd_3D04,https://twitter.com/michael_sriqui,,http://www.michaelsriqui.com/home.html,person_MichaelSriqui
+10089,Michael Sriqui,smd_3D04,smd_3D04,smd_3D04,https://twitter.com/michael_sriqui,,http://www.michaelsriqui.com/,person_MichaelSriqui
 10090,Alan Karnofsky,smd_3D05,smd_3D05,,https://twitter.com/alankarnofsky,,,person_AlanKarnofsky
 10091,Virginia Gorsevski,smd_3D06,smd_3D06,,,,,person_VirginiaGorsevski
 10092,Taylor Berlin,smd_3D07,smd_3D07,,https://twitter.com/taylorbberlin,,,person_TaylorBerlin
@@ -208,7 +208,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10208,"Fredrica ""Rikki"" Kramer",smd_6D05,smd_6D05,smd_6D05,,,,person_FredricaRikkiKramer
 10209,Rhonda N. Hamilton,smd_6D06,smd_6D06,smd_6D06,,,,person_RhondaNHamilton
 10210,Edward Daniels,smd_6D07,smd_6D07,smd_6D07,https://twitter.com/EdwardDaniels,https://www.facebook.com/edwardANC/,https://www.edwarddaniels.com/commissioner,person_EdwardDaniels
-10211,"Alexander M. ""Alex"" Padro",smd_6E01,smd_6E01,,https://twitter.com/AlexanderMPadro,,,person_AlexanderMAlexPadro
+10211,"Alexander M. ""Alex"" Padro",smd_6E01,smd_6E01,smd_2022_2G02,https://twitter.com/AlexanderMPadro,,,person_AlexanderMAlexPadro
 10212,Michael J. Brown,smd_6E02,smd_6E02,,,,,person_MichaelJBrown
 10213,Frank S. Wiggins,smd_6E03,smd_6E03,smd_6E03,,,,person_FrankSWiggins
 10214,Rachelle P. Nigro,smd_6E04,smd_6E04,smd_6E04,https://twitter.com/nigro4dc,https://www.facebook.com/votenigro,,person_RachellePNigro
@@ -333,7 +333,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10338,Lisa R. Gore,smd_3G01,smd_3G01,smd_3G01,https://twitter.com/GoreforANC34G01,,https://www.lisa4anc.com/,person_LisaRGore
 10339,Lucinda A. Wade,smd_3G01,,smd_3G01,,,,person_LucindaAWade
 10340,John K. Higgins,smd_3G02,smd_3G02,smd_3G02,,,,person_JohnKHiggins
-10341,Connie K.N. Chang,smd_3G05,smd_3G05,smd_3G05,https://twitter.com/ConnieKNChang,,https://connieknchangforanc.com/,person_ConnieKNChang
+10341,Connie K. N. Chang,smd_3G05,smd_3G05,smd_3G05,https://twitter.com/ConnieKNChang,,https://connieknchangforanc.com/,person_ConnieKNChang
 10342,Merrit P. Drucker,smd_4A02,,smd_4A02,,,,person_MerritPDrucker
 10343,"Jes'Terieuz ""JT"" Howard",smd_4A04,,smd_4A04,,,,person_JesTerieuzJTHoward
 10344,Aretha N. Jones,smd_4A06,,smd_4A06,,,,person_ArethaNJones
@@ -1459,3 +1459,13 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11496,Shirley A. Boykins,smd_2022_7C05,,smd_2022_7C05,,,,person_ShirleyABoykins
 11497,Lonita Sheppard,smd_2022_8F05,,smd_2022_8F05,,,,person_LonitaSheppard
 11498,Huma Imtiaz,smd_2022_5E04,,smd_2022_5E04,https://twitter.com/HumaImtiaz5E04,,,person_HumaImtiaz
+11499,Susana Barañano,smd_2022_2A01,,smd_2022_2A01,,,,person_SusanaBarañano
+11500,Ed Comer,smd_2022_2A04,,smd_2022_2A04,,,,person_EdComer
+11501,Josette Barsano,smd_2022_2C02,,smd_2022_2C02,,,,person_JosetteBarsano
+11502,Sranda Watkins,smd_2022_2G03,,smd_2022_2G03,,,,person_SrandaWatkins
+11503,Bernard Horn,smd_2022_3D05,,smd_2022_3D05,,,,person_BernardHorn
+11504,Teri Huet,smd_2022_3F02,,smd_2022_3F02,,,,person_TeriHuet
+11505,Randy Zmuda,smd_2022_4E04,,smd_2022_4E04,,,,person_RandyZmuda
+11506,Bob Link,smd_2022_6D01,,smd_2022_6D01,,,,person_BobLink
+11507,Jamaal Maurice Pearsall,smd_2022_7B02,,smd_2022_7B02,,,,person_JamaalMauricePearsall
+11508,Sherman Hawkins,smd_2022_8F05,,smd_2022_8F05,,,,person_ShermanHawkins

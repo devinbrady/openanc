@@ -59,6 +59,7 @@ class ProcessCandidates():
         df.rename(
             columns={
                 'ANC/SMD': 'smd'
+                , 'ANC-SMD': 'smd'
                 , 'Name': 'candidate_name'
                 , 'Date of Pick-up': 'pickup_date'
                 , 'Date Filed': 'filed_date'
