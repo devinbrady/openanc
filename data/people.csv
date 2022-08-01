@@ -1324,7 +1324,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11360,Luc Saint-Genies,smd_2022_5D01,,smd_2022_5D01,https://twitter.com/lucrsaintgenies,,https://linktr.ee/lucsaintgenies,person_LucSaintGenies
 11361,Thaddeus Bradley-Lewis,smd_2022_3A01,,smd_2022_3A01,https://twitter.com/Thad3A01,,,person_ThaddeusBradleyLewis
 11362,VJ Kapur,smd_2022_5C07,,smd_2022_5C07,https://twitter.com/vjkapur,https://facebook.com/vkapur,https://vj4anc.com,person_VJKapur
-11363,Tucker Jones,smd_2022_1B09,,smd_2022_1B09,,,,person_TuckerJones
+11363,Tucker Jones,smd_2022_1B09,,smd_2022_1B09,https://twitter.com/tuckcomatus,,,person_TuckerJones
 11364,Quentin Colón Roosevelt,smd_2022_3D03,,smd_2022_3D03,https://twitter.com/qcolonroosevelt,,,person_QuentinColónRoosevelt
 11365,Zachary Adams,smd_2022_2B08,,smd_2022_2B08,https://twitter.com/zacheadams,,,person_ZacharyAdams
 11366,Jamie S. Sycamore,smd_2022_1B03,,smd_2022_1B03,https://twitter.com/SycamoreANC,,,person_JamieSSycamore
@@ -1470,3 +1470,5 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11507,Jamaal Maurice Pearsall,smd_2022_7B02,,smd_2022_7B02,,,,person_JamaalMauricePearsall
 11508,Sherman Hawkins,smd_2022_8F05,,smd_2022_8F05,,,,person_ShermanHawkins
 11509,Robert Loper,smd_2022_6A03,,smd_2022_6A03,,,,person_RobertLoper
+11510,J. Swiderski,smd_2022_1B07,,smd_2022_1B07,https://twitter.com/JS_1B07,,,person_JSwiderski
+11511,Zach Ammerman,smd_2022_5A09,,smd_2022_5A09,https://twitter.com/ZachANC5A09,,,person_ZachAmmerman
