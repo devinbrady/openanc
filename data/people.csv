@@ -604,7 +604,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10626,Joel Castόn,smd_7F07,smd_7F07,,,,,person_JoelCastόn
 10627,James Tandaric,smd_3F07,smd_3F07,smd_2022_3F05,https://twitter.com/JamesTandaric,,https://jamestandaric.wordpress.com/,person_JamesTandaric
 10628,Graham Button,smd_4B05,smd_4B05,,,,,person_GrahamButton
-10629,Brandolon Barnett,smd_1A06,smd_1A06,,https://twitter.com/BrandolonB,,https://brandolonbarnett.com/,person_BrandolonBarnett
+10629,Brandolon Barnett,smd_1A06,smd_1A06,smd_2022_1A06,https://twitter.com/BrandolonB,,https://brandolonbarnett.com/,person_BrandolonBarnett
 10630,LaQueta Tate,smd_8E03,smd_8E03,smd_2022_8E02,,,,person_LaQuetaTate
 10631,Harry Thomas Jr.,smd_5C06,smd_5C06,,,,,person_HarryThomasJr
 10632,Jake Faleschini,smd_1C07,smd_1C07,,https://twitter.com/soundpolicy,,,person_JakeFaleschini
@@ -1472,3 +1472,13 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11509,Robert Loper,smd_2022_6A03,,smd_2022_6A03,,,,person_RobertLoper
 11510,J. Swiderski,smd_2022_1B07,,smd_2022_1B07,https://twitter.com/JS_1B07,,,person_JSwiderski
 11511,Zach Ammerman,smd_2022_5A09,,smd_2022_5A09,https://twitter.com/ZachANC5A09,,,person_ZachAmmerman
+11512,David Segall,smd_2022_1A08,,smd_2022_1A08,,,,person_DavidSegall
+11513,Ashleigh Fields,smd_2022_1B07,,smd_2022_1B07,,,,person_AshleighFields
+11514,Lynda Laughlin,smd_2022_1C06,,smd_2022_1C06,,,,person_LyndaLaughlin
+11515,Steven McCarty,smd_2022_2G04,,smd_2022_2G04,,,,person_StevenMcCarty
+11516,Jeffrey Denny,smd_2022_3E05,,smd_2022_3E05,,,,person_JeffreyDenny
+11517,Anna Roblin,smd_2022_5D03,,smd_2022_5D03,,,,person_AnnaRoblin
+11518,Alexandra Kelly,,,,,,,person_AlexandraKelly
+11519,Carrie N. Brown,,,,,,,person_CarrieNBrown
+11520,Maria Johnson,,,,,,,person_MariaJohnson
+11521,Kelly Mikel Williams,,,,,,,person_KellyMikelWilliams
