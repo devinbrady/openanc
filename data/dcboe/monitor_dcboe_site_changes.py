@@ -118,7 +118,7 @@ class MonitorDCBOE():
         page_has_changed = self.poll_dcboe()
 
         if page_has_changed:
-            os.system('terminal-notifier -title "OpenANC" -message "DCBOE link has changed" -sound Blow')
+            os.system('terminal-notifier -title "OpenANC" -message "DCBOE link has changed" -sound Blow -open "https://dcboe.org/Elections/2022-Elections"')
 
             # Save the new filename to the current_link text file
             self.reset()

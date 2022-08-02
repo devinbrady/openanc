@@ -19,6 +19,7 @@ from scripts.urls import (
 
 from scripts.data_transformations import (
     districts_candidates_commissioners
+    , incumbent_df
     , list_commissioners
     , list_candidates
     )
@@ -72,54 +73,8 @@ class BuildIndex():
         Build HTML containing the status of each incumbent
         """
 
-        districts = pd.read_csv('data/districts.csv')
-        people = pd.read_csv('data/people.csv')
-        comm = list_commissioners(status='current')
-        comm.rename(columns={'smd_id': 'commissioner_smd_id'}, inplace=True)
-        pc = pd.merge(people[['person_id', 'full_name']], comm, how='inner', on='person_id')
-
-        candidates = list_candidates(election_year=2022)
-        candidates.rename(columns={'smd_id': 'candidate_smd_id'}, inplace=True)
-        candidates['is_running'] = True
-
-        not_running = pd.read_csv('data/incumbents_not_running.csv')
-        not_running['confirmed_not_running'] = True
-                
-        comm_candidates = pd.merge(
-            pc
-            , candidates[['person_id', 'candidate_id', 'candidate_smd_id', 'is_running']]
-            , how='left'
-            , on='person_id'
-        )
-
-        comm_candidates_nr = pd.merge(
-            comm_candidates
-            , not_running[['person_id', 'confirmed_not_running']]
-            , how='left'
-            , on='person_id'
-        )
-
-        comm_candidates_nr['candidate_status'] = 'Unknown'
-        comm_candidates_nr.loc[comm_candidates_nr.confirmed_not_running.fillna(False), 'candidate_status'] = 'Not Running'
-        comm_candidates_nr.loc[comm_candidates_nr.is_running.fillna(False), 'candidate_status'] = 'Is Running'
-        status_count = comm_candidates_nr.groupby('candidate_status').size()
-
-        comm_candidates_nrd = pd.merge(comm_candidates_nr, districts.rename(columns={'smd_name': 'commissioner_smd_name'}), how='left', left_on='commissioner_smd_id', right_on='smd_id')
-        comm_candidates_nrd = pd.merge(comm_candidates_nrd, districts.rename(columns={'smd_name': 'candidate_smd_name'}), how='left', left_on='candidate_smd_id', right_on='smd_id')
-
-        comm_candidates_nrd['Incumbent SMD'] = comm_candidates_nrd.apply(lambda x: 
-            generate_link(x.commissioner_smd_id, link_source='root', link_body=x.commissioner_smd_name)
-            , axis=1
-        )
-        comm_candidates_nrd['2022 Candidate SMD'] = comm_candidates_nrd.apply(lambda x:
-            '(none)' if pd.isnull(x.candidate_smd_id) else
-            generate_link(x.candidate_smd_id, link_source='root', link_body=x.candidate_smd_name)
-            , axis=1
-        )
-
-        comm_candidates_nrd['candidate_smd_id'] = comm_candidates_nrd['candidate_smd_id'].fillna('(none)')
-
-        comm_candidates_nrd.sort_values(by=['commissioner_smd_id', 'full_name'], inplace=True)
+        comm_candidates_nrd = incumbent_df()
+        status_count = comm_candidates_nrd.groupby('reelection_status').size()
 
         display_columns = ['Incumbent SMD', '2022 Candidate SMD', 'full_name']
         html = ''
@@ -132,7 +87,7 @@ class BuildIndex():
             css_uuid = 'temp'
 
             html += (
-                comm_candidates_nrd[comm_candidates_nrd.candidate_status == incumbent_status][display_columns]
+                comm_candidates_nrd[comm_candidates_nrd.reelection_status == incumbent_status][display_columns]
                 .fillna('')
                 .style
                 .set_properties(
@@ -202,6 +157,8 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
         output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
         output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
+
+        c.pickups_plot()
 
         output = add_google_analytics(output)
         output = add_footer(output, link_source='root')

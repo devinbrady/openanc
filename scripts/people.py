@@ -19,6 +19,7 @@ from scripts.data_transformations import (
     list_commissioners
     , people_dataframe
     , results_candidate_people
+    , incumbent_df
 )
 
 
@@ -65,6 +66,17 @@ class BuildPeople():
             , self.rcp[['candidate_id', 'ranking_ordinal', 'votes']]
             , how='left'
             , on='candidate_id'
+            )
+
+        incumbents = incumbent_df()
+        incumbents_not_candidates = incumbents[incumbents.reelection_status != 'Is Running'].copy()
+        incumbents_not_candidates['election_year'] = CURRENT_ELECTION_YEAR
+        self.candidates_districts_results['reelection_status'] = None
+
+        self.candidates_districts_results_incumbents = pd.concat([
+            self.candidates_districts_results
+            , incumbents_not_candidates[['person_id', 'election_year', 'reelection_status', 'candidate_status']]
+            ], ignore_index=True
             )
 
 
@@ -144,7 +156,8 @@ class BuildPeople():
 
         # Determine if this person has run for office or served as a commissioner
         person_districts = self.people_comm.loc[self.people_comm.person_id == person.person_id].copy()
-        person_candidacies = self.candidates_districts_results.loc[self.candidates_districts_results.person_id == person.person_id].copy()
+        person_candidacies = self.candidates_districts_results_incumbents.loc[self.candidates_districts_results_incumbents.person_id == person.person_id].copy()
+        person_candidacies.sort_values(by='election_year', ascending=False, inplace=True)
 
         # Only add the link for people with active candidacy or currently serving as commissioner
         if (person_districts['is_current'].sum() > 0) or ((person_candidacies.election_year == CURRENT_ELECTION_YEAR).sum() > 0):
@@ -175,13 +188,11 @@ class BuildPeople():
 
             for idx, pd in person_candidacies.reset_index().iterrows():
 
-                # Add break between candidate tables if there is more than one candidate
+                # Add break between candidate tables if there is more than one candidacy
                 if idx > 0:
                     candidacies_block += '<br/>'
 
-                candidacies_block += build_data_table(pd, ['election_year', 'smd_url', 'votes', 'ranking_ordinal'], link_source='person')
-
-
+                candidacies_block += build_data_table(pd, ['election_year', 'smd_url', 'votes', 'ranking_ordinal', 'reelection_status'], link_source='person')
 
             candidacies_block += '</ul>'
 

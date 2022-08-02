@@ -5,8 +5,15 @@ import imgkit
 import pandas as pd
 from datetime import datetime
 
+import matplotlib as mpl
+from matplotlib import rc
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+from matplotlib._color_data import TABLEAU_COLORS
+
 from scripts.common import (
     assemble_divo
+    , current_time
     )
 
 from scripts.data_transformations import (
@@ -374,3 +381,93 @@ class Counts():
 
 
 
+    def pickups_plot(self):
+        """
+        Plot showing the running total of candidates who picked up and filed petitions by date,
+        comparing 2020 and 2022.
+        """
+
+        # Set the font to Helvetica
+        rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+
+        candidates = pd.read_csv('data/candidates.csv')
+        candidates['pickup_date'] = pd.to_datetime(candidates['pickup_date'])
+        candidates['filed_date'] = pd.to_datetime(candidates['filed_date'])
+        years = sorted(candidates[candidates.pickup_date.notnull()].pickup_date.dt.year.unique())
+
+        deadlines = {
+            2020: pd.to_datetime('2020-08-05')
+            , 2022: pd.to_datetime('2022-08-10')
+        }
+
+        start_date = {
+            2020: pd.to_datetime('2020-06-26')
+            , 2022: pd.to_datetime('2022-07-20')
+        }
+
+        pickup_by_day = candidates.groupby('pickup_date').size()
+        filed_by_day = candidates.groupby('filed_date').size()
+
+        pickup_by_year = {}
+        filed_by_year = {}
+        for y in years:
+            pickup_by_year[y] = pd.DataFrame(pickup_by_day[pickup_by_day.index.year == y], columns=['pickups'])
+            filed_by_year[y] = pd.DataFrame(filed_by_day[filed_by_day.index.year == y], columns=['filers'])
+
+        # Start with 2020 data and calculate sums
+        comp = pd.DataFrame(index=pd.date_range(start=start_date[2020], end=deadlines[2020]))
+        comp = pd.merge(comp, pickup_by_year[2020].pickups, how='left', left_index=True, right_index=True)
+        comp = pd.merge(comp, filed_by_year[2020].filers, how='left', left_index=True, right_index=True)
+        comp.pickups = comp.pickups.fillna(0)
+        comp.filers = comp.filers.fillna(0)
+        comp['cumulative_pickups_2020'] = comp.pickups.cumsum()
+        comp['cumulative_filers_2020'] = comp.filers.cumsum()
+        comp['days_to_deadline'] = (comp.index - deadlines[2020]).days
+        comp.drop(columns=['pickups', 'filers'], inplace=True)
+
+        # Join 2022 data and calculate sums
+        pickup_by_year[2022]['days_to_deadline'] = (pickup_by_year[2022].index - deadlines[2022]).days
+        filed_by_year[2022]['days_to_deadline'] = (filed_by_year[2022].index - deadlines[2022]).days
+
+        comp = pd.merge(comp, pickup_by_year[2022], how='left', on='days_to_deadline')
+        comp = pd.merge(comp, filed_by_year[2022], how='left', on='days_to_deadline')
+
+        comp['cumulative_pickups_2022'] = comp.pickups.cumsum().ffill()
+        comp['cumulative_filers_2022'] = comp.filers.cumsum().ffill()
+
+        # Fill in NULLs where 2022 dates haven't happened yet
+        comp.loc[
+            comp.days_to_deadline.isin(range(pickup_by_year[2022].days_to_deadline.max() + 1, 1))
+            , ['cumulative_pickups_2022', 'cumulative_filers_2022']
+        ] = None
+
+        comp.drop(columns=['pickups', 'filers'], inplace=True)
+        # comp.rename(columns={'pickups': 'pickups_2022'}, inplace=True)
+
+        rc('font', family='sans-serif')
+        rc('font', serif='Helvetica Neue')
+        rc('text', usetex='false')
+        mpl.rcParams.update({'font.size': 12})
+
+        fig, ax = plt.subplots(figsize=(10,7))
+
+        plt.plot(comp['cumulative_pickups_2020'], label='2020 Picked Up Petitions', color='tab:blue', linestyle='solid')
+        plt.plot(comp['cumulative_filers_2020'], label='2020 Filed Petitions', color='tab:blue', linestyle='dashed')
+        plt.plot(comp['cumulative_pickups_2022'], label='2022 Picked Up Petitions', color='tab:orange', linestyle='solid')
+        plt.plot(comp['cumulative_filers_2022'], label='2022 Filed Petitions', color='tab:orange', linestyle='dashed')
+
+        xtick_range = list(range(0,len(comp), 5))
+        plt.xticks(ticks=xtick_range, labels=abs(comp.loc[xtick_range, 'days_to_deadline']))
+        plt.xlabel('Days to Filing Deadline')
+        plt.ylabel('Running Total of Candidates')
+        plt.legend()
+        plt.title('ANC Candidates Picking Up Petitions: 2020 vs 2022')
+
+        citation = f"Updated {current_time()}"
+        ax.annotate(
+            xy=(0.945, 0.05), text=citation, xycoords='figure fraction'
+            , ha='right', va='center'
+        )
+
+        plt.savefig(
+            'docs/images/Candidates_Picking_Up_and_Filing.png', transparent=False, facecolor='white', bbox_inches='tight')

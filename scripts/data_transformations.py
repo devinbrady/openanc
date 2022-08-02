@@ -52,6 +52,61 @@ def results_candidate_people():
 
 
 
+def incumbent_df():
+    """DataFrame showing re-election status of every incumbent"""
+
+    districts = pd.read_csv('data/districts.csv')
+    people = pd.read_csv('data/people.csv')
+    comm = list_commissioners(status='current')
+    comm.rename(columns={'smd_id': 'commissioner_smd_id'}, inplace=True)
+    pc = pd.merge(people[['person_id', 'full_name']], comm, how='inner', on='person_id')
+
+    candidates = list_candidates(election_year=2022)
+    candidates.rename(columns={'smd_id': 'candidate_smd_id'}, inplace=True)
+    candidates['is_running'] = True
+
+    not_running = pd.read_csv('data/incumbents_not_running.csv')
+    not_running['confirmed_not_running'] = True
+            
+    comm_candidates = pd.merge(
+        pc
+        , candidates[['person_id', 'candidate_id', 'candidate_smd_id', 'is_running']]
+        , how='left'
+        , on='person_id'
+    )
+
+    comm_candidates_nr = pd.merge(
+        comm_candidates
+        , not_running[['person_id', 'confirmed_not_running']]
+        , how='left'
+        , on='person_id'
+    )
+
+    comm_candidates_nr['reelection_status'] = 'Unknown'
+    comm_candidates_nr.loc[comm_candidates_nr.confirmed_not_running.fillna(False), 'reelection_status'] = 'Not Running'
+    comm_candidates_nr.loc[comm_candidates_nr.is_running.fillna(False), 'reelection_status'] = 'Is Running'
+
+    comm_candidates_nrd = pd.merge(comm_candidates_nr, districts.rename(columns={'smd_name': 'commissioner_smd_name'}), how='left', left_on='commissioner_smd_id', right_on='smd_id')
+    comm_candidates_nrd = pd.merge(comm_candidates_nrd, districts.rename(columns={'smd_name': 'candidate_smd_name'}), how='left', left_on='candidate_smd_id', right_on='smd_id')
+
+    comm_candidates_nrd['Incumbent SMD'] = comm_candidates_nrd.apply(lambda x: 
+        generate_link(x.commissioner_smd_id, link_source='root', link_body=x.commissioner_smd_name)
+        , axis=1
+    )
+    comm_candidates_nrd['2022 Candidate SMD'] = comm_candidates_nrd.apply(lambda x:
+        '(none)' if pd.isnull(x.candidate_smd_id) else
+        generate_link(x.candidate_smd_id, link_source='root', link_body=x.candidate_smd_name)
+        , axis=1
+    )
+
+    comm_candidates_nrd['candidate_smd_id'] = comm_candidates_nrd['candidate_smd_id'].fillna('(none)')
+
+    comm_candidates_nrd.sort_values(by=['commissioner_smd_id', 'full_name'], inplace=True)
+
+    return comm_candidates_nrd
+
+
+
 def districts_candidates_commissioners(
     duplicate_check=False
     , print_counts=False
