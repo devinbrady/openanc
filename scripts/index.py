@@ -280,5 +280,6 @@ class BuildIndex():
         self.build_map_page('index')
         self.build_map_page_contested('contested')
         self.build_single_page('404', link_source='absolute')
+        self.build_single_page('nav')
         self.list_page()
 

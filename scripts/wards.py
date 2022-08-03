@@ -2,6 +2,7 @@
 Build Ward pages
 """
 
+import hashlib
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -19,6 +20,7 @@ from scripts.common import (
 
 from scripts.urls import (
     generate_url
+    , relative_link_prefix
     )
 
 
@@ -34,8 +36,46 @@ class BuildWards():
 
 
 
-    def ward_list_page(self):
-        pass
+    def ward_list_page(self, redistricting_year):
+        """Build a page showing a list of all the wards"""
+        
+        with open('templates/list.html', 'r') as f:
+            output = f.read()
+
+        output = add_google_analytics(output)
+
+        output = output.replace('REPLACE_WITH_LIST_NAME', 'List of Wards')
+        output = output.replace('REPLACE_WITH_LINK_PATH___', relative_link_prefix(source='ward', destination='root'))
+
+        output = output.replace('REPLACE_WITH_LIST_VALUES', self.list_of_wards(redistricting_year))
+        
+        with open(f'docs/map_{redistricting_year}/wards/index.html', 'w') as f:
+            f.write(output)
+
+
+
+    def list_of_wards(self, redistricting_year):
+
+        ward_districts = pd.merge(
+            self.wards[self.wards.redistricting_year == redistricting_year]
+            , self.districts, how='inner', on='ward_id'
+            )
+
+        display_df = ward_districts.groupby('ward_name').size()
+
+        columns_to_html = ['ward_name']
+        css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
+
+        html = (
+            display_df[columns_to_html]
+            .fillna('')
+            .style
+            .set_uuid(css_uuid)
+            .hide_index()
+            .render()
+            )
+
+        return html
 
 
 
@@ -91,6 +131,8 @@ class BuildWards():
 
     def run(self):
 
-        self.ward_list_page()
+        # for ry in [2012, 2022]:
+        #     self.ward_list_page(redistricting_year=ry)
+
         self.build_all_ward_pages()
 

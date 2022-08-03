@@ -43,22 +43,6 @@ def generate_link(page_id, link_body, link_source='root'):
 
 
 
-# def district_link(smd_id, smd_name, link_source='root', show_redistricting_cycle=False, redistricting_cycle=None):
-#     """Return an HTML link for one district page"""
-
-#     if show_redistricting_cycle:
-#         redistricting_string = f'[{redistricting_cycle} Cycle] '
-#     else:
-#         redistricting_string = ''
-
-#     link_body = f'{redistricting_string}{smd_name}'
-
-#     link_text = f'<a href="{generate_url(smd_id, link_source=link_source)}">{link_body}</a>'
-
-#     return link_text
-
-
-
 def relative_link_prefix(source, destination, redistricting_year='xxxx'):
     """
     Returns the first part of the URL

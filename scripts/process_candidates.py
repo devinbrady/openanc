@@ -243,6 +243,11 @@ class ProcessCandidates():
 
         candidates_to_match['match_person_id'] = pd.NA
         candidates_to_match['match_person_id'] = candidates_to_match['match_person_id'].astype('Int64')
+        candidates_to_match['match_score'] = pd.NA
+        candidates_to_match['match_person_id'] = pd.NA
+        candidates_to_match['match_person_full_name'] = pd.NA
+        candidates_to_match['match_person_any_smd'] = pd.NA
+
 
         """
         If the candidate name has a high match score to the name of the current 
@@ -269,7 +274,7 @@ class ProcessCandidates():
             candidates_to_match.loc[idx, 'match_person_full_name'] = people[people.person_id == best_id].full_name.iloc[0]
             candidates_to_match.loc[idx, 'match_person_any_smd'] = people[people.person_id == best_id].any_smd.iloc[0]
         
-        candidates_to_match['good_match'] = None
+        candidates_to_match['good_match'] = '?'
         match_columns = [
             'dcboe_hash_id'
             , 'match_score'
@@ -454,70 +459,67 @@ class ProcessCandidates():
         candidates_this_year = candidates[candidates.election_year == CURRENT_ELECTION_YEAR].copy()
         dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
-        dcboe_not_in_openanc = [h for h in dcboe.dcboe_hash_id.tolist() if h not in candidates_this_year.dcboe_hash_id.tolist()]
         match_output_file = Path('data/dcboe/1_candidates_dcboe_match_eval.csv')
         
-        if dcboe_not_in_openanc:
+        self.run_matching_process()
 
-            print('\n\nNew candidates should be added to the OpenANC candidate list')
+        if match_output_file.exists():
+            matches = pd.read_csv(match_output_file)
+        else:
+            matches = pd.read_csv('data/dcboe/1_candidates_dcboe_match.csv')
+        # else:
+        #     print(f'Evaluate the matches and save to: {str(match_output_file)}')
+        #     return
 
-            self.run_matching_process()
+        
+        good_matches = matches[matches.good_match == 1].copy()
+        people_create = matches[matches.good_match == 0].copy()
 
-            if match_output_file.exists():
-                matches = pd.read_csv(match_output_file)
-            else:
-                print(f'Evaluate the matches and save to: {str(match_output_file)}')
-                return
+        mc = pd.merge(good_matches, candidates_this_year[['candidate_id', 'person_id']], how='left', left_on='match_person_id', right_on='person_id')
 
-            
-            good_matches = matches[matches.good_match == 'x'].copy()
-            people_create = matches[matches.good_match != 'x'].copy()
+        # Candidates who need a hash ID change
+        candidates_change_hash_id = mc[mc.candidate_id.notnull()].copy()
+        print(f'\nExisting candidates need the dcboe_hash_id changed ({len(candidates_change_hash_id)} people): 2a_candidates_change_hash_id.csv')
+        change_hash_columns = ['candidate_id', 'person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']
+        candidates_change_hash_id[change_hash_columns].sort_values(by='candidate_id').to_csv('data/dcboe/2a_candidates_change_hash_id.csv', index=False)
 
-            mc = pd.merge(good_matches, candidates_this_year[['candidate_id', 'person_id']], how='left', left_on='match_person_id', right_on='person_id')
+        # Candidates who are existing people
+        candidates_create = mc[mc.candidate_id.isnull()].copy()
+        print(f'\nExisting people need to be added to the candidates table ({len(candidates_create)} people): 2b_candidates_create.csv')
+        candidates_create = candidates_create.sort_values(by='match_person_id')
 
-            # Candidates who need a hash ID change
-            candidates_change_hash_id = mc[mc.candidate_id.notnull()].copy()
-            print(f'\nExisting candidates need the dcboe_hash_id changed ({len(candidates_change_hash_id)} people): 2a_candidates_change_hash_id.csv')
-            change_hash_columns = ['candidate_id', 'person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']
-            candidates_change_hash_id[change_hash_columns].sort_values(by='candidate_id').to_csv('data/dcboe/2a_candidates_change_hash_id.csv', index=False)
+        candidates_create['candidate_id_suggested'] = None
+        for idx, row in candidates_create.iterrows():
+            candidates_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
+            max_id_candidate += 1
 
-            # Candidates who are existing people
-            candidates_create = mc[mc.candidate_id.isnull()].copy()
-            print(f'\nExisting people need to be added to the candidates table ({len(candidates_create)} people): 2b_candidates_create.csv')
-            candidates_create = candidates_create.sort_values(by='match_person_id')
-
-            candidates_create['candidate_id_suggested'] = None
-            for idx, row in candidates_create.iterrows():
-                candidates_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
-                max_id_candidate += 1
-
-            candidates_create_columns = ['candidate_id_suggested', 'match_person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']
-            candidates_create[candidates_create_columns].to_csv('data/dcboe/2b_candidates_create.csv', index=False)
+        candidates_create_columns = ['candidate_id_suggested', 'match_person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']
+        candidates_create[candidates_create_columns].to_csv('data/dcboe/2b_candidates_create.csv', index=False)
 
 
-            print(f'\nNew people need to be created ({len(people_create)} people): 2c_people_create.csv')
+        print(f'\nNew people need to be created ({len(people_create)} people): 2c_people_create.csv')
 
-            people_create = people_create.sort_values(by='smd_id')
+        people_create = people_create.sort_values(by='smd_id')
 
-            people_create['candidate_id_suggested'] = None
-            people_create['person_id_suggested'] = None
-            for idx, row in people_create.iterrows():
-                people_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
-                max_id_candidate += 1
+        people_create['candidate_id_suggested'] = None
+        people_create['person_id_suggested'] = None
+        for idx, row in people_create.iterrows():
+            people_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
+            max_id_candidate += 1
 
-                people_create.loc[idx, 'person_id_suggested'] = max_id_person + 1
-                max_id_person += 1
+            people_create.loc[idx, 'person_id_suggested'] = max_id_person + 1
+            max_id_person += 1
 
-            # todo: suggest person_id and candidate_id here
-            people_create_columns = [
-                'candidate_id_suggested'
-                , 'person_id_suggested'
-                , 'dcboe_hash_id'
-                , 'smd_id'
-                , 'candidate_name'
-            ]
-            
-            people_create[people_create_columns].to_csv('data/dcboe/2c_people_create.csv', index=False)
+        # todo: suggest person_id and candidate_id here
+        people_create_columns = [
+            'candidate_id_suggested'
+            , 'person_id_suggested'
+            , 'dcboe_hash_id'
+            , 'smd_id'
+            , 'candidate_name'
+        ]
+        
+        people_create[people_create_columns].to_csv('data/dcboe/2c_people_create.csv', index=False)
                 
 
         openanc_not_in_dcboe = [h for h in candidates_this_year[candidates_this_year.dcboe_hash_id.notnull()].dcboe_hash_id.tolist() if h not in dcboe.dcboe_hash_id.tolist()]

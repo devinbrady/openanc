@@ -9,6 +9,7 @@ import matplotlib as mpl
 from matplotlib import rc
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
+import matplotlib.font_manager as fm
 from matplotlib._color_data import TABLEAU_COLORS
 
 from scripts.common import (
@@ -389,6 +390,8 @@ class Counts():
 
         # Set the font to Helvetica
         rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+        # prop = fm.FontProperties(fname='templates/WorkSans[wght].ttf')
+
 
         candidates = pd.read_csv('data/candidates.csv')
         candidates['pickup_date'] = pd.to_datetime(candidates['pickup_date'])
@@ -449,25 +452,19 @@ class Counts():
         rc('text', usetex='false')
         mpl.rcParams.update({'font.size': 12})
 
-        fig, ax = plt.subplots(figsize=(10,7))
+        fig, ax = plt.subplots(figsize=(9,6))
 
-        plt.plot(comp['cumulative_pickups_2020'], label='2020 Picked Up Petitions', color='tab:blue', linestyle='solid')
-        plt.plot(comp['cumulative_filers_2020'], label='2020 Filed Petitions', color='tab:blue', linestyle='dashed')
-        plt.plot(comp['cumulative_pickups_2022'], label='2022 Picked Up Petitions', color='tab:orange', linestyle='solid')
-        plt.plot(comp['cumulative_filers_2022'], label='2022 Filed Petitions', color='tab:orange', linestyle='dashed')
+        plt.plot(comp['cumulative_pickups_2020'], label='2020 Picked Up Petitions', color='tab:blue', linestyle='dotted')
+        plt.plot(comp['cumulative_pickups_2022'], label='2022 Picked Up Petitions', color='tab:blue', linestyle='solid')
+        plt.plot(comp['cumulative_filers_2020'], label='2020 Filed Petitions', color='tab:orange', linestyle='dotted')
+        plt.plot(comp['cumulative_filers_2022'], label='2022 Filed Petitions', color='tab:orange', linestyle='solid')
 
         xtick_range = list(range(0,len(comp), 5))
         plt.xticks(ticks=xtick_range, labels=abs(comp.loc[xtick_range, 'days_to_deadline']))
-        plt.xlabel('Days to Filing Deadline')
+        plt.xlabel(f'Days to Filing Deadline (updated {current_time()})')
         plt.ylabel('Running Total of Candidates')
         plt.legend()
         plt.title('ANC Candidates Picking Up Petitions: 2020 vs 2022')
-
-        citation = f"Updated {current_time()}"
-        ax.annotate(
-            xy=(0.945, 0.05), text=citation, xycoords='figure fraction'
-            , ha='right', va='center'
-        )
 
         plt.savefig(
             'docs/images/Candidates_Picking_Up_and_Filing.png', transparent=False, facecolor='white', bbox_inches='tight')

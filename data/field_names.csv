@@ -50,4 +50,5 @@ updated_at,Last Updated
 vote_share,Percentage
 votes,Votes
 ward,
+ward_name,Ward
 website_link,Website

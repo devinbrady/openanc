@@ -75,7 +75,7 @@ class BuildPeople():
 
         self.candidates_districts_results_incumbents = pd.concat([
             self.candidates_districts_results
-            , incumbents_not_candidates[['person_id', 'election_year', 'reelection_status', 'candidate_status']]
+            , incumbents_not_candidates[['person_id', 'election_year', 'reelection_status']]
             ], ignore_index=True
             )
 
@@ -152,6 +152,7 @@ class BuildPeople():
         with open('templates/person.html', 'r') as f:
             output = f.read()
 
+        output = add_google_analytics(output)
         output = output.replace('REPLACE_WITH_PERSON_FULL_NAME', person.full_name)
 
         # Determine if this person has run for office or served as a commissioner
@@ -192,7 +193,7 @@ class BuildPeople():
                 if idx > 0:
                     candidacies_block += '<br/>'
 
-                candidacies_block += build_data_table(pd, ['election_year', 'smd_url', 'votes', 'ranking_ordinal', 'reelection_status'], link_source='person')
+                candidacies_block += build_data_table(pd, ['election_year', 'smd_url', 'votes', 'ranking_ordinal', 'candidate_status', 'reelection_status'], link_source='person')
 
             candidacies_block += '</ul>'
 

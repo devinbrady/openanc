@@ -1109,7 +1109,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11137,Chris Miller,smd_6C05,,,,,,person_ChrisMiller
 11138,Chad M. Ernst,smd_6C05,,,,,,person_ChadMErnst
 11139,Shree Chauhan,smd_6C06,,,,,,person_ShreeChauhan
-11140,Tony T. Goodman,smd_6C06,,,,,,person_TonyTGoodman
+11140,Tony T. Goodman,smd_6C06,,smd_2022_6C07,,,,person_TonyTGoodman
 11141,Heather Edelman,smd_6C06,,,,,,person_HeatherEdelman
 11143,Donna L Hopkins,smd_6D01,,,,,,person_DonnaLHopkins
 11144,"Dorinda ""Rindi"" White",smd_6D01,,,,,,person_DorindaRindiWhite
@@ -1314,7 +1314,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11350,Tequia Hicks Delgado,smd_5C03,smd_5C03,,,,,person_TequiaHicksDelgado
 11351,Jocelyn Dyer,smd_3C08,smd_3C08,,,,,person_JocelynDyer
 11352,Carole Feld,smd_2D02,smd_2D02,smd_2022_2D02,,,,person_CaroleFeld
-11353,Matt LaFortune,smd_2022_6B09,,smd_2022_6B09,https://twitter.com/mattlafortune,,,person_MattLaFortune
+11353,Matt LaFortune,smd_2022_6B09,,smd_2022_6B09,https://twitter.com/mattlafortune,,https://www.mattlafortune.com/,person_MattLaFortune
 11354,Josh Jacobson,smd_2022_1E06,,smd_2022_1E06,https://twitter.com/jacobsonjh,,https://joshforanc.com/,person_JoshJacobson
 11355,Ashley Schapitl,smd_2022_7D09,,smd_2022_7D09,,,,person_AshleySchapitl
 11356,Brian Voorhees,smd_2022_7D07,,smd_2022_7D07,,,,person_BrianVoorhees
@@ -1478,7 +1478,15 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11515,Steven McCarty,smd_2022_2G04,,smd_2022_2G04,,,,person_StevenMcCarty
 11516,Jeffrey Denny,smd_2022_3E05,,smd_2022_3E05,,,,person_JeffreyDenny
 11517,Anna Roblin,smd_2022_5D03,,smd_2022_5D03,,,,person_AnnaRoblin
-11518,Alexandra Kelly,,,,,,,person_AlexandraKelly
-11519,Carrie N. Brown,,,,,,,person_CarrieNBrown
-11520,Maria Johnson,,,,,,,person_MariaJohnson
-11521,Kelly Mikel Williams,,,,,,,person_KellyMikelWilliams
+11518,Alexandra Kelly,smd_2022_6A04,,smd_2022_6A04,,,,person_AlexandraKelly
+11519,Carrie N. Brown,smd_2022_7C09,,smd_2022_7C09,,,,person_CarrieNBrown
+11520,Maria Johnson,smd_2022_8D06,,smd_2022_8D06,,,,person_MariaJohnson
+11521,Kelly Mikel Williams,smd_2022_8E03,,smd_2022_8E03,,,,person_KellyMikelWilliams
+11522,Harry Quinton,smd_2022_1B04,,smd_2022_1B04,,,,person_HarryQuinton
+11523,Bobbie Lancaster,smd_2022_1E02,,smd_2022_1E02,,,,person_BobbieLancaster
+11524,Aileen Nowlan,smd_2022_3B02,,smd_2022_3B02,,,,person_AileenNowlan
+11525,Nicholas Ide,smd_2022_3C05,,smd_2022_3C05,,,,person_NicholasIde
+11526,Duvalier J. Malone,smd_2022_5A01,,smd_2022_5A01,,,,person_DuvalierJMalone
+11527,Alicia Egolum,smd_2022_5B03,,smd_2022_5B03,,,,person_AliciaEgolum
+11528,Stephen Moilanen,smd_2022_6A07,,smd_2022_6A07,,,,person_StephenMoilanen
+11529,Lauren Kuritz,smd_2022_6C01,,smd_2022_6C01,,,,person_LaurenKuritz
