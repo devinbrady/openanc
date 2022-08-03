@@ -104,8 +104,10 @@ class TestLinks():
 
         self.link_df_local['source_filename'] = self.link_df_local.source.apply(lambda x: Path(x).name)
 
+        link_problems = 0
 
         num_broken_links = self.link_df_local.is_broken.sum()
+        link_problems += num_broken_links
         print(f'Number of broken links: {num_broken_links}')
 
         self.link_df_local[self.link_df_local.is_broken].to_csv('tests/results/broken_links.csv', index=False)
@@ -126,9 +128,15 @@ class TestLinks():
         orphan_destinations = [x for x in destination_unique if x not in source_unique]
 
         # 404 page is an orphan on purpose - no pages should link to it
-        orphan_sources = [x for x in source_unique if (x not in destination_unique) and ('404' not in str(x))]
+        orphan_sources = [x for x in source_unique if (x not in destination_unique)]
+
+        # These pages don't have any links to them and that's OK
+        orphan_whitelist = ['404.html', 'nav.html']
+        for ow in orphan_whitelist:
+            orphan_sources = [x for x in orphan_sources if ow not in str(x)]
 
         num_orphan_destinations = len(orphan_destinations)
+        link_problems += num_orphan_destinations
         # todo: should be assert?
         print(f'Number of orphan destinations: {num_orphan_destinations}')
 
@@ -138,9 +146,14 @@ class TestLinks():
 
 
         num_orphan_sources = len(orphan_sources)
+        link_problems += num_orphan_sources
         print(f'Number of orphan sources: {num_orphan_sources}')
 
         with open('tests/results/orphan_sources.txt', 'w') as f:
             for x in orphan_sources:
                 f.write(str(x) + '\n')
+
+        if link_problems > 0:
+            print(f'Link problems to resolve: {link_problems}. Opening folder with test results.')
+            os.system('open tests/results')
 

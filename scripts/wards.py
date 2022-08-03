@@ -20,6 +20,7 @@ from scripts.common import (
 
 from scripts.urls import (
     generate_url
+    , generate_link
     , relative_link_prefix
     )
 
@@ -44,7 +45,7 @@ class BuildWards():
 
         output = add_google_analytics(output)
 
-        output = output.replace('REPLACE_WITH_LIST_NAME', 'List of Wards')
+        output = output.replace('REPLACE_WITH_LIST_NAME', f'List of Wards (Redistricting Year {redistricting_year})')
         output = output.replace('REPLACE_WITH_LINK_PATH___', relative_link_prefix(source='ward', destination='root'))
 
         output = output.replace('REPLACE_WITH_LIST_VALUES', self.list_of_wards(redistricting_year))
@@ -61,9 +62,12 @@ class BuildWards():
             , self.districts, how='inner', on='ward_id'
             )
 
-        display_df = ward_districts.groupby('ward_name').size()
+        display_df = ward_districts.groupby(['ward_id', 'ward_name', 'councilmember']).agg(count_of_smds=('smd_id', 'size')).reset_index()
+        display_df['Ward'] = display_df.apply(lambda x: generate_link(x.ward_id, x.ward_name, link_source='ward'), axis=1)
+        display_df['Council Member'] = display_df['councilmember']
+        display_df['Count of SMDs'] = display_df['count_of_smds']
 
-        columns_to_html = ['ward_name']
+        columns_to_html = ['Ward', 'Council Member', 'Count of SMDs']
         css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
 
         html = (
@@ -131,8 +135,8 @@ class BuildWards():
 
     def run(self):
 
-        # for ry in [2012, 2022]:
-        #     self.ward_list_page(redistricting_year=ry)
+        for ry in [2012, 2022]:
+            self.ward_list_page(redistricting_year=ry)
 
         self.build_all_ward_pages()
 

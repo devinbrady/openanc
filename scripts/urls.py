@@ -77,6 +77,8 @@ def relative_link_prefix(source, destination, redistricting_year='xxxx'):
     elif source == 'ward':
         if destination == 'root':
             link_prefix = '../../'
+        elif destination == 'ward':
+            link_prefix = f'../../map_{redistricting_year}/wards/'
         elif destination == 'district':
             link_prefix = f'../../map_{redistricting_year}/ancs/districts/'
         elif destination == 'person':
