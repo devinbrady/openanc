@@ -18,8 +18,7 @@ from scripts.data_transformations import (
     )
 
 from scripts.urls import (
-    generate_url
-    , generate_link
+    generate_link
     , relative_link_prefix
     )
 
@@ -213,22 +212,38 @@ def assemble_divo():
 
 
 
-def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect=pd.DataFrame()):
+def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect=pd.DataFrame(), candidate_statuses=pd.DataFrame()):
     """
     Return an HTML table with one row per district for a given list of SMDs
 
     Contains current commissioner and all candidates
+
+    To speed up load times, the district_coom_commelection argument allows you to only load that DataFrame once,
+    and pass it to this function multiple times. But if it isn't passed as an argument, this function will
+    generate it.
     """
 
     if len(district_comm_commelect) == 0:
         district_comm_commelect = districts_candidates_commissioners(link_source=link_source)
+
+    if len(candidate_statuses) == 0:
+        candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+    
+    candidate_statuses = candidate_statuses.set_index('display_order').copy()
     
     display_df = district_comm_commelect[district_comm_commelect['smd_id'].isin(list_of_smds)].copy()
 
-    display_df['SMD'] = display_df.apply(lambda x: 
-        f'<a href="{generate_url(x.smd_id, link_source=link_source)}">{x.smd_name}</a>'
-        , axis=1
-        )
+    display_df['SMD'] = display_df.apply(lambda x: generate_link(x.smd_id, link_source=link_source, link_body=x.smd_name), axis=1)
+
+    status_columns = [c for c in display_df.columns if c.startswith('list_of_candidates_status_')]
+    candidate_status_name_list = []
+    for c in status_columns:
+        status_id = int(c.replace('list_of_candidates_status_', ''))
+        status_name = candidate_statuses.loc[status_id, 'candidate_status']
+        candidate_status_name_list += [status_name]
+
+        display_df[status_name] = display_df[c]
+
 
     display_df['Current Commissioner'] = display_df['current_commissioner']
     display_df['Candidates'] = display_df['list_of_candidates']
@@ -244,7 +259,7 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
         columns_to_html += ['Current Commissioner']
 
     if any(display_df.redistricting_year == 2022):
-        columns_to_html += ['Candidates']
+        columns_to_html += candidate_status_name_list
 
     if any(display_df.commissioner_elect.notnull()):
         columns_to_html += ['Commissioner-Elect']
@@ -336,7 +351,7 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
 
         link_body = f'{redistricting_string}{district_row.smd_name}{commissioner_name}'
 
-        district_list += f'<li><a href="{generate_url(smd_id, link_source=link_source)}">{link_body}</a></li>'
+        district_list += f'<li>{generate_link(smd_id, link_source=link_source, link_body=link_body)}</li>'
 
 
     district_list += '</ul>'

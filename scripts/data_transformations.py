@@ -107,13 +107,7 @@ def incumbent_df():
 
 
 
-def districts_candidates_commissioners(
-    duplicate_check=False
-    , print_counts=False
-    , link_source=None
-    , redistricting_year=None
-    ):
-
+def districts_candidates_commissioners(link_source=None, redistricting_year=None):
     """
     Return DataFrame, one row per district, with candidate names and counts
 
@@ -136,8 +130,8 @@ def districts_candidates_commissioners(
         people['name_url'] = 'x'
 
     candidate_people = pd.merge(candidates, people, how='inner', on='person_id')
-    candidate_people.rename(columns={'name_url': 'name_url_candidate', 'full_name': 'full_name_candidate'}, inplace=True)
-    cps = pd.merge(candidate_people, candidate_statuses, how='inner', on='candidate_status')
+    candidate_people.rename(columns={'name_url': 'name_url_candidate'}, inplace=True)
+    candidate_people_status = pd.merge(candidate_people, candidate_statuses, how='inner', on='candidate_status')
 
     """
     Group candidates by district so that each row has a string containing
@@ -146,13 +140,41 @@ def districts_candidates_commissioners(
     todo: make this candidate order also randomized
     """
 
-    candidates_by_district = cps[cps['count_as_candidate']].groupby('smd_id').agg({
+    candidates_by_district = candidate_people_status[candidate_people_status['count_as_candidate']].groupby('smd_id').agg({
         'name_url_candidate': list
-        , 'full_name_candidate': list
         , 'candidate_id': 'count'
         }).reset_index()
 
     district_candidates = pd.merge(districts, candidates_by_district, how='left', on='smd_id')
+
+    """
+    Repeat this above grouping for each possible status of candidate, so the statuses can be
+    displayed as different columns in the resulting HTML table.
+    """
+
+    active_statuses = sorted(candidate_people_status.display_order.unique())
+
+    for s in active_statuses:
+        candidates_in_status_by_district = (
+            candidate_people_status[candidate_people_status.display_order == s]
+            .groupby('smd_id')
+            .agg({
+                'name_url_candidate': list
+                , 'candidate_id': 'count'
+                })
+            .reset_index()
+            )
+
+        candidates_in_status_by_district.rename(columns={
+            'name_url_candidate': f'name_url_candidate_status_{s}'
+            , 'candidate_id': f'number_of_candidates_status_{s}'
+            }, inplace=True)
+
+        columns_to_merge = ['smd_id', f'name_url_candidate_status_{s}', f'number_of_candidates_status_{s}']
+
+        district_candidates = pd.merge(district_candidates, candidates_in_status_by_district[columns_to_merge], how='left', on='smd_id')
+
+
 
 
     """
@@ -162,21 +184,18 @@ def districts_candidates_commissioners(
     commissioner_people = pd.merge(commissioners, people, how='inner', on='person_id')
 
     comm_columns = ['smd_id', 'name_url']
-    orange = pd.merge(district_candidates, commissioner_people[commissioner_people.is_current][comm_columns], how='left', on='smd_id')
-    orange.rename(columns={'name_url': 'name_url_commissioner'}, inplace=True)
+    comm_temp = pd.merge(district_candidates, commissioner_people[commissioner_people.is_current][comm_columns], how='left', on='smd_id')
+    comm_temp.rename(columns={'name_url': 'name_url_commissioner'}, inplace=True)
 
-    banana = pd.merge(orange, commissioner_people[commissioner_people.is_future][comm_columns], how='left', on='smd_id')
-    banana.rename(columns={'name_url': 'name_url_commissioner_elect'}, inplace=True)
+    district_info_comm = pd.merge(comm_temp, commissioner_people[commissioner_people.is_future][comm_columns], how='left', on='smd_id')
+    district_info_comm.rename(columns={'name_url': 'name_url_commissioner_elect'}, inplace=True)
 
-
-    district_info_comm = banana.copy()
 
     # todo: use the new agg() format to obviate this
     district_info_comm.rename(columns={
         'name_url_commissioner': 'current_commissioner'
         , 'name_url_commissioner_elect': 'commissioner_elect'
         , 'name_url_candidate': 'list_of_candidates_to_join'
-        , 'full_name_candidate': 'list_of_candidate_names_to_join'
         , 'candidate_id': 'number_of_candidates'
         }, inplace=True)
 
@@ -184,32 +203,10 @@ def districts_candidates_commissioners(
 
     district_info_comm['current_commissioner'] = district_info_comm['current_commissioner'].fillna('(vacant)')
 
-    district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates_to_join'] = (
-        district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidates_to_join'].apply(
-            lambda x: ['(no known candidates)'])
-        )
+    district_info_comm['list_of_candidates'] = district_info_comm.apply(lambda x: ', '.join(x.list_of_candidates_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
 
-    district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidate_names_to_join'] = (
-        district_info_comm.loc[district_info_comm['number_of_candidates'] == 0, 'list_of_candidate_names_to_join'].apply(
-            lambda x: ['(no known candidates)'])
-        )
-
-    district_info_comm['list_of_candidates'] = district_info_comm['list_of_candidates_to_join'].apply(', '.join)
-    district_info_comm['list_of_candidate_names'] = district_info_comm['list_of_candidate_names_to_join'].apply(', '.join)
-
-    # Maybe add Last Updated to this? 
-
-    # todo: remove this option, the test should be done somewhere else
-    if duplicate_check:
-        district_info_comm[district_info_comm['number_of_candidates'] > 1][['smd_id', 'current_commissioner', 'list_of_candidates']].to_csv('data/check_for_duplicates.csv', index=False)
-
-    if print_counts:
-        print('Candidate Count: {}'.format( cps['count_as_candidate'].sum()))
-
-        print('\nDistricts by number of candidates: ')
-        print(district_info_comm.groupby('number_of_candidates').size())
-        print()
-
+    for s in active_statuses:
+        district_info_comm[f'list_of_candidates_status_{s}'] = district_info_comm.apply(lambda x: ', '.join(x[f'name_url_candidate_status_{s}']) if x[f'number_of_candidates_status_{s}'] > 0 else '', axis=1)
 
     district_info_comm['number_of_candidates'] = district_info_comm['number_of_candidates'].astype(int)
 
@@ -222,12 +219,15 @@ def districts_candidates_commissioners(
         , 'smd_name'
         , 'map_color_id'
         , 'list_of_candidates'
-        , 'list_of_candidate_names'
         , 'number_of_candidates'
         , 'current_commissioner'
         , 'commissioner_elect'
     ]
 
+    for s in active_statuses:
+        output_columns += [f'list_of_candidates_status_{s}']
+
+    district_info_comm.to_csv('district_info_comm.csv', index=False)
     return district_info_comm[output_columns]
 
 

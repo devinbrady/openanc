@@ -33,6 +33,8 @@ class BuildANCs():
         self.geojson_shape = anc_geojson()
         self.mapbox_style_slugs = mapbox_slugs()
 
+        self.candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+
 
 
     def run(self):
@@ -68,7 +70,7 @@ class BuildANCs():
 
 
             smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
-            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_source='anc'))
+            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_source='anc', candidate_statuses=self.candidate_statuses))
 
             fields_to_try = ['notes', 'link_block']
             output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try, link_source='anc'))

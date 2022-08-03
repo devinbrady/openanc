@@ -205,10 +205,7 @@ class RefreshData():
         # todo: push these tilesets to Mapbox via API
         """
 
-        df = districts_candidates_commissioners(
-            duplicate_check=False
-            , print_counts=False
-            )
+        df = districts_candidates_commissioners()
 
         # Add data to GeoJSON file with SMD shapes
         smd = gpd.read_file('maps/smd.geojson')
@@ -469,7 +466,7 @@ class RefreshData():
         # self.refresh_csv('districts', 'A:Q')
         # self.refresh_csv('ancs', 'A:M')
         # self.refresh_csv('candidate_statuses', 'A:D')
-        self.refresh_csv('field_names', 'A:B')
+        # self.refresh_csv('field_names', 'A:B')
         # self.refresh_csv('mapbox_styles', 'A:C')
         # self.refresh_csv('map_colors', 'A:B') 
         # self.refresh_csv('wards', 'A:E')
