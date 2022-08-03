@@ -31,7 +31,7 @@ from scripts.counts import Counts
 class BuildIndex():
 
     def __init__(self):
-        pass
+        self.candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 
 
 
@@ -62,7 +62,7 @@ class BuildIndex():
 
                 smds_in_anc = districts_cycle[districts_cycle['anc_id'] == row.anc_id]['smd_id'].to_list()
 
-                html += build_smd_html_table(smds_in_anc, link_source='root', district_comm_commelect=district_comm_commelect)
+                html += build_smd_html_table(smds_in_anc, link_source='root', district_comm_commelect=district_comm_commelect, candidate_statuses=self.candidate_statuses)
 
         return html
 
