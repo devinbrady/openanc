@@ -459,17 +459,16 @@ class ProcessCandidates():
         candidates_this_year = candidates[candidates.election_year == CURRENT_ELECTION_YEAR].copy()
         dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
-        match_output_file = Path('data/dcboe/1_candidates_dcboe_match_eval.csv')
-        
-        self.run_matching_process()
+        match_file = Path('data/dcboe/1_candidates_dcboe_match.csv')
 
-        if match_output_file.exists():
-            matches = pd.read_csv(match_output_file)
+        if match_file.exists():
+            matches = pd.read_csv(match_file)
+
+            if sum(matches.good_match == '?') > 0:
+                print(f'Evaluate the matches in "1_candidates_dcboe_match.csv" before continuing')
+                return
         else:
-            matches = pd.read_csv('data/dcboe/1_candidates_dcboe_match.csv')
-        # else:
-        #     print(f'Evaluate the matches and save to: {str(match_output_file)}')
-        #     return
+            run_matching_process()
 
         
         good_matches = matches[matches.good_match == 1].copy()

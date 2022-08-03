@@ -227,7 +227,6 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
     for s in active_statuses:
         output_columns += [f'list_of_candidates_status_{s}']
 
-    district_info_comm.to_csv('district_info_comm.csv', index=False)
     return district_info_comm[output_columns]
 
 

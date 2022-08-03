@@ -357,7 +357,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10363,Thaddeus James,smd_5C06,,smd_5C06,,,,person_ThaddeusJames
 10364,D'Andre A. Phillips,smd_5C06,,smd_5C06,,,https://www.dandrephillips.com/,person_DAndreAPhillips
 10365,Sebrena L. Rhodes,smd_5D01,smd_5D01,smd_5D01,https://twitter.com/ivycitybree,,,person_SebrenaLRhodes
-10366,Salvador Sauceda-Guzman,smd_5D02,smd_5D02,smd_5D02,https://twitter.com/SalvadorFor5D05,,https://www.salvadorfordc.com/,person_SalvadorSaucedaGuzman
+10366,"Salvador ""The Commissioner"" Sauceda-Guzman",smd_5D02,smd_5D02,smd_5D02,https://twitter.com/SalvadorFor5D05,,https://www.salvadorfordc.com/,person_SalvadorTheCommissionerSaucedaGuzman
 10367,Sean Barry,smd_5D03,,smd_5D03,,https://www.facebook.com/seanbbarrydc/,https://www.seanbarrydc.com/,person_SeanBarry
 10368,James Butler,smd_5D03,,smd_5D03,https://twitter.com/jamesbutler4dc,https://www.facebook.com/TheRealJamesButler/,http://www.butlerforanc.com/,person_JamesButler
 10369,Latoya Moore,smd_5D03,smd_5D03,smd_5D03,https://twitter.com/LatoyaM01766637,,https://www.mooreforanc.com/,person_LatoyaMoore
@@ -636,7 +636,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10658,Bobby Holmes,smd_1A09,,,,,,person_BobbyHolmes
 10659,Keith Dokho,smd_1A09,,,,,,person_KeithDokho
 10660,Anthony Cimino,smd_1A10,,,,,,person_AnthonyCimino
-10661,"Lenwood ""Lenny"" Johnson",smd_1A10,,,,,,person_LenwoodLennyJohnson
+10661,"Lenwood ""Lenny"" Johnson",smd_1A10,,smd_2022_8C04,,,,person_LenwoodLennyJohnson
 10662,Amanda Frost,smd_1A10,,,,,,person_AmandaFrost
 10663,Miriam Z. Savad,smd_1A11,,,,,,person_MiriamZSavad
 10664,Rosalind M. Gilliam,smd_1A12,,,,,,person_RosalindMGilliam
@@ -932,7 +932,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10958,Jarahn D. Hillsman,smd_4C09,,,,,,person_JarahnDHillsman
 10959,Zachary Hartman,smd_4C09,,,,,,person_ZacharyHartman
 10960,Joseph Martin,smd_4C09,,,,,,person_JosephMartin
-10961,"Stephen Marencic, Jr.",smd_4C09,,,,,,person_StephenMarencicJr
+10961,"Stephen Marencic, Jr.",smd_4C09,,smd_2022_4D05,,,,person_StephenMarencicJr
 10962,Steven Feingold,smd_4C09,,,,,,person_StevenFeingold
 10963,Kathleen M. Crowley,smd_4C10,,,,,,person_KathleenMCrowley
 10964,Alain N. Duroseau,smd_4D01,,,,,,person_AlainNDuroseau
@@ -1247,7 +1247,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11278,Jeremy J. Phillips,smd_8A05,,,,,,person_JeremyJPhillips
 11279,Mike Jones,smd_8A05,,,,,,person_MikeJones
 11280,Latasha Nicole Gunnels,smd_8A05,,,,,,person_LatashaNicoleGunnels
-11281,Travon Hawkins,smd_8A05,,,,,,person_TravonHawkins
+11281,Travon Hawkins,smd_8A05,,smd_2022_8D05,,,,person_TravonHawkins
 11282,Kendall J. Graham,smd_8A06,,,,,,person_KendallJGraham
 11283,Stephen Cooke,smd_8A06,,,,,,person_StephenCooke
 11284,Tina L. Fletcher,smd_8A06,,,,,,person_TinaLFletcher
@@ -1491,3 +1491,17 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11528,Stephen Moilanen,smd_2022_6A07,,smd_2022_6A07,,,,person_StephenMoilanen
 11529,Lauren Kuritz,smd_2022_6C01,,smd_2022_6C01,,,,person_LaurenKuritz
 11530,Lindsay Webb,smd_2022_1B05,,smd_2022_1B05,,,,person_LindsayWebb
+11531,Lee Dixon,smd_2022_1C02,,smd_2022_1C02,,,,person_LeeDixon
+11532,Omar Parbhoo,smd_2022_1D05,,smd_2022_1D05,,,,person_OmarParbhoo
+11533,Z Stein,smd_2022_2B05,,smd_2022_2B05,,,,person_ZStein
+11534,Patricia Bencivenga,smd_2022_2B07,,smd_2022_2B07,,,,person_PatriciaBencivenga
+11535,Bill Rubin,smd_2022_2B07,,smd_2022_2B07,,,,person_BillRubin
+11536,Thomas Reiter,smd_2022_2B08,,smd_2022_2B08,,,,person_ThomasReiter
+11537,Peter Lynch,smd_2022_3/4G05,,smd_2022_3/4G05,,,,person_PeterLynch
+11538,Thomas P. DeFranco,smd_2022_4C03,,smd_2022_4C03,,,,person_ThomasPDeFranco
+11539,Misu Tasnim,smd_2022_6E08,,smd_2022_6E08,,,,person_MisuTasnim
+11540,Tom Donohue,smd_2022_8A01,,smd_2022_8A01,,,,person_TomDonohue
+11541,Betty Murray,smd_2022_8C06,,smd_2022_8C06,,,,person_BettyMurray
+11542,Nic Wilson,smd_2022_8F01,,smd_2022_8F01,,,,person_NicWilson
+11543,Rick Murphree,smd_2022_8F02,,smd_2022_8F02,,,,person_RickMurphree
+11544,Jesse Kamzol,smd_2022_8F04,,smd_2022_8F04,,,,person_JesseKamzol
