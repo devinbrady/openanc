@@ -445,6 +445,11 @@ class ProcessCandidates():
 
 
 
+    def read_match_file(self):
+        pass
+
+
+
     def list_candidates_to_add(self):
         """
         List candidates that need to be added to the OpenANC candidate table
@@ -464,15 +469,23 @@ class ProcessCandidates():
         if match_file.exists():
             matches = pd.read_csv(match_file)
 
-            if sum(matches.good_match == '?') > 0:
+            if any(matches.good_match.isin(['?'])):
                 print(f'Evaluate the matches in "1_candidates_dcboe_match.csv" before continuing')
                 return
         else:
-            run_matching_process()
+            self.run_matching_process()
 
+            matches = pd.read_csv(match_file)
+
+            if any(matches.good_match.isin(['?'])):
+                print(f'Evaluate the matches in "1_candidates_dcboe_match.csv" before continuing')
+                return
+        
         
         good_matches = matches[matches.good_match == 1].copy()
         people_create = matches[matches.good_match == 0].copy()
+
+        
 
         mc = pd.merge(good_matches, candidates_this_year[['candidate_id', 'person_id']], how='left', left_on='match_person_id', right_on='person_id')
 
