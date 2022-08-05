@@ -9,6 +9,11 @@ body {
     padding: 8px;
 }
 
+.row_heading {
+    background-color: #d9d9d9;
+    padding: 8px;
+}
+
 .data {
     border: 1px solid #d9d9d9;
     text-align: center;

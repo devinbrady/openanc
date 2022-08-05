@@ -23,6 +23,8 @@ from scripts.data_transformations import (
     , districts_candidates_commissioners
     )
 
+from scripts.urls import generate_link
+
 
 
 class Counts():
@@ -50,6 +52,52 @@ class Counts():
 
         return html
 
+
+
+    def contested_count_by_grouping(self, groupby_field):
+        """Count of districts by number of candidates by ward or ANC"""
+
+        districts = pd.read_csv('data/districts.csv')
+        districts = districts[districts.redistricting_year == 2022].copy()
+        ancs = pd.read_csv('data/ancs.csv')
+        wards = pd.read_csv('data/wards.csv')
+        
+        ancs['anc_link'] = ancs.apply(lambda x: generate_link(x.anc_id, x.anc_name, link_source='root'), axis=1)
+        wards['ward_link'] = wards.apply(lambda x: generate_link(x.ward_id, x.ward_name, link_source='root'), axis=1)
+
+        districts = pd.merge(districts, ancs[['anc_id', 'anc_link']], how='inner', on='anc_id')
+        districts = pd.merge(districts, wards[['ward_id', 'ward_link']], how='inner', on='ward_id')
+
+        smd_df = districts_candidates_commissioners(redistricting_year=2022)
+        districts = pd.merge(
+            districts
+            , smd_df
+            , how='left'
+            , on='smd_id'
+        )
+
+        cand_count = pd.pivot_table(
+            data=districts
+            , columns='number_of_candidates'
+            , index=groupby_field
+            , aggfunc='size'
+            , fill_value=0
+        )
+
+        cand_count.columns = [f'{c} candidate' if c == 1 else f'{c} candidates' for c in cand_count.columns]
+
+        cand_count['Total'] = cand_count.sum(axis=1)
+        cand_count.loc['Total'] = cand_count.sum(axis=0)
+        cand_count.index.name = ''
+        cand_count.columns.name = ''
+        
+        html = (
+            cand_count.style
+            .set_uuid('cand_count')
+            .render()
+            )
+
+        return html
 
 
     def smd_vote_counts(self, groupby_field, bar_color):
