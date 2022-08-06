@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="map.css">
-    <title>OpenANC : Redistricting Maps</title>
+    <title>OpenANC : Map View</title>
 <meta charset='utf-8' />
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
@@ -122,15 +122,39 @@ map.on('load', function() {
 });
 
 
-
-// Add the address search bar to the map
-map.addControl(
-    new MapboxGeocoder({
+const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         placeholder: 'Find an address'
     })
+
+geocoder.on('result', function (e) {
+// wait until the map has finished flying to the searched point
+    map.once('moveend', function () {
+        // add the result as a point in the 'search_point' layer to show up as marker
+        var geocoder_result = e.result.geometry;
+
+        //project to use (pixel xy coordinates instead of lat/lon for WebGL)
+        var geocoder_point = map.project([e.result.center[0], e.result.center[1]]);
+
+        var smd_searched = map.queryRenderedFeatures(geocoder_point, {
+            layers: ['smd']
+        });
+
+        if (smd_searched.length > 0) {
+            document.getElementById('pd').innerHTML = smd_searched[0].properties['map_display_box']
+        } else {
+            document.getElementById('pd').innerHTML = '<p>Click on the map to see district information</p>';
+        }
+
+    });
+});
+
+
+map.addControl(
+    geocoder
 );
+
 
 
 // Add the "Find my location" button to the map
@@ -143,16 +167,8 @@ map.addControl(
     })
 );
 
-// todo: Change map-overlay to the district info of the district that the user geolocates to
-// geolocate.on('geolocate', function() {
-//     console.log('A geolocate event has occurred.')
-// });
-
 
 map.addControl(new mapboxgl.NavigationControl());
-
-// Set the latitude and latitude bounds for how the map should be displayed
-// map.fitBounds([[-106.305577, 25.538105], [-92.647061, 36.787841]]);
 
 </script>
 </body>
