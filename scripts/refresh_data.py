@@ -452,24 +452,27 @@ class RefreshData():
 
 
 
-    def download_google_sheets(self):
+    def download_google_sheets(self, do_full_refresh):
 
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('people', 'A:H')
         self.refresh_csv('commissioners', 'A:E')
         self.refresh_csv('incumbents_not_running', 'A:C')
 
+        # Related to 2020 election results
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
-        # Tables that don't need to be refreshed every time
-        # self.refresh_csv('districts', 'A:Q')
-        self.refresh_csv('ancs', 'A:M')
-        # self.refresh_csv('candidate_statuses', 'A:D')
-        # self.refresh_csv('field_names', 'A:B')
-        # self.refresh_csv('mapbox_styles', 'A:C')
-        # self.refresh_csv('map_colors', 'A:B') 
-        # self.refresh_csv('wards', 'A:E')
+        if do_full_refresh:
+            # Tables that don't change very frequently and thus don't need to be refreshed every time
+            self.refresh_csv('districts', 'A:Q')
+            self.refresh_csv('ancs', 'A:M')
+            self.refresh_csv('wards', 'A:E')
+
+            self.refresh_csv('candidate_statuses', 'A:D')
+            self.refresh_csv('field_names', 'A:B')
+            self.refresh_csv('mapbox_styles', 'A:C')
+            self.refresh_csv('map_colors', 'A:B') 
 
 
 
@@ -482,9 +485,9 @@ class RefreshData():
 
 
 
-    def run(self):
+    def run(self, do_full_refresh=False):
 
-        self.download_google_sheets()
+        self.download_google_sheets(do_full_refresh)
         self.add_name_id_to_people_csv()
 
         self.confirm_key_uniqueness('people', 'person_id')

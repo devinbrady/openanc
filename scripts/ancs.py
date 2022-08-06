@@ -2,6 +2,7 @@
 Build ANC pages
 """
 
+import hashlib
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -21,7 +22,9 @@ from scripts.common import (
     )
 
 from scripts.urls import (
-    generate_url
+    generate_link
+    , generate_url
+    , relative_link_prefix
     )
 
 
@@ -35,17 +38,65 @@ class BuildANCs():
 
         self.candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 
+        self.ancs = pd.read_csv('data/ancs.csv')
+        self.districts = pd.read_csv('data/districts.csv')
+
+
+    def anc_list_page(self, redistricting_year):
+        """Build a page showing a list of all the ANCs"""
+        
+        with open('templates/list.html', 'r') as f:
+            output = f.read()
+
+        output = add_google_analytics(output)
+
+        output = output.replace('REPLACE_WITH_LIST_NAME', f'List of ANCs (Redistricting Year {redistricting_year})')
+        output = output.replace('REPLACE_WITH_LINK_PATH___', relative_link_prefix(source='anc', destination='root'))
+
+        output = output.replace('REPLACE_WITH_LIST_VALUES', self.list_of_ancs(redistricting_year))
+        
+        with open(f'docs/map_{redistricting_year}/ancs/index.html', 'w') as f:
+            f.write(output)
+
+
+
+    def list_of_ancs(self, redistricting_year):
+
+        anc_districts = pd.merge(
+            self.ancs[self.ancs.redistricting_year == redistricting_year]
+            , self.districts, how='inner', on='anc_id'
+            )
+
+        display_df = anc_districts.groupby(['anc_id', 'anc_name']).agg(count_of_smds=('smd_id', 'size')).reset_index()
+        display_df['ANC'] = display_df.apply(lambda x: generate_link(x.anc_id, x.anc_name, link_source='anc'), axis=1)
+        display_df['Count of SMDs'] = display_df['count_of_smds']
+
+        columns_to_html = ['ANC', 'Count of SMDs']
+        css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
+
+        html = (
+            display_df[columns_to_html]
+            .fillna('')
+            .style
+            .set_uuid(css_uuid)
+            .hide_index()
+            .render()
+            )
+
+        return html
+
 
 
     def run(self):
         """Build pages for each ANC"""
 
-        ancs = pd.read_csv('data/ancs.csv')
-        districts = pd.read_csv('data/districts.csv')
+        for ry in [2012, 2022]:
+            self.anc_list_page(redistricting_year=ry)
 
-        ancs['link_block'] = ancs.apply(lambda row: build_link_block(row, fields_to_try=['dc_oanc_link', 'anc_homepage_link', 'twitter_link']), axis=1)
+
+        self.ancs['link_block'] = self.ancs.apply(lambda row: build_link_block(row, fields_to_try=['dc_oanc_link', 'anc_homepage_link', 'twitter_link']), axis=1)
         
-        for idx, row in tqdm(ancs.iterrows(), total=len(ancs), desc='ANCs   '):
+        for idx, row in tqdm(self.ancs.iterrows(), total=len(self.ancs), desc='ANCs   '):
 
             anc_id = row['anc_id']
 
@@ -69,7 +120,7 @@ class BuildANCs():
             output = output.replace('REPLACE_WITH_MAPBOX_SLUG', self.mapbox_style_slugs[mapbox_slug_id])
 
 
-            smds_in_anc = districts[districts['anc_id'] == anc_id]['smd_id'].to_list()
+            smds_in_anc = self.districts[self.districts['anc_id'] == anc_id]['smd_id'].to_list()
             output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_source='anc', candidate_statuses=self.candidate_statuses))
 
             fields_to_try = ['notes', 'link_block']

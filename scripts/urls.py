@@ -1,8 +1,16 @@
 """
-Scripts for handling URLs within the OpenANC project
+Functions for handling URLs within the OpenANC project
 """
 
-import pandas as pd
+
+def generate_link(page_id, link_body, link_source='root'):
+    """
+    Generate a relative internal link to a destination specified by page_id
+
+    High-level function that wraps generate_url() and relative_link_prefix()
+    """
+
+    return f'<a href="{generate_url(page_id, link_source=link_source)}">{link_body}</a>'
 
 
 
@@ -22,7 +30,7 @@ def generate_url(page_id, link_source='root'):
     elif page_id.startswith('person_'):
         destination = 'person'
     else:
-        raise ValueError(f'District ID {page_id} is not a valid OpenANC ID.')
+        raise ValueError(f'District ID "{page_id}" is not a valid OpenANC ID.')
 
     if destination != 'person' and '2022' in page_id:
         redistricting_year = 2022
@@ -36,20 +44,13 @@ def generate_url(page_id, link_source='root'):
 
 
 
-def generate_link(page_id, link_body, link_source='root'):
-    """Generate a relative internal link to a destination specified by page_id"""
-
-    return f'<a href="{generate_url(page_id, link_source=link_source)}">{link_body}</a>'
-
-
-
 def relative_link_prefix(source, destination, redistricting_year='xxxx'):
     """
-    Returns the first part of the URL
+    Returns the first part of a URL that gets the user from the source page to the destination page via a relative link
 
     For instance:
-    relative_link_prefix()['anc']['person'] : use this when linking to a person page from an ANC page
-    relative_link_prefix()['person']['district'] : use this when linking to a district page from a person page
+    relative_link_prefix(source='anc', destination='person') : use this when linking to a person page from an ANC page
+    relative_link_prefix(source='person', destination='district', redistricting_year=2022) : use this when linking to a 2022 district page from a person page
     """
 
     link_prefix = 'xxxx'
@@ -69,6 +70,8 @@ def relative_link_prefix(source, destination, redistricting_year='xxxx'):
     elif source == 'anc':
         if destination == 'root':
             link_prefix = '../../'
+        elif destination == 'anc':
+            link_prefix = f'../../map_{redistricting_year}/ancs/'
         elif destination == 'district':
             link_prefix = f'../../map_{redistricting_year}/ancs/districts/'
         elif destination == 'person':
@@ -142,20 +145,10 @@ def link_slug(smd_id):
 
 
 
-def format_name_for_url_from_person_id(person_id):
-
-    people = pd.read_csv('data/people.csv')
-
-    person_name = people[people.person_id == person_id].full_name.iloc[0]
-
-    return format_name_for_url(person_name)
-
-
-
 def format_name_for_url(name):
     """
     Strip out the non-ASCII characters from a person's full name to use as the URL.
-    This is somewhat like Wikipedia's URL formatting but not exactly.
+    This is somewhat like Wikipedia's URL formatting, but not exactly.
 
     Spaces stripped out, numbers and letters with accents are preserved as they are.
     """

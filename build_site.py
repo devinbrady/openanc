@@ -20,6 +20,7 @@ start_time = datetime.now()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-r', '--refresh-data', action='store_true', help='Refresh local CSVs from Google Sheets')
+parser.add_argument('-f', '--full-refresh-data', action='store_true', help='Download every Google Sheet from OpenANC Source, not just the frequently updated ones. Use in addition to --refresh-data')
 parser.add_argument('-c', '--candidates', action='store_true', help='Process list of candidates from DCBOE')
 parser.add_argument('-i', '--build-index', action='store_true', help='Build index and other top-level pages')
 parser.add_argument('-w', '--build-wards', action='store_true', help='Build page for each Ward')
@@ -27,7 +28,7 @@ parser.add_argument('-a', '--build-ancs', action='store_true', help='Build page 
 parser.add_argument('-d', '--build-districts', action='store_true', help='Build page for each SMD')
 parser.add_argument('-p', '--build-people', action='store_true', help='Build page for each person')
 parser.add_argument('-t', '--test-links', action='store_true', help='Test internal link validity')
-parser.add_argument('--all', action='store_true', help='Run all site building steps')
+parser.add_argument('--all', action='store_true', help='Run all site-building steps')
 
 args = parser.parse_args()
 
@@ -37,9 +38,9 @@ args = parser.parse_args()
 
 
 if args.all:
+    # These steps are all needed to do a rebuild of the site from the information in "OpenANC Source" google sheets.
 
     args.refresh_data = True
-    # args.candidates = True
     args.build_index = True
     args.build_wards = True
     args.build_ancs = True
@@ -50,7 +51,7 @@ if args.all:
 
 if args.refresh_data:
     r = RefreshData()
-    r.run()
+    r.run(args.full_refresh_data)
 
 if args.candidates:
     pc = ProcessCandidates()

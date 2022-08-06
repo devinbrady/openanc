@@ -1,5 +1,8 @@
 map_color_id,color_hex
 1,#a6cee3
+10,#6a3d9a
+11,#ffff99
+12,#b15928
 2,#1f78b4
 3,#b2df8a
 4,#33a02c
@@ -8,6 +11,3 @@ map_color_id,color_hex
 7,#fdbf6f
 8,#ff7f00
 9,#cab2d6
-10,#6a3d9a
-11,#ffff99
-12,#b15928
