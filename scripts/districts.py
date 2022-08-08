@@ -22,7 +22,7 @@ from scripts.common import (
     , assemble_divo
     , mapbox_slugs
     , candidate_form_link
-    , smd_geojson    
+    , smd_geojson
     )
 
 from scripts.urls import (
@@ -36,6 +36,7 @@ from scripts.data_transformations import (
     , list_candidates
     , people_dataframe
     , results_candidate_people
+    , today_as_int
 )
 
 
@@ -256,7 +257,7 @@ class BuildDistricts():
         
         # Randomize the order of candidates. Changes every day
         smd_candidates = people_candidate_statuses[people_candidate_statuses['smd_id'] == smd_id].sample(
-            frac=1, random_state=self.today_as_int()
+            frac=1, random_state=today_as_int()
             ).reset_index()
         
         num_candidates = len(smd_candidates)
@@ -308,7 +309,7 @@ class BuildDistricts():
                         candidate_block += build_data_table(candidate_row, fields_to_try, link_source='district')
                     
                     if candidates_in_status > 1:
-                        candidate_block += '<p><em>Candidate order is randomized</em></p>'
+                        candidate_block += '<p><em>Candidate order is randomized.</em></p>'
 
 
             if sum(smd_candidates['count_as_candidate'] == False) > 0:
@@ -334,7 +335,7 @@ class BuildDistricts():
                         candidate_block += build_data_table(candidate_row, fields_to_try, link_source='district')
                     
                     if candidates_in_status > 1:
-                        candidate_block += '<p><em>Candidate order is randomized</em></p>'
+                        candidate_block += '<p><em>Candidate order is randomized.</em></p>'
 
         candidate_block += (
             "<p>The list of candidates comes from the DC Board of Elections and from submissions to OpenANC. "
@@ -342,19 +343,6 @@ class BuildDistricts():
             ).format(candidate_form_link('fill out this form', smd_id=smd_id))
 
         return candidate_block
-
-
-
-    def today_as_int(self):
-        """
-        Return today's date in Eastern Time as an integer. Use as a seed for candidate order randomization
-        """
-
-        tz = pytz.timezone('America/New_York')
-        dc_now = datetime.now(tz)
-        dc_now_str = dc_now.strftime('%Y%m%d')
-
-        return int(dc_now_str)
 
 
 

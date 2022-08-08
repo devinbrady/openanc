@@ -77,6 +77,9 @@ class MonitorDCBOE():
         # Local timezone for this computer
         tz = datetime.utcnow().astimezone().tzinfo
 
+        # Current time in DC
+        tz = pytz.timezone('America/New_York')
+
         current_timestamp = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S %Z')
         print(f'{current_timestamp} -> ', end='')
         
@@ -122,6 +125,7 @@ class MonitorDCBOE():
 
             # Save the new filename to the current_link text file
             self.reset()
+
 
 
 if __name__ == "__main__":

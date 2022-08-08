@@ -207,7 +207,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10207,Andy Litsky,smd_6D04,smd_6D04,smd_6D04,,,,person_AndyLitsky
 10208,"Fredrica ""Rikki"" Kramer",smd_6D05,smd_6D05,smd_6D05,,,,person_FredricaRikkiKramer
 10209,Rhonda N. Hamilton,smd_6D06,smd_6D06,smd_6D06,,,,person_RhondaNHamilton
-10210,Edward Daniels,smd_6D07,smd_6D07,smd_6D07,https://twitter.com/EdwardDaniels,https://www.facebook.com/edwardANC/,https://www.edwarddaniels.com/commissioner,person_EdwardDaniels
+10210,Edward Daniels,smd_6D07,smd_6D07,smd_6D07,https://twitter.com/EdwardDaniels,https://www.facebook.com/edwardANC/,https://www.edwardforanc.com/,person_EdwardDaniels
 10211,"Alexander M. ""Alex"" Padro",smd_6E01,smd_6E01,smd_2022_2G02,https://twitter.com/AlexanderMPadro,,http://www.alexpadro.com/,person_AlexanderMAlexPadro
 10212,Michael J. Brown,smd_6E02,smd_6E02,,,,,person_MichaelJBrown
 10213,Frank S. Wiggins,smd_6E03,smd_6E03,smd_6E03,,,,person_FrankSWiggins
@@ -1421,7 +1421,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11458,Nicole McEntee,smd_2022_5E02,,smd_2022_5E02,https://twitter.com/NicoleMcE_5E02,,,person_NicoleMcEntee
 11459,Naprisha Taylor,smd_2022_7C04,,smd_2022_7C04,,,,person_NaprishaTaylor
 11460,Rohin Ghosh,smd_2022_3E08,,smd_2022_3E08,https://twitter.com/RohinGhosh,,,person_RohinGhosh
-11461,Billy Easley,smd_2022_1A10,,smd_2022_1A10,,,,person_BillyEasley
+11461,Billy Easley,smd_2022_1A10,,smd_2022_1A10,https://twitter.com/billyez2,,,person_BillyEasley
 11462,Greg Boyd,smd_2022_1D05,,smd_2022_1D05,,,,person_GregBoyd
 11463,Mike McLaughlin,smd_2022_1E04,,smd_2022_1E04,,,,person_MikeMcLaughlin
 11464,Matt Johnson,smd_2022_2B06,,smd_2022_2B06,https://twitter.com/MattFor2B06,,,person_MattJohnson

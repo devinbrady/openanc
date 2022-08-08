@@ -153,7 +153,7 @@ class RefreshData():
                 )
 
             if '_2022_' in row.smd_id:
-                map_display_box += f'<br/>Candidates: {row.list_of_candidates}'
+                map_display_box += f'<br/>Candidates: {row.list_of_candidate_links}'
             else:
                 map_display_box += f'<br/>Commissioner: {row.current_commissioner}'
 
@@ -223,7 +223,7 @@ class RefreshData():
 
         # Add data to CSV with lat/long of SMD label points
         lp = pd.read_csv('maps/label-points.csv')
-        lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates']], how='inner', on='smd_id')
+        lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidate_links']], how='inner', on='smd_id')
         lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
 
 
@@ -233,16 +233,13 @@ class RefreshData():
         Publish list of candidates to OpenANC Published
         """
 
-        district_info_comm = districts_candidates_commissioners()
-
-        if len(district_info_comm) != 296:
-            raise ValueError('The number of districts to publish to Google Sheets is not correct.')
+        district_info_comm = districts_candidates_commissioners(link_source='absolute', redistricting_year=2022)
 
         district_info_comm['openanc_link'] = district_info_comm['smd_id'].apply(lambda x: generate_url(x, link_source='absolute'))
 
-        columns_to_publish = ['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidates', 'openanc_link']
+        columns_to_publish = ['smd_id', 'number_of_candidates', 'list_of_candidate_names', 'openanc_link']
 
-        self.upload_to_google_sheets(district_info_comm, columns_to_publish, 'openanc_published', 'SMD Candidates 2020')
+        self.upload_to_google_sheets(district_info_comm, columns_to_publish, 'openanc_published', 'SMD Candidates 2022')
 
 
 
@@ -255,7 +252,6 @@ class RefreshData():
 
         # Commissioners currently active
         commissioners = list_commissioners(status='current')
-
         people = people_dataframe()
         districts = pd.read_csv('data/districts.csv')
 
@@ -273,9 +269,10 @@ class RefreshData():
         if len(twttr) != 296:
             raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
-        twttr['openanc_link'] = generate_url(twttr.smd_id, link_source='absolute')
+        twttr['openanc_link'] = twttr['smd_id'].apply(lambda x: generate_url(x, link_source='absolute'))
 
-        columns_to_publish = ['smd_id', 'person_id', 'full_name', 'start', 'end', 'twitter_link', 'facebook_link', 'website_link', 'openanc_link']
+        twttr['commissioner_name'] = twttr['full_name']
+        columns_to_publish = ['smd_id', 'person_id', 'commissioner_name', 'start', 'end', 'twitter_link', 'facebook_link', 'website_link', 'openanc_link']
 
         self.upload_to_google_sheets(twttr, columns_to_publish, 'openanc_published', 'Commissioners')
 
@@ -503,7 +500,8 @@ class RefreshData():
         self.add_data_to_label_points('maps/label-points-2012.csv', 'uploads/to-mapbox-label-points-2012-data.csv')
         self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.csv')
 
-        # self.publish_commissioner_list()
+        self.publish_candidate_list()
+        self.publish_commissioner_list()
         # self.publish_anc_list()
         # self.publish_results()
 

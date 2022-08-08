@@ -246,7 +246,7 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
 
 
     display_df['Current Commissioner'] = display_df['current_commissioner']
-    display_df['Candidates'] = display_df['list_of_candidates']
+    display_df['Candidates'] = display_df['list_of_candidate_links']
     display_df['Commissioner-Elect'] = display_df['commissioner_elect']
 
     columns_to_html = ['SMD', 'Election Year']
@@ -568,4 +568,6 @@ def match_names(source_value, list_to_search, list_of_ids):
     best_score = matches[0][1]
 
     return best_id, best_score
+
+
 

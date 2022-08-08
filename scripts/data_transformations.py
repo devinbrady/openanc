@@ -11,7 +11,6 @@ from scripts.urls import (
     generate_link
     )
 
-
 def results_candidate_people():
     """
     Return DataFrame containing results, candidates, and people joined
@@ -124,24 +123,25 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
     
     if link_source:
         # create links for each person's page, if a link is requested by the calling function
-        # todo: rename to name_link
-        people['name_url'] = people.apply(lambda x: generate_link(x.person_name_id, link_source=link_source, link_body=x.full_name), axis=1)
+        people['name_link'] = people.apply(lambda x: generate_link(x.person_name_id, link_source=link_source, link_body=x.full_name), axis=1)
     else:
-        people['name_url'] = 'x'
+        people['name_link'] = 'x'
 
     candidate_people = pd.merge(candidates, people, how='inner', on='person_id')
-    candidate_people.rename(columns={'name_url': 'name_url_candidate'}, inplace=True)
+    candidate_people.rename(columns={'name_link': 'name_link_candidate'}, inplace=True)
     candidate_people_status = pd.merge(candidate_people, candidate_statuses, how='inner', on='candidate_status')
+
+    # Randomly shuffle the order of candidates in this DataFrame, and thus the resulting lists
+    candidate_people_status = candidate_people_status.sample(frac=1, random_state=today_as_int()).reset_index()
 
     """
     Group candidates by district so that each row has a string containing
     all candidates for that district. Only include active candidates.
-
-    todo: make this candidate order also randomized
     """
 
     candidates_by_district = candidate_people_status[candidate_people_status['count_as_candidate']].groupby('smd_id').agg({
-        'name_url_candidate': list
+        'name_link_candidate': list
+        , 'candidate_name': list
         , 'candidate_id': 'count'
         }).reset_index()
 
@@ -159,18 +159,18 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
             candidate_people_status[candidate_people_status.display_order == s]
             .groupby('smd_id')
             .agg({
-                'name_url_candidate': list
+                'name_link_candidate': list
                 , 'candidate_id': 'count'
                 })
             .reset_index()
             )
 
         candidates_in_status_by_district.rename(columns={
-            'name_url_candidate': f'name_url_candidate_status_{s}'
+            'name_link_candidate': f'name_link_candidate_status_{s}'
             , 'candidate_id': f'number_of_candidates_status_{s}'
             }, inplace=True)
 
-        columns_to_merge = ['smd_id', f'name_url_candidate_status_{s}', f'number_of_candidates_status_{s}']
+        columns_to_merge = ['smd_id', f'name_link_candidate_status_{s}', f'number_of_candidates_status_{s}']
 
         district_candidates = pd.merge(district_candidates, candidates_in_status_by_district[columns_to_merge], how='left', on='smd_id')
 
@@ -183,19 +183,20 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
 
     commissioner_people = pd.merge(commissioners, people, how='inner', on='person_id')
 
-    comm_columns = ['smd_id', 'name_url']
+    comm_columns = ['smd_id', 'name_link']
     comm_temp = pd.merge(district_candidates, commissioner_people[commissioner_people.is_current][comm_columns], how='left', on='smd_id')
-    comm_temp.rename(columns={'name_url': 'name_url_commissioner'}, inplace=True)
+    comm_temp.rename(columns={'name_link': 'name_link_commissioner'}, inplace=True)
 
     district_info_comm = pd.merge(comm_temp, commissioner_people[commissioner_people.is_future][comm_columns], how='left', on='smd_id')
-    district_info_comm.rename(columns={'name_url': 'name_url_commissioner_elect'}, inplace=True)
+    district_info_comm.rename(columns={'name_link': 'name_link_commissioner_elect'}, inplace=True)
 
 
     # todo: use the new agg() format to obviate this
     district_info_comm.rename(columns={
-        'name_url_commissioner': 'current_commissioner'
-        , 'name_url_commissioner_elect': 'commissioner_elect'
-        , 'name_url_candidate': 'list_of_candidates_to_join'
+        'name_link_commissioner': 'current_commissioner'
+        , 'name_link_commissioner_elect': 'commissioner_elect'
+        , 'candidate_name': 'list_of_candidate_names_to_join'
+        , 'name_link_candidate': 'list_of_candidate_links_to_join'
         , 'candidate_id': 'number_of_candidates'
         }, inplace=True)
 
@@ -203,10 +204,11 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
 
     district_info_comm['current_commissioner'] = district_info_comm['current_commissioner'].fillna('(vacant)')
 
-    district_info_comm['list_of_candidates'] = district_info_comm.apply(lambda x: ', '.join(x.list_of_candidates_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
+    district_info_comm['list_of_candidate_names'] = district_info_comm.apply(lambda x: ', '.join(x.list_of_candidate_names_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
+    district_info_comm['list_of_candidate_links'] = district_info_comm.apply(lambda x: ', '.join(x.list_of_candidate_links_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
 
     for s in active_statuses:
-        district_info_comm[f'list_of_candidates_status_{s}'] = district_info_comm.apply(lambda x: ', '.join(x[f'name_url_candidate_status_{s}']) if x[f'number_of_candidates_status_{s}'] > 0 else '', axis=1)
+        district_info_comm[f'list_of_candidates_status_{s}'] = district_info_comm.apply(lambda x: ', '.join(x[f'name_link_candidate_status_{s}']) if x[f'number_of_candidates_status_{s}'] > 0 else '', axis=1)
 
     district_info_comm['number_of_candidates'] = district_info_comm['number_of_candidates'].astype(int)
 
@@ -218,7 +220,8 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
         , 'redistricting_year'
         , 'smd_name'
         , 'map_color_id'
-        , 'list_of_candidates'
+        , 'list_of_candidate_names'
+        , 'list_of_candidate_links'
         , 'number_of_candidates'
         , 'current_commissioner'
         , 'commissioner_elect'
@@ -302,7 +305,6 @@ def list_commissioners(status=None, date_point=None):
     # Test here that there is, at most, one "Current" and one "Future" commissioner per SMD. 
     # Multiple "Former" commissioners is allowed
     smd_count = commissioners.groupby('smd_id')[['is_former', 'is_current', 'is_future']].sum().astype(int)
-    # smd_count.to_csv('smd_commissioner_count.csv')
     
     if smd_count['is_current'].max() > 1 or smd_count['is_future'].max() > 1:
         raise Exception('Too many commissioners per SMD')
@@ -345,3 +347,13 @@ def people_dataframe():
 
 
 
+def today_as_int():
+    """
+    Return today's date in Eastern Time as an integer. Use as a seed for candidate order randomization
+    """
+
+    tz = pytz.timezone('America/New_York')
+    dc_now = datetime.now(tz)
+    dc_now_str = dc_now.strftime('%Y%m%d')
+
+    return int(dc_now_str)
