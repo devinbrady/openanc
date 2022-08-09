@@ -5,7 +5,9 @@ Build People list and individual person pages
 import pandas as pd
 from tqdm import tqdm
 from nameparser import HumanName
-from string import ascii_letters
+from unidecode import unidecode
+from string import ascii_uppercase
+
 
 from scripts.common import (
     add_footer
@@ -108,22 +110,42 @@ class BuildPeople():
         """
 
         self.people_valid['last_name'] = self.people_valid.full_name.apply(lambda x: HumanName(x).last)
-        self.people_valid['first_letter'] = self.people_valid.last_name.str.upper().str[0]
-        first_letter_list = sorted(self.people_valid['first_letter'].unique())
+        self.people_valid['not_last_name'] = self.people_valid.apply(lambda x: x.full_name.replace(x.last_name, '').strip(), axis=1)
+        self.people_valid['last_first_name'] = self.people_valid.last_name + ', ' + self.people_valid.not_last_name
+        self.people_valid = self.people_valid.sort_values(by='last_first_name')
 
+        """
+        In the event that we have people whose first letters of their last name contain an accent, this line removes the accent
+        for the purpose of putting them into a letter section. when this case actually comes up, maybe ask the person how they prefer
+        their last name to be alphabetized.
+        """
+        self.people_valid['last_name_first_letter'] = self.people_valid.last_name.apply(lambda x: unidecode(x.upper()[0]))
+
+        # html = '<h4 id="last_name_top"></h4>'
         html = ''
 
-        for letter in first_letter_list:
+        for i, letter in enumerate(ascii_uppercase):
+            if i != 0:
+                html += ' | '
 
-            html += f'<h3>{letter}</h3>'
+            html += f'<a href="#last_name_{letter}">{letter}</a>'
 
-            html += '<ul>'
+        for letter in ascii_uppercase:
 
-            for _, person in self.people_valid[self.people_valid.first_letter == letter].sort_values(by='full_name').iterrows():
+            # html += f'<h3 id="last_name_{letter}">{letter} (<a href="#last_name_top">top</a>)</h3>'
+            html += f'<h3 id="last_name_{letter}">{letter}</h3>'
 
-                html += '<li>' + generate_link(person.person_name_id, link_source='person', link_body=person.full_name) + '</li>'
+            people_in_letter = self.people_valid[self.people_valid.last_name_first_letter == letter].copy()
 
-            html += '</ul>'
+            if len(people_in_letter) > 0:
+                
+                html += '<ul>'
+
+                for _, person in people_in_letter.iterrows():
+
+                    html += '<li>' + generate_link(person.person_name_id, link_source='person', link_body=person.last_first_name) + '</li>'
+
+                html += '</ul>'
 
         return html
 

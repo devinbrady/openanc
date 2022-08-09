@@ -64,6 +64,7 @@ class TestLinks():
 
         self.link_df['is_local'] = True
         self.link_df.loc[self.link_df.destination.str.contains('http'), 'is_local'] = False
+        self.link_df.loc[self.link_df.destination.str.contains('#'), 'is_local'] = False
         self.link_df_local = self.link_df[self.link_df.is_local].copy()
 
 

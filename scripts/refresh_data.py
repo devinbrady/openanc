@@ -463,7 +463,7 @@ class RefreshData():
         if do_full_refresh:
             # Tables that don't change very frequently and thus don't need to be refreshed every time
             self.refresh_csv('districts', 'A:Q')
-            self.refresh_csv('ancs', 'A:M')
+            self.refresh_csv('ancs', 'A:P')
             self.refresh_csv('wards', 'A:E')
 
             self.refresh_csv('candidate_statuses', 'A:D')
