@@ -7,13 +7,13 @@ import sys
 import json
 import pytz
 import time
+import tweepy
 import argparse
 import requests
 import pandas as pd
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-from requests_oauthlib import OAuth1Session
 
 
 class MonitorDCBOE():
@@ -42,6 +42,11 @@ class MonitorDCBOE():
 
         # Link text body is the text that is inside the HTML link tag. For example: <a href="">link_text_body</a>
 
+        # Load the Twitter API keys from environment variables
+        self.consumer_key = os.environ.get('TWITTER_API_KEY')
+        self.consumer_secret = os.environ.get('TWITTER_API_KEY_SECRET')
+        self.access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
+        self.access_token_secret = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
 
         with open(self.local_filename, 'r') as f:
             self.current_link_text = f.read()
@@ -98,6 +103,7 @@ class MonitorDCBOE():
 
 
     def is_internet_connected(self):
+        """Return boolean with the current state of the internet connection, determined by getting Google.com"""
         
         try:
             response = requests.get('https://google.com')
@@ -105,6 +111,7 @@ class MonitorDCBOE():
             return False
         
         return response.status_code == 200
+
 
 
     def run(self):
@@ -131,76 +138,26 @@ class MonitorDCBOE():
             self.send_tweet('ANC candidate list has changed: https://dcboe.org' + self.current_link_text)
 
 
+
     def send_tweet(self, message):
-        consumer_key = os.environ.get("TWITTER_API_KEY")
-        consumer_secret = os.environ.get("TWITTER_API_KEY_SECRET")
-
-        # Be sure to add replace the text of the with the text you wish to Tweet. You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
-        payload = {"text": message}
-
-        # Get request token
-        request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
-        oauth = OAuth1Session(consumer_key, client_secret=consumer_secret)
-
-        try:
-            fetch_response = oauth.fetch_request_token(request_token_url)
-        except ValueError:
-            print(
-                "There may have been an issue with the consumer_key or consumer_secret you entered."
+        """Send one tweet using the tweepy package"""
+        
+        client = tweepy.Client(
+            consumer_key=self.consumer_key
+            , consumer_secret=self.consumer_secret
+            , access_token=self.access_token
+            , access_token_secret=self.access_token_secret
             )
 
-        resource_owner_key = fetch_response.get("oauth_token")
-        resource_owner_secret = fetch_response.get("oauth_token_secret")
-        print("Got OAuth token: %s" % resource_owner_key)
+        response = client.create_tweet(text=message)
 
-        # Get authorization
-        base_authorization_url = "https://api.twitter.com/oauth/authorize"
-        authorization_url = oauth.authorization_url(base_authorization_url)
-        print("Please go here and authorize: %s" % authorization_url)
-        verifier = input("Paste the PIN here: ")
+        print(response)
 
-        # Get the access token
-        access_token_url = "https://api.twitter.com/oauth/access_token"
-        oauth = OAuth1Session(
-            consumer_key,
-            client_secret=consumer_secret,
-            resource_owner_key=resource_owner_key,
-            resource_owner_secret=resource_owner_secret,
-            verifier=verifier,
-        )
-        oauth_tokens = oauth.fetch_access_token(access_token_url)
-
-        access_token = oauth_tokens["oauth_token"]
-        access_token_secret = oauth_tokens["oauth_token_secret"]
-
-        # Make the request
-        oauth = OAuth1Session(
-            consumer_key,
-            client_secret=consumer_secret,
-            resource_owner_key=access_token,
-            resource_owner_secret=access_token_secret,
-        )
-
-        # Making the request
-        response = oauth.post(
-            "https://api.twitter.com/2/tweets",
-            json=payload,
-        )
-
-        if response.status_code != 201:
-            raise Exception(
-                "Request returned an error: {} {}".format(response.status_code, response.text)
-            )
-
-        print("Response code: {}".format(response.status_code))
-
-        # Saving the response as JSON
-        json_response = response.json()
-        print(json.dumps(json_response, indent=4, sort_keys=True))
 
 
 if __name__ == "__main__":
 
     m = MonitorDCBOE()
-    # m.send_tweet('ANC candidate list has changed: https://dcboe.org' + m.current_link_text)
     m.run()
+
+    # m.send_tweet('ANC candidate list has changed: https://dcboe.org' + m.current_link_text)

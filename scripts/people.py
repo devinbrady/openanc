@@ -126,7 +126,7 @@ class BuildPeople():
 
         for i, letter in enumerate(ascii_uppercase):
             if i != 0:
-                html += ' | '
+                html += ' — '
 
             html += f'<a href="#last_name_{letter}">{letter}</a>'
 

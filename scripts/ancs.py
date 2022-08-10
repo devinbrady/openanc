@@ -64,10 +64,10 @@ class BuildANCs():
 
         anc_districts = pd.merge(
             self.ancs[self.ancs.redistricting_year == redistricting_year]
-            , self.districts, how='inner', on='anc_id'
+            , self.districts[['smd_id', 'anc_id']], how='inner', on='anc_id'
             )
 
-        display_df = anc_districts.groupby(['anc_id', 'anc_name']).agg(count_of_smds=('smd_id', 'size')).reset_index()
+        display_df = anc_districts.groupby(['anc_id', 'anc_name', 'sort_order']).agg(count_of_smds=('smd_id', 'size')).reset_index().sort_values(by='sort_order')
         display_df['ANC'] = display_df.apply(lambda x: generate_link(x.anc_id, x.anc_name, link_source='anc'), axis=1)
         display_df['Count of SMDs'] = display_df['count_of_smds']
 
@@ -85,6 +85,60 @@ class BuildANCs():
 
         return html
 
+
+
+    def old_new_heading(self, anc_id):
+
+        if '2022' in anc_id:
+            heading = (
+                '<h2>Old ANCs</h2>'
+                + '<p>These Advisory Neighborhood Commissions, from the previous redistricting cycle, cover the same area as this ANC.</p>'
+                )
+        else:
+            heading = (
+                '<h2>New ANCs</h2>'
+                + '<p>These Advisory Neighborhood Commissions, from the next redistricting cycle, cover the same area as this ANC.</p>'
+                )
+
+        return heading
+
+
+
+    def overlap_list(self, anc_id):
+        """
+        For one ANC, list the districts that overlap it with the percentage of overlap
+        """
+
+        try:
+            overlap_anc_id_list = self.ancs[self.ancs.anc_id == anc_id].squeeze().overlap_ancs.split(', ')
+        except:
+            print('bad: ' + anc_id)
+            print(self.ancs[self.ancs.anc_id == anc_id].squeeze().overlap_ancs)
+
+        overlap_percentage_list = self.ancs[self.ancs.anc_id == anc_id].squeeze().overlap_percentage.split(', ')
+        anc_name = self.ancs[self.ancs.anc_id == anc_id].anc_name.iloc[0]
+
+        district_list = '<ul>'
+
+        for i, overlap_anc_id in enumerate(overlap_anc_id_list):
+
+            district_row = self.ancs[self.ancs.anc_id == overlap_anc_id].squeeze()
+
+            if district_row['redistricting_year'] == 2022:
+                oldnew = ['New', 'old']
+            else:
+                oldnew = ['Old', 'new']
+
+            overlap_percentage_display = '{:.1%}'.format(float(overlap_percentage_list[i]))
+
+            link_body = f'{oldnew[0]} {district_row.anc_name} ({overlap_percentage_display} of {oldnew[1]} {anc_name})'
+            link_url = generate_url(district_row.anc_id, link_source='anc')
+
+            district_list += f'<li><a href="{link_url}">{link_body}</a></li>'
+
+        district_list += '</ul>'
+
+        return district_list
 
 
     def run(self):
@@ -126,6 +180,8 @@ class BuildANCs():
             fields_to_try = ['notes', 'link_block']
             output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try, link_source='anc'))
 
+            output = output.replace('<!-- replace with old/new heading -->', self.old_new_heading(anc_id))
+            output = output.replace('<!-- replace with overlap -->', self.overlap_list(anc_id))
             
             output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
             output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))

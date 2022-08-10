@@ -439,8 +439,6 @@ class BuildDistricts():
 
         return district_list
 
-        return
-
 
 
     def run(self):

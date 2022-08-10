@@ -727,7 +727,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10750,Bevan Mace,smd_2B03,,,,,,person_BevanMace
 10751,Stephanie Maltz,smd_2B03,,,,,,person_StephanieMaltz
 10752,Lucky Barbieri,smd_2B03,,,,,,person_LuckyBarbieri
-10753,Vincent E. Slatt,smd_2B03,,,,,,person_VincentESlatt
+10753,Vincent E. Slatt,smd_2B03,,smd_2022_2B03,,,,person_VincentESlatt
 10755,Martin Espinoza,smd_2B04,,,,,,person_MartinEspinoza
 10756,Stephanie Sheridan,smd_2B04,,,,,,person_StephanieSheridan
 10757,Michael Upright,smd_2B04,,,,,,person_MichaelUpright
@@ -1295,7 +1295,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11331,Sean E. Neal,smd_8D07,,,,,,person_SeanENeal
 11333,Marvin S. Lee,smd_8E01,,,,,,person_MarvinSLee
 11334,Maurice Dickens,smd_8E02,,,,,,person_MauriceDickens
-11335,Amanda Beale,smd_8E02,,smd_2022_8C08,,,,person_AmandaBeale
+11335,Amanda Beale,smd_8E02,,smd_2022_8C08,https://twitter.com/Abeale202,,,person_AmandaBeale
 11336,Anthony (Jamaal) Dailey,smd_8E03,,,,,,person_AnthonyJamaalDailey
 11337,Jeffrey J. Toney,smd_8E03,,,,,,person_JeffreyJToney
 11338,Debbie Lewis Dykes,smd_8E04,,,,,,person_DebbieLewisDykes
@@ -1442,7 +1442,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11481,Tricia Duncan,smd_2022_3D02,,smd_2022_3D02,,,,person_TriciaDuncan
 11482,Jeremy Joseph,smd_2022_3D04,,smd_2022_3D04,,,,person_JeremyJoseph
 11483,Marilyn Nowalk,smd_2022_3D06,,smd_2022_3D06,,,,person_MarilynNowalk
-11484,Brittany Kademian,smd_2022_4C05,,smd_2022_4C05,,,,person_BrittanyKademian
+11484,Brittany Kademian,smd_2022_4C05,,smd_2022_4C05,https://twitter.com/kademian87,,,person_BrittanyKademian
 11485,"Fred ""Phil"" Carver",smd_2022_5E03,,smd_2022_5E03,,,,person_FredPhilCarver
 11486,"Bobby ""Slli'm"" Williams",smd_2022_8A03,,smd_2022_8A03,,,,person_BobbySllimWilliams
 11487,Andrew McCarthy-Clark,smd_2022_8F03,,smd_2022_8F03,,,,person_AndrewMcCarthyClark
@@ -1557,3 +1557,17 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11596,Michele Keegan,smd_2022_5F07,,smd_2022_5F07,,,,person_MicheleKeegan
 11597,Christina Goodlander,smd_2022_6A01,,smd_2022_6A01,,,,person_ChristinaGoodlander
 11598,Ila Anita Flannigan,smd_2022_5A06,,smd_2022_5A06,,,,person_IlaAnitaFlannigan
+11599,Ivan Taylor Jr.,smd_2022_1C07,,smd_2022_1C07,,,,person_IvanTaylorJr
+11600,Jacob A. Miller,smd_2022_2E07,,smd_2022_2E07,,,,person_JacobAMiller
+11601,Caroline Zagraniczny,smd_2022_2F08,,smd_2022_2F08,,,,person_CarolineZagraniczny
+11602,Zachary Ferguson,smd_2022_3/4G07,,smd_2022_3/4G07,,,,person_ZacharyFerguson
+11603,Addison Sarter,smd_2022_4A01,,smd_2022_4A01,,,,person_AddisonSarter
+11604,Paula Y. Edwards,smd_2022_4A01,,smd_2022_4A01,,,,person_PaulaYEdwards
+11605,Alphonse Canata,smd_2022_4B01,,smd_2022_4B01,,,,person_AlphonseCanata
+11606,Michael Cohen,smd_2022_4B07,,smd_2022_4B07,,,,person_MichaelCohen
+11607,Mariko Meyer,smd_2022_4B09,,smd_2022_4B09,,,,person_MarikoMeyer
+11608,Richard McLaughlin,smd_2022_4D04,,smd_2022_4D04,,,,person_RichardMcLaughlin
+11609,Carrie Dellesky,smd_2022_5D06,,smd_2022_5D06,,,,person_CarrieDellesky
+11610,Juan McCullum,smd_2022_5D07,,smd_2022_5D07,,,,person_JuanMcCullum
+11611,Tony Hurst,smd_2022_5F01,,smd_2022_5F01,,,,person_TonyHurst
+11612,Jacob C. Brown,smd_2022_8C08,,smd_2022_8C08,,,,person_JacobCBrown
