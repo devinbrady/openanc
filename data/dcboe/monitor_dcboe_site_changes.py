@@ -160,4 +160,5 @@ if __name__ == "__main__":
     m = MonitorDCBOE()
     m.run()
 
+
     # m.send_tweet('ANC candidate list has changed: https://dcboe.org' + m.current_link_text)
