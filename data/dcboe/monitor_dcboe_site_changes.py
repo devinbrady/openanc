@@ -135,7 +135,7 @@ class MonitorDCBOE():
             # Save the new filename to the current_link text file
             self.reset()
 
-            self.send_tweet('ANC candidate list has changed: https://dcboe.org' + self.current_link_text)
+            # self.send_tweet('ANC candidate list has changed: https://dcboe.org' + self.current_link_text)
 
 
 
@@ -160,4 +160,4 @@ if __name__ == "__main__":
     m = MonitorDCBOE()
     m.run()
 
-    # m.send_tweet('ANC candidate list has changed: https://dcboe.org' + m.current_link_text)
+    # m.send_tweet('Current ANC candidate list: https://dcboe.org' + m.current_link_text)

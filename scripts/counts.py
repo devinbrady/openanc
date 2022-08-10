@@ -88,16 +88,23 @@ class Counts():
 
         cand_count['Total'] = cand_count.sum(axis=1)
         cand_count.loc['Total'] = cand_count.sum(axis=0)
+
+        cand_count['Percent Unfilled'] = cand_count['0 candidates'] / cand_count['Total']
+
         cand_count.index.name = ''
         cand_count.columns.name = ''
         
         html = (
-            cand_count.style
-            .set_uuid('cand_count')
+            cand_count
+            .style
+            .format({'Percent Unfilled': '{:.1%}'.format})
+            .applymap(lambda x: 'background: yellow' if x >= 0.5 else '', subset='Percent Unfilled')
+            .set_uuid(f'cand_count_{groupby_field}_')
             .render()
             )
 
         return html
+
 
 
     def smd_vote_counts(self, groupby_field, bar_color):
@@ -376,7 +383,6 @@ class Counts():
         """
 
         df = pd.read_csv('data/dcboe/candidates_dcboe.csv')
-
 
         p = pd.DataFrame(df[df['pickup_date'] != 'unknown pickup date'].groupby('pickup_date').size(), columns=['Candidates Picked Up'])
         p['Candidates Picked Up Running Total'] = p['Candidates Picked Up'].cumsum()

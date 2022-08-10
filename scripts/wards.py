@@ -68,13 +68,12 @@ class BuildWards():
         display_df['Count of SMDs'] = display_df['count_of_smds']
 
         columns_to_html = ['Ward', 'Council Member', 'Count of SMDs']
-        css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
 
         html = (
             display_df[columns_to_html]
             .fillna('')
             .style
-            .set_uuid(css_uuid)
+            .set_uuid('list_of_wards_')
             .hide_index()
             .render()
             )
