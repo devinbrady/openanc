@@ -43,10 +43,10 @@ class MonitorDCBOE():
         # Link text body is the text that is inside the HTML link tag. For example: <a href="">link_text_body</a>
 
         # Load the Twitter API keys from environment variables
-        self.consumer_key = os.environ.get('TWITTER_API_KEY')
-        self.consumer_secret = os.environ.get('TWITTER_API_KEY_SECRET')
-        self.access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
-        self.access_token_secret = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
+        self.consumer_key = os.environ['TWITTER_API_KEY']
+        self.consumer_secret = os.environ['TWITTER_API_KEY_SECRET']
+        self.access_token = os.environ['TWITTER_ACCESS_TOKEN']
+        self.access_token_secret = os.environ['TWITTER_ACCESS_TOKEN_SECRET']
 
         with open(self.local_filename, 'r') as f:
             self.current_link_text = f.read()

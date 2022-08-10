@@ -493,7 +493,6 @@ class Counts():
         ] = None
 
         comp.drop(columns=['pickups', 'filers'], inplace=True)
-        # comp.rename(columns={'pickups': 'pickups_2022'}, inplace=True)
 
         rc('font', family='sans-serif')
         rc('font', serif='Helvetica Neue')

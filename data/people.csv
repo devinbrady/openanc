@@ -1550,7 +1550,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11589,Anthony Barnes,smd_2022_1D07,,smd_2022_1D07,,,,person_AnthonyBarnes
 11590,Bruce Sherman,smd_2022_3/4G02,,smd_2022_3/4G02,,,,person_BruceSherman
 11591,Glenn Kellogg,smd_2022_3C02,,smd_2022_3C02,,,,person_GlennKellogg
-11592,Roric McCorristin,smd_2022_3C04,,smd_2022_3C04,,,,person_RoricMcCorristin
+11592,Roric McCorristin,smd_2022_3C04,,smd_2022_3C04,https://twitter.com/roricmcc,,,person_RoricMcCorristin
 11593,Courtney Carlson,smd_2022_3F06,,smd_2022_3F06,,,,person_CourtneyCarlson
 11594,J. Clark Weigel,smd_2022_4D07,,smd_2022_4D07,,,,person_JClarkWeigel
 11595,Elaine Alston,smd_2022_5A08,,smd_2022_5A08,,,,person_ElaineAlston
