@@ -169,7 +169,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10169,Sydelle Moore,smd_5D05,smd_5D05,smd_5D05,https://twitter.com/sydellebelle,,https://www.sydelleforanc.com/,person_SydelleMoore
 10170,Clarence Lee,smd_5D07,smd_5D07,,,,,person_ClarenceLee
 10171,Nick Cheolas,smd_5E01,smd_5E01,,https://twitter.com/Nick4Ward5,,https://www.anc5e01.org/,person_NickCheolas
-10172,Patricia Williams,smd_5E02,smd_5E02,smd_5E02,,,,person_PatriciaWilliams
+10172,Patricia Williams (5E),smd_5E02,smd_5E02,smd_5E02,,,,person_PatriciaWilliams5E
 10173,Cortney Segmen,smd_5E03,smd_5E03,,https://twitter.com/cortneyfor5e03,,,person_CortneySegmen
 10174,Sylvia M. Pinkney,smd_5E04,smd_5E04,smd_5E04,,,,person_SylviaMPinkney
 10175,Bradley Ashton Thomas,smd_5E05,smd_5E05,smd_5E05,https://twitter.com/votebradley4dc,,,person_BradleyAshtonThomas
@@ -1337,7 +1337,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11374,Patrick Clawson,smd_2022_2E02,,smd_2022_2E02,,,,person_PatrickClawson
 11375,Brian J. McCabe,smd_2022_2F04,,smd_2022_2F04,,,,person_BrianJMcCabe
 11376,Willie Doggett,smd_2022_2G05,,smd_2022_2G05,,,,person_WillieDoggett
-11377,Adam J. Prinzo,smd_2022_3C02,,smd_2022_3C02,,,,person_AdamJPrinzo
+11377,Adam J. Prinzo,smd_2022_3C02,,smd_2022_3C02,https://twitter.com/adam4anc,,,person_AdamJPrinzo
 11379,Earle Douglass,smd_2022_3E04,,smd_2022_3E04,,,,person_EarleDouglass
 11380,Rona Walters,smd_2022_3F06,,smd_2022_3F06,,,,person_RonaWalters
 11381,Neena Murphy Martin,smd_2022_4A01,,smd_2022_4A01,,,,person_NeenaMurphyMartin
@@ -1473,7 +1473,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11512,David Segall,smd_2022_1A08,,smd_2022_1A08,,,,person_DavidSegall
 11513,Ashleigh Fields,smd_2022_1B07,,smd_2022_1B07,,,,person_AshleighFields
 11514,Lynda Laughlin,smd_2022_1C06,,smd_2022_1C06,,,,person_LyndaLaughlin
-11515,Steven McCarty,smd_2022_2G04,,smd_2022_2G04,,,,person_StevenMcCarty
+11515,Steven McCarty,smd_2022_2G04,,smd_2022_2G04,https://twitter.com/stevenfordc,,,person_StevenMcCarty
 11516,Jeffrey Denny,smd_2022_3E05,,smd_2022_3E05,,,,person_JeffreyDenny
 11517,Anna Roblin,smd_2022_5D03,,smd_2022_5D03,,,,person_AnnaRoblin
 11518,Alexandra Kelly,smd_2022_6A04,,smd_2022_6A04,,,,person_AlexandraKelly
@@ -1495,7 +1495,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11534,Patricia Bencivenga,smd_2022_2B07,,smd_2022_2B07,,,,person_PatriciaBencivenga
 11535,Bill Rubin,smd_2022_2B07,,smd_2022_2B07,,,,person_BillRubin
 11536,Thomas Reiter,smd_2022_2B08,,smd_2022_2B08,,,,person_ThomasReiter
-11537,Peter Lynch,smd_2022_3/4G05,,smd_2022_3/4G05,,,,person_PeterLynch
+11537,Peter Lynch,smd_2022_3/4G05,,smd_2022_3/4G05,https://twitter.com/petemlynch,,,person_PeterLynch
 11538,Thomas P. DeFranco,smd_2022_4C03,,smd_2022_4C03,,,,person_ThomasPDeFranco
 11539,Misu Tasnim,smd_2022_6E08,,smd_2022_6E08,,,,person_MisuTasnim
 11540,Tom Donohue,smd_2022_8A01,,smd_2022_8A01,,,,person_TomDonohue
@@ -1520,7 +1520,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11559,Jennifer Anderson,smd_2022_5F05,,smd_2022_5F05,,,,person_JenniferAnderson
 11560,Bruce Levine,smd_2022_6D06,,smd_2022_6D06,,,,person_BruceLevine
 11561,Pauline B. Scott,smd_2022_7B09,,smd_2022_7B09,,,,person_PaulineBScott
-11562,Patricia Williams,smd_2022_7C02,,smd_2022_7C02,,,,person_PatriciaWilliams
+11562,Patricia Williams (7C),smd_2022_7C02,,smd_2022_7C02,,,,person_PatriciaWilliams7C
 11563,Malik M. Lloyd,smd_2022_7C05,,smd_2022_7C05,,,,person_MalikMLloyd
 11564,David Ford,smd_2022_7C08,,smd_2022_7C08,,,,person_DavidFord
 11565,George Reid,smd_2022_8B06,,smd_2022_8B06,,,,person_GeorgeReid
@@ -1540,7 +1540,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11579,Justine Perkowski,smd_2022_5B07,,smd_2022_5B07,https://twitter.com/JPforANC5B07,,,person_JustinePerkowski
 11580,Kevin Rapp,smd_2022_5E05,,smd_2022_5E05,,,,person_KevinRapp
 11581,Daniel Vega,smd_2022_5F04,,smd_2022_5F04,,,,person_DanielVega
-11582,Joe Bishop-Henchman,smd_2022_5F06,,smd_2022_5F06,,,,person_JoeBishopHenchman
+11582,Joe Bishop-Henchman,smd_2022_5F06,,smd_2022_5F06,https://twitter.com/joe5f6,,,person_JoeBishopHenchman
 11583,Kasie Durkit,smd_2022_6B05,,smd_2022_6B05,,,,person_KasieDurkit
 11584,Katrina Norman,smd_2022_7E01,,smd_2022_7E01,,,,person_KatrinaNorman
 11585,Allyson Carpenter,smd_2022_8C05,,smd_2022_8C05,,,,person_AllysonCarpenter
@@ -1571,3 +1571,12 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11610,Juan McCullum,smd_2022_5D07,,smd_2022_5D07,,,,person_JuanMcCullum
 11611,Tony Hurst,smd_2022_5F01,,smd_2022_5F01,,,,person_TonyHurst
 11612,Jacob C. Brown,smd_2022_8C08,,smd_2022_8C08,,,,person_JacobCBrown
+11613,Thomas S. Lee,smd_2022_2C03,,smd_2022_2C03,,,,person_ThomasSLee
+11614,Rick Nash,smd_2022_3C08,,smd_2022_3C08,,,,person_RickNash
+11615,Audrey Walker,smd_2022_4B09,,smd_2022_4B09,,,,person_AudreyWalker
+11616,Kate Judson,smd_2022_4D02,,smd_2022_4D02,https://twitter.com/katejudson,,,person_KateJudson
+11617,Kéthia Clairvoyant,smd_2022_4D03,,smd_2022_4D03,,,,person_KéthiaClairvoyant
+11618,Juanita Holsendorff,smd_2022_5D08,,smd_2022_5D08,,,,person_JuanitaHolsendorff
+11619,Beverly F. Smith,smd_2022_7E03,,smd_2022_7E03,,,,person_BeverlyFSmith
+11620,Matthew Coleman,smd_2022_8B06,,smd_2022_8B06,,,,person_MatthewColeman
+11621,Shaquan Hudson,smd_2022_8E04,,smd_2022_8E04,,,,person_ShaquanHudson

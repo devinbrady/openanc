@@ -3,6 +3,7 @@ Functions for transforming raw data from CSVs into useful DataFrames
 """
 
 import pytz
+import numpy as np
 import pandas as pd
 from datetime import datetime
 
@@ -61,15 +62,16 @@ def incumbent_df():
     pc = pd.merge(people[['person_id', 'full_name']], comm, how='inner', on='person_id')
 
     candidates = list_candidates(election_year=2022)
+    candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+    candidates = pd.merge(candidates, candidate_statuses, how='inner', on='candidate_status')
     candidates.rename(columns={'smd_id': 'candidate_smd_id'}, inplace=True)
-    candidates['is_running'] = True
 
     not_running = pd.read_csv('data/incumbents_not_running.csv')
     not_running['confirmed_not_running'] = True
             
     comm_candidates = pd.merge(
         pc
-        , candidates[['person_id', 'candidate_id', 'candidate_smd_id', 'is_running']]
+        , candidates[['person_id', 'candidate_id', 'candidate_smd_id', 'count_as_candidate']]
         , how='left'
         , on='person_id'
     )
@@ -81,9 +83,12 @@ def incumbent_df():
         , on='person_id'
     )
 
+    # Tag the incumbents who dropped out as confirmed_not_running
+    comm_candidates_nr.loc[comm_candidates_nr.count_as_candidate == False, 'confirmed_not_running'] = True
+
     comm_candidates_nr['reelection_status'] = 'Unknown'
     comm_candidates_nr.loc[comm_candidates_nr.confirmed_not_running.fillna(False), 'reelection_status'] = 'Not Running'
-    comm_candidates_nr.loc[comm_candidates_nr.is_running.fillna(False), 'reelection_status'] = 'Is Running'
+    comm_candidates_nr.loc[comm_candidates_nr.count_as_candidate.fillna(False), 'reelection_status'] = 'Is Running'
 
     comm_candidates_nrd = pd.merge(comm_candidates_nr, districts.rename(columns={'smd_name': 'commissioner_smd_name'}), how='left', left_on='commissioner_smd_id', right_on='smd_id')
     comm_candidates_nrd = pd.merge(comm_candidates_nrd, districts.rename(columns={'smd_name': 'candidate_smd_name'}), how='left', left_on='candidate_smd_id', right_on='smd_id')
