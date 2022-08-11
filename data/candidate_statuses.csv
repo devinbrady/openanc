@@ -1,11 +1,11 @@
 candidate_status,publish_candidate,count_as_candidate,display_order
 Declared Intention to Run,TRUE,TRUE,7
 Did Not Qualify,TRUE,FALSE,9
-Filed Signatures,TRUE,TRUE,5
+Filed Signatures,TRUE,TRUE,4
 Hide Record,FALSE,FALSE,10
 Lost,TRUE,TRUE,2
-On Ballot,TRUE,TRUE,3
+On the Ballot,TRUE,TRUE,3
 Pulled Papers for Ballot,TRUE,FALSE,6
 Withdrew,TRUE,FALSE,8
 Won,TRUE,TRUE,1
-Write-In,TRUE,TRUE,4
+Write-In Candidate,TRUE,TRUE,5
