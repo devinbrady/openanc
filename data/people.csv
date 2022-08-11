@@ -1399,7 +1399,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11437,Bernard Kramer,smd_2022_2A05,,smd_2022_2A05,,,,person_BernardKramer
 11438,Jordan Nassar,smd_2022_2A08,,smd_2022_2A08,,,,person_JordanNassar
 11439,James Nash,smd_2022_3/4G03,,smd_2022_3/4G03,,,,person_JamesNash
-11440,Hayden Gise,smd_2022_3C01,,smd_2022_3C01,https://twitter.com/haydengise,,,person_HaydenGise
+11440,Hayden Gise,smd_2022_3C01,,smd_2022_3C01,https://twitter.com/haydengise,,https://www.haydengise.com/,person_HaydenGise
 11442,Kathy Hudson,smd_2022_3F02,,smd_2022_3F02,,,,person_KathyHudson
 11443,Andrew Koval,smd_2022_3F05,,smd_2022_3F05,https://twitter.com/andrewkoval15,,,person_AndrewKoval
 11444,T. Michelle Colson,smd_2022_4B01,,smd_2022_4B01,,,,person_TMichelleColson

@@ -358,16 +358,30 @@ class Counts():
 
         candidate_statuses = pd.merge(candidates, statuses, how='inner', on='candidate_status')
 
-        status_count = candidate_statuses.groupby(['display_order', 'candidate_status']).size()
-        status_count.loc[('Total', 'Total')] = len(candidate_statuses)
+        # status_count = candidate_statuses.groupby(['display_order', 'candidate_status']).size()
+        # status_count.loc[('Total', 'Total')] = len(candidate_statuses)
         
-        status_count_df = pd.DataFrame(status_count, columns=['Count']).reset_index()
-        status_count_df.rename(columns={'candidate_status': 'Candidate Status'}, inplace=True)
+        # status_count_df = pd.DataFrame(status_count, columns=['Count']).reset_index()
+        status_count_df = pd.pivot_table(
+            data=candidate_statuses
+            , index=['display_order', 'candidate_status']
+            , columns='count_as_candidate'
+            , aggfunc='size'
+            , fill_value=0
+            ).reset_index()
 
-        # status_html = status_count_df[['Candidate Status', 'Count']].to_html(index=False, justify='left')
+        status_count_df.rename(columns={
+            'candidate_status': 'Candidate Status'
+            , False: 'Inactive'
+            , True: 'Active'
+            }, inplace=True)
+
+        status_count_df.loc['Total'] = status_count_df.sum(axis=0)
+        status_count_df.loc['Total', 'Candidate Status'] = 'Total'
         
         status_html = (
-            status_count_df[['Candidate Status', 'Count']].style
+            status_count_df[['Candidate Status', 'Active', 'Inactive']]
+                .style
                 .set_uuid('status_count_df_')
                 .hide_index()
                 .render()
