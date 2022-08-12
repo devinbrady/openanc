@@ -264,6 +264,7 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
     if any(display_df.commissioner_elect.notnull()):
         columns_to_html += ['Commissioner-Elect']
 
+    # todo: try making this just the index and columns, so it changes less
     css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
 
     # The non-SMD columns should be formatted with left alignment

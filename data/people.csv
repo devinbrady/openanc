@@ -1510,7 +1510,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11549,Warren Gorlick,smd_2022_3C07,,smd_2022_3C07,,,,person_WarrenGorlick
 11550,Bridget Schwartz,smd_2022_3F06,,smd_2022_3F06,,,,person_BridgetSchwartz
 11551,Jonathan La Broi,smd_2022_4A05,,smd_2022_4A05,,,,person_JonathanLaBroi
-11552,Kevin Gilligan,smd_2022_4B05,,smd_2022_4B05,,,,person_KevinGilligan
+11552,Kevin Gilligan,smd_2022_4B05,,smd_2022_4B05,https://twitter.com/kevingilliganDC,,,person_KevinGilligan
 11553,Stefan A. Nagey,smd_2022_4B10,,smd_2022_4B10,,,,person_StefanANagey
 11554,Kyle Kelly,smd_2022_4D03,,smd_2022_4D03,,,,person_KyleKelly
 11555,Peggy Pacy,smd_2022_4E05,,smd_2022_4E05,,,,person_PeggyPacy
