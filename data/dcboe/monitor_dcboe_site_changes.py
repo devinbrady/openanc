@@ -11,8 +11,10 @@ import tweepy
 import argparse
 import requests
 import pandas as pd
+from pathlib import Path
 from datetime import datetime
 from bs4 import BeautifulSoup
+
 
 
 
@@ -136,6 +138,7 @@ class MonitorDCBOE():
             self.reset()
 
             # self.send_tweet('ANC candidate list has changed: https://dcboe.org' + self.current_link_text)
+            # self.send_tweet(f'ANC candidate list has changed: https://dcboe.org{self.current_link_text} (filename: {Path(self.current_link_text).name})')
 
 
 
@@ -160,4 +163,7 @@ if __name__ == "__main__":
     m = MonitorDCBOE()
     m.run()
 
-    # m.send_tweet('Current ANC candidate list: https://dcboe.org' + m.current_link_text)
+    
+    # m.send_tweet(f'Current ANC candidate list: https://dcboe.org{m.current_link_text}')
+    print(f'Current ANC candidate list: https://dcboe.org{m.current_link_text} (filename: {Path(m.current_link_text).name})')
+    
