@@ -474,16 +474,18 @@ def calculate_zoom(area):
 
 
 
-def current_time():
-    """
-    Return current time in DC, formatted as a string for human readability
-    """
+def current_timestamp():
+    """Return current timestamp in DC, in datetime format"""
 
     tz = pytz.timezone('America/New_York')
-    dc_now = datetime.now(tz)
-    dc_timestamp = dc_now.strftime('%B %-d, %Y') # Hour of day: %-I:%M %p
+    return datetime.now(tz)
 
-    return dc_timestamp
+
+
+def current_date_str():
+    """Return current date in DC, formatted as a string for human readability"""
+
+    return current_timestamp().strftime('%B %-d, %Y') # Hour of day: %-I:%M %p
 
 
 
@@ -518,7 +520,7 @@ def add_footer(input_html, link_source='root', updated_at=None):
     link_path = relative_link_prefix(source=link_source, destination='root')
 
     if not updated_at:
-        updated_at = current_time()
+        updated_at = current_date_str()
 
     footer_html = footer_html.replace('REPLACE_WITH_LINK_PATH___', link_path)
 

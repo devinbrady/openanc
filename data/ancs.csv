@@ -7,7 +7,7 @@ anc_1C,ANC 1C,3,2012,2012-2020,https://anc.dc.gov/page/advisory-neighborhood-com
 anc_1C_2022,ANC 1C,3,2022,2022-2030,,,-77.04307582,38.92212808,1224285,,,,"anc_1C, anc_3C","0.9989, 0.0011",
 anc_1D,ANC 1D,4,2012,2012-2020,https://anc.dc.gov/page/advisory-neighborhood-commission-1d,http://anc1d.org/,-77.041738,38.9322775,947592,Mount Pleasant,,,anc_1D_2022,1.0000,
 anc_1D_2022,ANC 1D,4,2022,2022-2030,,,-77.04088431,38.93266764,1075326,,,,"anc_1D, anc_1A","0.8812, 0.1185",
-anc_1E_2022,ANC 1E,5,2022,2022-2030,,https://twitter.com/ANC_1E,-77.02053375,38.9266602,1682767,,,,"anc_1B, anc_1A","0.6387, 0.3613",This ANC is new in 2022.
+anc_1E_2022,ANC 1E,5,2022,2022-2030,,,-77.02053375,38.9266602,1682767,,https://twitter.com/anc_1e,,"anc_1B, anc_1A","0.6387, 0.3613",This ANC is new in 2022.
 anc_2A,ANC 2A,5,2012,2012-2020,https://anc.dc.gov/page/advisory-neighborhood-commission-2a,https://www.anc2a.org/,-77.047711,38.8896475,7065358,Foggy Bottom - West End,https://twitter.com/ANC2A,,"anc_2A_2022, anc_2E_2022, anc_6D_2022, anc_2B_2022","0.9324, 0.0418, 0.0227, 0.0031",
 anc_2A_2022,ANC 2A,6,2022,2022-2030,,,-77.04727792,38.89005537,6778236,,,,"anc_2A, anc_2B","0.9718, 0.0281",
 anc_2B,ANC 2B,6,2012,2012-2020,https://anc.dc.gov/page/advisory-neighborhood-commission-2b,http://www.dupontcircleanc.net/,-77.040648,38.9084618,2160620,Dupont Circle,https://twitter.com/ANC2B,,"anc_2B_2022, anc_2C_2022, anc_2A_2022, anc_2F_2022","0.5981, 0.2744, 0.0883, 0.0392",

@@ -14,7 +14,7 @@ from matplotlib._color_data import TABLEAU_COLORS
 
 from scripts.common import (
     assemble_divo
-    , current_time
+    , current_date_str
     )
 
 from scripts.data_transformations import (
@@ -528,7 +528,7 @@ class Counts():
 
         xtick_range = list(range(0,len(comp), 5))
         plt.xticks(ticks=xtick_range, labels=abs(comp.loc[xtick_range, 'days_to_deadline']))
-        plt.xlabel(f'Days to Filing Deadline (updated {current_time()})')
+        plt.xlabel(f'Days to Filing Deadline (updated {current_date_str()})')
         plt.ylabel('Running Total of Candidates')
         plt.legend()
         plt.title('ANC Candidates Picking Up Petitions: 2020 vs 2022')

@@ -16,8 +16,6 @@ import hashlib
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
 
 from scripts.refresh_data import RefreshData
 from scripts.data_transformations import districts_candidates_commissioners
