@@ -156,7 +156,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
         output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
         output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
-        c.pickups_plot()
+        # c.pickups_plot()
 
         # output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
         # output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward_id', '#b2df8a')) # light green

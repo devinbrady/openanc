@@ -263,7 +263,7 @@ class ProcessCandidates():
             if len(current_comm) == 0:
                 continue
 
-            best_id, best_score = match_names(row['candidate_name'], current_comm['full_name'], current_comm['person_id'])
+            best_id, best_score = match_nammes(row['candidate_name'], current_comm['full_name'], current_comm['person_id'])
 
             # if best_score >= 80:
 
@@ -464,6 +464,7 @@ class ProcessCandidates():
 
         match_file = Path('data/dcboe/1_candidates_dcboe_match.csv')
 
+        # todo: change this logic so the file doesn't have to be deleted every time
         if match_file.exists():
             matches = pd.read_csv(match_file)
 
