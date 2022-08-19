@@ -11,7 +11,6 @@ import geopandas as gpd
 from scripts.common import (
     build_smd_html_table
     , add_footer
-    , calculate_zoom
     , add_google_analytics
     , add_geojson
     , ward_geojson

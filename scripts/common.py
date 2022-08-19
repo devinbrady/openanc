@@ -128,11 +128,9 @@ def add_google_analytics(input_html):
 
 def add_geojson(shape_gdf, field_name, field_value, input_html):
     """
-    Add a GeoJSON feature as a Javascript variable to an HTML string
+    Add a GeoJSON feature as a Javascript variable to an HTML string. This variable will be used to calculate the bounds of the map.
 
-    This variable will be used to calculate the bounds of the map
-
-    todo: this should be just a 4 value bounding box, easier to deal with and faster pages
+    The shape is reduced to a 4-value bounding box to reduce the size of the HTML file. 
     """
     
     shape_row = shape_gdf[shape_gdf[field_name] == field_value].copy()
@@ -264,8 +262,10 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
     if any(display_df.commissioner_elect.notnull()):
         columns_to_html += ['Commissioner-Elect']
 
-    # todo: try making this just the index and columns, so it changes less
-    css_uuid = hashlib.sha224(display_df[columns_to_html].to_string().encode()).hexdigest() + '_'
+    # Hash the first column and all column names. Used a CSS id for the resulting table.
+    # First column + column names should change less frequently than the table contents.
+    first_column_plus_column_names = ';'.join(list(display_df[columns_to_html[0]]) + columns_to_html)
+    css_uuid = hashlib.sha224(first_column_plus_column_names.encode()).hexdigest() + '_'
 
     # The non-SMD columns should be formatted with left alignment
     subset_columns = [c for c in columns_to_html if c not in ('SMD', 'Election Year')]
@@ -274,29 +274,10 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
         display_df[columns_to_html]
         .fillna('')
         .style
-        # .set_properties(
-        #     subset=[results_field]
-        #     , **{
-        #         'text-align': 'left'
-        #         , 'width': '700px'
-        #         , 'height': '45px'
-        #         }
-        #     )
-        # .set_properties(
-        #     subset=[total_votes_display_name]
-        #     , **{'text-align': 'left'}
-        #     )
         .set_properties(
             subset=subset_columns
             , **{'width': '230px', 'text-align': 'left'} # 230px fits the longest commissioner name on one row
             ) # why is the width in pixels so different between these columns? 
-        # .format({total_votes_display_name: '{:,.0f}'})
-        # .bar(
-        #     subset=[total_votes_display_name]
-        #     , color='#cab2d6' # light purple
-        #     , vmin=0
-        #     , vmax=3116
-        #     )
         .set_uuid(css_uuid)
         .hide_index()
         .render()
