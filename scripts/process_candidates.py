@@ -65,6 +65,8 @@ class ProcessCandidates():
                 }, inplace=True
             )
 
+        print('Number of districts in this file: {}'.format(df.smd.nunique()))
+
         # drop header rows interspersed in data
         df = df[df['smd'] != 'ANC/SMD'].copy()
 
@@ -263,7 +265,7 @@ class ProcessCandidates():
             if len(current_comm) == 0:
                 continue
 
-            best_id, best_score = match_nammes(row['candidate_name'], current_comm['full_name'], current_comm['person_id'])
+            best_id, best_score = match_names(row['candidate_name'], current_comm['full_name'], current_comm['person_id'])
 
             # if best_score >= 80:
 

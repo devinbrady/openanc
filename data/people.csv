@@ -493,7 +493,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10508,Colleen Costello,smd_5B05,smd_5B05,smd_5B05,https://twitter.com/ANCCostello,,https://anc5b05.com/,person_ColleenCostello
 10509,Raymond Chandler,smd_5C05,,smd_5C05,https://twitter.com/RCforANC5C05,https://www.facebook.com/rcforanc5c05/,,person_RaymondChandler
 10510,Aliyah McNeely,smd_5D01,,smd_5D01,,,,person_AliyahMcNeely
-10511,Laura Gentile,smd_6A05,smd_6A05,smd_6A05,https://twitter.com/LauraGentileANC,,,person_LauraGentile
+10511,Laura Gentile,smd_6A05,smd_6A05,smd_6A05,https://twitter.com/anclaurag,,,person_LauraGentile
 10512,Patrick K. Parlej,smd_6E05,smd_6E05,smd_6E05,https://twitter.com/PatrickParlej,,http://www.patrickforanc.com/,person_PatrickKParlej
 10513,Denise E Blackson,smd_6E06,smd_6E06,smd_6E06,,,,person_DeniseEBlackson
 10514,Cydne Smith Nash,smd_7B04,smd_7B04,smd_7B04,https://twitter.com/CydneNash,,,person_CydneSmithNash
@@ -1370,7 +1370,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11408,Margaret Stevens,smd_2022_1C05,,smd_2022_1C05,,,,person_MargaretStevens
 11409,Mimsy Lindner,smd_2022_2E05,,smd_2022_2E05,,,,person_MimsyLindner
 11410,Gawain Kripke,smd_2022_3C07,,smd_2022_3C07,https://twitter.com/gawain4anc,,,person_GawainKripke
-11411,Ryan Cudemas-Brunoli,smd_2022_3F01,,smd_2022_3F01,,,,person_RyanCudemasBrunoli
+11411,Ryan Cudemus-Brunoli,smd_2022_3F01,,smd_2022_3F01,,,,person_RyanCudemusBrunoli
 11412,Thomas Seidman,smd_2022_6D02,,smd_2022_6D02,,,,person_ThomasSeidman
 11413,Mohamed K. Azab,smd_2022_8A02,,smd_2022_8A02,,,,person_MohamedKAzab
 11414,Christy Kwan,smd_2022_6C01,,smd_2022_6C01,https://twitter.com/kwanimal,,,person_ChristyKwan
