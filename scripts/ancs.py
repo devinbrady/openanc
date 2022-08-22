@@ -27,6 +27,9 @@ from scripts.urls import (
     , relative_link_prefix
     )
 
+from scripts.data_transformations import districts_candidates_commissioners
+
+
 
 class BuildANCs():
 
@@ -37,9 +40,13 @@ class BuildANCs():
         self.mapbox_style_slugs = mapbox_slugs()
 
         self.candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+        self.dcc = districts_candidates_commissioners(link_source='anc')
 
         self.ancs = pd.read_csv('data/ancs.csv')
+        self.ancs['link_block'] = self.ancs.apply(lambda row: build_link_block(row, fields_to_try=['dc_oanc_link', 'anc_homepage_link', 'twitter_link']), axis=1)
+
         self.districts = pd.read_csv('data/districts.csv')
+
 
 
     def anc_list_page(self, redistricting_year):
@@ -141,6 +148,60 @@ class BuildANCs():
         return district_list
 
 
+
+    def build_all_anc_pages(self):
+        """Build pages for each ANC"""
+
+        for _, anc in tqdm(self.ancs.iterrows(), total=len(self.ancs), desc='ANCs   '):
+
+            self.build_anc_page(anc)
+
+
+
+    def build_anc_page(self, anc):
+        """Build one ANC page"""
+
+        with open('templates/anc.html', 'r') as f:
+            output = f.read()
+        
+        output = add_google_analytics(output)
+        output = add_geojson(self.geojson_shape, 'anc_id', anc.anc_id, output)
+        
+        output = output.replace('REPLACE_WITH_ANC_NAME', f'{anc.anc_name} [{anc.redistricting_cycle} Cycle]')
+        
+        if anc['redistricting_year'] == 2012:
+            mapbox_slug_id = 'smd'
+        else:
+            mapbox_slug_id = 'smd-2022'
+
+        output = output.replace('REPLACE_WITH_MAPBOX_SLUG', self.mapbox_style_slugs[mapbox_slug_id])
+
+
+        smds_in_anc = self.districts[self.districts['anc_id'] == anc.anc_id]['smd_id'].to_list()
+        output = output.replace('<!-- replace with district list -->', build_smd_html_table(
+            smds_in_anc
+            , link_source='anc'
+            , district_comm_commelect=self.dcc
+            , candidate_statuses=self.candidate_statuses
+            ))
+
+        fields_to_try = ['notes', 'link_block']
+        output = output.replace('<!-- replace with anc link list -->', build_data_table(anc, fields_to_try, link_source='anc'))
+
+        output = output.replace('<!-- replace with old/new heading -->', self.old_new_heading(anc.anc_id))
+        output = output.replace('<!-- replace with overlap -->', self.overlap_list(anc.anc_id))
+        
+        output = output.replace('REPLACE_WITH_LONGITUDE', str(anc['centroid_lon']))
+        output = output.replace('REPLACE_WITH_LATITUDE', str(anc['centroid_lat']))
+        output = output.replace('REPLACE_WITH_ZOOM_LEVEL', str(calculate_zoom(anc['area'])))
+
+        output = add_footer(output, link_source='anc')
+
+        with open('docs/' + generate_url(anc.anc_id, link_source='root'), 'w') as f:
+            f.write(output)
+
+
+
     def run(self):
         """Build pages for each ANC"""
 
@@ -148,47 +209,6 @@ class BuildANCs():
             self.anc_list_page(redistricting_year=ry)
 
 
-        self.ancs['link_block'] = self.ancs.apply(lambda row: build_link_block(row, fields_to_try=['dc_oanc_link', 'anc_homepage_link', 'twitter_link']), axis=1)
+        self.build_all_anc_pages()
+
         
-        for idx, row in tqdm(self.ancs.iterrows(), total=len(self.ancs), desc='ANCs   '):
-
-            anc_id = row['anc_id']
-
-            # debug
-            # if anc_id != '6D':
-            #     continue
-                    
-            with open('templates/anc.html', 'r') as f:
-                output = f.read()
-            
-            output = add_google_analytics(output)
-            output = add_geojson(self.geojson_shape, 'anc_id', anc_id, output)
-            
-            output = output.replace('REPLACE_WITH_ANC_NAME', f'{row.anc_name} [{row.redistricting_cycle} Cycle]')
-            
-            if row['redistricting_year'] == 2012:
-                mapbox_slug_id = 'smd'
-            else:
-                mapbox_slug_id = 'smd-2022'
-
-            output = output.replace('REPLACE_WITH_MAPBOX_SLUG', self.mapbox_style_slugs[mapbox_slug_id])
-
-
-            smds_in_anc = self.districts[self.districts['anc_id'] == anc_id]['smd_id'].to_list()
-            output = output.replace('<!-- replace with district list -->', build_smd_html_table(smds_in_anc, link_source='anc', candidate_statuses=self.candidate_statuses))
-
-            fields_to_try = ['notes', 'link_block']
-            output = output.replace('<!-- replace with anc link list -->', build_data_table(row, fields_to_try, link_source='anc'))
-
-            output = output.replace('<!-- replace with old/new heading -->', self.old_new_heading(anc_id))
-            output = output.replace('<!-- replace with overlap -->', self.overlap_list(anc_id))
-            
-            output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
-            output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))
-            output = output.replace('REPLACE_WITH_ZOOM_LEVEL', str(calculate_zoom(row['area'])))
-
-            output = add_footer(output, link_source='anc')
-
-            with open('docs/' + generate_url(row.anc_id, link_source='root'), 'w') as f:
-                f.write(output)
-

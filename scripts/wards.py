@@ -23,6 +23,9 @@ from scripts.urls import (
     , relative_link_prefix
     )
 
+from scripts.data_transformations import districts_candidates_commissioners
+
+
 
 class BuildWards():
 
@@ -33,6 +36,8 @@ class BuildWards():
         self.districts = pd.read_csv('data/districts.csv')
         self.mapbox_styles = pd.read_csv('data/mapbox_styles.csv')
         self.wards = pd.read_csv('data/wards.csv')
+        self.candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+        self.dcc = districts_candidates_commissioners(link_source='ward')
 
 
 
@@ -84,14 +89,13 @@ class BuildWards():
     def build_all_ward_pages(self):
         """Build pages for each ward"""
 
-        # ward_gdf = gpd.read_file('maps/ward-from-smd.geojson')
-        
         for _, ward in tqdm(self.wards.iterrows(), total=len(self.wards), desc='Wards  '):
             self.build_ward_page(ward)
 
 
 
     def build_ward_page(self, ward):
+        """Build one ward page"""
 
         with open('templates/ward.html', 'r') as f:
             output = f.read()
@@ -105,7 +109,7 @@ class BuildWards():
         ward_smd_ids = self.districts[self.districts['ward_id'] == ward.ward_id]['smd_id'].to_list()
         output = output.replace(
             '<!-- replace with district list -->'
-            , build_smd_html_table(ward_smd_ids, link_source='ward')
+            , build_smd_html_table(ward_smd_ids, link_source='ward', district_comm_commelect=self.dcc, candidate_statuses=self.candidate_statuses)
             )
 
         if ward.ward_name in (3,4):
