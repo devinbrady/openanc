@@ -45,7 +45,6 @@ class BuildDistricts():
 
     def __init__(self):
 
-
         self.smd_shape = smd_geojson()
 
         self.mapbox_style_slugs = mapbox_slugs()
@@ -66,6 +65,17 @@ class BuildDistricts():
         self.wards = pd.read_csv('data/wards.csv')
         self.statuses = pd.read_csv('data/candidate_statuses.csv')
 
+        self.people_commissioners = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
+
+        people_candidates = pd.merge(self.people, self.candidates_this_year, how='inner', on='person_id')
+        self.people_candidate_statuses = pd.merge(people_candidates, self.statuses, how='inner', on='candidate_status')
+
+        # Merge the order and status fields for sorting
+        self.people_candidate_statuses['order_status'] = self.people_candidate_statuses['display_order'].astype(str) + ';' + self.people_candidate_statuses['candidate_status']
+
+        # Shuffle the order of candidates. Changes every day
+        self.people_candidate_statuses.sample(frac=1, random_state=today_as_int())
+
 
 
     def build_commissioner_table(self, smd_id):
@@ -80,9 +90,7 @@ class BuildDistricts():
             , 'former': 'Former Commissioner'
             })
         
-        people_commissioners = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
-        
-        smd_commissioners = people_commissioners[people_commissioners['smd_id'] == smd_id].sort_values(by='start_date', ascending=False).copy()
+        smd_commissioners = self.people_commissioners[self.people_commissioners['smd_id'] == smd_id].sort_values(by='start_date', ascending=False).copy()
 
         vacant_string = '<h2>Current Commissioner</h2><p>This office is vacant.</p>'
         if len(smd_commissioners) == 0:
@@ -248,18 +256,8 @@ class BuildDistricts():
         
         if '_2022_' not in smd_id:
             return ''
-        
-        people_candidates = pd.merge(self.people, self.candidates_this_year, how='inner', on='person_id')
-        people_candidate_statuses = pd.merge(people_candidates, self.statuses, how='inner', on='candidate_status')
 
-        # Merge the order and status fields for sorting
-        people_candidate_statuses['order_status'] = people_candidate_statuses['display_order'].astype(str) + ';' + people_candidate_statuses['candidate_status']
-        
-        # Randomize the order of candidates. Changes every day
-        smd_candidates = people_candidate_statuses[people_candidate_statuses['smd_id'] == smd_id].sample(
-            frac=1, random_state=today_as_int()
-            ).reset_index()
-        
+        smd_candidates = self.people_candidate_statuses[self.people_candidate_statuses['smd_id'] == smd_id].reset_index()
         num_candidates = len(smd_candidates)
 
         candidate_block = '<h2>2022 Candidates</h2>'
