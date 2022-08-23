@@ -73,6 +73,12 @@ class BuildDistricts():
         # Merge the order and status fields for sorting
         self.people_candidate_statuses['order_status'] = self.people_candidate_statuses['display_order'].astype(str) + ';' + self.people_candidate_statuses['candidate_status']
 
+        self.people_candidate_statuses['link_block'] = self.people_candidate_statuses.apply(
+            lambda row: build_link_block(
+                row, fields_to_try=['website_link', 'twitter_link', 'facebook_link'])
+            , axis=1
+            )
+
         # Shuffle the order of candidates. Changes every day
         self.people_candidate_statuses.sample(frac=1, random_state=today_as_int())
 
@@ -134,8 +140,7 @@ class BuildDistricts():
                 if status == 'former':
                     fields_to_try = ['full_name', 'term_in_office']
                 else:
-                    # todo: take out ok
-                    fields_to_try = ['full_name', 'link_block', 'term_in_office', 'ok']
+                    fields_to_try = ['full_name', 'link_block', 'term_in_office']
 
                 for idx, row in commissioners_in_status.iterrows():
 
@@ -184,8 +189,6 @@ class BuildDistricts():
                 , 'margin_of_victory_percentage'
             ]
 
-            
-            # todo: turn this into a function, it's ugly
             smd_results['full_name'] = smd_results.apply(
                 lambda x: generate_link(x.person_name_id, link_source='district', link_body=x.full_name)
                         if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
@@ -249,6 +252,29 @@ class BuildDistricts():
 
 
 
+    def candidate_status_block(self, smd_candidates, status, fields_to_try):
+        """Return string containing a long table of the attributes of all candidates in a particular status"""
+
+        csb = ''
+
+        csb += '<h3>Status: ' + status[status.find(';')+1:] + '</h3>'
+        candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
+
+        for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
+
+            # Add break between candidate tables if there is more than one candidate
+            if idx > 0:
+                csb += '<br/>'
+
+            csb += build_data_table(candidate_row, fields_to_try, link_source='district')
+
+        if candidates_in_status > 1:
+            csb += '<p><em>Candidate order is randomized.</em></p>'
+
+        return csb
+
+
+
     def add_candidates(self, smd_id):
         """
         Add blocks of information for each candidate in SMD
@@ -260,6 +286,22 @@ class BuildDistricts():
         smd_candidates = self.people_candidate_statuses[self.people_candidate_statuses['smd_id'] == smd_id].reset_index()
         num_candidates = len(smd_candidates)
 
+        active_candidate_fields = [
+            'full_name'
+            , 'candidate_announced_date'
+            , 'candidate_source'
+            , 'candidate_source_description'
+            , 'manual_source_link'
+            , 'link_block'
+            , 'updated_at'
+            ]
+
+        inactive_candidate_fields = [
+            'full_name'
+            , 'updated_at'
+            ]
+
+
         candidate_block = '<h2>2022 Candidates</h2>'
 
         if num_candidates == 0:
@@ -268,72 +310,22 @@ class BuildDistricts():
             
         else:
 
-            # todo: clean this up
-
             if sum(smd_candidates['count_as_candidate'] == True) == 0:
-
                 candidate_block += '<p>No active candidates.</p>'
 
             else:
 
-                smd_candidates['link_block'] = smd_candidates.apply(
-                    lambda row: build_link_block(
-                        row, fields_to_try=['website_link', 'twitter_link', 'facebook_link'])
-                    , axis=1
-                    )
-
-
                 for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == True, 'order_status'].unique()):
-
-                    candidate_block += '<h3>Status: ' + status[status.find(';')+1:] + '</h3>'
-                    candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
-
-                    for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
-
-                        # Add break between candidate tables if there is more than one candidate
-                        if idx > 0:
-                            candidate_block += '<br/>'
-
-                        fields_to_try = [
-                            'full_name'
-                            , 'candidate_announced_date'
-                            , 'candidate_source'
-                            , 'candidate_source_description'
-                            , 'manual_source_link'
-                            , 'link_block'
-                            , 'updated_at'
-                            ]
-
-                        candidate_block += build_data_table(candidate_row, fields_to_try, link_source='district')
-                    
-                    if candidates_in_status > 1:
-                        candidate_block += '<p><em>Candidate order is randomized.</em></p>'
+                    candidate_block += self.candidate_status_block(smd_candidates=smd_candidates, status=status, fields_to_try=active_candidate_fields)
 
 
             if sum(smd_candidates['count_as_candidate'] == False) > 0:
 
-                candidate_block += '<h2>Former Candidates</h2>'
+                candidate_block += '<h2>2022 Former Candidates</h2>'
 
                 for status in sorted(smd_candidates.loc[smd_candidates['count_as_candidate'] == False, 'order_status'].unique()):
+                    candidate_block += self.candidate_status_block(smd_candidates=smd_candidates, status=status, fields_to_try=inactive_candidate_fields)
 
-                    candidate_block += '<h3>' + status[status.find(';')+1:] + '</h3>'
-                    candidates_in_status = len(smd_candidates[smd_candidates['order_status'] == status])
-
-                    for idx, candidate_row in smd_candidates[smd_candidates['order_status'] == status].reset_index().iterrows():
-
-                        # Add break between candidate tables if there is more than one candidate
-                        if idx > 0:
-                            candidate_block += '<br/>'
-
-                        fields_to_try = [
-                            'full_name'
-                            , 'updated_at'
-                            ]
-
-                        candidate_block += build_data_table(candidate_row, fields_to_try, link_source='district')
-                    
-                    if candidates_in_status > 1:
-                        candidate_block += '<p><em>Candidate order is randomized.</em></p>'
 
         candidate_block += (
             "<p>The list of candidates comes from the DC Board of Elections and from submissions to OpenANC. "
@@ -355,7 +347,7 @@ class BuildDistricts():
 
         district_table = build_data_table(district_row, fields_to_try, link_source='district')
 
-        # Take out the edit form link here. Only display district info if it exists.
+        # Only display district info section if district info exists for this district.
         if district_table != '':
             district_table = '<h2>Better Know a District</h2>\n' + district_table
         
@@ -364,6 +356,7 @@ class BuildDistricts():
 
 
     def old_new_heading(self, smd_id):
+        """Alternate between different language for the overlap section based on which redistricting cycle this is."""
 
         if '_2022_' in smd_id:
             heading = (
