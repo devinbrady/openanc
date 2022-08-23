@@ -1,7 +1,6 @@
 # counts.py
 
 import pytz
-import imgkit
 import pandas as pd
 from datetime import datetime
 
@@ -46,8 +45,8 @@ class Counts():
         html = (
             df.style
             .set_uuid('commissioners_count')
-            .hide_index()
-            .render()
+            .hide(axis='index')
+            .to_html()
             )
 
         return html
@@ -100,7 +99,7 @@ class Counts():
             .format({'Percent Unfilled': '{:.1%}'.format})
             .applymap(lambda x: 'background: yellow' if x >= 0.5 else '', subset='Percent Unfilled')
             .set_uuid(f'cand_count_{groupby_field}_')
-            .render()
+            .to_html()
             )
 
         return html
@@ -191,8 +190,8 @@ class Counts():
                     , vmax=highest_average_votes_for_bar_chart
                     )
                 .set_uuid(groupby_field + '_')
-                .hide_index()
-                .render()
+                .hide(axis='index')
+                .to_html()
             )
         
         return smd_html
@@ -268,8 +267,8 @@ class Counts():
                     })
                 .bar(subset=['Percentage with Candidate'], color=bar_color, vmin=0, vmax=1)
                 .set_uuid(groupby_field + '_')
-                .hide_index()
-                .render()
+                .hide(axis='index')
+                .to_html()
             )
         
         return smd_html
@@ -327,8 +326,8 @@ class Counts():
                 'Percentage': '{:.1%}'
                 })
             .set_uuid('election_status_count_')
-            .hide_index()
-            .render()
+            .hide(axis='index')
+            .to_html()
             )
         html += '</p>'
 
@@ -339,8 +338,8 @@ class Counts():
                 'Percentage': '{:.1%}'
                 })
             .set_uuid('candidate_count_')
-            .hide_index()
-            .render()
+            .hide(axis='index')
+            .to_html()
             )
         html += '</p>'
 
@@ -383,8 +382,8 @@ class Counts():
             status_count_df[['Candidate Status', 'Active', 'Inactive']]
                 .style
                 .set_uuid('status_count_df_')
-                .hide_index()
-                .render()
+                .hide(axis='index')
+                .to_html()
             )
 
         return status_html
@@ -439,8 +438,8 @@ class Counts():
                 })
                 .bar(subset=[('', 'Percentage Filed')], color='#B3B3B3', vmin=0, vmax=1) # gray
                 .set_uuid('g_')
-                .hide_index()
-                .render()
+                .hide(axis='index')
+                .to_html()
             )
 
 

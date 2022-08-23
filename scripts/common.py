@@ -32,7 +32,7 @@ def smd_geojson():
     map_2022 = gpd.read_file('maps/smd-2022-preprocessed.geojson')
 
     # Turn the 2012 MultiPolygons into Polygons to match 2022
-    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
+    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x.geoms[0])
 
     return gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
 
@@ -45,7 +45,7 @@ def anc_geojson():
     map_2022 = gpd.read_file('maps/anc-2022.geojson')
 
     # Turn the 2012 MultiPolygons into Polygons to match 2022
-    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
+    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x.geoms[0])
 
     return gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
 
@@ -57,8 +57,8 @@ def ward_geojson():
     map_2012 = gpd.read_file('maps/ward-from-smd-2012.geojson')
     map_2022 = gpd.read_file('maps/ward-from-smd-2022.geojson')
 
-    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x[0])
-    map_2022['geometry'] = map_2022.geometry.apply(lambda x: x[0])
+    map_2012['geometry'] = map_2012.geometry.apply(lambda x: x.geoms[0])
+    map_2022['geometry'] = map_2022.geometry.apply(lambda x: x.geoms[0])
 
     return gpd.GeoDataFrame(pd.concat([map_2012, map_2022]), crs=map_2012.crs)
 
@@ -279,8 +279,8 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
             , **{'width': '230px', 'text-align': 'left'} # 230px fits the longest commissioner name on one row
             ) # why is the width in pixels so different between these columns? 
         .set_uuid(css_uuid)
-        .hide_index()
-        .render()
+        .hide(axis='index')
+        .to_html()
         )
 
     return html

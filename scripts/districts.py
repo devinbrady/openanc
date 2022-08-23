@@ -208,8 +208,8 @@ class BuildDistricts():
                     , axis=1
                     )
                 .set_uuid('results_')
-                .hide_index()
-                .render()
+                .hide(axis='index')
+                .to_html()
                 )
 
             if smd_results['write_in_winner_int'].sum() > 0:

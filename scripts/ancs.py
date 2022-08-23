@@ -86,8 +86,8 @@ class BuildANCs():
             .fillna('')
             .style
             .set_uuid(css_uuid)
-            .hide_index()
-            .render()
+            .hide(axis='index')
+            .to_html()
             )
 
         return html

@@ -165,5 +165,5 @@ if __name__ == "__main__":
 
     
     # m.send_tweet(f'Current ANC candidate list: https://dcboe.org{m.current_link_text}')
-    print(f'Current ANC candidate list: https://dcboe.org{m.current_link_text} (filename: {Path(m.current_link_text).name})')
+    # print(f'Current ANC candidate list: https://dcboe.org{m.current_link_text} (filename: {Path(m.current_link_text).name})')
     

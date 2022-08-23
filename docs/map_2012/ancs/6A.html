@@ -31,7 +31,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
-    center: [-76.98638000000001, 38.8955302], // starting position [lng, lat]
+    center: [-76.98638, 38.8955302], // starting position [lng, lat]
     zoom: 14.05973402072886
 });
 
@@ -69,73 +69,64 @@ map.addControl(new mapboxgl.NavigationControl());
 
 <h2>Districts and Commissioners</h2>
 
-<style  type="text/css" >
-    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row0_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row1_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row2_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row3_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row4_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row5_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row6_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row7_col2 {
-            width:  230px;
-            text-align:  left;
-        }</style><table id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Election Year</th>        <th class="col_heading level0 col2" >Current Commissioner</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row0_col0" class="data row0 col0" ><a href="../../map_2012/ancs/districts/6A01.html">6A01</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row0_col1" class="data row0 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row0_col2" class="data row0 col2" ><a href="../../people/KeyaChatterjee.html">Keya Chatterjee</a></td>
-            </tr>
-            <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row1_col0" class="data row1 col0" ><a href="../../map_2012/ancs/districts/6A02.html">6A02</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row1_col1" class="data row1 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row1_col2" class="data row1 col2" ><a href="../../people/PhilToomajian.html">Phil Toomajian</a></td>
-            </tr>
-            <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row2_col0" class="data row2 col0" ><a href="../../map_2012/ancs/districts/6A03.html">6A03</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row2_col1" class="data row2 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row2_col2" class="data row2 col2" ><a href="../../people/MichaelSoderman.html">Michael Soderman</a></td>
-            </tr>
-            <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row3_col0" class="data row3 col0" ><a href="../../map_2012/ancs/districts/6A04.html">6A04</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row3_col1" class="data row3 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row3_col2" class="data row3 col2" ><a href="../../people/AmberGove.html">Amber Gove</a></td>
-            </tr>
-            <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row4_col0" class="data row4 col0" ><a href="../../map_2012/ancs/districts/6A05.html">6A05</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row4_col1" class="data row4 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row4_col2" class="data row4 col2" ><a href="../../people/LauraGentile.html">Laura Gentile</a></td>
-            </tr>
-            <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row5_col0" class="data row5 col0" ><a href="../../map_2012/ancs/districts/6A06.html">6A06</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row5_col1" class="data row5 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row5_col2" class="data row5 col2" ><a href="../../people/RobbDooling.html">Robb Dooling</a></td>
-            </tr>
-            <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row6_col0" class="data row6 col0" ><a href="../../map_2012/ancs/districts/6A07.html">6A07</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row6_col1" class="data row6 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row6_col2" class="data row6 col2" ><a href="../../people/SondraPhillipsGilbert.html">Sondra Phillips-Gilbert</a></td>
-            </tr>
-            <tr>
-                                <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row7_col0" class="data row7 col0" ><a href="../../map_2012/ancs/districts/6A08.html">6A08</a></td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row7_col1" class="data row7 col1" >2020</td>
-                        <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_row7_col2" class="data row7 col2" ><a href="../../people/BrianAlcorn.html">Brian Alcorn</a></td>
-            </tr>
-    </tbody></table>
+<style type="text/css">
+#T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row0_col2, #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row1_col2, #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row2_col2, #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row3_col2, #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row4_col2, #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row5_col2, #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row6_col2, #T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row7_col2 {
+  width: 230px;
+  text-align: left;
+}
+</style>
+<table id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f_">
+  <thead>
+    <tr>
+      <th id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__level0_col0" class="col_heading level0 col0" >SMD</th>
+      <th id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__level0_col1" class="col_heading level0 col1" >Election Year</th>
+      <th id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__level0_col2" class="col_heading level0 col2" >Current Commissioner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row0_col0" class="data row0 col0" ><a href="../../map_2012/ancs/districts/6A01.html">6A01</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row0_col1" class="data row0 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row0_col2" class="data row0 col2" ><a href="../../people/KeyaChatterjee.html">Keya Chatterjee</a></td>
+    </tr>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row1_col0" class="data row1 col0" ><a href="../../map_2012/ancs/districts/6A02.html">6A02</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row1_col1" class="data row1 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row1_col2" class="data row1 col2" ><a href="../../people/PhilToomajian.html">Phil Toomajian</a></td>
+    </tr>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row2_col0" class="data row2 col0" ><a href="../../map_2012/ancs/districts/6A03.html">6A03</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row2_col1" class="data row2 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row2_col2" class="data row2 col2" ><a href="../../people/MichaelSoderman.html">Michael Soderman</a></td>
+    </tr>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row3_col0" class="data row3 col0" ><a href="../../map_2012/ancs/districts/6A04.html">6A04</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row3_col1" class="data row3 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row3_col2" class="data row3 col2" ><a href="../../people/AmberGove.html">Amber Gove</a></td>
+    </tr>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row4_col0" class="data row4 col0" ><a href="../../map_2012/ancs/districts/6A05.html">6A05</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row4_col1" class="data row4 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row4_col2" class="data row4 col2" ><a href="../../people/LauraGentile.html">Laura Gentile</a></td>
+    </tr>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row5_col0" class="data row5 col0" ><a href="../../map_2012/ancs/districts/6A06.html">6A06</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row5_col1" class="data row5 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row5_col2" class="data row5 col2" ><a href="../../people/RobbDooling.html">Robb Dooling</a></td>
+    </tr>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row6_col0" class="data row6 col0" ><a href="../../map_2012/ancs/districts/6A07.html">6A07</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row6_col1" class="data row6 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row6_col2" class="data row6 col2" ><a href="../../people/SondraPhillipsGilbert.html">Sondra Phillips-Gilbert</a></td>
+    </tr>
+    <tr>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row7_col0" class="data row7 col0" ><a href="../../map_2012/ancs/districts/6A08.html">6A08</a></td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row7_col1" class="data row7 col1" >2020</td>
+      <td id="T_cf0c1392accbaf82497354e43d6ebadf5a80076bfce44a6f92395b3f__row7_col2" class="data row7 col2" ><a href="../../people/BrianAlcorn.html">Brian Alcorn</a></td>
+    </tr>
+  </tbody>
+</table>
+
 
 <h2>ANC Info</h2>
 

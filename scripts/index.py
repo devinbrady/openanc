@@ -95,8 +95,8 @@ class BuildIndex():
                     , **{'width': '230px', 'text-align': 'left'} # 230px fits the longest commissioner name on one row
                     )
                 .set_uuid(css_uuid)
-                .hide_index()
-                .render()
+                .hide(axis='index')
+                .to_html()
                 )
 
 

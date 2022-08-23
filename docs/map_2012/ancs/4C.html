@@ -31,7 +31,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/devinbrady/ckcoaoonn01nd1ipdspkflwie', // stylesheet location
-    center: [-77.027185, 38.945223399999996], // starting position [lng, lat]
+    center: [-77.027185, 38.9452234], // starting position [lng, lat]
     zoom: 13.590916051417969
 });
 
@@ -69,89 +69,74 @@ map.addControl(new mapboxgl.NavigationControl());
 
 <h2>Districts and Commissioners</h2>
 
-<style  type="text/css" >
-    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row0_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row1_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row2_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row3_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row4_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row5_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row6_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row7_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row8_col2 {
-            width:  230px;
-            text-align:  left;
-        }    #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row9_col2 {
-            width:  230px;
-            text-align:  left;
-        }</style><table id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_" ><thead>    <tr>        <th class="col_heading level0 col0" >SMD</th>        <th class="col_heading level0 col1" >Election Year</th>        <th class="col_heading level0 col2" >Current Commissioner</th>    </tr></thead><tbody>
-                <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row0_col0" class="data row0 col0" ><a href="../../map_2012/ancs/districts/4C01.html">4C01</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row0_col1" class="data row0 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row0_col2" class="data row0 col2" ><a href="../../people/VanessaRubio.html">Vanessa Rubio</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row1_col0" class="data row1 col0" ><a href="../../map_2012/ancs/districts/4C02.html">4C02</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row1_col1" class="data row1 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row1_col2" class="data row1 col2" ><a href="../../people/MariaBarry.html">Maria Barry</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row2_col0" class="data row2 col0" ><a href="../../map_2012/ancs/districts/4C03.html">4C03</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row2_col1" class="data row2 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row2_col2" class="data row2 col2" ><a href="../../people/UlyssesECampbell.html">Ulysses E. Campbell</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row3_col0" class="data row3 col0" ><a href="../../map_2012/ancs/districts/4C04.html">4C04</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row3_col1" class="data row3 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row3_col2" class="data row3 col2" ><a href="../../people/YvetteDMarburyLong.html">Yvette D. Marbury-Long</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row4_col0" class="data row4 col0" ><a href="../../map_2012/ancs/districts/4C05.html">4C05</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row4_col1" class="data row4 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row4_col2" class="data row4 col2" ><a href="../../people/AudreyAndersonDuckett.html">Audrey Anderson Duckett</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row5_col0" class="data row5 col0" ><a href="../../map_2012/ancs/districts/4C06.html">4C06</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row5_col1" class="data row5 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row5_col2" class="data row5 col2" ><a href="../../people/NamatieSiaMansaray.html">Namatie Sia Mansaray</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row6_col0" class="data row6 col0" ><a href="../../map_2012/ancs/districts/4C07.html">4C07</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row6_col1" class="data row6 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row6_col2" class="data row6 col2" ><a href="../../people/PaulJohnson.html">Paul Johnson</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row7_col0" class="data row7 col0" ><a href="../../map_2012/ancs/districts/4C08.html">4C08</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row7_col1" class="data row7 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row7_col2" class="data row7 col2" ><a href="../../people/ClaraHaskellBotstein.html">Clara Haskell Botstein</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row8_col0" class="data row8 col0" ><a href="../../map_2012/ancs/districts/4C09.html">4C09</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row8_col1" class="data row8 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row8_col2" class="data row8 col2" ><a href="../../people/AlanWehler.html">Alan Wehler</a></td>
-            </tr>
-            <tr>
-                                <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row9_col0" class="data row9 col0" ><a href="../../map_2012/ancs/districts/4C10.html">4C10</a></td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row9_col1" class="data row9 col1" >2020</td>
-                        <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_row9_col2" class="data row9 col2" ><a href="../../people/JonahGoodman.html">Jonah Goodman</a></td>
-            </tr>
-    </tbody></table>
+<style type="text/css">
+#T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row0_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row1_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row2_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row3_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row4_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row5_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row6_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row7_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row8_col2, #T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row9_col2 {
+  width: 230px;
+  text-align: left;
+}
+</style>
+<table id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8_">
+  <thead>
+    <tr>
+      <th id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__level0_col0" class="col_heading level0 col0" >SMD</th>
+      <th id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__level0_col1" class="col_heading level0 col1" >Election Year</th>
+      <th id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__level0_col2" class="col_heading level0 col2" >Current Commissioner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row0_col0" class="data row0 col0" ><a href="../../map_2012/ancs/districts/4C01.html">4C01</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row0_col1" class="data row0 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row0_col2" class="data row0 col2" ><a href="../../people/VanessaRubio.html">Vanessa Rubio</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row1_col0" class="data row1 col0" ><a href="../../map_2012/ancs/districts/4C02.html">4C02</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row1_col1" class="data row1 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row1_col2" class="data row1 col2" ><a href="../../people/MariaBarry.html">Maria Barry</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row2_col0" class="data row2 col0" ><a href="../../map_2012/ancs/districts/4C03.html">4C03</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row2_col1" class="data row2 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row2_col2" class="data row2 col2" ><a href="../../people/UlyssesECampbell.html">Ulysses E. Campbell</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row3_col0" class="data row3 col0" ><a href="../../map_2012/ancs/districts/4C04.html">4C04</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row3_col1" class="data row3 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row3_col2" class="data row3 col2" ><a href="../../people/YvetteDMarburyLong.html">Yvette D. Marbury-Long</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row4_col0" class="data row4 col0" ><a href="../../map_2012/ancs/districts/4C05.html">4C05</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row4_col1" class="data row4 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row4_col2" class="data row4 col2" ><a href="../../people/AudreyAndersonDuckett.html">Audrey Anderson Duckett</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row5_col0" class="data row5 col0" ><a href="../../map_2012/ancs/districts/4C06.html">4C06</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row5_col1" class="data row5 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row5_col2" class="data row5 col2" ><a href="../../people/NamatieSiaMansaray.html">Namatie Sia Mansaray</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row6_col0" class="data row6 col0" ><a href="../../map_2012/ancs/districts/4C07.html">4C07</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row6_col1" class="data row6 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row6_col2" class="data row6 col2" ><a href="../../people/PaulJohnson.html">Paul Johnson</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row7_col0" class="data row7 col0" ><a href="../../map_2012/ancs/districts/4C08.html">4C08</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row7_col1" class="data row7 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row7_col2" class="data row7 col2" ><a href="../../people/ClaraHaskellBotstein.html">Clara Haskell Botstein</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row8_col0" class="data row8 col0" ><a href="../../map_2012/ancs/districts/4C09.html">4C09</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row8_col1" class="data row8 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row8_col2" class="data row8 col2" ><a href="../../people/AlanWehler.html">Alan Wehler</a></td>
+    </tr>
+    <tr>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row9_col0" class="data row9 col0" ><a href="../../map_2012/ancs/districts/4C10.html">4C10</a></td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row9_col1" class="data row9 col1" >2020</td>
+      <td id="T_4f25eb626f619e8c786620720d85cacbf358f48a02b9b44610008dc8__row9_col2" class="data row9 col2" ><a href="../../people/JonahGoodman.html">Jonah Goodman</a></td>
+    </tr>
+  </tbody>
+</table>
+
 
 <h2>ANC Info</h2>
 

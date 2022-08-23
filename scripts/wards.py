@@ -78,8 +78,8 @@ class BuildWards():
             .fillna('')
             .style
             .set_uuid('list_of_wards_')
-            .hide_index()
-            .render()
+            .hide(axis='index')
+            .to_html()
             )
 
         return html
