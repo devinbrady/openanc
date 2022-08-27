@@ -727,7 +727,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 10750,Bevan Mace,smd_2B03,,,,,,person_BevanMace
 10751,Stephanie Maltz,smd_2B03,,,,,,person_StephanieMaltz
 10752,Lucky Barbieri,smd_2B03,,,,,,person_LuckyBarbieri
-10753,Vincent E. Slatt,smd_2B03,,smd_2022_2B03,,,,person_VincentESlatt
+10753,Vincent E. Slatt,smd_2B03,,smd_2022_2B03,https://twitter.com/vincente_2b03,,,person_VincentESlatt
 10755,Martin Espinoza,smd_2B04,,,,,,person_MartinEspinoza
 10756,Stephanie Sheridan,smd_2B04,,,,,,person_StephanieSheridan
 10757,Michael Upright,smd_2B04,,,,,,person_MichaelUpright
@@ -1508,7 +1508,7 @@ person_id,full_name,any_smd,commission_smd_id,candidate_smd_id,twitter_link,face
 11547,Fred Hill,smd_2022_2G04,,smd_2022_2G04,,,,person_FredHill
 11548,Gupi Howie,smd_2022_3B05,,smd_2022_3B05,,,,person_GupiHowie
 11549,Warren Gorlick,smd_2022_3C07,,smd_2022_3C07,https://twitter.com/warrenforanc,,,person_WarrenGorlick
-11550,Bridget Schwartz,smd_2022_3F06,,smd_2022_3F06,,,,person_BridgetSchwartz
+11550,Bridget Schwartz,smd_2022_3F06,,smd_2022_3F06,https://twitter.com/bridgetanc3f06,,,person_BridgetSchwartz
 11551,Jonathan La Broi,smd_2022_4A05,,smd_2022_4A05,,,,person_JonathanLaBroi
 11552,Kevin Gilligan,smd_2022_4B05,,smd_2022_4B05,https://twitter.com/kevingilliganDC,,,person_KevinGilligan
 11553,Stefan A. Nagey,smd_2022_4B10,,smd_2022_4B10,,,,person_StefanANagey

@@ -539,7 +539,9 @@ class ProcessCandidates():
         print(f'\nCandidates hash_ids in OpenANC that are no longer in the DCBOE list (should be zero): {len(openanc_not_in_dcboe)}')
         if openanc_not_in_dcboe:
             print('\nThese candidates have a hash_id in the OpenANC candidates list but are no longer on the DCBOE list:')
-            print(candidates_this_year[candidates_this_year.dcboe_hash_id.isin(openanc_not_in_dcboe)][['dcboe_hash_id', 'smd_id', 'candidate_name']])
+
+            print('(a lot of them, because candidates who did not submit signatures were taken out of the candidate list)\n')
+            # print(candidates_this_year[candidates_this_year.dcboe_hash_id.isin(openanc_not_in_dcboe)][['dcboe_hash_id', 'smd_id', 'candidate_name']])
 
 
 
