@@ -60,7 +60,6 @@ class BuildDistricts():
         self.districts = pd.read_csv('data/districts.csv')
         self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
         self.field_names = pd.read_csv('data/field_names.csv')
-        self.map_colors = pd.read_csv('data/map_colors.csv')
         self.ancs = pd.read_csv('data/ancs.csv')
         self.wards = pd.read_csv('data/wards.csv')
         self.statuses = pd.read_csv('data/candidate_statuses.csv')
@@ -437,8 +436,7 @@ class BuildDistricts():
         Build pages for each SMD
         """
 
-        district_colors = pd.merge(self.districts, self.map_colors, how='inner', on='map_color_id')
-        district_ancs = pd.merge(district_colors, self.ancs[['anc_id', 'anc_name']], how='inner', on='anc_id')
+        district_ancs = pd.merge(self.districts, self.ancs[['anc_id', 'anc_name']], how='inner', on='anc_id')
         district_wards = pd.merge(district_ancs, self.wards[['ward_id', 'ward_name']], how='inner', on='ward_id')
 
         # Calculate the updated_at for each SMD. Where the SMD has no more active candidates, use the max updated_at across all candidates
@@ -499,8 +497,6 @@ class BuildDistricts():
 
             output = output.replace('REPLACE_WITH_LONGITUDE', str(row['centroid_lon']))
             output = output.replace('REPLACE_WITH_LATITUDE', str(row['centroid_lat']))
-
-            output = output.replace('REPLACE_WITH_COLOR', row['color_hex'])
 
             output = add_footer(output, link_source='district')
 

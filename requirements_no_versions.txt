@@ -1,0 +1,23 @@
+# Use this list of packages when creating a new virtual environment in order to use the latest version of each package
+
+beautifulsoup4
+fuzzywuzzy
+geopandas
+GitPython
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+Jinja2
+jupyter
+matplotlib
+nameparser
+numpy
+openpyxl
+pandas
+python-Levenshtein
+python-polylabel
+pytz
+requests
+tqdm
+tweepy
+unidecode
