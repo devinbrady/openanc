@@ -18,7 +18,11 @@ import pandas as pd
 from pathlib import Path
 
 from scripts.refresh_data import RefreshData
-from scripts.data_transformations import districts_candidates_commissioners
+from scripts.data_transformations import (
+    districts_candidates_commissioners
+    , most_recent_smd
+    )
+
 from scripts.common import (
     match_names
     , CURRENT_ELECTION_YEAR
@@ -235,6 +239,7 @@ class ProcessCandidates():
         """
 
         people = pd.read_csv('data/people.csv')
+        people = most_recent_smd(people)
         candidates = pd.read_csv('data/candidates.csv')
         candidates_dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
@@ -246,7 +251,7 @@ class ProcessCandidates():
         candidates_to_match['match_score'] = pd.NA
         candidates_to_match['match_person_id'] = pd.NA
         candidates_to_match['match_person_full_name'] = pd.NA
-        candidates_to_match['match_person_any_smd'] = pd.NA
+        candidates_to_match['match_person_smd_id'] = pd.NA
 
 
         """
@@ -257,7 +262,7 @@ class ProcessCandidates():
         for idx, row in candidates_to_match.iterrows():
 
             # In most years, we should match only to people with the same smd_id
-            # current_comm = people[people['any_smd'] == row['smd_id']].copy()
+            # current_comm = people[people['most_recent_smd_id'] == row['smd_id']].copy()
 
             # In the redistricting year, a lot of people are changing districts, so match to all people
             current_comm = people.copy()
@@ -272,7 +277,7 @@ class ProcessCandidates():
             candidates_to_match.loc[idx, 'match_score'] = best_score
             candidates_to_match.loc[idx, 'match_person_id'] = best_id
             candidates_to_match.loc[idx, 'match_person_full_name'] = people[people.person_id == best_id].full_name.iloc[0]
-            candidates_to_match.loc[idx, 'match_person_any_smd'] = people[people.person_id == best_id].any_smd.iloc[0]
+            candidates_to_match.loc[idx, 'match_person_smd_id'] = people[people.person_id == best_id].most_recent_smd_id.iloc[0]
         
         candidates_to_match['good_match'] = '?'
         match_columns = [
@@ -281,7 +286,7 @@ class ProcessCandidates():
             , 'candidate_name'
             , 'match_person_full_name'
             , 'smd_id'
-            , 'match_person_any_smd'
+            , 'match_person_smd_id'
             , 'match_person_id'
             , 'good_match'
             ]

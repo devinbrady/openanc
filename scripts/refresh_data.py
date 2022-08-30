@@ -452,7 +452,7 @@ class RefreshData():
     def download_google_sheets(self, do_full_refresh):
 
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
-        self.refresh_csv('people', 'A:H')
+        self.refresh_csv('people', 'A:E')
         self.refresh_csv('commissioners', 'A:E')
         self.refresh_csv('incumbents_not_running', 'A:C')
 

@@ -352,6 +352,28 @@ def people_dataframe():
 
 
 
+def most_recent_smd(people_df):
+    """For every person, check the commissioner and candidate table for the most recent SMD they're connected to"""
+
+    candidates = list_candidates(election_year=None)
+    commissioners = list_commissioners()
+
+    # Sort data in reverse chronological order
+    candidates = candidates.sort_values(by='candidate_id', ascending=False)
+    commissioners = commissioners.sort_values(by='start_date', ascending=False)
+
+    # Prefer the SMD from the candidates table, it's more likely to be up to date
+    columns_to_concat = ['person_id', 'smd_id']
+    any_smd = pd.concat([candidates[columns_to_concat], commissioners[columns_to_concat]])
+    latest_smd_id = any_smd.groupby('person_id').smd_id.first()
+
+    people_df = pd.merge(people_df, latest_smd_id, how='left', on='person_id')
+    people_df = people_df.rename(columns={'smd_id': 'most_recent_smd_id'})
+
+    return people_df
+
+
+
 def today_as_int():
     """
     Return today's date in Eastern Time as an integer. Use as a seed for candidate order randomization
