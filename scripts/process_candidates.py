@@ -291,6 +291,7 @@ class ProcessCandidates():
             , 'good_match'
             ]
 
+        # if len(candidates_to_match) > 0:
         candidates_to_match[match_columns].sort_values(by='match_score', ascending=False).to_csv(
             'data/dcboe/1_candidates_dcboe_match.csv', index=False
             )
