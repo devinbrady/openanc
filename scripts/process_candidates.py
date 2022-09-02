@@ -34,8 +34,13 @@ pd.set_option('display.max_colwidth', 180)
 pd.set_option('display.max_columns', 100)
 
 
-
 class ProcessCandidates():
+
+    def __init__(self):
+
+        self.match_file = Path('data/dcboe/1_candidates_dcboe_match.csv')
+
+
 
     def clean_csv(self):
         """
@@ -233,9 +238,7 @@ class ProcessCandidates():
             , 'good_match'
             ]
 
-        candidates_to_match[match_columns].sort_values(by='match_score', ascending=False).to_csv(
-            'data/dcboe/1_candidates_dcboe_match.csv', index=False
-            )
+        candidates_to_match[match_columns].sort_values(by='match_score', ascending=False).to_csv(self.match_file, index=False)
 
 
 
@@ -279,15 +282,13 @@ class ProcessCandidates():
         candidates_this_year = candidates[candidates.election_year == CURRENT_ELECTION_YEAR].copy()
         dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
-        match_file = Path('data/dcboe/1_candidates_dcboe_match.csv')
-
-        if not match_file.exists():
+        if not self.match_file.exists():
             self.run_matching_process()
 
-        matches = pd.read_csv(match_file)
+        matches = pd.read_csv(self.match_file)
 
         if any(matches.good_match.isin(['?'])):
-            print(f'Evaluate the matches in "1_candidates_dcboe_match.csv" before continuing')
+            print(f'Evaluate the matches in "{self.match_file.name}" before continuing')
             return
 
         good_matches = matches[matches.good_match == 1].copy()
@@ -356,7 +357,13 @@ class ProcessCandidates():
         dcboe_not_in_openanc, openanc_candidates_not_in_dcboe_file = self.candidate_counts()
 
         if len(dcboe_not_in_openanc) == 0:
-            print('\nAll DCBOE candidates are in OpenANC. Update complete!')
+            print('\nAll DCBOE candidates are in OpenANC.')
+            
+            if self.match_file.exists():
+                print(f'Please delete the file: {self.match_file.name}')
+                return
+
+            print('Update complete!')
             return
 
         self.upload_dcboe_to_google_sheets(df)
