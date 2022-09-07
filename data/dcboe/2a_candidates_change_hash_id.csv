@@ -1,3 +1,4 @@
 candidate_id,person_id,dcboe_hash_id,smd_id,candidate_name
-50527,11360,5fd20365ba8786c5c5cd90058453b96eb04f741749518829adcb9206,smd_2022_5D01,Luc Saint-Genies (Withdrew 9/2/22)
-50942,11591,33cb6dced5825b87bcd46a21406a58c8c9820a0d223f161df6929e4f,smd_2022_3C02,Glenn Kellogg (Withdrew 9/5/22)
+50552,10390,90f2236d63866c9b64de0a55678b49deb3cc991891f0cb9e6e1ecdbb,smd_2022_2G02,Michael Eichler (Withdrew 9/6/22)
+50764,11487,7e4ede29b2e69532bedc418d2ee0fde950cb77dd0882e32fa58889f8,smd_2022_8F03,Andrew Mccarthy-Clark (Withdrew 9/6/22)
+50919,11576,40aebdf32245f86d02e2e88555633cb4dce25e32b2b9189d4da5ffc5,smd_2022_4D05,Antonio A. Walker (Withdrew 9/6/22)
