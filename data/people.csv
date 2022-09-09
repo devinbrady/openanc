@@ -169,7 +169,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10169,Sydelle Moore,https://twitter.com/sydellebelle,,https://www.sydelleforanc.com/,person_SydelleMoore
 10170,Clarence Lee,,,,person_ClarenceLee
 10171,Nick Cheolas,https://twitter.com/Nick4Ward5,,https://www.anc5e01.org/,person_NickCheolas
-10172,Patricia Williams (5E),,,,person_PatriciaWilliams5E
+10172,Patricia Williams (Ward 5),,,,person_PatriciaWilliamsWard5
 10173,Cortney Segmen,https://twitter.com/cortneyfor5e03,,,person_CortneySegmen
 10174,Sylvia M. Pinkney,,,,person_SylviaMPinkney
 10175,Bradley Ashton Thomas,https://twitter.com/votebradley4dc,,,person_BradleyAshtonThomas
@@ -426,7 +426,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10438,Bruce Jones,,,,person_BruceJones
 10439,Anthony Muhammad,https://twitter.com/ward8_4muhammad,,,person_AnthonyMuhammad
 10440,Richard Martin Campbell,,,,person_RichardMartinCampbell
-10441,"Shaquan ""Living Proof"" Hudson",,,,person_ShaquanLivingProofHudson
+10441,Shaquan Hudson,,,,person_ShaquanHudson
 10442,Brittany Geneva Cummings,https://twitter.com/bgc4dc,https://www.facebook.com/BGC4DC/,https://www.bgc4dc.com/,person_BrittanyGenevaCummings
 10443,"Jeannina ""W8 Matters"" Williams",,,,person_JeanninaW8MattersWilliams
 10445,William Herbig,https://twitter.com/William_Herbig,https://www.facebook.com/will4anc,,person_WilliamHerbig
@@ -1333,7 +1333,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11370,Thomas Marabello,https://twitter.com/TomMarabello,,,person_ThomasMarabello
 11371,Jeremy Sherman,,,,person_JeremySherman
 11372,Eric Jonathan Sheptok,,,,person_EricJonathanSheptok
-11373,Carson Colton Robb,,,,person_CarsonColtonRobb
+11373,Carson Robb,,https://www.facebook.com/carson.robb,https://carsonrobb.com/,person_CarsonRobb
 11374,Patrick Clawson,,,,person_PatrickClawson
 11375,Brian J. McCabe,,,,person_BrianJMcCabe
 11376,Willie Doggett,,,,person_WillieDoggett
@@ -1520,7 +1520,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11559,Jennifer Anderson,https://twitter.com/JenForANC,,,person_JenniferAnderson
 11560,Bruce Levine,,,,person_BruceLevine
 11561,Pauline B. Scott,,,,person_PaulineBScott
-11562,Patricia Williams (7C),,,,person_PatriciaWilliams7C
+11562,Patricia Williams (Ward 7),,,,person_PatriciaWilliamsWard7
 11563,Malik M. Lloyd,,,,person_MalikMLloyd
 11564,David Ford,,,,person_DavidFord
 11565,George Reid,,,,person_GeorgeReid
@@ -1579,4 +1579,3 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11618,Juanita Holsendorff,,,,person_JuanitaHolsendorff
 11619,Beverly F. Smith,,,,person_BeverlyFSmith
 11620,Matthew Coleman,,,,person_MatthewColeman
-11621,Shaquan Hudson,,,,person_ShaquanHudson

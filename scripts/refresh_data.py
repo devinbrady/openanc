@@ -454,14 +454,14 @@ class RefreshData():
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('people', 'A:E')
         self.refresh_csv('commissioners', 'A:E')
-        self.refresh_csv('incumbents_not_running', 'A:C')
-
+        
         # Related to 2020 election results
         # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
         if do_full_refresh:
             # Tables that don't change very frequently and thus don't need to be refreshed every time
+            self.refresh_csv('incumbents_not_running', 'A:C')
             self.refresh_csv('districts', 'A:Q')
             self.refresh_csv('ancs', 'A:P')
             self.refresh_csv('wards', 'A:E')
