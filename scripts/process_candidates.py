@@ -305,7 +305,7 @@ class ProcessCandidates():
 
         # Candidates who are existing people
         candidates_create = mc[mc.candidate_id.isnull()].copy()
-        print(f'\nExisting people need to be added to the candidates table ({len(candidates_create)} people): 2b_candidates_create.csv')
+        print(f'Existing people need to be added to the candidates table ({len(candidates_create)} people): 2b_candidates_create.csv')
         candidates_create = candidates_create.sort_values(by='match_person_id')
 
         candidates_create['candidate_id_suggested'] = None
@@ -316,7 +316,7 @@ class ProcessCandidates():
         candidates_create_columns = ['candidate_id_suggested', 'match_person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']
         candidates_create[candidates_create_columns].to_csv('data/dcboe/2b_candidates_create.csv', index=False)
 
-        print(f'\nNew people need to be created ({len(people_create)} people): 2c_people_create.csv')
+        print(f'New people need to be created ({len(people_create)} people): 2c_people_create.csv')
 
         people_create = people_create.sort_values(by='smd_id')
 
