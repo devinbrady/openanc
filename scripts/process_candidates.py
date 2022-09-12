@@ -259,7 +259,7 @@ class ProcessCandidates():
         print(f'DCBOE candidate IDs in OpenANC candidate list: {len(dcboe_in_openanc)}')
 
         dcboe_not_in_openanc = [h for h in dcboe.dcboe_hash_id.tolist() if h not in candidates.dcboe_hash_id.tolist()]
-        print(f'DCBOE candidate IDs *not* in OpenANC candidate list: {len(dcboe_not_in_openanc)} (will be zero once this update is complete)')    
+        print(f'DCBOE candidate IDs *not* in OpenANC candidate list: {len(dcboe_not_in_openanc)}')
 
         openanc_candidates_not_in_dcboe_file = ~( candidates['dcboe_hash_id'].isin(dcboe['dcboe_hash_id']) )
         print(f'OpenANC candidates not in current DCBOE candidate list: {openanc_candidates_not_in_dcboe_file.sum()}')
