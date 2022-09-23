@@ -75,6 +75,9 @@ class ProcessCandidates():
         # drop header rows interspersed in data
         df = df[df['smd'] != 'ANC/SMD'].copy()
 
+        # set write-in rows to have a NULL candidate_name
+        df.loc[df.candidate_name.str.upper().str.contains('WRITE IN, IF ANY').fillna(False), 'candidate_name'] = None
+
         # drop rows with NULL name
         df.dropna(subset=['candidate_name'], inplace=True)
 
@@ -91,7 +94,12 @@ class ProcessCandidates():
         # Assign a candidate status based on the fields from DCBOE
         df['candidate_status'] = '(unknown status)'
         df.loc[df.pickup_date.notnull(), 'candidate_status'] = 'Pulled Papers for Ballot'
-        df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
+        
+        # Before ballots are locked, they are Filed Signatures
+        # Once the ballots get locked, they are On the Ballot
+        # df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
+        df.loc[df.filed_date.notnull(), 'candidate_status'] = 'On the Ballot'
+        
         df.loc[df.candidate_name.str.contains('Withdrew'), 'candidate_status'] = 'Withdrew'
         print('\nCount of candidates by status:')
         print(df.groupby('candidate_status').size())
@@ -356,6 +364,8 @@ class ProcessCandidates():
 
         dcboe_not_in_openanc, openanc_candidates_not_in_dcboe_file = self.candidate_counts()
 
+        self.upload_dcboe_to_google_sheets(df)
+
         if len(dcboe_not_in_openanc) == 0:
             print('\nAll DCBOE candidates are in OpenANC.')
             
@@ -365,8 +375,6 @@ class ProcessCandidates():
 
             print('Update complete!')
             return
-
-        self.upload_dcboe_to_google_sheets(df)
 
         self.list_candidates_to_add()
 
