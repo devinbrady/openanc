@@ -362,7 +362,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10368,James Butler,https://twitter.com/jamesbutler4dc,https://www.facebook.com/TheRealJamesButler/,http://www.butlerforanc.com/,person_JamesButler
 10369,Latoya Moore,https://twitter.com/LatoyaM01766637,,https://www.mooreforanc.com/,person_LatoyaMoore
 10370,Kathy Henderson,,,,person_KathyHenderson
-10371,Zachary Hoffman,https://twitter.com/HoffmanANC5D,,https://www.hoffmananc5d.com/,person_ZacharyHoffman
+10371,Zachary Hoffman,,,https://www.hoffmananc5d.com/,person_ZacharyHoffman
 10372,Stephen Cobb,https://twitter.com/StephenACobb,,https://cobbfor5d.com/,person_StephenCobb
 10373,Denise L. Wright,,,,person_DeniseLWright
 10374,Sharon Burns,,,,person_SharonBurns
@@ -1445,7 +1445,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11484,Brittany Kademian,https://twitter.com/kademian87,,,person_BrittanyKademian
 11485,"Fred ""Phil"" Carver",,,,person_FredPhilCarver
 11486,"Bobby ""Slli'm"" Williams",,,,person_BobbySllimWilliams
-11487,Andrew McCarthy-Clark,,,,person_AndrewMcCarthyClark
+11487,Andrew McCarthy-Clark,https://twitter.com/amccarthyclark,https://www.facebook.com/amccarthyclark,https://www.andrewfordc.com/,person_AndrewMcCarthyClark
 11488,Clayton Aristotle Rosenberg,,,,person_ClaytonAristotleRosenberg
 11489,Joseph Van Wye,,,,person_JosephVanWye
 11490,Neil Rocklin,,,,person_NeilRocklin
@@ -1472,7 +1472,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11511,Zach Ammerman,https://twitter.com/ZachANC5A09,,,person_ZachAmmerman
 11512,David Segall,,,,person_DavidSegall
 11513,Ashleigh Fields,,,,person_AshleighFields
-11514,Lynda Laughlin,,,,person_LyndaLaughlin
+11514,Lynda Laughlin,https://twitter.com/llaughlin,,,person_LyndaLaughlin
 11515,Steven McCarty,https://twitter.com/stevenfordc,,,person_StevenMcCarty
 11516,Jeffrey Denny,,,,person_JeffreyDenny
 11517,Anna Roblin,,,,person_AnnaRoblin
@@ -1579,3 +1579,4 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11618,Juanita Holsendorff,,,,person_JuanitaHolsendorff
 11619,Beverly F. Smith,,,,person_BeverlyFSmith
 11620,Matthew Coleman,,,,person_MatthewColeman
+11621,Reid May,https://twitter.com/ReidJMay,,,person_ReidMay
