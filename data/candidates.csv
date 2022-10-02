@@ -965,3 +965,5 @@ candidate_id,person_id,election_year,dcboe_hash_id,smd_id,candidate_name,manual_
 50980,11620,2022,bfa169a8cec92d60ae7d7a1f0ea2dcd03b6956298333b4791698674b,smd_2022_8B06,Matthew Coleman,Did Not Qualify for Ballot,,,,,2022-08-12,Not on DCBOE List,Did Not Qualify for Ballot,TRUE,,,FALSE,,,,,,2022-08-12
 50981,11621,2022,,smd_2022_5D08,Reid May,Write-In Candidate,,,,,2022-09-27,Not on DCBOE List,Write-In Candidate,TRUE,,,FALSE,,,,,,2022-09-27
 50982,10487,2022,,smd_2022_1B05,Alan Kensek Jr.,Write-In Candidate,,,,,2022-09-07,Not on DCBOE List,Write-In Candidate,TRUE,,,FALSE,,,,,,2022-09-07
+50983,11622,2022,,smd_2022_2F05,Christopher Dyer,Write-In Candidate,,,,,2022-09-30,Not on DCBOE List,Write-In Candidate,TRUE,,,FALSE,,,,,,2022-09-30
+50984,11623,2022,,smd_2022_6E05,Ahmad Abu-Khalaf,Write-In Candidate,,,,,2022-10-01,Not on DCBOE List,Write-In Candidate,TRUE,,,FALSE,,,,,,2022-10-01
