@@ -449,6 +449,19 @@ class RefreshData():
 
 
 
+    def confirm_commissioner_date_validity(self):
+
+        commissioners = pd.read_csv('data/commissioners.csv')
+
+        invalid_dates = commissioners.start_date > commissioners.end_date
+        
+        if any(invalid_dates):
+            print('\nDates to correct:')
+            print(commissioners.loc[invalid_dates])
+            raise ValueError('Commissioners table has a end date before a start date.')
+
+
+
     def download_google_sheets(self, do_full_refresh):
 
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
@@ -490,6 +503,7 @@ class RefreshData():
         self.confirm_key_uniqueness('people', 'person_id')
         self.confirm_key_uniqueness('candidates', 'candidate_id')
         self.confirm_column_notnull_candidates()
+        self.confirm_commissioner_date_validity()
 
         dcc = districts_candidates_commissioners(link_source='root')
         self.map_display_df = self.build_map_display_box(dcc)
