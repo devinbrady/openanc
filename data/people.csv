@@ -1365,7 +1365,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11403,Lakiah Williams,,,,person_LakiahWilliams
 11404,Melody Moore,,,,person_MelodyMoore
 11405,Deborah Wells,,,,person_DeborahWells
-11406,Brian Strege,,,,person_BrianStrege
+11406,Brian Strege,https://twitter.com/stregeanc,,,person_BrianStrege
 11407,Christopher Davis,,,,person_ChristopherDavis
 11408,Margaret Stevens,,,,person_MargaretStevens
 11409,Mimsy Lindner,,,,person_MimsyLindner
@@ -1408,7 +1408,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11447,Edward Borrego,https://twitter.com/borregoanc5b01,,,person_EdwardBorrego
 11448,"Nicole ""Nikki"" Delcasale",https://twitter.com/nikkidc4anc6a03,,,person_NicoleNikkiDelcasale
 11449,Frank Avery,,,,person_FrankAvery
-11450,"Francis ""Frank"" D'Andrea",,,,person_FrancisFrankDAndrea
+11450,"Francis ""Frank"" D'Andrea",,,https://www.frankd4anc.com/,person_FrancisFrankDAndrea
 11451,Vince Mareino,,,,person_VinceMareino
 11452,Carl P. Jordan,,,,person_CarlPJordan
 11453,Shelena Hollinger,,,,person_ShelenaHollinger
@@ -1582,3 +1582,13 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11621,Reid May,https://twitter.com/ReidJMay,,,person_ReidMay
 11622,Christopher Dyer,,,,person_ChristopherDyer
 11623,Ahmad Abu-Khalaf,https://twitter.com/Ahmad_AbuKhalaf,,,person_AhmadAbuKhalaf
+11624,Barney R. Shapiro,,,,person_BarneyRShapiro
+11625,Paul Maysak,,,,person_PaulMaysak
+11626,Danny Kedem,,,,person_DannyKedem
+11627,Charlotte Lewis,,,,person_CharlotteLewis
+11628,Mark Randolph,,,,person_MarkRandolph
+11629,Vanessa Brooks,,,,person_VanessaBrooks
+11630,Homer L. Thomas,,,,person_HomerLThomas
+11631,Mike Kwan,http://twitter.com/myko2028,,,person_MikeKwan
+11632,Christina A. Tillman,https://twitter.com/lipnation_media,,,person_ChristinaATillman
+11633,Octavais Brown,,,,person_OctavaisBrown
