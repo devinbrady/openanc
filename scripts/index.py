@@ -6,7 +6,7 @@ import pandas as pd
 
 from scripts.common import (
     add_footer
-    , edit_form_link
+    , candidate_form_link
     , add_google_analytics
     , build_smd_html_table
     , mapbox_slugs
@@ -180,8 +180,7 @@ class BuildIndex():
         with open('templates/about.html', 'r') as f:
             output = f.read()
 
-        output = output.replace('REPLACE_WITH_EDIT_LINK', edit_form_link('please fill out this form'))
-        output = output.replace('REPLACE_WITH_PLEASE_SUBMIT', edit_form_link('Please submit your information'))
+        output = output.replace('REPLACE_WITH_EDIT_LINK', candidate_form_link())
         output = add_google_analytics(output)
         output = add_footer(output, link_source='root')
 

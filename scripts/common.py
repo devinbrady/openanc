@@ -78,13 +78,6 @@ def mapbox_slugs():
 
 
 
-def edit_form_link(link_text='Submit edits'):
-    """Return HTML for link to form for edits"""
-
-    return f'<a href="https://docs.google.com/forms/d/e/1FAIpQLScw8EUGIOtUj994IYEM1W7PfBGV0anXjEmz_YKiKJc4fm-tTg/viewform">{link_text}</a>'
-
-
-
 def candidate_form_link(link_text='Candidate Declaration Form', smd_id=None):
     """
     Link to form for candidates to declare themselves, can optionally also pre-fill the smd_id

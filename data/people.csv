@@ -602,7 +602,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10624,Travis R. Swanson,https://twitter.com/CommissionerTRS,https://www.facebook.com/SwansonDC,http://www.travisfor7b.com,person_TravisRSwanson
 10625,De'ashia Deas,,,,person_DeashiaDeas
 10626,Joel Castόn,,,,person_JoelCastόn
-10627,James Tandaric,https://twitter.com/JamesTandaric,,https://jamestandaric.wordpress.com/,person_JamesTandaric
+10627,James Tandaric,https://twitter.com/JamesTandaric,,https://www.jamestandaric.com/,person_JamesTandaric
 10628,Graham Button,,,,person_GrahamButton
 10629,Brandolon Barnett,https://twitter.com/BrandolonB,,https://brandolonbarnett.com/,person_BrandolonBarnett
 10630,LaQueda Tate,,,,person_LaQuedaTate
@@ -1323,7 +1323,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11360,Luc Saint-Genies,https://twitter.com/lucrsaintgenies,,https://www.lucrsaintgenies.com/,person_LucSaintGenies
 11361,Thaddeus Bradley-Lewis,https://twitter.com/Thad3A01,,,person_ThaddeusBradleyLewis
 11362,VJ Kapur,https://twitter.com/vjkapur,https://facebook.com/vkapur,https://vj4anc.com,person_VJKapur
-11363,Tucker Jones,https://twitter.com/tuckcomatus,,,person_TuckerJones
+11363,Tucker Jones,https://twitter.com/tuckcomatus,,https://www.tuckerfordc.com/,person_TuckerJones
 11364,Quentin Colón Roosevelt,https://twitter.com/qcolonroosevelt,,,person_QuentinColónRoosevelt
 11365,Zachary Adams,https://twitter.com/zacheadams,,,person_ZacharyAdams
 11366,Jamie S. Sycamore,https://twitter.com/SycamoreANC,,,person_JamieSSycamore
@@ -1342,7 +1342,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11380,Rona Walters,,,,person_RonaWalters
 11381,Neena Murphy Martin,,,,person_NeenaMurphyMartin
 11382,Kim Patterson,,,,person_KimPatterson
-11383,Antonia M. Kirby,,,,person_AntoniaMKirby
+11383,Antoine M. Kirby,,https://www.facebook.com/dr.amkirby,,person_AntoineMKirby
 11384,Reginald E. Black Jr.,,,,person_ReginaldEBlackJr
 11385,Michael Velasquez,https://twitter.com/mike_velasquez,,,person_MichaelVelasquez
 11386,Roberta Shapiro,,,,person_RobertaShapiro
@@ -1593,3 +1593,4 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11632,Christina A. Tillman,https://twitter.com/lipnation_media,,,person_ChristinaATillman
 11633,Octavais Brown,,,,person_OctavaisBrown
 11634,Brianne Eby,https://twitter.com/brianne_eby,,,person_BrianneEby
+11635,Bradley Gallagher,https://twitter.com/bngallagher,,,person_BradleyGallagher
