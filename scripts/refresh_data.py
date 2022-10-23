@@ -29,6 +29,7 @@ from scripts.data_transformations import (
     , people_dataframe
     , districts_candidates_commissioners
     , districts_comm_commelect
+    , confirm_key_uniqueness
     )
 
 
@@ -422,18 +423,6 @@ class RefreshData():
 
 
 
-    def confirm_key_uniqueness(self, table, primary_key):
-        """Throw an error if a primary key exists more than once in a table"""
-
-        df = pd.read_csv(f'data/{table}.csv')
-        key_count = df.groupby(primary_key).size()
-
-        if any(key_count > 1):
-            bad_key = key_count[key_count > 1]
-            raise ValueError(f'The primary key "{primary_key}" has at least one duplicate key in table "{table}" (key "{bad_key.index.values[0]}")')
-
-
-
     def confirm_column_notnull_candidates(self):
         """Throw an error if a column has NULLs in it, if those NULLs are not supposed to be there"""
 
@@ -500,8 +489,8 @@ class RefreshData():
         self.download_google_sheets(do_full_refresh)
         self.add_name_id_to_people_csv()
 
-        self.confirm_key_uniqueness('people', 'person_id')
-        self.confirm_key_uniqueness('candidates', 'candidate_id')
+        confirm_key_uniqueness('data/people.csv', 'person_id')
+        confirm_key_uniqueness('data/candidates.csv', 'candidate_id')
         self.confirm_column_notnull_candidates()
         self.confirm_commissioner_date_validity()
 

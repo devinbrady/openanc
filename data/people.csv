@@ -527,7 +527,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10545,Timothy W. Drake,,,,person_TimothyWDrake
 10546,Eric S. Blaylock,,,https://www.ericblaylock4anc.com/,person_EricSBlaylock
 10547,Kelvin Brown,https://twitter.com/commr_brown,,https://www.kelvinbrowndc.com/,person_KelvinBrown
-10549,Kimberly Martin,https://twitter.com/KNMar10,,,person_KimberlyMartin
+10549,Kimberly Martin,https://twitter.com/kim4dc,,,person_KimberlyMartin
 10550,George O. Reid Jr.,,,,person_GeorgeOReidJr
 10551,Jason Hamacher,https://twitter.com/jasonhamacher,,,person_JasonHamacher
 10552,Will Mascaro,https://twitter.com/thewillmascaro,,,person_WillMascaro
@@ -1443,7 +1443,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11482,Jeremy Joseph,,,,person_JeremyJoseph
 11483,Marilyn Nowalk,,,,person_MarilynNowalk
 11484,Brittany Kademian,https://twitter.com/kademian87,,,person_BrittanyKademian
-11485,"Fred ""Phil"" Carver",,,,person_FredPhilCarver
+11485,"Fred ""Phil"" Carver",https://twitter.com/fredcarver,,,person_FredPhilCarver
 11486,"Bobby ""Slli'm"" Williams",,,,person_BobbySllimWilliams
 11487,Andrew McCarthy-Clark,https://twitter.com/amccarthyclark,https://www.facebook.com/amccarthyclark,https://www.andrewfordc.com/,person_AndrewMcCarthyClark
 11488,Clayton Aristotle Rosenberg,,,,person_ClaytonAristotleRosenberg
@@ -1596,3 +1596,9 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11635,Bradley Gallagher,https://twitter.com/bngallagher,,,person_BradleyGallagher
 11636,Michael Lederman,,https://www.facebook.com/michael.lederman.7,,person_MichaelLederman
 11637,Gary Decker,,,,person_GaryDecker
+11638,Kim Mitchell,,,,person_KimMitchell
+11639,Rohan Patel,,,,person_RohanPatel
+11640,Joe Florio,,,,person_JoeFlorio
+11641,Judy Havemann,,,,person_JudyHavemann
+11642,Charles Panfil,,,,person_CharlesPanfil
+11643,Krystal Bagley,,,,person_KrystalBagley

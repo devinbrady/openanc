@@ -21,6 +21,7 @@ from scripts.refresh_data import RefreshData
 from scripts.data_transformations import (
     districts_candidates_commissioners
     , most_recent_smd
+    , confirm_key_uniqueness
     )
 
 from scripts.common import (
@@ -42,16 +43,31 @@ class ProcessCandidates():
 
 
 
-    def clean_csv(self):
+    def read_dcboe_excel(self, filename_pattern):
         """
-        Process CSV made by Tabula from PDF from the DC Board of Elections
-
-        Result is a CSV of current candidates with dcboe_hash_id
+        Read in Excel file, whether for Ballot candidates or Write-Ins (specified by filename_pattern), and pre-process it.
         """
 
         excel_file_dir = 'data/dcboe/excel-clean/'
-        excel_file = self.most_recent_file(excel_file_dir, 'dcboe-')
-        dcboe_updated_at = excel_file.replace(excel_file_dir, '').replace('dcboe-', '').replace('a.xlsx', '').replace('b.xlsx', '').replace('c.xlsx', '').replace('d.xlsx', '').replace('e.xlsx', '').replace('.xlsx', '')
+        excel_file = self.most_recent_file(excel_file_dir, filename_pattern)
+
+        characters_to_strip = [
+            excel_file_dir
+            , 'dcboe-'
+            , 'ballot-'
+            , 'write-in-'
+            , 'a.xlsx'
+            , 'b.xlsx'
+            , 'c.xlsx'
+            , 'd.xlsx'
+            , 'e.xlsx'
+            , '.xlsx'
+            ]
+
+        dcboe_updated_at = excel_file
+        for c in characters_to_strip:
+            dcboe_updated_at = dcboe_updated_at.replace(c, '')
+
         print('Reading Excel file: ' + excel_file)
 
         df = pd.read_excel(excel_file)
@@ -64,11 +80,33 @@ class ProcessCandidates():
             columns={
                 'ANC/SMD': 'smd'
                 , 'ANC-SMD': 'smd'
+                , 'Office': 'smd'
                 , 'Name': 'candidate_name'
                 , 'Date of Pick-up': 'pickup_date'
                 , 'Date Filed': 'filed_date'
                 }, inplace=True
             )
+
+        return df
+
+
+
+    def clean_csv(self):
+        """
+        Process CSV made by Tabula from PDF from the DC Board of Elections
+
+        Result is a CSV of current candidates with dcboe_hash_id
+
+        todo: rename this function
+        """
+
+        df_ballot = self.read_dcboe_excel('dcboe-ballot-')
+        df_ballot['is_write_in'] = False
+        
+        df_write_in = self.read_dcboe_excel('dcboe-write-in-')
+        df_write_in['is_write_in'] = True
+        
+        df = pd.concat([df_ballot, df_write_in], ignore_index=True)
 
         print('Number of districts in this file: {} (should be 345, ideally)'.format(df.smd.nunique()))
 
@@ -95,17 +133,20 @@ class ProcessCandidates():
         df['candidate_status'] = '(unknown status)'
         df.loc[df.pickup_date.notnull(), 'candidate_status'] = 'Pulled Papers for Ballot'
         
-        # Before ballots are locked, they are Filed Signatures
-        # Once the ballots get locked, they are On the Ballot
+        # Before ballots are locked, they are 'Filed Signatures'
+        # Once the ballots get locked, they are 'On the Ballot'
         # df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
         df.loc[df.filed_date.notnull(), 'candidate_status'] = 'On the Ballot'
         
         df.loc[df.candidate_name.str.contains('Withdrew'), 'candidate_status'] = 'Withdrew'
+
+        df.loc[df.is_write_in, 'candidate_status'] = 'Write-In Candidate'
+
         print('\nCount of candidates by status:')
         print(df.groupby('candidate_status').size())
 
         # Fix bad dates and names
-        df.loc[df['candidate_name'] == 'Hasan Rasheedah', 'candidate_name'] = "Rasheedah Hasan"
+        # df.loc[df['candidate_name'] == 'Hasan Rasheedah', 'candidate_name'] = "Rasheedah Hasan"
         # df.loc[df['candidate_name'] == 'Robin Mckinney', 'candidate_name'] = "Robin McKinney"
         # df.loc[df['candidate_name'] == 'Brian J. Mccabe', 'candidate_name'] = "Brian J. McCabe"
         # df.loc[df['candidate_name'] == 'Clyde Darren Thopson', 'candidate_name'] = "Clyde Darren Thompson"
@@ -361,6 +402,8 @@ class ProcessCandidates():
     def run(self):
 
         df = self.clean_csv()
+
+        confirm_key_uniqueness('data/dcboe/candidates_dcboe.csv', 'dcboe_hash_id')
 
         dcboe_not_in_openanc, openanc_candidates_not_in_dcboe_file = self.candidate_counts()
 

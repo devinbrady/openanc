@@ -384,3 +384,16 @@ def today_as_int():
     dc_now_str = dc_now.strftime('%Y%m%d')
 
     return int(dc_now_str)
+
+
+
+def confirm_key_uniqueness(table_filename, primary_key):
+    """Throw an error if a primary key exists more than once in a table"""
+
+    df = pd.read_csv(table_filename)
+    key_count = df.groupby(primary_key).size()
+
+    if any(key_count > 1):
+        bad_key = key_count[key_count > 1]
+        raise ValueError(f'The primary key "{primary_key}" has at least one duplicate key in table "{table}" (key "{bad_key.index.values[0]}")')
+
