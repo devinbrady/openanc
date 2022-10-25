@@ -135,7 +135,7 @@ def link_slug(smd_id):
     Generate the final part of a district URL, that will go before the '.html'
     """
 
-    items_to_strip_out = ['2022', 'smd', 'anc', 'ward', 'person', '_', '/']
+    items_to_strip_out = ['2022', 'smd_', 'anc_', 'ward_', 'person_', '_', '/']
 
     slug = smd_id
     for i in items_to_strip_out:
