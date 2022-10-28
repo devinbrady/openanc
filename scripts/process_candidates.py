@@ -87,6 +87,9 @@ class ProcessCandidates():
                 }, inplace=True
             )
 
+        # BOE has started putting 'O' instead of zeroes in the SMD name for some write-ins. Change back to zero here
+        df['smd'] = df['smd'].str.replace('O', '0')
+
         return df
 
 

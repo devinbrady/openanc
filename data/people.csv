@@ -480,7 +480,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10494,Claudette David,,,,person_ClaudetteDavid
 10495,Matt Buechner,https://twitter.com/mattbuechner,,,person_MattBuechner
 10496,Chris Hall,,,,person_ChrisHall
-10497,Muhsin Boe Umar,,,,person_MuhsinBoeUmar
+10497,Muhsin Umar,,,,person_MuhsinUmar
 10498,Karen Gaal,,https://www.facebook.com/KarenGaalDC/,https://karengaal.com/,person_KarenGaal
 10499,Judy Floy,,,,person_JudyFloy
 10500,Eric Behna,https://twitter.com/ericbehna,,https://www.ericbehna1b08.com/,person_EricBehna
@@ -1607,3 +1607,8 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11646,Dylan Forest,,,,person_DylanForest
 11647,Ritanch Hans,https://twitter.com/Ritmai,,,person_RitanchHans
 11648,Diego Carney,,,,person_DiegoCarney
+11649,La'Shaunta Davis,,,,person_LaShauntaDavis
+11650,Rebecca Knooihuizen,,,,person_RebeccaKnooihuizen
+11651,Kweku A. Toure,,,,person_KwekuAToure
+11652,Kelly Taylor,,,,person_KellyTaylor
+11653,Robert Butler,,,,person_RobertButler
