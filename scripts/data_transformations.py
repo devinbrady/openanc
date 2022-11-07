@@ -210,7 +210,7 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
     district_info_comm['current_commissioner'] = district_info_comm['current_commissioner'].fillna('(vacant)')
 
     district_info_comm['list_of_candidate_names'] = district_info_comm.apply(lambda x: ', '.join(x.list_of_candidate_names_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
-    district_info_comm['list_of_candidate_links'] = district_info_comm.apply(lambda x: ', '.join(x.list_of_candidate_links_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
+    district_info_comm['list_of_candidate_links'] = district_info_comm.apply(lambda x: ' - '.join(x.list_of_candidate_links_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
 
     for s in active_statuses:
         district_info_comm[f'list_of_candidates_status_{s}'] = district_info_comm.apply(lambda x: ', '.join(x[f'name_link_candidate_status_{s}']) if x[f'number_of_candidates_status_{s}'] > 0 else '', axis=1)
