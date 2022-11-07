@@ -196,36 +196,8 @@ class RefreshData():
 
         lp_df = pd.merge(lp, self.map_display_df, how='inner', on='smd_id')
         
-        lp_df.to_csv(destination_filename, index=False)
-
-
-
-    def add_data_to_geojson_candidates(self):
-        """
-        Save new GeoJSON files with updated data fields
-        # todo: push these tilesets to Mapbox via API
-        """
-
-        df = districts_candidates_commissioners()
-
-        # Add data to GeoJSON file with SMD shapes
-        smd = gpd.read_file('maps/smd.geojson')
-
-        # Use the map_color_id field from the Google Sheets over what is stored in the GeoJSON
-        smd.drop(columns=['map_color_id'], inplace=True)
-
-        smd_df = smd.merge(df, on='smd_id')
-
-        # add ward to the SMD dataframe
-        districts = pd.read_csv('data/districts.csv')
-        smd_df_ward = pd.merge(smd_df, districts[['smd_id', 'ward_id']], how='inner', on='smd_id')
-
-        smd_df_ward.to_file('uploads/to-mapbox-smd-data.geojson', driver='GeoJSON')
-
-        # Add data to CSV with lat/long of SMD label points
-        lp = pd.read_csv('maps/label-points.csv')
-        lp_df = pd.merge(lp, df[['smd_id', 'current_commissioner', 'number_of_candidates', 'list_of_candidate_links']], how='inner', on='smd_id')
-        lp_df.to_csv('uploads/to-mapbox-label-points-data.csv', index=False)
+        lp_gdf = gpd.GeoDataFrame(lp_df, geometry=gpd.points_from_xy(lp_df.lon, lp_df.lat))
+        lp_gdf.to_file(destination_filename, driver='GeoJSON')
 
 
 
@@ -500,8 +472,8 @@ class RefreshData():
         self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
         self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')
 
-        self.add_data_to_label_points('maps/label-points-2012.csv', 'uploads/to-mapbox-label-points-2012-data.csv')
-        self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.csv')
+        self.add_data_to_label_points('maps/label-points-2012.csv', 'uploads/to-mapbox-label-points-2012-data.geojson')
+        self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.geojson')
 
         self.publish_candidate_list()
         self.publish_commissioner_list()
