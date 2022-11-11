@@ -1206,7 +1206,6 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11236,"Benjamin E. Thomas, Sr.",,,,person_BenjaminEThomasSr
 11237,Diona Lane,,,,person_DionaLane
 11238,"Christopher ""Doc"" Hershey",,,,person_ChristopherDocHershey
-11239,Vanessa Brooks,,,,person_VanessaBrooks
 11240,Rosa A. Hamlett,,,,person_RosaAHamlett
 11241,Wyna Russell,,,,person_WynaRussell
 11242,Mary D. Jackson,,,,person_MaryDJackson
@@ -1335,7 +1334,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11372,Eric Jonathan Sheptok,,,,person_EricJonathanSheptok
 11373,Carson Robb,,https://www.facebook.com/carson.robb,https://carsonrobb.com/,person_CarsonRobb
 11374,Patrick Clawson,,,,person_PatrickClawson
-11375,Brian J. McCabe,,,,person_BrianJMcCabe
+11375,Brian J. McCabe,https://twitter.com/ordinarysquares,,,person_BrianJMcCabe
 11376,Willie Doggett,,,,person_WillieDoggett
 11377,Adam J. Prinzo,https://twitter.com/adam3c02,,,person_AdamJPrinzo
 11379,Earle Douglass,,,,person_EarleDouglass

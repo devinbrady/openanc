@@ -180,7 +180,7 @@ class BuildIndex():
         with open('templates/about.html', 'r') as f:
             output = f.read()
 
-        output = output.replace('REPLACE_WITH_EDIT_LINK', candidate_form_link())
+        # output = output.replace('REPLACE_WITH_EDIT_LINK', candidate_form_link())
         output = add_google_analytics(output)
         output = add_footer(output, link_source='root')
 

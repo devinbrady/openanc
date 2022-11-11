@@ -498,7 +498,7 @@ def add_footer(input_html, link_source='root', updated_at=None):
 
     footer_html = footer_html.replace('REPLACE_WITH_LINK_PATH___', link_path)
 
-    footer_html = footer_html.replace('<!-- replace with edit items -->', edit_item_list())
+    # footer_html = footer_html.replace('<!-- replace with edit items -->', edit_item_list())
     footer_html = footer_html.replace('REPLACE_WITH_UPDATED_AT', updated_at)
 
     output_html = input_html.replace('<!-- replace with footer -->', footer_html)

@@ -7,9 +7,10 @@ Scan HTML files to confirm that all internal links are working.
 
 import os
 import pandas as pd
+from tqdm import tqdm
+import geopandas as gpd
 from pathlib import Path
 from bs4 import BeautifulSoup
-from tqdm import tqdm
 
 
 class TestLinks():
@@ -20,13 +21,13 @@ class TestLinks():
         """
 
         here = Path.cwd()
+        
         html_root = (here / 'docs/').resolve()
         html_files = sorted(list(html_root.rglob('*.html')))
 
-        # Add the Mapbox CSVs to test their links as well
-        html_files += [Path(html_root / '../uploads/to-mapbox-label-points-2012-data.csv').resolve()]
-        html_files += [Path(html_root / '../uploads/to-mapbox-label-points-2022-data.csv').resolve()]
-
+        # Add the Mapbox GeoJSONs to test their links as well
+        upload_root = (here / 'uploads/').resolve()
+        html_files += sorted(list(upload_root.rglob('*.geojson')))
 
         self.link_df = pd.DataFrame()
 
@@ -44,6 +45,14 @@ class TestLinks():
                 html_text = pd.DataFrame(temp_df['map_display_box']).to_string(index=False)
 
                 # CSVs are being used by the Mapbox map, which is embedded in index.html
+                link_source = Path(html_root / 'index.html')
+
+            # Read GeoJSON files with geopandas, then output as text
+            elif h.suffix == '.geojson':
+                temp_df = gpd.read_file(h)
+                html_text = pd.DataFrame(temp_df['map_display_box']).to_string(index=False)
+
+                # GeoJSONs are being used by the Mapbox map, which is embedded in index.html
                 link_source = Path(html_root / 'index.html')
 
             else:

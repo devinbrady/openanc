@@ -303,8 +303,8 @@ class BuildDistricts():
         candidate_block = '<h2>2022 Candidates</h2>'
 
         if num_candidates == 0:
-            candidate_form = candidate_form_link('Declare your candidacy using this form', smd_id=smd_id)
-            candidate_block += f'<p>No known candidates. {candidate_form}.</p>'
+            # candidate_form = candidate_form_link('Declare your candidacy using this form', smd_id=smd_id)
+            candidate_block += f'<p>No known candidates.</p>'
             
         else:
 
@@ -327,8 +327,10 @@ class BuildDistricts():
 
         candidate_block += (
             "<p>The list of candidates comes from the DC Board of Elections and from submissions to OpenANC. "
-            + "Write-in candidates are included. If you know a candidate who isn't listed, please {}.</p>"
-            ).format(candidate_form_link('fill out this form', smd_id=smd_id))
+            + "Write-in candidates are included."
+            )
+            # If you know a candidate who isn't listed, please {}.</p>"
+            # ).format(candidate_form_link('fill out this form', smd_id=smd_id))
 
         return candidate_block
 
