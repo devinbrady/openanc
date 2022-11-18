@@ -7,10 +7,12 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 
-
+import config
 from scripts.urls import (
     generate_link
     )
+
+
 
 def results_candidate_people():
     """
@@ -323,7 +325,7 @@ def list_commissioners(status=None, date_point=None):
 
 
 
-def list_candidates(election_year=2022):
+def list_candidates(election_year=config.current_election_year):
     """
     Return DataFrame with candidates, either in a particular year or for all time
 
@@ -395,5 +397,5 @@ def confirm_key_uniqueness(table_filename, primary_key):
 
     if any(key_count > 1):
         bad_key = key_count[key_count > 1]
-        raise ValueError(f'The primary key "{primary_key}" has at least one duplicate key in table "{table}" (key "{bad_key.index.values[0]}")')
+        raise ValueError(f'The primary key "{primary_key}" has at least one duplicate key in table "{table_filename}" (key "{bad_key.index.values[0]}")')
 

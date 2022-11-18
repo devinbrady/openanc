@@ -22,8 +22,8 @@ from scripts.urls import (
     , relative_link_prefix
     )
 
-CURRENT_ELECTION_YEAR = 2022
-CURRENT_REDISTRICTING_YEAR = 2022
+
+
 
 def smd_geojson():
     """Return a GeoDataFrame with SMDs from all redistricting cycles"""

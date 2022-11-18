@@ -9,6 +9,7 @@ from datetime import datetime
 
 from scripts.refresh_data import RefreshData
 from scripts.process_candidates import ProcessCandidates
+from scripts.process_election_results import ProcessElectionResults
 from scripts.index import BuildIndex
 from scripts.districts import BuildDistricts
 from scripts.ancs import BuildANCs
@@ -28,6 +29,7 @@ parser.add_argument('-a', '--build-ancs', action='store_true', help='Build page 
 parser.add_argument('-d', '--build-districts', action='store_true', help='Build page for each SMD')
 parser.add_argument('-p', '--build-people', action='store_true', help='Build page for each person')
 parser.add_argument('-t', '--test-links', action='store_true', help='Test internal link validity')
+parser.add_argument('-e', '--election-results', action='store_true', help='Process election results from DCBOE')
 parser.add_argument('--all', action='store_true', help='Run all site-building steps')
 
 args = parser.parse_args()
@@ -38,7 +40,12 @@ args = parser.parse_args()
 
 
 if args.all:
-    # These steps are all needed to do a rebuild of the site from the information in "OpenANC Source" google sheets.
+    """
+    These steps are all needed to do a rebuild of the site from the information in "OpenANC Source" google sheets.
+
+    The only steps left out are ProcessCandidates and ProcessElectionResults, which only need to be run
+    when the underlying data changes.
+    """
 
     args.refresh_data = True
     args.build_index = True
@@ -56,6 +63,10 @@ if args.refresh_data:
 if args.candidates:
     pc = ProcessCandidates()
     pc.run()
+
+if args.election_results:
+    er = ProcessElectionResults()
+    er.run()
 
 if args.build_index:
     bi = BuildIndex()

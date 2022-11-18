@@ -13,9 +13,11 @@ from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 
+
+import config
+
 from scripts.common import (
     assemble_divo
-    , CURRENT_ELECTION_YEAR
     )
 
 from scripts.urls import (
@@ -399,7 +401,7 @@ class RefreshData():
         """Throw an error if a column has NULLs in it, if those NULLs are not supposed to be there"""
 
         df = pd.read_csv('data/candidates.csv')
-        df = df[df.election_year == CURRENT_ELECTION_YEAR].copy()
+        df = df[df.election_year == config.current_election_year].copy()
         col = 'updated_at'
         table = 'candidates'
 
@@ -423,14 +425,47 @@ class RefreshData():
 
 
 
+    def generate_external_id_lookup_table(self):
+        """
+        Take the external_ids field on the people table, a comma-separated list of external IDs,
+        and split them into a table with one row per external_id
+        """
+
+        people = pd.read_csv('data/people.csv')
+
+        people['external_id_list'] = people.hash_ids.str.split(', ')
+
+        external_id_list = []
+
+        for idx, row in people[people.hash_ids.notnull()].iterrows():            
+            for eid in row.external_id_list:
+                external_id_list += [[eid, row.person_id]]
+
+        external_id_lookup = pd.DataFrame(external_id_list,columns=['external_id', 'person_id'])
+
+        external_id_lookup.to_csv('data/external_id_person_id_lookup.csv', index=False)
+
+        print('external_id_person_id_lookup table generated.')
+
+
+
+    def add_name_id_to_people_csv(self):
+        """Calculate the name slug once for the people CSV and save it"""
+
+        people = pd.read_csv('data/people.csv')
+        people['person_name_id'] = 'person_' + people.full_name.apply(lambda x: format_name_for_url(x))
+        people.to_csv('data/people.csv', index=False)
+
+
+
     def download_google_sheets(self, do_full_refresh):
 
+        self.refresh_csv('people', 'A:F')
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
-        self.refresh_csv('people', 'A:E')
         self.refresh_csv('commissioners', 'A:E')
-        
-        # Related to 2020 election results
-        # self.refresh_csv('results', 'A:P') #, filter_dict={'candidate_matched': 1})
+
+        # Related to election results
+        # self.refresh_csv('results', 'A:Q') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
         
         if do_full_refresh:
@@ -447,22 +482,15 @@ class RefreshData():
 
 
 
-    def add_name_id_to_people_csv(self):
-        """Calculate the name slug once for the people CSV and save it"""
-
-        people = pd.read_csv('data/people.csv')
-        people['person_name_id'] = 'person_' + people.full_name.apply(lambda x: format_name_for_url(x))
-        people.to_csv('data/people.csv', index=False)
-
-
-
     def run(self, do_full_refresh=False):
 
         self.download_google_sheets(do_full_refresh)
         self.add_name_id_to_people_csv()
+        self.generate_external_id_lookup_table()
 
         confirm_key_uniqueness('data/people.csv', 'person_id')
         confirm_key_uniqueness('data/candidates.csv', 'candidate_id')
+        confirm_key_uniqueness('data/external_id_person_id_lookup.csv', 'external_id')
         self.confirm_column_notnull_candidates()
         self.confirm_commissioner_date_validity()
 
@@ -475,8 +503,8 @@ class RefreshData():
         self.add_data_to_label_points('maps/label-points-2012.csv', 'uploads/to-mapbox-label-points-2012-data.geojson')
         self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.geojson')
 
-        self.publish_candidate_list()
-        self.publish_commissioner_list()
+        # self.publish_candidate_list()
+        # self.publish_commissioner_list()
         # self.publish_anc_list()
         # self.publish_results()
 

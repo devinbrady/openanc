@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
+import config
 from scripts.refresh_data import RefreshData
 from scripts.data_transformations import (
     districts_candidates_commissioners
@@ -27,12 +28,11 @@ from scripts.data_transformations import (
 from scripts.common import (
     match_names
     , hash_dataframe
-    , CURRENT_ELECTION_YEAR
-    , CURRENT_REDISTRICTING_YEAR
     )
 
 pd.set_option('display.max_colwidth', 180)
 pd.set_option('display.max_columns', 100)
+
 
 
 class ProcessCandidates():
@@ -166,7 +166,7 @@ class ProcessCandidates():
 
         # Make sure each district matches the actual list of districts
         districts = pd.read_csv('data/districts.csv')
-        valid_smd_ids = sorted(districts[districts.redistricting_year == CURRENT_REDISTRICTING_YEAR].smd_id.unique())
+        valid_smd_ids = sorted(districts[districts.redistricting_year == config.current_redistricting_year])
         invalid_smd_ids = [d for d in df.smd_id if d not in valid_smd_ids]
 
         if invalid_smd_ids:
@@ -302,7 +302,7 @@ class ProcessCandidates():
         """
 
         candidates = pd.read_csv('data/candidates.csv')
-        candidates = candidates[candidates.election_year == CURRENT_ELECTION_YEAR].copy()
+        candidates = candidates[candidates.election_year == config.current_election_year].copy()
         dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
         print(f'\nValid DCBOE candidates: {len(dcboe)}')
@@ -331,7 +331,7 @@ class ProcessCandidates():
         people = pd.read_csv('data/people.csv')
         max_id_person = people['person_id'].max()
 
-        candidates_this_year = candidates[candidates.election_year == CURRENT_ELECTION_YEAR].copy()
+        candidates_this_year = candidates[candidates.election_year == config.current_election_year].copy()
         dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
         if not self.match_file.exists():
