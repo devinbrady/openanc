@@ -59,8 +59,10 @@ class ProcessElectionResults():
             .reset_index()
         )
 
+        # external_id is a hash of the uppercase candidate name and the smd_id they were running in
         candidates_results['candidate_name_upper'] = candidates_results['candidate_name'].str.upper()
-        candidates_results['dcboe_hash_id'] = hash_dataframe(candidates_results, ['smd_id', 'candidate_name_upper'])
+        candidates_results['external_id'] = hash_dataframe(candidates_results, ['smd_id', 'candidate_name_upper'])
+        candidates_results.loc[candidates_results.candidate_name_upper == 'WRITE-IN', 'external_id'] = pd.NA
 
         candidates_results['ranking'] = candidates_results.groupby('smd_id').votes.rank(method='first', ascending=False)
         candidates_results['winner'] = candidates_results['ranking'] == 1
@@ -144,6 +146,8 @@ class ProcessElectionResults():
         num_candidates.name = 'num_candidates'
         candidates_results = pd.merge(candidates_results, num_candidates, how='inner', on='smd_id')
 
+        print(f'Election results processed for year: {election_year}')
+
         return candidates_results
 
 
@@ -158,9 +162,9 @@ class ProcessElectionResults():
         results_all_years = pd.concat(results_dict, names=['election_year']).reset_index()
 
         results_all_years[[
-            'dcboe_hash_id'
-            , 'election_year'
+            'election_year'
             , 'smd_id'
+            , 'external_id'
             , 'candidate_name'
             , 'votes'
             , 'vote_share'

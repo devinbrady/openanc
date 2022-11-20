@@ -8,6 +8,7 @@ import string
 import os.path
 import pandas as pd
 import geopandas as gpd
+from pathlib import Path
 from datetime import datetime
 from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
@@ -18,6 +19,7 @@ import config
 
 from scripts.common import (
     assemble_divo
+    , match_to_openanc
     )
 
 from scripts.urls import (
@@ -39,6 +41,8 @@ from scripts.data_transformations import (
 class RefreshData():
 
     def __init__(self):
+
+        self.match_file = Path('data/matches_to_evaluate.csv')
 
         # If modifying these scopes, delete the file token.pickle.
         self.scopes = ['https://www.googleapis.com/auth/spreadsheets']
@@ -178,7 +182,7 @@ class RefreshData():
 
     def add_data_to_geojson(self, source_geojson, destination_filename):
         """
-        Save new GeoJSON files with updated data fields based off of the results of the election
+        Save new GeoJSON files with updated information in map_display_df (commissioner and candidate names)
         # todo: push these tilesets to Mapbox via API
         """
 
@@ -427,25 +431,25 @@ class RefreshData():
 
     def generate_external_id_lookup_table(self):
         """
-        Take the external_ids field on the people table, a comma-separated list of external IDs,
+        Take the external_id_list field on the people table, a comma-separated list of external IDs,
         and split them into a table with one row per external_id
         """
 
         people = pd.read_csv('data/people.csv')
 
-        people['external_id_list'] = people.hash_ids.str.split(', ')
+        people['external_id_list_split'] = people.external_id_list.str.split(', ')
 
-        external_id_list = []
+        external_id_list_split = []
 
-        for idx, row in people[people.hash_ids.notnull()].iterrows():            
-            for eid in row.external_id_list:
-                external_id_list += [[eid, row.person_id]]
+        for idx, row in people[people.external_id_list.notnull()].iterrows():            
+            for eid in row.external_id_list_split:
+                external_id_list_split += [[eid, row.person_id, row.full_name]]
 
-        external_id_lookup = pd.DataFrame(external_id_list,columns=['external_id', 'person_id'])
+        external_id_lookup = pd.DataFrame(external_id_list_split,columns=['external_id', 'person_id', 'full_name'])
 
-        external_id_lookup.to_csv('data/external_id_person_id_lookup.csv', index=False)
+        external_id_lookup.to_csv('data/temp/external_id_person_id_lookup.csv', index=False)
 
-        print('external_id_person_id_lookup table generated.')
+        print('Table generated: external_id_person_id_lookup.csv')
 
 
 
@@ -458,11 +462,80 @@ class RefreshData():
 
 
 
+    def check_database_for_new_external_ids(self):
+
+        tables_with_external_ids = [
+            'data/candidates.csv'
+            , 'data/dcboe/candidate_votes.csv'
+            ]
+
+        self.lookup = pd.read_csv('data/external_id_lookup.csv')
+
+        # for table_file in tables_with_external_ids:
+        # self.check_table_for_new_external_ids('data/candidates.csv', 'candidate_name')
+        self.check_table_for_new_external_ids('data/dcboe/candidate_votes.csv', 'candidate_name')
+
+
+
+    def check_table_for_new_external_ids(self, table_file, name_column):
+
+        # todo: make this work for multiple source files of external_ids
+
+        external_id_df = pd.read_csv(table_file) #, usecols=['external_id', name_column])
+        external_id_df = external_id_df[external_id_df.external_id.notnull()]
+
+        new_external_ids = external_id_df[~external_id_df.external_id.isin(self.lookup.external_id)]
+
+        if len(new_external_ids) == 0:
+            print(f'All external_ids have been accounted for in table {table_file}')
+            return
+
+        if not self.match_file.exists():
+            self.run_matching_process(new_external_ids, name_column)
+
+        matches = pd.read_csv(self.match_file)
+
+        if any(matches.good_match.isin(['?'])):
+            raise ValueError(f'Evaluate the "?" matches in "{self.match_file.name}" before continuing')
+
+
+        good_matches = matches[matches.good_match == 1].copy()
+        people_create = matches[matches.good_match == 0].copy()
+
+        good_matches[['external_id', 'match_person_id', 'match_full_name']].to_csv('data/add_to_external_id_lookup.csv', index=False)
+
+
+
+    def run_matching_process(self, new_external_ids, name_column):
+
+        match_df = match_to_openanc(new_external_ids, name_column)
+        match_df['good_match'] = '?'
+
+        columns_to_csv = [
+            'external_id'
+            , 'match_score'
+            , 'smd_id'
+            , 'match_smd_id'
+            , name_column
+            , 'match_full_name'
+            , 'match_person_id'
+            , 'good_match'
+        ]
+
+        (
+            match_df[columns_to_csv]
+            .sort_values(by='match_score', ascending=False)
+            .to_csv(self.match_file, index=False)
+        )
+
+
+
     def download_google_sheets(self, do_full_refresh):
 
-        self.refresh_csv('people', 'A:F')
+        self.refresh_csv('people', 'A:E')
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('commissioners', 'A:E')
+        self.refresh_csv('external_id_lookup', 'A:C')
 
         # Related to election results
         # self.refresh_csv('results', 'A:Q') #, filter_dict={'candidate_matched': 1})
@@ -486,11 +559,13 @@ class RefreshData():
 
         self.download_google_sheets(do_full_refresh)
         self.add_name_id_to_people_csv()
-        self.generate_external_id_lookup_table()
+        # self.generate_external_id_lookup_table()
+
+        self.check_database_for_new_external_ids()
 
         confirm_key_uniqueness('data/people.csv', 'person_id')
         confirm_key_uniqueness('data/candidates.csv', 'candidate_id')
-        confirm_key_uniqueness('data/external_id_person_id_lookup.csv', 'external_id')
+        confirm_key_uniqueness('data/external_id_lookup.csv', 'external_id')
         self.confirm_column_notnull_candidates()
         self.confirm_commissioner_date_validity()
 

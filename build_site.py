@@ -56,6 +56,7 @@ if args.all:
     args.test_links = True
 
 
+# todo: maybe put the refresh_data step after both of the process_ ones?
 if args.refresh_data:
     r = RefreshData()
     r.run(args.full_refresh_data)
