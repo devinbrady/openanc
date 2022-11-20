@@ -129,13 +129,14 @@ class ProcessElectionResults():
         )
 
         # For losers, the margin of defeat is the their votes minus the first-place votes
-        candidates_results.loc[~contested_winners, 'margin_of_victory'] = (
-            candidates_results['votes'] - candidates_results['winning_votes']
-        )
+        # todo: enable
+        # candidates_results.loc[~contested_winners, 'margin_of_victory'] = (
+        #     candidates_results['votes'] - candidates_results['winning_votes']
+        # )
 
-        candidates_results.loc[~contested_winners, 'margin_of_victory_percentage'] = (
-            candidates_results['vote_share'] - candidates_results['winning_vote_percentage']
-        )
+        # candidates_results.loc[~contested_winners, 'margin_of_victory_percentage'] = (
+        #     candidates_results['vote_share'] - candidates_results['winning_vote_percentage']
+        # )
 
 
 
