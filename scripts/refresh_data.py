@@ -97,7 +97,7 @@ class RefreshData():
 
         df = pd.DataFrame({'a': [1,2], 'b': [3,4]})
 
-        tz = pytz.timezone('America/New_York')
+        tz = pytz.timezone(config.site_timezone)
         dc_now = datetime.now(tz)
         dc_timestamp = dc_now.strftime('%Y-%m-%d %H:%M:%S') # Hour of day: %-I:%M %p
 
@@ -300,7 +300,7 @@ class RefreshData():
             )
 
         # Determine who were incumbent candidates at the time of the election
-        election_date = datetime(2020, 11, 3, tzinfo=pytz.timezone('America/New_York'))
+        election_date = datetime(2020, 11, 3, tzinfo=pytz.timezone(config.site_timezone))
         commissioners = list_commissioners(status=None)
         incumbents = commissioners[(commissioners.start_date < election_date) & (election_date < commissioners.end_date)]
         incumbent_candidates = pd.merge(incumbents, candidates, how='inner', on='person_id')
@@ -551,7 +551,8 @@ class RefreshData():
             self.refresh_csv('candidate_statuses', 'A:D')
             self.refresh_csv('field_names', 'A:B')
             self.refresh_csv('mapbox_styles', 'A:C')
-            self.refresh_csv('map_colors', 'A:B') 
+            self.refresh_csv('map_colors', 'A:B')
+            self.refresh_csv('election_dates', 'A:B')
 
 
 

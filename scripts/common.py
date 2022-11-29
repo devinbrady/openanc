@@ -10,6 +10,7 @@ from datetime import datetime
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
+import config
 
 from scripts.data_transformations import (
     list_commissioners
@@ -455,7 +456,7 @@ def calculate_zoom(area):
 def current_timestamp():
     """Return current timestamp in DC, in datetime format"""
 
-    tz = pytz.timezone('America/New_York')
+    tz = pytz.timezone(config.site_timezone)
     return datetime.now(tz)
 
 

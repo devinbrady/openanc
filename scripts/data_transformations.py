@@ -21,8 +21,8 @@ def results_candidate_people():
 
     people = people_dataframe()
     candidates = list_candidates(election_year=2020)
-    # results = pd.read_csv('data/results.csv')
-    results = pd.read_csv('data/dcboe/candidate_votes.csv')
+    results = pd.read_csv('data/results.csv')
+    # results = pd.read_csv('data/dcboe/candidate_votes.csv')
 
     results_candidates = pd.merge(
         results #[['candidate_id', 'person_id', 'smd_id']]
