@@ -9,12 +9,13 @@ from unidecode import unidecode
 from string import ascii_uppercase
 
 
+import config
+
 from scripts.common import (
     add_footer
     , add_google_analytics
     , build_data_table
     , make_ordinal
-    , CURRENT_ELECTION_YEAR
 )
 
 from scripts.data_transformations import (
@@ -72,7 +73,7 @@ class BuildPeople():
 
         incumbents = incumbent_df()
         incumbents_not_candidates = incumbents[incumbents.reelection_status != 'Is Running'].copy()
-        incumbents_not_candidates['election_year'] = CURRENT_ELECTION_YEAR
+        incumbents_not_candidates['election_year'] = config.current_election_year
         self.candidates_districts_results['reelection_status'] = None
 
         self.candidates_districts_results_incumbents = pd.concat([
@@ -183,7 +184,7 @@ class BuildPeople():
         person_candidacies.sort_values(by='election_year', ascending=False, inplace=True)
 
         # Only add the link for people with active candidacy or currently serving as commissioner
-        if (person_districts['is_current'].sum() > 0) or ((person_candidacies.election_year == CURRENT_ELECTION_YEAR).sum() > 0):
+        if (person_districts['is_current'].sum() > 0) or ((person_candidacies.election_year == config.current_election_year).sum() > 0):
             link_table = build_data_table(person, ['website_link', 'twitter_link', 'facebook_link'])
             if link_table != '':
                 link_table = '<h2>Links</h2><ul>' + link_table + '</ul>'

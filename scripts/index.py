@@ -205,7 +205,7 @@ class BuildIndex():
         mb_style_slugs = mapbox_slugs()
         output = output.replace('REPLACE_WITH_SMD_SLUG', mb_style_slugs['smd'])
         output = output.replace('REPLACE_WITH_SMD_2022_SLUG', mb_style_slugs['smd-2022'])
-        output = output.replace('REPLACE_WITH_SMD_2022_NO_CANDIDATES_SLUG', mb_style_slugs['smd-2022-no-candidates'])
+        # output = output.replace('REPLACE_WITH_SMD_2022_NO_CANDIDATES_SLUG', mb_style_slugs['smd-2022-no-candidates'])
 
         with open(f'docs/{html_name}.html', 'w') as f:
             f.write(output)
@@ -275,11 +275,11 @@ class BuildIndex():
     def run(self):
 
         self.build_map_page('index')
-        self.incumbent_page()
+        # self.incumbent_page()
         self.count_page()
         self.about_page()
         # self.build_single_page('index')
-        self.build_map_page_contested('contested')
+        # self.build_map_page_contested('contested')
         self.build_single_page('404', link_source='absolute')
         self.build_single_page('nav')
         self.list_page()

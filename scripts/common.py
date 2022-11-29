@@ -3,18 +3,21 @@ import pytz
 import hashlib
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 import geopandas as gpd
 from datetime import datetime
 
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
+import config
 
 from scripts.data_transformations import (
     list_commissioners
     , list_candidates
     , people_dataframe
     , districts_candidates_commissioners
+    , most_recent_smd
     )
 
 from scripts.urls import (
@@ -22,8 +25,8 @@ from scripts.urls import (
     , relative_link_prefix
     )
 
-CURRENT_ELECTION_YEAR = 2022
-CURRENT_REDISTRICTING_YEAR = 2022
+
+
 
 def smd_geojson():
     """Return a GeoDataFrame with SMDs from all redistricting cycles"""
@@ -162,6 +165,8 @@ def assemble_divo():
     Return DataFrame with one row per SMD and various stats about each SMD's ranking
 
     divo = district-votes
+
+    todo: move to data_transformations
     """
 
     results = pd.read_csv('data/results.csv')
@@ -451,7 +456,7 @@ def calculate_zoom(area):
 def current_timestamp():
     """Return current timestamp in DC, in datetime format"""
 
-    tz = pytz.timezone('America/New_York')
+    tz = pytz.timezone(config.site_timezone)
     return datetime.now(tz)
 
 
@@ -546,5 +551,29 @@ def match_names(source_value, list_to_search, list_of_ids):
 
     return best_id, best_score
 
+
+
+def match_to_openanc(df, name_column):
+    """
+    Take a DataFrame with a name_column and find the one best match for each row
+    in the OpenANC people database.
+    """
+
+    # Silence the SettingWithCopyWarning
+    df = df.copy()
+
+    people = pd.read_csv('data/people.csv')
+    people = most_recent_smd(people)
+
+    for idx, row in tqdm(df.iterrows(), total=len(df), desc='Match  '):
+                
+        best_id, best_score = match_names(row[name_column], people['full_name'], people['person_id'])
+
+        df.loc[idx, 'match_score'] = best_score
+        df.loc[idx, 'match_person_id'] = best_id
+        df.loc[idx, 'match_full_name'] = people[people.person_id == best_id].full_name.iloc[0]
+        df.loc[idx, 'match_smd_id'] = people[people.person_id == best_id].most_recent_smd_id.iloc[0]
+        
+    return df
 
 
