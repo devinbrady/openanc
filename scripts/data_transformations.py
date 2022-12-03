@@ -21,25 +21,51 @@ def results_candidate_people():
 
     people = people_dataframe()
     candidates = list_candidates(election_year=2020)
-    results = pd.read_csv('data/results.csv')
-    # results = pd.read_csv('data/dcboe/candidate_votes.csv')
+    lookup = pd.read_csv('data/external_id_lookup.csv').drop('full_name', axis=1)
+    election_dates = pd.read_csv('data/election_dates.csv')
+    commissioners = list_commissioners(status=None)
+
+    results = pd.read_csv('data/dcboe/candidate_votes.csv')
+
+    # format percentages as strings
+    results['vote_share'] = results['vote_share'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:.2%}')
+    results['margin_of_victory_percentage'] = results['margin_of_victory_percentage'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:.2%}')
+
+    results_lookup = pd.merge(results, lookup, how='left', on='external_id')
 
     results_candidates = pd.merge(
-        results #[['candidate_id', 'person_id', 'smd_id']]
-        , candidates #[['candidate_id']]
+        results_lookup
+        , candidates[['person_id', 'election_year', 'candidate_id']]
         , how='left'
-        , on=['candidate_id', 'smd_id']
+        , on=['person_id', 'election_year']
         )
+
     rcp = pd.merge(results_candidates, people, how='left', on='person_id') # results-candidates-people
 
     # Determine who were incumbent candidates at the time of the election
-    election_date = datetime(2020, 11, 3, tzinfo=pytz.timezone('America/New_York'))
-    commissioners = list_commissioners(status=None)
-    incumbents = commissioners[(commissioners.start_date < election_date) & (election_date < commissioners.end_date)]
-    incumbent_candidates = pd.merge(incumbents, candidates, how='inner', on='person_id')
-    incumbent_candidates['is_incumbent'] = True
+    election_dates = election_dates.set_index('election_year') # needed to get out one value for the election timestamp, in localized timezone
+    election_dates['election_date'] = pd.to_datetime(election_dates['election_date']).dt.tz_localize(tz=config.site_timezone)
+
+    incumbents_dict = {}
+
+    for election_year in rcp.election_year.unique():
+
+        election_date = election_dates.loc[election_year, 'election_date']
+
+        incumbents_dict[election_year] = commissioners.loc[(commissioners.start_date < election_date) & (election_date < commissioners.end_date), 'person_id'].copy()
+
+    incumbents = pd.concat(incumbents_dict).reset_index().rename(columns={'level_0': 'election_year'})
+    incumbents['is_incumbent'] = True
+
+    incumbent_candidates = pd.merge(
+        incumbents
+        , candidates[['person_id', 'candidate_id', 'election_year']]
+        , how='inner'
+        , on=['person_id', 'election_year']
+        )
 
     rcp = pd.merge(rcp, incumbent_candidates[['candidate_id', 'is_incumbent']], how='left', on='candidate_id')
+
     rcp['is_incumbent'] = rcp['is_incumbent'].fillna(False)
 
     # Sort by SMD ascenting, Votes descending
@@ -290,11 +316,11 @@ def list_commissioners(status=None, date_point=None):
     commissioners = pd.read_csv('data/commissioners.csv')
 
     if not date_point:
-        tz = pytz.timezone('America/New_York')
+        tz = pytz.timezone(config.site_timezone)
         date_point = datetime.now(tz)
 
-    commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz='America/New_York')
-    commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz='America/New_York')
+    commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz=config.site_timezone)
+    commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz=config.site_timezone)
 
     # Create combined field with start and end dates, showing ambiguity
     commissioners['start_date_str'] = commissioners['start_date'].dt.strftime('%B %-d, %Y')
@@ -382,7 +408,7 @@ def today_as_int():
     Return today's date in Eastern Time as an integer. Use as a seed for candidate order randomization
     """
 
-    tz = pytz.timezone('America/New_York')
+    tz = pytz.timezone(config.site_timezone)
     dc_now = datetime.now(tz)
     dc_now_str = dc_now.strftime('%Y%m%d')
 
