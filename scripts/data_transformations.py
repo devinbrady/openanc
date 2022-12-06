@@ -31,7 +31,7 @@ def results_candidate_people():
     results['vote_share'] = results['vote_share'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:.2%}')
     results['margin_of_victory_percentage'] = results['margin_of_victory_percentage'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:+.2%}')
     results['margin_of_victory'] = results['margin_of_victory'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:+.0f}')
-    
+
     results_lookup = pd.merge(results, lookup, how='left', on='external_id')
 
     results_candidates = pd.merge(
@@ -237,6 +237,7 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
 
     district_info_comm['number_of_candidates'] = district_info_comm['number_of_candidates'].fillna(0)
 
+    # If there is not a current commissioner for the SMD, mark the row as "vacant"
     district_info_comm['current_commissioner'] = district_info_comm['current_commissioner'].fillna('(vacant)')
 
     district_info_comm['list_of_candidate_names'] = district_info_comm.apply(lambda x: ', '.join(x.list_of_candidate_names_to_join) if x.number_of_candidates > 0 else '(no known candidates)', axis=1)
@@ -269,31 +270,6 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
 
 
 
-def districts_comm_commelect():
-    """
-    Build DataFrame showing commissioner and commissioner-elect for every district
-    """
-
-    districts = pd.read_csv('data/districts.csv')
-    commissioners = list_commissioners(status=None)
-    people = people_dataframe()
-
-    cp = pd.merge(commissioners, people, how='inner', on='person_id')
-    
-    # left join to both current commissioners and commissioners-elect
-    cp_current = pd.merge(districts, cp.loc[cp['is_current'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
-    cp_current = cp_current.rename(columns={'full_name': 'current_commissioner', 'person_id': 'current_person_id'})
-
-    cp_current_future = pd.merge(cp_current, cp.loc[cp['is_future'], ['smd_id', 'person_id', 'full_name']], how='left', on='smd_id')
-    cp_current_future = cp_current_future.rename(columns={'full_name': 'commissioner_elect', 'person_id': 'future_person_id'})
-
-    # If there is not a current commissioner for the SMD, mark the row as "vacant"
-    cp_current_future['current_commissioner'] = cp_current_future['current_commissioner'].fillna('(vacant)')
-
-    return cp_current_future
-
-
-
 def list_commissioners(status=None, date_point=None):
     """
     Return dataframe with list of commissioners by status
@@ -312,13 +288,12 @@ def list_commissioners(status=None, date_point=None):
     """
 
     if status and status not in ('former', 'current', 'future'):
-        raise ValueError(f'Commissioner status "{status}" is not valid. Must be: former, current, future')
+        raise ValueError(f'Commissioner status "{status}" is not valid. Must be: "former", "current", or "future"')
 
     commissioners = pd.read_csv('data/commissioners.csv')
 
     if not date_point:
-        tz = pytz.timezone(config.site_timezone)
-        date_point = datetime.now(tz)
+        date_point = datetime.now(pytz.timezone(config.site_timezone))
 
     commissioners['start_date'] = pd.to_datetime(commissioners['start_date']).dt.tz_localize(tz=config.site_timezone)
     commissioners['end_date'] = pd.to_datetime(commissioners['end_date']).dt.tz_localize(tz=config.site_timezone)

@@ -33,7 +33,6 @@ from scripts.data_transformations import (
     , list_candidates
     , people_dataframe
     , districts_candidates_commissioners
-    , districts_comm_commelect
     , confirm_key_uniqueness
     )
 
@@ -149,7 +148,10 @@ class RefreshData():
         Build a string containing names of the commissioner and commissioner-elect. 
         This entire string will be displayed in the map display box on the lower right of all maps
 
-        todo: make this function more like a usual pandas function
+        todo: make this function more like a usual pandas function, with an 'apply' perhaps
+
+        todo: make this more sensible. difficult to handle for future districts that don't have a current
+        commissioner but do have a commissioner-elect
         """
 
         for idx, row in cp.iterrows():
@@ -160,14 +162,19 @@ class RefreshData():
                 f'<b><a href="{generate_url(row.smd_id)}">District {row.smd_name}</a></b>'
                 )
 
-            if '_2022_' in row.smd_id:
-                map_display_box += f'<br/>Candidates: {row.list_of_candidate_links}'
-            else:
-                map_display_box += f'<br/>Commissioner: {row.current_commissioner}'
+            # todo 2024: enable for active candidates
+            # if '_2022_' in row.smd_id:
+            #     map_display_box += f'<br/>Candidates: {row.list_of_candidate_links}'
 
-            # If a commissioner with a future start_date exists for the SMD, append the Commissioner-Elect string
-            if pd.notnull(row.commissioner_elect):
-                map_display_box += f'<br/>Commissioner-Elect: {row.commissioner_elect}'
+            if row.redistricting_year == 2012:
+                # If a current commissioner exists in the district, append the Commissioner string
+                if pd.notnull(row.current_commissioner):
+                    map_display_box += f'<br/>Commissioner: {row.current_commissioner}'
+
+            else:
+                # If a commissioner with a future start_date exists for the SMD, append the Commissioner-Elect string
+                if pd.notnull(row.commissioner_elect):
+                    map_display_box += f'<br/>Commissioner-Elect: {row.commissioner_elect}'
 
             cp.loc[idx, 'map_display_box'] = map_display_box
 
