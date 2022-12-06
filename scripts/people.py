@@ -183,8 +183,13 @@ class BuildPeople():
         person_candidacies = self.candidates_districts_results_incumbents.loc[self.candidates_districts_results_incumbents.person_id == person.person_id].copy()
         person_candidacies.sort_values(by='election_year', ascending=False, inplace=True)
 
-        # Only add the link for people with active candidacy or currently serving as commissioner
-        if (person_districts['is_current'].sum() > 0) or ((person_candidacies.election_year == config.current_election_year).sum() > 0):
+        # Only add the link for people with active candidacy, currently serving as commissioner, or will serve as commissioner in the future
+        if (
+                (person_districts['is_current'].sum() > 0)
+                or (person_districts['is_future'].sum() > 0)
+                or ((person_candidacies.election_year == config.current_election_year).sum() > 0)
+            ):
+
             link_table = build_data_table(person, ['website_link', 'twitter_link', 'facebook_link'])
             if link_table != '':
                 link_table = '<h2>Links</h2><ul>' + link_table + '</ul>'

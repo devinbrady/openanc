@@ -276,7 +276,7 @@ class BuildIndex():
 
         self.build_map_page('index')
         # self.incumbent_page()
-        self.count_page()
+        # self.count_page() # todo: re-enable the Counts page when it's been reconfigured for between-election time
         self.about_page()
         # self.build_single_page('index')
         # self.build_map_page_contested('contested')

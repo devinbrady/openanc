@@ -125,7 +125,8 @@ class BuildDistricts():
                 if len(commissioners_in_status) == 0:
 
                     # If there are former commissioners but no one currently, note that. 
-                    if status == 'current':
+                    # todo Jan 2023: remove this second clause of IF statement
+                    if status == 'current' and '_2022_' not in smd_id:
                         commissioner_block += vacant_string
                     
                     # There are no commissioners in this status, display nothing, continue to next iteration
@@ -235,11 +236,17 @@ class BuildDistricts():
 
                         smd_name = self.districts[self.districts['smd_id'] == smd_id]['smd_name'].iloc[0]
 
-                        results_block += (
-                            '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
-                            + 'that was accepted by the DC Board of Elections. '
-                            + f'The office of {smd_name} Commissioner was vacant after the {election_year} election.</p>'
-                            )
+                        if smd_id in ('smd_2022_3E07', 'smd_2022_6E02'):
+                            results_block += (
+                                '<p>Two write-in candidates tied in this election. See "Notes" below.</p>'
+                                )
+
+                        else:
+                            results_block += (
+                                '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
+                                + 'that was accepted by the DC Board of Elections. '
+                                + f'The office of {smd_name} Commissioner was vacant after the {election_year} election.</p>'
+                                )
 
                     results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
 

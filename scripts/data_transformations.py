@@ -150,7 +150,7 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
     """
 
     districts = pd.read_csv('data/districts.csv')
-    candidates = list_candidates(election_year=2022)
+    candidates = list_candidates(election_year=config.current_election_year)
     commissioners = list_commissioners(status=None)
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
 
