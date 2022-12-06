@@ -577,3 +577,16 @@ def match_to_openanc(df, name_column):
     return df
 
 
+
+def validate_smd_ids(df):
+    """
+    Given a DataFrame with an smd_id column, ensure that the smd_ids are all valid
+    """
+
+    districts = pd.read_csv('data/districts.csv')
+    invalid_smd_ids = [d for d in list(df.smd_id) if d not in list(districts.smd_id)]
+
+    if invalid_smd_ids:
+        print('\nThese smd_ids are not valid:')
+        print(df[df.smd_id.isin(invalid_smd_ids)])
+        raise SystemExit('Resolve the smd_id issue.')

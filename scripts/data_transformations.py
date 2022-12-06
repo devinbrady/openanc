@@ -20,7 +20,7 @@ def results_candidate_people():
     """
 
     people = people_dataframe()
-    candidates = list_candidates(election_year=2020)
+    candidates = pd.read_csv('data/candidates.csv')
     lookup = pd.read_csv('data/external_id_lookup.csv').drop('full_name', axis=1)
     election_dates = pd.read_csv('data/election_dates.csv')
     commissioners = list_commissioners(status=None)
@@ -29,8 +29,9 @@ def results_candidate_people():
 
     # format percentages as strings
     results['vote_share'] = results['vote_share'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:.2%}')
-    results['margin_of_victory_percentage'] = results['margin_of_victory_percentage'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:.2%}')
-
+    results['margin_of_victory_percentage'] = results['margin_of_victory_percentage'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:+.2%}')
+    results['margin_of_victory'] = results['margin_of_victory'].apply(lambda x: pd.NA if pd.isnull(x) else f'{x:+.0f}')
+    
     results_lookup = pd.merge(results, lookup, how='left', on='external_id')
 
     results_candidates = pd.merge(

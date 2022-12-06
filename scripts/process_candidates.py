@@ -8,6 +8,9 @@ The goal is to get them all in
 Does this new dcboe_hash_id closely match an existing person, who is not already a candidate this year?
     Then use that matching person_id
     Else create a new person_id
+
+todo 2024:
+Move from dcboe_hash_id to the new external_id system
 """
 
 import os
@@ -165,6 +168,7 @@ class ProcessCandidates():
         df['filed_date'] = pd.to_datetime(df['filed_date']).dt.strftime('%Y-%m-%d')
 
         # Make sure each district matches the actual list of districts
+        # todo 2024: use the common.validate_smd_ids() function here
         districts = pd.read_csv('data/districts.csv')
         valid_smd_ids = sorted(districts[districts.redistricting_year == config.current_redistricting_year])
         invalid_smd_ids = [d for d in df.smd_id if d not in valid_smd_ids]

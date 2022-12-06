@@ -57,13 +57,16 @@ class BuildDistricts():
         self.rcp.loc[self.rcp.is_incumbent, 'full_name'] = self.rcp.loc[self.rcp.is_incumbent, 'full_name'] + ' (incumbent)'
 
         self.districts = pd.read_csv('data/districts.csv')
-        self.write_in_winners = pd.read_csv('data/write_in_winners.csv')
+        write_in_winners = pd.read_csv('data/dcboe/write_in_winners.csv')
         self.field_names = pd.read_csv('data/field_names.csv')
         self.ancs = pd.read_csv('data/ancs.csv')
         self.wards = pd.read_csv('data/wards.csv')
         self.statuses = pd.read_csv('data/candidate_statuses.csv')
+        lookup = pd.read_csv('data/external_id_lookup.csv').drop('full_name', axis=1)
 
         self.people_commissioners = pd.merge(self.people, self.commissioners, how='inner', on='person_id')
+        write_in_winners_lookup = pd.merge(write_in_winners, lookup, how='inner', on='external_id')
+        self.write_in_winners_people = pd.merge(write_in_winners_lookup, self.people, how='inner', on='person_id')
 
         people_candidates = pd.merge(self.people, self.candidates_this_year, how='inner', on='person_id')
         self.people_candidate_statuses = pd.merge(people_candidates, self.statuses, how='inner', on='candidate_status')
@@ -153,97 +156,92 @@ class BuildDistricts():
 
 
     def add_results(self, smd_id):
-        """
-        Add block of information about the results of the election
-        """
+        """Add block of information about the results of the election"""
 
-        if '_2022_' in smd_id:
-            return ''
+        smd_results_all_years = self.rcp[self.rcp['smd_id'] == smd_id].copy()
 
-        write_in_winners_people = pd.merge(self.write_in_winners, self.people, how='inner', on='person_id')
+        for election_year in smd_results_all_years.election_year.unique():
+            
+            # Show the candidate with the most votes first
+            smd_results = smd_results_all_years[smd_results_all_years.election_year == election_year].sort_values(by='votes', ascending=False).copy().copy()
 
-        # Show the candidate with the most votes first
-        smd_results = self.rcp[self.rcp['smd_id'] == smd_id].sort_values(by='votes', ascending=False).copy()
+            num_candidates = len(smd_results)
 
-        num_candidates = len(smd_results)
+            results_block = f'<h2>{election_year} Election Results</h2>'
 
-        results_block = '<h2>2020 Election Results</h2>'
+            if num_candidates == 0:
+                results_block += '<p>No known candidates.</p>'
 
-        if num_candidates == 0:
-            results_block += '<p>No known candidates.</p>'
+            else:
 
-        else:
+                # Add total row
+                smd_results.loc[9999, 'full_name'] = 'Total Votes'
+                smd_results.loc[9999, 'votes'] = smd_results.votes.sum()
+                smd_results.loc[9999, 'vote_share'] = '100.00%'
 
-            # Add total row
-            smd_results.loc[9999, 'full_name'] = 'Total Votes'
-            smd_results.loc[9999, 'votes'] = smd_results.votes.sum()
-            smd_results.loc[9999, 'vote_share'] = '100.00%'
+                fields_to_try = [
+                    'full_name'
+                    , 'votes'
+                    , 'vote_share'
+                    , 'margin_of_victory'
+                    , 'margin_of_victory_percentage'
+                ]
 
-            fields_to_try = [
-                'full_name'
-                , 'votes'
-                , 'vote_share'
-                , 'margin_of_victory'
-                , 'margin_of_victory_percentage'
-            ]
-
-            smd_results['full_name'] = smd_results.apply(
-                lambda x: generate_link(x.person_name_id, link_source='district', link_body=x.full_name)
-                        if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
-                , axis=1
-                )
-
-            smd_results['margin_of_victory'] = smd_results['margin_of_victory'].apply(lambda x: '' if pd.isnull(x) else '+{:,.0f}'.format(x))
-            smd_results['margin_of_victory_percentage'] = smd_results['margin_of_victory_percentage'].apply(lambda x: '' if pd.isnull(x) else '+' + x )
-            smd_results['votes'] = smd_results['votes'].apply(lambda x: '{:,.0f}'.format(x)).fillna('')
-
-            fields_to_html = []
-            for field_name in fields_to_try:
-                display_name = self.field_names.loc[self.field_names['field_name'] == field_name, 'display_name'].values[0]
-                smd_results[display_name] = smd_results[field_name]
-                fields_to_html += [display_name]
-
-            results_block += (
-                smd_results[fields_to_html]
-                .fillna('')
-                .style
-                .set_properties(**{'text-align': 'right'})
-                .set_properties(
-                    subset=['Name']
-                    , **{'text-align': 'left'}
-                    )
-                .apply(
-                    lambda x: ['font-weight: bold' if x.Name == 'Total Votes' else '' for i in x]
+                smd_results['full_name'] = smd_results.apply(
+                    lambda x: generate_link(x.person_name_id, link_source='district', link_body=x.full_name)
+                            if x.full_name not in ['Write-ins combined', 'Total Votes'] else x.full_name
                     , axis=1
                     )
-                .set_uuid('results_')
-                .hide(axis='index')
-                .to_html()
-                )
 
-            if smd_results['write_in_winner_int'].sum() > 0:
+                smd_results['votes'] = smd_results['votes'].apply(lambda x: '{:,.0f}'.format(x)).fillna('')
 
-                # If there is a write-in winner, include their name here. Otherwise, no one won and the district will be vacant.
+                fields_to_html = []
+                for field_name in fields_to_try:
+                    display_name = self.field_names.loc[self.field_names['field_name'] == field_name, 'display_name'].values[0]
+                    smd_results[display_name] = smd_results[field_name]
+                    fields_to_html += [display_name]
 
-                if (write_in_winners_people.smd_id == smd_id).sum() > 0:
-
-                    commissioner_elect = write_in_winners_people[write_in_winners_people.smd_id == smd_id]['full_name'].values[0]
-
-                    results_block += (
-                        f'<p>This election was won by <strong>{commissioner_elect}</strong>, a write-in candidate whose "Affirmation of Write-in Candidacy" was accepted by the DC Board of Elections.</p>'
+                results_block += (
+                    smd_results[fields_to_html]
+                    .fillna('')
+                    .style
+                    .set_properties(**{'text-align': 'right'})
+                    .set_properties(
+                        subset=['Name']
+                        , **{'text-align': 'left'}
                         )
-
-                else:
-
-                    smd_name = self.districts[self.districts['smd_id'] == smd_id]['smd_name'].iloc[0]
-
-                    results_block += (
-                        '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
-                        + 'that was accepted by the DC Board of Elections. '
-                        + f'The office of {smd_name} Commissioner was vacant after the 2020 election.</p>'
+                    .apply(
+                        lambda x: ['font-weight: bold' if x.Name == 'Total Votes' else '' for i in x]
+                        , axis=1
                         )
+                    .set_uuid('results_')
+                    .hide(axis='index')
+                    .to_html()
+                    )
 
-                results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
+                if smd_results['write_in_winner_int'].sum() > 0:
+
+                    # If there is a write-in winner, include their name here. Otherwise, no one won and the district will be vacant.
+
+                    if (self.write_in_winners_people.smd_id == smd_id).sum() > 0:
+
+                        commissioner_elect = self.write_in_winners_people[self.write_in_winners_people.smd_id == smd_id]['full_name'].values[0]
+
+                        results_block += (
+                            f'<p>This election was won by <strong>{commissioner_elect}</strong>, a write-in candidate whose "Affirmation of Write-in Candidacy" was accepted by the DC Board of Elections.</p>'
+                            )
+
+                    else:
+
+                        smd_name = self.districts[self.districts['smd_id'] == smd_id]['smd_name'].iloc[0]
+
+                        results_block += (
+                            '<p>There was no winner in this election. None of the write-in candidates filed an "Affirmation of Write-in Candidacy" '
+                            + 'that was accepted by the DC Board of Elections. '
+                            + f'The office of {smd_name} Commissioner was vacant after the {election_year} election.</p>'
+                            )
+
+                    results_block += '<p>Vote counts for individual write-in candidates are not published by the DC Board of Elections.</p>'
 
 
         return results_block
@@ -481,7 +479,7 @@ class BuildDistricts():
             output = add_geojson(self.smd_shape, 'smd_id', smd_id, output)
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
-            output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+            # output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
             output = output.replace('<!-- replace with results table -->', self.add_results(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 

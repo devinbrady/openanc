@@ -13,6 +13,7 @@ from scripts.data_transformations import (
 from scripts.common import (
     hash_dataframe
     , match_names
+    , validate_smd_ids
 )
 
 
@@ -23,7 +24,12 @@ class ProcessElectionResults():
         
         self.results_files = {
             2020: 'November_3_2020_General_Election_Certified_Results.csv'
-            , 2022: 'November_8_2022_General_Election_Election_Night_Unofficial_Results.csv'
+            , 2022: 'November_8_2022_General_Election_Certified_Results.csv'
+        }
+
+        self.write_in_files = {
+            2020: 'write_in_winners_2020.csv'
+            , 2022: 'write_in_winners_2022.csv'
         }
 
 
@@ -50,6 +56,7 @@ class ProcessElectionResults():
 
         anc['smd_id'] = smd_id_prefix + anc['contest_name'].str.extract('(?<=ANC - )(.*)(?=SINGLE MEMBER)')
         anc['smd_id'] = anc['smd_id'].str.strip()
+        validate_smd_ids(anc)
 
         candidates_results = (
             anc
@@ -129,14 +136,13 @@ class ProcessElectionResults():
         )
 
         # For losers, the margin of defeat is the their votes minus the first-place votes
-        # todo: enable
-        # candidates_results.loc[~contested_winners, 'margin_of_victory'] = (
-        #     candidates_results['votes'] - candidates_results['winning_votes']
-        # )
+        candidates_results.loc[~contested_winners, 'margin_of_victory'] = (
+            candidates_results['votes'] - candidates_results['winning_votes']
+        )
 
-        # candidates_results.loc[~contested_winners, 'margin_of_victory_percentage'] = (
-        #     candidates_results['vote_share'] - candidates_results['winning_vote_percentage']
-        # )
+        candidates_results.loc[~contested_winners, 'margin_of_victory_percentage'] = (
+            candidates_results['vote_share'] - candidates_results['winning_vote_percentage']
+        )
 
 
 
@@ -150,6 +156,36 @@ class ProcessElectionResults():
         print(f'Election results processed for year: {election_year}')
 
         return candidates_results
+
+
+
+    def read_write_in_winners(self, election_year):
+
+        write_in_df = pd.read_csv(f'data/dcboe/election_results/{self.write_in_files[election_year]}')
+
+        write_in_df = write_in_df.rename(
+            columns={
+            'Office': 'smd'
+            , 'ANC/SMD': 'smd'
+            , 'Write-in Candidate Name': 'official_name'
+            , "Candidate's Name": 'official_name'
+            })
+
+        smd_id_prefix = 'smd_'
+        if election_year >= 2022:
+            smd_id_prefix += '2022_'
+
+        write_in_df['smd_id'] = smd_id_prefix + write_in_df['smd']
+        validate_smd_ids(write_in_df)
+
+        write_in_df['candidate_name'] = write_in_df['official_name']
+        write_in_df['candidate_name_upper'] = write_in_df['official_name'].str.upper()
+
+        write_in_df['external_id'] = hash_dataframe(write_in_df, ['smd_id', 'candidate_name_upper'])
+
+        print(f'Write-in results processed for year: {election_year}')
+
+        return write_in_df
 
 
 
@@ -177,3 +213,19 @@ class ProcessElectionResults():
             , 'num_candidates'
             , 'total_votes'
         ]].to_csv('data/dcboe/candidate_votes.csv', index=False)
+
+
+        write_in_dict = {}
+        for election_year in self.write_in_files:
+            write_in_dict[election_year] = self.read_write_in_winners(election_year)
+
+        write_in_all_years = pd.concat(write_in_dict, names=['election_year']).reset_index()
+
+        write_in_all_years[[
+            'election_year'
+            , 'external_id'
+            , 'smd_id'
+            , 'candidate_name'
+        ]].to_csv('data/dcboe/write_in_winners.csv', index=False)
+
+

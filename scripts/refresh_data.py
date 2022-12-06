@@ -6,6 +6,7 @@ import pytz
 import pickle
 import string
 import os.path
+import numpy as np
 import pandas as pd
 import geopandas as gpd
 from pathlib import Path
@@ -285,6 +286,8 @@ class RefreshData():
     def publish_results(self):
         """
         Publish results from 2020 elections to OpenANC Published
+
+        todo: make this work with new write-in winners table
         """
 
         people = people_dataframe()
@@ -433,6 +436,8 @@ class RefreshData():
         """
         Take the external_id_list field on the people table, a comma-separated list of external IDs,
         and split them into a table with one row per external_id
+
+        todo: no longer needed, delete this
         """
 
         people = pd.read_csv('data/people.csv')
@@ -463,17 +468,18 @@ class RefreshData():
 
 
     def check_database_for_new_external_ids(self):
+        """Cycle through each data file that contains external_ids to make sure they have all been matched."""
 
         tables_with_external_ids = [
-            'data/candidates.csv'
-            , 'data/dcboe/candidate_votes.csv'
+            'data/dcboe/candidate_votes.csv'
+            , 'data/dcboe/write_in_winners.csv'
+            # , 'data/candidates.csv'
             ]
 
         self.lookup = pd.read_csv('data/external_id_lookup.csv')
 
-        # for table_file in tables_with_external_ids:
-        # self.check_table_for_new_external_ids('data/candidates.csv', 'candidate_name')
-        self.check_table_for_new_external_ids('data/dcboe/candidate_votes.csv', 'candidate_name')
+        for table_file in tables_with_external_ids:
+            self.check_table_for_new_external_ids(table_file, 'candidate_name')
 
 
 
@@ -481,8 +487,8 @@ class RefreshData():
 
         # todo: make this work for multiple source files of external_ids
 
-        external_id_df = pd.read_csv(table_file) #, usecols=['external_id', name_column])
-        external_id_df = external_id_df[external_id_df.external_id.notnull()]
+        external_id_df = pd.read_csv(table_file)
+        external_id_df = external_id_df[external_id_df.external_id.notnull()].copy()
 
         new_external_ids = external_id_df[~external_id_df.external_id.isin(self.lookup.external_id)]
 
@@ -491,18 +497,34 @@ class RefreshData():
             return
 
         if not self.match_file.exists():
+            print(f'Running matching process for table: {table_file}')
             self.run_matching_process(new_external_ids, name_column)
 
         matches = pd.read_csv(self.match_file)
 
         if any(matches.good_match.isin(['?'])):
-            raise ValueError(f'Evaluate the "?" matches in "{self.match_file.name}" before continuing')
+            raise SystemExit(f'Evaluate the "?" matches in "{self.match_file.name}" before continuing')
 
 
         good_matches = matches[matches.good_match == 1].copy()
         people_create = matches[matches.good_match == 0].copy()
 
-        good_matches[['external_id', 'match_person_id', 'match_full_name']].to_csv('data/add_to_external_id_lookup.csv', index=False)
+        # todo: second round of matching that returns the top 5 people matches
+        # todo 2024: consolidate this code with the similar code in process_candidates.py
+
+        if len(good_matches) > 0:
+            good_matches[['external_id', 'match_person_id', 'match_full_name']].to_csv('data/add_to_external_id_lookup.csv', index=False)
+            print('Good matches saved to: data/add_to_external_id_lookup.csv')
+
+        if len(people_create) > 0:
+            people = pd.read_csv('data/people.csv')
+            max_id_person = people['person_id'].max()
+
+            people_create['full_name'] = people_create[name_column].str.title()
+            people_create['person_id_suggested'] = 1 + max_id_person + np.arange(0, len(people_create))
+
+            people_create[['person_id_suggested', 'full_name']].to_csv('data/add_to_people.csv', index=False)
+            print('People to create saved to: data/add_to_people.csv')
 
 
 
