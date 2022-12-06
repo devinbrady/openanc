@@ -220,6 +220,11 @@ class BuildDistricts():
                     .to_html()
                     )
 
+                if smd_id in ('smd_2022_1E01', 'smd_2022_6E08', 'smd_2022_7D10'):
+                    results_block += ('<p>There was a named candidate on the ballot who withdrew but still received the most votes. '
+                        + 'As such, there was no winner for this contest and the office was vacant after the election.</p>'
+                        )
+
                 if smd_results['write_in_winner_int'].sum() > 0:
 
                     # If there is a write-in winner, include their name here. Otherwise, no one won and the district will be vacant.
@@ -237,9 +242,7 @@ class BuildDistricts():
                         smd_name = self.districts[self.districts['smd_id'] == smd_id]['smd_name'].iloc[0]
 
                         if smd_id in ('smd_2022_3E07', 'smd_2022_6E02'):
-                            results_block += (
-                                '<p>Two write-in candidates tied in this election. See "Notes" below.</p>'
-                                )
+                            results_block += ('<p>Two write-in candidates tied in this election. See "Notes" below.</p>')
 
                         else:
                             results_block += (

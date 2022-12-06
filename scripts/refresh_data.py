@@ -175,6 +175,8 @@ class RefreshData():
                 # If a commissioner with a future start_date exists for the SMD, append the Commissioner-Elect string
                 if pd.notnull(row.commissioner_elect):
                     map_display_box += f'<br/>Commissioner-Elect: {row.commissioner_elect}'
+                else:
+                    map_display_box += f'<br/>Commissioner-Elect: (vacant)'
 
             cp.loc[idx, 'map_display_box'] = map_display_box
 
@@ -238,12 +240,12 @@ class RefreshData():
         """
 
         # Commissioners currently active
-        commissioners = list_commissioners(status='current')
+        commissioners = list_commissioners(status='future') # todo Jan 2023: change back to current
         people = people_dataframe()
         districts = pd.read_csv('data/districts.csv')
 
-        # Only use the current, 2012, districts for the list of active commissioners
-        districts = districts[districts.redistricting_year == 2012].copy()
+        # Only use the current, 2022, districts for the list of active commissioners
+        districts = districts[districts.redistricting_year == 2022].copy()
 
         dc = pd.merge(districts, commissioners, how='left', on='smd_id')
         dcp = pd.merge(dc, people, how='left', on='person_id')
@@ -609,7 +611,7 @@ class RefreshData():
         self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.geojson')
 
         # self.publish_candidate_list()
-        # self.publish_commissioner_list()
+        self.publish_commissioner_list()
         # self.publish_anc_list()
         # self.publish_results()
 
