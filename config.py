@@ -13,4 +13,6 @@ current_election_year = 2024
 # This is the year when the current map was made
 current_redistricting_year = 2022
 
+
+# This is the local timezone for all time-related functions.
 site_timezone = 'America/New_York'

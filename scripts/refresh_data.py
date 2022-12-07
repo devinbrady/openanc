@@ -244,8 +244,8 @@ class RefreshData():
         people = people_dataframe()
         districts = pd.read_csv('data/districts.csv')
 
-        # Only use the current, 2022, districts for the list of active commissioners
-        districts = districts[districts.redistricting_year == 2022].copy()
+        # Only use the current districts for the list of active commissioners
+        districts = districts[districts.redistricting_year == config.current_redistricting_year].copy()
 
         dc = pd.merge(districts, commissioners, how='left', on='smd_id')
         dcp = pd.merge(dc, people, how='left', on='person_id')
@@ -255,13 +255,24 @@ class RefreshData():
 
         twttr = dcp.sort_values(by='smd_id')
 
-        if len(twttr) != 296:
+        if len(twttr) != 345:
             raise ValueError('The number of districts to publish to Google Sheets is not correct.')
 
         twttr['openanc_link'] = twttr['smd_id'].apply(lambda x: generate_url(x, link_source='absolute'))
 
         twttr['commissioner_name'] = twttr['full_name']
-        columns_to_publish = ['smd_id', 'person_id', 'commissioner_name', 'start', 'end', 'twitter_link', 'facebook_link', 'website_link', 'openanc_link']
+        columns_to_publish = [
+            'smd_id'
+            , 'smd_name'
+            , 'person_id'
+            , 'commissioner_name'
+            , 'start'
+            , 'end'
+            , 'twitter_link'
+            , 'facebook_link'
+            , 'website_link'
+            , 'openanc_link'
+        ]
 
         self.upload_to_google_sheets(twttr, columns_to_publish, 'openanc_published', 'Commissioners')
 
@@ -272,15 +283,15 @@ class RefreshData():
         Publish list of ANCs to OpenANC Published
         """
 
-        # Commissioners currently active
         ancs = pd.read_csv('data/ancs.csv')
-        # districts = pd.read_csv('data/districts.csv')
+        ancs = ancs[ancs.redistricting_year == config.current_redistricting_year].copy()
 
-        ancs['openanc_link'] = generate_url(ancs.anc_id, link_source='absolute')
+        ancs['openanc_link'] = ancs['anc_id'].apply(lambda x: generate_url(x, link_source='absolute'))
 
         columns_to_publish = [
             'anc_id'
-            , 'neighborhoods'
+            , 'anc_name'
+            # , 'neighborhoods'
             , 'openanc_link'
             , 'dc_oanc_link'
             , 'anc_homepage_link'
@@ -612,7 +623,7 @@ class RefreshData():
 
         # self.publish_candidate_list()
         self.publish_commissioner_list()
-        # self.publish_anc_list()
+        self.publish_anc_list()
         # self.publish_results()
 
 

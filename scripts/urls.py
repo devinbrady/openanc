@@ -110,6 +110,8 @@ def relative_link_prefix(source, destination, redistricting_year='xxxx'):
     elif source == 'absolute':
         if destination == 'root':
             link_prefix = 'https://openanc.org/'
+        elif destination == 'anc':
+            link_prefix = f'https://openanc.org/map_{redistricting_year}/ancs/'
         elif destination == 'district':
             link_prefix = f'https://openanc.org/map_{redistricting_year}/ancs/districts/'
         elif destination == 'person':

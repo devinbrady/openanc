@@ -99,7 +99,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10098,Jonathan Bender,https://twitter.com/oblivious_dude,,,person_JonathanBender
 10099,Tom Quinn,https://twitter.com/TomQ71,,,person_TomQuinn
 10100,Jonathan McHugh,,,,person_JonathanMcHugh
-10101,David Cristeal,https://twitter.com/leftofdacenter,,,person_DavidCristeal
+10101,David Cristeal,,,,person_DavidCristeal
 10102,Carolinn A Kuebler,,,,person_CarolinnAKuebler
 10103,Naomi Rutenberg,,,,person_NaomiRutenberg
 10104,Leah Frelinghuysen,,,,person_LeahFrelinghuysen
@@ -149,7 +149,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10149,Ronnie Edwards,,,,person_RonnieEdwards
 10150,Claudia Barragan,,,,person_ClaudiaBarragan
 10151,Sandi Washington,,,,person_SandiWashington
-10152,Gordon-Andrew Fletcher,,https://www.facebook.com/gordonandrewfletcheranc5a0/,,person_GordonAndrewFletcher
+10152,Gordon-Andrew Fletcher,https://twitter.com/GAFANC5A08,https://www.facebook.com/gordonandrewfletcheranc5a0/,,person_GordonAndrewFletcher
 10153,Gayle Carley,,,,person_GayleCarley
 10154,Ursula Higgins,,,,person_UrsulaHiggins
 10155,Henri Makembe,https://twitter.com/henrim,,,person_HenriMakembe
@@ -263,7 +263,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10263,Keeon Johnson,,,,person_KeeonJohnson
 10264,Mike Austin,https://twitter.com/Mike8Austin,,,person_MikeAustin
 10265,Chyla D. Evans,,,,person_ChylaDEvans
-10266,"Robbie ""The Advocate"" Woodland",,,,person_RobbieTheAdvocateWoodland
+10266,"Robbie ""The Advocate"" Woodland",https://twitter.com/robbie4ward8,,,person_RobbieTheAdvocateWoodland
 10267,Regina Sharlita Pixley,,,,person_ReginaSharlitaPixley
 10268,Mustafa Abdul-Salaam,,https://www.facebook.com/mabdulsalaam1,,person_MustafaAbdulSalaam
 10269,Rhonda L. Edwards-Hines,,,,person_RhondaLEdwardsHines
@@ -286,7 +286,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10287,Sean McGrath,,,,person_SeanMcGrath
 10288,Judson Wood,,,https://www.judsonwood.com/,person_JudsonWood
 10289,Benjamin Tingle,,,,person_BenjaminTingle
-10290,Mukta Ghorpadey,,,,person_MuktaGhorpadey
+10290,Mukta Ghorpadey,https://twitter.com/muktaanc,,,person_MuktaGhorpadey
 10291,Victoria Sanchez,,,,person_VictoriaSanchez
 10292,"Michael ""Mike"" Singer",,,,person_MichaelMikeSinger
 10293,Celeste Carano,https://twitter.com/celestecarano,,,person_CelesteCarano
@@ -297,7 +297,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10298,Dennis Jaffe,https://twitter.com/dennisjaffe,,,person_DennisJaffe
 10299,Zack Gold,https://twitter.com/zacycles,https://www.facebook.com/GoldForAdamsMorgan/,,person_ZackGold
 10301,Fiona Clem,https://twitter.com/feejaysee,,https://fiona1c08.org/,person_FionaClem
-10302,Joel Causey,https://twitter.com/joelcausey1,,https://causeyanc2a02.org/,person_JoelCausey
+10302,Joel Causey,,,https://causeyanc2a02.org/,person_JoelCausey
 10303,John Didiuk,,,,person_JohnDidiuk
 10304,Evelyn Hudson,,,,person_EvelynHudson
 10305,Meg Roggensack,https://twitter.com/ancmeg,,https://meg4anc.com/,person_MegRoggensack
@@ -311,7 +311,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10314,Thomas McDonough,,,,person_ThomasMcDonough
 10315,Jenny Mitchell,,,,person_JennyMitchell
 10316,"Christopher ""Topher"" Mathews",https://twitter.com/GeorgetownMet,,,person_ChristopherTopherMathews
-10318,Brian Romanowski,https://twitter.com/brianromanowdc,,,person_BrianRomanowski
+10318,Brian Romanowski,https://twitter.com/DCShawTea,,,person_BrianRomanowski
 10319,Peyton Jane Gibson,https://twitter.com/peytonjaneg,,,person_PeytonJaneGibson
 10320,Rehana Mohammed,https://twitter.com/Rehana2F07,http://facebook.com/rehanaforanc,http://rehanaforanc.com/,person_RehanaMohammed
 10321,Elizabeth Elson,,,,person_ElizabethElson
@@ -431,7 +431,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10443,"Jeannina ""W8 Matters"" Williams",,,,person_JeanninaW8MattersWilliams
 10445,William Herbig,https://twitter.com/William_Herbig,https://www.facebook.com/will4anc,,person_WilliamHerbig
 10446,Jeremy Foster,,,,person_JeremyFoster
-10447,Audrey Anderson Duckett,https://twitter.com/ANC_Audrey,,,person_AudreyAndersonDuckett
+10447,Audrey Anderson Duckett,https://twitter.com/audreyaduckett,,,person_AudreyAndersonDuckett
 10448,Steven Reaves Couper,,,,person_StevenReavesCouper
 10449,Mary L. Farmer-Allen,,,,person_MaryLFarmerAllen
 10450,Cindy Drabek,,,,person_CindyDrabek
@@ -475,7 +475,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10489,Alexandra Morgan,,,,person_AlexandraMorgan
 10490,Jonathan Alfuth,,,,person_JonathanAlfuth
 10491,Justin R. Riordan,https://twitter.com/Justin_Riordan,,https://www.justin4anc.info/,person_JustinRRiordan
-10492,Steven Tiller,https://twitter.com/STiller8A07,,,person_StevenTiller
+10492,Steven Tiller,https://twitter.com/tillertitan,,,person_StevenTiller
 10493,Sara Cantos Kline,,,,person_SaraCantosKline
 10494,Claudette David,,,,person_ClaudetteDavid
 10495,Matt Buechner,https://twitter.com/mattbuechner,,,person_MattBuechner
@@ -643,7 +643,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 10665,Zach Teutsch,,,,person_ZachTeutsch
 10667,Margaret Hundley,,,,person_MargaretHundley
 10668,Marc Morgan,,,,person_MarcMorgan
-10669,Brian Footer,,,,person_BrianFooter
+10669,Brian Footer,https://twitter.com/bdfooter,,,person_BrianFooter
 10670,Jonathan Goldman,,,,person_JonathanGoldman
 10671,Jeremy C. Leffler,,,,person_JeremyCLeffler
 10672,Ellen Nedrow Sullivan,,,,person_EllenNedrowSullivan
@@ -1127,7 +1127,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11156,Dana Lutenegger,,,,person_DanaLutenegger
 11157,Katelynd Mahoney,,,,person_KatelyndMahoney
 11158,Rebekah Caruthers,,,,person_RebekahCaruthers
-11159,Anthony Dale,,,,person_AnthonyDale
+11159,Anthony Dale,https://twitter.com/comnrdale,,,person_AnthonyDale
 11160,David Garber,,,,person_DavidGarber
 11161,Josh Hart,,,,person_JoshHart
 11162,Meredith Fascett,,,,person_MeredithFascett
@@ -1304,7 +1304,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11342,Devon Lesesne,https://twitter.com/TheeBlackAnglo,,,person_DevonLesesne
 11343,Charles Cadwell,https://twitter.com/ChasCadwell,,,person_CharlesCadwell
 11344,Howard Bauleke,,,,person_HowardBauleke
-11345,Carlo Perri,,,,person_CarloPerri
+11345,Carlo Perri,https://twitter.com/cperridc,,,person_CarloPerri
 11346,Cimrun Srivastara,,,,person_CimrunSrivastara
 11347,Maxime Devilliers,https://twitter.com/maxdevilliers,,,person_MaximeDevilliers
 11348,Arnav Kumar,,,,person_ArnavKumar
@@ -1446,7 +1446,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11486,"Bobby ""Slli'm"" Williams",,,,person_BobbySllimWilliams
 11487,Andrew McCarthy-Clark,https://twitter.com/amccarthyclark,https://www.facebook.com/amccarthyclark,https://www.andrewfordc.com/,person_AndrewMcCarthyClark
 11488,Clayton Aristotle Rosenberg,,,,person_ClaytonAristotleRosenberg
-11489,Joseph Van Wye,,,,person_JosephVanWye
+11489,Joseph Van Wye,https://twitter.com/joevanwye,,,person_JosephVanWye
 11490,Neil Rocklin,,,,person_NeilRocklin
 11491,Matthew Fouracre,,,,person_MatthewFouracre
 11492,H. Norman Knickle,,,,person_HNormanKnickle
@@ -1470,7 +1470,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11510,J. Swiderski,https://twitter.com/js_1b07,,,person_JSwiderski
 11511,Zach Ammerman,https://twitter.com/ZachANC5A09,,,person_ZachAmmerman
 11512,David Segall,,,,person_DavidSegall
-11513,Ashleigh Fields,,,,person_AshleighFields
+11513,Ashleigh Fields,https://twitter.com/ashleighfields_,,,person_AshleighFields
 11514,Lynda Laughlin,https://twitter.com/llaughlin,,,person_LyndaLaughlin
 11515,Steven McCarty,https://twitter.com/stevenfordc,,,person_StevenMcCarty
 11516,Jeffrey Denny,,,,person_JeffreyDenny
@@ -1484,7 +1484,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11524,Aileen Nowlan,,,,person_AileenNowlan
 11525,Nicholas Ide,,,,person_NicholasIde
 11526,Duvalier J. Malone,https://twitter.com/anc5a01,,,person_DuvalierJMalone
-11527,Alicia Egolum,,,,person_AliciaEgolum
+11527,Alicia Egolum,https://twitter.com/Draliciaegolum,,,person_AliciaEgolum
 11528,Stephen Moilanen,,,,person_StephenMoilanen
 11529,Lauren Kuritz,,,,person_LaurenKuritz
 11530,Lindsay Webb,,,,person_LindsayWebb
@@ -1507,7 +1507,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11547,Fred Hill,,,,person_FredHill
 11548,Gupi Howie,,,,person_GupiHowie
 11549,Warren Gorlick,https://twitter.com/warren4anc,,,person_WarrenGorlick
-11550,Bridget Schwartz,https://twitter.com/BridgetANC3F06,https://www.facebook.com/BridgetANC3F06,https://bridgetanc3f06.org/,person_BridgetSchwartz
+11550,Bridget Schwartz,https://twitter.com/bridgets_dc,https://www.facebook.com/BridgetANC3F06,https://bridgetanc3f06.org/,person_BridgetSchwartz
 11551,Jonathan La Broi,,,,person_JonathanLaBroi
 11552,Kevin Gilligan,https://twitter.com/kevingilliganDC,,,person_KevinGilligan
 11553,Stefan A. Nagey,,,,person_StefanANagey
@@ -1530,7 +1530,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11570,Sheena Berry,,,,person_SheenaBerry
 11571,Ana Elizabeth Guzman,,,,person_AnaElizabethGuzman
 11572,Justin Daniels,,,,person_JustinDaniels
-11573,Tammy Gordon,,,,person_TammyGordon
+11573,Tammy Gordon,https://twitter.com/tammy,,,person_TammyGordon
 11574,Christopher J. Rosier,,,,person_ChristopherJRosier
 11575,Daniel Alexander,,,,person_DanielAlexander
 11576,Antonio A. Walker,,,,person_AntonioAWalker
@@ -1563,7 +1563,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11603,Addison Sarter,,,,person_AddisonSarter
 11604,Paula Y. Edwards,,,,person_PaulaYEdwards
 11605,Alphonse Canata,,,,person_AlphonseCanata
-11606,Michael Cohen,https://twitter.com/cohenforanc,,,person_MichaelCohen
+11606,Michael Cohen,https://twitter.com/CohenANC4B07,,,person_MichaelCohen
 11607,Mariko Meyer,,,,person_MarikoMeyer
 11608,Richard McLaughlin,,,,person_RichardMcLaughlin
 11609,Carrie Dellesky,https://twitter.com/DelleskyANC5D06,,,person_CarrieDellesky
@@ -1599,11 +1599,11 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11639,Rohan Patel,,,,person_RohanPatel
 11640,Joe Florio,,,,person_JoeFlorio
 11641,Judy Havemann,,,,person_JudyHavemann
-11642,Charles Panfil,,,,person_CharlesPanfil
+11642,Charles Panfil,https://twitter.com/charlesforanc,,,person_CharlesPanfil
 11643,Krystal Bagley,,,,person_KrystalBagley
 11644,Casey Swegman,,,,person_CaseySwegman
 11645,Lisa D. T. Rice,https://twitter.com/LisaDTRice,,,person_LisaDTRice
-11646,Dylan Forest,,,,person_DylanForest
+11646,Dylan Forest,https://twitter.com/forest4dc,,,person_DylanForest
 11647,Ritanch Hans,https://twitter.com/Ritmai,,,person_RitanchHans
 11648,Diego Carney,,,,person_DiegoCarney
 11649,La'Shaunta Davis,,,,person_LaShauntaDavis
