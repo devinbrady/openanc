@@ -1532,7 +1532,7 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11572,Justin Daniels,,,,person_JustinDaniels
 11573,Tammy Gordon,https://twitter.com/tammy,,,person_TammyGordon
 11574,Christopher J. Rosier,,,,person_ChristopherJRosier
-11575,Daniel Alexander,,,,person_DanielAlexander
+11575,Daniel Alexander,https://twitter.com/danator,,,person_DanielAlexander
 11576,Antonio A. Walker,,,,person_AntonioAWalker
 11577,Aman George,,,,person_AmanGeorge
 11578,Carla Ferris,,,,person_CarlaFerris
@@ -1630,3 +1630,4 @@ person_id,full_name,twitter_link,facebook_link,website_link,person_name_id
 11670,Leonard Eugene Bishop,,,,person_LeonardEugeneBishop
 11671,Evette (S.L.) Lang,,,,person_EvetteSLLang
 11672,Carlos Richardson,,,,person_CarlosRichardson
+11673,George Viedma,,,,person_GeorgeViedma

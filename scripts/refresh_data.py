@@ -546,6 +546,9 @@ class RefreshData():
             people_create[['person_id_suggested', 'full_name']].to_csv('data/add_to_people.csv', index=False)
             print('People to create saved to: data/add_to_people.csv')
 
+        if len(good_matches) > 0 or len(people_create) > 0:
+            raise SystemExit('Add data to source spreadsheet before continuing.')
+
 
 
     def run_matching_process(self, new_external_ids, name_column):

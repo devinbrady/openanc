@@ -91,7 +91,7 @@ def incumbent_df():
     comm.rename(columns={'smd_id': 'commissioner_smd_id'}, inplace=True)
     pc = pd.merge(people[['person_id', 'full_name']], comm, how='inner', on='person_id')
 
-    candidates = list_candidates(election_year=2022)
+    candidates = list_candidates(election_year=config.current_election_year)
     candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
     candidates = pd.merge(candidates, candidate_statuses, how='inner', on='candidate_status')
     candidates.rename(columns={'smd_id': 'candidate_smd_id'}, inplace=True)
@@ -127,7 +127,7 @@ def incumbent_df():
         generate_link(x.commissioner_smd_id, link_source='root', link_body=x.commissioner_smd_name)
         , axis=1
     )
-    comm_candidates_nrd['2022 Candidate SMD'] = comm_candidates_nrd.apply(lambda x:
+    comm_candidates_nrd[f'{config.current_election_year} Candidate SMD'] = comm_candidates_nrd.apply(lambda x:
         '(none)' if pd.isnull(x.candidate_smd_id) else
         generate_link(x.candidate_smd_id, link_source='root', link_body=x.candidate_smd_name)
         , axis=1
@@ -332,7 +332,7 @@ def list_candidates(election_year=config.current_election_year):
     """
     Return DataFrame with candidates, either in a particular year or for all time
 
-    election_year=2022 : only return candidates with the election year of 2022 (default)
+    election_year=2022 : only return candidates with the election year of 2022
     election_year=None : return candidates from all years
     """
 

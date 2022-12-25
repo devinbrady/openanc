@@ -2,15 +2,15 @@
 Process list of candidates from the DC Board of Elections
 
 How it should work:
-Here is a list of dcboe_hash_id not currently in the OpenANC candidate list
+Here is a list of dcboe_hash__id not currently in the OpenANC candidate list
 The goal is to get them all in
 
-Does this new dcboe_hash_id closely match an existing person, who is not already a candidate this year?
+Does this new dcboe_hash__id closely match an existing person, who is not already a candidate this year?
     Then use that matching person_id
     Else create a new person_id
 
 todo 2024:
-Move from dcboe_hash_id to the new external_id system
+Move from dcboe_hash__id to the new external_id system
 """
 
 import os
@@ -21,6 +21,8 @@ import pandas as pd
 from pathlib import Path
 
 import config
+config.current_election_year = 2022 # todo 2024: remove
+
 from scripts.refresh_data import RefreshData
 from scripts.data_transformations import (
     districts_candidates_commissioners
@@ -31,6 +33,7 @@ from scripts.data_transformations import (
 from scripts.common import (
     match_names
     , hash_dataframe
+    , validate_smd_ids
     )
 
 pd.set_option('display.max_colwidth', 180)
@@ -101,7 +104,7 @@ class ProcessCandidates():
         """
         Process CSV made by Tabula from PDF from the DC Board of Elections
 
-        Result is a CSV of current candidates with dcboe_hash_id
+        Result is a CSV of current candidates with external_id
 
         todo: rename this function
         """
@@ -111,7 +114,7 @@ class ProcessCandidates():
         
         df_write_in = self.read_dcboe_excel('dcboe-write-in-')
         df_write_in['is_write_in'] = True
-        
+
         df = pd.concat([df_ballot, df_write_in], ignore_index=True)
 
         print('Number of districts in this file: {} (should be 345, ideally)'.format(df.smd.nunique()))
@@ -168,23 +171,28 @@ class ProcessCandidates():
         df['filed_date'] = pd.to_datetime(df['filed_date']).dt.strftime('%Y-%m-%d')
 
         # Make sure each district matches the actual list of districts
-        # todo 2024: use the common.validate_smd_ids() function here
-        districts = pd.read_csv('data/districts.csv')
-        valid_smd_ids = sorted(districts[districts.redistricting_year == config.current_redistricting_year])
-        invalid_smd_ids = [d for d in df.smd_id if d not in valid_smd_ids]
-
-        if invalid_smd_ids:
-            print('\nThese candidates in the DCBOE file will be dropped because their smd_id is not valid:')
-            print(df[df.smd_id.isin(invalid_smd_ids)][['smd_id', 'candidate_name']])
-
-            df = df[~df.smd_id.isin(invalid_smd_ids)].copy()
+        validate_smd_ids(df)
 
         # Create a new ID for this data based off of a hash of the district and candidate name
         df['candidate_name_upper'] = df['candidate_name'].str.upper()
-        df['dcboe_hash_id'] = hash_dataframe(df, ['smd_id', 'candidate_name_upper'])
+        df['external_id'] = hash_dataframe(df, ['smd_id', 'candidate_name_upper'])
+
+        # Add the write-in winners to the write-in dataframe, then dedupe it
+        # todo 2024: remove this bit
+        df_write_in_winners = pd.read_csv('data/dcboe/write_in_winners.csv')
+        df_write_in_winners = df_write_in_winners[df_write_in_winners.election_year == 2022].copy()
+        df_write_in_winners['candidate_source'] = 'DCBOE Write-In Winners'
+        df_write_in_winners['candidate_source_link'] = 'https://electionresults.dcboe.org/election_results/2022-General-Election'
+        df_write_in_winners['is_write_in'] = True
+        df_write_in_winners['candidate_status'] = 'Write-In Candidate'
+        df_write_in_winners['dcboe_updated_at'] = '2022-11-30'
+        
+        df = pd.concat([df, df_write_in_winners], ignore_index=True)
+        df = df.drop_duplicates(subset='external_id', keep='first')
+
 
         columns_to_save = [
-            'dcboe_hash_id'
+            'external_id'
             , 'smd_id'
             , 'candidate_name'
             , 'pickup_date'
@@ -204,7 +212,7 @@ class ProcessCandidates():
         rd = RefreshData()
 
         columns_to_save_to_google = [
-            'dcboe_hash_id'
+            'external_id'
             , 'smd_id'
             , 'candidate_name'
             , 'pickup_date'
@@ -250,7 +258,7 @@ class ProcessCandidates():
         candidates_dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
         # Exclude the hash_ids that are currently in the OpenANC candidates table
-        candidates_to_match = candidates_dcboe[ ~(candidates_dcboe['dcboe_hash_id'].isin(candidates['dcboe_hash_id'])) ].copy()
+        candidates_to_match = candidates_dcboe[ ~(candidates_dcboe['external_id'].isin(candidates['external_id'])) ].copy()
 
         candidates_to_match['match_person_id'] = pd.NA
         candidates_to_match['match_person_id'] = candidates_to_match['match_person_id'].astype('Int64')
@@ -284,7 +292,7 @@ class ProcessCandidates():
         
         candidates_to_match['good_match'] = '?'
         match_columns = [
-            'dcboe_hash_id'
+            'external_id'
             , 'match_score'
             , 'candidate_name'
             , 'match_person_full_name'
@@ -311,13 +319,13 @@ class ProcessCandidates():
 
         print(f'\nValid DCBOE candidates: {len(dcboe)}')
 
-        dcboe_in_openanc = [h for h in dcboe.dcboe_hash_id.tolist() if h in candidates.dcboe_hash_id.tolist()]
+        dcboe_in_openanc = [h for h in dcboe.external_id.tolist() if h in candidates.external_id.tolist()]
         print(f'DCBOE candidate IDs in OpenANC candidate list: {len(dcboe_in_openanc)}')
 
-        dcboe_not_in_openanc = [h for h in dcboe.dcboe_hash_id.tolist() if h not in candidates.dcboe_hash_id.tolist()]
+        dcboe_not_in_openanc = [h for h in dcboe.external_id.tolist() if h not in candidates.external_id.tolist()]
         print(f'DCBOE candidate IDs *not* in OpenANC candidate list: {len(dcboe_not_in_openanc)}')
 
-        openanc_candidates_not_in_dcboe_file = ~( candidates['dcboe_hash_id'].isin(dcboe['dcboe_hash_id']) )
+        openanc_candidates_not_in_dcboe_file = ~( candidates['external_id'].isin(dcboe['external_id']) )
         print(f'OpenANC candidates not in current DCBOE candidate list: {openanc_candidates_not_in_dcboe_file.sum()}')
 
         return dcboe_not_in_openanc, openanc_candidates_not_in_dcboe_file
@@ -355,8 +363,8 @@ class ProcessCandidates():
 
         # Candidates who need a hash ID change
         candidates_change_hash_id = mc[mc.candidate_id.notnull()].copy()
-        print(f'\nExisting candidates need the dcboe_hash_id changed ({len(candidates_change_hash_id)} people): 2a_candidates_change_hash_id.csv')
-        change_hash_columns = ['candidate_id', 'person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']
+        print(f'\nExisting candidates need the external_id changed ({len(candidates_change_hash_id)} people): 2a_candidates_change_hash_id.csv')
+        change_hash_columns = ['candidate_id', 'person_id', 'external_id', 'smd_id', 'candidate_name']
         candidates_change_hash_id[change_hash_columns].sort_values(by='candidate_id').to_csv('data/dcboe/2a_candidates_change_hash_id.csv', index=False)
 
         # Candidates who are existing people
@@ -369,7 +377,7 @@ class ProcessCandidates():
             candidates_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
             max_id_candidate += 1
 
-        candidates_create_columns = ['candidate_id_suggested', 'match_person_id', 'dcboe_hash_id', 'smd_id', 'candidate_name']
+        candidates_create_columns = ['candidate_id_suggested', 'match_person_id', 'external_id', 'smd_id', 'candidate_name']
         candidates_create[candidates_create_columns].to_csv('data/dcboe/2b_candidates_create.csv', index=False)
 
         print(f'New people need to be created ({len(people_create)} people): 2c_people_create.csv')
@@ -388,21 +396,21 @@ class ProcessCandidates():
         people_create_columns = [
             'candidate_id_suggested'
             , 'person_id_suggested'
-            , 'dcboe_hash_id'
+            , 'external_id'
             , 'smd_id'
             , 'candidate_name'
         ]
         
         people_create[people_create_columns].to_csv('data/dcboe/2c_people_create.csv', index=False)                
 
-        openanc_not_in_dcboe = [h for h in candidates_this_year[candidates_this_year.dcboe_hash_id.notnull()].dcboe_hash_id.tolist() if h not in dcboe.dcboe_hash_id.tolist()]
+        openanc_not_in_dcboe = [h for h in candidates_this_year[candidates_this_year.external_id.notnull()].external_id.tolist() if h not in dcboe.external_id.tolist()]
         print(f'\nCandidates hash_ids in OpenANC that are no longer in the DCBOE list (should be zero): {len(openanc_not_in_dcboe)}')
         
         if openanc_not_in_dcboe:
             print('\nThese candidates have a hash_id in the OpenANC candidates list but are no longer on the DCBOE list:')
 
             print('(a lot of them, because candidates who did not submit signatures were taken out of the candidate list)\n')
-            # print(candidates_this_year[candidates_this_year.dcboe_hash_id.isin(openanc_not_in_dcboe)][['dcboe_hash_id', 'smd_id', 'candidate_name']])
+            # print(candidates_this_year[candidates_this_year.external_id.isin(openanc_not_in_dcboe)][['external_id', 'smd_id', 'candidate_name']])
 
 
 
@@ -410,7 +418,7 @@ class ProcessCandidates():
 
         df = self.clean_csv()
 
-        confirm_key_uniqueness('data/dcboe/candidates_dcboe.csv', 'dcboe_hash_id')
+        confirm_key_uniqueness('data/dcboe/candidates_dcboe.csv', 'external_id')
 
         dcboe_not_in_openanc, openanc_candidates_not_in_dcboe_file = self.candidate_counts()
 

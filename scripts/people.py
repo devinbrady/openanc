@@ -71,16 +71,26 @@ class BuildPeople():
             , on='candidate_id'
             )
 
-        incumbents = incumbent_df()
-        incumbents_not_candidates = incumbents[incumbents.reelection_status != 'Is Running'].copy()
-        incumbents_not_candidates['election_year'] = config.current_election_year
-        self.candidates_districts_results['reelection_status'] = None
+        """
+        During an election after redistricting, it's necessary to show whether current incumbents
+        are running, and what district they're running in. 
+        
+        In other election years, it's not necessary to include the incumbents in the dataframe of candidates,
+        since they are likely running in the district that they currently represent.
+        """
 
-        self.candidates_districts_results_incumbents = pd.concat([
-            self.candidates_districts_results
-            , incumbents_not_candidates[['person_id', 'election_year', 'reelection_status']]
-            ], ignore_index=True
-            )
+        # incumbents = incumbent_df()
+        # incumbents_not_candidates = incumbents[incumbents.reelection_status != 'Is Running'].copy()
+        # incumbents_not_candidates['election_year'] = config.current_election_year
+        # self.candidates_districts_results['reelection_status'] = None
+
+        # self.candidates_districts_results_incumbents = pd.concat([
+        #     self.candidates_districts_results
+        #     , incumbents_not_candidates[['person_id', 'election_year', 'reelection_status']]
+        #     ], ignore_index=True
+        #     )
+
+        self.candidates_districts_results_incumbents = self.candidates_districts_results.copy()
 
 
 
