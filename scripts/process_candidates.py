@@ -21,7 +21,6 @@ import pandas as pd
 from pathlib import Path
 
 import config
-config.current_election_year = 2022 # todo 2024: remove
 
 from scripts.refresh_data import RefreshData
 from scripts.data_transformations import (
