@@ -255,10 +255,10 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
         columns_to_html += ['Current Commissioner']
 
     if any(display_df.redistricting_year == 2022):
-        columns_to_html += candidate_status_name_list
+        columns_to_html += ['Current Commissioner']
 
-    if any(display_df.commissioner_elect.notnull()):
-        columns_to_html += ['Commissioner-Elect']
+    # if any(display_df.commissioner_elect.notnull()):
+    #     columns_to_html += ['Commissioner-Elect']
 
     # Hash the first column and all column names. Used a CSS id for the resulting table.
     # First column + column names should change less frequently than the table contents.

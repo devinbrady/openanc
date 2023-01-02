@@ -166,17 +166,16 @@ class RefreshData():
             # if '_2022_' in row.smd_id:
             #     map_display_box += f'<br/>Candidates: {row.list_of_candidate_links}'
 
-            if row.redistricting_year == 2012:
-                # If a current commissioner exists in the district, append the Commissioner string
-                if pd.notnull(row.current_commissioner):
-                    map_display_box += f'<br/>Commissioner: {row.current_commissioner}'
+            # todo: what labels should be put on old map, if any?
+            # If a current commissioner exists in the district, append the Commissioner string
+            if pd.notnull(row.current_commissioner):
+                map_display_box += f'<br/>Commissioner: {row.current_commissioner}'
 
-            else:
-                # If a commissioner with a future start_date exists for the SMD, append the Commissioner-Elect string
-                if pd.notnull(row.commissioner_elect):
-                    map_display_box += f'<br/>Commissioner-Elect: {row.commissioner_elect}'
-                else:
-                    map_display_box += f'<br/>Commissioner-Elect: (vacant)'
+            # If a commissioner with a future start_date exists for the SMD, append the Commissioner-Elect string
+            if pd.notnull(row.commissioner_elect):
+                map_display_box += f'<br/>Commissioner-Elect: {row.commissioner_elect}'
+            # else:
+            #     map_display_box += f'<br/>Commissioner-Elect: (vacant)'
 
             cp.loc[idx, 'map_display_box'] = map_display_box
 

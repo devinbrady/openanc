@@ -48,7 +48,7 @@ class BuildIndex():
 
         redist_header = ['Election 2022', 'Election 2020']
 
-        for idx, redistricting_yr in enumerate([2022, 2012]):
+        for idx, redistricting_yr in enumerate([2022]):
 
             html += f'<h2>{redist_header[idx]}</h2>'
 
