@@ -200,7 +200,7 @@ class BuildPeople():
                 or ((person_candidacies.election_year == config.current_election_year).sum() > 0)
             ):
 
-            link_table = build_data_table(person, ['website_link', 'twitter_link', 'facebook_link'])
+            link_table = build_data_table(person, ['website_link', 'mastodon_link', 'twitter_link', 'facebook_link'])
             if link_table != '':
                 link_table = '<h2>Links</h2><ul>' + link_table + '</ul>'
             output = output.replace('<!-- replace with person links -->', link_table)

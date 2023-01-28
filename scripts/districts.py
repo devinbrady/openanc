@@ -76,7 +76,7 @@ class BuildDistricts():
 
         self.people_candidate_statuses['link_block'] = self.people_candidate_statuses.apply(
             lambda row: build_link_block(
-                row, fields_to_try=['website_link', 'twitter_link', 'facebook_link'])
+                row, fields_to_try=['website_link', 'mastodon_link', 'twitter_link', 'facebook_link'])
             , axis=1
             )
 
@@ -114,7 +114,7 @@ class BuildDistricts():
 
             smd_commissioners['link_block'] = smd_commissioners.apply(
                 lambda row: build_link_block(
-                    row, fields_to_try=['website_link', 'twitter_link', 'facebook_link'])
+                    row, fields_to_try=['website_link', 'mastodon_link', 'twitter_link', 'facebook_link'])
                 , axis=1
                 )
 

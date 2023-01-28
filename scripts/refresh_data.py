@@ -268,6 +268,7 @@ class RefreshData():
             , 'start'
             , 'end'
             , 'twitter_link'
+            , 'mastodon_link'
             , 'facebook_link'
             , 'website_link'
             , 'openanc_link'
@@ -576,7 +577,7 @@ class RefreshData():
 
     def download_google_sheets(self, do_full_refresh):
 
-        self.refresh_csv('people', 'A:E')
+        self.refresh_csv('people', 'A:F')
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('commissioners', 'A:E')
         self.refresh_csv('external_id_lookup', 'A:C')
