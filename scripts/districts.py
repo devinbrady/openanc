@@ -103,9 +103,6 @@ class BuildDistricts():
         if len(smd_commissioners) == 0:
 
             if '_2022_' in smd_id:
-                # Leave this block empty for new districts
-                commissioner_block = ''
-            else:
                 commissioner_block = vacant_string
         
         else:

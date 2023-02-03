@@ -239,9 +239,13 @@ class RefreshData():
         """
 
         # Commissioners currently active
-        commissioners = list_commissioners(status='future') # todo Jan 2023: change back to current
+        commissioners = list_commissioners(status='current')
         people = people_dataframe()
         districts = pd.read_csv('data/districts.csv')
+
+        if len(commissioners) == 0:
+            print('There are no current commissioners in the database to publish to Google Sheets.')
+            return
 
         # Only use the current districts for the list of active commissioners
         districts = districts[districts.redistricting_year == config.current_redistricting_year].copy()
@@ -608,7 +612,7 @@ class RefreshData():
         # self.generate_external_id_lookup_table()
 
         self.check_database_for_new_external_ids()
-
+        
         confirm_key_uniqueness('data/people.csv', 'person_id')
         confirm_key_uniqueness('data/candidates.csv', 'candidate_id')
         confirm_key_uniqueness('data/external_id_lookup.csv', 'external_id')
@@ -620,7 +624,6 @@ class RefreshData():
 
         self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
         self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')
-
         self.add_data_to_label_points('maps/label-points-2012.csv', 'uploads/to-mapbox-label-points-2012-data.geojson')
         self.add_data_to_label_points('maps/label-points-2022.csv', 'uploads/to-mapbox-label-points-2022-data.geojson')
 
