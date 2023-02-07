@@ -315,10 +315,7 @@ def build_district_list(smd_id_list=None, link_source='root', show_redistricting
         smd_id = district_row['smd_id']
 
         if district_row['full_name'] == '(vacant)':
-            if district_row['redistricting_year'] == 2022:
-                commissioner_name = ''
-            else:
-                commissioner_name = ': (vacant)'
+            commissioner_name = ': (vacant)'
         else:
             commissioner_name = ': Commissioner ' + district_row['full_name']
 
