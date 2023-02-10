@@ -150,11 +150,11 @@ class BuildIndex():
 
         c = Counts()
 
-        output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
-        output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
-        output = output.replace('REPLACE_WITH_WARD_CONTESTED_COUNT', c.contested_count_by_grouping('ward_link'))
-        output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
-        output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
+        # output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
+        # output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
+        # output = output.replace('REPLACE_WITH_WARD_CONTESTED_COUNT', c.contested_count_by_grouping('ward_link'))
+        # output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
+        # output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
         output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
         # c.pickups_plot()
 
@@ -276,7 +276,7 @@ class BuildIndex():
 
         self.build_map_page('index')
         # self.incumbent_page()
-        # self.count_page() # todo: re-enable the Counts page when it's been reconfigured for between-election time
+        self.count_page()
         self.about_page()
         # self.build_single_page('index')
         # self.build_map_page_contested('contested')

@@ -34,7 +34,7 @@ class Counts():
         """
 
         districts = pd.read_csv('data/districts.csv')
-        districts = districts[districts.redistricting_year == 2012].copy()
+        districts = districts[districts.redistricting_year == 2022].copy()
 
         commissioners = list_commissioners(status='current')
 
