@@ -13,7 +13,8 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 
-class TestLinks():
+
+class ValidateLinks():
 
     def __init__(self):
         """
@@ -97,7 +98,7 @@ class TestLinks():
 
 
 
-    def test_internal_links(self):
+    def validate_internal_links(self):
         """
         Make sure that every local link points to a file that exists under the HTML root
         """

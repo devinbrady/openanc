@@ -15,7 +15,7 @@ from scripts.districts import BuildDistricts
 from scripts.ancs import BuildANCs
 from scripts.wards import BuildWards
 from scripts.people import BuildPeople
-from tests.test_links import TestLinks
+from tests.validate_links import ValidateLinks
 
 start_time = datetime.now()
 
@@ -28,7 +28,7 @@ parser.add_argument('-w', '--build-wards', action='store_true', help='Build page
 parser.add_argument('-a', '--build-ancs', action='store_true', help='Build page for each ANC')
 parser.add_argument('-d', '--build-districts', action='store_true', help='Build page for each SMD')
 parser.add_argument('-p', '--build-people', action='store_true', help='Build page for each person')
-parser.add_argument('-t', '--test-links', action='store_true', help='Test internal link validity')
+parser.add_argument('-v', '--validate-links', action='store_true', help='Confirm internal link validity')
 parser.add_argument('-e', '--election-results', action='store_true', help='Process election results from DCBOE')
 parser.add_argument('--all', action='store_true', help='Run all site-building steps')
 
@@ -53,7 +53,7 @@ if args.all:
     args.build_ancs = True
     args.build_districts = True
     args.build_people = True
-    args.test_links = True
+    args.validate_links = True
 
 
 # todo: maybe put the refresh_data step after both of the process_ ones?
@@ -89,9 +89,9 @@ if args.build_people:
     bp = BuildPeople()
     bp.run()
 
-if args.test_links:
-    tl = TestLinks()
-    tl.test_internal_links()
+if args.validate_links:
+    tl = ValidateLinks()
+    tl.validate_internal_links()
 
 
 
