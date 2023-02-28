@@ -245,7 +245,7 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
     display_df['Candidates'] = display_df['list_of_candidate_links']
     display_df['Commissioner-Elect'] = display_df['commissioner_elect']
 
-    columns_to_html = ['SMD', 'Election Year']
+    columns_to_html = ['SMD']
 
     display_df['Election Year'] = '2022'
     display_df.loc[display_df.redistricting_year == 2012, 'Election Year'] = '2020'
