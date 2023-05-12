@@ -481,7 +481,7 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 10495,Matt Buechner,https://twitter.com/mattbuechner,,,,person_MattBuechner
 10496,Chris Hall,,,,,person_ChrisHall
 10497,Muhsin Umar,,,,,person_MuhsinUmar
-10498,Karen Gaal,,,https://www.facebook.com/KarenGaalDC/,https://karengaal.com/,person_KarenGaal
+10498,Karen Gaal,https://twitter.com/Anc1B04,,https://www.facebook.com/KarenGaalDC/,https://karengaal.com/,person_KarenGaal
 10499,Judy Floy,,,,,person_JudyFloy
 10500,Eric Behna,https://twitter.com/ericbehna,,,https://www.ericbehna1b08.com/,person_EricBehna
 10502,Adam M. Hoyt,https://twitter.com/adamhoyt,,,,person_AdamMHoyt
@@ -1645,3 +1645,4 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11685,Davina Carson,,,,,person_DavinaCarson
 11686,Daniel Michelson-Horowitz,,,,,person_DanielMichelsonHorowitz
 11687,Christian Hara,,,,,person_ChristianHara
+11688,Tyeron Boston,,,,,person_TyeronBoston
