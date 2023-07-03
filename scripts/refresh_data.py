@@ -183,6 +183,8 @@ class RefreshData():
 
         smd_df.to_file(destination_filename, driver='GeoJSON')
 
+        print(f'GeoJSON file saved: {destination_filename}')
+
 
 
     def add_data_to_label_points(self, source_csv, destination_filename):
