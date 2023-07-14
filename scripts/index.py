@@ -4,6 +4,8 @@ Build Index page
 
 import pandas as pd
 
+import config
+
 from scripts.common import (
     add_footer
     , candidate_form_link
@@ -203,6 +205,7 @@ class BuildIndex():
         output = add_footer(output, link_source='root')
 
         mb_style_slugs = mapbox_slugs()
+        output = output.replace('REPLACE_WITH_MAPBOX_GL_JS_VERSION', config.mapbox_gl_js_version)
         output = output.replace('REPLACE_WITH_SMD_SLUG', mb_style_slugs['smd'])
         output = output.replace('REPLACE_WITH_SMD_2022_SLUG', mb_style_slugs['smd-2022'])
         # output = output.replace('REPLACE_WITH_SMD_2022_NO_CANDIDATES_SLUG', mb_style_slugs['smd-2022-no-candidates'])

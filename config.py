@@ -27,3 +27,14 @@ current_redistricting_year = 2022
 
 # This is the local timezone for all time-related functions.
 site_timezone = 'America/New_York'
+
+
+"""
+This is the current version of Mapbox GL JS the project uses.
+
+In general, we want to use a really recent version, and we haven't seen any changes
+to OpenANC functionality from changing versions,
+
+For most recent version, see: https://docs.mapbox.com/mapbox-gl-js/guides/
+"""
+mapbox_gl_js_version = 'v2.15.0'

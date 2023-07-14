@@ -11,6 +11,8 @@ import geopandas as gpd
 from datetime import datetime
 from collections import OrderedDict
 
+import config
+
 from scripts.common import (
     build_district_list
     , build_data_table
@@ -473,6 +475,7 @@ class BuildDistricts():
             with open('templates/district.html', 'r') as f:
                 output = f.read()
                 
+            output = output.replace('REPLACE_WITH_MAPBOX_GL_JS_VERSION', config.mapbox_gl_js_version)
             output = output.replace('REPLACE_WITH_SMD_NAME', f'{row.smd_name} [{row.redistricting_cycle} Cycle]')
 
             if row['redistricting_year'] == 2012:

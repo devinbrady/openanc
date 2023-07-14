@@ -8,6 +8,8 @@ import pandas as pd
 from tqdm import tqdm
 import geopandas as gpd
 
+import config
+
 from scripts.common import (
     build_smd_html_table
     , add_footer
@@ -49,6 +51,7 @@ class BuildWards():
 
         output = add_google_analytics(output)
 
+        output = output.replace('REPLACE_WITH_MAPBOX_GL_JS_VERSION', config.mapbox_gl_js_version)
         output = output.replace('REPLACE_WITH_LIST_NAME', f'List of Wards (Redistricting Year {redistricting_year})')
         output = output.replace('REPLACE_WITH_LINK_PATH___', relative_link_prefix(source='ward', destination='root'))
 

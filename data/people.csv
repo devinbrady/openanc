@@ -1321,7 +1321,7 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11359,Amanda Gore,,,,,person_AmandaGore
 11360,Luc Saint-Genies,https://twitter.com/lucrsaintgenies,,,https://www.lucrsaintgenies.com/,person_LucSaintGenies
 11361,Thaddeus Bradley-Lewis,https://twitter.com/Thad3A01,,,,person_ThaddeusBradleyLewis
-11362,VJ Kapur,https://twitter.com/vjkapur,,https://facebook.com/vkapur,https://vj4anc.com,person_VJKapur
+11362,VJ Kapur,https://twitter.com/anc5c07,,https://facebook.com/vkapur,https://vj4anc.com,person_VJKapur
 11363,Tucker Jones,https://twitter.com/tuckcomatus,,,https://www.tuckerfordc.com/,person_TuckerJones
 11364,Quentin Colón Roosevelt,https://twitter.com/qcolonroosevelt,,,,person_QuentinColónRoosevelt
 11365,Zachary Adams,https://twitter.com/zacheadams,,,,person_ZacharyAdams
@@ -1330,7 +1330,7 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11368,Matthew Bradfield,https://twitter.com/palerider318,,,https://matthewbforanc.blogspot.com/,person_MatthewBradfield
 11369,"Wendy ""Hope Dealer"" Hamilton",https://twitter.com/anc8d06,,https://www.facebook.com/RevWendyHamilton,https://www.revwendyhamilton.com/,person_WendyHopeDealerHamilton
 11370,Thomas Marabello,https://twitter.com/TomMarabello,,,,person_ThomasMarabello
-11371,Jeremy Sherman,,,,,person_JeremySherman
+11371,Jeremy Sherman,https://twitter.com/JShermanANC,,,,person_JeremySherman
 11372,Eric Jonathan Sheptok,,,,,person_EricJonathanSheptok
 11373,Carson Robb,,,https://www.facebook.com/carson.robb,https://carsonrobb.com/,person_CarsonRobb
 11374,Patrick Clawson,,,,,person_PatrickClawson
@@ -1392,8 +1392,8 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11431,Dascha Cleckley,,,,,person_DaschaCleckley
 11432,Gordon Chaffin,,,,https://linktr.ee/gordonchaffin,person_GordonChaffin
 11433,Elan Strait,,,,,person_ElanStrait
-11434,Erika Nunez,,,,,person_ErikaNunez
-11435,Angela Allison,,,,,person_AngelaAllison
+11434,Erika Nunez,https://twitter.com/Erika4DC,,,,person_ErikaNunez
+11435,Angela Allison,https://twitter.com/AngelaAllisonDC,,,,person_AngelaAllison
 11436,Jim Malec,https://twitter.com/jimmalec,,,,person_JimMalec
 11437,Bernard Kramer,,,,,person_BernardKramer
 11438,Jordan Nassar,,,,,person_JordanNassar
@@ -1537,15 +1537,15 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11577,Aman George,,,,,person_AmanGeorge
 11578,Carla Ferris,,,,,person_CarlaFerris
 11579,Justine Perkowski,https://twitter.com/JPforANC5B07,,,,person_JustinePerkowski
-11580,Kevin Rapp,,,,,person_KevinRapp
+11580,Kevin Rapp,https://twitter.com/KevinRappRealtr,,,,person_KevinRapp
 11581,Daniel Vega,,,,,person_DanielVega
 11582,Joe Bishop-Henchman,https://twitter.com/joe5f6,,,,person_JoeBishopHenchman
-11583,Kasie Durkit,,,,,person_KasieDurkit
+11583,Kasie Durkit,https://twitter.com/ANC_6B05,,,,person_KasieDurkit
 11584,Katrina Norman,,,,,person_KatrinaNorman
 11585,Allyson Carpenter,,,,,person_AllysonCarpenter
 11586,Deloris Walker,,,,,person_DelorisWalker
 11587,Makeeya Hazelton,https://twitter.com/makeeyaanc8f04,,,,person_MakeeyaHazelton
-11588,Brian A. Glover,,,,,person_BrianAGlover
+11588,Brian A. Glover,https://twitter.com/GloverANC7C01,,,,person_BrianAGlover
 11589,Anthony Barnes,,,,,person_AnthonyBarnes
 11590,Bruce Sherman,,,,,person_BruceSherman
 11591,Glenn Kellogg,,,,,person_GlennKellogg
@@ -1580,7 +1580,7 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11620,Matthew Coleman,,,,,person_MatthewColeman
 11621,Reid May,https://twitter.com/ReidJMay,,,,person_ReidMay
 11622,Christopher Dyer,https://twitter.com/christopherjdye,,,,person_ChristopherDyer
-11623,Ahmad Abu-Khalaf,https://twitter.com/Ahmad_AbuKhalaf,,,,person_AhmadAbuKhalaf
+11623,Ahmad Abu-Khalaf,https://twitter.com/ANC6E05_AAK,,,,person_AhmadAbuKhalaf
 11624,Barney R. Shapiro,,,,,person_BarneyRShapiro
 11625,Paul Maysak,,,,,person_PaulMaysak
 11626,Danny Kedem,https://twitter.com/kedemdanny,,,,person_DannyKedem
@@ -1594,7 +1594,7 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11634,Brianne Eby,https://twitter.com/brianne_eby,,,,person_BrianneEby
 11635,Bradley Gallagher,https://twitter.com/bngallagher,,,,person_BradleyGallagher
 11636,Michael Lederman,,,https://www.facebook.com/michael.lederman.7,,person_MichaelLederman
-11637,Gary Decker,,,,,person_GaryDecker
+11637,Gary Decker,https://twitter.com/Anc1D07,,,,person_GaryDecker
 11638,Kim Mitchell,,,,,person_KimMitchell
 11639,Rohan Patel,,,,,person_RohanPatel
 11640,Joe Florio,,,,,person_JoeFlorio
@@ -1651,4 +1651,4 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11691,Th-Juan McLeese-Lewis,,,,,person_ThJuanMcLeeseLewis
 11692,Karla Reid-Witt,,,,,person_KarlaReidWitt
 11693,Eric Heller,https://twitter.com/ericanc4c07,,,,person_EricHeller
-11694,Anthony Thomas-Davis,,,,,person_AnthonyThomasDavis
+11694,Anthony Thomas-Davis,https://twitter.com/AnthThomasDavis,,,,person_AnthonyThomasDavis
