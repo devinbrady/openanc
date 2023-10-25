@@ -169,6 +169,7 @@ class BuildANCs():
         output = add_google_analytics(output)
         output = add_geojson(self.geojson_shape, 'anc_id', anc.anc_id, output)
         
+        output = output.replace('REPLACE_WITH_MAPBOX_GL_JS_VERSION', config.mapbox_gl_js_version)
         output = output.replace('REPLACE_WITH_ANC_NAME', f'{anc.anc_name} [{anc.redistricting_cycle} Cycle]')
         
         if anc['redistricting_year'] == 2012:

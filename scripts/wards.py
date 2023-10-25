@@ -106,6 +106,7 @@ class BuildWards():
         output = add_google_analytics(output)
         output = add_geojson(self.geojson_shape, 'ward_id', ward.ward_id, output)
         
+        output = output.replace('REPLACE_WITH_MAPBOX_GL_JS_VERSION', config.mapbox_gl_js_version)
         output = output.replace('REPLACE_WITH_WARD_NAME', f'{ward.ward_name} [{ward.redistricting_cycle} Cycle]')
         output = output.replace('REPLACE_WITH_CM', ward.councilmember)
         
