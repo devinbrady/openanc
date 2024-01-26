@@ -24,7 +24,7 @@ exceptiongroup==1.1.0
 executing==0.10.0
 fastjsonschema==2.16.1
 Fiona==1.8.21
-fonttools==4.36.0
+fonttools==4.43.0
 fuzzywuzzy==0.18.0
 geopandas==0.11.1
 gitdb==4.0.9
