@@ -68,7 +68,7 @@ class Counts():
         districts = pd.merge(districts, ancs[['anc_id', 'anc_link']], how='inner', on='anc_id')
         districts = pd.merge(districts, wards[['ward_id', 'ward_link']], how='inner', on='ward_id')
 
-        smd_df = districts_candidates_commissioners()
+        smd_df = districts_candidates_commissioners(redistricting_year=config.current_redistricting_year)
         districts = pd.merge(
             districts
             , smd_df
@@ -204,7 +204,7 @@ class Counts():
         Count the number of SMDs and number of SMDs with candidates in each ANC or ward
         """
 
-        df = districts_candidates_commissioners()
+        df = districts_candidates_commissioners(redistricting_year=config.current_redistricting_year)
 
         df['has_candidate'] = df['number_of_candidates'] > 0
 

@@ -141,7 +141,7 @@ def incumbent_df():
 
 
 
-def districts_candidates_commissioners(link_source=None, redistricting_year=config.current_redistricting_year):
+def districts_candidates_commissioners(link_source=None, redistricting_year=None):
     """
     Return DataFrame, one row per district, with candidate names and counts
 
