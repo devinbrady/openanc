@@ -567,7 +567,7 @@ class RefreshData():
         self.refresh_csv('people', 'A:F')
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('commissioners', 'A:E')
-        self.refresh_csv('external_id_lookup', 'A:C')
+        # self.refresh_csv('external_id_lookup', 'A:C')
 
         # Related to election results
         # self.refresh_csv('results', 'A:Q') #, filter_dict={'candidate_matched': 1})
