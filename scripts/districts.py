@@ -307,7 +307,7 @@ class BuildDistricts():
             ]
 
 
-        candidate_block = '<h2>2022 Candidates</h2>'
+        candidate_block = f'<h2>{config.current_election_year} Candidates</h2>'
 
         if num_candidates == 0:
             # candidate_form = candidate_form_link('Declare your candidacy using this form', smd_id=smd_id)
@@ -494,7 +494,7 @@ class BuildDistricts():
             # todo 2025 comment out
             output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
             # ---------------------
-            
+
             output = output.replace('<!-- replace with results table -->', self.add_results(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 

@@ -243,10 +243,12 @@ class BuildIndex():
         output = add_footer(output, link_source='root')
 
         mb_style_slugs = mapbox_slugs()
+        output = output.replace('REPLACE_WITH_MAPBOX_GL_JS_VERSION', config.mapbox_gl_js_version)
         output = output.replace('REPLACE_WITH_SMD_2022_NO_CANDIDATES_SLUG', mb_style_slugs['smd-2022-no-candidates'])
         output = output.replace('REPLACE_WITH_SMD_2022_ONE_CANDIDATE_SLUG', mb_style_slugs['smd-2022-one-candidate'])
         output = output.replace('REPLACE_WITH_SMD_2022_TWO_PLUS_CANDIDATES_SLUG', mb_style_slugs['smd-2022-two-plus-candidates'])
 
+        # Put counts on the contested map - currently not set up
         # c = Counts()
         # election_status_count, _ = c.contested_count_df()
         # election_status_count.set_index('Election Status', inplace=True)
