@@ -24,6 +24,7 @@ from scripts.data_transformations import (
 
 from scripts.urls import generate_link
 
+import config
 
 
 class Counts():
@@ -34,7 +35,7 @@ class Counts():
         """
 
         districts = pd.read_csv('data/districts.csv')
-        districts = districts[districts.redistricting_year == 2022].copy()
+        districts = districts[districts.redistricting_year == config.current_redistricting_year].copy()
 
         commissioners = list_commissioners(status='current')
 
@@ -57,7 +58,7 @@ class Counts():
         """Count of districts by number of candidates by ward or ANC"""
 
         districts = pd.read_csv('data/districts.csv')
-        districts = districts[districts.redistricting_year == 2022].copy()
+        districts = districts[districts.redistricting_year == config.current_redistricting_year].copy()
         ancs = pd.read_csv('data/ancs.csv')
         wards = pd.read_csv('data/wards.csv')
         
@@ -67,7 +68,7 @@ class Counts():
         districts = pd.merge(districts, ancs[['anc_id', 'anc_link']], how='inner', on='anc_id')
         districts = pd.merge(districts, wards[['ward_id', 'ward_link']], how='inner', on='ward_id')
 
-        smd_df = districts_candidates_commissioners(redistricting_year=2022)
+        smd_df = districts_candidates_commissioners()
         districts = pd.merge(
             districts
             , smd_df
@@ -278,7 +279,7 @@ class Counts():
     def contested_count_df(self):
         """Return DataFrame with the count of contested districts"""
 
-        smd_df = districts_candidates_commissioners(redistricting_year=2022)
+        smd_df = districts_candidates_commissioners(redistricting_year=config.current_redistricting_year)
         smd_df.rename(columns={'number_of_candidates': 'Number of Candidates'}, inplace=True)
 
         election_status_count = pd.DataFrame(columns=['Election Status', 'Count of Districts', 'Percentage'])
@@ -443,7 +444,10 @@ class Counts():
             )
 
 
-        pickups_html += '<p><img src="images/Candidates_Picking_Up_and_Filing.png" alt="Line graph showing candidates picking up and filing petitions comparing 2020 and 2022"></p>'
+        pickups_html += (
+            '<p><img src="images/Candidates_Picking_Up_and_Filing.png" '
+            + f'alt="Line graph showing candidates picking up and filing petitions comparing {config.current_election_year-2} and {config.current_election_year}"></p>'
+            )
 
         return pickups_html
 
@@ -452,7 +456,7 @@ class Counts():
     def pickups_plot(self):
         """
         Plot showing the running total of candidates who picked up and filed petitions by date,
-        comparing 2020 and 2022.
+        comparing the current election year with the previous cycle.
         """
 
         # Set the font to Helvetica

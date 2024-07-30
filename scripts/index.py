@@ -162,7 +162,7 @@ class BuildIndex():
         c = Counts()
 
         # -----------------------------------
-        # todo 2025: comment all of these out
+        # todo after election: comment all of these out
         output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
         output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
         output = output.replace('REPLACE_WITH_WARD_CONTESTED_COUNT', c.contested_count_by_grouping('ward_link'))
