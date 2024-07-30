@@ -160,7 +160,9 @@ class ProcessCandidates():
         df.loc[df.is_write_in, 'candidate_status'] = 'Write-In Candidate'
 
         print('\nCount of candidates by status:')
-        print(df.groupby('candidate_status').size())
+        candidate_count_by_status = df.candidate_status.value_counts()
+        candidate_count_by_status.loc['Total'] = candidate_count_by_status.sum()
+        print(candidate_count_by_status)
 
         # Fix bad dates and names
         # df.loc[df['candidate_name'] == 'Hasan Rasheedah', 'candidate_name'] = "Rasheedah Hasan"
@@ -434,8 +436,9 @@ class ProcessCandidates():
         if openanc_not_in_dcboe:
             print('\nThese candidates have a hash_id in the OpenANC candidates list but are no longer on the DCBOE list:')
 
-            print('(a lot of them, because candidates who did not submit signatures were taken out of the candidate list)\n')
-            # print(candidates_this_year[candidates_this_year.external_id.isin(openanc_not_in_dcboe)][['external_id', 'smd_id', 'candidate_name']])
+            # todo after ballot deadline - switch these lines
+            # print('(a lot of them, because candidates who did not submit signatures were taken out of the candidate list)\n')
+            print(candidates_this_year[candidates_this_year.external_id.isin(openanc_not_in_dcboe)][['external_id', 'smd_id', 'candidate_name']])
 
 
 

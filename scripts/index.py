@@ -130,7 +130,12 @@ class BuildIndex():
 
 
     def incumbent_page(self):
-        """Build page with list of incumbents by status"""
+        """
+        Build page with list of incumbents by status.
+
+        This was only really useful for the 2022 cycle because of redistricting,
+        it showed you the new district where incumbents were running.
+        """
 
         with open('templates/incumbents.html', 'r') as f:
             output = f.read()
@@ -179,7 +184,7 @@ class BuildIndex():
         with open('docs/counts.html', 'w') as f:
             f.write(output)
 
-        print('built: counts.html you know')
+        print('built: counts.html')
 
 
 
@@ -291,7 +296,7 @@ class BuildIndex():
         self.count_page()
         self.about_page()
         # self.build_single_page('index')
-        # self.build_map_page_contested('contested')
+        self.build_map_page_contested('contested') # todo after election 2024: comment this out
         self.build_single_page('404', link_source='absolute')
         self.build_single_page('nav')
         self.list_page()

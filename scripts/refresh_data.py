@@ -603,7 +603,7 @@ class RefreshData():
         self.confirm_commissioner_date_validity()
 
         dcc = districts_candidates_commissioners(link_source='root')
-        self.map_display_df = self.build_map_display_box(dcc)
+        self.map_display_df = self.build_map_display_box(cp=dcc)
 
         self.add_data_to_geojson('maps/smd-2012-preprocessed.geojson', 'uploads/to-mapbox-smd-2012-data.geojson')
         self.add_data_to_geojson('maps/smd-2022-preprocessed.geojson', 'uploads/to-mapbox-smd-2022-data.geojson')
