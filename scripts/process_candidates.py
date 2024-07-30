@@ -10,7 +10,7 @@ Does this new dcboe_hash__id closely match an existing person, who is not alread
     Else create a new person_id
 
 todo 2024:
-Move from dcboe_hash__id to the new external_id system
+Move from dcboe_hash__id to the new external_id system (I think this is already done?)
 """
 
 import os
@@ -55,6 +55,8 @@ class ProcessCandidates():
 
         excel_file_dir = 'data/dcboe/excel-clean/'
         excel_file = self.most_recent_file(excel_file_dir, filename_pattern)
+        if not excel_file:
+            return None
 
         characters_to_strip = [
             excel_file_dir
@@ -79,7 +81,7 @@ class ProcessCandidates():
         df['dcboe_updated_at'] = dcboe_updated_at
 
         df['candidate_source'] = 'DCBOE'
-        df['candidate_source_link'] = 'https://dcboe.org/Elections/2022-Elections'
+        df['candidate_source_link'] = 'https://dcboe.org/elections/2024-elections'
 
         df.rename(
             columns={
@@ -112,9 +114,12 @@ class ProcessCandidates():
         df_ballot['is_write_in'] = False
         
         df_write_in = self.read_dcboe_excel('dcboe-write-in-')
-        df_write_in['is_write_in'] = True
+        if df_write_in:
+            df_write_in['is_write_in'] = True
+            df = pd.concat([df_ballot, df_write_in], ignore_index=True)
 
-        df = pd.concat([df_ballot, df_write_in], ignore_index=True)
+        else:
+            df = df_ballot.copy()
 
         print('Number of districts in this file: {} (should be 345, ideally)'.format(df.smd.nunique()))
 
@@ -134,8 +139,8 @@ class ProcessCandidates():
         # Title-case the candidate names
         df['candidate_name'] = df['candidate_name'].str.title()
 
-        # Rename the 3/4G districts to match the smd_id pattern
-        df['smd_id'] = 'smd_2022_' + df['smd'].str.replace('3G', '3/4G')
+        # Rename the 3/4G districts and 6/8F districts to match the smd_id pattern
+        df['smd_id'] = 'smd_2022_' + df['smd'].str.replace('3G', '3/4G').str.replace('6/8F', '8F')
 
         # Assign a candidate status based on the fields from DCBOE
         df['candidate_status'] = '(unknown status)'
@@ -172,21 +177,22 @@ class ProcessCandidates():
         # Make sure each district matches the actual list of districts
         validate_smd_ids(df)
 
-        # Create a new ID for this data based off of a hash of the district and candidate name
+        # Create a new ID for this data based off of a hash of the district, candidate name, and election year
         df['candidate_name_upper'] = df['candidate_name'].str.upper()
-        df['external_id'] = hash_dataframe(df, ['smd_id', 'candidate_name_upper'])
+        df['election_year'] = str(config.current_election_year)
+        df['external_id'] = hash_dataframe(df, ['election_year', 'smd_id', 'candidate_name_upper'])
 
         # Add the write-in winners to the write-in dataframe, then dedupe it
         # todo 2024: remove this bit
-        df_write_in_winners = pd.read_csv('data/dcboe/write_in_winners.csv')
-        df_write_in_winners = df_write_in_winners[df_write_in_winners.election_year == 2022].copy()
-        df_write_in_winners['candidate_source'] = 'DCBOE Write-In Winners'
-        df_write_in_winners['candidate_source_link'] = 'https://electionresults.dcboe.org/election_results/2022-General-Election'
-        df_write_in_winners['is_write_in'] = True
-        df_write_in_winners['candidate_status'] = 'Write-In Candidate'
-        df_write_in_winners['dcboe_updated_at'] = '2022-11-30'
+        # df_write_in_winners = pd.read_csv('data/dcboe/write_in_winners.csv')
+        # df_write_in_winners = df_write_in_winners[df_write_in_winners.election_year == 2022].copy()
+        # df_write_in_winners['candidate_source'] = 'DCBOE Write-In Winners'
+        # df_write_in_winners['candidate_source_link'] = 'https://electionresults.dcboe.org/election_results/2022-General-Election'
+        # df_write_in_winners['is_write_in'] = True
+        # df_write_in_winners['candidate_status'] = 'Write-In Candidate'
+        # df_write_in_winners['dcboe_updated_at'] = '2022-11-30'
         
-        df = pd.concat([df, df_write_in_winners], ignore_index=True)
+        # df = pd.concat([df, df_write_in_winners], ignore_index=True)
         df = df.drop_duplicates(subset='external_id', keep='first')
 
 
@@ -234,12 +240,24 @@ class ProcessCandidates():
 
         directory_name: the directory to search in. Include the slash at the end
         filename_pattern: the text in the filename to narrow the results by
+
+        The current_election_year must also be in the file name.
         """
 
         list_of_files = sorted(
-            [f for f in os.listdir(directory_name) if (filename_pattern in f and '~' not in f)]
+            [f for f in os.listdir(directory_name) if (
+                filename_pattern in f
+                and '~' not in f
+                and str(config.current_election_year) in f
+                )
+            ]
             )
-        mrf = directory_name + list_of_files[-1]
+
+        if len(list_of_files) == 0:
+            print(f'No files match the pattern "{filename_pattern}" in directory "{directory_name}" in the election year {config.current_election_year}.')
+            mrf = None
+        else:
+            mrf = directory_name + list_of_files[-1]
 
         return mrf
 
@@ -376,7 +394,8 @@ class ProcessCandidates():
             candidates_create.loc[idx, 'candidate_id_suggested'] = max_id_candidate + 1
             max_id_candidate += 1
 
-        candidates_create_columns = ['candidate_id_suggested', 'match_person_id', 'external_id', 'smd_id', 'candidate_name']
+        candidates_create['election_year'] = config.current_election_year
+        candidates_create_columns = ['candidate_id_suggested', 'match_person_id', 'election_year', 'external_id', 'smd_id', 'candidate_name']
         candidates_create[candidates_create_columns].to_csv('data/dcboe/2b_candidates_create.csv', index=False)
 
         print(f'New people need to be created ({len(people_create)} people): 2c_people_create.csv')
@@ -392,9 +411,12 @@ class ProcessCandidates():
             people_create.loc[idx, 'person_id_suggested'] = max_id_person + 1
             max_id_person += 1
 
+
+        people_create['election_year'] = config.current_election_year
         people_create_columns = [
             'candidate_id_suggested'
             , 'person_id_suggested'
+            , 'election_year'
             , 'external_id'
             , 'smd_id'
             , 'candidate_name'

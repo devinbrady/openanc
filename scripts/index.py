@@ -46,9 +46,13 @@ class BuildIndex():
         districts = pd.read_csv('data/districts.csv')
         district_comm_commelect = districts_candidates_commissioners(link_source='root')
 
+        # print(district_comm_commelect[district_comm_commelect.smd_id == 'smd_2022_1A05'])
+        # print(district_comm_commelect.list_of_candidate_names.value_counts())
+        district_comm_commelect.to_clipboard()
+
         html = ''
 
-        redist_header = ['Election 2022', 'Election 2020']
+        redist_header = ['Election 2024', 'Election 2020']
 
         for idx, redistricting_yr in enumerate([2022]):
 
@@ -152,17 +156,22 @@ class BuildIndex():
 
         c = Counts()
 
-        # output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
-        # output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
-        # output = output.replace('REPLACE_WITH_WARD_CONTESTED_COUNT', c.contested_count_by_grouping('ward_link'))
-        # output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
-        # output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
+        # -----------------------------------
+        # todo 2025: comment all of these out
+        output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
+        output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
+        output = output.replace('REPLACE_WITH_WARD_CONTESTED_COUNT', c.contested_count_by_grouping('ward_link'))
+        output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
+        output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
         output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
         # c.pickups_plot()
 
+        # -----------------------------------
+        # post-election
         # output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
         # output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward_id', '#b2df8a')) # light green
         # output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_vote_counts('anc_id', '#a6cee3')) # light blue
+        # -----------------------------------
 
         output = add_google_analytics(output)
         output = add_footer(output, link_source='root')
@@ -170,7 +179,7 @@ class BuildIndex():
         with open('docs/counts.html', 'w') as f:
             f.write(output)
 
-        print('built: counts.html')
+        print('built: counts.html you know')
 
 
 

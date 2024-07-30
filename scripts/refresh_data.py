@@ -144,8 +144,8 @@ class RefreshData():
                 )
 
             # todo 2024: enable for active candidates
-            # if '_2022_' in row.smd_id:
-            #     map_display_box += f'<br/>Candidates: {row.list_of_candidate_links}'
+            if '_2022_' in row.smd_id:
+                map_display_box += f'<br/>Candidates: {row.list_of_candidate_links}'
 
             # todo: what labels should be put on old map, if any?
             # If a current commissioner exists in the district, append the Commissioner string

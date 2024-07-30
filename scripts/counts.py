@@ -352,7 +352,7 @@ class Counts():
         Return HTML table with count of candidates by candidate status
         """
 
-        candidates = list_candidates(election_year=2022)
+        candidates = list_candidates()
         statuses = pd.read_csv('data/candidate_statuses.csv')
 
         candidate_statuses = pd.merge(candidates, statuses, how='inner', on='candidate_status')

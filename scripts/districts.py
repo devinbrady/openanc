@@ -53,8 +53,8 @@ class BuildDistricts():
         self.commissioners = list_commissioners(status=None)
         self.commissioners_current = list_commissioners(status='current')
         self.people = people_dataframe()
-        self.candidates_this_year = list_candidates(election_year=2022)
-        
+        self.candidates_this_year = list_candidates(election_year=config.current_election_year)
+
         self.rcp = results_candidate_people()
         self.rcp.loc[self.rcp.is_incumbent, 'full_name'] = self.rcp.loc[self.rcp.is_incumbent, 'full_name'] + ' (incumbent)'
 
@@ -489,7 +489,12 @@ class BuildDistricts():
             output = add_geojson(self.smd_shape, 'smd_id', smd_id, output)
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
-            # output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+
+            # ---------------------
+            # todo 2025 comment out
+            output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+            # ---------------------
+            
             output = output.replace('<!-- replace with results table -->', self.add_results(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 
