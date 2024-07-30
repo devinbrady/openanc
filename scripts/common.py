@@ -247,18 +247,21 @@ def build_smd_html_table(list_of_smds, link_source=None, district_comm_commelect
 
     columns_to_html = ['SMD']
 
-    display_df['Election Year'] = '2022'
+    display_df['Election Year'] = str(config.current_election_year)
     display_df.loc[display_df.redistricting_year == 2012, 'Election Year'] = '2020'
 
     # Display these columns if they are valid in this list of SMDs
-    if any(display_df.redistricting_year == 2012):
-        columns_to_html += ['Current Commissioner']
+    # if any(display_df.redistricting_year == 2012):
+    #     columns_to_html += ['Current Commissioner']
 
     if any(display_df.redistricting_year == 2022):
         columns_to_html += ['Current Commissioner']
 
     # if any(display_df.commissioner_elect.notnull()):
     #     columns_to_html += ['Commissioner-Elect']
+
+    if district_comm_commelect.number_of_candidates.sum() > 0:
+        columns_to_html += ['Candidates']
 
     # Hash the first column and all column names. Used a CSS id for the resulting table.
     # First column + column names should change less frequently than the table contents.
@@ -586,4 +589,4 @@ def validate_smd_ids(df):
     if invalid_smd_ids:
         print('\nThese smd_ids are not valid:')
         print(df[df.smd_id.isin(invalid_smd_ids)])
-        raise SystemExit('Resolve the smd_id issue.')
+        raise Exception('Resolve the smd_id issue.')
