@@ -83,6 +83,10 @@ class ProcessCandidates():
         df['candidate_source'] = 'DCBOE'
         df['candidate_source_link'] = 'https://dcboe.org/elections/2024-elections'
 
+        # Strip out leading and trailing spaces and empty characters from column names
+        for c in df.columns:
+            df.rename(columns={c: c.strip()}, inplace=True)
+
         df.rename(
             columns={
                 'ANC/SMD': 'smd'

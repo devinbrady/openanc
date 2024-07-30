@@ -55,3 +55,5 @@ Undo the comments on Counts
 Uncomment add_candidates on the district pages
 
 Districts - yes
+
+First commit - https://github.com/devinbrady/openanc/commit/4b69790016ccc12f12b591247c73eea26424cf8c
