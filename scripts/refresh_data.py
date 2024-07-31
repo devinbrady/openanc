@@ -427,6 +427,7 @@ class RefreshData():
 
 
     def confirm_commissioner_date_validity(self):
+        """Confirm that end dates are after start dates for every commissioner record."""
 
         commissioners = pd.read_csv('data/commissioners.csv')
 
@@ -436,6 +437,18 @@ class RefreshData():
             print('\nDates to correct:')
             print(commissioners.loc[invalid_dates])
             raise ValueError('Commissioners table has a end date before a start date.')
+
+
+
+    def confirm_one_person_per_candidate_election_year(self):
+        """Each person should only be in the candidates table once in an election year."""
+
+        candidates = pd.read_csv('data/candidates.csv')
+        person_election_year = candidates.groupby(['election_year', 'person_id', 'candidate_name']).size()
+
+        if any(person_election_year > 1):
+            print(person_election_year[person_election_year > 1])
+            raise ValueError('This person is in the Candidates table more than once in the same election year.')
 
 
 
@@ -601,6 +614,7 @@ class RefreshData():
         confirm_key_uniqueness('data/external_id_lookup.csv', 'external_id')
         self.confirm_column_notnull_candidates()
         self.confirm_commissioner_date_validity()
+        self.confirm_one_person_per_candidate_election_year()
 
         dcc = districts_candidates_commissioners(link_source='root')
         self.map_display_df = self.build_map_display_box(cp=dcc)
