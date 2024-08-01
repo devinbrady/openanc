@@ -637,7 +637,7 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11410,smd_2022_3C07,Gawain Kripke,2023-01-02,2025-01-02
 11411,smd_2022_3F01,Ryan Cudemus-Brunoli,2023-01-02,2023-07-21
 11414,smd_2022_6C01,Christy Kwan,2023-01-02,2025-01-02
-11416,smd_2022_1B02,Sean Holihan,2023-01-02,2025-01-02
+11416,smd_2022_1B02,Sean Holihan,2023-01-02,2024-05-01
 11417,smd_2022_1A05,Stephen Coleman Kenny,2023-01-02,2025-01-02
 11418,smd_2022_6E01,Chris Hart,2023-01-02,2025-01-02
 11419,smd_2022_6D05,Ashton Rohmer,2023-01-02,2024-01-19
@@ -818,3 +818,4 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11709,smd_2022_5A09,Shelagh Bocoum,2023-09-01,2025-01-02
 11710,smd_2022_2A05,Luke Chadwick,2024-01-26,2025-01-02
 11711,smd_2022_4B10,Jinin Berry,2024-01-26,2025-01-02
+11748,smd_2022_1B02,Frank Chauvin,2024-06-01,2025-01-02
