@@ -266,7 +266,6 @@ def districts_candidates_commissioners(link_source=None, redistricting_year=None
     for s in active_statuses:
         output_columns += [f'list_of_candidates_status_{s}']
 
-    district_info_comm.to_clipboard()
     return district_info_comm[output_columns]
 
 
@@ -277,6 +276,8 @@ def list_commissioners(status=None, date_point=None):
 
     todo: make status a list, not just one option, for districts_candidates_commissioners
     (it wants current and future but not former)
+
+    todo: date_point defailt should be in function definition
 
     Options:
     status=None (all statuses returned) -- default

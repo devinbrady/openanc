@@ -463,25 +463,27 @@ class Counts():
         rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
         # prop = fm.FontProperties(fname='templates/WorkSans[wght].ttf')
 
+        pd.set_option('display.max_rows', None)
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', 2000)
+        pd.set_option('display.float_format', '{:20,.2f}'.format)
+        pd.set_option('display.max_colwidth', None)
 
         candidates = pd.read_csv('data/candidates.csv')
+        election_dates = pd.read_csv('data/election_dates.csv')
+        election_dates.set_index('election_year', inplace=True)
+
+        for c in election_dates.columns:
+            election_dates[c] = pd.to_datetime(election_dates[c])
+
         candidates['pickup_date'] = pd.to_datetime(candidates['pickup_date'])
         candidates['filed_date'] = pd.to_datetime(candidates['filed_date'])
-        years = sorted(candidates[candidates.pickup_date.notnull()].pickup_date.dt.year.unique())
-
-        deadlines = {
-            2020: pd.to_datetime('2020-08-05')
-            , 2022: pd.to_datetime('2022-08-10')
-        }
-
-        start_date = {
-            2020: pd.to_datetime('2020-06-26')
-            , 2022: pd.to_datetime('2022-07-20')
-        }
+        years = [config.current_election_year - 2, config.current_election_year]
 
         pickup_by_day = candidates.groupby('pickup_date').size()
         filed_by_day = candidates.groupby('filed_date').size()
 
+        # print(pickup_by_day)
         pickup_by_year = {}
         filed_by_year = {}
         for y in years:
@@ -489,30 +491,35 @@ class Counts():
             filed_by_year[y] = pd.DataFrame(filed_by_day[filed_by_day.index.year == y], columns=['filers'])
 
         # Start with 2020 data and calculate sums
-        comp = pd.DataFrame(index=pd.date_range(start=start_date[2020], end=deadlines[2020]))
-        comp = pd.merge(comp, pickup_by_year[2020].pickups, how='left', left_index=True, right_index=True)
-        comp = pd.merge(comp, filed_by_year[2020].filers, how='left', left_index=True, right_index=True)
+        comp = pd.DataFrame(
+            index=pd.date_range(
+                start=election_dates.loc[years[0], 'petition_open_date']
+                , end=election_dates.loc[years[0], 'petition_close_date']
+                )
+            )
+        comp = pd.merge(comp, pickup_by_year[years[0]].pickups, how='left', left_index=True, right_index=True)
+        comp = pd.merge(comp, filed_by_year[years[0]].filers, how='left', left_index=True, right_index=True)
         comp.pickups = comp.pickups.fillna(0)
         comp.filers = comp.filers.fillna(0)
-        comp['cumulative_pickups_2020'] = comp.pickups.cumsum()
-        comp['cumulative_filers_2020'] = comp.filers.cumsum()
-        comp['days_to_deadline'] = (comp.index - deadlines[2020]).days
+        comp[f'cumulative_pickups_{years[0]}'] = comp.pickups.cumsum()
+        comp[f'cumulative_filers_{years[0]}'] = comp.filers.cumsum()
+        comp['days_to_deadline'] = (comp.index - election_dates.loc[years[0], 'petition_close_date']).days
         comp.drop(columns=['pickups', 'filers'], inplace=True)
 
-        # Join 2022 data and calculate sums
-        pickup_by_year[2022]['days_to_deadline'] = (pickup_by_year[2022].index - deadlines[2022]).days
-        filed_by_year[2022]['days_to_deadline'] = (filed_by_year[2022].index - deadlines[2022]).days
+        # Join current year data and calculate sums
+        pickup_by_year[years[1]]['days_to_deadline'] = (pickup_by_year[years[1]].index - election_dates.loc[years[0], 'petition_close_date']).days
+        filed_by_year[years[1]]['days_to_deadline'] = (filed_by_year[years[1]].index - election_dates.loc[years[0], 'petition_close_date']).days
 
-        comp = pd.merge(comp, pickup_by_year[2022], how='left', on='days_to_deadline')
-        comp = pd.merge(comp, filed_by_year[2022], how='left', on='days_to_deadline')
+        comp = pd.merge(comp, pickup_by_year[years[1]], how='left', on='days_to_deadline')
+        comp = pd.merge(comp, filed_by_year[years[1]], how='left', on='days_to_deadline')
 
-        comp['cumulative_pickups_2022'] = comp.pickups.cumsum().ffill()
-        comp['cumulative_filers_2022'] = comp.filers.cumsum().ffill()
+        comp[f'cumulative_pickups_{years[1]}'] = comp.pickups.cumsum().ffill()
+        comp[f'cumulative_filers_{years[1]}'] = comp.filers.cumsum().ffill()
 
-        # Fill in NULLs where 2022 dates haven't happened yet
+        # Fill in NULLs where current year dates haven't happened yet
         comp.loc[
-            comp.days_to_deadline.isin(range(pickup_by_year[2022].days_to_deadline.max() + 1, 1))
-            , ['cumulative_pickups_2022', 'cumulative_filers_2022']
+            comp.days_to_deadline.isin(range(pickup_by_year[years[1]].days_to_deadline.max() + 1, 1))
+            , [f'cumulative_pickups_{years[1]}', f'cumulative_filers_{years[1]}']
         ] = None
 
         comp.drop(columns=['pickups', 'filers'], inplace=True)
@@ -524,17 +531,17 @@ class Counts():
 
         fig, ax = plt.subplots(figsize=(9,6))
 
-        plt.plot(comp['cumulative_pickups_2020'], label='2020 Picked Up Petitions', color='tab:blue', linestyle='dotted')
-        plt.plot(comp['cumulative_pickups_2022'], label='2022 Picked Up Petitions', color='tab:blue', linestyle='solid')
-        plt.plot(comp['cumulative_filers_2020'], label='2020 Filed Petitions', color='tab:orange', linestyle='dotted')
-        plt.plot(comp['cumulative_filers_2022'], label='2022 Filed Petitions', color='tab:orange', linestyle='solid')
+        plt.plot(comp[f'cumulative_pickups_{years[0]}'], label=f'{years[0]} Picked Up Petitions', color='tab:blue', linestyle='dotted')
+        plt.plot(comp[f'cumulative_pickups_{years[1]}'], label=f'{years[1]} Picked Up Petitions', color='tab:blue', linestyle='solid')
+        plt.plot(comp[f'cumulative_filers_{years[0]}'], label=f'{years[0]} Filed Petitions', color='tab:orange', linestyle='dotted')
+        plt.plot(comp[f'cumulative_filers_{years[1]}'], label=f'{years[1]} Filed Petitions', color='tab:orange', linestyle='solid')
 
         xtick_range = list(range(0,len(comp), 5))
         plt.xticks(ticks=xtick_range, labels=abs(comp.loc[xtick_range, 'days_to_deadline']))
         plt.xlabel(f'Days to Filing Deadline (updated {current_date_str()})')
         plt.ylabel('Running Total of Candidates')
         plt.legend()
-        plt.title('ANC Candidates Picking Up Petitions: 2020 vs 2022')
+        plt.title(f'ANC Candidates Picking Up Petitions: {years[0]} vs {years[1]}')
 
         plt.savefig(
             'docs/images/Candidates_Picking_Up_and_Filing.png', transparent=False, facecolor='white', bbox_inches='tight')

@@ -5,14 +5,16 @@ import tabula
 import pandas as pd
 from pathlib import Path
 
-input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-ANC-Candidates-07292024.pdf')
-output_xlsx = Path('data/dcboe/excel-clean/dcboe-ballot-2024-07-29.xlsx')
+input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-ANC-Candidates-07312024.pdf')
+output_xlsx = Path('data/dcboe/excel-clean/dcboe-ballot-2024-07-31.xlsx')
 
 print(f'input: {input_pdf.name}')
 
 dfs = tabula.read_pdf(input_pdf, pages='all')
 
 df = pd.concat(dfs)
+
+print(f'Number of candidates: {df.Name.notnull().sum()}')
 
 columns_to_excel = ['ANC-SMD', 'Name', 'Date of Pick-up', 'Date Filed']
 

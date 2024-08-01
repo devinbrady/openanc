@@ -146,14 +146,24 @@ class ProcessCandidates():
         # Rename the 3/4G districts and 6/8F districts to match the smd_id pattern
         df['smd_id'] = 'smd_2022_' + df['smd'].str.replace('3G', '3/4G').str.replace('6/8F', '8F')
 
+        # Fix bad dates and names
+        # df.loc[df['candidate_name'] == 'Hasan Rasheedah', 'candidate_name'] = "Rasheedah Hasan"
+        # df.loc[df['candidate_name'] == 'Robin Mckinney', 'candidate_name'] = "Robin McKinney"
+        # df.loc[df['candidate_name'] == 'Brian J. Mccabe', 'candidate_name'] = "Brian J. McCabe"
+        # df.loc[df['candidate_name'] == 'Clyde Darren Thopson', 'candidate_name'] = "Clyde Darren Thompson"
+        df.loc[df['candidate_name'] == 'Taylor Taranto', 'pickup_date'] = "2024-07-30" # todo: check future files if a date shows up for Taylor
+
+        # Fix data entry errors and convert to dates
+        # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
+
         # Assign a candidate status based on the fields from DCBOE
         df['candidate_status'] = '(unknown status)'
         df.loc[df.pickup_date.notnull(), 'candidate_status'] = 'Pulled Papers for Ballot'
         
-        # Before ballots are locked, they are 'Filed Signatures'
+        # todo: Before ballots are locked, they are 'Filed Signatures'
         # Once the ballots get locked, they are 'On the Ballot'
-        # df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
-        df.loc[df.filed_date.notnull(), 'candidate_status'] = 'On the Ballot'
+        df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
+        # df.loc[df.filed_date.notnull(), 'candidate_status'] = 'On the Ballot'
         
         df.loc[df.candidate_name.str.contains('Withdrew'), 'candidate_status'] = 'Withdrew'
 
@@ -164,14 +174,6 @@ class ProcessCandidates():
         candidate_count_by_status.loc['Total'] = candidate_count_by_status.sum()
         print(candidate_count_by_status)
 
-        # Fix bad dates and names
-        # df.loc[df['candidate_name'] == 'Hasan Rasheedah', 'candidate_name'] = "Rasheedah Hasan"
-        # df.loc[df['candidate_name'] == 'Robin Mckinney', 'candidate_name'] = "Robin McKinney"
-        # df.loc[df['candidate_name'] == 'Brian J. Mccabe', 'candidate_name'] = "Brian J. McCabe"
-        # df.loc[df['candidate_name'] == 'Clyde Darren Thopson', 'candidate_name'] = "Clyde Darren Thompson"
-
-        # Fix data entry errors and convert to dates
-        # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'
         df['pickup_date'] = pd.to_datetime(df['pickup_date']).dt.strftime('%Y-%m-%d')
 
         # There are some candidate rows that don't have a pickup date, but I think we should assume they have picked up
@@ -375,7 +377,7 @@ class ProcessCandidates():
         matches = pd.read_csv(self.match_file)
 
         if any(matches.good_match.isin(['?'])):
-            print(f'Evaluate the matches in "{self.match_file.name}" before continuing')
+            print(f'Next, evaluate the person name matches in: {self.match_file.name}')
             return
 
         good_matches = matches[matches.good_match == 1].copy()

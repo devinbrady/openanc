@@ -46,10 +46,6 @@ class BuildIndex():
         districts = pd.read_csv('data/districts.csv')
         district_comm_commelect = districts_candidates_commissioners(link_source='root')
 
-        # print(district_comm_commelect[district_comm_commelect.smd_id == 'smd_2022_1A05'])
-        # print(district_comm_commelect.list_of_candidate_names.value_counts())
-        district_comm_commelect.to_clipboard()
-
         html = ''
 
         redist_header = ['Election 2024', 'Election 2020']
@@ -169,7 +165,7 @@ class BuildIndex():
         output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
         output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
         output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
-        # c.pickups_plot()
+        c.pickups_plot()
 
         # -----------------------------------
         # post-election
