@@ -48,13 +48,13 @@ class ProcessCandidates():
 
 
 
-    def read_dcboe_excel(self, filename_pattern):
+    def read_dcboe_excel(self, filename_pattern, election_year=config.current_election_year):
         """
         Read in Excel file, whether for Ballot candidates or Write-Ins (specified by filename_pattern), and pre-process it.
         """
 
         excel_file_dir = 'data/dcboe/excel-clean/'
-        excel_file = self.most_recent_file(excel_file_dir, filename_pattern)
+        excel_file = self.most_recent_file(excel_file_dir, filename_pattern, election_year=election_year)
         if not excel_file:
             return None
 
@@ -241,7 +241,7 @@ class ProcessCandidates():
 
 
 
-    def most_recent_file(self, directory_name, filename_pattern):
+    def most_recent_file(self, directory_name, filename_pattern, election_year=config.current_election_year):
         """
         Returns the most recent file in a directory. 
         The filenames must have a timestamp in them. It's the max of the sorted text.
@@ -256,13 +256,13 @@ class ProcessCandidates():
             [f for f in os.listdir(directory_name) if (
                 filename_pattern in f
                 and '~' not in f
-                and str(config.current_election_year) in f
+                and str(election_year) in f
                 )
             ]
             )
 
         if len(list_of_files) == 0:
-            print(f'No files match the pattern "{filename_pattern}" in directory "{directory_name}" in the election year {config.current_election_year}.')
+            print(f'No files match the pattern "{filename_pattern}" in directory "{directory_name}" in the election year {election_year}.')
             mrf = None
         else:
             mrf = directory_name + list_of_files[-1]

@@ -1,5 +1,6 @@
 # counts.py
 
+import sys
 import pytz
 import pandas as pd
 from datetime import datetime
@@ -23,6 +24,8 @@ from scripts.data_transformations import (
     )
 
 from scripts.urls import generate_link
+
+from scripts.process_candidates import ProcessCandidates
 
 import config
 
@@ -459,70 +462,55 @@ class Counts():
         comparing the current election year with the previous cycle.
         """
 
+        years = [config.current_election_year - 2, config.current_election_year]
+
+        pc = ProcessCandidates()
+
         # Set the font to Helvetica
         rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-        # prop = fm.FontProperties(fname='templates/WorkSans[wght].ttf')
 
-        pd.set_option('display.max_rows', None)
-        pd.set_option('display.max_columns', None)
-        pd.set_option('display.width', 2000)
-        pd.set_option('display.float_format', '{:20,.2f}'.format)
-        pd.set_option('display.max_colwidth', None)
-
-        candidates = pd.read_csv('data/candidates.csv')
         election_dates = pd.read_csv('data/election_dates.csv')
         election_dates.set_index('election_year', inplace=True)
 
         for c in election_dates.columns:
             election_dates[c] = pd.to_datetime(election_dates[c])
 
-        candidates['pickup_date'] = pd.to_datetime(candidates['pickup_date'])
-        candidates['filed_date'] = pd.to_datetime(candidates['filed_date'])
-        years = [config.current_election_year - 2, config.current_election_year]
+        dcboe_candidate_dict = {}
 
-        pickup_by_day = candidates.groupby('pickup_date').size()
-        filed_by_day = candidates.groupby('filed_date').size()
+        for y in years:
+            dcboe_candidate_dict[y] = pc.read_dcboe_excel('dcboe-ballot-', election_year=y)
 
-        # print(pickup_by_day)
+        dcboe_candidates = pd.concat(dcboe_candidate_dict).reset_index()
+
+        dcboe_candidates['pickup_date'] = pd.to_datetime(dcboe_candidates['pickup_date'])
+        dcboe_candidates['filed_date'] = pd.to_datetime(dcboe_candidates['filed_date'])
+
+        pickup_by_day = dcboe_candidates.groupby('pickup_date').size()
+        filed_by_day = dcboe_candidates.groupby('filed_date').size()
+
         pickup_by_year = {}
         filed_by_year = {}
         for y in years:
             pickup_by_year[y] = pd.DataFrame(pickup_by_day[pickup_by_day.index.year == y], columns=['pickups'])
+            pickup_by_year[y]['days_to_deadline'] = (pickup_by_year[y].index - election_dates.loc[y, 'petition_close_date']).days
+
             filed_by_year[y] = pd.DataFrame(filed_by_day[filed_by_day.index.year == y], columns=['filers'])
+            filed_by_year[y]['days_to_deadline'] = (filed_by_year[y].index - election_dates.loc[y, 'petition_close_date']).days
 
-        # Start with 2020 data and calculate sums
-        comp = pd.DataFrame(
-            index=pd.date_range(
-                start=election_dates.loc[years[0], 'petition_open_date']
-                , end=election_dates.loc[years[0], 'petition_close_date']
-                )
-            )
-        comp = pd.merge(comp, pickup_by_year[years[0]].pickups, how='left', left_index=True, right_index=True)
-        comp = pd.merge(comp, filed_by_year[years[0]].filers, how='left', left_index=True, right_index=True)
-        comp.pickups = comp.pickups.fillna(0)
-        comp.filers = comp.filers.fillna(0)
-        comp[f'cumulative_pickups_{years[0]}'] = comp.pickups.cumsum()
-        comp[f'cumulative_filers_{years[0]}'] = comp.filers.cumsum()
-        comp['days_to_deadline'] = (comp.index - election_dates.loc[years[0], 'petition_close_date']).days
-        comp.drop(columns=['pickups', 'filers'], inplace=True)
 
-        # Join current year data and calculate sums
-        pickup_by_year[years[1]]['days_to_deadline'] = (pickup_by_year[years[1]].index - election_dates.loc[years[0], 'petition_close_date']).days
-        filed_by_year[years[1]]['days_to_deadline'] = (filed_by_year[years[1]].index - election_dates.loc[years[0], 'petition_close_date']).days
+        # Calculate running sums by days to deadline
+        min_days_to_deadline = min([pickup_by_year[y]['days_to_deadline'].min() for y in years])
+        comp = pd.DataFrame(range(min_days_to_deadline, 1), columns=['days_to_deadline'])
 
-        comp = pd.merge(comp, pickup_by_year[years[1]], how='left', on='days_to_deadline')
-        comp = pd.merge(comp, filed_by_year[years[1]], how='left', on='days_to_deadline')
+        for y in years:
+            comp = pd.merge(comp, pickup_by_year[y].rename(columns={'pickups': f'pickups_{y}'}), how='left', on='days_to_deadline')
+            comp[f'cumulative_pickups_{y}'] = comp[f'pickups_{y}'].cumsum()
 
-        comp[f'cumulative_pickups_{years[1]}'] = comp.pickups.cumsum().ffill()
-        comp[f'cumulative_filers_{years[1]}'] = comp.filers.cumsum().ffill()
+            comp = pd.merge(comp, filed_by_year[y].rename(columns={'filers': f'filers_{y}'}), how='left', on='days_to_deadline')
+            comp[f'cumulative_filers_{y}'] = comp[f'filers_{y}'].cumsum()
 
-        # Fill in NULLs where current year dates haven't happened yet
-        comp.loc[
-            comp.days_to_deadline.isin(range(pickup_by_year[years[1]].days_to_deadline.max() + 1, 1))
-            , [f'cumulative_pickups_{years[1]}', f'cumulative_filers_{years[1]}']
-        ] = None
-
-        comp.drop(columns=['pickups', 'filers'], inplace=True)
+        # Fill in the NULLs in the cumsums, connecting the lines in the plot
+        comp.interpolate(limit_area='inside', inplace=True)
 
         rc('font', family='sans-serif')
         rc('font', serif='Helvetica Neue')
