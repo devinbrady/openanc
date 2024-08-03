@@ -444,6 +444,17 @@ class ProcessCandidates():
 
 
 
+    def confirm_districts_match(self):
+        """
+        Confirm that the districts in the DCBOE candidate list match the OpenANC candidate list.
+
+        Candidate districts can change, if there was a data entry error or something. This catches those.
+        """
+
+        dcboe_candidates = pd.read_csv('data/candidates_dcboe.csv')
+
+
+
     def run(self):
 
         df = self.clean_csv()

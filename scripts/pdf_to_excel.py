@@ -5,8 +5,8 @@ import tabula
 import pandas as pd
 from pathlib import Path
 
-input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-ANC-Candidates-08012024.pdf')
-output_xlsx = Path('data/dcboe/excel-clean/dcboe-ballot-2024-08-01.xlsx')
+input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-ANC-Candidates-08022024b.pdf')
+output_xlsx = Path('data/dcboe/excel-clean/dcboe-ballot-2024-08-02.xlsx')
 
 print(f'input: {input_pdf.name}')
 
