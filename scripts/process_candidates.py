@@ -78,6 +78,10 @@ class ProcessCandidates():
         print('Reading Excel file: ' + excel_file)
 
         df = pd.read_excel(excel_file)
+
+        # Take everything before the newline as the candidate name
+        df['Name'] = df['Name'].apply(lambda x: x.split('\r')[0] if isinstance(x, str) else x)
+
         df['dcboe_updated_at'] = dcboe_updated_at
 
         df['candidate_source'] = 'DCBOE'
@@ -430,7 +434,7 @@ class ProcessCandidates():
             , 'candidate_name'
         ]
         
-        people_create[people_create_columns].to_csv('data/dcboe/2c_people_create.csv', index=False)                
+        people_create[people_create_columns].to_csv('data/dcboe/2c_people_create.csv', index=False)
 
         openanc_not_in_dcboe = [h for h in candidates_this_year[candidates_this_year.external_id.notnull()].external_id.tolist() if h not in dcboe.external_id.tolist()]
         print(f'\nCandidates hash_ids in OpenANC that are no longer in the DCBOE list (should be zero): {len(openanc_not_in_dcboe)}')
@@ -451,7 +455,21 @@ class ProcessCandidates():
         Candidate districts can change, if there was a data entry error or something. This catches those.
         """
 
-        dcboe_candidates = pd.read_csv('data/candidates_dcboe.csv')
+        dcboe_candidates = pd.read_csv('data/dcboe/candidates_dcboe.csv')
+        openanc_candidates = pd.read_csv('data/candidates.csv')
+
+        combine = pd.merge(dcboe_candidates, openanc_candidates, how='inner', on='external_id', suffixes=['_dcboe', '_openanc'])
+
+        mismatch_smd_ids = combine.smd_id_dcboe != combine.smd_id_openanc
+
+        if mismatch_smd_ids.sum() > 0:
+            print(f'\nNumber of SMD IDs that do not match between DCBOE and OpenANC: {mismatch_smd_ids.sum()}')
+            combine.loc[mismatch_smd_ids, ['candidate_id', 'candidate_name_openanc', 'external_id', 'smd_id_dcboe', 'smd_id_openanc']].to_csv('data/dcboe/3_smd_mismatch.csv', index=False)
+            print('Fix these before continuing: 3_smd_mismatch.csv')
+            return False
+        else:
+            return True
+
 
 
 
@@ -468,6 +486,9 @@ class ProcessCandidates():
         if len(dcboe_not_in_openanc) == 0:
             print('\nAll DCBOE candidates are in OpenANC.')
             
+            if not self.confirm_districts_match():
+                return
+
             if self.match_file.exists():
                 print(f'Please delete the file: {self.match_file.name}')
                 return
