@@ -8,9 +8,6 @@ The goal is to get them all in
 Does this new dcboe_hash__id closely match an existing person, who is not already a candidate this year?
     Then use that matching person_id
     Else create a new person_id
-
-todo 2024:
-Move from dcboe_hash__id to the new external_id system (I think this is already done?)
 """
 
 import os
@@ -155,7 +152,7 @@ class ProcessCandidates():
         # df.loc[df['candidate_name'] == 'Robin Mckinney', 'candidate_name'] = "Robin McKinney"
         # df.loc[df['candidate_name'] == 'Brian J. Mccabe', 'candidate_name'] = "Brian J. McCabe"
         # df.loc[df['candidate_name'] == 'Clyde Darren Thopson', 'candidate_name'] = "Clyde Darren Thompson"
-        df.loc[df['candidate_name'] == 'Taylor Taranto', 'pickup_date'] = "2024-07-30" # todo: check future files if a date shows up for Taylor
+        # df.loc[df['candidate_name'] == 'Taylor Taranto', 'pickup_date'] = "2024-07-30"
 
         # Fix data entry errors and convert to dates
         # df.loc[df['pickup_date'] == '6/302020', 'pickup_date'] = '6/30/2020'

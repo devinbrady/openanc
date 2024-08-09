@@ -574,6 +574,44 @@ class RefreshData():
         )
 
 
+    def set_candidate_status_of_pulled_papers(self):
+        """
+        Candidates who have pulled papers for the ballot but not filed signatures will count as
+        active candidates before the filing deadline, but are NOT active after the deadline unless
+        they declare a write-in candidacy. 
+
+        In other words, the candidate status of "Pulled Papers for Ballot" should be True between the
+        petition open date and petition close date, and False all other times. Set this boolean here.
+
+        This should be run every time refresh_data is run because today's date changes.
+        """
+
+        candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+        candidate_statuses.set_index('candidate_status', inplace=True)
+        candidate_statuses['count_as_candidate'] = candidate_statuses['count_as_candidate'].astype(bool)
+
+        election_dates = pd.read_csv('data/election_dates.csv')
+        election_dates.set_index('election_year', inplace=True)
+
+        date_cols = [col for col in election_dates.columns if col[-5:] == '_date']
+        for col in date_cols:
+            election_dates[col] = pd.to_datetime(election_dates[col]).dt.tz_localize(tz=config.site_timezone)
+
+        today = datetime.now(pytz.timezone(config.site_timezone))
+        
+        if (
+            (election_dates.loc[config.current_election_year, 'petition_open_date'] <= today)
+            and (today <= election_dates.loc[config.current_election_year, 'petition_close_date'])
+            ):
+
+            candidate_statuses.loc['Pulled Papers for Ballot', 'count_as_candidate'] = True
+
+        else:
+            candidate_statuses.loc['Pulled Papers for Ballot', 'count_as_candidate'] = False
+
+        candidate_statuses.to_csv('data/candidate_statuses.csv')
+
+
 
     def download_google_sheets(self, do_full_refresh):
 
@@ -615,6 +653,7 @@ class RefreshData():
         self.confirm_column_notnull_candidates()
         self.confirm_commissioner_date_validity()
         self.confirm_one_person_per_candidate_election_year()
+        self.set_candidate_status_of_pulled_papers()
 
         dcc = districts_candidates_commissioners(link_source='root')
         self.map_display_df = self.build_map_display_box(cp=dcc)
