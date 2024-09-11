@@ -161,10 +161,10 @@ class ProcessCandidates():
         df['candidate_status'] = '(unknown status)'
         df.loc[df.pickup_date.notnull(), 'candidate_status'] = 'Pulled Papers for Ballot'
         
-        # todo: Before ballots are locked, they are 'Filed Signatures'
-        # Once the ballots get locked, they are 'On the Ballot'
-        df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
-        # df.loc[df.filed_date.notnull(), 'candidate_status'] = 'On the Ballot'
+        # todo: Before ballots deadline, they are 'Filed Signatures'
+        # After ballot deadline, they are 'On the Ballot'
+        # df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
+        df.loc[df.filed_date.notnull(), 'candidate_status'] = 'On the Ballot'
         
         df.loc[df.candidate_name.str.contains('Withdrew'), 'candidate_status'] = 'Withdrew'
 
@@ -283,6 +283,9 @@ class ProcessCandidates():
         candidates = pd.read_csv('data/candidates.csv')
         candidates_dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
+        # Remove the part of the DCBOE candidate name string matchng "(Withdrew 9/4/24)"
+        candidates_dcboe['candidate_name'] = candidates_dcboe['candidate_name'].str.replace(r'\(withdrew [^)]*\)', '', regex=True, case=False)
+
         # Exclude the hash_ids that are currently in the OpenANC candidates table
         candidates_to_match = candidates_dcboe[ ~(candidates_dcboe['external_id'].isin(candidates['external_id'])) ].copy()
 
@@ -292,6 +295,7 @@ class ProcessCandidates():
         candidates_to_match['match_person_id'] = pd.NA
         candidates_to_match['match_person_full_name'] = pd.NA
         candidates_to_match['match_person_smd_id'] = pd.NA
+
 
         # Look for the OpenANC person that has the highest match score against each new candidate
 
@@ -439,9 +443,11 @@ class ProcessCandidates():
         if openanc_not_in_dcboe:
             print('\nThese candidates have a hash_id in the OpenANC candidates list but are no longer on the DCBOE list:')
 
-            # todo after ballot deadline - switch these lines
-            # print('(a lot of them, because candidates who did not submit signatures were taken out of the candidate list)\n')
-            print(candidates_this_year[candidates_this_year.external_id.isin(openanc_not_in_dcboe)][['external_id', 'smd_id', 'candidate_name']])
+            # before ballot deadline
+            # print(candidates_this_year[candidates_this_year.external_id.isin(openanc_not_in_dcboe)][['external_id', 'smd_id', 'candidate_name']])
+
+            # after ballot deadline
+            print('(a lot of them, because candidates who did not submit signatures were taken out of the candidate list)\n')
 
 
 

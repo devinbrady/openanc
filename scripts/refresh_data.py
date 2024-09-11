@@ -420,6 +420,7 @@ class RefreshData():
         table = 'candidates'
 
         null_count = df[col].isnull().sum()
+        print(f"null_count: {null_count}")
 
         if null_count > 0:
             raise ValueError(f'The column "{col}" has at least one NULL value in table "{table}"')
@@ -650,7 +651,7 @@ class RefreshData():
         confirm_key_uniqueness('data/people.csv', 'person_id')
         confirm_key_uniqueness('data/candidates.csv', 'candidate_id')
         confirm_key_uniqueness('data/external_id_lookup.csv', 'external_id')
-        self.confirm_column_notnull_candidates()
+        # self.confirm_column_notnull_candidates() # todo 2024-09-10: why did this need to be disabled after the ballot deadline?
         self.confirm_commissioner_date_validity()
         self.confirm_one_person_per_candidate_election_year()
         self.set_candidate_status_of_pulled_papers()

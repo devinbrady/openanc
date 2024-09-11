@@ -372,13 +372,9 @@ def build_data_table(row, fields_to_try, link_source='root'):
             else:
                 field_value = row[field_name]
 
-
             # Convert timestamp to human-readable string
-            if isinstance(field_value, datetime):
-                field_value = field_value.strftime('%B %-d, %Y')
-
-            if field_name[-3:] == '_at':
-                field_value = pd.to_datetime(field_value).strftime('%B %-d, %Y')
+            if pd.notnull(field_value) and (isinstance(field_value, datetime) or field_name[-3:] == '_at'):
+                field_value = datetime.strptime(field_value, '%Y-%m-%d').strftime('%B %-d, %Y')
 
             if pd.notna(field_value) and len(str(field_value)) > 0:
 
