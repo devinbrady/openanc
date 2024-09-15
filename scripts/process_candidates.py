@@ -53,7 +53,7 @@ class ProcessCandidates():
         excel_file_dir = 'data/dcboe/excel-clean/'
         excel_file = self.most_recent_file(excel_file_dir, filename_pattern, election_year=election_year)
         if not excel_file:
-            return None
+            return pd.DataFrame()
 
         characters_to_strip = [
             excel_file_dir
@@ -117,14 +117,21 @@ class ProcessCandidates():
 
         df_ballot = self.read_dcboe_excel('dcboe-ballot-')
         df_ballot['is_write_in'] = False
-        
+
+        # Remove candidates who DNQFB on ballot list and then filed as write-ins. todo: fix
+        df_ballot = df_ballot[~((df_ballot['candidate_name'] == 'Ellen E. Armstead') & (df_ballot['smd'] == '1E05'))].copy()
+        df_ballot = df_ballot[~((df_ballot['candidate_name'] == 'Harold Cunningham') & (df_ballot['smd'] == '7F08'))].copy()
+
         df_write_in = self.read_dcboe_excel('dcboe-write-in-')
-        if df_write_in:
+        if not df_write_in.empty:
             df_write_in['is_write_in'] = True
             df = pd.concat([df_ballot, df_write_in], ignore_index=True)
 
         else:
             df = df_ballot.copy()
+
+        # todo: need to handle the case when a candidate is DNQFB on the DCBOE list and also on the write-in list
+        # how to resolve the duplicate? within the same election year
 
         print('Number of districts in this file: {} (should be 345, ideally)'.format(df.smd.nunique()))
 
@@ -160,13 +167,16 @@ class ProcessCandidates():
         # Assign a candidate status based on the fields from DCBOE
         df['candidate_status'] = '(unknown status)'
         df.loc[df.pickup_date.notnull(), 'candidate_status'] = 'Pulled Papers for Ballot'
-        
+
         # todo: Before ballots deadline, they are 'Filed Signatures'
         # After ballot deadline, they are 'On the Ballot'
         # df.loc[df.filed_date.notnull(), 'candidate_status'] = 'Filed Signatures'
         df.loc[df.filed_date.notnull(), 'candidate_status'] = 'On the Ballot'
-        
-        df.loc[df.candidate_name.str.contains('Withdrew'), 'candidate_status'] = 'Withdrew'
+
+        # df.loc[df.candidate_name.str.contains('Withdrew'), 'candidate_status'] = 'Withdrew' # old way
+        df.loc[df['Date of Withdrawal'].notnull(), 'candidate_status'] = 'Withdrew' # new way
+
+        df.loc[df['Challenge Notes'].notnull(), 'candidate_status'] = 'Did Not Qualify for Ballot'
 
         df.loc[df.is_write_in, 'candidate_status'] = 'Write-In Candidate'
 
@@ -284,7 +294,11 @@ class ProcessCandidates():
         candidates_dcboe = pd.read_csv('data/dcboe/candidates_dcboe.csv')
 
         # Remove the part of the DCBOE candidate name string matchng "(Withdrew 9/4/24)"
-        candidates_dcboe['candidate_name'] = candidates_dcboe['candidate_name'].str.replace(r'\(withdrew [^)]*\)', '', regex=True, case=False)
+        candidates_dcboe['candidate_name'] = (
+            candidates_dcboe['candidate_name']
+            .str.replace(r'\(withdrew [^)]*\)', '', regex=True, case=False)
+            .str.replace(r'\(challenge [^)]*\)', '', regex=True, case=False)
+            )
 
         # Exclude the hash_ids that are currently in the OpenANC candidates table
         candidates_to_match = candidates_dcboe[ ~(candidates_dcboe['external_id'].isin(candidates['external_id'])) ].copy()
