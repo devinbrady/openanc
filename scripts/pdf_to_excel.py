@@ -5,8 +5,8 @@ import tabula
 import pandas as pd
 from pathlib import Path
 
-input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-ANC-Candidates-09122024.pdf')
-output_xlsx = Path('data/dcboe/excel-clean/dcboe-ballot-2024-09-12.xlsx')
+input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-ANC-Candidates-09242024.pdf')
+output_xlsx = Path('data/dcboe/excel-clean/dcboe-ballot-2024-09-24.xlsx')
 
 print(f'input: {input_pdf.name}')
 
@@ -21,6 +21,9 @@ df['Name'] = df.Name.str.replace("\(withdrew(.*)\)", '', regex=True, case=False)
 
 df['Challenge Notes'] = 'Challenge' + df.Name.str.extract("\(Challenge(.*)\)")
 df['Name'] = df.Name.str.replace("\(Challenge(.*)\)", '', regex=True, case=False).str.strip()
+
+# Remove the rows where the candidate is "Write-In, If Any"
+df = df.loc[df['Name'].str.lower() != 'write-in, if any'].copy()
 
 columns_to_excel = [
     'ANC-SMD'
@@ -37,8 +40,8 @@ print(f'output: {output_xlsx.name}')
 
 
 
-wu_input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-Write-in-Candidates-09122024.pdf')
-wu_output_xlsx = Path('data/dcboe/excel-clean/dcboe-write-in-2024-09-12.xlsx')
+wu_input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-Write-in-Candidates-10222024.pdf')
+wu_output_xlsx = Path('data/dcboe/excel-clean/dcboe-write-in-2024-10-22.xlsx')
 
 print(f'\ninput: {wu_input_pdf.name}')
 
@@ -51,7 +54,19 @@ wu_df.rename(columns={"Write-in Candidate's Name": 'Name'}, inplace=True)
 
 print(f'Number of write-in candidates: {wu_df.Name.notnull().sum()}')
 
-wu_df['Office'] = wu_df['Office'].str.replace('Advisory Neighborhood Commissioner', '').str.strip()
+
+spelling_variations = [
+    'Advisory Neighborhood Commissioner'
+    , 'Advisory Neighbohood Commissioner'
+    , 'Advisory Neighborhhod Commissioner'
+    , 'Advisory Neighborhood Commisioner'
+    , 'Advisory Neighborhood commissioner'
+]
+
+for sp in spelling_variations:
+    wu_df['Office'] = wu_df['Office'].str.replace(sp, '').str.strip()
+
+
 wu_df['Name'] = wu_df['Name'].str.replace('*', '', regex=False).str.strip()
 
 columns_to_excel = ['Office', 'Name']
