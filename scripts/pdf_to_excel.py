@@ -40,8 +40,8 @@ print(f'output: {output_xlsx.name}')
 
 
 
-wu_input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-Write-in-Candidates-10222024.pdf')
-wu_output_xlsx = Path('data/dcboe/excel-clean/dcboe-write-in-2024-10-22.xlsx')
+wu_input_pdf = Path('~/Dropbox/OpenANC/DCBOE candidate lists 2024/General-24-Write-in-Candidates-11012024.pdf')
+wu_output_xlsx = Path('data/dcboe/excel-clean/dcboe-write-in-2024-11-01.xlsx')
 
 print(f'\ninput: {wu_input_pdf.name}')
 

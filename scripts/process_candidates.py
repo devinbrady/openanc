@@ -152,7 +152,13 @@ class ProcessCandidates():
         df['candidate_name'] = df['candidate_name'].str.title()
 
         # Rename the 3/4G districts and 6/8F districts to match the smd_id pattern
-        df['smd_id'] = 'smd_2022_' + df['smd'].str.replace('3G', '3/4G').str.replace('6/8F', '8F')
+        df['smd_id'] = (
+            'smd_2022_'
+            + df['smd']
+            .str.replace('3G', '3/4G')
+            .str.replace('6/8F', '8F')
+            .str.replace('6/8/F', '8F')
+            )
 
         # Fix bad dates and names
         # df.loc[df['candidate_name'] == 'Hasan Rasheedah', 'candidate_name'] = "Rasheedah Hasan"
