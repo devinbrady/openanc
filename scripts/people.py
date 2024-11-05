@@ -62,14 +62,25 @@ class BuildPeople():
 
         self.rcp['ranking_ordinal'] = self.rcp['ranking'].apply(lambda x: make_ordinal(x))
         self.rcp['votes'] = self.rcp['votes'].apply(lambda x: '{:,.0f}'.format(x)).fillna('')
+        self.rcp.to_csv('~/Desktop/rcp.csv', index=False)
 
         self.candidates_districts = pd.merge(self.candidates, self.districts, how='inner', on='smd_id')
         self.candidates_districts_results = pd.merge(
             self.candidates_districts
-            , self.rcp[['candidate_id', 'ranking_ordinal', 'votes']]
+            , self.rcp[['candidate_id', 'ranking', 'ranking_ordinal', 'votes']]
             , how='left'
             , on='candidate_id'
             )
+
+
+
+        # For elections that are past, set the candidate_status to either Won or Lost
+        self.candidates_districts_results.loc[self.candidates_districts_results.ranking.notnull(), 'candidate_status'] = 'Lost Election'
+        self.candidates_districts_results.loc[self.candidates_districts_results.ranking == 1, 'candidate_status'] = 'Won Election'
+
+        print(self.candidates_districts_results.groupby(['election_year', 'candidate_status']).size())
+        self.candidates_districts_results.to_csv('~/Desktop/candidates_districts_results.csv', index=False)
+
 
         """
         During an election after redistricting, it's necessary to show whether current incumbents
