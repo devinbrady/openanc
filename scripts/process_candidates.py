@@ -332,8 +332,6 @@ class ProcessCandidates():
 
             best_id, best_score = match_names(row['candidate_name'], current_comm['full_name'], current_comm['person_id'])
 
-            # if best_score >= 80:
-
             candidates_to_match.loc[idx, 'match_score'] = best_score
             candidates_to_match.loc[idx, 'match_person_id'] = best_id
             candidates_to_match.loc[idx, 'match_person_full_name'] = people[people.person_id == best_id].full_name.iloc[0]
