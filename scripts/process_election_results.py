@@ -7,7 +7,6 @@ from tqdm import tqdm
 
 from scripts.data_transformations import (
     list_candidates
-    , most_recent_smd
     )
 
 from scripts.common import (

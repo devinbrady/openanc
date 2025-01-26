@@ -7,9 +7,6 @@ from tqdm import tqdm
 import geopandas as gpd
 from datetime import datetime
 
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
-
 import config
 
 from scripts.data_transformations import (
@@ -24,7 +21,6 @@ from scripts.urls import (
     generate_link
     , relative_link_prefix
     )
-
 
 
 
@@ -522,6 +518,8 @@ def hash_dataframe(df, columns_to_hash):
 
     df = pandas DataFrame
     columns_to_hash = a list containing the column names that should be hashed
+
+    todo: move to data_transformations
     """
 
     hash_of_data = []
@@ -532,45 +530,6 @@ def hash_dataframe(df, columns_to_hash):
         hash_of_data += [hashlib.sha224(string_to_hash.encode()).hexdigest()]
 
     return hash_of_data
-
-
-
-def match_names(source_value, list_to_search, list_of_ids):
-    """
-    Take one name, compare to list of names, return the best match and the match score
-    """
-
-    matches = process.extract(source_value, list_to_search, scorer=fuzz.ratio, limit=1)
-
-    best_id = list_of_ids[matches[0][2]]
-    best_score = matches[0][1]
-
-    return best_id, best_score
-
-
-
-def match_to_openanc(df, name_column):
-    """
-    Take a DataFrame with a name_column and find the one best match for each row
-    in the OpenANC people database.
-    """
-
-    # Silence the SettingWithCopyWarning
-    df = df.copy()
-
-    people = pd.read_csv('data/people.csv')
-    people = most_recent_smd(people)
-
-    for idx, row in tqdm(df.iterrows(), total=len(df), desc='Match  '):
-                
-        best_id, best_score = match_names(row[name_column], people['full_name'], people['person_id'])
-
-        df.loc[idx, 'match_score'] = best_score
-        df.loc[idx, 'match_person_id'] = best_id
-        df.loc[idx, 'match_full_name'] = people[people.person_id == best_id].full_name.iloc[0]
-        df.loc[idx, 'match_smd_id'] = people[people.person_id == best_id].most_recent_smd_id.iloc[0]
-        
-    return df
 
 
 

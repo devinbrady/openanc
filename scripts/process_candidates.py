@@ -359,6 +359,8 @@ class ProcessCandidates():
         Check existing and new candidate hashes to see where there are mismatches
 
         When a candidate's name changes, the hash from the new file should be written to the OpenANC Source candidate sheet
+
+        todo: delete when branch `merge` is well... merged
         """
 
         candidates = pd.read_csv('data/candidates.csv')
