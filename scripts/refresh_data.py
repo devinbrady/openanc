@@ -18,10 +18,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 import config
 
-from scripts.common import (
-    assemble_divo
-    , match_to_openanc
-    )
+from scripts.common import assemble_divo
 
 from scripts.urls import (
     generate_url
@@ -453,32 +450,6 @@ class RefreshData():
 
 
 
-    def generate_external_id_lookup_table(self):
-        """
-        Take the external_id_list field on the people table, a comma-separated list of external IDs,
-        and split them into a table with one row per external_id
-
-        todo: no longer needed, delete this
-        """
-
-        people = pd.read_csv('data/people.csv')
-
-        people['external_id_list_split'] = people.external_id_list.str.split(', ')
-
-        external_id_list_split = []
-
-        for idx, row in people[people.external_id_list.notnull()].iterrows():            
-            for eid in row.external_id_list_split:
-                external_id_list_split += [[eid, row.person_id, row.full_name]]
-
-        external_id_lookup = pd.DataFrame(external_id_list_split,columns=['external_id', 'person_id', 'full_name'])
-
-        external_id_lookup.to_csv('data/temp/external_id_person_id_lookup.csv', index=False)
-
-        print('Table generated: external_id_person_id_lookup.csv')
-
-
-
     def add_name_id_to_people_csv(self):
         """Calculate the name slug once for the people CSV and save it"""
 
@@ -552,29 +523,6 @@ class RefreshData():
 
 
 
-    def run_matching_process(self, new_external_ids, name_column):
-
-        match_df = match_to_openanc(new_external_ids, name_column)
-        match_df['good_match'] = '?'
-
-        columns_to_csv = [
-            'external_id'
-            , 'match_score'
-            , 'smd_id'
-            , 'match_smd_id'
-            , name_column
-            , 'match_full_name'
-            , 'match_person_id'
-            , 'good_match'
-        ]
-
-        (
-            match_df[columns_to_csv]
-            .sort_values(by='match_score', ascending=False)
-            .to_csv(self.match_file, index=False)
-        )
-
-
     def set_candidate_status_of_pulled_papers(self):
         """
         Candidates who have pulled papers for the ballot but not filed signatures will count as
@@ -619,7 +567,7 @@ class RefreshData():
         self.refresh_csv('people', 'A:F')
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('commissioners', 'A:E')
-        # self.refresh_csv('external_id_lookup', 'A:C')
+        self.refresh_csv('external_id_lookup', 'A:D')
 
         # Related to election results
         # self.refresh_csv('results', 'A:Q') #, filter_dict={'candidate_matched': 1})
@@ -644,7 +592,6 @@ class RefreshData():
 
         self.download_google_sheets(do_full_refresh)
         self.add_name_id_to_people_csv()
-        # self.generate_external_id_lookup_table()
 
         self.check_database_for_new_external_ids()
         
