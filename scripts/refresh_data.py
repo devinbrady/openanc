@@ -593,7 +593,8 @@ class RefreshData():
         self.download_google_sheets(do_full_refresh)
         self.add_name_id_to_people_csv()
 
-        self.check_database_for_new_external_ids()
+        # todo: refactor this function to use MatchPeople
+        # self.check_database_for_new_external_ids()
         
         confirm_key_uniqueness('data/people.csv', 'person_id')
         confirm_key_uniqueness('data/candidates.csv', 'candidate_id')

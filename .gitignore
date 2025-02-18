@@ -6,7 +6,7 @@ Scratch.ipynb
 data/dcboe/monitor_dcboe_site_changes_log.txt
 
 data/temp/*.csv
-# data/matching/*.csv
+data/matching/*.csv
 
 # Files that may contain contact info
 candidates_dcboe_match.csv
