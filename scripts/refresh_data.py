@@ -291,7 +291,7 @@ class RefreshData():
         """
         Publish results from 2020 elections to OpenANC Published
 
-        todo: make this work with new write-in winners table
+        todo: make this work with new write-in winners table. this is currently not being run.
         """
 
         people = people_dataframe()

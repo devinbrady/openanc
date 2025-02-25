@@ -76,11 +76,13 @@ class BuildDistricts():
         # Merge the order and status fields for sorting
         self.people_candidate_statuses['order_status'] = self.people_candidate_statuses['display_order'].astype(str) + ';' + self.people_candidate_statuses['candidate_status']
 
-        self.people_candidate_statuses['link_block'] = self.people_candidate_statuses.apply(
-            lambda row: build_link_block(
-                row, fields_to_try=['website_link', 'mastodon_link', 'twitter_link', 'facebook_link'])
-            , axis=1
-            )
+        # print(self.people_candidate_statuses)
+        if len(self.people_candidate_statuses) > 0:
+            self.people_candidate_statuses['link_block'] = self.people_candidate_statuses.apply(
+                lambda row: build_link_block(
+                    row, fields_to_try=['website_link', 'mastodon_link', 'twitter_link', 'facebook_link'])
+                , axis=1
+                )
 
         # Shuffle the order of candidates. Changes every day
         self.people_candidate_statuses.sample(frac=1, random_state=today_as_int())

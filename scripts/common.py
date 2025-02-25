@@ -163,6 +163,7 @@ def assemble_divo():
     divo = district-votes
 
     todo: move to data_transformations
+    todo 2025: maybe not needed anymore
     """
 
     results = pd.read_csv('data/results.csv')
