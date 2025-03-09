@@ -24,6 +24,7 @@ from scripts.common import (
     , mapbox_slugs
     , candidate_form_link
     , smd_geojson
+    , in_election_season
     )
 
 from scripts.urls import (
@@ -162,14 +163,16 @@ class BuildDistricts():
 
         smd_results_all_years = self.rcp[self.rcp['smd_id'] == smd_id].copy()
 
-        for election_year in smd_results_all_years.election_year.unique():
+        results_block = ''
+
+        for election_year in sorted(smd_results_all_years.election_year.unique(), reverse=True):
             
             # Show the candidate with the most votes first
-            smd_results = smd_results_all_years[smd_results_all_years.election_year == election_year].sort_values(by='votes', ascending=False).copy().copy()
+            smd_results = smd_results_all_years[smd_results_all_years.election_year == election_year].sort_values(by='votes', ascending=False).copy()
 
             num_candidates = len(smd_results)
 
-            results_block = f'<h2>{election_year} Election Results</h2>'
+            results_block += f'<h2>{election_year} Election Results</h2>'
 
             if num_candidates == 0:
                 results_block += '<p>No known candidates.</p>'
@@ -216,12 +219,12 @@ class BuildDistricts():
                         lambda x: ['font-weight: bold' if x.Name == 'Total Votes' else '' for i in x]
                         , axis=1
                         )
-                    .set_uuid('results_')
+                    .set_uuid(f'results_{election_year}_')
                     .hide(axis='index')
                     .to_html()
                     )
 
-                if smd_id in ('smd_2022_1E01', 'smd_2022_6E08', 'smd_2022_7D10'):
+                if election_year == 2022 and smd_id in ('smd_2022_1E01', 'smd_2022_6E08', 'smd_2022_7D10'):
                     results_block += ('<p>There was a named candidate on the ballot who withdrew but still received the most votes. '
                         + 'As such, there was no winner for this contest and the office was vacant after the election.</p>'
                         )
@@ -230,9 +233,12 @@ class BuildDistricts():
 
                     # If there is a write-in winner, include their name here. Otherwise, no one won and the district will be vacant.
 
-                    if (self.write_in_winners_people.smd_id == smd_id).sum() > 0:
+                    if ((self.write_in_winners_people.smd_id == smd_id) & (self.write_in_winners_people.election_year == election_year)).sum() > 0:
 
-                        commissioner_elect = self.write_in_winners_people[self.write_in_winners_people.smd_id == smd_id]['full_name'].values[0]
+                        if len(self.write_in_winners_people[(self.write_in_winners_people.smd_id == smd_id) & (self.write_in_winners_people.election_year == election_year)]['full_name']) == 0:
+                            print(smd_id)
+                            print(election_year)
+                        commissioner_elect = self.write_in_winners_people[(self.write_in_winners_people.smd_id == smd_id) & (self.write_in_winners_people.election_year == election_year)]['full_name'].values[0]
 
                         results_block += (
                             f'<p>This election was won by <strong>{commissioner_elect}</strong>, a write-in candidate whose "Affirmation of Write-in Candidacy" was accepted by the DC Board of Elections.</p>'
@@ -242,7 +248,7 @@ class BuildDistricts():
 
                         smd_name = self.districts[self.districts['smd_id'] == smd_id]['smd_name'].iloc[0]
 
-                        if smd_id in ('smd_2022_3E07', 'smd_2022_6E02'):
+                        if election_year == 2022 and smd_id in ('smd_2022_3E07', 'smd_2022_6E02'):
                             results_block += ('<p>Two write-in candidates tied in this election. See "Notes" below.</p>')
 
                         else:
@@ -453,9 +459,6 @@ class BuildDistricts():
         district_candidates = pd.merge(self.districts, self.candidates_this_year, how='left', on='smd_id')
         max_updated_at = district_candidates['updated_at'].dropna().max()
         smd_updated_at = district_candidates[['smd_id', 'updated_at']].fillna(value={'updated_at': max_updated_at})
-        smd_max_updated_at = smd_updated_at.groupby('smd_id').agg({'updated_at': max})
-        smd_max_updated_at['updated_at'] = pd.to_datetime(smd_max_updated_at['updated_at'])
-        smd_max_updated_at['updated_at_formatted'] = smd_max_updated_at['updated_at'].dt.strftime('%B %-d, %Y')
 
         # Process SMDs in order by smd_id
         district_wards = district_wards.sort_values(by=['redistricting_year', 'smd_id'])
@@ -465,14 +468,9 @@ class BuildDistricts():
 
             smd_id = row['smd_id']
 
-            # debug: Dorchester House
-            # if smd_id not in ('smd_1C06', 'smd_2022_1C09'):
+            # debug
+            # if smd_id not in ('smd_2022_8F05'):
             #     continue
-
-            # debug: Santiago Lakatos
-            # if smd_id not in ('smd_2022_1B04'):
-            #     continue
-
 
             with open('templates/district.html', 'r') as f:
                 output = f.read()
@@ -492,11 +490,9 @@ class BuildDistricts():
 
             output = output.replace('<!-- replace with commissioner table -->', self.build_commissioner_table(smd_id))
 
-            # ---------------------
-            # todo 2025 comment out
-            output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
-            # ---------------------
-
+            if in_election_season():
+                output = output.replace('<!-- replace with candidate table -->', self.add_candidates(smd_id))
+    
             output = output.replace('<!-- replace with results table -->', self.add_results(smd_id))
             output = output.replace('<!-- replace with better know a district -->', self.build_better_know_a_district(smd_id))
 

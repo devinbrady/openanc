@@ -12,6 +12,7 @@ from scripts.common import (
     , add_google_analytics
     , build_smd_html_table
     , mapbox_slugs
+    , in_election_season
 )
 
 from scripts.urls import (
@@ -34,10 +35,8 @@ class BuildIndex():
 
     def __init__(self):
         self.candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+        self.in_election_season = in_election_season()
 
-        # If there are candidates listed for the current_election_year, it's election season.
-        # If no candidates, it's not election season.
-        self.in_election_season = len(list_candidates(election_year=config.current_election_year)) > 0
 
 
     def district_tables(self):

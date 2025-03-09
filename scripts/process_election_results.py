@@ -11,7 +11,6 @@ from scripts.data_transformations import (
 
 from scripts.common import (
     hash_dataframe
-    , match_names
     , validate_smd_ids
 )
 
@@ -78,7 +77,7 @@ class ProcessElectionResults():
 
         # external_id is a hash of the uppercase candidate name and the smd_id they were running in
         candidates_results['candidate_name_upper'] = candidates_results['candidate_name'].str.upper()
-        candidates_results['external_id'] = hash_dataframe(candidates_results, ['smd_id', 'candidate_name_upper'])
+        candidates_results['external_id'] = hash_dataframe(candidates_results, ['smd_id', 'candidate_name_upper'], string_to_add=f'{election_year}_votes')
         candidates_results.loc[candidates_results.candidate_name_upper == 'WRITE-IN', 'external_id'] = pd.NA
 
         candidates_results['ranking'] = candidates_results.groupby('smd_id').votes.rank(method='first', ascending=False)
@@ -163,7 +162,7 @@ class ProcessElectionResults():
         num_candidates.name = 'num_candidates'
         candidates_results = pd.merge(candidates_results, num_candidates, how='inner', on='smd_id')
 
-        print(f'Election results processed for year: {election_year}. Number of candidates: {candidates_results.external_id.nunique()}. Total votes: {candidates_results.votes.sum():,}')
+        print(f'Election results processed for election year: {election_year}. Number of candidates: {candidates_results.external_id.nunique()}. Total votes: {candidates_results.votes.sum():,}')
 
         return candidates_results
 
@@ -191,9 +190,9 @@ class ProcessElectionResults():
         write_in_df['candidate_name'] = write_in_df['official_name']
         write_in_df['candidate_name_upper'] = write_in_df['official_name'].str.upper()
 
-        write_in_df['external_id'] = hash_dataframe(write_in_df, ['smd_id', 'candidate_name_upper'])
+        write_in_df['external_id'] = hash_dataframe(write_in_df, ['smd_id', 'candidate_name_upper'], string_to_add=f'{election_year}_write-in winner')
 
-        print(f'Write-in results processed for year: {election_year}. Number of write-in winners: {len(write_in_df)}')
+        print(f'Write-in results processed for election year: {election_year}. Number of write-in winners: {len(write_in_df)}')
 
         return write_in_df
 

@@ -9,7 +9,7 @@ from datetime import datetime
 
 from scripts.refresh_data import RefreshData
 from scripts.process_candidates import ProcessCandidates
-# from scripts.process_election_results import ProcessElectionResults
+from scripts.process_election_results import ProcessElectionResults
 from scripts.index import BuildIndex
 from scripts.districts import BuildDistricts
 from scripts.ancs import BuildANCs
@@ -65,9 +65,9 @@ if args.refresh_data:
 #     pc = ProcessCandidates()
 #     pc.run()
 
-# if args.election_results:
-#     er = ProcessElectionResults()
-#     er.run()
+if args.election_results:
+    er = ProcessElectionResults()
+    er.run()
 
 if args.build_index:
     bi = BuildIndex()

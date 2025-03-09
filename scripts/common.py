@@ -513,7 +513,7 @@ def edit_item_list():
 
 
 
-def hash_dataframe(df, columns_to_hash):
+def hash_dataframe(df, columns_to_hash, string_to_add=None):
     """
     Given a DataFrame, hash certain columns
 
@@ -528,6 +528,10 @@ def hash_dataframe(df, columns_to_hash):
     for idx, row in df.iterrows():
         list_to_hash = row[columns_to_hash]
         string_to_hash = ','.join(list_to_hash)
+
+        if string_to_add:
+            string_to_hash += string_to_add
+
         hash_of_data += [hashlib.sha224(string_to_hash.encode()).hexdigest()]
 
     return hash_of_data
@@ -546,3 +550,14 @@ def validate_smd_ids(df):
         print('\nThese smd_ids are not valid:')
         print(df[df.smd_id.isin(invalid_smd_ids)])
         raise Exception('Resolve the smd_id issue.')
+
+
+
+def in_election_season():
+    """
+    If there are candidates listed for the current_election_year, it's election season.
+
+    If zero candidates, it's not election season.
+    """
+
+    return len(list_candidates(election_year=config.current_election_year)) > 0

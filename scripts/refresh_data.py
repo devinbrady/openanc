@@ -220,7 +220,6 @@ class RefreshData():
 
         # Commissioners currently active
         commissioners = list_commissioners(status='current')
-        people = people_dataframe()
         districts = pd.read_csv('data/districts.csv')
 
         if len(commissioners) == 0:
@@ -231,7 +230,7 @@ class RefreshData():
         districts = districts[districts.redistricting_year == config.current_redistricting_year].copy()
 
         dc = pd.merge(districts, commissioners, how='left', on='smd_id')
-        dcp = pd.merge(dc, people, how='left', on='person_id')
+        dcp = pd.merge(dc, self.people, how='left', on='person_id')
 
         dcp['start'] = dcp['start_date'].dt.strftime('%Y-%m-%d')
         dcp['end'] = dcp['end_date'].dt.strftime('%Y-%m-%d')
@@ -294,14 +293,13 @@ class RefreshData():
         todo: make this work with new write-in winners table. this is currently not being run.
         """
 
-        people = people_dataframe()
         candidates = list_candidates(election_year=2020)
         results = pd.read_csv('data/results.csv')
         write_in_winners = pd.read_csv('data/write_in_winners.csv')
 
         cp = pd.merge(
             candidates[['candidate_id', 'person_id', 'smd_id', 'candidate_status']]
-            , people[['person_id', 'full_name']]
+            , self.people[['person_id', 'full_name']]
             , how='inner'
             , on='person_id'
             )
@@ -468,8 +466,6 @@ class RefreshData():
             # , 'data/candidates.csv'
             ]
 
-        self.lookup = pd.read_csv('data/external_id_lookup.csv')
-
         for table_file in tables_with_external_ids:
             self.check_table_for_new_external_ids(table_file, 'candidate_name')
 
@@ -478,6 +474,7 @@ class RefreshData():
     def check_table_for_new_external_ids(self, table_file, name_column):
 
         # todo: make this work for multiple source files of external_ids
+        # todo 2025: delete in favor of MatchPeople
 
         external_id_df = pd.read_csv(table_file)
         external_id_df = external_id_df[external_id_df.external_id.notnull()].copy()
@@ -520,6 +517,21 @@ class RefreshData():
 
         if len(good_matches) > 0 or len(people_create) > 0:
             raise SystemExit('Add data to source spreadsheet before continuing.')
+
+
+
+    def confirm_validity_of_person_ids_in_external_id_lookup(self):
+        """
+        Confirm that all of the person_ids in the external_id_lookup table are also in the person table
+        """
+
+        external_id_index_not_in_person = ~(self.lookup.person_id.isin(self.people.person_id))
+
+        if external_id_index_not_in_person.sum() > 0:
+            print('These records in external_id_lookup.csv are not in person.csv:')
+            print(self.lookup.loc[external_id_index_not_in_person])
+
+            raise SystemExit('Make sure that all person_ids in external_id_lookup.csv are in person.csv')
 
 
 
@@ -569,6 +581,9 @@ class RefreshData():
         self.refresh_csv('commissioners', 'A:E')
         self.refresh_csv('external_id_lookup', 'A:D')
 
+        self.lookup = pd.read_csv('data/external_id_lookup.csv')
+        self.people = people_dataframe()
+
         # Related to election results
         # self.refresh_csv('results', 'A:Q') #, filter_dict={'candidate_matched': 1})
         # self.refresh_csv('write_in_winners', 'A1:G26')
@@ -602,6 +617,7 @@ class RefreshData():
         # self.confirm_column_notnull_candidates() # todo 2024-09-10: why did this need to be disabled after the ballot deadline?
         self.confirm_commissioner_date_validity()
         self.confirm_one_person_per_candidate_election_year()
+        self.confirm_validity_of_person_ids_in_external_id_lookup()
         self.set_candidate_status_of_pulled_papers()
 
         dcc = districts_candidates_commissioners(link_source='root')

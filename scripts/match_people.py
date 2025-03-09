@@ -67,6 +67,9 @@ class MatchPeople():
 
         self.input_df = pd.read_csv(self.input_csv_path)
 
+        # filter the input df to only contain rows with an external ID
+        self.input_df = self.input_df[self.input_df.external_id.notnull()].reset_index(drop=True).copy()
+
 
 
     def read_files_to_memory(self):
@@ -84,7 +87,7 @@ class MatchPeople():
     def match_to_openanc(self):
 
         if self.matching_files_exist:
-            print('Matching files exist. Downloading fresh data from Google Sheets.')
+            print('Intermediate matching files exist. Downloading fresh data from Google Sheets.')
             # print('\n**** Matching Process Step 3 of 3: Refreshing Data ****')
             rd = RefreshData()
             rd.download_google_sheets(do_full_refresh=False)
@@ -97,13 +100,17 @@ class MatchPeople():
         input_external_ids_known = input_join_external.person_id.notnull()
         input_external_ids_unknown = ~(input_external_ids_known)
         
-        print(f'External IDs in input: {len(self.input_df)}')
+        print(f'\nExternal IDs in input: {len(self.input_df)}')
         print(f'Known external IDs in input: {input_external_ids_known.sum()}')
         print(f'Unknown external IDs in input: {input_external_ids_unknown.sum()}')
         
         if input_external_ids_unknown.sum() == 0:
             print('Everyone in the input file is already matched to OpenANC.')
             print('\n**** Matching Process Complete ****')
+            print('Please delete these files:')
+            for key in self.csv_files:
+                print(self.csv_files[key])
+
             return # return what?
 
         people_to_match = self.input_df.loc[input_external_ids_unknown].copy()
@@ -111,7 +118,7 @@ class MatchPeople():
         if not self.csv_files['eval'].exists():
             # Evaluation file does not exist, create it
             print('\n**** Matching Process Step 1 of 3: Evaluate Matches ****')
-            self.create_match_evaluation_csv(people_to_match, self.name_column)
+            self.create_match_evaluation_csv(people_to_match)
             return # return what?
 
 
@@ -124,12 +131,14 @@ class MatchPeople():
 
 
         # todo: turn these next steps into functions
+
         # Save CSV to be inserted into the Person table
         eval_did_not_match['person_id_suggested'] = 1 + self.max_id_person + np.arange(0, len(eval_did_not_match))
-
         eval_did_not_match['full_name'] = eval_did_not_match[self.name_column]
-        eval_did_not_match[['person_id_suggested', 'full_name']].to_csv(self.csv_files['people_insert'], index=False)
-        print(f"Saved {len(eval_did_not_match)} people to be inserted into Person table: {self.csv_files['people_insert']}")
+
+        if len(eval_did_not_match) > 0:
+            eval_did_not_match[['person_id_suggested', 'full_name']].to_csv(self.csv_files['people_insert'], index=False)
+            print(f"Saved {len(eval_did_not_match)} people to be inserted into Person table: {self.csv_files['people_insert']}")
 
         # Save CSV to be inserted into the External ID Lookup table
         eval_matches['person_id'] = eval_matches['match_person_id']
@@ -151,16 +160,15 @@ class MatchPeople():
             , on='external_id'
             )
 
-        print(self.input_csv_path.stem)
         output_path = self.match_dir /  f'{self.input_csv_path.stem}_matched_person_id.csv'
         output_df.to_csv(output_path, index=False)
         print(f'Match results saved to: {output_path}')
 
 
 
-    def create_match_evaluation_csv(self, match_df, name_column):
+    def create_match_evaluation_csv(self, match_df):
 
-        # def match_to_openanc(df, name_column):
+        # def match_to_openanc(df):
         """
         Take a DataFrame with a name_column and find the one best match for each row
         in the OpenANC people database.
@@ -172,7 +180,7 @@ class MatchPeople():
 
         for idx, row in tqdm(match_df.iterrows(), total=len(match_df), desc='Matching input to OpenANC people'):
                     
-            best_id, best_score = self.match_names(row[name_column], self.people['full_name'], self.people['person_id'])
+            best_id, best_score = self.match_names(row[self.name_column], self.people['full_name'], self.people['person_id'])
 
             match_df.loc[idx, 'match_score'] = best_score
             match_df.loc[idx, 'match_person_id'] = best_id
@@ -180,8 +188,10 @@ class MatchPeople():
             match_df.loc[idx, 'match_smd_id'] = self.people[self.people.person_id == best_id].most_recent_smd_id.iloc[0]
 
         match_df['good_match'] = '?'
+
+        eval_columns = ['external_id', self.name_column, 'match_full_name', 'smd_id', 'match_smd_id', 'match_person_id', 'match_score', 'good_match']
         
-        match_df.sort_values(by='match_score', ascending=False).to_csv(self.csv_files['eval'], index=False)
+        match_df[eval_columns].sort_values(by='match_score', ascending=False).to_csv(self.csv_files['eval'], index=False)
 
         print(f"Evaluate the {len(match_df)} potential matches in: {self.csv_files['eval']}")
 
