@@ -61,9 +61,9 @@ if args.refresh_data:
     r = RefreshData()
     r.run(args.full_refresh_data)
 
-if args.candidates:
-    pc = ProcessCandidates()
-    pc.run()
+# if args.candidates:
+#     pc = ProcessCandidates()
+#     pc.run()
 
 if args.election_results:
     er = ProcessElectionResults()

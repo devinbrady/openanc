@@ -18,10 +18,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 import config
 
-from scripts.common import (
-    assemble_divo
-    , match_to_openanc
-    )
+from scripts.common import assemble_divo
 
 from scripts.urls import (
     generate_url
@@ -223,7 +220,6 @@ class RefreshData():
 
         # Commissioners currently active
         commissioners = list_commissioners(status='current')
-        people = people_dataframe()
         districts = pd.read_csv('data/districts.csv')
 
         if len(commissioners) == 0:
@@ -234,7 +230,7 @@ class RefreshData():
         districts = districts[districts.redistricting_year == config.current_redistricting_year].copy()
 
         dc = pd.merge(districts, commissioners, how='left', on='smd_id')
-        dcp = pd.merge(dc, people, how='left', on='person_id')
+        dcp = pd.merge(dc, self.people, how='left', on='person_id')
 
         dcp['start'] = dcp['start_date'].dt.strftime('%Y-%m-%d')
         dcp['end'] = dcp['end_date'].dt.strftime('%Y-%m-%d')
@@ -294,17 +290,16 @@ class RefreshData():
         """
         Publish results from 2020 elections to OpenANC Published
 
-        todo: make this work with new write-in winners table
+        todo: make this work with new write-in winners table. this is currently not being run.
         """
 
-        people = people_dataframe()
         candidates = list_candidates(election_year=2020)
         results = pd.read_csv('data/results.csv')
         write_in_winners = pd.read_csv('data/write_in_winners.csv')
 
         cp = pd.merge(
             candidates[['candidate_id', 'person_id', 'smd_id', 'candidate_status']]
-            , people[['person_id', 'full_name']]
+            , self.people[['person_id', 'full_name']]
             , how='inner'
             , on='person_id'
             )
@@ -453,32 +448,6 @@ class RefreshData():
 
 
 
-    def generate_external_id_lookup_table(self):
-        """
-        Take the external_id_list field on the people table, a comma-separated list of external IDs,
-        and split them into a table with one row per external_id
-
-        todo: no longer needed, delete this
-        """
-
-        people = pd.read_csv('data/people.csv')
-
-        people['external_id_list_split'] = people.external_id_list.str.split(', ')
-
-        external_id_list_split = []
-
-        for idx, row in people[people.external_id_list.notnull()].iterrows():            
-            for eid in row.external_id_list_split:
-                external_id_list_split += [[eid, row.person_id, row.full_name]]
-
-        external_id_lookup = pd.DataFrame(external_id_list_split,columns=['external_id', 'person_id', 'full_name'])
-
-        external_id_lookup.to_csv('data/temp/external_id_person_id_lookup.csv', index=False)
-
-        print('Table generated: external_id_person_id_lookup.csv')
-
-
-
     def add_name_id_to_people_csv(self):
         """Calculate the name slug once for the people CSV and save it"""
 
@@ -497,8 +466,6 @@ class RefreshData():
             # , 'data/candidates.csv'
             ]
 
-        self.lookup = pd.read_csv('data/external_id_lookup.csv')
-
         for table_file in tables_with_external_ids:
             self.check_table_for_new_external_ids(table_file, 'candidate_name')
 
@@ -507,6 +474,7 @@ class RefreshData():
     def check_table_for_new_external_ids(self, table_file, name_column):
 
         # todo: make this work for multiple source files of external_ids
+        # todo 2025: delete in favor of MatchPeople
 
         external_id_df = pd.read_csv(table_file)
         external_id_df = external_id_df[external_id_df.external_id.notnull()].copy()
@@ -552,27 +520,19 @@ class RefreshData():
 
 
 
-    def run_matching_process(self, new_external_ids, name_column):
+    def confirm_validity_of_person_ids_in_external_id_lookup(self):
+        """
+        Confirm that all of the person_ids in the external_id_lookup table are also in the person table
+        """
 
-        match_df = match_to_openanc(new_external_ids, name_column)
-        match_df['good_match'] = '?'
+        external_id_index_not_in_person = ~(self.lookup.person_id.isin(self.people.person_id))
 
-        columns_to_csv = [
-            'external_id'
-            , 'match_score'
-            , 'smd_id'
-            , 'match_smd_id'
-            , name_column
-            , 'match_full_name'
-            , 'match_person_id'
-            , 'good_match'
-        ]
+        if external_id_index_not_in_person.sum() > 0:
+            print('These records in external_id_lookup.csv are not in person.csv:')
+            print(self.lookup.loc[external_id_index_not_in_person])
 
-        (
-            match_df[columns_to_csv]
-            .sort_values(by='match_score', ascending=False)
-            .to_csv(self.match_file, index=False)
-        )
+            raise SystemExit('Make sure that all person_ids in external_id_lookup.csv are in person.csv')
+
 
 
     def set_candidate_status_of_pulled_papers(self):
@@ -619,7 +579,10 @@ class RefreshData():
         self.refresh_csv('people', 'A:F')
         self.refresh_csv('candidates', 'A:X', filter_dict={'publish_candidate': 'TRUE'})
         self.refresh_csv('commissioners', 'A:E')
-        # self.refresh_csv('external_id_lookup', 'A:C')
+        self.refresh_csv('external_id_lookup', 'A:D')
+
+        self.lookup = pd.read_csv('data/external_id_lookup.csv')
+        self.people = people_dataframe()
 
         # Related to election results
         # self.refresh_csv('results', 'A:Q') #, filter_dict={'candidate_matched': 1})
@@ -644,9 +607,9 @@ class RefreshData():
 
         self.download_google_sheets(do_full_refresh)
         self.add_name_id_to_people_csv()
-        # self.generate_external_id_lookup_table()
 
-        self.check_database_for_new_external_ids()
+        # todo: refactor this function to use MatchPeople
+        # self.check_database_for_new_external_ids()
         
         confirm_key_uniqueness('data/people.csv', 'person_id')
         confirm_key_uniqueness('data/candidates.csv', 'candidate_id')
@@ -654,6 +617,7 @@ class RefreshData():
         # self.confirm_column_notnull_candidates() # todo 2024-09-10: why did this need to be disabled after the ballot deadline?
         self.confirm_commissioner_date_validity()
         self.confirm_one_person_per_candidate_election_year()
+        self.confirm_validity_of_person_ids_in_external_id_lookup()
         self.set_candidate_status_of_pulled_papers()
 
         dcc = districts_candidates_commissioners(link_source='root')

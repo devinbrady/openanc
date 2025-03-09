@@ -7,12 +7,10 @@ from tqdm import tqdm
 
 from scripts.data_transformations import (
     list_candidates
-    , most_recent_smd
     )
 
 from scripts.common import (
     hash_dataframe
-    , match_names
     , validate_smd_ids
 )
 
@@ -25,11 +23,13 @@ class ProcessElectionResults():
         self.results_files = {
             2020: 'November_3_2020_General_Election_Certified_Results.csv'
             , 2022: 'November_8_2022_General_Election_Certified_Results.csv'
+            , 2024: 'November_5_2024_General_Election_Certified_Results.csv'
         }
 
         self.write_in_files = {
             2020: 'write_in_winners_2020.csv'
             , 2022: 'write_in_winners_2022.csv'
+            , 2024: 'write_in_winners_2024.csv'
         }
 
 
@@ -48,13 +48,22 @@ class ProcessElectionResults():
             , 'Votes': 'votes'
         })
 
-        anc = df[df['contest_name'].str.contains('SINGLE MEMBER DISTRICT')].copy()
+        if election_year == 2024:
+            anc = df[df['contest_name'].str.contains('ANC-')].copy()
+        else:
+            anc = df[df['contest_name'].str.contains('SINGLE MEMBER DISTRICT')].copy()
 
         smd_id_prefix = 'smd_'
         if election_year >= 2022:
             smd_id_prefix += '2022_'
 
-        anc['smd_id'] = smd_id_prefix + anc['contest_name'].str.extract('(?<=ANC - )(.*)(?=SINGLE MEMBER)')
+        if election_year == 2024:
+            # Stop extraction at space, for district entered as "ANC-6/8F01 6/8F01"
+            anc['smd_id'] = smd_id_prefix + anc['contest_name'].str.extract('(?<=ANC-)(\S*)')
+            anc['smd_id'] = anc['smd_id'].str.replace('6/8F', '8F')
+        else:
+            anc['smd_id'] = smd_id_prefix + anc['contest_name'].str.extract('(?<=ANC - )(.*)(?=SINGLE MEMBER)')
+
         anc['smd_id'] = anc['smd_id'].str.strip()
         validate_smd_ids(anc)
 
@@ -68,7 +77,7 @@ class ProcessElectionResults():
 
         # external_id is a hash of the uppercase candidate name and the smd_id they were running in
         candidates_results['candidate_name_upper'] = candidates_results['candidate_name'].str.upper()
-        candidates_results['external_id'] = hash_dataframe(candidates_results, ['smd_id', 'candidate_name_upper'])
+        candidates_results['external_id'] = hash_dataframe(candidates_results, ['smd_id', 'candidate_name_upper'], string_to_add=f'{election_year}_votes')
         candidates_results.loc[candidates_results.candidate_name_upper == 'WRITE-IN', 'external_id'] = pd.NA
 
         candidates_results['ranking'] = candidates_results.groupby('smd_id').votes.rank(method='first', ascending=False)
@@ -153,7 +162,7 @@ class ProcessElectionResults():
         num_candidates.name = 'num_candidates'
         candidates_results = pd.merge(candidates_results, num_candidates, how='inner', on='smd_id')
 
-        print(f'Election results processed for year: {election_year}')
+        print(f'Election results processed for election year: {election_year}. Number of candidates: {candidates_results.external_id.nunique()}. Total votes: {candidates_results.votes.sum():,}')
 
         return candidates_results
 
@@ -181,9 +190,9 @@ class ProcessElectionResults():
         write_in_df['candidate_name'] = write_in_df['official_name']
         write_in_df['candidate_name_upper'] = write_in_df['official_name'].str.upper()
 
-        write_in_df['external_id'] = hash_dataframe(write_in_df, ['smd_id', 'candidate_name_upper'])
+        write_in_df['external_id'] = hash_dataframe(write_in_df, ['smd_id', 'candidate_name_upper'], string_to_add=f'{election_year}_write-in winner')
 
-        print(f'Write-in results processed for year: {election_year}')
+        print(f'Write-in results processed for election year: {election_year}. Number of write-in winners: {len(write_in_df)}')
 
         return write_in_df
 

@@ -27,10 +27,12 @@ from scripts.data_transformations import (
     )
 
 from scripts.common import (
-    match_names
-    , hash_dataframe
+    hash_dataframe
     , validate_smd_ids
     )
+
+from scripts.match_people import MatchPeople
+
 
 pd.set_option('display.max_colwidth', 180)
 pd.set_option('display.max_columns', 100)
@@ -319,6 +321,9 @@ class ProcessCandidates():
 
         # Look for the OpenANC person that has the highest match score against each new candidate
 
+        # todo: remove this whole script in favor of MatchPeople?
+        mp = MatchPeople()
+
         for idx, row in candidates_to_match.iterrows():
 
             # In most years, we should match only to people with the same smd_id
@@ -330,9 +335,8 @@ class ProcessCandidates():
             if len(current_comm) == 0:
                 continue
 
-            best_id, best_score = match_names(row['candidate_name'], current_comm['full_name'], current_comm['person_id'])
 
-            # if best_score >= 80:
+            best_id, best_score = mp.match_names(row['candidate_name'], current_comm['full_name'], current_comm['person_id'])
 
             candidates_to_match.loc[idx, 'match_score'] = best_score
             candidates_to_match.loc[idx, 'match_person_id'] = best_id
@@ -361,6 +365,8 @@ class ProcessCandidates():
         Check existing and new candidate hashes to see where there are mismatches
 
         When a candidate's name changes, the hash from the new file should be written to the OpenANC Source candidate sheet
+
+        todo: delete when branch `merge` is well... merged
         """
 
         candidates = pd.read_csv('data/candidates.csv')

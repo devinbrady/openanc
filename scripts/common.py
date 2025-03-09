@@ -7,9 +7,6 @@ from tqdm import tqdm
 import geopandas as gpd
 from datetime import datetime
 
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
-
 import config
 
 from scripts.data_transformations import (
@@ -24,7 +21,6 @@ from scripts.urls import (
     generate_link
     , relative_link_prefix
     )
-
 
 
 
@@ -167,6 +163,7 @@ def assemble_divo():
     divo = district-votes
 
     todo: move to data_transformations
+    todo 2025: maybe not needed anymore
     """
 
     results = pd.read_csv('data/results.csv')
@@ -516,12 +513,14 @@ def edit_item_list():
 
 
 
-def hash_dataframe(df, columns_to_hash):
+def hash_dataframe(df, columns_to_hash, string_to_add=None):
     """
     Given a DataFrame, hash certain columns
 
     df = pandas DataFrame
     columns_to_hash = a list containing the column names that should be hashed
+
+    todo: move to data_transformations
     """
 
     hash_of_data = []
@@ -529,48 +528,13 @@ def hash_dataframe(df, columns_to_hash):
     for idx, row in df.iterrows():
         list_to_hash = row[columns_to_hash]
         string_to_hash = ','.join(list_to_hash)
+
+        if string_to_add:
+            string_to_hash += string_to_add
+
         hash_of_data += [hashlib.sha224(string_to_hash.encode()).hexdigest()]
 
     return hash_of_data
-
-
-
-def match_names(source_value, list_to_search, list_of_ids):
-    """
-    Take one name, compare to list of names, return the best match and the match score
-    """
-
-    matches = process.extract(source_value, list_to_search, scorer=fuzz.ratio, limit=1)
-
-    best_id = list_of_ids[matches[0][2]]
-    best_score = matches[0][1]
-
-    return best_id, best_score
-
-
-
-def match_to_openanc(df, name_column):
-    """
-    Take a DataFrame with a name_column and find the one best match for each row
-    in the OpenANC people database.
-    """
-
-    # Silence the SettingWithCopyWarning
-    df = df.copy()
-
-    people = pd.read_csv('data/people.csv')
-    people = most_recent_smd(people)
-
-    for idx, row in tqdm(df.iterrows(), total=len(df), desc='Match  '):
-                
-        best_id, best_score = match_names(row[name_column], people['full_name'], people['person_id'])
-
-        df.loc[idx, 'match_score'] = best_score
-        df.loc[idx, 'match_person_id'] = best_id
-        df.loc[idx, 'match_full_name'] = people[people.person_id == best_id].full_name.iloc[0]
-        df.loc[idx, 'match_smd_id'] = people[people.person_id == best_id].most_recent_smd_id.iloc[0]
-        
-    return df
 
 
 
@@ -586,3 +550,14 @@ def validate_smd_ids(df):
         print('\nThese smd_ids are not valid:')
         print(df[df.smd_id.isin(invalid_smd_ids)])
         raise Exception('Resolve the smd_id issue.')
+
+
+
+def in_election_season():
+    """
+    If there are candidates listed for the current_election_year, it's election season.
+
+    If zero candidates, it's not election season.
+    """
+
+    return len(list_candidates(election_year=config.current_election_year)) > 0

@@ -18,7 +18,7 @@ of SMDs (like on openanc.org/list.html). So if it's the year 2023 and this value
 no candidates are displayed on these lists because no candidates yet exist in the candidates.csv
 table for the 2024 election.
 """
-current_election_year = 2024
+current_election_year = 2026
 
 
 # This is the year when the current map was made

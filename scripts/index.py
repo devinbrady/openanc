@@ -12,6 +12,7 @@ from scripts.common import (
     , add_google_analytics
     , build_smd_html_table
     , mapbox_slugs
+    , in_election_season
 )
 
 from scripts.urls import (
@@ -34,6 +35,7 @@ class BuildIndex():
 
     def __init__(self):
         self.candidate_statuses = pd.read_csv('data/candidate_statuses.csv')
+        self.in_election_season = in_election_season()
 
 
 
@@ -152,27 +154,34 @@ class BuildIndex():
     def count_page(self):
         """Build Count page"""
 
-        with open('templates/counts.html', 'r') as f:
-            output = f.read()
-
         c = Counts()
 
-        # -----------------------------------
-        # todo after election: comment all of these out
-        output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
-        output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
-        output = output.replace('REPLACE_WITH_WARD_CONTESTED_COUNT', c.contested_count_by_grouping('ward_link'))
-        output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
-        output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
-        output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
-        c.pickups_plot()
+        if self.in_election_season:
+            # It's currently election season and there are active candidates
 
-        # -----------------------------------
-        # post-election
-        # output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
-        # output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward_id', '#b2df8a')) # light green
-        # output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_vote_counts('anc_id', '#a6cee3')) # light blue
-        # -----------------------------------
+            with open('templates/counts_election_season.html', 'r') as f:
+                output = f.read()
+
+            output = output.replace('REPLACE_WITH_STATUS_COUNT', c.candidate_status_count())
+            output = output.replace('REPLACE_WITH_CONTESTED_COUNT', c.contested_count_html())
+            output = output.replace('REPLACE_WITH_WARD_CONTESTED_COUNT', c.contested_count_by_grouping('ward_link'))
+            output = output.replace('REPLACE_WITH_ANC_CONTESTED_COUNT', c.contested_count_by_grouping('anc_link'))
+            output = output.replace('REPLACE_WITH_PICKUPS_BY_DAY', c.pickups_by_day())
+            c.pickups_plot()
+
+        else:
+            # There are no candidates yet in the current election year, so only show count of current commissioners
+
+            with open('templates/counts_non_election_season.html', 'r') as f:
+                output = f.read()
+
+            # # todo 2025: These counts need to be fixed
+            # output = output.replace('REPLACE_WITH_DC_COUNT', c.smd_vote_counts('dc', '#fdbf6f')) # light orange
+            # output = output.replace('REPLACE_WITH_WARD_COUNT', c.smd_vote_counts('ward_id', '#b2df8a')) # light green
+            # output = output.replace('REPLACE_WITH_ANC_COUNT', c.smd_vote_counts('anc_id', '#a6cee3')) # light blue
+
+
+        output = output.replace('REPLACE_WITH_COMMISSIONER_COUNT', c.commissioner_count())
 
         output = add_google_analytics(output)
         output = add_footer(output, link_source='root')
@@ -294,8 +303,9 @@ class BuildIndex():
         self.count_page()
         self.about_page()
         # self.build_single_page('index')
-        self.build_map_page_contested('contested') # todo after election 2024: comment this out
         self.build_single_page('404', link_source='absolute')
         self.build_single_page('nav')
         self.list_page()
 
+        if self.in_election_season:
+            self.build_map_page_contested('contested')
