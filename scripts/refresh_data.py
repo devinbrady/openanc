@@ -18,7 +18,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 import config
 
-from scripts.common import assemble_divo
+from scripts.common import assemble_divo, in_election_season
 
 from scripts.urls import (
     generate_url
@@ -140,8 +140,7 @@ class RefreshData():
                 f'<b><a href="{generate_url(row.smd_id)}">District {row.smd_name}</a></b>'
                 )
 
-            # todo 2024: enable for active candidates
-            if '_2022_' in row.smd_id:
+            if in_election_season() and '_2022_' in row.smd_id:
                 map_display_box += f'<br/>Candidates: {row.list_of_candidate_links}'
 
             # todo: what labels should be put on old map, if any?

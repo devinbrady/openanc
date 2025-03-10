@@ -3,6 +3,7 @@ Build Index page
 """
 
 import pandas as pd
+import markdown
 
 import config
 
@@ -212,6 +213,28 @@ class BuildIndex():
 
 
 
+    def updates_page(self):
+        """
+        Covert updates.md into an HTML page.
+        """
+
+        with open('templates/updates.html', 'r') as f:
+            output = f.read()
+
+        with open('updates.md', 'r') as f:
+            updates_md = f.read()
+
+        updates_html = markdown.markdown(updates_md)
+        output = output.replace('<!-- replace with updates -->', updates_html)
+        output = add_footer(output, link_source='root')
+
+        with open('docs/updates.html', 'w') as f:
+            f.write(output)
+
+        print(f'built: updates.html')
+
+
+
     def build_map_page(self, html_name) -> None:
         """
         Builds HTML page from template that is a full-page map, inserting the necessary Mapbox styles from CSV
@@ -306,6 +329,7 @@ class BuildIndex():
         self.build_single_page('404', link_source='absolute')
         self.build_single_page('nav')
         self.list_page()
+        self.updates_page()
 
         if self.in_election_season:
             self.build_map_page_contested('contested')
