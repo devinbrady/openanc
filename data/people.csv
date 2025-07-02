@@ -380,7 +380,7 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 10387,Pranav Nanda,https://twitter.com/PranavNandaDC,,https://www.facebook.com/PranavForDC/,https://pranavnanda6c04.com/,person_PranavNanda
 10388,Tommy Howard,,,,,person_TommyHoward
 10390,Michael Eichler,https://twitter.com/eichler4dc,,,https://eichler4dc.com,person_MichaelEichler
-10391,Andrew Spencer DeFrank,https://twitter.com/andrewdefrank,,,,person_AndrewSpencerDeFrank
+10391,Andrew DeFrank,,,,https://anc2b01.org/,person_AndrewDeFrank
 10392,Mary A. Sutherland,,,,,person_MaryASutherland
 10393,Tony Brown,,,,,person_TonyBrown
 10394,Alex Lopez,https://twitter.com/alopez_pdx,,,https://www.alexlopez6e02.com/,person_AlexLopez
@@ -1866,3 +1866,4 @@ person_id,full_name,twitter_link,mastodon_link,facebook_link,website_link,person
 11907,Melissa Wyers,,,,,person_MelissaWyers
 11908,Elizabeth Graff,,,,,person_ElizabethGraff
 11909,Peter Sloniewsky,,,,,person_PeterSloniewsky
+11910,Jack Hermes,,,,,person_JackHermes
