@@ -8,11 +8,11 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10006,smd_1A06,Angelica Castañon,2019-01-02,2021-01-02
 10007,smd_1A07,Jen Bundy,2019-01-02,2020-07-31
 10008,smd_1A08,Kent C. Boese,2019-01-02,2023-01-02
-10009,smd_2022_1E03,Michael Wray,2023-01-02,2025-01-02
 10009,smd_1A09,Michael Wray,2019-01-02,2023-01-02
+10009,smd_2022_1E03,Michael Wray,2023-01-02,2025-01-02
 10010,smd_2022_1E04,Rashida Brown,2025-01-02,2027-01-02
-10010,smd_1A10,Rashida Brown,2019-01-02,2023-01-02
 10010,smd_2022_1E04,Rashida Brown,2023-01-02,2025-01-02
+10010,smd_1A10,Rashida Brown,2019-01-02,2023-01-02
 10011,smd_1A11,Dotti Love Wade,2019-01-02,2023-01-02
 10012,smd_1A12,Jason Clock,2019-01-02,2021-08-13
 10013,smd_1B01,Anita Norman,2019-01-02,2021-01-02
@@ -22,8 +22,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10017,smd_1B06,Jennifer Bristol,2019-01-02,2020-07-10
 10018,smd_1B07,Marcia Shia,2019-01-02,2021-01-02
 10019,smd_1B08,Joshua Ryan Mater,2019-01-02,2021-01-02
-10020,smd_2022_1A09,James A. Turner,2023-01-02,2025-01-02
 10020,smd_1B09,James A. Turner,2019-01-02,2023-01-02
+10020,smd_2022_1A09,James A. Turner,2023-01-02,2025-01-02
 10021,smd_1B10,Danny Delaney,2019-01-02,2021-09-10
 10022,smd_1B11,Robb Hudson,2019-01-02,2021-04-29
 10023,smd_1B12,Dan Winston,2019-01-02,2021-01-02
@@ -42,9 +42,9 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10035,smd_1D05,Chelsea A. Allinger,2019-01-02,2023-01-02
 10036,smd_2A01,Patrick Kennedy,2019-01-02,2021-01-02
 10037,smd_2A02,Nicole Goldin,2019-01-02,2021-01-02
+10038,smd_2022_2A03,"Trupti ""Trip"" J. Patel",2025-01-02,2027-01-02
 10038,smd_2022_2A03,"Trupti ""Trip"" J. Patel",2023-01-02,2025-01-02
 10038,smd_2A03,"Trupti ""Trip"" J. Patel",2019-01-02,2023-01-02
-10038,smd_2022_2A03,"Trupti ""Trip"" J. Patel",2025-01-02,2027-01-02
 10039,smd_2A04,William Kennedy Smith,2019-01-02,2021-01-02
 10040,smd_2A05,Philip J. Schrefer,2019-01-02,2019-11-20
 10041,smd_2A06,Jeri Epstein,2019-01-02,2023-01-02
@@ -59,25 +59,25 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10049,smd_2B07,Kari Cunningham,2019-01-02,2021-01-02
 10050,smd_2B08,Beverly Schwartz,2019-01-02,2021-01-02
 10051,smd_2B09,Ed Hanlon,2019-01-02,2021-01-02
-10052,smd_2022_2C01,Michael D. Shankle,2025-01-02,2027-01-02
 10052,smd_2C01,Michael D. Shankle,2019-01-02,2023-01-02
 10052,smd_2022_2C01,Michael D. Shankle,2023-01-02,2025-01-02
+10052,smd_2022_2C01,Michael D. Shankle,2025-01-02,2027-01-02
 10053,smd_2C02,Jamaal T. Burton,2019-01-02,2021-01-02
 10054,smd_2C03,Kevin Wilsey,2019-01-02,2021-01-02
 10055,smd_2D01,David R. Bender,2019-01-02,2021-01-02
 10056,smd_2D02,Jeff Nestler,2019-01-02,2021-01-02
-10057,smd_2022_2E01,Kishan Putta,2023-01-02,2025-01-02
 10057,smd_2E01,Kishan Putta,2019-01-02,2023-01-02
+10057,smd_2022_2E01,Kishan Putta,2023-01-02,2025-01-02
 10057,smd_2022_2E01,Kishan Putta,2025-01-02,2027-01-02
 10058,smd_2E02,Joe Gibbons,2019-01-02,2021-01-02
 10059,smd_2E03,Rick Murphy,2019-01-02,2023-01-02
 10060,smd_2E04,Anna Landre,2019-01-02,2021-07-09
 10061,smd_2E05,Lisa Palmer,2019-01-02,2023-01-02
-10062,smd_2E06,Gwendolyn Lohse,2019-01-02,2023-01-02
-10062,smd_2022_2E06,Gwendolyn Lohse,2023-01-02,2025-01-02
 10062,smd_2022_2E06,Gwendolyn Lohse,2025-01-02,2027-01-02
-10063,smd_2022_2E07,Elizabeth H. Miller,2023-01-02,2023-07-07
+10062,smd_2022_2E06,Gwendolyn Lohse,2023-01-02,2025-01-02
+10062,smd_2E06,Gwendolyn Lohse,2019-01-02,2023-01-02
 10063,smd_2E07,Elizabeth H. Miller,2019-01-02,2023-01-02
+10063,smd_2022_2E07,Elizabeth H. Miller,2023-01-02,2023-07-07
 10064,smd_2E08,Matias Burdman,2019-01-02,2021-07-23
 10065,smd_2F01,Jason Forman,2019-01-02,2021-01-02
 10066,smd_2F02,John Guggenmos,2019-01-02,2023-01-02
@@ -88,17 +88,17 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10070,smd_2F06,Ian D. Simon,2019-01-02,2022-02-11
 10071,smd_2F07,Kevin J. Sylvester,2019-01-02,2021-01-02
 10072,smd_2F08,Janice Ferebee,2019-01-02,2021-01-02
-10073,smd_2022_3A05,Ann Lane Mladinov,2023-01-02,2025-01-02
 10073,smd_3B01,Ann Lane Mladinov,2019-01-02,2023-01-02
+10073,smd_2022_3A05,Ann Lane Mladinov,2023-01-02,2025-01-02
 10073,smd_2022_3A05,Ann Lane Mladinov,2025-01-02,2027-01-02
-10074,smd_2022_3B02,Jackie Blumenthal,2023-01-02,2025-01-02
 10074,smd_3B02,Jackie Blumenthal,2019-01-02,2023-01-02
-10075,smd_2022_3B03,Melissa Lane,2023-01-02,2025-01-02
+10074,smd_2022_3B02,Jackie Blumenthal,2023-01-02,2025-01-02
 10075,smd_2022_3B03,Melissa Lane,2025-01-02,2027-01-02
+10075,smd_2022_3B03,Melissa Lane,2023-01-02,2025-01-02
 10075,smd_3B03,Melissa Lane,2019-01-02,2023-01-02
 10076,smd_3B04,Mary C. Young,2019-01-02,2021-01-02
-10077,smd_3B05,Brian G. Turmail,2019-01-02,2023-01-02
 10077,smd_2022_3B02,Brian G. Turmail,2025-01-02,2027-01-02
+10077,smd_3B05,Brian G. Turmail,2019-01-02,2023-01-02
 10078,smd_3C01,Lee Brian Reba,2019-01-02,2023-01-02
 10079,smd_3C02,Jason Fink,2019-01-02,2023-01-02
 10080,smd_3C03,Jimmy Dubois,2019-01-02,2021-01-02
@@ -108,8 +108,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10084,smd_3C08,"Victoria ""Vicki"" Gersten",2019-01-02,2022-02-04
 10085,smd_3C09,Nancy J. MacWood,2019-01-02,2023-01-02
 10086,smd_2022_3D01,Chuck Elkins,2023-01-02,2025-01-02
-10086,smd_3D01,Chuck Elkins,2019-01-02,2023-01-02
 10086,smd_2022_3D01,Chuck Elkins,2025-01-02,2027-01-02
+10086,smd_3D01,Chuck Elkins,2019-01-02,2023-01-02
 10087,smd_3D02,Troy Kravitz,2019-01-02,2021-01-02
 10088,smd_3D03,Paige Ela,2019-01-02,2023-01-02
 10089,smd_3D04,Michael Sriqui,2019-01-02,2023-01-02
@@ -120,18 +120,18 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10094,smd_2022_3D07,J.P. Szymkowicz,2025-01-02,2027-01-02
 10094,smd_3D09,J.P. Szymkowicz,2019-01-02,2023-01-02
 10094,smd_2022_3D07,J.P. Szymkowicz,2023-01-02,2025-01-02
-10095,smd_2022_3A04,Jeremy Del Moral,2023-01-02,2025-01-02
 10095,smd_3D10,Jeremy Del Moral,2019-01-02,2023-01-02
+10095,smd_2022_3A04,Jeremy Del Moral,2023-01-02,2025-01-02
 10096,smd_3E01,Greg Ehrhardt,2019-01-02,2020-04-01
-10097,smd_2022_3E02,Amy B. Hall,2023-01-02,2025-01-02
 10097,smd_3E02,Amy B. Hall,2019-01-02,2023-01-02
 10097,smd_2022_3E02,Amy B. Hall,2025-01-02,2027-01-02
+10097,smd_2022_3E02,Amy B. Hall,2023-01-02,2025-01-02
 10098,smd_2022_3E03,Jonathan Bender,2025-01-02,2027-01-02
-10098,smd_3E03,Jonathan Bender,2019-01-02,2023-01-02
 10098,smd_2022_3E03,Jonathan Bender,2023-01-02,2025-01-02
-10099,smd_3E04,Tom Quinn,2019-01-02,2023-01-02
-10099,smd_2022_3E04,Tom Quinn,2025-01-02,2027-01-02
+10098,smd_3E03,Jonathan Bender,2019-01-02,2023-01-02
 10099,smd_2022_3E04,Tom Quinn,2023-01-02,2025-01-02
+10099,smd_2022_3E04,Tom Quinn,2025-01-02,2027-01-02
+10099,smd_3E04,Tom Quinn,2019-01-02,2023-01-02
 10100,smd_3E05,Jonathan McHugh,2019-01-02,2022-02-18
 10101,smd_3F01,David Cristeal,2019-01-02,2023-01-02
 10102,smd_3F02,Carolinn A Kuebler,2019-01-02,2021-01-02
@@ -148,8 +148,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10113,smd_3G07,Chris Fromboluti,2019-01-02,2021-10-12
 10114,smd_4A01,Phyllis Caudle Green,2019-01-02,2023-01-02
 10115,smd_4A02,Stacey Lincoln,2019-01-02,2023-01-02
-10116,smd_4A03,"Stephen A. ""Steve"" Whatley",2019-01-02,2023-01-02
 10116,smd_2022_4A03,"Stephen A. ""Steve"" Whatley",2023-01-02,2023-02-17
+10116,smd_4A03,"Stephen A. ""Steve"" Whatley",2019-01-02,2023-01-02
 10117,smd_2022_4A04,Patience R. Singleton,2023-01-02,2025-01-02
 10117,smd_2022_4A04,Patience R. Singleton,2025-01-02,2027-01-02
 10117,smd_4A04,Patience R. Singleton,2019-01-02,2023-01-02
@@ -158,14 +158,14 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10119,smd_2022_4E02,Marlene Moss,2023-01-02,2025-01-02
 10119,smd_4A07,Marlene Moss,2019-01-02,2023-01-02
 10120,smd_4A08,Gale B. Black,2019-01-02,2021-01-02
-10121,smd_2022_4B04,Evan Yeats,2023-01-02,2025-01-02
 10121,smd_4B01,Evan Yeats,2019-01-02,2023-01-02
-10122,smd_2022_4B02,Erin Palmer,2023-01-02,2025-01-02
+10121,smd_2022_4B04,Evan Yeats,2023-01-02,2025-01-02
 10122,smd_4B02,Erin Palmer,2019-01-02,2023-01-02
+10122,smd_2022_4B02,Erin Palmer,2023-01-02,2025-01-02
 10123,smd_4B03,Scot Knickerbocker,2019-01-02,2021-01-02
 10125,smd_4B05,Perry Redd,2019-01-02,2021-01-02
-10126,smd_2022_4B06,Tiffani Nichole Johnson,2023-01-02,2025-01-02
 10126,smd_2022_4B06,Tiffani Nichole Johnson,2025-01-02,2027-01-02
+10126,smd_2022_4B06,Tiffani Nichole Johnson,2023-01-02,2025-01-02
 10126,smd_4B06,Tiffani Nichole Johnson,2019-01-02,2023-01-02
 10127,smd_4B07,Geoff Bromaghim,2019-01-02,2023-01-02
 10128,smd_2022_4B08,Alison Brooks,2023-01-02,2025-01-02
@@ -193,9 +193,9 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10145,smd_4D06,Jonathan Nobil,2019-01-02,2023-01-02
 10146,smd_5A01,Frank Wilds,2019-01-02,2021-01-02
 10147,smd_5A02,Grace J. Lewis,2019-01-02,2021-01-02
-10148,smd_2022_5A03,Emily Singer Lucio,2025-01-02,2027-01-02
-10148,smd_2022_5A03,Emily Singer Lucio,2023-01-02,2025-01-02
 10148,smd_5A03,Emily Singer Lucio,2019-01-02,2023-01-02
+10148,smd_2022_5A03,Emily Singer Lucio,2023-01-02,2025-01-02
+10148,smd_2022_5A03,Emily Singer Lucio,2025-01-02,2027-01-02
 10149,smd_5A05,Ronnie Edwards,2019-01-02,2023-01-02
 10150,smd_5A06,Claudia Barragan,2019-01-02,2021-01-02
 10151,smd_5A07,Sandi Washington,2019-01-02,2023-01-02
@@ -204,39 +204,39 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10153,smd_5B01,Gayle Carley,2019-01-02,2023-01-02
 10154,smd_5B02,Ursula Higgins,2019-01-02,2023-01-02
 10155,smd_5B03,Henri Makembe,2019-01-02,2021-01-02
-10156,smd_2022_5B04,Ra Amin,2023-01-02,2025-01-02
 10156,smd_5B04,Ra Amin,2019-01-02,2023-01-02
+10156,smd_2022_5B04,Ra Amin,2023-01-02,2025-01-02
 10156,smd_2022_5B04,Ra Amin,2025-01-02,2027-01-02
 10157,smd_5B05,Landon Jones,2019-01-02,2020-01-31
-10158,smd_2022_5B07,Gail Brevard,2023-01-02,2025-01-02
 10158,smd_5C01,Gail Brevard,2019-01-02,2023-01-02
-10159,smd_2022_5C02,Lauren Rogers,2023-01-02,2025-01-02
+10158,smd_2022_5B07,Gail Brevard,2023-01-02,2025-01-02
 10159,smd_5C02,Lauren Rogers,2019-01-02,2023-01-02
+10159,smd_2022_5C02,Lauren Rogers,2023-01-02,2025-01-02
 10160,smd_5C03,Pierre Hines,2019-01-02,2022-01-21
-10161,smd_2022_5C04,Jacqueline Manning,2023-01-02,2025-01-02
 10161,smd_5C04,Jacqueline Manning,2019-01-02,2023-01-02
-10162,smd_5C05,Darlene Oliver,2019-01-02,2023-01-02
+10161,smd_2022_5C04,Jacqueline Manning,2023-01-02,2025-01-02
 10162,smd_2022_5C05,Darlene Oliver,2023-01-02,2025-01-02
+10162,smd_5C05,Darlene Oliver,2019-01-02,2023-01-02
 10162,smd_2022_5C05,Darlene Oliver,2025-01-02,2027-01-02
 10163,smd_5C06,Kirsten Williams,2019-01-02,2021-01-02
 10164,smd_5C07,Jeremiah Montague Jr.,2019-01-02,2023-01-02
 10165,smd_5D01,Ryan Linehan,2019-01-02,2021-01-02
 10166,smd_5D02,Keisha L. Shropshire,2019-01-02,2021-01-02
 10167,smd_5D03,Steven C. Motley Sr,2019-01-02,2021-01-02
-10168,smd_2022_5D09,Bernice S. Blacknell,2023-01-02,2025-01-02
 10168,smd_5D04,Bernice S. Blacknell,2019-01-02,2023-01-02
+10168,smd_2022_5D09,Bernice S. Blacknell,2023-01-02,2025-01-02
 10169,smd_5D05,Sydelle Moore,2019-01-02,2023-01-02
 10170,smd_5D07,Clarence Lee,2019-01-02,2021-01-02
 10171,smd_5E01,Nick Cheolas,2019-01-02,2021-01-02
 10172,smd_2022_5F03,Patricia Williams (Ward 5),2025-01-02,2027-01-02
-10172,smd_5E02,Patricia Williams (Ward 5),2019-01-02,2023-01-02
 10172,smd_2022_5F03,Patricia Williams (Ward 5),2023-01-02,2025-01-02
+10172,smd_5E02,Patricia Williams (Ward 5),2019-01-02,2023-01-02
 10173,smd_5E03,Cortney Segmen,2019-01-02,2021-01-02
-10174,smd_2022_5F07,Sylvia M. Pinkney,2023-01-02,2025-01-02
 10174,smd_5E04,Sylvia M. Pinkney,2019-01-02,2023-01-02
+10174,smd_2022_5F07,Sylvia M. Pinkney,2023-01-02,2025-01-02
 10175,smd_5E05,Bradley Ashton Thomas,2019-01-02,2023-01-02
-10176,smd_5E06,Karla M. Lewis,2019-01-02,2023-01-02
 10176,smd_2022_5E02,Karla M. Lewis,2025-01-02,2027-01-02
+10176,smd_5E06,Karla M. Lewis,2019-01-02,2023-01-02
 10176,smd_2022_5E02,Karla M. Lewis,2023-01-02,2025-01-02
 10177,smd_5E07,Bertha G. Holliday,2019-01-02,2023-01-02
 10178,smd_5E08,Robert Vinson Brannum,2019-01-02,2023-01-02
@@ -255,58 +255,58 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10188,smd_6A08,Brian Alcorn,2019-01-02,2023-01-02
 10188,smd_2022_7D08,Brian Alcorn,2023-01-02,2025-01-02
 10189,smd_6B01,Jennifer E. Samolyk,2019-01-02,2023-01-02
-10190,smd_2022_6B02,Gerald Sroufe,2023-01-02,2025-01-02
 10190,smd_6B02,Gerald Sroufe,2019-01-02,2023-01-02
 10190,smd_2022_6B02,Gerald Sroufe,2025-01-02,2027-01-02
+10190,smd_2022_6B02,Gerald Sroufe,2023-01-02,2025-01-02
 10191,smd_6B03,Brian Ready,2019-01-02,2023-01-02
 10192,smd_6B04,Kirsten Oldenburg,2019-01-02,2023-01-02
 10193,smd_6B05,Steven Holtzman,2019-01-02,2023-01-02
 10194,smd_6B06,Corey Holman,2019-01-02,2023-01-02
 10195,smd_6B07,Kelly Waud,2019-01-02,2021-01-02
-10196,smd_2022_6B06,Chander Jayaraman,2023-01-02,2025-01-02
 10196,smd_6B08,Chander Jayaraman,2019-01-02,2021-01-02
+10196,smd_2022_6B06,Chander Jayaraman,2023-01-02,2025-01-02
 10197,smd_6B10,Kathryn Denise Rucker Krepp,2019-01-02,2023-01-02
 10198,smd_6C01,Christine Healey,2019-01-02,2023-01-02
 10199,smd_2022_6C02,Karen Wirt,2025-01-02,2027-01-02
 10199,smd_6C02,Karen Wirt,2019-01-02,2023-01-02
-10200,smd_6C03,Jay Adelstein,2019-01-02,2023-01-02
 10200,smd_2022_6C03,Jay Adelstein,2025-01-02,2027-01-02
+10200,smd_6C03,Jay Adelstein,2019-01-02,2023-01-02
 10200,smd_2022_6C03,Jay Adelstein,2023-01-02,2025-01-02
-10201,smd_2022_6C04,Mark Eckenwiler,2025-01-02,2027-01-02
 10201,smd_6C04,Mark Eckenwiler,2019-01-02,2023-01-02
 10201,smd_2022_6C04,Mark Eckenwiler,2023-01-02,2025-01-02
-10202,smd_6C05,Joel Kelty,2019-01-02,2023-01-02
+10201,smd_2022_6C04,Mark Eckenwiler,2025-01-02,2027-01-02
 10202,smd_2022_6C05,Joel Kelty,2023-01-02,2025-01-02
+10202,smd_6C05,Joel Kelty,2019-01-02,2023-01-02
 10203,smd_6C06,Drew Courtney,2019-01-02,2023-01-02
-10204,smd_6D01,Gail Fast,2019-01-02,2021-01-02
 10204,smd_2022_6D03,Gail Fast,2023-01-02,2025-01-02
 10204,smd_2022_6D03,Gail Fast,2025-01-02,2027-01-02
+10204,smd_6D01,Gail Fast,2019-01-02,2021-01-02
 10205,smd_6D02,Anna Forgie,2019-01-02,2021-01-02
 10206,smd_2022_6D02,Ronald R. Collins,2023-01-02,2025-01-02
 10206,smd_6D03,Ronald R. Collins,2019-01-02,2023-01-02
 10207,smd_6D04,Andy Litsky,2019-01-02,2023-01-02
 10208,smd_2022_6D07,"Fredrica ""Rikki"" Kramer",2023-01-02,2025-01-02
-10208,smd_6D05,"Fredrica ""Rikki"" Kramer",2019-01-02,2023-01-02
 10208,smd_2022_6D07,"Fredrica ""Rikki"" Kramer",2025-01-02,2027-01-02
+10208,smd_6D05,"Fredrica ""Rikki"" Kramer",2019-01-02,2023-01-02
+10209,smd_6D06,Rhonda N. Hamilton,2019-01-02,2023-01-02
 10209,smd_2022_6D08,Rhonda N. Hamilton,2023-01-02,2025-01-02
 10209,smd_2022_6D08,Rhonda N. Hamilton,2025-01-02,2027-01-02
-10209,smd_6D06,Rhonda N. Hamilton,2019-01-02,2023-01-02
-10210,smd_2022_8F04,Edward Daniels,2025-01-02,2027-01-02
-10210,smd_2022_8F04,Edward Daniels,2023-01-02,2025-01-02
 10210,smd_6D07,Edward Daniels,2019-01-02,2023-01-02
+10210,smd_2022_8F04,Edward Daniels,2023-01-02,2025-01-02
+10210,smd_2022_8F04,Edward Daniels,2025-01-02,2027-01-02
 10211,smd_2022_2G02,"Alexander M. ""Alex"" Padro",2023-01-02,2025-01-02
 10211,smd_2022_2G02,"Alexander M. ""Alex"" Padro",2025-01-02,2027-01-02
 10211,smd_6E01,"Alexander M. ""Alex"" Padro",2019-01-02,2021-01-02
 10212,smd_6E02,Michael J. Brown,2019-01-02,2021-01-02
 10213,smd_6E03,Frank S. Wiggins,2019-01-02,2023-01-02
+10214,smd_2022_2G06,Rachelle P. Nigro,2023-01-02,2025-01-02
 10214,smd_6E04,Rachelle P. Nigro,2019-01-02,2023-01-02
 10214,smd_2022_2G06,Rachelle P. Nigro,2025-01-02,2027-01-02
-10214,smd_2022_2G06,Rachelle P. Nigro,2023-01-02,2025-01-02
 10215,smd_6E05,Alex Marriott,2019-01-02,2021-01-02
 10216,smd_6E06,Alvin Judd Sr.,2019-01-02,2021-01-02
+10217,smd_6E07,Kevin M. Rogers,2019-01-02,2023-01-02
 10217,smd_2022_6E03,Kevin M. Rogers,2025-01-02,2027-01-02
 10217,smd_2022_6E03,Kevin M. Rogers,2023-01-02,2025-01-02
-10217,smd_6E07,Kevin M. Rogers,2019-01-02,2023-01-02
 10218,smd_7B01,Patricia Howard-Chittams,2019-01-02,2021-01-02
 10219,smd_7B02,Tiffany L. Brown,2019-01-02,2023-01-02
 10220,smd_7B03,Benjamin Crane,2019-01-02,2021-01-02
@@ -318,13 +318,13 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10225,smd_7C01,Patricia A. Malloy,2019-01-02,2023-01-02
 10226,smd_7C03,Catherine A. Woods,2019-01-02,2021-01-02
 10227,smd_2022_7C04,Anthony Lorenzo Green,2023-01-02,2025-01-02
-10227,smd_7C04,Anthony Lorenzo Green,2019-01-02,2023-01-02
 10227,smd_2022_7C04,Anthony Lorenzo Green,2025-01-02,2027-01-02
+10227,smd_7C04,Anthony Lorenzo Green,2019-01-02,2023-01-02
 10228,smd_7C05,Mary L. Gaffney,2019-01-02,2023-01-02
 10228,smd_2022_7C05,Mary L. Gaffney,2025-01-02,2027-01-02
 10229,smd_7C06,Arnold Smith,2019-01-02,2021-01-02
-10230,smd_2022_7C07,Antawan Holmes,2023-01-02,2025-01-02
 10230,smd_7C07,Antawan Holmes,2019-01-02,2023-01-02
+10230,smd_2022_7C07,Antawan Holmes,2023-01-02,2025-01-02
 10230,smd_2022_7C07,Antawan Holmes,2025-01-02,2027-01-02
 10231,smd_7D01,Tamara Blair,2019-01-02,2023-01-02
 10232,smd_2022_7D01,Siraaj M. Hasan,2023-01-02,2025-01-02
@@ -349,12 +349,12 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10245,smd_7F02,Terrance Hunter,2019-01-02,2023-01-02
 10246,smd_7F03,Sheila Carson Carr,2019-01-02,2021-01-02
 10247,smd_7F04,C Exum,2019-01-02,2021-01-02
-10248,smd_2022_7F05,Brittany N. Hughes,2023-01-02,2025-01-02
-10248,smd_2022_7F05,Brittany N. Hughes,2025-01-02,2027-01-02
 10248,smd_7F05,Brittany N. Hughes,2019-01-02,2023-01-02
+10248,smd_2022_7F05,Brittany N. Hughes,2025-01-02,2027-01-02
+10248,smd_2022_7F05,Brittany N. Hughes,2023-01-02,2025-01-02
 10249,smd_7F06,Carol E. Fletcher,2019-01-02,2021-01-02
-10250,smd_2022_8A03,Holly Muhammad,2023-01-02,2025-01-02
 10250,smd_8A01,Holly Muhammad,2019-01-02,2023-01-02
+10250,smd_2022_8A03,Holly Muhammad,2023-01-02,2025-01-02
 10251,smd_8A02,Barbara J. Clark,2019-01-02,2023-01-02
 10251,smd_2022_8A02,Barbara J. Clark,2023-01-02,2025-01-02
 10252,smd_8A03,Brian K Thompson,2019-01-02,2023-01-02
@@ -373,39 +373,39 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10263,smd_8B07,Keeon Johnson,2019-01-02,2021-01-02
 10264,smd_8C01,Mike Austin,2019-01-02,2021-01-02
 10265,smd_8C02,Chyla D. Evans,2019-01-02,2021-01-02
-10266,smd_2022_8C06,"Robbie ""The Advocate"" Woodland",2023-01-02,2025-01-02
 10266,smd_8C03,"Robbie ""The Advocate"" Woodland",2019-01-02,2021-01-02
+10266,smd_2022_8C06,"Robbie ""The Advocate"" Woodland",2023-01-02,2025-01-02
 10267,smd_8C04,Regina Sharlita Pixley,2019-01-02,2021-01-02
 10268,smd_8C05,Mustafa Abdul-Salaam,2019-01-02,2023-01-02
 10269,smd_8C06,Rhonda L. Edwards-Hines,2019-01-02,2023-01-02
+10270,smd_2022_8C07,Salim Adofo,2023-01-02,2025-01-02
 10270,smd_8C07,Salim Adofo,2019-01-02,2023-01-02
 10270,smd_2022_8C07,Salim Adofo,2025-01-02,2027-01-02
-10270,smd_2022_8C07,Salim Adofo,2023-01-02,2025-01-02
 10271,smd_8D01,"Patricia ""Pat"" Carmon",2019-01-02,2023-01-02
 10272,smd_8D02,Olivia L. Henderson,2019-01-02,2023-01-02
 10273,smd_8D03,Absalom Jordan,2019-01-02,2023-01-02
 10274,smd_8D04,Monique T. Diop,2019-01-02,2023-01-02
 10275,smd_8D05,Ellen Armstead,2019-01-02,2023-01-02
-10276,smd_8D06,LaVerne R. Glenn,2019-01-02,2021-01-02
 10276,smd_2022_8A07,LaVerne R. Glenn,2023-01-02,2025-01-02
+10276,smd_8D06,LaVerne R. Glenn,2019-01-02,2021-01-02
 10277,smd_8D07,Constance Mobley,2019-01-02,2021-01-02
 10278,smd_8E01,Adeoye Owolewa,2019-01-02,2021-01-02
-10279,smd_2022_8C05,Cheryl Moore,2023-01-02,2025-01-02
 10279,smd_2022_8C05,Cheryl Moore,2025-01-02,2027-01-02
+10279,smd_2022_8C05,Cheryl Moore,2023-01-02,2025-01-02
 10279,smd_8E02,Cheryl Moore,2019-01-02,2023-01-02
 10280,smd_8E03,Monica Watts,2019-01-02,2021-01-02
-10281,smd_2022_8E04,Kendall Simmons,2023-01-02,2023-06-23
 10281,smd_8E04,Kendall Simmons,2019-01-02,2023-01-02
+10281,smd_2022_8E04,Kendall Simmons,2023-01-02,2023-06-23
 10282,smd_8E05,Christopher L. Hawthorne,2019-01-02,2021-01-02
 10283,smd_8E06,"Karlene ""K"" Armstead",2019-01-02,2021-01-02
 10284,smd_8E07,Stephen A. Slaughter,2019-01-02,2021-01-02
 10285,smd_2022_1A02,Dieter Lehmann Morales,2023-01-02,2025-01-02
-10285,smd_2022_1A02,Dieter Lehmann Morales,2025-01-02,2027-01-02
 10285,smd_1A02,Dieter Lehmann Morales,2021-01-02,2023-01-02
+10285,smd_2022_1A02,Dieter Lehmann Morales,2025-01-02,2027-01-02
 10288,smd_1A06,Judson Wood,2021-01-02,2021-07-23
 10290,smd_2022_1A07,Mukta Ghorpadey,2025-01-02,2027-01-02
-10290,smd_2022_1A07,Mukta Ghorpadey,2023-01-02,2025-01-02
 10290,smd_1A07,Mukta Ghorpadey,2021-01-02,2023-01-02
+10290,smd_2022_1A07,Mukta Ghorpadey,2023-01-02,2025-01-02
 10291,smd_1B05,Victoria Sanchez,2021-01-02,2022-01-28
 10293,smd_1C02,Celeste Carano,2021-01-02,2022-04-01
 10296,smd_1C03,Peter Wood,2021-01-02,2023-01-02
@@ -414,8 +414,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10297,smd_1C04,Meghan Faulkner,2021-01-02,2023-01-02
 10299,smd_1C05,Zack Gold,2021-01-02,2021-10-05
 10301,smd_1C08,Fiona Clem,2021-01-02,2023-01-02
-10302,smd_2A02,Joel Causey,2021-01-02,2023-01-02
 10302,smd_2022_2A06,Joel Causey,2023-01-02,2025-01-02
+10302,smd_2A02,Joel Causey,2021-01-02,2023-01-02
 10304,smd_2022_2A09,Evelyn Hudson,2023-01-02,2025-01-02
 10304,smd_2A05,Evelyn Hudson,2019-11-20,2023-01-02
 10305,smd_2022_2B01,Meg Roggensack,2023-01-02,2025-01-02
@@ -427,26 +427,26 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10312,smd_2B09,Kyle Mulhall,2021-01-02,2023-01-02
 10313,smd_2C03,Gigi Nelson,2021-01-02,2023-01-02
 10315,smd_2E02,Jenny Mitchell,2021-01-02,2023-01-02
-10316,smd_2022_2E02,"Christopher ""Topher"" Mathews",2025-01-02,2027-01-02
 10316,smd_2022_2E02,"Christopher ""Topher"" Mathews",2023-01-02,2025-01-02
+10316,smd_2022_2E02,"Christopher ""Topher"" Mathews",2025-01-02,2027-01-02
 10318,smd_2F01,Brian Romanowski,2021-01-02,2023-01-02
 10320,smd_2F07,Rehana Mohammed,2021-01-02,2022-02-25
 10321,smd_3B04,Elizabeth Elson,2021-01-02,2023-01-02
-10322,smd_3C03,Janell Pagats,2021-01-02,2023-01-02
 10322,smd_2022_3C03,Janell Pagats,2025-01-02,2027-01-02
+10322,smd_3C03,Janell Pagats,2021-01-02,2023-01-02
 10322,smd_2022_3C03,Janell Pagats,2023-01-02,2025-01-02
-10325,smd_3C05,Sauleh A. Siddiqui,2021-01-02,2023-01-02
 10325,smd_2022_3C05,Sauleh A. Siddiqui,2023-01-02,2025-01-02
+10325,smd_3C05,Sauleh A. Siddiqui,2021-01-02,2023-01-02
 10329,smd_3D07,Christian Damiana,2021-01-02,2023-01-02
 10330,smd_3D08,Ben Bergmann,2021-01-02,2023-01-02
 10330,smd_2022_3B06,Ben Bergmann,2023-01-02,2025-01-02
+10333,smd_3E01,Matthew Cohen,2021-01-02,2023-01-02
 10333,smd_2022_3E01,Matthew Cohen,2025-01-02,2027-01-02
 10333,smd_2022_3E01,Matthew Cohen,2023-01-02,2025-01-02
-10333,smd_3E01,Matthew Cohen,2021-01-02,2023-01-02
 10336,smd_3F03,"Dipali (""Dipa"") Mehta",2021-01-02,2023-01-02
-10338,smd_2022_3/4G01,Lisa R. Gore,2025-01-02,2027-01-02
 10338,smd_3G01,Lisa R. Gore,2021-01-02,2023-01-02
 10338,smd_2022_3/4G01,Lisa R. Gore,2023-01-02,2025-01-02
+10338,smd_2022_3/4G01,Lisa R. Gore,2025-01-02,2027-01-02
 10340,smd_3G02,John K. Higgins,2021-01-02,2023-01-02
 10341,smd_3G05,Connie K. N. Chang,2021-01-02,2023-01-02
 10344,smd_2022_4E01,Aretha N. Jones,2025-01-02,2027-01-02
@@ -463,17 +463,17 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10365,smd_2022_5D02,Sebrena L. Rhodes,2025-01-02,2027-01-02
 10365,smd_5D01,Sebrena L. Rhodes,2021-01-02,2023-01-02
 10365,smd_2022_5D02,Sebrena L. Rhodes,2023-01-02,2025-01-02
-10366,smd_2022_5D05,"Salvador ""The Commissioner"" Sauceda-Guzman",2025-01-02,2027-01-02
-10366,smd_5D02,"Salvador ""The Commissioner"" Sauceda-Guzman",2021-01-02,2023-01-02
 10366,smd_2022_5D05,"Salvador ""The Commissioner"" Sauceda-Guzman",2023-01-02,2025-01-02
+10366,smd_5D02,"Salvador ""The Commissioner"" Sauceda-Guzman",2021-01-02,2023-01-02
+10366,smd_2022_5D05,"Salvador ""The Commissioner"" Sauceda-Guzman",2025-01-02,2027-01-02
 10369,smd_5D03,Latoya Moore,2021-01-02,2023-01-02
 10370,smd_2022_5D06,Kathy Henderson,2023-01-02,2025-01-02
 10371,smd_5D06,Zachary Hoffman,2021-01-02,2023-01-02
-10372,smd_5D07,Stephen Cobb,2021-01-02,2023-01-02
 10372,smd_2022_5D04,Stephen Cobb,2023-01-02,2025-01-02
+10372,smd_5D07,Stephen Cobb,2021-01-02,2023-01-02
 10373,smd_5E03,Denise L. Wright,2021-01-02,2023-01-02
-10375,smd_2022_5E06,Kirby Vining,2023-01-02,2025-01-02
 10375,smd_2022_5E06,Kirby Vining,2025-01-02,2027-01-02
+10375,smd_2022_5E06,Kirby Vining,2023-01-02,2025-01-02
 10376,smd_2022_6A01,Keya Chatterjee,2023-01-02,2025-01-02
 10376,smd_6A01,Keya Chatterjee,2021-01-02,2023-01-02
 10380,smd_6A06,Robb Dooling,2021-01-02,2023-01-02
@@ -481,19 +481,19 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10390,smd_6E01,Michael Eichler,2021-01-02,2023-01-02
 10391,smd_2022_2B01,Andrew DeFrank,2025-06-30,2027-01-02
 10393,smd_2022_2G01,Tony Brown,2023-01-02,2025-01-02
-10394,smd_2022_2G03,Alex Lopez,2023-01-02,2023-04-24
 10394,smd_6E02,Alex Lopez,2021-01-02,2023-01-02
+10394,smd_2022_2G03,Alex Lopez,2023-01-02,2023-04-24
 10399,smd_7B01,Chioma J. Iwuoha,2021-01-02,2023-01-02
-10400,smd_7B05,Donna Robinson,2021-01-02,2023-01-02
 10400,smd_2022_7B05,Donna Robinson,2023-01-02,2025-01-02
+10400,smd_7B05,Donna Robinson,2021-01-02,2023-01-02
 10406,smd_7C03,Vince Van,2021-01-02,2023-01-02
 10408,smd_7C06,Victoria Clark,2021-01-02,2023-01-02
-10410,smd_7D04,Milton Hardy,2021-01-02,2023-01-02
 10410,smd_2022_7D04,Milton Hardy,2023-01-02,2023-04-21
+10410,smd_7D04,Milton Hardy,2021-01-02,2023-01-02
 10411,smd_7D06,Rebecca J. Morris,2021-01-02,2023-01-02
-10412,smd_2022_7E04,Natasha Dupee,2025-01-02,2027-01-02
 10412,smd_7E04,Natasha Dupee,2021-01-02,2023-01-02
 10412,smd_2022_7E04,Natasha Dupee,2023-01-02,2025-01-02
+10412,smd_2022_7E04,Natasha Dupee,2025-01-02,2027-01-02
 10414,smd_2022_7B04,Keith Hasan-Towery,2025-01-02,2027-01-02
 10416,smd_2022_7C08,Brandon M. Scott,2025-01-02,2027-01-02
 10417,smd_2022_7E01,Dawn R. Cook,2025-01-02,2027-01-02
@@ -519,20 +519,20 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10456,smd_8C01,Kwasi Seitu,2021-01-02,2023-01-02
 10458,smd_8D07,Patricia Janifer,2021-01-02,2023-01-02
 10459,smd_8E01,"Shekita ""Ki-Ki"" McBroom",2021-01-02,2023-01-02
-10460,smd_2022_1A01,Max Ewart,2023-01-02,2023-07-31
 10460,smd_1B07,Max Ewart,2021-01-02,2023-01-02
+10460,smd_2022_1A01,Max Ewart,2023-01-02,2023-07-31
 10462,smd_2022_2D01,Ashley Warren,2023-01-02,2025-01-02
 10462,smd_2D01,Ashley Warren,2021-01-02,2023-01-02
 10464,smd_2022_8A06,Robin McKinney,2023-01-02,2025-01-02
-10464,smd_8A06,Robin McKinney,2021-01-02,2023-01-02
 10464,smd_2022_8A06,Robin McKinney,2025-01-02,2027-01-02
+10464,smd_8A06,Robin McKinney,2021-01-02,2023-01-02
 10468,smd_1B01,Larry Handerhan,2021-01-02,2023-01-02
 10468,smd_2022_1B01,Larry Handerhan,2023-01-02,2025-01-02
 10471,smd_2B07,Michael Scott McKernan,2021-01-02,2022-03-25
 10472,smd_2F03,Michelle Yan,2021-01-02,2023-01-02
 10474,smd_5E01,Michael Braeuninger,2021-01-02,2023-01-02
-10475,smd_2022_8B05,Joseph B. Johnson,2025-01-02,2027-01-02
 10475,smd_2022_8B05,Joseph B. Johnson,2023-01-02,2025-01-02
+10475,smd_2022_8B05,Joseph B. Johnson,2025-01-02,2027-01-02
 10476,smd_8D06,Alyse Newhouse,2021-01-02,2021-11-19
 10478,smd_3F02,Alexandria Appah,2021-01-02,2023-01-02
 10480,smd_4C07,Paul Johnson,2021-01-02,2023-01-02
@@ -543,8 +543,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10487,smd_2022_1B05,Alan Kensek Jr.,2023-01-02,2025-01-02
 10492,smd_8A07,Steven Tiller,2021-01-02,2023-01-02
 10494,smd_2022_3F04,Claudette David,2023-01-02,2025-01-02
-10494,smd_3F05,Claudette David,2021-01-02,2023-01-02
 10494,smd_2022_3F04,Claudette David,2025-01-02,2027-01-02
+10494,smd_3F05,Claudette David,2021-01-02,2023-01-02
 10495,smd_3F07,Matt Buechner,2021-01-02,2021-05-27
 10496,smd_1A04,Chris Hall,2021-01-02,2023-01-02
 10497,smd_1B03,Muhsin Umar,2021-01-02,2023-01-02
@@ -558,8 +558,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10511,smd_2022_6A05,Laura Gentile,2023-01-02,2023-08-04
 10511,smd_6A05,Laura Gentile,2021-01-02,2023-01-02
 10512,smd_6E05,Patrick K. Parlej,2021-01-02,2023-01-02
-10513,smd_2022_6E04,Denise E. Blackson,2023-01-02,2025-01-02
 10513,smd_6E06,Denise E. Blackson,2021-01-02,2023-01-02
+10513,smd_2022_6E04,Denise E. Blackson,2023-01-02,2025-01-02
 10514,smd_7B04,Cydne Smith Nash,2021-01-02,2022-03-18
 10515,smd_2022_7C06,Patricia Stamper,2023-01-02,2025-01-02
 10515,smd_2022_7C06,Patricia Stamper,2025-01-02,2027-01-02
@@ -567,22 +567,22 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10517,smd_8B05,Michelle Kiah,2021-01-02,2023-01-02
 10518,smd_2022_8E06,"Dolores ""Miracle"" Bryant",2023-01-02,2025-01-02
 10518,smd_2022_8E06,"Dolores ""Miracle"" Bryant",2025-01-02,2027-01-02
-10519,smd_2022_1B08,Sabel Harris,2025-01-02,2027-01-02
-10519,smd_2022_1B08,Sabel Harris,2023-01-02,2025-01-02
 10519,smd_1B12,Sabel Harris,2021-01-02,2023-01-02
+10519,smd_2022_1B08,Sabel Harris,2023-01-02,2025-01-02
+10519,smd_2022_1B08,Sabel Harris,2025-01-02,2027-01-02
 10520,smd_2F05,Sherene Joseph,2021-01-02,2022-08-12
 10521,smd_2F08,Alexandra Bailey,2021-01-02,2023-01-02
 10522,smd_3D05,Katharine Nanavatty,2021-01-02,2022-01-14
 10525,smd_4B04,Brenda Dawson Parks,2019-01-02,2023-01-02
-10528,smd_2022_7F03,Kimory KSO Orendoff,2023-01-02,2025-01-02
 10528,smd_2022_7F03,Kimory KSO Orendoff,2025-01-02,2027-01-02
+10528,smd_2022_7F03,Kimory KSO Orendoff,2023-01-02,2025-01-02
 10529,smd_1C06,Benjamin Hart Butz,2021-01-02,2023-01-02
 10532,smd_2C02,Elizabeth Miske,2021-01-02,2022-05-06
 10541,smd_5B03,"Sukhprita ""Prita"" Piekara",2021-01-02,2023-01-02
 10541,smd_2022_5B06,"Sukhprita ""Prita"" Piekara",2025-01-02,2027-01-02
 10541,smd_2022_5B06,"Sukhprita ""Prita"" Piekara",2023-01-02,2025-01-02
+10547,smd_2022_7B06,Kelvin Brown,2025-01-02,2025-03-19
 10547,smd_2022_7B06,Kelvin Brown,2023-01-02,2025-01-02
-10547,smd_2022_7B06,Kelvin Brown,2025-01-02,2027-01-02
 10547,smd_7B06,Kelvin Brown,2021-01-02,2023-01-02
 10549,smd_7E07,Kimberly Martin,2021-01-02,2023-01-02
 10549,smd_2022_7C08,Kimberly Martin,2023-01-02,2025-01-02
@@ -590,8 +590,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10553,smd_3D05,Sabra Horne,2022-02-25,2023-01-02
 10554,smd_4A05,Carolyn C. Steptoe,2021-01-02,2021-05-21
 10557,smd_4D01,Erik Lindsjö,2021-01-02,2023-01-02
-10560,smd_2022_5A06,Derrick O. Holloway Sr.,2025-01-02,2027-01-02
 10560,smd_5A06,Derrick O. Holloway Sr.,2021-01-02,2023-01-02
+10560,smd_2022_5A06,Derrick O. Holloway Sr.,2025-01-02,2027-01-02
 10562,smd_5E10,Sally Hobaugh,2021-01-02,2023-01-02
 10564,smd_6B08,Peter Wright,2021-01-02,2023-01-02
 10565,smd_6B09,Alison Horn,2021-01-02,2022-10-27
@@ -604,73 +604,74 @@ person_id,smd_id,commissioner_name,start_date,end_date
 10585,smd_7B04,David L. Retland,2022-05-26,2023-01-02
 10587,smd_7E05,Sharon Jafari,2021-01-02,2023-01-02
 10590,smd_2A07,Adam Friend,2021-01-02,2023-01-02
-10593,smd_3G04,Michael Zeldin,2021-01-02,2023-01-02
 10593,smd_2022_3/4G04,Michael Zeldin,2023-01-02,2025-01-02
-10598,smd_2022_7F02,Ashley R. Ruff,2023-01-02,2025-01-02
+10593,smd_3G04,Michael Zeldin,2021-01-02,2023-01-02
 10598,smd_2022_7F02,Ashley R. Ruff,2025-01-02,2027-01-02
+10598,smd_2022_7F02,Ashley R. Ruff,2023-01-02,2025-01-02
 10599,smd_8C04,"Travon ""Ward 8"" Hawkins",2021-01-02,2023-01-02
 10599,smd_2022_8D05,"Travon ""Ward 8"" Hawkins",2023-01-02,2025-01-02
 10602,smd_5A02,Charles T. Lockett,2021-01-02,2023-01-02
 10603,smd_6D01,Andrew Bossi,2021-01-02,2021-10-19
-10604,smd_2A01,Yannik Omictin,2021-01-02,2023-01-02
 10604,smd_2022_2A01,Yannik Omictin,2023-01-02,2025-01-02
-10605,smd_2022_6B08,Edward Ryder,2025-01-02,2027-01-02
-10605,smd_6B07,Edward Ryder,2021-01-02,2023-01-02
+10604,smd_2A01,Yannik Omictin,2021-01-02,2023-01-02
 10605,smd_2022_6B08,Edward Ryder,2023-01-02,2025-01-02
+10605,smd_6B07,Edward Ryder,2021-01-02,2023-01-02
+10605,smd_2022_6B08,Edward Ryder,2025-01-02,2027-01-02
 10606,smd_2A04,Donna Barbisch,2021-01-02,2023-01-02
 10610,smd_6D02,Jared Weiss,2021-01-02,2023-01-02
 10611,smd_2022_3/4G06,Peter Gosselin,2023-01-02,2025-01-02
-10611,smd_2022_3/4G06,Peter Gosselin,2025-01-02,2027-01-02
 10611,smd_3G06,Peter Gosselin,2021-01-02,2023-01-02
+10611,smd_2022_3/4G06,Peter Gosselin,2025-01-02,2027-01-02
 10612,smd_4D05,Eric Smith,2021-01-02,2023-01-02
 10615,smd_2D02,Hannah Untereiner,2021-01-02,2022-04-22
 10616,smd_7B03,Lindsey Botts,2021-01-02,2021-04-15
 10617,smd_2022_7D03,Wendell Felder,2023-01-02,2025-01-02
 10617,smd_7D07,Wendell Felder,2021-01-02,2023-01-02
 10618,smd_7F03,Whitney Weston,2021-01-02,2023-01-02
-10619,smd_2022_7F07,Shirley Thompson-Wright,2025-01-02,2027-01-02
 10619,smd_2022_7F07,Shirley Thompson-Wright,2023-01-02,2025-01-02
 10619,smd_7F06,Shirley Thompson-Wright,2022-06-17,2023-01-02
+10619,smd_2022_7F07,Shirley Thompson-Wright,2025-01-02,2027-01-02
 10620,smd_2022_8B01,Khadijah Watson,2023-01-02,2025-01-02
 10620,smd_8B01,Khadijah Watson,2021-01-02,2023-01-02
 10622,smd_1B11,Amanda Farnan,2021-06-18,2023-01-02
 10623,smd_2A08,Margaret McDonald,2021-05-28,2023-01-02
-10624,smd_2022_7B03,Travis R. Swanson,2025-01-02,2027-01-02
-10624,smd_2022_7B03,Travis R. Swanson,2023-01-02,2025-01-02
 10624,smd_7B03,Travis R. Swanson,2021-06-17,2023-01-02
+10624,smd_2022_7B03,Travis R. Swanson,2023-01-02,2025-01-02
+10624,smd_2022_7B03,Travis R. Swanson,2025-01-02,2027-01-02
 10625,smd_7E03,De'ashia Deas,2021-05-28,2023-01-02
 10626,smd_7F07,Joel Castόn,2021-06-25,2023-01-02
-10627,smd_3F07,James Tandaric,2021-07-09,2023-01-02
 10627,smd_2022_3F05,James Tandaric,2023-01-02,2025-01-02
+10627,smd_3F07,James Tandaric,2021-07-09,2023-01-02
 10628,smd_4B05,Graham Button,2021-07-09,2022-04-08
-10629,smd_2022_1A06,Brandolon Barnett,2023-01-02,2023-05-12
 10629,smd_1A06,Brandolon Barnett,2021-09-03,2023-01-02
+10629,smd_2022_1A06,Brandolon Barnett,2023-01-02,2023-05-12
 10630,smd_2022_8E02,LaQueda Tate,2023-01-02,2025-01-02
 10630,smd_8E03,LaQueda Tate,2021-10-15,2023-01-02
-10631,smd_2022_5C06,Harry Thomas Jr.,2023-01-02,2025-01-02
 10631,smd_2022_5C06,Harry Thomas Jr.,2025-01-02,2027-01-02
+10631,smd_2022_5C06,Harry Thomas Jr.,2023-01-02,2025-01-02
 10631,smd_5C06,Harry Thomas Jr.,2021-11-05,2023-01-02
 10632,smd_2022_1C07,Jake Faleschini,2023-01-02,2025-01-02
 10632,smd_1C07,Jake Faleschini,2021-11-05,2023-01-02
 10633,smd_2B02,Jeff Rueckgauer,2021-12-03,2023-01-02
-10633,smd_2022_2B02,Jeff Rueckgauer,2025-01-02,2027-01-02
 10633,smd_2022_2B02,Jeff Rueckgauer,2023-01-02,2025-01-02
+10633,smd_2022_2B02,Jeff Rueckgauer,2025-01-02,2027-01-02
 10634,smd_5A04,Alex Rojas,2021-12-03,2023-01-02
 10635,smd_6D01,Marjorie Lightman,2021-12-13,2023-01-02
-10669,smd_2022_1E07,Brian Footer,2025-01-02,2027-01-02
 10669,smd_2022_1E07,Brian Footer,2023-01-02,2025-01-02
+10669,smd_2022_1E07,Brian Footer,2025-01-02,2027-01-02
 10753,smd_2022_2B03,Vincent E. Slatt,2023-01-02,2025-01-02
 10753,smd_2022_2B03,Vincent E. Slatt,2025-01-02,2027-01-02
-10961,smd_2022_4D05,Stephen Marencic Jr.,2025-01-02,2027-01-02
 10961,smd_2022_4D05,Stephen Marencic Jr.,2023-01-02,2025-01-02
+10961,smd_2022_4D05,Stephen Marencic Jr.,2025-01-02,2027-01-02
 10991,smd_2022_5A02,Timothy Thomas,2025-01-02,2027-01-02
 11066,smd_2022_5E01,Joyce (Statehood) Robinson-Paul,2023-01-02,2025-01-02
 11126,smd_2022_2E07,Daniel Chao,2025-01-02,2027-01-02
 11126,smd_2022_2E07,Daniel Chao,2023-09-05,2025-01-02
-11140,smd_2022_6C07,Tony T. Goodman,2025-01-02,2027-01-02
 11140,smd_2022_6C07,Tony T. Goodman,2023-01-02,2025-01-02
+11140,smd_2022_6C07,Tony T. Goodman,2025-01-02,2027-01-02
 11159,smd_2022_5C01,Anthony Dale,2023-01-02,2025-01-02
 11164,smd_2022_2F07,Brant J. Miller,2023-01-02,2025-01-02
+11195,smd_2022_7B07,Jimmie Williams,2025-04-01,2027-01-02
 11310,smd_2022_7D01,Charles Boston,2025-01-02,2027-01-02
 11335,smd_2022_8C08,Amanda Beale,2023-01-02,2025-01-02
 11341,smd_1C05,Deb Felsenthal,2022-01-07,2023-01-02
@@ -678,59 +679,59 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11343,smd_3G07,Charles Cadwell,2022-01-14,2023-01-02
 11344,smd_1C01,Howard Bauleke,2022-01-28,2023-01-02
 11345,smd_1A03,Carlo Perri,2022-02-11,2023-01-02
-11345,smd_2022_1A03,Carlo Perri,2023-01-02,2025-01-02
 11345,smd_2022_1A03,Carlo Perri,2025-01-02,2027-01-02
+11345,smd_2022_1A03,Carlo Perri,2023-01-02,2025-01-02
 11346,smd_2E04,Cimrun Srivastara,2022-02-25,2023-01-02
 11347,smd_2F06,Maxime Devilliers,2022-03-22,2023-01-02
 11348,smd_2E08,Arnav Kumar,2022-04-08,2023-01-02
 11349,smd_2022_3E06,Alexandra Gianinno,2023-01-02,2025-01-02
-11349,smd_2022_3E06,Alexandra Gianinno,2025-01-02,2027-01-02
 11349,smd_3E05,Alexandra Gianinno,2022-04-08,2023-01-02
+11349,smd_2022_3E06,Alexandra Gianinno,2025-01-02,2027-01-02
 11350,smd_2022_5C03,Tequia Hicks Delgado,2023-01-02,2025-01-02
 11350,smd_2022_5C03,Tequia Hicks Delgado,2025-01-02,2027-01-02
 11350,smd_5C03,Tequia Hicks Delgado,2022-04-08,2023-01-02
 11351,smd_3C08,Jocelyn Dyer,2022-05-06,2023-01-02
+11352,smd_2022_2D02,Carole Feld,2025-01-02,2027-01-02
 11352,smd_2D02,Carole Feld,2022-06-03,2023-01-02
 11352,smd_2022_2D02,Carole Feld,2023-01-02,2025-01-02
-11352,smd_2022_2D02,Carole Feld,2025-01-02,2027-01-02
 11353,smd_2022_6B09,Matt LaFortune,2023-01-02,2025-01-02
 11354,smd_2022_1E06,Josh Jacobson,2025-01-02,2027-01-02
 11354,smd_2022_1E06,Josh Jacobson,2023-01-02,2025-01-02
-11355,smd_2022_7D09,Ashley Schapitl,2023-01-02,2025-01-02
 11355,smd_2022_7D09,Ashley Schapitl,2025-01-02,2027-01-02
+11355,smd_2022_7D09,Ashley Schapitl,2023-01-02,2025-01-02
 11358,smd_2022_1B04,Santiago Lakatos,2023-01-02,2025-01-02
 11361,smd_2022_3A01,Thaddeus Bradley-Lewis,2023-01-02,2025-01-02
 11361,smd_2022_3A01,Thaddeus Bradley-Lewis,2025-01-02,2027-01-02
 11362,smd_2022_5C07,VJ Kapur,2025-01-02,2027-01-02
 11362,smd_2022_5C07,VJ Kapur,2023-01-02,2025-01-02
 11363,smd_2022_1B09,Tucker Jones,2023-01-02,2025-01-02
-11364,smd_2022_3D03,Quentin Colón Roosevelt,2023-01-02,2025-01-02
 11364,smd_2022_3D03,Quentin Colón Roosevelt,2025-01-02,2027-01-02
+11364,smd_2022_3D03,Quentin Colón Roosevelt,2023-01-02,2025-01-02
 11365,smd_2022_2B08,Zachary Adams,2025-01-02,2027-01-02
 11365,smd_2022_2B08,Zachary Adams,2023-01-02,2025-01-02
 11366,smd_2022_1B03,Jamie S. Sycamore,2025-01-02,2027-01-02
 11366,smd_2022_1B03,Jamie S. Sycamore,2023-01-02,2025-01-02
 11368,smd_2022_4C07,Matthew Bradfield,2023-01-02,2023-03-17
-11369,smd_2022_8D06,Wendy Hamilton,2023-01-02,2025-01-02
 11369,smd_2022_8D06,Wendy Hamilton,2025-01-02,2027-01-02
-11371,smd_2022_1A04,Jeremy Sherman,2023-01-02,2025-01-02
+11369,smd_2022_8D06,Wendy Hamilton,2023-01-02,2025-01-02
 11371,smd_2022_1A04,Jeremy Sherman,2025-01-02,2027-01-02
+11371,smd_2022_1A04,Jeremy Sherman,2023-01-02,2025-01-02
 11375,smd_2022_2F04,Brian J. McCabe,2023-01-02,2024-01-19
 11377,smd_2022_3C02,Adam J. Prinzo,2025-01-02,2027-01-02
 11377,smd_2022_3C02,Adam J. Prinzo,2023-01-02,2025-01-02
 11382,smd_2022_4A05,Kim Patterson,2023-01-02,2025-01-02
-11383,smd_2022_4C02,Antoine M. Kirby,2025-01-02,2027-01-02
 11383,smd_2022_4C02,Antoine M. Kirby,2023-01-02,2025-01-02
+11383,smd_2022_4C02,Antoine M. Kirby,2025-01-02,2027-01-02
 11385,smd_2022_6A02,Michael Velasquez,2025-01-02,2027-01-02
 11385,smd_2022_6A02,Michael Velasquez,2023-01-02,2025-01-02
 11386,smd_2022_6A03,Roberta Shapiro,2025-01-02,2027-01-02
 11386,smd_2022_6A03,Roberta Shapiro,2023-01-02,2025-01-02
 11387,smd_2022_6C02,Leslie Merkle,2023-01-02,2025-01-02
 11389,smd_2022_6C06,Patricia Eguino,2023-01-02,2025-01-02
-11391,smd_2022_7D05,Ebony Payne,2025-01-02,2027-01-02
 11391,smd_2022_7D05,Ebony Payne,2023-01-02,2025-01-02
-11392,smd_2022_7D06,Marc Friend,2023-01-02,2025-01-02
+11391,smd_2022_7D05,Ebony Payne,2025-01-02,2027-01-02
 11392,smd_2022_7D06,Marc Friend,2025-01-02,2027-01-02
+11392,smd_2022_7D06,Marc Friend,2023-01-02,2025-01-02
 11393,smd_2022_7B09,Michelle Hammond,2023-01-02,2025-01-02
 11393,smd_2022_7B09,Michelle Hammond,2025-01-02,2027-01-02
 11394,smd_2022_7E05,Timothy Howard,2023-01-02,2023-04-21
@@ -740,10 +741,10 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11401,smd_2022_8C01,Georgette Joy Johnson,2023-01-02,2025-01-02
 11402,smd_2022_8C04,"Erica ""Go"" Green",2023-01-02,2025-01-02
 11403,smd_2022_8D08,Lakiah Williams,2023-01-02,2025-01-02
-11405,smd_2022_8E01,Deborah Wells,2023-01-02,2025-01-02
 11405,smd_2022_8E01,Deborah Wells,2025-01-02,2027-01-02
-11406,smd_2022_8F03,Brian Strege,2023-01-02,2025-01-02
+11405,smd_2022_8E01,Deborah Wells,2023-01-02,2025-01-02
 11406,smd_2022_8F03,Brian Strege,2025-01-02,2027-01-02
+11406,smd_2022_8F03,Brian Strege,2023-01-02,2025-01-02
 11407,smd_2022_2B09,Christopher Davis,2023-01-02,2025-01-02
 11407,smd_2022_2B09,Christopher Davis,2025-01-02,2027-01-02
 11407,smd_2B04,Christopher Davis,2022-06-24,2023-01-02
@@ -767,17 +768,17 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11424,smd_2022_4C06,Karen Livingston,2023-01-02,2025-01-02
 11425,smd_2022_4D08,Anthony Pirrotti,2023-01-02,2025-01-02
 11426,smd_2022_5A02,Karlus Cozart,2023-01-02,2025-01-02
-11428,smd_2022_6B03,David Sobelsohn,2023-01-02,2025-01-02
 11428,smd_2022_6B03,David Sobelsohn,2025-01-02,2027-01-02
+11428,smd_2022_6B03,David Sobelsohn,2023-01-02,2025-01-02
 11430,smd_2022_8A01,Tonya Crawford,2023-01-02,2025-01-02
 11431,smd_2022_8C03,Dascha Cleckley,2023-01-02,2025-01-02
 11431,smd_2022_8C03,Dascha Cleckley,2025-01-02,2027-01-02
 11434,smd_2022_1D03,Erika Nunez,2025-01-02,2027-01-02
 11434,smd_2022_1D03,Erika Nunez,2023-01-02,2025-01-02
-11435,smd_2022_1D06,Angela Allison,2025-01-02,2027-01-02
 11435,smd_2022_1D06,Angela Allison,2023-01-02,2025-01-02
-11436,smd_2022_2A02,Jim Malec,2023-01-02,2024-07-29
+11435,smd_2022_1D06,Angela Allison,2025-01-02,2027-01-02
 11436,smd_2022_2A08,Jim Malec,2025-01-02,2027-01-02
+11436,smd_2022_2A02,Jim Malec,2023-01-02,2024-07-29
 11438,smd_2022_2A08,Jordan Nassar,2023-01-02,2025-01-02
 11439,smd_2022_3/4G03,James Nash,2023-01-02,2025-01-02
 11440,smd_2022_3C01,Hayden Gise,2023-01-02,2025-01-02
@@ -787,31 +788,31 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11447,smd_2022_5B01,Edward Borrego,2025-01-02,2027-01-02
 11449,smd_2022_6B01,Frank Avery,2023-01-02,2025-01-02
 11450,smd_2022_6B04,"Francis ""Frank"" D'Andrea",2023-01-02,2025-01-02
-11451,smd_2022_6B07,Vince Mareino,2023-01-02,2025-01-02
 11451,smd_2022_6B07,Vince Mareino,2025-01-02,2027-01-02
+11451,smd_2022_6B07,Vince Mareino,2023-01-02,2025-01-02
 11456,smd_2022_8E05,Duane A. Moody,2025-01-02,2027-01-02
 11456,smd_2022_8E05,Duane A. Moody,2023-01-02,2025-01-02
 11460,smd_2022_3E08,Rohin Ghosh,2023-01-02,2025-01-02
 11461,smd_2022_1A10,Billy Easley,2025-01-02,2027-01-02
 11461,smd_2022_1A10,Billy Easley,2023-01-02,2025-01-02
-11464,smd_2022_2B06,Matt Johnson,2025-01-02,2027-01-02
 11464,smd_2022_2B06,Matt Johnson,2023-01-02,2025-01-02
+11464,smd_2022_2B06,Matt Johnson,2025-01-02,2027-01-02
 11465,smd_2022_2C02,Rebecca Strauss,2023-01-02,2025-01-02
 11466,smd_2022_3A03,Hans B. Miller,2023-01-02,2025-01-02
 11467,smd_2022_5A04,Diego Rojas,2023-01-02,2025-01-02
 11468,smd_2022_5C04,Shawn Nelson,2025-01-02,2027-01-02
-11475,smd_2022_8B04,Kimberly Little,2023-01-02,2025-01-02
 11475,smd_2022_8B04,Kimberly Little,2025-01-02,2027-01-02
+11475,smd_2022_8B04,Kimberly Little,2023-01-02,2025-01-02
 11478,smd_2022_2A07,Dasia Bandy,2023-01-02,2025-01-02
-11479,smd_2022_2F01,David R. Rubenstein,2023-01-02,2025-01-02
 11479,smd_2022_2F01,David R. Rubenstein,2025-01-02,2027-01-02
+11479,smd_2022_2F01,David R. Rubenstein,2023-01-02,2025-01-02
 11481,smd_2022_3D02,Tricia Duncan,2023-01-02,2025-01-02
 11481,smd_2022_3D02,Tricia Duncan,2025-01-02,2027-01-02
 11482,smd_2022_3D04,Jeremy Joseph,2023-01-02,2023-08-04
-11483,smd_2022_3D06,Marilyn Nowalk,2025-01-02,2027-01-02
 11483,smd_2022_3D06,Marilyn Nowalk,2023-01-02,2025-01-02
-11484,smd_2022_4C05,Brittany Kademian,2025-01-02,2027-01-02
+11483,smd_2022_3D06,Marilyn Nowalk,2025-01-02,2027-01-02
 11484,smd_2022_4C05,Brittany Kademian,2023-01-02,2025-01-02
+11484,smd_2022_4C05,Brittany Kademian,2025-01-02,2027-01-02
 11485,smd_2022_5E03,"Fred ""Phil"" Carver",2023-01-02,2025-01-02
 11488,smd_2022_8F05,Clayton Aristotle Rosenberg,2023-01-02,2024-10-15
 11489,smd_2022_1C04,Joseph Van Wye,2023-01-02,2025-01-02
@@ -830,20 +831,20 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11503,smd_2022_3D05,Bernard Horn,2023-01-02,2025-01-02
 11503,smd_2022_3D05,Bernard Horn,2025-01-02,2027-01-02
 11504,smd_2022_3F02,Teri Huet,2023-01-02,2025-01-02
-11505,smd_2022_4E04,Randy Zmuda,2025-01-02,2027-01-02
 11505,smd_2022_4E04,Randy Zmuda,2023-12-15,2025-01-02
+11505,smd_2022_4E04,Randy Zmuda,2025-01-02,2027-01-02
 11506,smd_2022_6D01,Bob Link,2023-01-02,2025-01-02
-11507,smd_2022_7B02,Jamaal Maurice Pearsall,2025-01-02,2027-01-02
 11507,smd_2022_7B02,Jamaal Maurice Pearsall,2023-01-02,2025-01-02
+11507,smd_2022_7B02,Jamaal Maurice Pearsall,2025-01-02,2027-01-02
 11511,smd_2022_5A09,Zach Ammerman,2023-01-02,2023-07-28
 11512,smd_2022_1A08,David Segall,2023-01-02,2024-02-02
 11513,smd_2022_1B07,Ashleigh Fields,2023-01-02,2025-01-02
 11514,smd_2022_1C06,Lynda Laughlin,2025-01-02,2027-01-02
 11514,smd_2022_1C06,Lynda Laughlin,2023-01-02,2025-01-02
-11515,smd_2022_2G04,Steven McCarty,2023-01-02,2025-01-02
 11515,smd_2022_2G04,Steven McCarty,2025-01-02,2027-01-02
-11516,smd_2022_3E05,Jeffrey Denny,2023-01-02,2025-01-02
+11515,smd_2022_2G04,Steven McCarty,2023-01-02,2025-01-02
 11516,smd_2022_3E05,Jeffrey Denny,2025-01-02,2027-01-02
+11516,smd_2022_3E05,Jeffrey Denny,2023-01-02,2025-01-02
 11517,smd_2022_5D03,Anna Roblin,2023-01-02,2025-01-02
 11517,smd_2022_5D03,Anna Roblin,2025-01-02,2027-01-02
 11519,smd_2022_7C09,Carrie N. Brown,2025-01-02,2027-01-02
@@ -854,20 +855,20 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11526,smd_2022_5A01,Duvalier J. Malone,2023-01-02,2025-01-02
 11528,smd_2022_6A07,Stephen Moilanen,2023-01-02,2025-01-02
 11531,smd_2022_1C02,Lee Dixon,2023-01-02,2025-01-02
-11532,smd_2022_1D05,Omar Parbhoo,2025-01-02,2027-01-02
 11532,smd_2022_1D05,Omar Parbhoo,2023-01-02,2025-01-02
+11532,smd_2022_1D05,Omar Parbhoo,2025-01-02,2027-01-02
 11533,smd_2022_2B05,Z Stein,2023-01-02,2025-01-02
 11534,smd_2022_2B07,Patricia Bencivenga,2023-01-02,2023-11-03
 11537,smd_2022_3/4G05,Peter Lynch,2023-01-02,2025-01-02
 11538,smd_2022_4C03,Thomas P. DeFranco,2023-01-02,2025-01-02
 11540,smd_2022_8A01,Tom Donohue,2025-01-02,2027-01-02
-11542,smd_2022_8F01,Nic Wilson,2025-01-02,2027-01-02
 11542,smd_2022_8F01,Nic Wilson,2023-01-02,2025-01-02
+11542,smd_2022_8F01,Nic Wilson,2025-01-02,2027-01-02
 11543,smd_2022_8F02,Rick Murphree,2023-01-02,2025-01-02
-11545,smd_2022_3B01,Kevin Lavezzo,2025-01-02,2027-01-02
 11545,smd_2022_3B01,Kevin Lavezzo,2023-01-02,2025-01-02
-11548,smd_2022_3B05,Gupi Howie,2023-01-02,2025-01-02
+11545,smd_2022_3B01,Kevin Lavezzo,2025-01-02,2027-01-02
 11548,smd_2022_3B05,Gupi Howie,2025-01-02,2027-01-02
+11548,smd_2022_3B05,Gupi Howie,2023-01-02,2025-01-02
 11552,smd_2022_4B05,Kevin Gilligan,2023-01-02,2025-01-02
 11556,smd_2022_5D01,Rebecca Ryan,2023-01-02,2023-03-31
 11557,smd_2022_5F02,Aru Sahni,2025-01-02,2027-01-02
@@ -876,45 +877,45 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11558,smd_2022_5F04,Mark Galvan,2025-01-02,2027-01-02
 11559,smd_2022_5F05,Jennifer Anderson,2023-01-02,2025-01-02
 11559,smd_2022_5F05,Jennifer Anderson,2025-01-02,2027-01-02
-11560,smd_2022_6D06,Bruce Levine,2023-01-02,2025-01-02
 11560,smd_2022_6D06,Bruce Levine,2025-01-02,2027-01-02
+11560,smd_2022_6D06,Bruce Levine,2023-01-02,2025-01-02
 11562,smd_2022_7C02,Patricia Williams (Ward 7),2025-01-02,2027-01-02
 11562,smd_2022_7C02,Patricia Williams (Ward 7),2023-01-02,2025-01-02
 11566,smd_2022_8C02,Joyce M. Doyle,2023-01-02,2025-01-02
 11569,smd_2022_1D02,Hannah Grigg,2023-01-02,2025-01-02
-11570,smd_2022_2G05,Sheena Berry,2025-01-02,2027-01-02
 11570,smd_2022_2G05,Sheena Berry,2023-01-02,2025-01-02
+11570,smd_2022_2G05,Sheena Berry,2025-01-02,2027-01-02
 11573,smd_2022_3C06,Tammy Gordon,2023-01-02,2025-01-02
 11575,smd_2022_4C04,Daniel Alexander,2023-01-02,2025-01-02
 11577,smd_2022_4D06,Aman George,2023-01-02,2025-01-02
 11578,smd_2022_4E04,Carla Ferris,2023-01-02,2023-11-03
 11580,smd_2022_5E05,Kevin Rapp,2023-01-02,2025-01-02
-11582,smd_2022_5F06,Joe Bishop-Henchman,2025-01-02,2027-01-02
 11582,smd_2022_5F06,Joe Bishop-Henchman,2023-01-02,2025-01-02
+11582,smd_2022_5F06,Joe Bishop-Henchman,2025-01-02,2027-01-02
 11583,smd_2022_6B05,Kasie Durkit,2023-01-02,2025-01-02
 11584,smd_2022_7E01,Katrina Norman,2023-01-02,2023-05-05
-11588,smd_2022_7C01,Brian A. Glover,2025-01-02,2027-01-02
 11588,smd_2022_7C01,Brian A. Glover,2023-01-02,2025-01-02
+11588,smd_2022_7C01,Brian A. Glover,2025-01-02,2027-01-02
 11590,smd_2022_3/4G02,Bruce Sherman,2025-01-02,2027-01-02
 11590,smd_2022_3/4G02,Bruce Sherman,2023-01-02,2025-01-02
 11592,smd_2022_3C04,Roric McCorristin,2023-01-02,2025-01-02
-11593,smd_2022_3F06,Courtney Carlson,2025-01-02,2027-01-02
 11593,smd_2022_3F06,Courtney Carlson,2023-01-02,2025-01-02
+11593,smd_2022_3F06,Courtney Carlson,2025-01-02,2027-01-02
 11594,smd_2022_4D07,J. Clark Weigel,2023-01-02,2025-01-02
 11595,smd_2022_5A08,Elaine Alston,2025-01-02,2027-01-02
 11601,smd_2022_2F08,Caroline Zagraniczny,2023-01-02,2025-01-02
 11602,smd_2022_3/4G07,Zachary Ferguson,2023-01-02,2025-01-02
-11604,smd_2022_4A01,Paula Y. Edwards,2023-01-02,2025-01-02
 11604,smd_2022_4A01,Paula Y. Edwards,2025-01-02,2027-01-02
-11606,smd_2022_4B07,Michael Cohen,2023-01-02,2025-01-02
+11604,smd_2022_4A01,Paula Y. Edwards,2023-01-02,2025-01-02
 11606,smd_2022_4B07,Michael Cohen,2025-01-02,2027-01-02
-11610,smd_2022_5D07,Juan McCullum,2025-01-02,2027-01-02
+11606,smd_2022_4B07,Michael Cohen,2023-01-02,2025-01-02
 11610,smd_2022_5D07,Juan McCullum,2023-01-02,2025-01-02
+11610,smd_2022_5D07,Juan McCullum,2025-01-02,2027-01-02
 11611,smd_2022_5F01,Tony Hurst,2023-01-02,2025-01-02
 11613,smd_2022_2C03,Thomas S. Lee,2025-01-02,2027-01-02
 11613,smd_2022_2C03,Thomas S. Lee,2023-01-02,2025-01-02
-11614,smd_2022_3C08,Rick Nash,2023-01-02,2025-01-02
 11614,smd_2022_3C08,Rick Nash,2025-01-02,2027-01-02
+11614,smd_2022_3C08,Rick Nash,2023-01-02,2025-01-02
 11615,smd_2022_4B09,Audrey Walker,2023-01-02,2023-06-23
 11616,smd_2022_4D02,Kate Judson,2023-01-02,2023-11-03
 11618,smd_2022_5D08,Juanita Holsendorff,2025-01-02,2027-01-02
@@ -930,15 +931,15 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11635,smd_2022_1E01,Bradley Gallagher,2023-02-17,2025-01-02
 11637,smd_2022_1D07,Gary Decker,2023-01-02,2025-01-02
 11637,smd_2022_1D07,Gary Decker,2025-01-02,2027-01-02
-11640,smd_2022_2F03,Joe Florio,2023-01-02,2025-01-02
 11640,smd_2022_2F03,Joe Florio,2025-01-02,2027-01-02
+11640,smd_2022_2F03,Joe Florio,2023-01-02,2025-01-02
 11641,smd_2022_3A02,Judy Havemann,2023-01-02,2025-01-02
 11643,smd_2022_7E02,Krystal Bagley,2023-01-02,2025-01-02
 11644,smd_2022_4C01,Casey Swegman,2023-01-02,2025-01-02
 11645,smd_2022_7B07,Lisa D. T. Rice,2023-01-02,2025-01-02
 11646,smd_2022_6E06,Dylan Forest,2023-01-02,2025-01-02
-11647,smd_2022_6E09,Ritanch Hans,2023-01-02,2025-01-02
 11647,smd_2022_6E09,Ritanch Hans,2025-01-02,2027-01-02
+11647,smd_2022_6E09,Ritanch Hans,2023-01-02,2025-01-02
 11648,smd_2022_3E07,Diego Carney,2023-01-02,2025-01-02
 11651,smd_2022_5A06,Kweku A. Toure,2023-01-02,2023-12-22
 11652,smd_2022_7B08,Kelly Taylor,2023-01-02,2025-01-02
@@ -947,8 +948,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11656,smd_2022_7D07,Brett Astmann,2023-01-02,2025-01-02
 11662,smd_2022_8D03,Sandra Harrell,2023-01-02,2025-01-02
 11663,smd_2022_8D07,Natasha Yates,2023-01-02,2025-01-02
-11664,smd_2022_8E09,Rhonda K. Holmes,2025-01-02,2027-01-02
 11664,smd_2022_8E09,Rhonda K. Holmes,2023-01-02,2025-01-02
+11664,smd_2022_8E09,Rhonda K. Holmes,2025-01-02,2027-01-02
 11665,smd_2022_8D01,Jacqueline Kinlow,2023-01-02,2025-01-02
 11666,smd_2022_2E04,Joseph Massaua,2023-01-02,2025-01-02
 11667,smd_2022_2C04,Kristin Roe,2023-01-02,2024-07-29
@@ -961,8 +962,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11673,smd_2022_6E02,George Viedma,2023-01-02,2025-01-02
 11674,smd_2022_1B06,Mark N. Johnson,2023-02-17,2023-05-26
 11675,smd_2022_1C09,John Jones,2023-02-17,2025-01-02
-11676,smd_2022_1E05,Philip Newland,2025-01-02,2027-01-02
 11676,smd_2022_1E05,Philip Newland,2023-02-17,2025-01-02
+11676,smd_2022_1E05,Philip Newland,2025-01-02,2027-01-02
 11677,smd_2022_4A07,Zack Bolton,2023-02-17,2025-01-02
 11678,smd_2022_6D04,Andrea M. Pawley,2023-02-17,2025-01-02
 11678,smd_2022_6D04,Andrea M. Pawley,2025-01-02,2027-01-02
@@ -972,14 +973,14 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11682,smd_2022_5A07,Keith Hardy,2023-03-24,2023-10-06
 11683,smd_2022_7F06,Frieda Edwards,2025-01-02,2027-01-02
 11683,smd_2022_7F06,Frieda Edwards,2023-03-24,2025-01-02
-11684,smd_2022_8B03,Thomas Von Williams Jr.,2023-03-24,2025-01-02
 11684,smd_2022_8B03,Thomas Von Williams Jr.,2025-01-02,2027-01-02
+11684,smd_2022_8B03,Thomas Von Williams Jr.,2023-03-24,2025-01-02
 11685,smd_2022_6E07,Davina Carson,2025-01-02,2027-01-02
 11685,smd_2022_6E07,Davina Carson,2023-03-31,2025-01-02
 11686,smd_2022_1C01,Daniel Michelson-Horowitz,2023-04-03,2025-01-02
 11686,smd_2022_1C01,Daniel Michelson-Horowitz,2025-01-02,2027-01-02
-11687,smd_2022_4A03,Christian Hara,2023-04-28,2025-01-02
 11687,smd_2022_4A03,Christian Hara,2025-01-02,2027-01-02
+11687,smd_2022_4A03,Christian Hara,2023-04-28,2025-01-02
 11688,smd_2022_5A05,Tyeron Boston,2023-05-05,2025-01-02
 11689,smd_2022_5D01,Hector Arbuckle,2023-06-02,2025-01-02
 11689,smd_2022_5D01,Hector Arbuckle,2025-01-02,2027-01-02
@@ -990,8 +991,8 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11692,smd_2022_7E01,Karla Reid-Witt,2023-06-23,2025-01-02
 11693,smd_2022_4C07,Eric Heller,2025-01-02,2027-01-02
 11693,smd_2022_4C07,Eric Heller,2023-06-20,2025-01-02
-11694,smd_2022_1A06,Anthony Thomas-Davis,2023-06-29,2025-01-02
 11694,smd_2022_1A06,Anthony Thomas-Davis,2025-01-02,2027-01-02
+11694,smd_2022_1A06,Anthony Thomas-Davis,2023-06-29,2025-01-02
 11695,smd_2022_7F04,Chanettia Nelson,2025-01-02,2027-01-02
 11695,smd_2022_7F04,Chanettia Nelson,2023-07-14,2025-01-02
 11696,smd_2022_4B09,Derrick Thompson,2023-08-18,2025-01-02
@@ -1001,27 +1002,27 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11699,smd_2022_6A05,Dave Wethington,2025-01-02,2027-01-02
 11699,smd_2022_6A05,Dave Wethington,2023-09-22,2025-01-02
 11700,smd_2022_2F06,Christopher Appel,2023-10-27,2025-01-02
-11701,smd_2022_6E08,Dale Prince,2023-10-27,2025-01-02
 11701,smd_2022_6E08,Dale Prince,2025-01-02,2027-01-02
+11701,smd_2022_6E08,Dale Prince,2023-10-27,2025-01-02
 11702,smd_2022_3F01,Marilyn Slatnick,2023-10-27,2025-01-02
-11703,smd_2022_1B06,Miguel Trindade Deramo,2025-01-02,2027-01-02
 11703,smd_2022_1B06,Miguel Trindade Deramo,2023-10-28,2025-01-02
+11703,smd_2022_1B06,Miguel Trindade Deramo,2025-01-02,2027-01-02
 11704,smd_2022_8B07,Juanita Beltran,2023-12-01,2025-01-02
 11704,smd_2022_8B07,Juanita Beltran,2025-01-02,2027-01-02
 11705,smd_2022_4D02,Abel Amene,2023-12-15,2025-01-02
 11705,smd_2022_4D02,Abel Amene,2025-01-02,2027-01-02
 11706,smd_2022_7F08,Shameka Hayes,2025-01-02,2027-01-02
 11706,smd_2022_7F08,Shameka Hayes,2023-12-29,2025-01-02
-11707,smd_2022_1A01,Jaspal Bhatia,2024-01-05,2025-01-02
 11707,smd_2022_1A01,Jaspal Bhatia,2025-01-02,2027-01-02
+11707,smd_2022_1A01,Jaspal Bhatia,2024-01-05,2025-01-02
 11708,smd_2022_2B07,Libby Franklin,2024-01-08,2025-01-02
 11708,smd_2022_2B07,Libby Franklin,2025-01-02,2027-01-02
 11709,smd_2022_5A09,Shelagh Bocoum,2025-01-02,2027-01-02
 11709,smd_2022_5A09,Shelagh Bocoum,2023-09-01,2025-01-02
-11710,smd_2022_2A05,Luke Chadwick,2024-01-26,2025-01-02
 11710,smd_2022_2A05,Luke Chadwick,2025-01-02,2027-01-02
-11711,smd_2022_4B10,Jinin Berry,2024-01-26,2025-01-02
+11710,smd_2022_2A05,Luke Chadwick,2024-01-26,2025-01-02
 11711,smd_2022_4B10,Jinin Berry,2025-01-02,2027-01-02
+11711,smd_2022_4B10,Jinin Berry,2024-01-26,2025-01-02
 11713,smd_2022_1B01,Matt Fay,2025-01-02,2027-01-02
 11714,smd_2022_1B09,Stephen Hanrahan,2025-01-02,2027-01-02
 11715,smd_2022_1C09,Katherine Swanson,2025-01-02,2027-01-02
@@ -1083,7 +1084,7 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11813,smd_2022_2F07,Kevin Cataldo,2025-01-02,2027-01-02
 11815,smd_2022_3C05,Zach Shaben,2025-01-02,2027-01-02
 11817,smd_2022_5F01,Nicole G. Jones,2025-01-02,2027-01-02
-11818,smd_2022_5F07,Kelly L. Rzendzian,2025-01-02,2027-01-02
+11818,smd_2022_5F07,Kelly L. Rzendzian,2025-01-02,2025-08-21
 11819,smd_2022_6A07,Stephen Kolb,2025-01-02,2027-01-02
 11820,smd_2022_6B01,Tyler Wolanin,2025-01-02,2027-01-02
 11821,smd_2022_6C05,Daniela Kelley Mcinerney,2025-01-02,2027-01-02
@@ -1138,3 +1139,5 @@ person_id,smd_id,commissioner_name,start_date,end_date
 11908,smd_2022_3E08,Elizabeth Graff,2025-01-02,2027-01-02
 11909,smd_2022_2E04,Peter Sloniewsky,2025-01-02,2027-01-02
 11910,smd_2022_5A04,Jack Hermes,2025-07-01,2027-01-02
+11911,smd_2022_5F07,Julia Hedlund,2025-08-22,2027-01-02
+11912,smd_2022_7B06,Cortez Johnson,2025-03-20,2027-01-02

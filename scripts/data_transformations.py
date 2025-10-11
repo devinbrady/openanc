@@ -318,8 +318,15 @@ def list_commissioners(status=None, date_point=None):
     # Multiple "Former" commissioners is allowed
     smd_count = commissioners.groupby('smd_id')[['is_former', 'is_current', 'is_future']].sum().astype(int)
     
-    if smd_count['is_current'].max() > 1 or smd_count['is_future'].max() > 1:
-        raise Exception('Too many commissioners per SMD')
+    fields_to_check = ['is_current', 'is_future']
+
+    for f in fields_to_check:
+        if smd_count[f].max() > 1:
+            print('Problem SMDs:')
+            print(smd_count[smd_count[f] > 1])
+            
+            raise Exception('Too many commissioners per SMD')
+
 
     if status:
         commissioner_output = commissioners[commissioners['is_' + status]].copy()
