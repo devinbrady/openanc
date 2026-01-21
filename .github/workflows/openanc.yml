@@ -1,0 +1,44 @@
+name: OpenANC – Pages deploy + optional data refresh
+on:
+  push: { branches: [ main ] }
+  workflow_dispatch: {}
+  schedule: [ { cron: '0 11 * * 1' } ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Install deps (optional)
+        run: |
+          python -m pip install -U pip || true
+          pip install geopandas shapely pyogrio pandas pydantic || true
+      - name: Refresh data (optional)
+        run: |
+          if [ -f scripts/fetch_sources.py ]; then
+            mkdir -p .cache/raw
+            python scripts/fetch_sources.py --out .cache/raw || true
+          fi
+          if [ -f scripts/transform.py ]; then
+            python scripts/transform.py .cache/raw data/ || true
+          fi
+          if [ -f scripts/validate.py ]; then
+            python scripts/validate.py data/ --strict || true
+          fi
+      - name: Prepare docs
+        run: |
+          mkdir -p docs
+          if [ ! -f docs/index.html ]; then
+            echo '<!doctype html><meta charset="utf-8"><title>OpenANC</title><h1>OpenANC</h1><p>Site coming soon.</p>' > docs/index.html
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: ./docs }
+  deploy:
+    needs: build
+    permissions: { pages: write, id-token: write }
+    environment: { name: github-pages, url: ${{ steps.deployment.outputs.page_url }} }
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
