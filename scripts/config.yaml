@@ -1,0 +1,7 @@
+sources:
+  anc_boundaries: "<ADD_DC_OPEN_DATA_URL>"
+  smd_boundaries: "<ADD_DC_OPEN_DATA_URL>"
+  commissioners: "<ADD_OFFICIAL_URL>"
+  candidates: "<ADD_OFFICIAL_URL>"
+output:
+  data_dir: "data"
