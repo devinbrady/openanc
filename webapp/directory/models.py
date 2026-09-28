@@ -138,7 +138,7 @@ class District(models.Model):
     @property
     def current_commissioner_term(self):
         today = timezone.localdate()
-        return self.commissioner_terms.filter(start_date__lte=today, end_date__gte=today).first()
+        return self.commissioner_terms.select_related('person').filter(start_date__lte=today, end_date__gte=today).first()
 
     @property
     def future_commissioner_term(self):

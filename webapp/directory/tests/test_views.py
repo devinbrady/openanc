@@ -46,11 +46,40 @@ class PageSmokeTests(PageRenderingTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.person.full_name)
 
+    def test_district_detail_shows_last_edited_date(self):
+        """The commissioner term and candidate created in setUp both leave audit-trail history,
+        so the page should show a "Last edited" date reflecting the most recent of them."""
+        response = self.client.get(self.district.get_absolute_url())
+        self.assertContains(response, 'Last edited')
+        self.assertContains(response, timezone.now().strftime('%B %-d, %Y'))
+
+    def test_district_detail_shows_neighbor_current_commissioner(self):
+        neighbor = make_district(designator='1A02', anc=self.anc, ward=self.ward)
+        neighbor_person = make_person(full_name='Neighboring Person')
+        make_commissioner_term(neighbor_person, neighbor)
+        self.district.neighbors.add(neighbor)
+
+        response = self.client.get(self.district.get_absolute_url())
+        self.assertContains(response, '>SMD 1A02</a>: Neighboring Person')
+
+    def test_district_detail_omits_commissioner_for_vacant_neighbor(self):
+        neighbor = make_district(designator='1A02', anc=self.anc, ward=self.ward)
+        self.district.neighbors.add(neighbor)
+
+        response = self.client.get(self.district.get_absolute_url())
+        self.assertContains(response, '>SMD 1A02</a>')
+        self.assertNotContains(response, '>SMD 1A02</a>:')
+
     def test_district_detail_with_no_commissioner(self):
         vacant = make_district(designator='1A02', anc=self.anc, ward=self.ward)
         response = self.client.get(vacant.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'No commissioner on record')
+
+    def test_district_detail_with_no_history_omits_last_edited(self):
+        vacant = make_district(designator='1A02', anc=self.anc, ward=self.ward)
+        response = self.client.get(vacant.get_absolute_url())
+        self.assertNotContains(response, 'Last edited')
 
     def test_anc_detail(self):
         response = self.client.get(self.anc.get_absolute_url())

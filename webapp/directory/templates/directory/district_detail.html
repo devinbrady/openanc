@@ -82,6 +82,20 @@
 {% endfor %}
 {% endif %}
 
+<h2>Neighboring Districts</h2>
+<p class="muted">These districts border this district.</p>
+{% if neighbors %}
+<ul class="link-list">
+    {% for neighbor in neighbors %}
+    <li>
+        {% with commissioner_term=neighbor.current_commissioner_term %}<a href="{{ neighbor.get_absolute_url }}">SMD {{ neighbor.designator }}</a>{% if commissioner_term %}: {{ commissioner_term.person.full_name }}{% endif %}{% endwith %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="muted">No neighboring districts on record.</p>
+{% endif %}
+
 {% if overlaps %}
 <h2>{% if district.redistricting_year == 2022 %}Pre-2022 District{% else %}Post-2022 District{% endif %}</h2>
 <p class="muted">This district's territory overlaps with the following district(s) from the other redistricting cycle:</p>
@@ -92,18 +106,6 @@
 </ul>
 {% endif %}
 
-<h2>Neighboring Districts</h2>
-<p class="muted">These districts, from the same redistricting cycle, border this district.</p>
-{% if neighbors %}
-<ul class="link-list">
-    {% for neighbor in neighbors %}
-    <li><a href="{{ neighbor.get_absolute_url }}">SMD {{ neighbor.designator }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p class="muted">No neighboring districts on record.</p>
-{% endif %}
-
 {% if district.landmarks or district.description or district.notes %}
 <h2>Better Know a District</h2>
 {% if district.description %}<p>{{ district.description }}</p>{% endif %}
@@ -112,6 +114,10 @@
 {% endif %}
 
 <p><a href="{% url 'directory:suggest_edit' %}?district={{ district.id }}">Suggest an edit for this district &rarr;</a></p>
+
+{% if last_edited %}
+<p class="muted">Last edited {{ last_edited|date:"F j, Y" }}</p>
+{% endif %}
 {% endblock %}
 
 {% block extra_body %}

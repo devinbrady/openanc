@@ -10,7 +10,19 @@ from django.views.generic.edit import CreateView
 
 from .boundaries import boundary_geometry
 from .forms import SuggestionForm
-from .models import ANC, CandidateStatus, CommissionerTerm, District, ElectionResult, Person, SiteUpdate, Suggestion, Ward
+from .models import (
+    ANC,
+    Candidate,
+    CandidateStatus,
+    CommissionerTerm,
+    District,
+    ElectionResult,
+    Person,
+    SiteUpdate,
+    Suggestion,
+    Ward,
+    WriteInWinner,
+)
 
 
 def mapbox_context():
@@ -132,6 +144,19 @@ def _group_terms_by_district(person):
     return rows
 
 
+def _district_last_edited(district):
+    """Most recent audit-trail change to any record tied to this district (commissioner terms,
+    candidates, election results, write-in winners). None if nothing's been recorded yet -- the
+    audit trail only covers changes made since django-simple-history was added, not the original
+    legacy CSV import."""
+    latest_dates = [
+        history_manager.filter(district=district).order_by('-history_date').values_list('history_date', flat=True).first()
+        for history_manager in (CommissionerTerm.history, Candidate.history, ElectionResult.history, WriteInWinner.history)
+    ]
+    latest_dates = [d for d in latest_dates if d]
+    return max(latest_dates) if latest_dates else None
+
+
 def _district_context(district):
     current_terms, future_terms, former_terms = _split_commissioner_terms(district)
 
@@ -169,6 +194,7 @@ def _district_context(district):
         'overlaps': district.overlaps_from.select_related('to_district').order_by('-overlap_percentage'),
         'neighbors': district.neighbors.order_by('designator'),
         'current_election_year': settings.CURRENT_ELECTION_YEAR,
+        'last_edited': _district_last_edited(district),
     }
 
 
