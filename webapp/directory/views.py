@@ -114,7 +114,6 @@ def _term_group_row(group, **extra_fields):
         'term_label': f'{start} to {last.end_date.strftime("%B %-d, %Y")}',
         'status': status,
         'css_class': css_class,
-        'confirmed_not_running': any(t.confirmed_not_running for t in group if t.is_current),
         **extra_fields,
     }
 

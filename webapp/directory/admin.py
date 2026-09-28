@@ -96,8 +96,7 @@ class DistrictOverlapAdmin(admin.ModelAdmin):
 
 @admin.register(CommissionerTerm)
 class CommissionerTermAdmin(SimpleHistoryAdmin):
-    list_display = ['person', 'district', 'start_date', 'end_date', 'confirmed_not_running']
-    list_filter = ['confirmed_not_running']
+    list_display = ['person', 'district', 'start_date', 'end_date']
     search_fields = ['person__full_name', 'district__designator']
     autocomplete_fields = ['person', 'district']
 

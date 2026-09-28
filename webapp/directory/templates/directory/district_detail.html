@@ -29,7 +29,7 @@
         <td><a href="{{ row.person.get_absolute_url }}">{{ row.person.full_name }}</a></td>
         <td>{{ row.term_label }}</td>
         <td>
-            {% if row.status == 'current' %}Current{% if row.confirmed_not_running %} &middot; not running for reelection{% endif %}
+            {% if row.status == 'current' %}Current
             {% elif row.status == 'future' %}Commissioner-elect
             {% else %}Former{% endif %}
         </td>

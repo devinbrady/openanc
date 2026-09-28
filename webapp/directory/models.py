@@ -205,8 +205,6 @@ class CommissionerTerm(models.Model):
     # True for the mass Jan 2, 2019 inauguration date used when the exact historical start date
     # wasn't recorded -- lets the UI show "~2019" instead of a falsely-precise date.
     start_date_is_approximate = models.BooleanField(default=False)
-    # Only meaningful for the current term: a manually-confirmed "not running for reelection".
-    confirmed_not_running = models.BooleanField(default=False)
 
     history = HistoricalRecords()
 
