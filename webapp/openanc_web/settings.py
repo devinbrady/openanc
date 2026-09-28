@@ -137,17 +137,20 @@ MAPBOX_CONTESTED_STYLES = {
     'two-plus-candidates': 'mapbox://styles/devinbrady/cl6589lrf000r14lpiaapiyf1',
 }
 
-# Email -- prints to the console until real SMTP credentials are set. Once you have a
-# provider (Postmark, SendGrid, Fly's SMTP add-on, etc.), set these as Fly secrets:
+# Email -- prints to the console until real SMTP credentials are set. Set these as Fly secrets
+# to send through OpenANC's IONOS-hosted mailbox:
 #   EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-#   EMAIL_HOST=... EMAIL_PORT=... EMAIL_HOST_USER=... EMAIL_HOST_PASSWORD=... EMAIL_USE_TLS=True
+#   EMAIL_HOST=smtp.ionos.com EMAIL_PORT=587 EMAIL_HOST_USER=hi@openanc.org
+#   EMAIL_HOST_PASSWORD=... EMAIL_USE_TLS=True
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
-DEFAULT_FROM_EMAIL = 'noreply@openanc.org'
+# Must match the authenticated mailbox (EMAIL_HOST_USER) -- IONOS rejects/flags mail sent
+# "from" an address it doesn't host.
+DEFAULT_FROM_EMAIL = 'hi@openanc.org'
 SUGGESTION_NOTIFICATION_EMAIL = 'devinbrady@gmail.com'
 
 
