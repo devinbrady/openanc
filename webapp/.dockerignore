@@ -1,0 +1,9 @@
+.venv
+__pycache__
+*.pyc
+db.sqlite3
+staticfiles
+.git
+.dockerignore
+Dockerfile
+fly.toml

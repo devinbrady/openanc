@@ -1,0 +1,68 @@
+{% extends 'directory/base.html' %}
+{% block title %}Districts by Candidates | OpenANC{% endblock %}
+{% block body_class %}page-home{% endblock %}
+
+{% block extra_head %}
+<script src="https://api.mapbox.com/mapbox-gl-js/{{ mapbox_gl_js_version }}/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/{{ mapbox_gl_js_version }}/mapbox-gl.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div id="map"></div>
+<div class="map-info-panel">
+    <p><strong>Color districts by:</strong></p>
+    <label><input type="radio" name="contested-toggle" value="no-candidates" checked> No candidates</label><br>
+    <label><input type="radio" name="contested-toggle" value="one-candidate"> One candidate</label><br>
+    <label><input type="radio" name="contested-toggle" value="two-plus-candidates"> Two or more candidates</label>
+    <hr>
+    <div id="map-info-panel-body"><p>Click on the map to see district information.</p></div>
+</div>
+{% endblock %}
+
+{% block extra_body %}
+<script>
+mapboxgl.accessToken = '{{ mapbox_access_token }}';
+
+var styles = {
+    {% for key, style in contested_styles.items %}'{{ key }}': '{{ style }}',{% endfor %}
+};
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: styles['no-candidates']
+});
+
+var infoBody = document.getElementById('map-info-panel-body');
+
+function showDistrictSummary(properties) {
+    // smd_id is missing the ward prefix for the dozen districts that span two wards (e.g.
+    // "6/8F01"); smd_name always has the full designator, so use that instead.
+    var year = properties.smd_id.indexOf('2022') !== -1 ? '2022' : '2012';
+    var designator = properties.smd_name;
+    fetch('/api/districts/' + year + '/' + designator.replace('/', '-') + '/summary/')
+        .then(function (resp) { return resp.text(); })
+        .then(function (html) { infoBody.innerHTML = html; })
+        .catch(function () {
+            infoBody.innerHTML = '<p>Could not load district information.</p>';
+        });
+}
+
+map.on('load', function () {
+    map.getCanvas().style.cursor = 'default';
+    map.on('click', function (e) {
+        var features = map.queryRenderedFeatures(e.point);
+        if (features.length > 0 && features[0].properties.smd_name) {
+            showDistrictSummary(features[0].properties);
+        }
+    });
+});
+
+document.querySelectorAll('input[name="contested-toggle"]').forEach(function (input) {
+    input.addEventListener('change', function (e) {
+        map.setStyle(styles[e.target.value]);
+    });
+});
+
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+{% endblock %}

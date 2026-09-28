@@ -1,0 +1,66 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% block title %}OpenANC{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'directory/css/site.css' %}">
+{% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<script>
+// Applied before the sidebar paints, so a collapsed preference doesn't flash open first.
+if (localStorage.getItem('sidebar-collapsed') === '1') {
+    document.body.classList.add('sidebar-collapsed');
+}
+</script>
+<input type="checkbox" id="sidebar-toggle" class="sidebar-toggle-checkbox" autocomplete="off">
+<div class="topbar">
+    <label for="sidebar-toggle" class="menu-button" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </label>
+    <a href="{% url 'directory:home' %}" class="site-title">OpenANC</a>
+</div>
+<label for="sidebar-toggle" class="sidebar-backdrop" aria-hidden="true"></label>
+<button type="button" class="sidebar-expand-btn" id="sidebar-expand-btn" aria-label="Show sidebar" title="Show sidebar">&raquo;</button>
+<div class="layout">
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <a href="{% url 'directory:home' %}" class="sidebar-logo">OpenANC</a>
+            <button type="button" class="sidebar-collapse-btn" id="sidebar-collapse-btn" aria-label="Hide sidebar" title="Hide sidebar">&laquo;</button>
+            <label for="sidebar-toggle" class="sidebar-close-btn" aria-label="Close menu">&times;</label>
+        </div>
+        <ul>
+            <li><a href="{% url 'directory:home' %}">Find your ANC district</a></li>
+            <li><a href="{% url 'directory:contested' %}">Map of districts by candidates</a></li>
+            <li><a href="{% url 'directory:district_list' %}">List of districts</a></li>
+            <li><a href="{% url 'directory:person_list' %}">List of people</a></li>
+            <li><a href="{% url 'directory:counts' %}">Counts</a></li>
+            <li><a href="{% url 'directory:about' %}">About OpenANC</a></li>
+            <li><a href="{% url 'directory:updates' %}">Updates</a></li>
+            <li><a href="{% url 'directory:suggest_edit' %}">Suggest an edit</a></li>
+        </ul>
+        <div class="sidebar-social">
+            <a href="https://bsky.app/profile/openanc.org">@OpenANC on Bluesky</a>
+            <a href="https://dmv.community/@openanc">@OpenANC on Mastodon</a>
+        </div>
+    </nav>
+    <main class="content">
+        <div class="content-inner">
+        {% block content %}{% endblock %}
+        </div>
+    </main>
+</div>
+<script>
+document.getElementById('sidebar-collapse-btn').addEventListener('click', function () {
+    document.body.classList.add('sidebar-collapsed');
+    localStorage.setItem('sidebar-collapsed', '1');
+});
+document.getElementById('sidebar-expand-btn').addEventListener('click', function () {
+    document.body.classList.remove('sidebar-collapsed');
+    localStorage.setItem('sidebar-collapsed', '0');
+});
+</script>
+{% block extra_body %}{% endblock %}
+</body>
+</html>

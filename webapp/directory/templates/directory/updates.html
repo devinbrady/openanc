@@ -1,0 +1,12 @@
+{% extends 'directory/base.html' %}
+{% block title %}Updates | OpenANC{% endblock %}
+
+{% block content %}
+<h1>Updates</h1>
+{% for update in updates %}
+<h2>{{ update.date|date:"F j, Y" }}</h2>
+{{ update.body|safe }}
+{% empty %}
+<p class="muted">No updates yet.</p>
+{% endfor %}
+{% endblock %}

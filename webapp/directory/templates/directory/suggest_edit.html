@@ -1,0 +1,44 @@
+{% extends 'directory/base.html' %}
+{% block title %}Suggest an Edit | OpenANC{% endblock %}
+
+{% block content %}
+<h1>Suggest an Edit</h1>
+<p class="muted">
+    See something wrong, missing, or out of date &mdash; a new write-in candidate, a commissioner
+    change, a broken link? Let us know below. Suggestions are reviewed before anything is published.
+</p>
+
+{% if messages %}
+{% for message in messages %}
+<p><strong>{{ message }}</strong></p>
+{% endfor %}
+{% else %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.website }}
+    <div class="form-field">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
+    <div class="form-field">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+    </div>
+    <div class="form-field">
+        {{ form.district.label_tag }}
+        {{ form.district }}
+    </div>
+    <div class="form-field">
+        {{ form.person.label_tag }}
+        {{ form.person }}
+    </div>
+    <div class="form-field">
+        {{ form.message.label_tag }}
+        {{ form.message }}
+        {% if form.message.help_text %}<p class="muted">{{ form.message.help_text }}</p>{% endif %}
+        {% if form.message.errors %}<p class="muted">{{ form.message.errors }}</p>{% endif %}
+    </div>
+    <button type="submit">Submit suggestion</button>
+</form>
+{% endif %}
+{% endblock %}

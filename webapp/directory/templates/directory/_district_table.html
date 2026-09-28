@@ -1,0 +1,17 @@
+<table>
+    <tr><th>District</th><th>Commissioner</th></tr>
+    {% for district in districts %}
+    <tr>
+        <td><a href="{{ district.get_absolute_url }}">SMD {{ district.designator }}</a></td>
+        <td>
+            {% if district.current_term %}
+                <a href="{{ district.current_term.person.get_absolute_url }}">{{ district.current_term.person.full_name }}</a>
+            {% elif district.future_term %}
+                <a href="{{ district.future_term.person.get_absolute_url }}">{{ district.future_term.person.full_name }}</a> <span class="tag">elect</span>
+            {% else %}
+                <span class="muted">Vacant</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>

@@ -1,0 +1,130 @@
+{% extends 'directory/base.html' %}
+{% load directory_extras static %}
+{% block title %}SMD {{ district.designator }} | OpenANC{% endblock %}
+
+{% block content %}
+<p class="breadcrumbs">
+    <a href="{{ district.ward.get_absolute_url }}">{{ district.ward.name }}</a>
+    &rsaquo;
+    <a href="{{ district.anc.get_absolute_url }}">ANC {{ district.anc.designator }}</a>
+    &rsaquo;
+    SMD {{ district.designator }}
+</p>
+<h1>Single Member District {{ district.designator }}</h1>
+<p class="muted">{{ district.redistricting_year }} redistricting cycle</p>
+
+{% if boundary_geometry %}
+<div id="map" style="width: 100%; height: 500px;"></div>
+{{ boundary_geometry|json_script:"boundary-geometry" }}
+{{ district_designators|json_script:"district-designators" }}
+{{ anc_designators|json_script:"anc-designators" }}
+{% endif %}
+
+<h2>Commissioner</h2>
+{% if commissioner_history %}
+<table>
+    <tr><th>Name</th><th>Term</th><th>Status</th></tr>
+    {% for row in commissioner_history %}
+    <tr class="{{ row.css_class }}">
+        <td><a href="{{ row.person.get_absolute_url }}">{{ row.person.full_name }}</a></td>
+        <td>{{ row.term_label }}</td>
+        <td>
+            {% if row.status == 'current' %}Current{% if row.confirmed_not_running %} &middot; not running for reelection{% endif %}
+            {% elif row.status == 'future' %}Commissioner-elect
+            {% else %}Former{% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="muted">No commissioner on record for this district.</p>
+{% endif %}
+
+{% if candidates_current %}
+<h2>{{ current_election_year }} Candidates</h2>
+{% regroup candidates_current by status as candidate_groups %}
+{% for group in candidate_groups %}
+<div class="status-group">
+    <h3>{{ group.grouper.name }}</h3>
+    <ul class="link-list">
+        {% for candidate in group.list %}
+        <li>
+            <a href="{{ candidate.person.get_absolute_url }}">{{ candidate.person.full_name }}</a>
+            {% if candidate.source_link %}&middot; <a href="{{ candidate.source_link }}">source</a>{% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if results_by_election %}
+<h2>Election Results</h2>
+{% for entry in results_by_election %}
+<h3>{{ entry.election.year }}</h3>
+<table>
+    <tr><th>Candidate</th><th>Votes</th><th>Result</th></tr>
+    {% for result in entry.results %}
+    <tr>
+        <td>
+            {% if result.candidate %}
+                <a href="{{ result.candidate.person.get_absolute_url }}">{{ result.candidate.person.full_name }}</a>
+            {% else %}
+                {{ result.candidate_name_raw }}
+                {% if entry.write_in_winner %} (won by {{ entry.write_in_winner.person.full_name|default:entry.write_in_winner.candidate_name_raw }}){% endif %}
+            {% endif %}
+        </td>
+        <td>{{ result.votes }}</td>
+        <td>{% if result.is_winner %}Won{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endfor %}
+{% endif %}
+
+{% if overlaps %}
+<h2>{% if district.redistricting_year == 2022 %}Pre-2022 District{% else %}Post-2022 District{% endif %}</h2>
+<p class="muted">This district's territory overlaps with the following district(s) from the other redistricting cycle:</p>
+<ul class="link-list">
+    {% for overlap in overlaps %}
+    <li><a href="{{ overlap.to_district.get_absolute_url }}">SMD {{ overlap.to_district.designator }}</a> ({{ overlap.overlap_percentage|as_percentage|floatformat:1 }}% overlap)</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h2>Neighboring Districts</h2>
+<p class="muted">These districts, from the same redistricting cycle, border this district.</p>
+{% if neighbors %}
+<ul class="link-list">
+    {% for neighbor in neighbors %}
+    <li><a href="{{ neighbor.get_absolute_url }}">SMD {{ neighbor.designator }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="muted">No neighboring districts on record.</p>
+{% endif %}
+
+{% if district.landmarks or district.description or district.notes %}
+<h2>Better Know a District</h2>
+{% if district.description %}<p>{{ district.description }}</p>{% endif %}
+{% if district.landmarks %}<p><strong>Landmarks:</strong> {{ district.landmarks }}</p>{% endif %}
+{% if district.notes %}<p>{{ district.notes }}</p>{% endif %}
+{% endif %}
+
+<p><a href="{% url 'directory:suggest_edit' %}?district={{ district.id }}">Suggest an edit for this district &rarr;</a></p>
+{% endblock %}
+
+{% block extra_body %}
+{% if boundary_geometry %}
+<script src="https://api.mapbox.com/mapbox-gl-js/{{ mapbox_gl_js_version }}/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/{{ mapbox_gl_js_version }}/mapbox-gl.css" rel="stylesheet">
+<script src="{% static 'directory/js/boundary_map.js' %}"></script>
+<script>
+initBoundaryMap('map', 'boundary-geometry', '{{ mapbox_access_token }}', '{{ mapbox_smd_style }}', {
+    year: {{ district.redistricting_year }},
+    districtDesignators: JSON.parse(document.getElementById('district-designators').textContent),
+    ancDesignators: JSON.parse(document.getElementById('anc-designators').textContent),
+}, false);
+</script>
+{% endif %}
+{% endblock %}

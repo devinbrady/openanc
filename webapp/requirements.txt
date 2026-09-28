@@ -1,0 +1,8 @@
+asgiref==3.12.1
+Django==5.1.15
+sqlparse==0.6.0
+typing_extensions==4.16.0
+gunicorn==23.0.0
+whitenoise==6.8.2
+django-simple-history==3.12.0
+rapidfuzz==3.14.5

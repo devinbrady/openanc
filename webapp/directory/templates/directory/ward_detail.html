@@ -1,0 +1,35 @@
+{% extends 'directory/base.html' %}
+{% load static %}
+{% block title %}Ward {{ ward.ward_number }} | OpenANC{% endblock %}
+
+{% block content %}
+<p class="breadcrumbs"><a href="{% url 'directory:district_list' %}">List of districts</a> &rsaquo; {{ ward.name }}</p>
+<h1>{{ ward.name }}</h1>
+<p class="muted">{{ ward.redistricting_year }} redistricting cycle</p>
+{% if ward.councilmember %}<p><strong>Councilmember:</strong> {{ ward.councilmember }}</p>{% endif %}
+
+{% if boundary_geometry %}
+<div id="map" style="width: 100%; height: 500px;"></div>
+{{ boundary_geometry|json_script:"boundary-geometry" }}
+{{ district_designators|json_script:"district-designators" }}
+{{ anc_designators|json_script:"anc-designators" }}
+{% endif %}
+
+<h2>Districts</h2>
+{% include 'directory/_district_table.html' %}
+{% endblock %}
+
+{% block extra_body %}
+{% if boundary_geometry %}
+<script src="https://api.mapbox.com/mapbox-gl-js/{{ mapbox_gl_js_version }}/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/{{ mapbox_gl_js_version }}/mapbox-gl.css" rel="stylesheet">
+<script src="{% static 'directory/js/boundary_map.js' %}"></script>
+<script>
+initBoundaryMap('map', 'boundary-geometry', '{{ mapbox_access_token }}', '{{ mapbox_smd_style }}', {
+    year: {{ ward.redistricting_year }},
+    districtDesignators: JSON.parse(document.getElementById('district-designators').textContent),
+    ancDesignators: JSON.parse(document.getElementById('anc-designators').textContent),
+});
+</script>
+{% endif %}
+{% endblock %}

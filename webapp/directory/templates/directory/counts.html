@@ -1,0 +1,63 @@
+{% extends 'directory/base.html' %}
+{% block title %}Counts | OpenANC{% endblock %}
+
+{% block content %}
+<h1>Counts</h1>
+
+<h2>Candidates by Status &mdash; {{ election_year }}</h2>
+{% if status_counts %}
+<table>
+    <tr><th>Status</th><th>Counts as a candidate?</th><th>Count</th></tr>
+    {% for status in status_counts %}
+    <tr>
+        <td>{{ status.name }}</td>
+        <td>{{ status.count_as_candidate|yesno:"Yes,No" }}</td>
+        <td>{{ status.candidate_count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="muted">No candidates on record yet for {{ election_year }}.</p>
+{% endif %}
+
+<h2>Races Contested</h2>
+<table>
+    <tr><th></th><th>No candidates</th><th>One candidate</th><th>Two or more candidates</th></tr>
+    <tr>
+        <td>All of DC</td>
+        <td>{{ dc_totals.no_candidates }}</td>
+        <td>{{ dc_totals.one_candidate }}</td>
+        <td>{{ dc_totals.two_plus_candidates }}</td>
+    </tr>
+</table>
+
+<h3>Number of Candidates by Ward</h3>
+<table>
+    <tr><th>Ward</th><th>No candidates</th><th>One candidate</th><th>Two or more candidates</th></tr>
+    {% for ward, row in by_ward %}
+    <tr>
+        <td><a href="{{ ward.get_absolute_url }}">{{ ward.name }}</a></td>
+        <td>{{ row.no_candidates }}</td>
+        <td>{{ row.one_candidate }}</td>
+        <td>{{ row.two_plus_candidates }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Number of Candidates by ANC</h3>
+<p class="muted">In order to conduct business, ANCs need at least 50% of their districts to be represented by a commissioner. Rows where 50% or more of the districts have no current-cycle candidate are highlighted.</p>
+<table>
+    <tr><th>ANC</th><th>No candidates</th><th>One candidate</th><th>Two or more candidates</th></tr>
+    {% for anc, row in by_anc %}
+    <tr{% if row.mostly_uncontested %} class="term-future"{% endif %}>
+        <td><a href="{{ anc.get_absolute_url }}">ANC {{ anc.designator }}</a></td>
+        <td>{{ row.no_candidates }}</td>
+        <td>{{ row.one_candidate }}</td>
+        <td>{{ row.two_plus_candidates }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Commissioners</h2>
+<p>{{ total_districts }} districts, {{ vacancies }} currently vacant.</p>
+{% endblock %}

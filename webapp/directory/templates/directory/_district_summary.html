@@ -1,0 +1,32 @@
+<h3>SMD {{ district.designator }}</h3>
+<p class="muted">
+    <a href="{% url 'directory:anc_detail' year=district.redistricting_year designator=district.anc.designator %}">ANC {{ district.anc.designator }}</a>
+    &middot;
+    <a href="{% url 'directory:ward_detail' year=district.redistricting_year number=district.ward.ward_number %}">{{ district.ward.name }}</a>
+</p>
+
+{% if current_terms %}
+    {% for term in current_terms %}
+        <p><strong>Commissioner:</strong> <a href="{{ term.person.get_absolute_url }}">{{ term.person.full_name }}</a></p>
+    {% endfor %}
+{% else %}
+    <p><strong>Commissioner:</strong> <span class="muted">Vacant</span></p>
+{% endif %}
+
+{% if future_terms %}
+    {% for term in future_terms %}
+        <p><strong>Commissioner-elect:</strong> <a href="{{ term.person.get_absolute_url }}">{{ term.person.full_name }}</a><br>
+        <span class="muted">Takes office {{ term.start_date|date:"F j, Y" }}</span></p>
+    {% endfor %}
+{% endif %}
+
+{% if candidates_current %}
+<p><strong>{{ current_election_year }} candidates:</strong></p>
+<ul class="link-list">
+    {% for candidate in candidates_current %}
+        <li><a href="{{ candidate.person.get_absolute_url }}">{{ candidate.person.full_name }}</a> <span class="tag">{{ candidate.status.name }}</span></li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p><a href="{% url 'directory:district_detail' year=district.redistricting_year designator=district.designator %}">View district page &rarr;</a></p>

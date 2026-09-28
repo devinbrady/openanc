@@ -1,0 +1,27 @@
+app = "openanc"
+primary_region = "iad"
+
+[build]
+
+[env]
+  DJANGO_DEBUG = "False"
+  DJANGO_ALLOWED_HOSTS = "openanc.fly.dev,openanc.org,www.openanc.org"
+  DJANGO_CSRF_TRUSTED_ORIGINS = "https://openanc.fly.dev,https://openanc.org,https://www.openanc.org"
+  DATABASE_PATH = "/data/db.sqlite3"
+
+[[mounts]]
+  source = "data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1

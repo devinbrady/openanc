@@ -1,0 +1,70 @@
+{% extends "admin/base_site.html" %}
+
+{% block content_title %}<h1>Review import batch #{{ batch.pk }}</h1>{% endblock %}
+
+{% block content %}
+<p>
+  <strong>{{ batch.source_label|default:"(unlabeled)" }}</strong>
+  &middot; election: {{ batch.election|default:"—" }}
+  &middot; default status for new candidates: {{ batch.default_status|default:"—" }}
+</p>
+<p class="help">
+  Rows scoring high enough were pre-selected as "Link to existing". Anything in between is left
+  as "Pending" for you to decide -- pick a name from the dropdown, or choose "Create new person"
+  if none of the matches are right. Rows below the low-confidence cutoff are pre-selected as
+  "Create new person". Save your decisions first, then use "Apply batch" once everything looks
+  right; applying is safe to click more than once -- already-applied rows are skipped.
+</p>
+
+<form method="post" action="{% url 'admin:directory_person_import_review' batch_id=batch.pk %}">
+  {% csrf_token %}
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>District</th>
+        <th>Decision</th>
+        <th>Matched person</th>
+        <th>Score</th>
+        <th>Applied</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td>{{ row.raw_name }}</td>
+        <td>
+          {% if row.district %}{{ row.district }}{% else %}
+            <span class="errornote">{{ row.raw_district_designator|default:"(none)" }} -- unmatched</span>
+          {% endif %}
+        </td>
+        <td>
+          <select name="decision_{{ row.id }}" {% if row.applied %}disabled{% endif %}>
+            {% for value, label in row.DECISION_CHOICES %}
+            <option value="{{ value }}" {% if row.decision == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td>
+          <select name="person_{{ row.id }}" {% if row.applied %}disabled{% endif %}>
+            <option value="">—</option>
+            {% for candidate in row.match_candidates_json %}
+            <option value="{{ candidate.person_id }}" {% if row.chosen_person_id == candidate.person_id %}selected{% endif %}>
+              {{ candidate.full_name }}
+            </option>
+            {% endfor %}
+          </select>
+        </td>
+        <td>{{ row.best_match_score|default:"—" }}</td>
+        <td>{% if row.applied %}&#10003;{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="submit-row">
+    <input type="submit" value="Save decisions" class="default">
+    <input type="submit" value="Apply batch" formaction="{% url 'admin:directory_person_import_apply' batch_id=batch.pk %}">
+  </div>
+</form>
+{% endblock %}

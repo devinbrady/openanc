@@ -1,0 +1,44 @@
+{% extends 'directory/base.html' %}
+{% block title %}{{ person.full_name }} | OpenANC{% endblock %}
+
+{% block content %}
+<p class="breadcrumbs"><a href="{% url 'directory:person_list' %}">List of people</a> &rsaquo; {{ person.full_name }}</p>
+<h1>{{ person.full_name }}</h1>
+
+<ul class="link-list">
+    {% if person.website_link %}<li><a href="{{ person.website_link }}">Website</a></li>{% endif %}
+    {% if person.twitter_link %}<li><a href="{{ person.twitter_link }}">Twitter / X</a></li>{% endif %}
+    {% if person.mastodon_link %}<li><a href="{{ person.mastodon_link }}">Mastodon</a></li>{% endif %}
+    {% if person.facebook_link %}<li><a href="{{ person.facebook_link }}">Facebook</a></li>{% endif %}
+</ul>
+
+{% if commissioner_terms %}
+<h2>Districts Represented</h2>
+<table>
+    <tr><th>District</th><th>Term</th></tr>
+    {% for row in commissioner_terms %}
+    <tr class="{{ row.css_class }}">
+        <td><a href="{{ row.district.get_absolute_url }}">SMD {{ row.district.designator }}</a></td>
+        <td>{{ row.term_label }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if candidacies %}
+<h2>Candidacies</h2>
+<table>
+    <tr><th>Election</th><th>District</th><th>Status</th><th>Votes</th></tr>
+    {% for candidacy in candidacies %}
+    <tr>
+        <td>{{ candidacy.election.year }}</td>
+        <td><a href="{{ candidacy.district.get_absolute_url }}">SMD {{ candidacy.district.designator }}</a></td>
+        <td>{{ candidacy.status.name }}</td>
+        <td>{% if candidacy.result %}{{ candidacy.result.votes }}{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<p><a href="{% url 'directory:suggest_edit' %}?person={{ person.id }}">Suggest an edit about {{ person.full_name }} &rarr;</a></p>
+{% endblock %}

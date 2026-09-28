@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+
+{% block content_title %}<h1>Import candidates</h1>{% endblock %}
+
+{% block content %}
+<p>Upload a CSV with a <code>name</code> column (required) and a <code>district</code> column
+(SMD designator, e.g. <code>1A01</code> -- matched against the current redistricting cycle).
+Each name will be fuzzy-matched against existing people so you can decide, per row, whether to
+link to an existing person or create a new one.</p>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div class="submit-row">
+    <input type="submit" value="Upload and match" class="default">
+  </div>
+</form>
+{% endblock %}

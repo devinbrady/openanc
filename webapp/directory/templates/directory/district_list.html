@@ -1,0 +1,20 @@
+{% extends 'directory/base.html' %}
+{% block title %}List of Districts | OpenANC{% endblock %}
+
+{% block content %}
+<h1>List of Districts</h1>
+<p class="muted">{{ redistricting_year }} redistricting cycle, grouped by ward.</p>
+
+{% for ward in wards %}
+<h2><a href="{{ ward.get_absolute_url }}">{{ ward.name }}</a></h2>
+<ul class="card-list">
+    {% regroup ward.districts.all by anc as anc_groups %}
+    {% for group in anc_groups %}
+    <li>
+        <a href="{{ group.grouper.get_absolute_url }}">ANC {{ group.grouper.designator }}</a>:
+        {% for district in group.list %}<a href="{{ district.get_absolute_url }}">{{ district.designator }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+    </li>
+    {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

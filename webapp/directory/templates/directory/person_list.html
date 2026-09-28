@@ -1,0 +1,24 @@
+{% extends 'directory/base.html' %}
+{% block title %}List of People | OpenANC{% endblock %}
+
+{% block content %}
+<h1>List of People</h1>
+<p class="muted">Everyone who has served as a commissioner or run as a candidate.</p>
+<input type="search" id="person-filter" placeholder="Filter by name&hellip;" style="width: 100%; max-width: 320px; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid var(--border-color); border-radius: 4px;">
+<ul class="card-list" id="person-list">
+    {% for person in people %}
+    <li data-name="{{ person.full_name|lower }}"><a href="{{ person.get_absolute_url }}">{{ person.full_name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block extra_body %}
+<script>
+document.getElementById('person-filter').addEventListener('input', function (e) {
+    var query = e.target.value.trim().toLowerCase();
+    document.querySelectorAll('#person-list li').forEach(function (li) {
+        li.style.display = li.dataset.name.indexOf(query) !== -1 ? '' : 'none';
+    });
+});
+</script>
+{% endblock %}
