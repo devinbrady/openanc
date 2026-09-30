@@ -252,9 +252,46 @@ th { background: var(--heading-bg); }
 tr.term-current { background: var(--current-bg); }
 tr.term-future { background: var(--future-bg); }
 
+/* Fixed District column width, so a page listing many of these tables back to back (e.g. one
+   per ANC on the district list) keeps District/Commissioner lined up from one table to the
+   next, instead of each table auto-sizing its columns to its own widest content. */
+.district-table { table-layout: fixed; }
+.district-table th:first-child,
+.district-table td:first-child {
+    width: 7rem;
+    white-space: nowrap;
+}
+
 .breadcrumbs {
     font-size: 0.95rem;
     margin-bottom: 0.75rem;
+    color: var(--muted-color);
+}
+
+.view-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.view-tab {
+    padding: 0.5rem 0.9rem;
+    color: var(--muted-color);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+.view-tab:hover { color: var(--text-color); text-decoration: none; }
+
+.view-tab.active {
+    color: var(--text-color);
+    font-weight: 600;
+    border-bottom-color: var(--link-color);
+}
+
+.view-tab-separator {
+    align-self: center;
     color: var(--muted-color);
 }
 

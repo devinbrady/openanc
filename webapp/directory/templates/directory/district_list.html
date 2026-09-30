@@ -3,8 +3,15 @@
 
 {% block content %}
 <h1>List of Districts</h1>
-<p class="muted">{{ redistricting_year }} redistricting cycle, grouped by ward.</p>
 
+<div class="view-tabs">
+    <a href="{% url 'directory:district_list' %}" class="view-tab{% if view == 'current' %} active{% endif %}">Current Commissioners</a>
+    <span class="view-tab-separator">&middot;</span>
+    <a href="{% url 'directory:district_list' %}?view=by_ward" class="view-tab{% if view == 'by_ward' %} active{% endif %}">By Ward</a>
+</div>
+
+{% if view == 'by_ward' %}
+<p class="muted">{{ redistricting_year }} redistricting cycle, grouped by ward.</p>
 {% for ward in wards %}
 <h2><a href="{{ ward.get_absolute_url }}">{{ ward.name }}</a></h2>
 <ul class="card-list">
@@ -17,4 +24,11 @@
     {% endfor %}
 </ul>
 {% endfor %}
+{% else %}
+<p class="muted">{{ redistricting_year }} redistricting cycle, current commissioner for each district.</p>
+{% for anc in ancs %}
+<h2><a href="{{ anc.get_absolute_url }}">ANC {{ anc.designator }}</a></h2>
+{% include 'directory/_district_table.html' with districts=anc.districts.all %}
+{% endfor %}
+{% endif %}
 {% endblock %}

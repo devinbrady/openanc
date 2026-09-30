@@ -41,6 +41,25 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(reverse('directory:district_list'))
         self.assertEqual(response.status_code, 200)
 
+    def test_district_list_defaults_to_current_commissioners_view(self):
+        response = self.client.get(reverse('directory:district_list'))
+        content = response.content.decode()
+        self.assertIn('view-tab active">Current Commissioners', content)
+        self.assertContains(response, self.person.full_name)
+
+    def test_district_list_by_ward_view(self):
+        response = self.client.get(reverse('directory:district_list'), {'view': 'by_ward'})
+        content = response.content.decode()
+        self.assertIn('view-tab active">By Ward', content)
+        self.assertContains(response, self.ward.name)
+
+    def test_district_list_current_commissioners_shows_vacant_seat(self):
+        vacant = make_district(designator='1A99', anc=self.anc, ward=self.ward)
+        response = self.client.get(reverse('directory:district_list'))
+        content = response.content.decode()
+        self.assertIn(vacant.designator, content)
+        self.assertIn('Vacant', content)
+
     def test_district_detail(self):
         response = self.client.get(self.district.get_absolute_url())
         self.assertEqual(response.status_code, 200)

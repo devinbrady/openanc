@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -49,15 +51,36 @@ class DistrictListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         year = settings.CURRENT_REDISTRICTING_YEAR
-        wards = (
-            Ward.objects.filter(redistricting_year=year)
-            .prefetch_related('districts__anc')
-            .order_by('ward_number')
-        )
-        ancs = ANC.objects.filter(redistricting_year=year).order_by('designator')
-        context['wards'] = wards
-        context['ancs'] = ancs
+        context['view'] = 'by_ward' if self.request.GET.get('view') == 'by_ward' else 'current'
         context['redistricting_year'] = year
+
+        if context['view'] == 'by_ward':
+            context['wards'] = (
+                Ward.objects.filter(redistricting_year=year)
+                .prefetch_related('districts__anc')
+                .order_by('ward_number')
+            )
+        else:
+            ancs = ANC.objects.filter(redistricting_year=year).prefetch_related('districts').order_by('designator')
+            # One query for every still-relevant term (current or future) across every district,
+            # instead of one query per district (as _split_commissioner_terms does, fine for a
+            # single ANC/ward but not for all 300+ districts on this page at once).
+            today = timezone.localdate()
+            terms_by_district = defaultdict(list)
+            relevant_terms = (
+                CommissionerTerm.objects.filter(district__redistricting_year=year, end_date__gte=today)
+                .select_related('person')
+            )
+            for term in relevant_terms:
+                terms_by_district[term.district_id].append(term)
+            for anc in ancs:
+                for district in anc.districts.all():
+                    district_terms = terms_by_district.get(district.id, [])
+                    current = [t for t in district_terms if t.is_current]
+                    future = [t for t in district_terms if t.is_future]
+                    district.current_term = resolve_current_commissioner_term(current)
+                    district.future_term = future[0] if future else None
+            context['ancs'] = ancs
         return context
 
 
