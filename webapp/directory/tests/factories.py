@@ -23,8 +23,8 @@ def make_ward(number=1, year=2022):
     return Ward.objects.create(ward_number=number, redistricting_year=year, councilmember='Test Councilmember')
 
 
-def make_anc(designator='1A', year=2022):
-    return ANC.objects.create(designator=designator, redistricting_year=year)
+def make_anc(designator='1A', year=2022, **kwargs):
+    return ANC.objects.create(designator=designator, redistricting_year=year, **kwargs)
 
 
 def make_district(designator='1A01', year=2022, anc=None, ward=None, **kwargs):

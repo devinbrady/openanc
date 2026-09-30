@@ -119,6 +119,15 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(reverse('directory:person_list'))
         self.assertNotContains(response, 'Nobody In Particular')
 
+    def test_person_list_filter_key_is_accent_stripped(self):
+        """The client-side name filter matches against each <li>'s data-name attribute; it needs
+        to be plain ASCII so typing "Lopez" (no accent) still finds "López" (see the
+        strip_diacritics template filter and the matching JS-side normalization)."""
+        person = make_person(full_name='Mónica Martínez López')
+        make_commissioner_term(person, self.district)
+        response = self.client.get(reverse('directory:person_list'))
+        self.assertContains(response, 'data-name="monica martinez lopez"')
+
     def test_person_detail(self):
         response = self.client.get(self.person.get_absolute_url())
         self.assertEqual(response.status_code, 200)

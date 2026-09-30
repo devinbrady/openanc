@@ -1,8 +1,16 @@
 from django.test import TestCase
 
-from directory.matching import build_person_choices, match_name, match_person_rows
+from directory.matching import build_person_choices, match_name, match_person_rows, strip_diacritics
 from directory.models import PersonImportBatch, PersonImportRow
 from directory.tests.factories import make_person
+
+
+class StripDiacriticsTests(TestCase):
+    def test_removes_accents(self):
+        self.assertEqual(strip_diacritics('Mónica Martínez López'), 'Monica Martinez Lopez')
+
+    def test_leaves_plain_text_unchanged(self):
+        self.assertEqual(strip_diacritics('Jaspal Bhatia'), 'Jaspal Bhatia')
 
 
 class MatchNameTests(TestCase):

@@ -4,6 +4,7 @@ from simple_history.admin import SimpleHistoryAdmin
 
 from . import admin_views, suggestion_apply
 from . import forms as admin_forms
+from .matching import strip_diacritics
 from .models import (
     ANC,
     ANCOverlap,
@@ -53,6 +54,26 @@ class PersonAdmin(SimpleHistoryAdmin):
             path('import/<int:batch_id>/apply/', self.admin_site.admin_view(admin_views.person_import_apply), name='directory_person_import_apply'),
         ]
         return custom_urls + super().get_urls()
+
+    def get_search_results(self, request, queryset, search_term):
+        """search_fields' default icontains is plain SQL LIKE, which SQLite doesn't fold
+        accents on -- typing "Lopez" won't find "López". Add a second, diacritic-insensitive
+        pass on top of the normal search and union the two, so a search matches a name
+        regardless of which side (typed or stored) has the accent. This also fixes every
+        autocomplete widget that looks up Person (CommissionerTerm, Candidate, Suggestion,
+        etc.), since they all go through this same method."""
+        unfiltered_queryset = queryset
+        filtered_queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        normalized_term = strip_diacritics(search_term).strip().casefold()
+        if normalized_term:
+            extra_pks = [
+                person.pk for person in unfiltered_queryset.only('pk', 'full_name')
+                if normalized_term in strip_diacritics(person.full_name).casefold()
+            ]
+            if extra_pks:
+                filtered_queryset = (filtered_queryset | unfiltered_queryset.filter(pk__in=extra_pks)).distinct()
+                use_distinct = True
+        return filtered_queryset, use_distinct
 
 
 @admin.register(Ward)

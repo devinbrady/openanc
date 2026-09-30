@@ -98,7 +98,37 @@ To apply one automatically:
 The suggestion list's **By status** filter shows a count next to each option (Pending review,
 Approved, Rejected) so you can see the queue size at a glance.
 
-## 4. Drafting an Updates-page entry
+## 4. Checking against the Office of ANCs
+
+A regular task: compare the official commissioner roster (scraped from each ANC's page on
+`oanc.dc.gov`) against our own data, and flag anything that disagrees.
+
+```bash
+python manage.py check_oanc_commissioners
+```
+
+For each district where the two disagree, it creates a `pending` Suggestion instead of changing
+anything directly:
+
+- We show a seat vacant, OANC shows a name → **New commissioner appointed** suggestion.
+- We show someone serving, OANC shows the seat vacant → **Commissioner resigned** suggestion.
+- Both show a different name that isn't obviously the same person → both of the above together
+  (a resignation and an appointment are two separate actions), cross-referenced so you review
+  them as a pair.
+- Both show the same name but spelled/capitalized/accented differently (e.g. "López" vs
+  "Lopez") → a **General** suggestion, since that's the same person — whether to update the
+  stored spelling is an editorial call, not something this command decides.
+
+Review and apply them the same way as any other suggestion (section 3). Add `--anc 1A` to check
+just one ANC, or `--dry-run` to preview without creating anything.
+
+**Rate limiting**: this only ever scrapes `oanc.dc.gov` once per calendar day — the first run
+each day saves the results to `data/oanc/commissioners_<date>.csv` (same format the old
+notebook-based pipeline used), and every run after that the same day reads that file back
+instead of hitting the site again. This data doesn't change quickly, and there's no reason to
+hammer a public government site. Pass `--force-refresh` to re-scrape anyway.
+
+## 5. Drafting an Updates-page entry
 
 After making changes (by any of the methods above), generate a draft summary for the public
 Updates page:
@@ -118,7 +148,7 @@ batch import, etc.), the draft will be noisy/oversized since it's summarizing ev
 the last published update. That's expected — just trim it, or publish something first to reset
 the window before drafting again.
 
-## 5. Pushing changes to production
+## 6. Pushing changes to production
 
 Once you've verified everything on `localhost`, use `ops/sync_production.sh` from the `webapp/`
 directory. **Run this yourself from your own terminal** — it writes to production, so it's
@@ -151,7 +181,7 @@ production**, the new management commands haven't been deployed yet — run `fly
 (code-only deploys ship instantly; the sync script can only call commands that already exist in
 the deployed image).
 
-## 6. Deploying code changes
+## 7. Deploying code changes
 
 Whenever you change Python/template/static code (not just data), before `flyctl deploy`:
 
@@ -192,6 +222,7 @@ apply, and the audit-trail draft generator all live.
 
 | Command | Runs where | Purpose |
 |---|---|---|
+| `check_oanc_commissioners [--anc] [--dry-run] [--force-refresh]` | local | Compare against the official OANC roster; creates review Suggestions |
 | `draft_site_update [--date] [--since]` | local | Draft an Updates-page entry from the audit trail |
 | `dump_editorial_data --output --manifest` | local | Export editorial data + PK manifest (used by `push`) |
 | `load_editorial_data <path> [--prune-manifest] [--yes]` | production | Load an editorial fixture (used by `push`) |
@@ -201,5 +232,5 @@ apply, and the audit-trail draft generator all live.
 | `max_suggestion_id` | local | Print the highest local Suggestion PK (used by `status`/`pull-suggestions`) |
 | `import_legacy_data` | local | Full rebuild from the original CSV source data (disaster recovery only) |
 
-You should never need to run any of these directly except `draft_site_update` — the others are
-called by `ops/sync_production.sh`.
+You should never need to run any of these directly except `check_oanc_commissioners` and
+`draft_site_update` — the others are called by `ops/sync_production.sh`.

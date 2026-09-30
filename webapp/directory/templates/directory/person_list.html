@@ -1,4 +1,5 @@
 {% extends 'directory/base.html' %}
+{% load directory_extras %}
 {% block title %}List of People | OpenANC{% endblock %}
 
 {% block content %}
@@ -7,15 +8,21 @@
 <input type="search" id="person-filter" placeholder="Filter by name&hellip;" style="width: 100%; max-width: 320px; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid var(--border-color); border-radius: 4px;">
 <ul class="card-list" id="person-list">
     {% for person in people %}
-    <li data-name="{{ person.full_name|lower }}"><a href="{{ person.get_absolute_url }}">{{ person.full_name }}</a></li>
+    <li data-name="{{ person.full_name|strip_diacritics|lower }}"><a href="{{ person.get_absolute_url }}">{{ person.full_name }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}
 
 {% block extra_body %}
 <script>
+// data-name is a plain-ASCII, accent-stripped key (see the strip_diacritics template filter),
+// so normalize the typed query the same way -- otherwise typing "López" itself wouldn't match
+// the (accent-stripped) "lopez" stored on the <li>.
+function stripDiacritics(text) {
+    return text.normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
 document.getElementById('person-filter').addEventListener('input', function (e) {
-    var query = e.target.value.trim().toLowerCase();
+    var query = stripDiacritics(e.target.value.trim().toLowerCase());
     document.querySelectorAll('#person-list li').forEach(function (li) {
         li.style.display = li.dataset.name.indexOf(query) !== -1 ? '' : 'none';
     });

@@ -2,6 +2,8 @@
 (see admin_views.py). Uses rapidfuzz -- the maintained successor to the old scripts/
 match_people.py pipeline's fuzzywuzzy.
 """
+import unicodedata
+
 from rapidfuzz import fuzz, process
 
 from .models import Person, PersonImportRow
@@ -10,6 +12,13 @@ from .models import Person, PersonImportRow
 # this one; the band in between is left for a human to decide in the review UI.
 LINK_THRESHOLD = 95
 NEW_THRESHOLD = 70
+
+
+def strip_diacritics(text):
+    """'Mónica' -> 'Monica' -- used to compare/search names irrespective of accenting, never to
+    change what's actually stored or displayed (that stays exactly as scraped/entered)."""
+    normalized = unicodedata.normalize('NFKD', text)
+    return ''.join(c for c in normalized if not unicodedata.combining(c))
 
 
 def build_person_choices():
