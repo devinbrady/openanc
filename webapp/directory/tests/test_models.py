@@ -113,6 +113,32 @@ class CommissionerTermTests(TestCase):
         self.assertFalse(former.is_current)
 
 
+class CurrentCommissionerTermTieBreakTests(TestCase):
+    """A same-day handoff -- one term ending today, the next starting today -- briefly leaves
+    two terms where is_current is True. current_commissioner_term should resolve that to the
+    incoming term (end_date in the future), not the outgoing one (end_date == today)."""
+
+    def setUp(self):
+        self.district = make_district()
+        today = timezone.localdate()
+        self.outgoing = make_commissioner_term(
+            make_person(full_name='Outgoing Commissioner'), self.district,
+            start_date=today - timedelta(days=400), end_date=today,
+        )
+        self.incoming = make_commissioner_term(
+            make_person(full_name='Incoming Commissioner'), self.district,
+            start_date=today, end_date=today + timedelta(days=700),
+        )
+
+    def test_current_commissioner_term_prefers_the_incoming_term(self):
+        self.assertEqual(self.district.current_commissioner_term, self.incoming)
+
+    def test_no_tie_still_returns_the_single_current_term(self):
+        other_district = make_district(designator='1A02', anc=self.district.anc, ward=self.district.ward)
+        term = make_commissioner_term(make_person(full_name='Solo Commissioner'), other_district)
+        self.assertEqual(other_district.current_commissioner_term, term)
+
+
 class PersonSlugTests(TestCase):
     def test_slug_is_generated_from_full_name(self):
         person = make_person(full_name='Jaspal Bhatia')

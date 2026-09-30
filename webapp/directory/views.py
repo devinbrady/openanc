@@ -22,6 +22,7 @@ from .models import (
     Suggestion,
     Ward,
     WriteInWinner,
+    resolve_current_commissioner_term,
 )
 
 
@@ -61,11 +62,15 @@ class DistrictListView(TemplateView):
 
 
 def _split_commissioner_terms(district):
+    terms = list(district.commissioner_terms.select_related('person').order_by('start_date'))
+    current_term = resolve_current_commissioner_term(t for t in terms if t.is_current)
+    current_term_id = current_term.id if current_term else None
+
     current = []
     future = []
     former = []
-    for term in district.commissioner_terms.select_related('person').order_by('start_date'):
-        if term.is_current:
+    for term in terms:
+        if term.id == current_term_id:
             current.append(term)
         elif term.is_future:
             future.append(term)
@@ -93,11 +98,14 @@ def _merge_consecutive_terms(terms, same_group_key):
     return groups
 
 
-def _term_group_row(group, **extra_fields):
+def _term_group_row(group, current_term_id, **extra_fields):
     """Build a template-ready row summarizing a merged run of terms: combined date range,
-    and status (current/future/former) derived from the run as a whole."""
+    and status (current/future/former) derived from the run as a whole. current_term_id is the
+    id of the one term (from resolve_current_commissioner_term) that should display as current
+    for this district -- not just any term where is_current is True, since a same-day handoff
+    briefly leaves two of those and only the incoming one should win."""
     first, last = group[0], group[-1]
-    if any(t.is_current for t in group):
+    if any(t.id == current_term_id for t in group):
         status, css_class = 'current', 'term-current'
     elif last.is_future:
         status, css_class = 'future', 'term-future'
@@ -121,12 +129,14 @@ def _term_group_row(group, **extra_fields):
 def _group_commissioner_terms(district):
     """Merge consecutive terms served by the same person in this district into a single row;
     non-consecutive stints -- the person left and later came back -- stay as separate rows."""
-    terms = district.commissioner_terms.select_related('person').order_by('start_date')
+    terms = list(district.commissioner_terms.select_related('person').order_by('start_date'))
+    current_term = resolve_current_commissioner_term(t for t in terms if t.is_current)
+    current_term_id = current_term.id if current_term else None
     groups = _merge_consecutive_terms(terms, same_group_key=lambda t: t.person_id)
 
     rows = {'current': [], 'future': [], 'former': []}
     for group in groups:
-        row = _term_group_row(group, person=group[0].person)
+        row = _term_group_row(group, current_term_id, person=group[0].person)
         rows[row['status']].append(row)
 
     rows['former'].sort(key=lambda r: r['end_date'], reverse=True)
@@ -136,9 +146,13 @@ def _group_commissioner_terms(district):
 def _group_terms_by_district(person):
     """Merge a person's consecutive terms in the same district into a single row; a stint in
     a different district, or a non-consecutive return to the same one, stays separate."""
-    terms = person.commissioner_terms.select_related('district').order_by('start_date')
+    terms = list(person.commissioner_terms.select_related('district').order_by('start_date'))
     groups = _merge_consecutive_terms(terms, same_group_key=lambda t: t.district_id)
-    rows = [_term_group_row(group, district=group[0].district) for group in groups]
+    rows = []
+    for group in groups:
+        district = group[0].district
+        current_term = district.current_commissioner_term
+        rows.append(_term_group_row(group, current_term.id if current_term else None, district=district))
     rows.sort(key=lambda r: r['start_date'], reverse=True)
     return rows
 

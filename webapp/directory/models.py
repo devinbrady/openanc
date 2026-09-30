@@ -12,6 +12,19 @@ from simple_history.models import HistoricalRecords
 # archive, every spatial model keeps rows for every redistricting era side by side, distinguished
 # by `redistricting_year`. settings.CURRENT_REDISTRICTING_YEAR says which era is "live" today.
 
+
+def resolve_current_commissioner_term(terms):
+    """Given CommissionerTerm objects where is_current is True (all for the same district),
+    returns the one to treat as *the* current term. Normally there's only one, but a same-day
+    handoff -- one term ending today, the next starting today -- can leave two; prefer the
+    incoming term (end_date in the future) over the outgoing one (end_date == today)."""
+    terms = list(terms)
+    if len(terms) <= 1:
+        return terms[0] if terms else None
+    today = timezone.localdate()
+    future_ending = [t for t in terms if t.end_date > today]
+    return future_ending[0] if future_ending else terms[0]
+
 class Ward(models.Model):
     ward_number = models.PositiveSmallIntegerField()
     redistricting_year = models.PositiveSmallIntegerField()
@@ -138,7 +151,8 @@ class District(models.Model):
     @property
     def current_commissioner_term(self):
         today = timezone.localdate()
-        return self.commissioner_terms.select_related('person').filter(start_date__lte=today, end_date__gte=today).first()
+        terms = self.commissioner_terms.select_related('person').filter(start_date__lte=today, end_date__gte=today)
+        return resolve_current_commissioner_term(terms)
 
     @property
     def future_commissioner_term(self):
@@ -413,8 +427,8 @@ class Suggestion(models.Model):
     TYPE_CHOICES = [
         (TYPE_GENERAL, 'General edit / suggestion (free text)'),
         (TYPE_NEW_CANDIDATE, 'New candidate declared'),
-        (TYPE_CANDIDATE_WITHDRAWS, 'Candidate withdraws'),
-        (TYPE_COMMISSIONER_CHANGE, 'Commissioner stops serving early'),
+        (TYPE_CANDIDATE_WITHDRAWS, 'Candidate withdrew'),
+        (TYPE_COMMISSIONER_CHANGE, 'Commissioner resigned'),
         (TYPE_NEW_COMMISSIONER, 'New commissioner appointed'),
     ]
 
@@ -426,6 +440,12 @@ class Suggestion(models.Model):
     )
     person = models.ForeignKey(
         Person, related_name='suggestions', null=True, blank=True, on_delete=models.SET_NULL
+    )
+    # Only meaningful for suggestion_type=candidate_withdraws -- which candidacy this is about.
+    # Kept as a real field (like district/person above) so the admin can use its own autocomplete
+    # widget instead of a JSON-only reference; suggestion_apply.py reads it via structured_data.
+    candidate = models.ForeignKey(
+        Candidate, related_name='+', null=True, blank=True, on_delete=models.SET_NULL
     )
     message = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=STATUS_PENDING)

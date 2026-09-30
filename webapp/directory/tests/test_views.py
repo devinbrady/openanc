@@ -51,7 +51,9 @@ class PageSmokeTests(PageRenderingTestCase):
         so the page should show a "Last edited" date reflecting the most recent of them."""
         response = self.client.get(self.district.get_absolute_url())
         self.assertContains(response, 'Last edited')
-        self.assertContains(response, timezone.now().strftime('%B %-d, %Y'))
+        # The page localizes history_date to TIME_ZONE via the |date filter -- compare against
+        # the same local time, not raw timezone.now() (UTC), which disagrees for part of the day.
+        self.assertContains(response, timezone.localtime(timezone.now()).strftime('%B %-d, %Y'))
 
     def test_district_detail_shows_neighbor_current_commissioner(self):
         neighbor = make_district(designator='1A02', anc=self.anc, ward=self.ward)
@@ -80,6 +82,24 @@ class PageSmokeTests(PageRenderingTestCase):
         vacant = make_district(designator='1A02', anc=self.anc, ward=self.ward)
         response = self.client.get(vacant.get_absolute_url())
         self.assertNotContains(response, 'Last edited')
+
+    def test_district_detail_same_day_handoff_shows_only_the_incoming_commissioner_as_current(self):
+        """self.district's term from setUp becomes the incoming term (starts today); a second
+        term for a different person ends today. Only the incoming commissioner should be
+        labeled Current, not both."""
+        today = timezone.localdate()
+        incoming_term = self.district.commissioner_terms.get(person=self.person)
+        incoming_term.start_date = today
+        incoming_term.save()
+
+        outgoing_person = make_person(full_name='Outgoing Commissioner')
+        make_commissioner_term(outgoing_person, self.district, start_date=today - timedelta(days=400), end_date=today)
+
+        response = self.client.get(self.district.get_absolute_url())
+        content = response.content.decode()
+        self.assertEqual(content.count('term-current'), 1)
+        self.assertContains(response, self.person.full_name)
+        self.assertContains(response, 'Outgoing Commissioner')
 
     def test_anc_detail(self):
         response = self.client.get(self.anc.get_absolute_url())

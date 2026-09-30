@@ -73,24 +73,30 @@ to represent a change you want the audit trail / Updates generator to describe p
 To apply one automatically:
 
 1. Open the suggestion in the admin.
-2. Set **Suggestion type** to one of:
-   - **New candidate declared** — `structured_data`: `{"person_name": "...", "district_id": <id>, "election_year": 2026, "ballot_or_write_in": "ballot"}` (`ballot_or_write_in` is optional, defaults to `"ballot"`; use `"write_in"` for a write-in candidacy).
-   - **Candidate withdraws** — `structured_data`: `{"candidate_id": <id>}`.
-   - **Commissioner stops serving early** — `structured_data`: `{"district_id": <id>, "end_date": "2026-10-15", "reason": "resigned"}` (`reason` is optional, freeform).
-   - **New commissioner appointed** — `structured_data`: `{"district_id": <id>, "person_name": "...", "start_date": "2026-10-15"}`. The term's end date is inferred automatically — whatever end date the rest of that election cycle's commissioners share.
+2. Set **Suggestion type**. The form shows only the fields that type needs (and marks them with
+   a red `*`) — there's no JSON to hand-edit:
+   - **New candidate declared** — District, Person name, Election year, Ballot/Write-in (defaults to ballot).
+   - **Candidate withdrew** — Candidate (autocomplete).
+   - **Commissioner resigned** — District, End date, Reason (optional).
+   - **New commissioner appointed** — District, Person name, Start date. The term's end date is
+     inferred automatically — whatever end date the rest of that election cycle's commissioners share.
    - **General edit / suggestion (free text)** — no automatic apply; handle it by hand as before.
-3. Save. Then go back to the suggestion list, select it, and run the **"Apply selected
-   suggestions (structured types only)"** admin action.
-4. If it succeeds, the suggestion's **Applied at** / **Resulting person** / **Resulting district**
-   fields fill in and its status becomes Approved. If something's wrong (bad ID, missing field,
-   a conflicting existing record), you'll get a red error message per row and *nothing* about
-   that suggestion is changed — fix `structured_data` and try again.
-5. `person_name` fields reuse the same fuzzy-matching as the import tool: a high-confidence match
+3. Save. Fields are only required once **Status** is set to **Approved** — saving a suggestion
+   as Pending or Rejected never requires them, even if a structured type is selected.
+4. **Setting Status to Approved does not apply the change** — that field only records your review
+   decision. Go back to the suggestion list, select the row, and run the **"Apply selected
+   suggestions (structured types only)"** admin action — that's the step that actually writes to
+   `CommissionerTerm`/`Candidate`/etc. Use the **"By approved but not applied"** filter in the
+   sidebar to catch anything you approved but forgot to apply.
+5. If applying succeeds, the suggestion's **Applied at** / **Resulting person** / **Resulting
+   district** fields fill in. If something's wrong (bad reference, a conflicting existing
+   record), you'll get a red error message per row and *nothing* about that suggestion changes —
+   fix the fields and try again.
+6. Person name fields reuse the same fuzzy-matching as the import tool: a high-confidence match
    links to the existing person automatically, otherwise a new `Person` is created.
 
-**Where do these IDs come from?** `district_id` is the `District` model's numeric primary key —
-easiest to find via the district's admin change page or the autocomplete field on the
-`CommissionerTerm`/`Candidate` admin. Same for `candidate_id` on the `Candidate` admin.
+The suggestion list's **By status** filter shows a count next to each option (Pending review,
+Approved, Rejected) so you can see the queue size at a glance.
 
 ## 4. Drafting an Updates-page entry
 

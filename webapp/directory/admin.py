@@ -3,6 +3,7 @@ from django.urls import path
 from simple_history.admin import SimpleHistoryAdmin
 
 from . import admin_views, suggestion_apply
+from . import forms as admin_forms
 from .models import (
     ANC,
     ANCOverlap,
@@ -136,14 +137,67 @@ class SiteUpdateAdmin(SimpleHistoryAdmin):
     ordering = ['-date']
 
 
+class ApprovedNotAppliedFilter(admin.SimpleListFilter):
+    """Surfaces the exact gap that causes a "why hasn't this shown up on the site" question:
+    a suggestion whose Status was set to Approved but that was never run through the "Apply
+    selected suggestions" action, so it never actually touched the underlying data."""
+    title = 'approved but not applied'
+    parameter_name = 'approved_not_applied'
+
+    def lookups(self, request, model_admin):
+        return [('yes', 'Approved, not yet applied')]
+
+    def queryset(self, request, queryset):
+        if self.value() == 'yes':
+            return queryset.filter(status=Suggestion.STATUS_APPROVED, applied_at__isnull=True)
+        return queryset
+
+    def choices(self, changelist):
+        """Overrides SimpleListFilter's default facet-count behavior, which counts against
+        whatever OTHER filters are currently active (e.g. "By status") -- so with "Pending
+        review" selected, this facet would always read (0), since pending and approved are
+        mutually exclusive, no matter how many suggestions get approved. This filter's whole
+        purpose is a standing "how many do I still need to apply" counter, so it always counts
+        site-wide instead."""
+        add_facets = changelist.add_facets
+        count = None
+        if add_facets:
+            count = Suggestion.objects.filter(
+                status=Suggestion.STATUS_APPROVED, applied_at__isnull=True,
+            ).count()
+        yield {
+            'selected': self.value() is None,
+            'query_string': changelist.get_query_string(remove=[self.parameter_name]),
+            'display': 'All',
+        }
+        title = 'Approved, not yet applied'
+        if add_facets:
+            title = f'{title} ({count})'
+        yield {
+            'selected': self.value() == 'yes',
+            'query_string': changelist.get_query_string({self.parameter_name: 'yes'}),
+            'display': title,
+        }
+
+
 @admin.register(Suggestion)
 class SuggestionAdmin(admin.ModelAdmin):
+    form = admin_forms.SuggestionAdminForm
     list_display = ['id', 'submitted_at', 'status', 'suggestion_type', 'district', 'person', 'name', 'applied_at']
-    list_filter = ['status', 'suggestion_type']
+    list_filter = ['status', 'suggestion_type', ApprovedNotAppliedFilter]
+    show_facets = admin.ShowFacets.ALWAYS
+    ordering = ['submitted_at']
     search_fields = ['name', 'email', 'message']
-    autocomplete_fields = ['district', 'person']
+    autocomplete_fields = ['district', 'person', 'candidate']
     readonly_fields = ['submitted_at', 'applied_at', 'resulting_person', 'resulting_district']
     actions = ['mark_approved', 'mark_rejected', 'apply_suggestions']
+    fields = [
+        'suggestion_type', 'status',
+        'district', 'person',
+        'person_name', 'election_year', 'ballot_or_write_in', 'candidate', 'start_date', 'end_date', 'reason',
+        'name', 'email', 'message', 'moderator_notes',
+        'submitted_at', 'applied_at', 'resulting_person', 'resulting_district',
+    ]
 
     @admin.action(description='Mark selected suggestions as approved')
     def mark_approved(self, request, queryset):
