@@ -424,9 +424,12 @@ class CountsView(TemplateView):
 
         # -- commissioner vacancies, current cycle ---------------------------------------
         total_districts = District.objects.filter(redistricting_year=year).count()
+        # Count districts, not terms: a same-day handoff (one term ending today, the next
+        # starting today) briefly leaves two terms matching "current" for the same district,
+        # which would otherwise double-count it and could even push vacancies negative.
         filled = CommissionerTerm.objects.filter(
             district__redistricting_year=year, start_date__lte=today, end_date__gte=today
-        ).count()
+        ).values('district').distinct().count()
 
         context.update({
             'election_year': election_year,

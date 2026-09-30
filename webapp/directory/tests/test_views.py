@@ -163,6 +163,27 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(reverse('directory:counts'))
         self.assertEqual(response.status_code, 200)
 
+    def test_counts_vacancy_count_is_not_thrown_off_by_a_same_day_handoff(self):
+        """Regression test: a same-day handoff (one term ending today, the next starting today)
+        briefly leaves two terms matching "current" for the same district. The vacancy count
+        used to count terms rather than distinct districts, so every such handoff inflated
+        "filled" by one extra -- enough of them and "total - filled" went negative."""
+        today = timezone.localdate()
+        incoming_term = self.district.commissioner_terms.get(person=self.person)
+        incoming_term.start_date = today
+        incoming_term.save()
+
+        make_commissioner_term(
+            make_person(full_name='Outgoing Commissioner'), self.district,
+            start_date=today - timedelta(days=400), end_date=today,
+        )
+        # self.district now has two terms matching "current" (the same-day handoff above), and
+        # is the only district in this test's data, so it should count as exactly one filled
+        # district -- zero vacancies, never negative.
+
+        response = self.client.get(reverse('directory:counts'))
+        self.assertContains(response, '1 districts, 0 currently vacant.')
+
     def test_contested(self):
         response = self.client.get(reverse('directory:contested'))
         self.assertEqual(response.status_code, 200)
