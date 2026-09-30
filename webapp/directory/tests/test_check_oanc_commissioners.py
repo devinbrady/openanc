@@ -226,6 +226,24 @@ class CommandIntegrationTests(TestCase):
 
         self.assertEqual(Suggestion.objects.filter(district=self.district).count(), 1)
 
+    def test_rerunning_does_not_recreate_a_rejected_suggestion(self):
+        self._run()
+        Suggestion.objects.filter(district=self.district).update(status=Suggestion.STATUS_REJECTED)
+
+        self._run()
+
+        self.assertEqual(Suggestion.objects.filter(district=self.district).count(), 1)
+
+    def test_rejected_suggestion_for_a_different_name_does_not_suppress_a_new_one(self):
+        self._run()
+        Suggestion.objects.filter(district=self.district).update(
+            status=Suggestion.STATUS_REJECTED, message='Someone Else appears to now be serving 1A01.',
+        )
+
+        self._run()
+
+        self.assertEqual(Suggestion.objects.filter(district=self.district).count(), 2)
+
     def test_anc_filter_only_compares_the_named_anc(self):
         other_anc = make_anc(designator='1B', dc_oanc_link='https://oanc.dc.gov/anc-profile/anc-1b')
         make_district(designator='1B01', anc=other_anc, ward=self.ward)

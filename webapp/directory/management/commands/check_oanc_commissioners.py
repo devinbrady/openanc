@@ -18,7 +18,9 @@ nothing here is auto-applied. Suggestions land in the normal review queue
 the missing date and apply via the existing "Apply selected suggestions" admin action, exactly
 like a public submission. Re-running this command won't create duplicates for a district that
 already has an OANC-comparison suggestion in flight from a previous run -- pending review, or
-approved but not yet applied.
+approved but not yet applied. It also won't re-suggest something a moderator already rejected:
+a rejected suggestion of the same type for the same district that mentions the same name(s)
+suppresses it. If either side's name changes, that's a new situation and it's suggested again.
 
 Caching: the OANC site is only ever scraped once per calendar day. The first run each day
 fetches every ANC (politely rate-limited) and saves the results to
@@ -101,6 +103,7 @@ class Command(BaseCommand):
             Suggestion.TYPE_NEW_COMMISSIONER: 0, Suggestion.TYPE_COMMISSIONER_CHANGE: 0, Suggestion.TYPE_GENERAL: 0,
         }
         skipped_existing = 0
+        skipped_rejected = 0
         skipped_no_data = 0
 
         for district in districts:
@@ -126,7 +129,13 @@ class Command(BaseCommand):
                 skipped_existing += 1
                 continue
 
+            current_term = district.current_commissioner_term
+            names = [n for n in (official_name, current_term.person.full_name if current_term else None) if n]
+
             for suggestion_type, message, structured_data in mismatches:
+                if self._was_rejected(district, suggestion_type, names):
+                    skipped_rejected += 1
+                    continue
                 created_counts[suggestion_type] += 1
                 if dry_run:
                     self.stdout.write(f'[dry-run] {suggestion_type}: {message}')
@@ -142,8 +151,19 @@ class Command(BaseCommand):
         summary = ', '.join(f'{count} {label}' for label, count in created_counts.items() if count)
         self.stdout.write(self.style.SUCCESS(
             f"{'Would create' if dry_run else 'Created'}: {summary or 'nothing -- no mismatches found'}. "
-            f'Skipped {skipped_existing} district(s) that already have a pending suggestion from a previous run.'
+            f'Skipped {skipped_existing} district(s) that already have a pending suggestion from a previous run '
+            f'and {skipped_rejected} suggestion(s) a moderator already rejected.'
         ))
+
+    def _was_rejected(self, district, suggestion_type, names):
+        """True if a moderator already rejected an OANC-comparison suggestion of this type for
+        this district that concerns the same name(s). Matches on the names appearing in the
+        message (not exact message text) so it still holds if the wording or score changes."""
+        rejected = Suggestion.objects.filter(
+            status=Suggestion.STATUS_REJECTED, district=district, name=SUGGESTION_SOURCE_NAME,
+            suggestion_type=suggestion_type,
+        )
+        return any(all(n in message for n in names) for message in rejected.values_list('message', flat=True))
 
     def _scrape_and_cache(self, cache_path, dry_run):
         """Scrapes every ANC's OANC page (politely rate-limited), matches each row to a
