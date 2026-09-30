@@ -5,7 +5,7 @@
 {% block content %}
 <h1>List of People</h1>
 <p class="muted">Everyone who has served as a commissioner or run as a candidate.</p>
-<input type="search" id="person-filter" placeholder="Filter by name&hellip;" style="width: 100%; max-width: 320px; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid var(--border-color); border-radius: 4px;">
+<input type="search" id="person-filter" placeholder="Filter by name&hellip;" style="width: 100%; max-width: 320px; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid var(--border-color); border-radius: 4px; font: inherit;">
 <ul class="card-list" id="person-list">
     {% for person in people %}
     <li data-name="{{ person.full_name|strip_diacritics|lower }}"><a href="{{ person.get_absolute_url }}">{{ person.full_name }}</a></li>
