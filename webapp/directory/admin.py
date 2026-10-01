@@ -228,7 +228,7 @@ class SuggestionAdmin(admin.ModelAdmin):
     def mark_rejected(self, request, queryset):
         queryset.update(status=Suggestion.STATUS_REJECTED)
 
-    @admin.action(description='Apply selected suggestions (structured types only)')
+    @admin.action(description="Apply selected suggestions (marks 'general' ones as handled)")
     def apply_suggestions(self, request, queryset):
         applied = 0
         for suggestion in queryset:

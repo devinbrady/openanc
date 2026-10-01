@@ -187,9 +187,28 @@ class ApplyNewCommissionerTests(TestCase):
 
 
 class ApplySuggestionGeneralTypeTests(TestCase):
-    def test_general_type_has_no_automatic_handler(self):
+    def test_general_type_has_no_structured_change_but_can_still_be_marked_applied(self):
+        """'general' suggestions are a manual free-text edit -- apply_suggestion makes no
+        database change for one, but it still succeeds and sets applied_at, so a moderator has a
+        way to clear it from the "Approved, not yet applied" filter once they've made that edit
+        by hand."""
         suggestion = make_suggestion(Suggestion.TYPE_GENERAL, {})
-        with self.assertRaises(SuggestionApplyError):
-            apply_suggestion(suggestion)
+
+        apply_suggestion(suggestion)
+
         suggestion.refresh_from_db()
-        self.assertEqual(suggestion.status, Suggestion.STATUS_PENDING)
+        self.assertEqual(suggestion.status, Suggestion.STATUS_APPROVED)
+        self.assertIsNotNone(suggestion.applied_at)
+
+    def test_general_type_carries_through_an_already_set_person_and_district(self):
+        person = make_person()
+        district = make_district()
+        suggestion = Suggestion.objects.create(
+            message='test', suggestion_type=Suggestion.TYPE_GENERAL, person=person, district=district,
+        )
+
+        apply_suggestion(suggestion)
+
+        suggestion.refresh_from_db()
+        self.assertEqual(suggestion.resulting_person, person)
+        self.assertEqual(suggestion.resulting_district, district)

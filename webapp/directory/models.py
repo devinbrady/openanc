@@ -407,8 +407,9 @@ class Suggestion(models.Model):
     person/message) and leaves suggestion_type at its 'general' default -- a moderator
     re-classifies a suggestion and fills in structured_data during local review, then uses the
     "Apply selected suggestions" admin action (see suggestion_apply.py) to apply it directly for
-    the four structured types. 'general' has no automatic handler and stays a manual free-text
-    edit, exactly like before this feature existed.
+    the four structured types. 'general' has no structured data to apply -- it stays a manual
+    free-text edit, same as before this feature existed -- but running "Apply" on one still
+    marks it as handled, so it drops off the "Approved, not yet applied" admin filter.
     """
     STATUS_PENDING = 'pending'
     STATUS_APPROVED = 'approved'

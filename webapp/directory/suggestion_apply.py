@@ -2,8 +2,11 @@
 per Suggestion.suggestion_type, dispatched from SuggestionAdmin's "Apply selected suggestions"
 action (admin.py). Reuses directory/matching.py's Person matching for any person-name field.
 
-'general' suggestions have no handler here -- they stay a manual free-text edit, exactly like
-before this feature existed.
+'general' suggestions stay a manual free-text edit -- apply_general below makes no database
+change itself, since there's nothing structured to read. It exists so a moderator has a way to
+mark one as handled once they've made that edit by hand elsewhere; without it, an approved
+'general' suggestion would sit in the "Approved, not yet applied" admin filter forever, since
+nothing could ever set applied_at.
 
 Each handler expects Suggestion.structured_data to hold the fields documented on it below, reads
 them, makes the change, and returns (person, district) for the caller to record on the
@@ -152,7 +155,15 @@ def apply_new_commissioner(suggestion):
     return person, district
 
 
+def apply_general(suggestion):
+    """No structured change to make -- the moderator edits the data by hand, outside this flow.
+    Running "Apply" just records that it's been handled (and, when the suggestion already names
+    a person/district, carries those through to resulting_person/resulting_district for display)."""
+    return suggestion.person, suggestion.district
+
+
 HANDLERS = {
+    Suggestion.TYPE_GENERAL: apply_general,
     Suggestion.TYPE_NEW_CANDIDATE: apply_new_candidate,
     Suggestion.TYPE_CANDIDATE_WITHDRAWS: apply_candidate_withdraws,
     Suggestion.TYPE_COMMISSIONER_CHANGE: apply_commissioner_change,
@@ -162,8 +173,8 @@ HANDLERS = {
 
 def apply_suggestion(suggestion):
     """Applies a structured suggestion to the database inside its own transaction -- nothing is
-    partially applied on failure. Raises SuggestionApplyError for 'general' suggestions (no
-    automatic handler) or any problem the handler runs into."""
+    partially applied on failure. Raises SuggestionApplyError if the handler runs into a
+    problem (a 'general' suggestion's handler never raises -- see apply_general above)."""
     handler = HANDLERS.get(suggestion.suggestion_type)
     if handler is None:
         raise SuggestionApplyError(
