@@ -45,6 +45,16 @@ class PersonImportFlowTests(PageRenderingTestCase):
         new_row = batch.rows.get(raw_name='Brand New Person')
         self.assertEqual(new_row.decision, PersonImportRow.DECISION_NEW)
 
+    def test_upload_matches_district_from_a_dcboe_style_anc_smd_column(self):
+        """DCBOE's own ballot export CSVs (data/dcboe/excel-clean/*.csv) use "ANC-SMD" as the
+        column header, not "district" -- the parser needs to recognize that alias too, or every
+        row comes back with no district matched."""
+        csv_content = 'ANC-SMD,Name\n1A01,Brand New Person\n'
+        self._upload_csv(csv_content)
+
+        row = PersonImportRow.objects.get(raw_name='Brand New Person')
+        self.assertEqual(row.district, self.district)
+
     def test_review_page_saves_decisions(self):
         self._upload_csv('name,district\nBrand New Person,1A01\n')
         batch = PersonImportBatch.objects.get()

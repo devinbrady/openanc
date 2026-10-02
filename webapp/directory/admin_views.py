@@ -17,6 +17,13 @@ from .matching import match_person_rows
 from .models import Candidate, District, Person, PersonImportBatch, PersonImportRow
 
 
+# Column names seen in the wild for the SMD designator, in order of preference: a plain
+# "district" header if the CSV was built for this tool, otherwise whatever DCBOE's own exports
+# use -- e.g. data/dcboe/excel-clean/*.csv has "ANC-SMD" (see scripts/process_candidates.py,
+# which recognizes the same variants for the legacy pipeline).
+DISTRICT_COLUMN_ALIASES = ['district', 'anc-smd', 'anc/smd', 'smd', 'office']
+
+
 def _parse_csv(uploaded_file):
     """Returns a list of (name, district_designator) tuples. Raises ValueError if there's no
     'name' column."""
@@ -26,7 +33,7 @@ def _parse_csv(uploaded_file):
     name_col = columns.get('name')
     if not name_col:
         raise ValueError("CSV must have a 'name' column (and optionally a 'district' column).")
-    district_col = columns.get('district')
+    district_col = next((columns[alias] for alias in DISTRICT_COLUMN_ALIASES if alias in columns), None)
 
     rows = []
     for raw_row in reader:

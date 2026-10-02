@@ -3,8 +3,10 @@
 {% block content_title %}<h1>Import candidates</h1>{% endblock %}
 
 {% block content %}
-<p>Upload a CSV with a <code>name</code> column (required) and a <code>district</code> column
-(SMD designator, e.g. <code>1A01</code> -- matched against the current redistricting cycle).
+<p>Upload a CSV with a <code>name</code> column (required) and a column holding the SMD
+designator (e.g. <code>1A01</code> -- matched against the current redistricting cycle). That
+column can be named <code>district</code>, or any of DCBOE's own export headers:
+<code>ANC-SMD</code>, <code>ANC/SMD</code>, <code>SMD</code>, or <code>Office</code>.
 Each name will be fuzzy-matched against existing people so you can decide, per row, whether to
 link to an existing person or create a new one.</p>
 
