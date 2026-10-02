@@ -3,6 +3,7 @@ in admin.py. Replaces the old scripts/match_people.py CSV-round-trip: upload a C
 fuzzy-matched candidates in the browser, apply the decisions.
 """
 import csv
+import datetime
 import io
 
 from django.conf import settings
@@ -14,7 +15,7 @@ from simple_history.utils import update_change_reason
 
 from .forms import PersonImportUploadForm
 from .matching import match_person_rows
-from .models import Candidate, District, Person, PersonImportBatch, PersonImportRow
+from .models import Candidate, CommissionerTerm, District, Person, PersonImportBatch, PersonImportRow
 
 
 # Column names seen in the wild for the SMD designator, in order of preference: a plain
@@ -90,6 +91,24 @@ def person_import_upload(request):
     return TemplateResponse(request, 'admin/directory/person_import/upload.html', context)
 
 
+def _most_recent_designators(person_ids):
+    """{person_id: SMD designator} for each person's most recent commissioner term or candidacy,
+    whichever is later. A candidacy is dated by its election date (falling back to Nov 1 of the
+    election year when that isn't recorded). People with neither get no entry."""
+    latest = {}
+
+    def consider(person_id, when, designator):
+        if person_id not in latest or when > latest[person_id][0]:
+            latest[person_id] = (when, designator)
+
+    for term in CommissionerTerm.objects.filter(person_id__in=person_ids).select_related('district'):
+        consider(term.person_id, term.start_date, term.district.designator)
+    for candidacy in Candidate.objects.filter(person_id__in=person_ids).select_related('district', 'election'):
+        when = candidacy.election.election_date or datetime.date(candidacy.election.year, 11, 1)
+        consider(candidacy.person_id, when, candidacy.district.designator)
+    return {person_id: designator for person_id, (_, designator) in latest.items()}
+
+
 def person_import_review(request, batch_id):
     batch = get_object_or_404(PersonImportBatch, pk=batch_id)
     rows = list(batch.rows.select_related('district', 'chosen_person').all())
@@ -109,6 +128,12 @@ def person_import_review(request, batch_id):
             row.save()
         messages.success(request, 'Decisions saved.')
         return redirect('admin:directory_person_import_review', batch_id=batch.pk)
+
+    designators = _most_recent_designators({c['person_id'] for row in rows for c in row.match_candidates_json})
+    for row in rows:
+        for candidate in row.match_candidates_json:
+            designator = designators.get(candidate['person_id'])
+            candidate['label'] = f"{candidate['full_name']} ({designator})" if designator else candidate['full_name']
 
     context = {
         **admin.site.each_context(request),

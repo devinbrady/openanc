@@ -1,3 +1,4 @@
+import datetime
 import io
 
 from django.contrib.auth.models import User
@@ -6,7 +7,15 @@ from django.urls import reverse
 
 from directory.models import Candidate, Person, PersonImportBatch, PersonImportRow
 from directory.tests.base import PageRenderingTestCase
-from directory.tests.factories import make_candidate_status, make_district, make_election, make_person
+from directory.tests.factories import (
+    make_anc,
+    make_candidate,
+    make_candidate_status,
+    make_commissioner_term,
+    make_district,
+    make_election,
+    make_person,
+)
 
 
 class PersonImportFlowTests(PageRenderingTestCase):
@@ -103,6 +112,31 @@ class PersonImportFlowTests(PageRenderingTestCase):
         self.assertEqual(Person.objects.filter(full_name='Jaspal Bhatia').count(), 1)
         candidate = Candidate.objects.get(person=self.existing_person)
         self.assertEqual(candidate.district, self.district)
+
+    def test_review_labels_matched_person_with_most_recent_smd(self):
+        other = make_district(designator='1B02', anc=make_anc(designator='1B'), ward=self.district.ward)
+        make_commissioner_term(
+            self.existing_person, other,
+            start_date=datetime.date(2023, 1, 2), end_date=datetime.date(2025, 1, 2),
+        )
+        make_candidate(self.existing_person, self.election, self.district, status=self.status)
+        self._upload_csv('name,district\nJaspal Bhatia,1A01\nBrand New Person,1A01\n')
+        batch = PersonImportBatch.objects.get()
+
+        response = self.client.get(reverse('admin:directory_person_import_review', kwargs={'batch_id': batch.pk}))
+
+        # The 2026 candidacy in 1A01 is more recent than the 2023 term in 1B02.
+        self.assertContains(response, 'Jaspal Bhatia (1A01)')
+        self.assertNotContains(response, 'Jaspal Bhatia (1B02)')
+
+    def test_review_omits_smd_for_a_matched_person_with_no_history(self):
+        self._upload_csv('name,district\nJaspal Bhatia,1A01\n')
+        batch = PersonImportBatch.objects.get()
+
+        response = self.client.get(reverse('admin:directory_person_import_review', kwargs={'batch_id': batch.pk}))
+
+        self.assertContains(response, 'Jaspal Bhatia\n')
+        self.assertNotContains(response, 'Jaspal Bhatia (')
 
     def test_upload_requires_staff_login(self):
         self.client.logout()
