@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -59,6 +60,83 @@ class PageSmokeTests(PageRenderingTestCase):
         content = response.content.decode()
         self.assertIn(vacant.designator, content)
         self.assertIn('Vacant', content)
+
+    def test_district_list_shows_current_election_candidates_on_the_ballot(self):
+        # setUp already created a current-year election, an 'On the Ballot' status, and a
+        # candidate ('A Candidate') in self.district.
+        year = settings.CURRENT_ELECTION_YEAR
+        election = self.election
+        counted = self.status
+        withdrew = make_candidate_status(name='Withdrew', publish_candidate=True, count_as_candidate=False)
+        hidden = make_candidate_status(name='Hide Record', publish_candidate=False, count_as_candidate=False)
+        make_candidate(make_person(full_name='Ballot Person'), election, self.district, status=counted)
+        make_candidate(make_person(full_name='Withdrawn Person'), election, self.district, status=withdrew)
+        make_candidate(make_person(full_name='Hidden Person'), election, self.district, status=hidden)
+        old_election = make_election(year=year - 2)
+        make_candidate(make_person(full_name='Old Election Person'), old_election, self.district, status=counted)
+
+        response = self.client.get(reverse('directory:district_list'))
+
+        self.assertContains(response, '<th>On the Ballot</th>')
+        self.assertContains(response, 'A Candidate')
+        self.assertContains(response, 'Ballot Person')
+        self.assertNotContains(response, 'Withdrawn Person')
+        self.assertNotContains(response, 'Hidden Person')
+        self.assertNotContains(response, 'Old Election Person')
+
+    def test_district_list_has_a_column_per_candidate_status_and_candidates_move_with_their_status(self):
+        write_in = make_candidate_status(name='Write-In Candidate', display_order=5)
+        write_in_candidate = make_candidate(
+            make_person(full_name='Write In Person'), self.election, self.district, status=write_in,
+        )
+        # A second ANC with no write-ins must still get the same columns, so tables line up.
+        other_district = make_district(designator='2B01', anc=make_anc(designator='2B'), ward=self.ward)
+
+        response = self.client.get(reverse('directory:district_list'))
+        content = response.content.decode()
+        self.assertEqual(content.count('<th>Write-In Candidate</th>'), 2)
+        self.assertEqual(content.count('<th>On the Ballot</th>'), 2)
+        self.assertLess(content.index('<th>On the Ballot</th>'), content.index('<th>Write-In Candidate</th>'))
+
+        districts_by_designator = {
+            d.designator: d for anc in response.context['ancs'] for d in anc.districts.all()
+        }
+        on_ballot_cell, write_in_cell = districts_by_designator[self.district.designator].ballot_columns
+        self.assertEqual([c.person.full_name for c in on_ballot_cell], ['A Candidate'])
+        self.assertEqual([c.person.full_name for c in write_in_cell], ['Write In Person'])
+        self.assertEqual(districts_by_designator[other_district.designator].ballot_columns, [[], []])
+
+        # Change the write-in's status: they move to the matching column, and the now-empty
+        # Write-In Candidate column disappears.
+        write_in_candidate.status = self.status
+        write_in_candidate.save()
+        response = self.client.get(reverse('directory:district_list'))
+        self.assertNotContains(response, 'Write-In Candidate')
+        (on_ballot_cell,) = next(
+            d for anc in response.context['ancs'] for d in anc.districts.all() if d.id == self.district.id
+        ).ballot_columns
+        self.assertEqual({c.person.full_name for c in on_ballot_cell}, {'A Candidate', 'Write In Person'})
+
+    def test_ward_and_anc_detail_show_candidate_columns_by_status(self):
+        write_in = make_candidate_status(name='Write-In Candidate', display_order=5)
+        make_candidate(make_person(full_name='Write In Person'), self.election, self.district, status=write_in)
+
+        for url in (self.ward.get_absolute_url(), self.anc.get_absolute_url()):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                content = response.content.decode()
+                self.assertContains(response, '<th>On the Ballot</th>')
+                self.assertContains(response, '<th>Write-In Candidate</th>')
+                self.assertLess(content.index('<th>On the Ballot</th>'), content.index('<th>Write-In Candidate</th>'))
+                self.assertContains(response, 'A Candidate')
+                self.assertContains(response, 'Write In Person')
+
+    def test_ward_and_anc_detail_omit_candidate_columns_when_no_one_is_on_the_ballot(self):
+        self.candidate.delete()
+        for url in (self.ward.get_absolute_url(), self.anc.get_absolute_url()):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertNotContains(response, '<th>On the Ballot</th>')
 
     def test_district_detail(self):
         response = self.client.get(self.district.get_absolute_url())

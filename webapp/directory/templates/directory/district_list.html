@@ -25,7 +25,7 @@
 </ul>
 {% endfor %}
 {% else %}
-<p class="muted">{{ redistricting_year }} redistricting cycle, current commissioner for each district.</p>
+<p class="muted">{{ redistricting_year }} redistricting cycle, current commissioner and {{ current_election_year }} candidates for each district.</p>
 {% for anc in ancs %}
 <h2><a href="{{ anc.get_absolute_url }}">ANC {{ anc.designator }}</a></h2>
 {% include 'directory/_district_table.html' with districts=anc.districts.all %}

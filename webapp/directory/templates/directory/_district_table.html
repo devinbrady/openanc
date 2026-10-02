@@ -1,5 +1,5 @@
 <table class="district-table">
-    <tr><th>District</th><th>Commissioner</th></tr>
+    <tr><th>District</th><th>Commissioner</th>{% for status in ballot_statuses %}<th>{{ status.name }}</th>{% endfor %}</tr>
     {% for district in districts %}
     <tr>
         <td><a href="{{ district.get_absolute_url }}">SMD {{ district.designator }}</a></td>
@@ -12,6 +12,13 @@
                 <span class="muted">Vacant</span>
             {% endif %}
         </td>
+        {% for candidates in district.ballot_columns %}
+        <td>
+            {% for candidate in candidates %}
+                <a href="{{ candidate.person.get_absolute_url }}">{{ candidate.person.full_name }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+        {% endfor %}
     </tr>
     {% endfor %}
 </table>

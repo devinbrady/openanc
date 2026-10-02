@@ -53,6 +53,7 @@ class DistrictListView(TemplateView):
         year = settings.CURRENT_REDISTRICTING_YEAR
         context['view'] = 'by_ward' if self.request.GET.get('view') == 'by_ward' else 'current'
         context['redistricting_year'] = year
+        context['current_election_year'] = settings.CURRENT_ELECTION_YEAR
 
         if context['view'] == 'by_ward':
             context['wards'] = (
@@ -73,6 +74,12 @@ class DistrictListView(TemplateView):
             )
             for term in relevant_terms:
                 terms_by_district[term.district_id].append(term)
+
+            # Computed across ALL districts (not per ANC) so every ANC's table has identical
+            # candidate columns and they stay lined up down the page.
+            all_districts = [district for anc in ancs for district in anc.districts.all()]
+            context['ballot_statuses'] = _attach_ballot_columns(all_districts)
+
             for anc in ancs:
                 for district in anc.districts.all():
                     district_terms = terms_by_district.get(district.id, [])
@@ -82,6 +89,33 @@ class DistrictListView(TemplateView):
                     district.future_term = future[0] if future else None
             context['ancs'] = ancs
         return context
+
+
+def _attach_ballot_columns(districts):
+    """Sets district.ballot_columns on each district: one list of current-election candidates per
+    candidate status, in the same order as the returned list of statuses (ordered by display_order).
+    Only statuses someone actually holds in these districts are included, so a column like
+    "Write-In Candidate" appears once the first write-in is added and disappears when empty. Only
+    candidates whose status is both published and counted are shown. Uses one query for all the
+    districts passed in, rather than one per district."""
+    districts = list(districts)
+    on_ballot = list(
+        Candidate.objects.filter(
+            election__year=settings.CURRENT_ELECTION_YEAR,
+            district__in=districts,
+            status__publish_candidate=True,
+            status__count_as_candidate=True,
+        )
+        .select_related('person', 'status')
+        .order_by('person__full_name')
+    )
+    statuses = sorted({c.status for c in on_ballot}, key=lambda s: (s.display_order, s.name))
+    by_district_and_status = defaultdict(list)
+    for candidate in on_ballot:
+        by_district_and_status[(candidate.district_id, candidate.status_id)].append(candidate)
+    for district in districts:
+        district.ballot_columns = [by_district_and_status.get((district.id, status.id), []) for status in statuses]
+    return statuses
 
 
 def _split_commissioner_terms(district):
@@ -284,6 +318,7 @@ class ANCDetailView(DetailView):
             current, future, former = _split_commissioner_terms(district)
             district.current_term = current[0] if current else None
             district.future_term = future[0] if future else None
+        context['ballot_statuses'] = _attach_ballot_columns(context['districts'])
         context['overlaps'] = self.object.overlaps_from.select_related('to_anc').order_by('-overlap_percentage')
         context.update(mapbox_context())
         context['boundary_geometry'] = boundary_geometry('anc', self.object.designator, self.object.redistricting_year)
@@ -311,6 +346,7 @@ class WardDetailView(DetailView):
             current, future, former = _split_commissioner_terms(district)
             district.current_term = current[0] if current else None
             district.future_term = future[0] if future else None
+        context['ballot_statuses'] = _attach_ballot_columns(context['districts'])
         context.update(mapbox_context())
         context['boundary_geometry'] = boundary_geometry('ward', self.object.ward_number, self.object.redistricting_year)
         context['district_designators'] = [district.designator for district in context['districts']]
