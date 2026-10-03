@@ -401,6 +401,28 @@ class UpdatesView(ListView):
         return SiteUpdate.objects.filter(is_published=True)
 
 
+def _districts_with_active_candidate_counts():
+    """Current-cycle districts, each annotated with active_candidate_count: how many candidates it
+    has in the current election whose status has Count as Candidate checked."""
+    return District.objects.filter(redistricting_year=settings.CURRENT_REDISTRICTING_YEAR).annotate(
+        active_candidate_count=Count(
+            'candidates',
+            filter=Q(
+                candidates__election__year=settings.CURRENT_ELECTION_YEAR,
+                candidates__status__count_as_candidate=True,
+            ),
+        )
+    )
+
+
+def _candidate_bucket(count):
+    if count == 0:
+        return 'no_candidates'
+    if count == 1:
+        return 'one_candidate'
+    return 'two_plus_candidates'
+
+
 class CountsView(TemplateView):
     template_name = 'directory/counts.html'
 
@@ -420,28 +442,13 @@ class CountsView(TemplateView):
         )
 
         # -- contested districts, current cycle ------------------------------------------
-        districts = District.objects.filter(redistricting_year=year).annotate(
-            active_candidate_count=Count(
-                'candidates',
-                filter=Q(
-                    candidates__election__year=election_year,
-                    candidates__status__count_as_candidate=True,
-                ),
-            )
-        ).select_related('anc', 'ward')
-
-        def bucket(count):
-            if count == 0:
-                return 'no_candidates'
-            if count == 1:
-                return 'one_candidate'
-            return 'two_plus_candidates'
+        districts = _districts_with_active_candidate_counts().select_related('anc', 'ward')
 
         dc_totals = {'no_candidates': 0, 'one_candidate': 0, 'two_plus_candidates': 0}
         by_ward = {}
         by_anc = {}
         for district in districts:
-            key = bucket(district.active_candidate_count)
+            key = _candidate_bucket(district.active_candidate_count)
             dc_totals[key] += 1
 
             ward_row = by_ward.setdefault(
@@ -530,5 +537,12 @@ class ContestedMapView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update(mapbox_context())
-        context['contested_styles'] = settings.MAPBOX_CONTESTED_STYLES
+        # Which districts to show for each filter option, computed live from the database
+        # (current election, statuses with Count as Candidate checked) so the map never goes
+        # stale the way a hand-uploaded Mapbox tileset property would.
+        designators_by_bucket = {'no_candidates': [], 'one_candidate': [], 'two_plus_candidates': []}
+        for district in _districts_with_active_candidate_counts().order_by('designator'):
+            designators_by_bucket[_candidate_bucket(district.active_candidate_count)].append(district.designator)
+        context['designators_by_bucket'] = designators_by_bucket
+        context['redistricting_year'] = settings.CURRENT_REDISTRICTING_YEAR
         return context

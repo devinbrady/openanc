@@ -10,33 +10,41 @@
 {% block content %}
 <div id="map"></div>
 <div class="map-info-panel">
-    <p><strong>Color districts by:</strong></p>
-    <label><input type="radio" name="contested-toggle" value="no-candidates" checked> No candidates</label><br>
-    <label><input type="radio" name="contested-toggle" value="one-candidate"> One candidate</label><br>
-    <label><input type="radio" name="contested-toggle" value="two-plus-candidates"> Two or more candidates</label>
+    <p><strong>Filter districts by:</strong></p>
+    <label><input type="radio" name="contested-toggle" value="no_candidates" checked> No candidates</label><br>
+    <label><input type="radio" name="contested-toggle" value="one_candidate"> One candidate</label><br>
+    <label><input type="radio" name="contested-toggle" value="two_plus_candidates"> Two or more candidates</label>
     <hr>
     <div id="map-info-panel-body"><p>Click on the map to see district information.</p></div>
 </div>
 {% endblock %}
 
 {% block extra_body %}
+{{ designators_by_bucket|json_script:"designators-by-bucket" }}
 <script>
 mapboxgl.accessToken = '{{ mapbox_access_token }}';
 
-var styles = {
-    {% for key, style in contested_styles.items %}'{{ key }}': '{{ style }}',{% endfor %}
-};
+var designatorsByBucket = JSON.parse(document.getElementById('designators-by-bucket').textContent);
+var yearMatch = '{{ redistricting_year }}';
 
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: styles['no-candidates']
-});
+// These are the SMD-fill and SMD-label layer ids baked into the Mapbox Studio style
+// (MAPBOX_SMD_STYLE), same ones the ANC/Ward/District detail pages filter.
+var SMD_LAYERS = ['smd', 'to-mapbox-label-points-2022-d-9kxn2y'];
 
+// smd_id is missing the ward prefix for the dozen districts that span two wards (e.g. "6/8F01");
+// smd_name always has the full designator, so match on that, and the year via smd_id.
+function filterFor(bucket) {
+    return [
+        'all',
+        ['in', yearMatch, ['get', 'smd_id']],
+        ['in', ['get', 'smd_name'], ['literal', designatorsByBucket[bucket]]],
+    ];
+}
+
+var map;
 var infoBody = document.getElementById('map-info-panel-body');
 
 function showDistrictSummary(properties) {
-    // smd_id is missing the ward prefix for the dozen districts that span two wards (e.g.
-    // "6/8F01"); smd_name always has the full designator, so use that instead.
     var year = properties.smd_id.indexOf('2022') !== -1 ? '2022' : '2012';
     var designator = properties.smd_name;
     fetch('/api/districts/' + year + '/' + designator.replace('/', '-') + '/summary/')
@@ -47,22 +55,41 @@ function showDistrictSummary(properties) {
         });
 }
 
-map.on('load', function () {
-    map.getCanvas().style.cursor = 'default';
-    map.on('click', function (e) {
-        var features = map.queryRenderedFeatures(e.point);
-        if (features.length > 0 && features[0].properties.smd_name) {
-            showDistrictSummary(features[0].properties);
-        }
+function selectedBucket() {
+    return document.querySelector('input[name="contested-toggle"]:checked').value;
+}
+
+// The initial filter is baked into the style JSON before the map is constructed, so the first
+// frame already shows only the selected districts instead of flashing the full citywide map.
+var styleUrlMatch = /^mapbox:\/\/styles\/(.+)$/.exec('{{ mapbox_smd_style }}');
+fetch('https://api.mapbox.com/styles/v1/' + styleUrlMatch[1] + '?access_token=' + encodeURIComponent(mapboxgl.accessToken))
+    .then(function (resp) { return resp.json(); })
+    .then(function (styleJson) {
+        var initialFilter = filterFor(selectedBucket());
+        styleJson.layers.forEach(function (layer) {
+            if (SMD_LAYERS.indexOf(layer.id) !== -1) layer.filter = initialFilter;
+        });
+
+        map = new mapboxgl.Map({ container: 'map', style: styleJson });
+        map.addControl(new mapboxgl.NavigationControl());
+        map.on('load', function () {
+            map.getCanvas().style.cursor = 'default';
+            map.on('click', function (e) {
+                var features = map.queryRenderedFeatures(e.point);
+                if (features.length > 0 && features[0].properties.smd_name) {
+                    showDistrictSummary(features[0].properties);
+                }
+            });
+        });
     });
-});
 
 document.querySelectorAll('input[name="contested-toggle"]').forEach(function (input) {
-    input.addEventListener('change', function (e) {
-        map.setStyle(styles[e.target.value]);
+    input.addEventListener('change', function () {
+        if (!map) return;  // style still loading; its initial filter already reflects this selection
+        var filter = filterFor(selectedBucket());
+        SMD_LAYERS.forEach(function (layerId) { map.setFilter(layerId, filter); });
+        infoBody.innerHTML = '<p>Click on the map to see district information.</p>';
     });
 });
-
-map.addControl(new mapboxgl.NavigationControl());
 </script>
 {% endblock %}

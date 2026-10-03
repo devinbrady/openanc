@@ -262,6 +262,27 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(reverse('directory:counts'))
         self.assertContains(response, '1 districts, 0 currently vacant.')
 
+    def test_contested_filters_districts_by_live_candidate_count(self):
+        """self.district has one candidate from setUp. Withdrawn candidates (Count as Candidate
+        unchecked) don't count, and only the current election is considered."""
+        withdrew = make_candidate_status(name='Withdrew', publish_candidate=True, count_as_candidate=False)
+        two = make_district(designator='1A02', anc=self.anc, ward=self.ward)
+        make_candidate(make_person(full_name='Two A'), self.election, two, status=self.status)
+        make_candidate(make_person(full_name='Two B'), self.election, two, status=self.status)
+        none_counted = make_district(designator='1A03', anc=self.anc, ward=self.ward)
+        make_candidate(make_person(full_name='Withdrawn'), self.election, none_counted, status=withdrew)
+        make_candidate(make_person(full_name='Past'), make_election(year=2024), none_counted, status=self.status)
+        empty = make_district(designator='1A04', anc=self.anc, ward=self.ward)
+
+        response = self.client.get(reverse('directory:contested'))
+
+        buckets = response.context['designators_by_bucket']
+        self.assertEqual(buckets['no_candidates'], ['1A03', '1A04'])
+        self.assertEqual(buckets['one_candidate'], [self.district.designator])
+        self.assertEqual(buckets['two_plus_candidates'], ['1A02'])
+        self.assertContains(response, 'Filter districts by:')
+        self.assertNotContains(response, 'Color districts by:')
+
     def test_contested(self):
         response = self.client.get(reverse('directory:contested'))
         self.assertEqual(response.status_code, 200)

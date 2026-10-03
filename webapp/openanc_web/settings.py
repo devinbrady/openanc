@@ -131,11 +131,6 @@ MAPBOX_GL_JS_VERSION = 'v2.15.0'
 # This is a Mapbox public token, meant to be embedded in client-side code.
 MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ'
 MAPBOX_SMD_STYLE = 'mapbox://styles/devinbrady/cl4yg387b000u14msjowbcvcq'
-MAPBOX_CONTESTED_STYLES = {
-    'no-candidates': 'mapbox://styles/devinbrady/cl5mpzyw6000015o3fv5vme3x',
-    'one-candidate': 'mapbox://styles/devinbrady/cl657qvkz000e15pqizq3dqrt',
-    'two-plus-candidates': 'mapbox://styles/devinbrady/cl6589lrf000r14lpiaapiyf1',
-}
 
 # Email -- prints to the console until real SMTP credentials are set. Set these as Fly secrets
 # to send through OpenANC's IONOS-hosted mailbox:
