@@ -18,8 +18,9 @@ Everything is in git **except three things**, which you have to bring over yours
 
 ```bash
 git clone git@github.com:devinbrady/openanc.git && cd openanc/webapp
-python3 -m venv .venv                      # Python version is pinned in ../.python-version (3.10.3)
-.venv/bin/pip install -r requirements.txt
+python -m venv .venv                      # Python version is pinned in ../.python-version (3.10.3)
+source .venv/bin/activate                  # the rest of this README assumes the venv is active
+pip install -r requirements.txt
 brew install flyctl && flyctl auth login   # only needed for deploys and ops/sync_production.sh
 ```
 
@@ -32,10 +33,15 @@ Then get the database over, in order of preference:
   `flyctl ssh sftp get /data/db.sqlite3 db.sqlite3 --app openanc`. You get all editorial data
   and suggestions, but not the audit-trail history or import batches (those are local-only).
 
-Finish with `.venv/bin/python manage.py migrate`, `.venv/bin/python manage.py test`, then
-`.venv/bin/python manage.py runserver` and open <http://localhost:8000/admin/>. Create a login
-if you rebuilt from scratch: `.venv/bin/python manage.py createsuperuser` (production accounts
+Finish with `python manage.py migrate`, `python manage.py collectstatic --noinput`,
+`python manage.py test`, then
+`python manage.py runserver` and open <http://localhost:8000/admin/>. Create a login
+if you rebuilt from scratch: `python manage.py createsuperuser` (production accounts
 are separate from local ones).
+
+`collectstatic` is required because the static storage is WhiteNoise's manifest-based one
+(gitignored `staticfiles/`); without it the admin-page tests fail with "Missing staticfiles
+manifest entry".
 
 **Only one machine should be the editing machine at a time.** The local database is
 authoritative and the sync script pushes it over production by primary key, so two laptops with
@@ -238,16 +244,14 @@ flyctl deploy --app openanc
 Before pushing any change to production, run the test suite locally:
 
 ```bash
-.venv/bin/python manage.py test
+python manage.py test
 ```
 
-(Use `.venv/bin/python`, not bare `python` — this project's dependencies are only installed
-into the local virtualenv, not on your system PATH.) Run a single file or case while iterating
-on one area, e.g.:
+Run a single file or case while iterating on one area, e.g.:
 
 ```bash
-.venv/bin/python manage.py test directory.tests.test_suggestion_apply
-.venv/bin/python manage.py test directory.tests.test_suggestion_apply.ApplyNewCommissionerTests
+python manage.py test directory.tests.test_suggestion_apply
+python manage.py test directory.tests.test_suggestion_apply.ApplyNewCommissionerTests
 ```
 
 If you add a new management command, model behavior, or admin view, add a test for it under
