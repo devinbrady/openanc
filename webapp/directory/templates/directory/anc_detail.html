@@ -5,7 +5,6 @@
 {% block content %}
 <p class="breadcrumbs"><a href="{% url 'directory:district_list' %}">List of districts</a> &rsaquo; ANC {{ anc.designator }}</p>
 <h1>ANC {{ anc.designator }}</h1>
-<p class="muted">{{ anc.redistricting_year }} redistricting cycle</p>
 
 <ul class="link-list">
     {% if anc.dc_oanc_link %}<li><a href="{{ anc.dc_oanc_link }}">Official OANC profile</a></li>{% endif %}
@@ -25,7 +24,7 @@
 
 {% if overlaps %}
 <h2>{% if anc.redistricting_year == 2022 %}Pre-2022 ANC{% else %}Post-2022 ANC{% endif %}</h2>
-<p class="muted">This ANC's territory overlaps with the following ANC(s) from the other redistricting cycle:</p>
+<p class="muted">This ANC is from the {{ anc.redistricting_year }} redistricting cycle. This ANC's territory overlaps with the following ANC(s) from the other redistricting cycle:</p>
 <ul class="link-list">
     {% for overlap in overlaps %}
     <li><a href="{{ overlap.to_anc.get_absolute_url }}">ANC {{ overlap.to_anc.designator }}</a> ({{ overlap.overlap_percentage|as_percentage|floatformat:1 }}% overlap)</li>

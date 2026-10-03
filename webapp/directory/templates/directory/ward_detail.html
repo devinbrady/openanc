@@ -5,7 +5,6 @@
 {% block content %}
 <p class="breadcrumbs"><a href="{% url 'directory:district_list' %}">List of districts</a> &rsaquo; {{ ward.name }}</p>
 <h1>{{ ward.name }}</h1>
-<p class="muted">{{ ward.redistricting_year }} redistricting cycle</p>
 {% if ward.councilmember %}<p><strong>Councilmember:</strong> {{ ward.councilmember }}</p>{% endif %}
 
 {% if boundary_geometry %}

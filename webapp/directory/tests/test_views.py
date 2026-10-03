@@ -4,6 +4,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 
+from directory.models import ANCOverlap, DistrictOverlap
 from directory.tests.base import PageRenderingTestCase
 from directory.tests.factories import (
     make_anc,
@@ -137,6 +138,25 @@ class PageSmokeTests(PageRenderingTestCase):
             with self.subTest(url=url):
                 response = self.client.get(url)
                 self.assertNotContains(response, '<th>On the Ballot</th>')
+
+    def test_redistricting_cycle_is_in_the_overlap_section_not_at_the_top_of_the_page(self):
+        ward_2012 = make_ward(year=2012)
+        anc_2012 = make_anc(designator='1A', year=2012)
+        district_2012 = make_district(designator='1A01', year=2012, anc=anc_2012, ward=ward_2012)
+        DistrictOverlap.objects.create(from_district=self.district, to_district=district_2012, overlap_percentage=0.9)
+        ANCOverlap.objects.create(from_anc=self.anc, to_anc=anc_2012, overlap_percentage=0.9)
+
+        for url, noun in ((self.district.get_absolute_url(), 'district'), (self.anc.get_absolute_url(), 'ANC')):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertNotContains(response, '2022 redistricting cycle</p>')
+                self.assertContains(
+                    response,
+                    f"This {noun} is from the 2022 redistricting cycle. This {noun}'s territory overlaps",
+                )
+
+        response = self.client.get(self.ward.get_absolute_url())
+        self.assertNotContains(response, 'redistricting cycle')
 
     def test_district_detail(self):
         response = self.client.get(self.district.get_absolute_url())
