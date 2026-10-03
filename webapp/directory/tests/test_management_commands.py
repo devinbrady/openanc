@@ -42,3 +42,29 @@ class DraftSiteUpdateTests(TestCase):
 
         draft = SiteUpdate.objects.get(is_published=False)
         self.assertIn('Someone New', draft.body)
+
+
+class EditorialRowCountsTests(TestCase):
+    def run_command(self):
+        from io import StringIO
+        out = StringIO()
+        call_command('editorial_row_counts', stdout=out)
+        return dict(
+            (label, rest.split())
+            for label, rest in (line.split(': ') for line in out.getvalue().splitlines())
+        )
+
+    def test_hash_changes_when_a_row_is_edited_without_changing_the_count(self):
+        person = make_person(full_name='Before')
+        before = self.run_command()['directory.Person']
+
+        person.full_name = 'After'
+        person.save()
+        after = self.run_command()['directory.Person']
+
+        self.assertEqual(before[0], after[0])
+        self.assertNotEqual(before[1], after[1])
+
+    def test_hash_is_stable_when_nothing_changes(self):
+        make_person(full_name='Same')
+        self.assertEqual(self.run_command(), self.run_command())

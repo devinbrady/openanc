@@ -13,7 +13,7 @@
 # ships code only, so this script only works against a production image that already has them.
 #
 # Usage:
-#   ops/sync_production.sh status              # side-by-side local vs production row counts, no writes
+#   ops/sync_production.sh status              # side-by-side local vs production row counts + content hashes, no writes
 #   ops/sync_production.sh pull-suggestions     # pull new public Suggestion submissions down
 #   ops/sync_production.sh push [--prune]       # push local editorial data + reviewed suggestions up
 set -euo pipefail
@@ -37,13 +37,14 @@ import sys
 
 
 def parse(path):
-    # Keep only "app.Model: N" lines; flyctl may add connection chatter around them.
-    counts = {}
+    # Keep only "app.Model: N [hash]" lines; flyctl may add connection chatter around them.
+    # Production images deployed before content hashes existed print the count alone.
+    rows = {}
     for line in open(path):
-        m = re.fullmatch(r"\s*(\S+): (\d+)\s*", line)
+        m = re.fullmatch(r"\s*(\S+): (\d+)(?: ([0-9a-f]+))?\s*", line)
         if m:
-            counts[m.group(1)] = int(m.group(2))
-    return counts
+            rows[m.group(1)] = (int(m.group(2)), m.group(3))
+    return rows
 
 
 local, prod = parse(sys.argv[1]), parse(sys.argv[2])
@@ -52,38 +53,54 @@ if not prod:
 
 tables = list(local) + [t for t in prod if t not in local]
 width = max(len(t) for t in tables)
-print(f"{'Table':<{width}}  {'Local':>7}  {'Prod':>7}  {'Diff':>7}")
-print(f"{'-' * width}  {'-' * 7}  {'-' * 7}  {'-' * 7}")
+print(f"{'Table':<{width}}  {'Local':>7}  {'Prod':>7}  {'Diff':>7}  Content")
+print(f"{'-' * width}  {'-' * 7}  {'-' * 7}  {'-' * 7}  {'-' * 9}")
 
-differing = []
+count_diffs = []    # (table, local_count - prod_count or None if missing on one side)
+edited = []         # same count, different content
+unverified = []     # same count, but a hash is missing on one side
 for t in tables:
     l, p = local.get(t), prod.get(t)
-    if l == p:
-        diff = ""
-    elif l is None or p is None:
-        diff = "missing"
-        differing.append((t, None))
+    lc, ph = (l or (None, None)), (p or (None, None))
+    if l is None or p is None:
+        diff, content = "missing", ""
+        count_diffs.append((t, None))
+    elif lc[0] != ph[0]:
+        diff, content = f"{lc[0] - ph[0]:+d}", "differs"
+        count_diffs.append((t, lc[0] - ph[0]))
+    elif lc[1] is None or ph[1] is None:
+        diff, content = "", "unchecked"
+        unverified.append(t)
+    elif lc[1] != ph[1]:
+        diff, content = "0", "DIFFERS"
+        edited.append(t)
     else:
-        diff = f"{l - p:+d}"
-        differing.append((t, l - p))
-    flag = "" if l == p else "  <-- differs"
-    print(f"{t:<{width}}  {'-' if l is None else l:>7}  {'-' if p is None else p:>7}  {diff:>7}{flag}")
+        diff, content = "", "match"
+    print(f"{t:<{width}}  {'-' if l is None else lc[0]:>7}  {'-' if p is None else ph[0]:>7}  {diff:>7}  {content}")
 
 print()
-if not differing:
-    print("Local and production are IDENTICAL (row counts match in every table).")
+if not count_diffs and not edited and not unverified:
+    print("Local and production are IDENTICAL: same row counts and same content (hash) in every table.")
 else:
-    rows = sum(abs(d) for _, d in differing if d is not None)
-    print(f"Local and production DIFFER in {len(differing)} table(s), {rows} row(s) in total:")
-    for t, d in differing:
-        if d is None:
-            where = "local" if t not in local else "production"
-            print(f"  {t}: table not present on {where}")
-        elif d > 0:
-            print(f"  {t}: local has {d} more row(s) than production")
-        else:
-            print(f"  {t}: production has {-d} more row(s) than local")
-print("(Counts only: an edited row with an unchanged count will not show up here.)")
+    n = len(count_diffs) + len(edited)
+    if n:
+        rows = sum(abs(d) for _, d in count_diffs if d is not None)
+        print(f"Local and production DIFFER in {n} table(s):")
+        for t, d in count_diffs:
+            if d is None:
+                where = "local" if t not in local else "production"
+                print(f"  {t}: table not present on {where}")
+            elif d > 0:
+                print(f"  {t}: local has {d} more row(s) than production")
+            else:
+                print(f"  {t}: production has {-d} more row(s) than local")
+        for t in edited:
+            print(f"  {t}: same row count, but at least one row's contents differ")
+    else:
+        print("Row counts match everywhere, but content could not be fully compared.")
+    if unverified:
+        print(f"Content hash unavailable for {len(unverified)} table(s) (production is running an older image;")
+        print("run 'flyctl deploy' to enable exact comparison): " + ", ".join(unverified))
 PY
 
     echo
