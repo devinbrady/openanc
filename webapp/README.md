@@ -6,6 +6,42 @@ the live site. It assumes you're working from a checkout of this repo with the l
 Django app running (`python manage.py runserver`) and `/admin/` reachable at
 `http://localhost:8000/admin/`.
 
+## Setting up on a new machine
+
+Everything is in git **except three things**, which you have to bring over yourself:
+
+1. **`webapp/db.sqlite3`** (gitignored) — your local database. This is the editorial source of
+   truth: it holds the audit-trail history, import batches, and reviewed suggestions, none of
+   which exist in a fresh checkout or on production. Losing it means losing that history.
+2. **`webapp/.venv`** (gitignored) — rebuilt from `requirements.txt`, see below.
+3. **`flyctl` login** — authenticated per machine.
+
+```bash
+git clone git@github.com:devinbrady/openanc.git && cd openanc/webapp
+python3 -m venv .venv                      # Python version is pinned in ../.python-version (3.10.3)
+.venv/bin/pip install -r requirements.txt
+brew install flyctl && flyctl auth login   # only needed for deploys and ops/sync_production.sh
+```
+
+Then get the database over, in order of preference:
+
+- **Copy it from the old laptop** (AirDrop, scp, or a cloud drive) into `webapp/db.sqlite3`.
+  On the old laptop, make a consistent copy first rather than copying the live file:
+  `sqlite3 db.sqlite3 ".backup '/tmp/openanc-backup.sqlite3'"`.
+- **Or rebuild from production** if the old laptop is gone:
+  `flyctl ssh sftp get /data/db.sqlite3 db.sqlite3 --app openanc`. You get all editorial data
+  and suggestions, but not the audit-trail history or import batches (those are local-only).
+
+Finish with `.venv/bin/python manage.py migrate`, `.venv/bin/python manage.py test`, then
+`.venv/bin/python manage.py runserver` and open <http://localhost:8000/admin/>. Create a login
+if you rebuilt from scratch: `.venv/bin/python manage.py createsuperuser` (production accounts
+are separate from local ones).
+
+**Only one machine should be the editing machine at a time.** The local database is
+authoritative and the sync script pushes it over production by primary key, so two laptops with
+diverging databases would overwrite each other's edits. Before switching laptops, `push` from
+the old one, then copy the database across.
+
 ## The one rule everything else depends on
 
 **All "editorial" data (People, CommissionerTerms, Candidates, Elections, SiteUpdates, etc.) is
