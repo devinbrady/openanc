@@ -13,7 +13,7 @@
 # ships code only, so this script only works against a production image that already has them.
 #
 # Usage:
-#   ops/sync_production.sh status              # row-count diff both directions, no writes
+#   ops/sync_production.sh status              # side-by-side local vs production row counts, no writes
 #   ops/sync_production.sh pull-suggestions     # pull new public Suggestion submissions down
 #   ops/sync_production.sh push [--prune]       # push local editorial data + reviewed suggestions up
 set -euo pipefail
@@ -28,12 +28,63 @@ subcommand="${1:-}"
 
 case "$subcommand" in
   status)
-    echo "== Local row counts =="
-    "$PYTHON" manage.py editorial_row_counts
+    "$PYTHON" manage.py editorial_row_counts > "$WORKDIR/local_counts.txt"
+    flyctl ssh console -a "$APP" -C "python manage.py editorial_row_counts" > "$WORKDIR/prod_counts.txt"
 
-    echo
-    echo "== Production row counts =="
-    flyctl ssh console -a "$APP" -C "python manage.py editorial_row_counts"
+    "$PYTHON" - "$WORKDIR/local_counts.txt" "$WORKDIR/prod_counts.txt" <<'PY'
+import re
+import sys
+
+
+def parse(path):
+    # Keep only "app.Model: N" lines; flyctl may add connection chatter around them.
+    counts = {}
+    for line in open(path):
+        m = re.fullmatch(r"\s*(\S+): (\d+)\s*", line)
+        if m:
+            counts[m.group(1)] = int(m.group(2))
+    return counts
+
+
+local, prod = parse(sys.argv[1]), parse(sys.argv[2])
+if not prod:
+    sys.exit("Could not read production row counts (see flyctl output above).")
+
+tables = list(local) + [t for t in prod if t not in local]
+width = max(len(t) for t in tables)
+print(f"{'Table':<{width}}  {'Local':>7}  {'Prod':>7}  {'Diff':>7}")
+print(f"{'-' * width}  {'-' * 7}  {'-' * 7}  {'-' * 7}")
+
+differing = []
+for t in tables:
+    l, p = local.get(t), prod.get(t)
+    if l == p:
+        diff = ""
+    elif l is None or p is None:
+        diff = "missing"
+        differing.append((t, None))
+    else:
+        diff = f"{l - p:+d}"
+        differing.append((t, l - p))
+    flag = "" if l == p else "  <-- differs"
+    print(f"{t:<{width}}  {'-' if l is None else l:>7}  {'-' if p is None else p:>7}  {diff:>7}{flag}")
+
+print()
+if not differing:
+    print("Local and production are IDENTICAL (row counts match in every table).")
+else:
+    rows = sum(abs(d) for _, d in differing if d is not None)
+    print(f"Local and production DIFFER in {len(differing)} table(s), {rows} row(s) in total:")
+    for t, d in differing:
+        if d is None:
+            where = "local" if t not in local else "production"
+            print(f"  {t}: table not present on {where}")
+        elif d > 0:
+            print(f"  {t}: local has {d} more row(s) than production")
+        else:
+            print(f"  {t}: production has {-d} more row(s) than local")
+print("(Counts only: an edited row with an unchanged count will not show up here.)")
+PY
 
     echo
     local_max=$("$PYTHON" manage.py max_suggestion_id)
