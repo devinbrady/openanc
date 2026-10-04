@@ -122,6 +122,8 @@ else:
             print(f"  {t}: same row count, but at least one row's contents differ")
     else:
         print("Row counts match everywhere, but content could not be fully compared.")
+    if any(t == "directory.Suggestion" for t, _ in count_diffs) or "directory.Suggestion" in edited:
+        print("Suggestions differ: 'pull-suggestions' brings new public submissions down; 'push' sends reviews back up.")
     if unverified:
         print(f"Content hash unavailable for {len(unverified)} table(s) (production is running an older image;")
         print("run 'flyctl deploy' to enable exact comparison): " + ", ".join(unverified))

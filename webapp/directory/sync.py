@@ -34,6 +34,11 @@ EDITORIAL_MODELS = [
     'directory.SiteUpdate',
 ]
 
+# What `ops/sync_production.sh status` compares: the editorial models plus Suggestion. Suggestion
+# isn't pushed with the editorial fixture (it has its own pull/push-back flow), but it should still
+# agree between the two databases once you've pulled new submissions and pushed reviews back.
+STATUS_MODELS = EDITORIAL_MODELS + ['directory.Suggestion']
+
 
 def normalized_rows(model):
     """Every row of `model` as [{'pk': ..., 'fields': {...}}] in pk order, many-to-many lists

@@ -234,9 +234,10 @@ count and content) or `DIFFER in N table(s)` with a line per table, such as "loc
 rows than production". For a `DIFFERS` table it also fetches both copies and lists how many rows
 differ, which fields differ, and local vs production values for the first 10 rows. The hash covers
 every field of every row, so it catches edits that leave the count unchanged. Timestamps are
-compared to the millisecond, because the JSON push drops microseconds. `Suggestion` rows aren't
-part of this comparison (they have their own flow); `status` ends with the local Suggestion
-high-water mark.
+compared to the millisecond, because the JSON push drops microseconds. `Suggestion` is
+compared too, even though it syncs through its own flow, so a new public submission on production
+shows up as a difference until you `pull-suggestions`, and reviews you haven't pushed yet show up
+until you `push`. `status` ends with the local Suggestion high-water mark.
 
 **If `status` or `push` fail with something like `ModuleNotFoundError` or "command not found" on
 production**, the new management commands haven't been deployed yet — run `flyctl deploy` first

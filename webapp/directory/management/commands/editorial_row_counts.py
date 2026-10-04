@@ -1,4 +1,4 @@
-"""Prints a row count and a content hash per editorial model (see directory/sync.py), one
+"""Prints a row count and a content hash per synced model (see directory/sync.py), one
 "app.Model: <count> <hash>" line each. Run locally and on production (via
 ops/sync_production.sh status) to see whether the two databases are in precise agreement:
 equal counts show the same number of rows, equal hashes show every row's field values match.
@@ -12,7 +12,7 @@ import json
 from django.apps import apps
 from django.core.management.base import BaseCommand
 
-from directory.sync import EDITORIAL_MODELS, normalized_rows
+from directory.sync import STATUS_MODELS, normalized_rows
 
 
 def content_hash(model):
@@ -21,9 +21,9 @@ def content_hash(model):
 
 
 class Command(BaseCommand):
-    help = "Print a row count and content hash per editorial model."
+    help = "Print a row count and content hash per synced model."
 
     def handle(self, *args, **options):
-        for label in EDITORIAL_MODELS:
+        for label in STATUS_MODELS:
             model = apps.get_model(label)
             self.stdout.write(f'{label}: {model.objects.count()} {content_hash(model)}')
