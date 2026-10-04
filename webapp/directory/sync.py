@@ -33,3 +33,19 @@ EDITORIAL_MODELS = [
     'directory.WriteInWinner',
     'directory.SiteUpdate',
 ]
+
+
+def normalized_rows(model):
+    """Every row of `model` as [{'pk': ..., 'fields': {...}}] in pk order, many-to-many lists
+    sorted so ordering noise can't make two identical databases look different. Used for the
+    content hashes and row-level diffs behind `sync_production.sh status`.
+    """
+    from django.core import serializers
+
+    return [
+        {
+            'pk': row['pk'],
+            'fields': {k: sorted(v) if isinstance(v, list) else v for k, v in row['fields'].items()},
+        }
+        for row in serializers.serialize('python', model.objects.order_by('pk'))
+    ]

@@ -10,22 +10,13 @@ import hashlib
 import json
 
 from django.apps import apps
-from django.core import serializers
 from django.core.management.base import BaseCommand
 
-from directory.sync import EDITORIAL_MODELS
+from directory.sync import EDITORIAL_MODELS, normalized_rows
 
 
 def content_hash(model):
-    rows = serializers.serialize('python', model.objects.order_by('pk'))
-    normalized = [
-        {
-            'pk': row['pk'],
-            'fields': {k: sorted(v) if isinstance(v, list) else v for k, v in row['fields'].items()},
-        }
-        for row in rows
-    ]
-    payload = json.dumps(normalized, sort_keys=True, default=str)
+    payload = json.dumps(normalized_rows(model), sort_keys=True, default=str)
     return hashlib.sha256(payload.encode()).hexdigest()[:12]
 
 

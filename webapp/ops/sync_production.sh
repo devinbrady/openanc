@@ -103,6 +103,51 @@ else:
         print("run 'flyctl deploy' to enable exact comparison): " + ", ".join(unverified))
 PY
 
+    # Same row count but different content: drill into which rows and fields differ.
+    differing=$("$PYTHON" - "$WORKDIR/local_counts.txt" "$WORKDIR/prod_counts.txt" <<'PY'
+import re, sys
+def parse(path):
+    return {m.group(1): (m.group(2), m.group(3)) for m in (re.fullmatch(r"\s*(\S+): (\d+)(?: ([0-9a-f]+))?\s*", l) for l in open(path)) if m}
+l, p = parse(sys.argv[1]), parse(sys.argv[2])
+print(" ".join(t for t in l if t in p and l[t][0] == p[t][0] and l[t][1] and p[t][1] and l[t][1] != p[t][1]))
+PY
+)
+    for model in $differing; do
+      echo
+      echo "== Row-level differences in $model =="
+      "$PYTHON" manage.py editorial_rows "$model" > "$WORKDIR/local_rows.json"
+      flyctl ssh console -a "$APP" -C "python manage.py editorial_rows $model" > "$WORKDIR/prod_rows.json" || true
+      "$PYTHON" - "$WORKDIR/local_rows.json" "$WORKDIR/prod_rows.json" <<'PY'
+import json, sys
+def load(path):
+    for line in open(path):
+        line = line.strip()
+        if line.startswith("{"):
+            return json.loads(line)
+    return None
+local, prod = load(sys.argv[1]), load(sys.argv[2])
+if local is None or prod is None:
+    print("Could not read row data (production may need 'flyctl deploy' for the editorial_rows command).")
+    sys.exit(0)
+bad = [pk for pk in local if pk in prod and local[pk] != prod[pk]]
+only_local = [pk for pk in local if pk not in prod]
+only_prod = [pk for pk in prod if pk not in local]
+print(f"{len(bad)} row(s) with differing fields; {len(only_local)} only local (pks {only_local[:10]}); {len(only_prod)} only on production (pks {only_prod[:10]}).")
+fields = {}
+for pk in bad:
+    for f in local[pk]:
+        if local[pk][f] != prod[pk].get(f):
+            fields[f] = fields.get(f, 0) + 1
+print("Differing fields (rows affected):", ", ".join(f"{f} ({n})" for f, n in sorted(fields.items(), key=lambda x: -x[1])) or "none")
+for pk in bad[:10]:
+    for f in local[pk]:
+        if local[pk][f] != prod[pk].get(f):
+            print(f"  pk {pk} {f}: local={local[pk][f]!r} prod={prod[pk].get(f)!r}")
+if len(bad) > 10:
+    print(f"  ... and {len(bad) - 10} more row(s)")
+PY
+    done
+
     echo
     local_max=$("$PYTHON" manage.py max_suggestion_id)
     echo "Local Suggestion high-water mark: $local_max"
