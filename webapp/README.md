@@ -197,7 +197,7 @@ directory. **Run this yourself from your own terminal** — it writes to product
 intentionally not something to automate or hand off.
 
 ```bash
-./ops/sync_production.sh status              # dry-run: compare row counts, no writes
+./ops/sync_production.sh status              # dry-run: compare local vs production, no writes
 ./ops/sync_production.sh pull-suggestions     # pull new public submissions down for review
 ./ops/sync_production.sh push                 # push local editorial data + reviewed suggestions up
 ./ops/sync_production.sh push --prune         # also delete on production any rows you deleted locally
@@ -206,7 +206,7 @@ intentionally not something to automate or hand off.
 Typical session:
 
 1. `status` — confirms local/production agree before you start (if they don't, figure out why
-   before pushing).
+   before pushing). See "Reading `status`" below.
 2. `pull-suggestions` — brings down anything the public submitted since your last pull. Review/
    classify them locally (section 3 above).
 3. Make your edits locally (sections 1–3), verify on `localhost`.
@@ -217,6 +217,26 @@ Typical session:
    and want that deletion to also happen on production (plain `push` never deletes on
    production, only inserts/updates).
 6. Spot-check `https://openanc.org/` afterward.
+
+**Reading `status`.** It prints one row per editorial table with the local and production row
+counts side by side, the difference, and a `Content` column:
+
+| Content | Meaning |
+|---|---|
+| `match` | Same count and same content hash |
+| `DIFFERS` | Same count, but at least one row's field values differ |
+| `differs` | The counts already differ (see the `Diff` column) |
+| `unchecked` | Counts match but a hash is missing (production is on an older image; `flyctl deploy`) |
+| `missing` | The table exists on only one side |
+
+Below the table it states either `Local and production are IDENTICAL` (every table matches on
+count and content) or `DIFFER in N table(s)` with a line per table, such as "local has 3 more
+rows than production". For a `DIFFERS` table it also fetches both copies and lists how many rows
+differ, which fields differ, and local vs production values for the first 10 rows. The hash covers
+every field of every row, so it catches edits that leave the count unchanged. Timestamps are
+compared to the millisecond, because the JSON push drops microseconds. `Suggestion` rows aren't
+part of this comparison (they have their own flow); `status` ends with the local Suggestion
+high-water mark.
 
 **If `status` or `push` fail with something like `ModuleNotFoundError` or "command not found" on
 production**, the new management commands haven't been deployed yet — run `flyctl deploy` first
@@ -272,7 +292,8 @@ apply, and the audit-trail draft generator all live.
 | `load_editorial_data <path> [--prune-manifest] [--yes]` | production | Load an editorial fixture (used by `push`) |
 | `dump_new_suggestions --since-id` | production | Serialize new public Suggestions (used by `pull-suggestions`) |
 | `dump_reviewed_suggestions --output` | local | Export reviewed Suggestions to push back |
-| `editorial_row_counts` | both | Print per-model row counts (used by `status`) |
+| `editorial_row_counts` | both | Print per-model row count + content hash (used by `status`) |
+| `editorial_rows <Model>` | both | Print one model's rows as JSON, for `status`'s row-level diff |
 | `max_suggestion_id` | local | Print the highest local Suggestion PK (used by `status`/`pull-suggestions`) |
 | `import_legacy_data` | local | Full rebuild from the original CSV source data (disaster recovery only) |
 
