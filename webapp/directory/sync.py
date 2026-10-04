@@ -39,13 +39,26 @@ def normalized_rows(model):
     """Every row of `model` as [{'pk': ..., 'fields': {...}}] in pk order, many-to-many lists
     sorted so ordering noise can't make two identical databases look different. Used for the
     content hashes and row-level diffs behind `sync_production.sh status`.
+
+    Datetimes are truncated to milliseconds: the push goes through dumpdata's JSON, and Django's
+    JSON encoder drops microseconds, so production always holds millisecond values. Comparing at
+    full precision would flag every pushed row as different forever.
     """
+    import datetime
+
     from django.core import serializers
+
+    def normalize(value):
+        if isinstance(value, list):
+            return sorted(value)
+        if isinstance(value, datetime.datetime):
+            return value.replace(microsecond=value.microsecond // 1000 * 1000)
+        return value
 
     return [
         {
             'pk': row['pk'],
-            'fields': {k: sorted(v) if isinstance(v, list) else v for k, v in row['fields'].items()},
+            'fields': {k: normalize(v) for k, v in row['fields'].items()},
         }
         for row in serializers.serialize('python', model.objects.order_by('pk'))
     ]

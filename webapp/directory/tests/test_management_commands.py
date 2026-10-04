@@ -3,8 +3,10 @@ import datetime
 from django.core.management import call_command
 from django.test import TestCase
 
-from directory.models import CommissionerTerm, SiteUpdate
-from directory.tests.factories import make_commissioner_term, make_district, make_person
+from directory.models import Candidate, CommissionerTerm, SiteUpdate
+from directory.tests.factories import (
+    make_candidate, make_commissioner_term, make_district, make_election, make_person,
+)
 
 
 class DraftSiteUpdateTests(TestCase):
@@ -68,3 +70,15 @@ class EditorialRowCountsTests(TestCase):
     def test_hash_is_stable_when_nothing_changes(self):
         make_person(full_name='Same')
         self.assertEqual(self.run_command(), self.run_command())
+
+    def test_hash_ignores_sub_millisecond_timestamp_differences(self):
+        # Production's copy of a pushed row has timestamps truncated to milliseconds by the
+        # JSON fixture; that alone must not make the tables look different.
+        candidate = make_candidate(make_person(), make_election(), make_district())
+        stamp = datetime.datetime(2026, 1, 1, 12, 0, 0, 123456, tzinfo=datetime.timezone.utc)
+        Candidate.objects.filter(pk=candidate.pk).update(created_at=stamp)
+        precise = self.run_command()['directory.Candidate']
+
+        Candidate.objects.filter(pk=candidate.pk).update(created_at=stamp.replace(microsecond=123000))
+        truncated = self.run_command()['directory.Candidate']
+        self.assertEqual(precise, truncated)
