@@ -58,7 +58,7 @@ about the two databases inventing conflicting rows with the same ID.
 
 In practice this means: **make every change on your local machine, verify it looks right on
 `localhost`, then push it to production with the sync script.** Never edit `Person`,
-`CommissionerTerm`, `Candidate`, etc. in `https://openanc.fly.dev/admin/` directly.
+`CommissionerTerm`, `Candidate`, etc. in `https://openanc.org/admin/` directly.
 
 ## The three ways data changes
 
@@ -216,7 +216,7 @@ Typical session:
    counts before writing anything. Use `--prune` only when you've actually deleted rows locally
    and want that deletion to also happen on production (plain `push` never deletes on
    production, only inserts/updates).
-6. Spot-check `https://openanc.fly.dev/` afterward.
+6. Spot-check `https://openanc.org/` afterward.
 
 **If `status` or `push` fail with something like `ModuleNotFoundError` or "command not found" on
 production**, the new management commands haven't been deployed yet — run `flyctl deploy` first

@@ -223,7 +223,7 @@ print(started[0] if started else '')
     flyctl ssh console -a "$APP" --machine "$machine" -C "python manage.py loaddata $SYNC/suggestions_reviewed.json"
 
     flyctl ssh console -a "$APP" --machine "$machine" -C "rm -rf $SYNC"
-    echo "Push complete. Spot-check https://openanc.fly.dev/ before you walk away."
+    echo "Push complete. Spot-check https://openanc.org/ before you walk away."
     ;;
 
   *)
