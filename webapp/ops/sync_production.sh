@@ -198,18 +198,31 @@ PY
       exit 1
     fi
 
-    flyctl ssh console -a "$APP" -C "mkdir -p /data/sync"
-    flyctl ssh sftp put "$WORKDIR/editorial.json" /data/sync/editorial.json -a "$APP"
-    flyctl ssh sftp put "$WORKDIR/manifest.json" /data/sync/manifest.json -a "$APP"
-    flyctl ssh sftp put "$WORKDIR/suggestions_reviewed.json" /data/sync/suggestions_reviewed.json -a "$APP"
+    # The database is shared, but uploaded files land on one machine's disk, so pin every step
+    # of the push to a single started machine (otherwise ssh/sftp may hit different machines).
+    machine=$(flyctl machines list -a "$APP" --json | "$PYTHON" -c "
+import json, sys
+started = [m['id'] for m in json.load(sys.stdin) if m.get('state') == 'started']
+print(started[0] if started else '')
+")
+    if [ -z "$machine" ]; then
+      echo "No started machine found for '$APP'."
+      exit 1
+    fi
+    echo "Using machine $machine"
+    SYNC=/tmp/sync
+    flyctl ssh console -a "$APP" --machine "$machine" -C "mkdir -p $SYNC"
+    flyctl ssh sftp put "$WORKDIR/editorial.json" $SYNC/editorial.json -a "$APP" --machine "$machine"
+    flyctl ssh sftp put "$WORKDIR/manifest.json" $SYNC/manifest.json -a "$APP" --machine "$machine"
+    flyctl ssh sftp put "$WORKDIR/suggestions_reviewed.json" $SYNC/suggestions_reviewed.json -a "$APP" --machine "$machine"
 
     echo "Loading editorial data on production..."
-    flyctl ssh console -a "$APP" -C "python manage.py load_editorial_data /data/sync/editorial.json --prune-manifest /data/sync/manifest.json $prune_flag"
+    flyctl ssh console -a "$APP" --machine "$machine" -C "python manage.py load_editorial_data $SYNC/editorial.json --prune-manifest $SYNC/manifest.json $prune_flag"
 
     echo "Loading reviewed suggestions on production..."
-    flyctl ssh console -a "$APP" -C "python manage.py loaddata /data/sync/suggestions_reviewed.json"
+    flyctl ssh console -a "$APP" --machine "$machine" -C "python manage.py loaddata $SYNC/suggestions_reviewed.json"
 
-    flyctl ssh console -a "$APP" -C "rm -rf /data/sync"
+    flyctl ssh console -a "$APP" --machine "$machine" -C "rm -rf $SYNC"
     echo "Push complete. Spot-check https://openanc.fly.dev/ before you walk away."
     ;;
 

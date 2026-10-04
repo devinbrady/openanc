@@ -15,4 +15,6 @@ RUN DJANGO_SECRET_KEY=build-time-placeholder python manage.py collectstatic --no
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn openanc_web.wsgi:application --bind 0.0.0.0:8000 --workers 2"]
+# Migrations run once per deploy via fly.toml's release_command, not here: with several machines
+# booting at once they would race each other.
+CMD ["gunicorn", "openanc_web.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2"]

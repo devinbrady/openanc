@@ -30,7 +30,7 @@ Then get the database over, in order of preference:
   On the old laptop, make a consistent copy first rather than copying the live file:
   `sqlite3 db.sqlite3 ".backup '/tmp/openanc-backup.sqlite3'"`.
 - **Or rebuild from production** if the old laptop is gone:
-  `flyctl ssh sftp get /data/db.sqlite3 db.sqlite3 --app openanc`. You get all editorial data
+  dump production with `flyctl ssh console -a openanc -C "python manage.py dumpdata --natural-foreign --exclude contenttypes --exclude auth.permission" > prod.json` and `loaddata` it into a fresh local DB (production is Postgres, so there is no SQLite file to download). You get all editorial data
   and suggestions, but not the audit-trail history or import batches (those are local-only).
 
 Finish with `python manage.py migrate`, `python manage.py collectstatic --noinput`,
@@ -224,6 +224,10 @@ production**, the new management commands haven't been deployed yet — run `fly
 the deployed image).
 
 ## 7. Deploying code changes
+
+Production runs on several Fly machines sharing one Postgres database (`DATABASE_URL`, a Fly
+secret). Local development still uses SQLite. Migrations run once per deploy via the
+`release_command` in `fly.toml`, not at container start.
 
 Whenever you change Python/template/static code (not just data), before `flyctl deploy`:
 
