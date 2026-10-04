@@ -26,10 +26,34 @@ trap 'rm -rf "$WORKDIR"' EXIT
 
 subcommand="${1:-}"
 
+# With more than one machine, flyctl prints "No machine specified, using ..." to stdout, which
+# corrupts anything we capture. Pin one started machine and route every remote call through it.
+# All machines share one Postgres database, so any started machine sees the same data; uploaded
+# files (push) only exist on the machine they were sent to, which is why they must share this pin.
+pick_machine() {
+  machine=$(flyctl machines list -a "$APP" --json | "$PYTHON" -c "
+import json, sys
+started = [m['id'] for m in json.load(sys.stdin) if m.get('state') == 'started']
+print(started[0] if started else '')
+")
+  if [ -z "$machine" ]; then
+    echo "No started machine found for '$APP'."
+    exit 1
+  fi
+}
+
+remote() {
+  flyctl ssh console -a "$APP" --machine "$machine" -C "$1"
+}
+
+case "$subcommand" in
+  status|pull-suggestions|push) pick_machine ;;
+esac
+
 case "$subcommand" in
   status)
     "$PYTHON" manage.py editorial_row_counts > "$WORKDIR/local_counts.txt"
-    flyctl ssh console -a "$APP" -C "python manage.py editorial_row_counts" > "$WORKDIR/prod_counts.txt"
+    remote "python manage.py editorial_row_counts" > "$WORKDIR/prod_counts.txt"
 
     "$PYTHON" - "$WORKDIR/local_counts.txt" "$WORKDIR/prod_counts.txt" <<'PY'
 import re
@@ -116,7 +140,7 @@ PY
       echo
       echo "== Row-level differences in $model =="
       "$PYTHON" manage.py editorial_rows "$model" > "$WORKDIR/local_rows.json"
-      flyctl ssh console -a "$APP" -C "python manage.py editorial_rows $model" > "$WORKDIR/prod_rows.json" || true
+      remote "python manage.py editorial_rows $model" > "$WORKDIR/prod_rows.json" || true
       "$PYTHON" - "$WORKDIR/local_rows.json" "$WORKDIR/prod_rows.json" <<'PY'
 import json, sys
 def load(path):
@@ -157,7 +181,7 @@ PY
   pull-suggestions)
     since_id=$("$PYTHON" manage.py max_suggestion_id)
     echo "Pulling suggestions newer than id=$since_id from production..."
-    flyctl ssh console -a "$APP" -C "python manage.py dump_new_suggestions --since-id $since_id" > "$WORKDIR/new_suggestions.json"
+    remote "python manage.py dump_new_suggestions --since-id $since_id" | sed -n '/^\[/,$p' > "$WORKDIR/new_suggestions.json"
 
     count=$("$PYTHON" -c "import json; print(len(json.load(open('$WORKDIR/new_suggestions.json'))))")
     if [ "$count" = "0" ]; then
@@ -198,31 +222,20 @@ PY
       exit 1
     fi
 
-    # The database is shared, but uploaded files land on one machine's disk, so pin every step
-    # of the push to a single started machine (otherwise ssh/sftp may hit different machines).
-    machine=$(flyctl machines list -a "$APP" --json | "$PYTHON" -c "
-import json, sys
-started = [m['id'] for m in json.load(sys.stdin) if m.get('state') == 'started']
-print(started[0] if started else '')
-")
-    if [ -z "$machine" ]; then
-      echo "No started machine found for '$APP'."
-      exit 1
-    fi
     echo "Using machine $machine"
     SYNC=/tmp/sync
-    flyctl ssh console -a "$APP" --machine "$machine" -C "mkdir -p $SYNC"
+    remote "mkdir -p $SYNC"
     flyctl ssh sftp put "$WORKDIR/editorial.json" $SYNC/editorial.json -a "$APP" --machine "$machine"
     flyctl ssh sftp put "$WORKDIR/manifest.json" $SYNC/manifest.json -a "$APP" --machine "$machine"
     flyctl ssh sftp put "$WORKDIR/suggestions_reviewed.json" $SYNC/suggestions_reviewed.json -a "$APP" --machine "$machine"
 
     echo "Loading editorial data on production..."
-    flyctl ssh console -a "$APP" --machine "$machine" -C "python manage.py load_editorial_data $SYNC/editorial.json --prune-manifest $SYNC/manifest.json $prune_flag"
+    remote "python manage.py load_editorial_data $SYNC/editorial.json --prune-manifest $SYNC/manifest.json $prune_flag"
 
     echo "Loading reviewed suggestions on production..."
-    flyctl ssh console -a "$APP" --machine "$machine" -C "python manage.py loaddata $SYNC/suggestions_reviewed.json"
+    remote "python manage.py loaddata $SYNC/suggestions_reviewed.json"
 
-    flyctl ssh console -a "$APP" --machine "$machine" -C "rm -rf $SYNC"
+    remote "rm -rf $SYNC"
     echo "Push complete. Spot-check https://openanc.org/ before you walk away."
     ;;
 
