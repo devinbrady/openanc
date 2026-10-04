@@ -5,6 +5,7 @@ primary_region = "iad"
 
 [env]
   DJANGO_DEBUG = "False"
+  DJANGO_CANONICAL_HOST = "openanc.org"
   DJANGO_ALLOWED_HOSTS = "openanc.fly.dev,openanc.org,www.openanc.org"
   DJANGO_CSRF_TRUSTED_ORIGINS = "https://openanc.fly.dev,https://openanc.org,https://www.openanc.org"
 
