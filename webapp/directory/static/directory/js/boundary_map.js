@@ -34,6 +34,16 @@ function initBoundaryMap(containerId, geometryElementId, accessToken, style, smd
         });
         map.addControl(new mapboxgl.NavigationControl());
 
+        // The constructor's framing is computed from the container size at that instant. On
+        // phones the container's size can change afterward (Safari's toolbars collapsing, rotation,
+        // the svh-based height settling), and Mapbox keeps the zoom on resize, leaving the
+        // boundary cropped -- so re-fit whenever the container is resized.
+        var refit = function () {
+            map.fitBounds(bounds, { padding: 24, animate: false });
+        };
+        map.on('load', refit);
+        map.on('resize', refit);
+
         if (drawOutline === false) return;
 
         map.on('load', function () {
