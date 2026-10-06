@@ -1,5 +1,5 @@
 asgiref==3.12.1
-Django==5.1.15
+Django==5.2.17
 sqlparse==0.6.0
 typing_extensions==4.16.0
 gunicorn==23.0.0

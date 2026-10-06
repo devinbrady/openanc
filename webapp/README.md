@@ -18,7 +18,7 @@ Everything is in git **except three things**, which you have to bring over yours
 
 ```bash
 git clone git@github.com:devinbrady/openanc.git && cd openanc/webapp
-python -m venv .venv                      # Python version is pinned in ../.python-version (3.10.3)
+python -m venv .venv                      # Python version is pinned in ../.python-version (3.14.8)
 source .venv/bin/activate                  # the rest of this README assumes the venv is active
 pip install -r requirements.txt
 brew install flyctl && flyctl auth login   # only needed for deploys and ops/sync_production.sh
