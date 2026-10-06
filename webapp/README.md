@@ -254,8 +254,11 @@ Whenever you change Python/template/static code (not just data), before `flyctl 
 
 ```bash
 docker build -t openanc-test .
-docker run --rm openanc-test sh -c "python manage.py migrate --check && python manage.py check"
+docker run --rm openanc-test sh -c "python manage.py makemigrations --check --dry-run && python manage.py check && echo 'OK: image builds, no missing migrations, checks pass'"
 ```
+
+If everything worked, the last line printed is `OK: image builds, no missing migrations, checks
+pass`. Any other ending means something failed (and the command exits non-zero).
 
 This catches dependency/migration problems in the exact environment Fly runs, before they hit
 production. Then:
