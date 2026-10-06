@@ -3,7 +3,7 @@
 {% block title %}Ward {{ ward.ward_number }} | OpenANC{% endblock %}
 
 {% block content %}
-<p class="breadcrumbs"><a href="{% url 'directory:district_list' %}">List of districts</a> &rsaquo; {{ ward.name }}</p>
+<p class="breadcrumbs"><a href="{% url 'directory:district_list' %}?view=by_ward">List of districts</a> &rsaquo; {{ ward.name }}</p>
 <h1>{{ ward.name }}</h1>
 {% if ward.councilmember %}<p><strong>Councilmember:</strong> {{ ward.councilmember }}</p>{% endif %}
 
