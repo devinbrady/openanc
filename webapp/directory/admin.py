@@ -207,7 +207,7 @@ class SuggestionAdmin(admin.ModelAdmin):
     list_display = ['id', 'submitted_at', 'status', 'suggestion_type', 'district', 'person', 'name', 'applied_at']
     list_filter = ['status', 'suggestion_type', ApprovedNotAppliedFilter]
     show_facets = admin.ShowFacets.ALWAYS
-    ordering = ['submitted_at']
+    ordering = ['-submitted_at']
     search_fields = ['name', 'email', 'message']
     autocomplete_fields = ['district', 'person', 'candidate']
     readonly_fields = ['submitted_at', 'applied_at', 'resulting_person', 'resulting_district']
