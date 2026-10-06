@@ -8,7 +8,7 @@
 {% if ward.councilmember %}<p><strong>Councilmember:</strong> {{ ward.councilmember }}</p>{% endif %}
 
 {% if boundary_geometry %}
-<div id="map" style="width: 100%; height: 500px;"></div>
+<div id="map" class="boundary-map"></div>
 {{ boundary_geometry|json_script:"boundary-geometry" }}
 {{ district_designators|json_script:"district-designators" }}
 {{ anc_designators|json_script:"anc-designators" }}
