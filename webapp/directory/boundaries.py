@@ -8,8 +8,8 @@ GEO_DIR = Path(__file__).resolve().parent / 'geo_data'
 _FILES = {
     ('anc', 2012): 'anc-2012.geojson',
     ('anc', 2022): 'anc-2022.geojson',
-    ('ward', 2012): 'ward-from-smd-2012.geojson',
-    ('ward', 2022): 'ward-from-smd-2022.geojson',
+    ('ward', 2012): 'ward-2012.geojson',
+    ('ward', 2022): 'ward-2022.geojson',
     ('district', 2012): 'smd-2012-preprocessed.geojson',
     ('district', 2022): 'smd-2022-preprocessed.geojson',
 }
@@ -30,8 +30,12 @@ def _load(kind, year):
         else:
             with (GEO_DIR / filename).open() as f:
                 data = json.load(f)
-            id_field = f'{_ID_PREFIX[kind]}_id'
-            _cache[key] = {feature['properties'].get(id_field): feature['geometry'] for feature in data['features']}
+            if kind == 'ward':
+                # The official ward files key features by their WARD number, not a ward_id.
+                _cache[key] = {str(feature['properties']['WARD']): feature['geometry'] for feature in data['features']}
+            else:
+                id_field = f'{_ID_PREFIX[kind]}_id'
+                _cache[key] = {feature['properties'].get(id_field): feature['geometry'] for feature in data['features']}
     return _cache[key]
 
 
@@ -49,6 +53,8 @@ def boundary_geometry(kind, designator, year):
         # districts (smd_id "smd_2022_8F01", not "smd_2022_6/8F01") -- a data quirk specific
         # to this file, distinct from the similar smd_id truncation in the Mapbox tileset.
         designator = designator.replace('6/8F', '8F')
+    if kind == 'ward':
+        return _load(kind, year).get(designator)
     prefix = _ID_PREFIX[kind]
     if year == 2012:
         feature_id = f'{prefix}_{designator}'
