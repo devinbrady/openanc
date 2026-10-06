@@ -61,6 +61,15 @@ function selectedBucket() {
 
 // The initial filter is baked into the style JSON before the map is constructed, so the first
 // frame already shows only the selected districts instead of flashing the full citywide map.
+// The whole District of Columbia (its bounding box), so the map opens zoomed out to show all of it.
+var DC_BOUNDS = [[-77.1198, 38.7916], [-76.9094, 38.9955]];
+function fitDC() {
+    map.fitBounds(DC_BOUNDS, { padding: 24, animate: false });
+}
+window.addEventListener('pageshow', function (e) {
+    if (e.persisted && map) fitDC();
+});
+
 var styleUrlMatch = /^mapbox:\/\/styles\/(.+)$/.exec('{{ mapbox_smd_style }}');
 fetch('https://api.mapbox.com/styles/v1/' + styleUrlMatch[1] + '?access_token=' + encodeURIComponent(mapboxgl.accessToken))
     .then(function (resp) { return resp.json(); })
@@ -70,8 +79,16 @@ fetch('https://api.mapbox.com/styles/v1/' + styleUrlMatch[1] + '?access_token=' 
             if (SMD_LAYERS.indexOf(layer.id) !== -1) layer.filter = initialFilter;
         });
 
-        map = new mapboxgl.Map({ container: 'map', style: styleJson });
+        map = new mapboxgl.Map({
+            container: 'map',
+            style: styleJson,
+            bounds: DC_BOUNDS,
+            fitBoundsOptions: { padding: 24 },
+        });
         map.addControl(new mapboxgl.NavigationControl());
+        // Mapbox keeps the zoom when the container resizes (phone toolbars, rotation), which
+        // would crop the city, so re-fit on resize.
+        map.on('resize', fitDC);
         map.on('load', function () {
             map.getCanvas().style.cursor = 'default';
             map.on('click', function (e) {
