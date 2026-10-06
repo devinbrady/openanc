@@ -134,8 +134,8 @@ class SuggestionAdminConfigTests(TestCase):
     def test_approved_not_applied_filter_registered(self):
         self.assertIn(ApprovedNotAppliedFilter, SuggestionAdmin.list_filter)
 
-    def test_default_ordering_is_oldest_submitted_first(self):
-        self.assertEqual(SuggestionAdmin.ordering, ['submitted_at'])
+    def test_default_ordering_is_newest_submitted_first(self):
+        self.assertEqual(SuggestionAdmin.ordering, ['-submitted_at'])
 
 
 class ApprovedNotAppliedFilterTests(TestCase):
