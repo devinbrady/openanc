@@ -226,6 +226,9 @@ PY
 
     echo "Using machine $machine"
     SYNC=/tmp/sync
+    # sftp put refuses to overwrite, so clear leftovers from any earlier push that died midway.
+    # (flyctl -C runs the command without a shell, so no && chaining.)
+    remote "rm -rf $SYNC"
     remote "mkdir -p $SYNC"
     flyctl ssh sftp put "$WORKDIR/editorial.json" $SYNC/editorial.json -a "$APP" --machine "$machine"
     flyctl ssh sftp put "$WORKDIR/manifest.json" $SYNC/manifest.json -a "$APP" --machine "$machine"
