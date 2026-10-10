@@ -91,6 +91,7 @@ fetch('https://api.mapbox.com/styles/v1/' + styleUrlMatch[1] + '?access_token=' 
         map.on('resize', fitDC);
         map.on('load', function () {
             map.getCanvas().style.cursor = 'default';
+            map.setPaintProperty('anc-2022-6ps93f', 'line-width', 1);
             map.on('click', function (e) {
                 var features = map.queryRenderedFeatures(e.point);
                 if (features.length > 0 && features[0].properties.smd_name) {
