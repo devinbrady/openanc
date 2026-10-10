@@ -94,6 +94,10 @@ WSGI_APPLICATION = 'openanc_web.wsgi.application'
 # is unset and we use the SQLite file next to manage.py (the editorial source of truth).
 if os.environ.get('DATABASE_URL'):
     DATABASES = {'default': dj_database_url.config(conn_max_age=600, conn_health_checks=True)}
+    # The database is reached through a transaction-mode connection pooler, which can route a
+    # server-side cursor's DECLARE and later FETCH to different backends ("cursor ... does not
+    # exist"). Fetch .iterator() results client-side instead.
+    DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
 else:
     DATABASES = {
         'default': {
