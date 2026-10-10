@@ -1,4 +1,5 @@
 from datetime import timedelta
+from urllib.parse import urlsplit
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -182,11 +183,6 @@ class Person(models.Model):
     full_name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
 
-    twitter_link = models.URLField(blank=True)
-    mastodon_link = models.URLField(blank=True)
-    facebook_link = models.URLField(blank=True)
-    website_link = models.URLField(blank=True)
-
     history = HistoricalRecords()
 
     class Meta:
@@ -208,6 +204,39 @@ class Person(models.Model):
                 slug = f'{base_slug}-{suffix}'
             self.slug = slug
         super().save(*args, **kwargs)
+
+
+class Link(models.Model):
+    """A URL shown on a public page. Unpublished links are kept for editorial reference but
+    never rendered on the public site."""
+    url = models.URLField('URL', max_length=500)
+    publish = models.BooleanField(default=True)
+    # Lower numbers are listed first; ties fall back to the order links were added.
+    position = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        abstract = True
+        ordering = ['position', 'id']
+
+    def __str__(self):
+        return self.url
+
+    @property
+    def display_name(self):
+        """The URL's hostname without a leading "www.", used as the link text."""
+        host = urlsplit(self.url).hostname or self.url
+        return host.removeprefix('www.')
+
+
+class PersonLink(Link):
+    person = models.ForeignKey(Person, related_name='links', on_delete=models.CASCADE)
+
+    history = HistoricalRecords()
+
+    class Meta(Link.Meta):
+        constraints = [
+            models.UniqueConstraint(fields=['person', 'url'], name='unique_person_link')
+        ]
 
 
 class CommissionerTerm(models.Model):

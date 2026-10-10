@@ -23,6 +23,7 @@ from directory.models import (
     ElectionResult,
     MapColor,
     Person,
+    PersonLink,
     Ward,
     WriteInWinner,
 )
@@ -215,15 +216,14 @@ class Command(BaseCommand):
         result = {}
         for row in read_csv(LEGACY_DATA_DIR / 'people.csv'):
             obj, _ = Person.objects.update_or_create(
-                id=int(row['person_id']),
-                defaults=dict(
-                    full_name=row['full_name'],
-                    twitter_link=row['twitter_link'],
-                    mastodon_link=row['mastodon_link'],
-                    facebook_link=row['facebook_link'],
-                    website_link=row['website_link'],
-                ),
+                id=int(row['person_id']), defaults=dict(full_name=row['full_name'])
             )
+            # get_or_create, not update_or_create: never flip the publish flag on an existing link.
+            for column in ['website_link', 'twitter_link', 'mastodon_link', 'facebook_link']:
+                if row[column]:
+                    PersonLink.objects.get_or_create(
+                        person=obj, url=row[column], defaults={'publish': column != 'twitter_link'}
+                    )
             result[row['person_id']] = obj
         self.stdout.write(f'  people: {len(result)}')
         return result

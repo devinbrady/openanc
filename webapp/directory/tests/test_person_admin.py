@@ -43,3 +43,16 @@ class PersonAdminSearchTests(TestCase):
         })
         data = response.json()
         self.assertIn(str(person.pk), [result['id'] for result in data['results']])
+
+
+class PersonLinkInlineTests(TestCase):
+    def setUp(self):
+        self.staff = User.objects.create_user('staff', password='pw', is_staff=True, is_superuser=True)
+        self.client.force_login(self.staff)
+
+    def test_link_url_is_an_editable_input_without_a_currently_line(self):
+        person = make_person()
+        person.links.create(url='https://janesmith.org/')
+        response = self.client.get(reverse('admin:directory_person_change', args=[person.id]))
+        self.assertContains(response, 'value="https://janesmith.org/"')
+        self.assertNotContains(response, 'Currently:')

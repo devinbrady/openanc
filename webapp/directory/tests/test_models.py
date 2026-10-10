@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 
-from directory.models import ANCOverlap, DistrictOverlap, Person
+from directory.models import ANCOverlap, DistrictOverlap, Person, PersonLink
 from directory.tests.base import PageRenderingTestCase
 from directory.tests.factories import make_anc, make_commissioner_term, make_district, make_person, make_ward
 
@@ -179,3 +179,13 @@ class OverlapPercentageTests(TestCase):
         a2 = make_anc(designator='1B')
         overlap = ANCOverlap.objects.create(from_anc=a1, to_anc=a2, overlap_percentage=0.175)
         self.assertIn('17.5%', str(overlap))
+
+
+class PersonLinkTests(TestCase):
+    def test_display_name_is_hostname_without_www(self):
+        link = PersonLink(url='https://www.janesmith.org/about')
+        self.assertEqual(link.display_name, 'janesmith.org')
+
+    def test_display_name_keeps_other_subdomains(self):
+        link = PersonLink(url='https://dmv.community/@jane')
+        self.assertEqual(link.display_name, 'dmv.community')

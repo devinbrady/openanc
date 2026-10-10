@@ -376,6 +376,7 @@ class PersonDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['commissioner_terms'] = _group_terms_by_district(self.object)
+        context['links'] = self.object.links.filter(publish=True)
         candidacies = (
             self.object.candidacies.select_related('district', 'election', 'status')
             .order_by('-election__year')

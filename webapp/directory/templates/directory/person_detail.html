@@ -5,12 +5,11 @@
 <p class="breadcrumbs"><a href="{% url 'directory:person_list' %}">List of people</a> &rsaquo; {{ person.full_name }}</p>
 <h1>{{ person.full_name }}</h1>
 
+{% if links %}
 <ul class="link-list">
-    {% if person.website_link %}<li><a href="{{ person.website_link }}">Website</a></li>{% endif %}
-    {% if person.twitter_link %}<li><a href="{{ person.twitter_link }}">Twitter / X</a></li>{% endif %}
-    {% if person.mastodon_link %}<li><a href="{{ person.mastodon_link }}">Mastodon</a></li>{% endif %}
-    {% if person.facebook_link %}<li><a href="{{ person.facebook_link }}">Facebook</a></li>{% endif %}
+    {% for link in links %}<li><a href="{{ link.url }}">{{ link.display_name }}</a></li>{% endfor %}
 </ul>
+{% endif %}
 
 {% if commissioner_terms %}
 <h2>Districts Represented</h2>

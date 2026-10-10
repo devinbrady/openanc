@@ -1,4 +1,6 @@
+from django import forms
 from django.contrib import admin, messages
+from django.db import models
 from django.urls import path
 from simple_history.admin import SimpleHistoryAdmin
 
@@ -19,11 +21,25 @@ from .models import (
     Person,
     PersonImportBatch,
     PersonImportRow,
+    PersonLink,
     SiteUpdate,
     Suggestion,
     Ward,
     WriteInWinner,
 )
+
+
+class PersonLinkInline(admin.TabularInline):
+    model = PersonLink
+    extra = 1
+    verbose_name = 'link'
+    verbose_name_plural = 'Links'
+    # A plain input instead of the admin's URL widget, which repeats the URL as a "Currently:" link.
+    formfield_overrides = {models.URLField: {'widget': forms.URLInput(attrs={'class': 'vURLField'})}}
+
+    class Media:
+        # Hides the row's label (the URL again) that tabular inlines print above each row.
+        css = {'all': ['directory/css/admin_person_links.css']}
 
 
 class CommissionerTermInline(admin.TabularInline):
@@ -44,7 +60,7 @@ class PersonAdmin(SimpleHistoryAdmin):
     list_display = ['full_name', 'slug']
     search_fields = ['full_name']
     prepopulated_fields = {'slug': ('full_name',)}
-    inlines = [CommissionerTermInline, CandidateInline]
+    inlines = [PersonLinkInline, CommissionerTermInline, CandidateInline]
     change_list_template = 'admin/directory/person/change_list.html'
 
     def get_urls(self):

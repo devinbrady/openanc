@@ -249,6 +249,20 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(self.person.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
+    def test_person_detail_lists_only_published_links(self):
+        self.person.links.create(url='https://www.janesmith.org/', publish=True)
+        self.person.links.create(url='https://x.com/janesmith', publish=False)
+        response = self.client.get(self.person.get_absolute_url())
+        self.assertContains(response, '<a href="https://www.janesmith.org/">janesmith.org</a>', html=True)
+        self.assertNotContains(response, 'x.com/janesmith')
+
+    def test_person_detail_orders_links_by_position(self):
+        self.person.links.create(url='https://first-added.example/', position=2)
+        self.person.links.create(url='https://second-added.example/', position=1)
+        response = self.client.get(self.person.get_absolute_url())
+        content = response.content.decode()
+        self.assertLess(content.index('second-added.example'), content.index('first-added.example'))
+
     def test_about(self):
         response = self.client.get(reverse('directory:about'))
         self.assertEqual(response.status_code, 200)
