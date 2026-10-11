@@ -1,3 +1,6 @@
+from smtplib import SMTPException
+from unittest.mock import patch
+
 from django.core import mail
 from django.test import TestCase
 from django.urls import reverse
@@ -37,6 +40,16 @@ class SuggestionCreateViewTests(PageRenderingTestCase):
         self.assertEqual(Suggestion.objects.count(), 1)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn(str(district), mail.outbox[0].body)
+
+    def test_mail_failure_still_saves_suggestion_and_logs_error(self):
+        with patch('directory.views.send_mail', side_effect=SMTPException('auth failed')), \
+                self.assertLogs('directory.views', level='ERROR') as logs:
+            response = self.client.post(reverse('directory:suggest_edit'), {
+                'message': 'There is a new write-in candidate for this district.',
+            })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Suggestion.objects.count(), 1)
+        self.assertIn('Failed to send notification email', logs.output[0])
 
     def test_honeypot_submission_is_silently_dropped(self):
         response = self.client.post(reverse('directory:suggest_edit'), {

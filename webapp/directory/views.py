@@ -1,3 +1,4 @@
+import logging
 from collections import defaultdict
 
 from django.conf import settings
@@ -26,6 +27,8 @@ from .models import (
     WriteInWinner,
     resolve_current_commissioner_term,
 )
+
+logger = logging.getLogger(__name__)
 
 
 def mapbox_context():
@@ -523,13 +526,17 @@ class SuggestionCreateView(CreateView):
         lines += ['', suggestion.message, '', self.request.build_absolute_uri(
             reverse_lazy('admin:directory_suggestion_change', args=[suggestion.pk])
         )]
-        send_mail(
-            subject,
-            '\n'.join(lines),
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.SUGGESTION_NOTIFICATION_EMAIL],
-            fail_silently=True,
-        )
+        # A mail failure shouldn't lose the suggestion (it's already saved), but log it so a
+        # broken SMTP setup shows up in `flyctl logs` instead of failing silently.
+        try:
+            send_mail(
+                subject,
+                '\n'.join(lines),
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.SUGGESTION_NOTIFICATION_EMAIL],
+            )
+        except Exception:
+            logger.exception('Failed to send notification email for suggestion #%s', suggestion.pk)
 
 
 class ContestedMapView(TemplateView):
