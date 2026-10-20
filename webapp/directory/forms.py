@@ -1,5 +1,8 @@
+import time
+
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
+from django.core import signing
 
 from .models import CandidateStatus, District, Election, Person, Suggestion
 
@@ -20,10 +23,30 @@ class PersonImportUploadForm(forms.Form):
             self.fields['default_status'].initial = declared.pk
 
 
+FORM_TOKEN_SALT = 'directory.SuggestionForm.form_token'
+
+
+def make_form_token(timestamp=None):
+    """Signed record of when the suggestion form was rendered (see SuggestionForm.clean)."""
+    return signing.dumps(time.time() if timestamp is None else timestamp, salt=FORM_TOKEN_SALT)
+
+
 class SuggestionForm(forms.ModelForm):
-    # Honeypot: real users never see this field; bots that auto-fill every input on a form
-    # do, so a non-empty value here marks the submission as spam (see SuggestionForm.is_spam).
-    website = forms.CharField(required=False, widget=forms.HiddenInput)
+    # Bots that fill in the form get dropped silently (see SuggestionForm.spam_reason) instead of
+    # being shown an error that tells them what to change.
+    #
+    # Honeypot: a plain text input that the template hides with CSS. Real users never see it,
+    # but bots that fill every text input on a form do. (A type="hidden" input doesn't work for
+    # this: most bots leave those alone.)
+    website = forms.CharField(required=False, widget=forms.TextInput(attrs={'autocomplete': 'off', 'tabindex': '-1'}))
+    # Timing check: the template renders a fresh make_form_token() on every page load. A
+    # submission with no valid token never loaded the page, and one that arrives within a few
+    # seconds was filled in by a script.
+    form_token = forms.CharField(required=False)
+    MIN_SECONDS_TO_SUBMIT = 3
+    # A token past this age most likely means the tab was left open, so the user gets an error
+    # and a fresh token to resubmit with, not a silent drop.
+    MAX_TOKEN_AGE_SECONDS = 60 * 60 * 24
 
     class Meta:
         model = Suggestion
@@ -49,9 +72,30 @@ class SuggestionForm(forms.ModelForm):
             'Include names, dates, and a source link if you have one -- for a write-in '
             'candidate, a campaign website or social media post is ideal.'
         )
+        self.fresh_form_token = make_form_token()
+
+    def clean(self):
+        cleaned = super().clean()
+        self.spam_reason = None
+        if cleaned.get('website'):
+            self.spam_reason = 'honeypot filled in'
+            return cleaned
+        try:
+            rendered_at = float(signing.loads(cleaned.get('form_token', ''), salt=FORM_TOKEN_SALT))
+        except (signing.BadSignature, TypeError, ValueError):
+            self.spam_reason = 'missing or invalid form token'
+            return cleaned
+        age = time.time() - rendered_at
+        if age < self.MIN_SECONDS_TO_SUBMIT:
+            self.spam_reason = f'submitted {age:.1f}s after the form loaded'
+        elif age > self.MAX_TOKEN_AGE_SECONDS:
+            raise forms.ValidationError(
+                'This page was open for a long time, so please click "Submit suggestion" again.'
+            )
+        return cleaned
 
     def is_spam(self):
-        return bool(self.cleaned_data.get('website'))
+        return bool(self.spam_reason)
 
 
 class SuggestionAdminForm(forms.ModelForm):

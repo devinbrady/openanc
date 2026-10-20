@@ -335,6 +335,10 @@ tr.term-future { background: var(--future-bg); }
     font: inherit;
 }
 
+/* Spam honeypot on the suggestion form: moved off-screen rather than display:none, which some
+   bots check for. */
+.form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
 button[type="submit"] {
     background: var(--link-color);
     color: #fff;

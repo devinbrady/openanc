@@ -15,7 +15,12 @@
 {% else %}
 <form method="post" novalidate>
     {% csrf_token %}
-    {{ form.website }}
+    <input type="hidden" name="form_token" value="{{ form.fresh_form_token }}">
+    <div class="form-honeypot" aria-hidden="true">
+        <label for="{{ form.website.id_for_label }}">Leave this field empty</label>
+        {{ form.website }}
+    </div>
+    {% if form.non_field_errors %}<p><strong>{{ form.non_field_errors|join:" " }}</strong></p>{% endif %}
     <div class="form-field">
         {{ form.name.label_tag }}
         {{ form.name }}

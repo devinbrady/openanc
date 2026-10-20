@@ -509,6 +509,7 @@ class SuggestionCreateView(CreateView):
     def form_valid(self, form):
         if form.is_spam():
             # Silently discard -- don't tip off the bot, don't save, still say thanks.
+            logger.info('Dropped spam suggestion (%s)', form.spam_reason)
             messages.success(self.request, 'Thanks! Your suggestion has been submitted for review.')
             return redirect(self.success_url)
         response = super().form_valid(form)
