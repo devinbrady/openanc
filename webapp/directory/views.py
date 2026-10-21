@@ -524,6 +524,8 @@ class SuggestionCreateView(CreateView):
             lines.append(f'District: {suggestion.district}')
         if suggestion.person:
             lines.append(f'Person: {suggestion.person}')
+        if suggestion.link:
+            lines.append(f'Link: {suggestion.link}')
         lines += ['', suggestion.message, '', self.request.build_absolute_uri(
             reverse_lazy('admin:directory_suggestion_change', args=[suggestion.pk])
         )]

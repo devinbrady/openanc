@@ -232,7 +232,7 @@ class SuggestionAdmin(admin.ModelAdmin):
         'suggestion_type', 'status',
         'district', 'person',
         'person_name', 'election_year', 'ballot_or_write_in', 'candidate', 'start_date', 'end_date', 'reason',
-        'name', 'email', 'message', 'moderator_notes',
+        'name', 'email', 'message', 'link', 'moderator_notes',
         'submitted_at', 'applied_at', 'resulting_person', 'resulting_district',
     ]
 

@@ -478,6 +478,10 @@ class Suggestion(models.Model):
         Candidate, related_name='+', null=True, blank=True, on_delete=models.SET_NULL
     )
     message = models.TextField()
+    # Optional source link from the submitter (campaign site, news article, resignation notice).
+    # Applying the suggestion adds it as a PersonLink on the resulting person -- a moderator
+    # clears it first to keep it out.
+    link = models.URLField(max_length=500, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=STATUS_PENDING)
     moderator_notes = models.TextField(blank=True)
 

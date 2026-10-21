@@ -43,6 +43,12 @@
         {% if form.message.help_text %}<p class="muted">{{ form.message.help_text }}</p>{% endif %}
         {% if form.message.errors %}<p class="muted">{{ form.message.errors }}</p>{% endif %}
     </div>
+    <div class="form-field">
+        {{ form.link.label_tag }}
+        {{ form.link }}
+        {% if form.link.help_text %}<p class="muted">{{ form.link.help_text }}</p>{% endif %}
+        {% if form.link.errors %}<p class="muted">{{ form.link.errors }}</p>{% endif %}
+    </div>
     <button type="submit">Submit suggestion</button>
 </form>
 {% endif %}
