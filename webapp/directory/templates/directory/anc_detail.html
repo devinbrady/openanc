@@ -45,7 +45,7 @@ initBoundaryMap('map', 'boundary-geometry', '{{ mapbox_access_token }}', '{{ map
     year: {{ anc.redistricting_year }},
     districtDesignators: JSON.parse(document.getElementById('district-designators').textContent),
     ancDesignators: JSON.parse(document.getElementById('anc-designators').textContent),
-});
+}, true, 1);
 </script>
 {% endif %}
 {% endblock %}
