@@ -51,6 +51,12 @@ class SuggestionFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('open for a long time', form.non_field_errors()[0])
 
+    def test_link_is_optional_but_must_be_a_url(self):
+        form = SuggestionForm(data={'message': 'Please update this.', 'link': 'not a url',
+                                    'form_token': human_token()})
+        self.assertFalse(form.is_valid())
+        self.assertIn('link', form.errors)
+
     def test_message_is_required(self):
         form = SuggestionForm(data={'name': 'Jane'})
         self.assertFalse(form.is_valid())
@@ -70,6 +76,16 @@ class SuggestionCreateViewTests(PageRenderingTestCase):
         self.assertEqual(Suggestion.objects.count(), 1)
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn(str(district), mail.outbox[0].body)
+
+    def test_submitted_link_is_saved_and_included_in_notification(self):
+        response = self.client.post(reverse('directory:suggest_edit'), {
+            'message': 'This commissioner resigned.',
+            'link': 'https://news.example.com/resigns',
+            'form_token': human_token(),
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Suggestion.objects.get().link, 'https://news.example.com/resigns')
+        self.assertIn('Link: https://news.example.com/resigns', mail.outbox[0].body)
 
     def test_mail_failure_still_saves_suggestion_and_logs_error(self):
         with patch('directory.views.send_mail', side_effect=SMTPException('auth failed')), \

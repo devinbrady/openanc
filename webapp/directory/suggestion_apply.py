@@ -10,7 +10,8 @@ nothing could ever set applied_at.
 
 Each handler expects Suggestion.structured_data to hold the fields documented on it below, reads
 them, makes the change, and returns (person, district) for the caller to record on the
-suggestion. Raises SuggestionApplyError (with a message suitable for showing a moderator) if the
+suggestion. Whatever the type, the suggestion's `link` (if any) is then added as a PersonLink on
+that person. Raises SuggestionApplyError (with a message suitable for showing a moderator) if the
 data is missing/invalid or the change conflicts with existing data -- callers should run the
 whole apply inside transaction.atomic() so nothing is partially applied.
 """
@@ -23,7 +24,9 @@ from django.utils import timezone
 from simple_history.utils import update_change_reason
 
 from .matching import build_person_choices, match_name
-from .models import Candidate, CandidateStatus, CommissionerTerm, District, Election, Person, PersonImportRow, Suggestion
+from .models import (
+    Candidate, CandidateStatus, CommissionerTerm, District, Election, Person, PersonImportRow, PersonLink, Suggestion,
+)
 
 
 class SuggestionApplyError(Exception):
@@ -162,6 +165,17 @@ def apply_general(suggestion):
     return suggestion.person, suggestion.district
 
 
+def _add_link(suggestion, person):
+    """Adds the submitter's link to `person`'s links (a no-op if they already have that URL)."""
+    if person is None:
+        raise SuggestionApplyError(
+            'This suggestion has a link but no person to add it to -- set Person, or clear the link.'
+        )
+    link, created = PersonLink.objects.get_or_create(person=person, url=suggestion.link)
+    if created:
+        update_change_reason(link, f'Suggestion #{suggestion.pk}')
+
+
 HANDLERS = {
     Suggestion.TYPE_GENERAL: apply_general,
     Suggestion.TYPE_NEW_CANDIDATE: apply_new_candidate,
@@ -183,6 +197,8 @@ def apply_suggestion(suggestion):
 
     with transaction.atomic():
         person, district = handler(suggestion)
+        if suggestion.link:
+            _add_link(suggestion, person)
         suggestion.resulting_person = person
         suggestion.resulting_district = district
         suggestion.applied_at = timezone.now()

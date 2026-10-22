@@ -3,7 +3,7 @@ import datetime
 from django.test import TestCase
 from django.utils import timezone
 
-from directory.models import Candidate, CandidateStatus, CommissionerTerm, Person, Suggestion
+from directory.models import Candidate, CandidateStatus, CommissionerTerm, Person, PersonLink, Suggestion
 from directory.suggestion_apply import SuggestionApplyError, apply_suggestion
 from directory.tests.factories import (
     make_candidate,
@@ -212,3 +212,59 @@ class ApplySuggestionGeneralTypeTests(TestCase):
         suggestion.refresh_from_db()
         self.assertEqual(suggestion.resulting_person, person)
         self.assertEqual(suggestion.resulting_district, district)
+
+
+class ApplySuggestionLinkTests(TestCase):
+    def test_link_is_added_to_the_suggestions_person(self):
+        person = make_person()
+        suggestion = Suggestion.objects.create(
+            message='test', person=person, link='https://news.example.com/resigns',
+        )
+
+        apply_suggestion(suggestion)
+
+        link = PersonLink.objects.get(person=person)
+        self.assertEqual(link.url, 'https://news.example.com/resigns')
+        self.assertTrue(link.publish)
+        self.assertEqual(link.history.first().history_change_reason, f'Suggestion #{suggestion.pk}')
+
+    def test_link_goes_to_the_person_a_new_candidate_suggestion_creates(self):
+        make_candidate_status(name='Declared Intention to Run')
+        district = make_district()
+        suggestion = Suggestion.objects.create(
+            message='test', suggestion_type=Suggestion.TYPE_NEW_CANDIDATE, link='https://janeforanc.example.com',
+            structured_data={'person_name': 'Jane Newcomer', 'district_id': district.id, 'election_year': 2026},
+        )
+
+        apply_suggestion(suggestion)
+
+        person = Person.objects.get(full_name='Jane Newcomer')
+        self.assertEqual(list(person.links.values_list('url', flat=True)), ['https://janeforanc.example.com'])
+
+    def test_link_the_person_already_has_is_not_duplicated(self):
+        person = make_person()
+        PersonLink.objects.create(person=person, url='https://example.com/jane')
+        suggestion = Suggestion.objects.create(message='test', person=person, link='https://example.com/jane')
+
+        apply_suggestion(suggestion)
+
+        self.assertEqual(PersonLink.objects.filter(person=person).count(), 1)
+        suggestion.refresh_from_db()
+        self.assertIsNotNone(suggestion.applied_at)
+
+    def test_link_with_no_person_fails_without_marking_applied(self):
+        suggestion = Suggestion.objects.create(message='test', link='https://example.com/someone')
+
+        with self.assertRaises(SuggestionApplyError):
+            apply_suggestion(suggestion)
+
+        suggestion.refresh_from_db()
+        self.assertIsNone(suggestion.applied_at)
+        self.assertFalse(PersonLink.objects.exists())
+
+    def test_no_link_adds_nothing(self):
+        suggestion = Suggestion.objects.create(message='test', person=make_person())
+
+        apply_suggestion(suggestion)
+
+        self.assertFalse(PersonLink.objects.exists())

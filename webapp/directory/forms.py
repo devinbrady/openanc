@@ -50,7 +50,7 @@ class SuggestionForm(forms.ModelForm):
 
     class Meta:
         model = Suggestion
-        fields = ['name', 'email', 'district', 'person', 'message']
+        fields = ['name', 'email', 'district', 'person', 'message', 'link']
         widgets = {
             'message': forms.Textarea(attrs={'rows': 6}),
         }
@@ -60,6 +60,7 @@ class SuggestionForm(forms.ModelForm):
             'district': 'Related district (optional)',
             'person': 'Related person (optional)',
             'message': 'What should change?',
+            'link': 'Link (optional)',
         }
 
     def __init__(self, *args, **kwargs):
@@ -71,6 +72,10 @@ class SuggestionForm(forms.ModelForm):
         self.fields['message'].help_text = (
             'Include names, dates, and a source link if you have one -- for a write-in '
             'candidate, a campaign website or social media post is ideal.'
+        )
+        self.fields['link'].help_text = (
+            'A campaign website, social media profile, or news article about this person -- '
+            'for example, one announcing a candidacy or resignation.'
         )
         self.fresh_form_token = make_form_token()
 
@@ -139,6 +144,9 @@ class SuggestionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['candidate'].help_text = 'Candidate withdrew.'
+        self.fields['link'].help_text = (
+            "Applying adds this to the resulting person's links. Clear it first to leave it out."
+        )
         data = self.instance.structured_data or {}
         if self.instance.pk:
             self.fields['person_name'].initial = data.get('person_name', '')

@@ -325,6 +325,7 @@ tr.term-future { background: var(--future-bg); }
 
 .form-field input[type="text"],
 .form-field input[type="email"],
+.form-field input[type="url"],
 .form-field select,
 .form-field textarea {
     width: 100%;
