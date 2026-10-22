@@ -36,6 +36,17 @@ CANONICAL_HOST = os.environ.get('DJANGO_CANONICAL_HOST', '')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = [o for o in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if o]
 
+if not DEBUG:
+    # Never send the session (admin login) or CSRF cookie over plain HTTP, even on the request
+    # that Fly's force_https is about to redirect.
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # Browsers remember HSTS for this long, so start short and raise it (e.g. to 31536000) once
+    # HTTPS has proven fine. No includeSubDomains: other openanc.org subdomains (mail etc.) are
+    # hosted elsewhere. SECURE_SSL_REDIRECT stays off -- Fly already redirects, and its health
+    # check hits the app over plain HTTP, so a Django-side redirect would fail it.
+    SECURE_HSTS_SECONDS = 3600
+
 
 # Application definition
 
