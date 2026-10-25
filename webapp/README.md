@@ -20,7 +20,7 @@ Everything is in git **except three things**, which you have to bring over yours
 git clone git@github.com:devinbrady/openanc.git && cd openanc/webapp
 python -m venv .venv                      # Python version is pinned in ../.python-version (3.14.8)
 source .venv/bin/activate                  # the rest of this README assumes the venv is active
-pip install -r requirements.txt
+pip install -r requirements-dev.txt         # requirements.txt plus local-only tools (PDF parsing)
 brew install flyctl && flyctl auth login   # only needed for deploys and ops/sync_production.sh
 ```
 
@@ -105,6 +105,19 @@ figure out which names are already `Person` rows and which are new.
    transaction, so a bad row won't leave things half-applied.
 6. Check the result on `localhost` (the relevant district/candidate pages) before moving on to
    the sync step below.
+
+### Converting DCBOE candidate list PDFs
+
+`scripts/dcboe_pdf_to_csv.py` turns DCBOE's "ANC Candidates in Ballot Order" and "General
+Election Write-in Candidates" PDFs into CSVs in `data/dcboe/excel-clean`, moving
+"(withdrew 10/22/26)" notes into a `Date of Withdrawal` column. From the repo root:
+
+```bash
+webapp/.venv/bin/python scripts/dcboe_pdf_to_csv.py links                      # current PDF URLs on dcboe.org
+webapp/.venv/bin/python scripts/dcboe_pdf_to_csv.py write-in ~/Downloads/WRITE-IN.pdf
+```
+
+The output is named after the PDF's creation date unless you pass `-o`.
 
 ## 3. Structured Suggestions
 
