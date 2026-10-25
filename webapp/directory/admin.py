@@ -9,6 +9,7 @@ from . import forms as admin_forms
 from .matching import strip_diacritics
 from .models import (
     ANC,
+    ANCLink,
     ANCOverlap,
     Candidate,
     CandidateStatus,
@@ -40,6 +41,10 @@ class PersonLinkInline(admin.TabularInline):
     class Media:
         # Hides the row's label (the URL again) that tabular inlines print above each row.
         css = {'all': ['directory/css/admin_person_links.css']}
+
+
+class ANCLinkInline(PersonLinkInline):
+    model = ANCLink
 
 
 class CommissionerTermInline(admin.TabularInline):
@@ -104,6 +109,7 @@ class ANCAdmin(admin.ModelAdmin):
     list_display = ['name', 'redistricting_year']
     list_filter = ['redistricting_year']
     search_fields = ['designator']
+    inlines = [ANCLinkInline]
 
 
 @admin.register(ANCOverlap)

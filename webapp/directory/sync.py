@@ -21,6 +21,7 @@ EDITORIAL_MODELS = [
     'directory.MapColor',
     'directory.Ward',
     'directory.ANC',
+    'directory.ANCLink',
     'directory.ANCOverlap',
     'directory.District',
     'directory.DistrictOverlap',

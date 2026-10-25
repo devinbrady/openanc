@@ -8,8 +8,7 @@
 
 <ul class="link-list">
     {% if anc.dc_oanc_link %}<li><a href="{{ anc.dc_oanc_link }}">Official OANC profile</a></li>{% endif %}
-    {% if anc.anc_homepage_link %}<li><a href="{{ anc.anc_homepage_link }}">ANC homepage</a></li>{% endif %}
-    {% if anc.twitter_link %}<li><a href="{{ anc.twitter_link }}">Twitter / X</a></li>{% endif %}
+    {% for link in links %}<li><a href="{{ link.url }}">{{ link.display_name }}</a></li>{% endfor %}
 </ul>
 
 {% if boundary_geometry %}

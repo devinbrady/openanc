@@ -13,6 +13,7 @@ from django.db import transaction
 
 from directory.models import (
     ANC,
+    ANCLink,
     ANCOverlap,
     Candidate,
     CandidateStatus,
@@ -129,14 +130,18 @@ class Command(BaseCommand):
                 redistricting_year=int(row['redistricting_year']),
                 defaults=dict(
                     dc_oanc_link=row['dc_oanc_link'],
-                    anc_homepage_link=row['anc_homepage_link'],
-                    twitter_link=row['twitter_link'],
                     centroid_lon=float(row['centroid_lon']) if row['centroid_lon'] else None,
                     centroid_lat=float(row['centroid_lat']) if row['centroid_lat'] else None,
                     area=int(float(row['area'])) if row['area'] else None,
                     notes=row['notes'],
                 ),
             )
+            # get_or_create, not update_or_create: never flip the publish flag on an existing link.
+            for column in ['anc_homepage_link', 'twitter_link']:
+                if row[column]:
+                    ANCLink.objects.get_or_create(
+                        anc=obj, url=row[column], defaults={'publish': column != 'twitter_link'}
+                    )
             result[row['anc_id']] = obj
         self._anc_overlap_rows = rows
         self.stdout.write(f'  ANCs: {len(result)}')

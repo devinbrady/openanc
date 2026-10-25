@@ -57,8 +57,6 @@ class ANC(models.Model):
     redistricting_year = models.PositiveSmallIntegerField()
 
     dc_oanc_link = models.URLField(blank=True)
-    anc_homepage_link = models.URLField(blank=True)
-    twitter_link = models.URLField(blank=True)
     centroid_lon = models.FloatField(null=True, blank=True)
     centroid_lat = models.FloatField(null=True, blank=True)
     area = models.PositiveIntegerField(null=True, blank=True)
@@ -236,6 +234,18 @@ class PersonLink(Link):
     class Meta(Link.Meta):
         constraints = [
             models.UniqueConstraint(fields=['person', 'url'], name='unique_person_link')
+        ]
+
+
+class ANCLink(Link):
+    anc = models.ForeignKey(ANC, related_name='links', on_delete=models.CASCADE)
+
+    history = HistoricalRecords()
+
+    class Meta(Link.Meta):
+        verbose_name = 'ANC link'
+        constraints = [
+            models.UniqueConstraint(fields=['anc', 'url'], name='unique_anc_link')
         ]
 
 

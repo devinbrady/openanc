@@ -322,6 +322,7 @@ class ANCDetailView(DetailView):
             district.current_term = current[0] if current else None
             district.future_term = future[0] if future else None
         context['ballot_statuses'] = _attach_ballot_columns(context['districts'])
+        context['links'] = self.object.links.filter(publish=True)
         context['overlaps'] = self.object.overlaps_from.select_related('to_anc').order_by('-overlap_percentage')
         context.update(mapbox_context())
         context['boundary_geometry'] = boundary_geometry('anc', self.object.designator, self.object.redistricting_year)

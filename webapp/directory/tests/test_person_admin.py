@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from directory.tests.factories import make_person
+from directory.tests.factories import make_anc, make_person
 
 
 class PersonAdminSearchTests(TestCase):
@@ -55,4 +55,18 @@ class PersonLinkInlineTests(TestCase):
         person.links.create(url='https://janesmith.org/')
         response = self.client.get(reverse('admin:directory_person_change', args=[person.id]))
         self.assertContains(response, 'value="https://janesmith.org/"')
+        self.assertNotContains(response, 'Currently:')
+
+
+class ANCLinkInlineTests(TestCase):
+    def setUp(self):
+        self.staff = User.objects.create_user('staff', password='pw', is_staff=True, is_superuser=True)
+        self.client.force_login(self.staff)
+
+    def test_anc_change_page_has_editable_links(self):
+        anc = make_anc()
+        anc.links.create(url='https://anc1a.org/', publish=False)
+        response = self.client.get(reverse('admin:directory_anc_change', args=[anc.id]))
+        self.assertContains(response, 'value="https://anc1a.org/"')
+        self.assertContains(response, 'name="links-0-publish"')
         self.assertNotContains(response, 'Currently:')

@@ -222,6 +222,13 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(self.anc.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
+    def test_anc_detail_lists_only_published_links(self):
+        self.anc.links.create(url='https://www.anc1a.org/', publish=True)
+        self.anc.links.create(url='https://twitter.com/ANC1A', publish=False)
+        response = self.client.get(self.anc.get_absolute_url())
+        self.assertContains(response, '<a href="https://www.anc1a.org/">anc1a.org</a>', html=True)
+        self.assertNotContains(response, 'twitter.com/ANC1A')
+
     def test_ward_detail(self):
         response = self.client.get(self.ward.get_absolute_url())
         self.assertEqual(response.status_code, 200)
