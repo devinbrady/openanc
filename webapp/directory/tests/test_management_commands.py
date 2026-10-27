@@ -45,6 +45,17 @@ class DraftSiteUpdateTests(TestCase):
         draft = SiteUpdate.objects.get(is_published=False)
         self.assertIn('Someone New', draft.body)
 
+    def test_skips_changes_already_covered_by_last_published_update(self):
+        make_person(full_name='Already Announced')
+        SiteUpdate.objects.create(date=datetime.date.today(), body='earlier today', is_published=True)
+        make_person(full_name='Added Afterward')
+
+        call_command('draft_site_update')
+
+        body = SiteUpdate.objects.get(is_published=False).body
+        self.assertNotIn('Already Announced', body)
+        self.assertIn('Added Afterward', body)
+
     def test_candidate_lines_link_district_and_person(self):
         district = make_district(designator='1A01')
         person = make_person(full_name='Write In Person')

@@ -5,7 +5,7 @@ by hand in the admin. This is a draft generator, not a finished-prose generator 
 tidy the wording before publishing.
 
 Usage:
-  python manage.py draft_site_update                  # since the last published update, through today
+  python manage.py draft_site_update                  # since the last published update was created, through today
   python manage.py draft_site_update --since 2026-09-01 --date 2026-09-27
 """
 import datetime
@@ -48,21 +48,24 @@ class Command(BaseCommand):
         parser.add_argument('--date', type=_parse_date, default=None, help='The update date (default: today).')
         parser.add_argument(
             '--since', type=_parse_date, default=None,
-            help="Start of the window (default: the last published update's date).",
+            help="Start of the window (default: the moment the last published update was created).",
         )
 
     def handle(self, *args, **options):
         as_of = options['date'] or datetime.date.today()
-        since = options['since']
-        if since is None:
-            last = SiteUpdate.objects.filter(is_published=True).order_by('-date').first()
-            since = last.date if last else as_of
+        tz = timezone.get_current_timezone()
+        end = datetime.datetime.combine(as_of + datetime.timedelta(days=1), datetime.time.min, tzinfo=tz)
+        if options['since']:
+            start = datetime.datetime.combine(options['since'], datetime.time.min, tzinfo=tz)
+        else:
+            start = self._last_published_cutoff() or datetime.datetime.combine(as_of, datetime.time.min, tzinfo=tz)
+        since = timezone.localtime(start, tz).date()
 
         sections = [
-            ('Commissioner changes', self._commissioner_term_lines(since, as_of)),
-            ('Candidate changes', self._candidate_lines(since, as_of)),
-            ('Write-in winners certified', self._write_in_winner_lines(since, as_of)),
-            ('New people added', self._new_person_lines(since, as_of)),
+            ('Commissioner changes', self._commissioner_term_lines(start, end)),
+            ('Candidate changes', self._candidate_lines(start, end)),
+            ('Write-in winners certified', self._write_in_winner_lines(start, end)),
+            ('New people added', self._new_person_lines(start, end)),
         ]
         sections = [(heading, lines) for heading, lines in sections if lines]
 
@@ -76,17 +79,30 @@ class Command(BaseCommand):
             body_parts.append('<ul>')
             body_parts.extend(f'<li>{line}</li>' for line in lines)
             body_parts.append('</ul>')
-        body_parts.extend(self._summary_table(since, as_of))
+        body_parts.extend(self._summary_table(start, end))
 
         update = SiteUpdate.objects.create(date=as_of, body='\n'.join(body_parts), is_published=False)
         self.stdout.write(self.style.SUCCESS(f'Created draft SiteUpdate #{update.pk} for {as_of} (unpublished).'))
 
-    def _in_window(self, history_manager, since, as_of):
-        return history_manager.filter(history_date__date__gte=since, history_date__date__lte=as_of).order_by('history_date')
+    def _last_published_cutoff(self):
+        """When the newest published update was created. A generated draft covers changes up to
+        the moment it was created, so starting there (rather than at the start of its date) keeps
+        that day's earlier changes from being repeated. Falls back to the start of its date if
+        it has no local history."""
+        last = SiteUpdate.objects.filter(is_published=True).order_by('-date', '-pk').first()
+        if last is None:
+            return None
+        created = last.history.order_by('history_date').first()
+        if created is not None:
+            return created.history_date
+        return datetime.datetime.combine(last.date, datetime.time.min, tzinfo=timezone.get_current_timezone())
 
-    def _commissioner_term_lines(self, since, as_of):
+    def _in_window(self, history_manager, start, end):
+        return history_manager.filter(history_date__gte=start, history_date__lt=end).order_by('history_date')
+
+    def _commissioner_term_lines(self, start, end):
         lines = []
-        for record in self._in_window(CommissionerTerm.history, since, as_of):
+        for record in self._in_window(CommissionerTerm.history, start, end):
             try:
                 if record.history_type == '+':
                     lines.append(f'{_link(record.district)}: {_link(record.person)} appointed commissioner (term starts {record.start_date}).')
@@ -100,9 +116,9 @@ class Command(BaseCommand):
                 continue
         return lines
 
-    def _candidate_lines(self, since, as_of):
+    def _candidate_lines(self, start, end):
         lines = []
-        for record in self._in_window(Candidate.history, since, as_of):
+        for record in self._in_window(Candidate.history, start, end):
             try:
                 if record.history_type == '+':
                     lines.append(
@@ -120,9 +136,9 @@ class Command(BaseCommand):
                 continue
         return lines
 
-    def _write_in_winner_lines(self, since, as_of):
+    def _write_in_winner_lines(self, start, end):
         lines = []
-        for record in self._in_window(WriteInWinner.history, since, as_of):
+        for record in self._in_window(WriteInWinner.history, start, end):
             try:
                 if record.history_type == '+':
                     name = _link(record.person) if record.person else format_html('{}', record.candidate_name_raw)
@@ -131,24 +147,20 @@ class Command(BaseCommand):
                 continue
         return lines
 
-    def _new_person_lines(self, since, as_of):
+    def _new_person_lines(self, start, end):
         lines = []
         # Skip people deleted since (merged duplicates etc.) -- their page link would be dead.
-        records = self._in_window(Person.history, since, as_of).filter(history_type='+', id__in=Person.objects.values('pk'))
+        records = self._in_window(Person.history, start, end).filter(history_type='+', id__in=Person.objects.values('pk'))
         for record in records:
             lines.append(format_html('<a href="{}">{}</a>', reverse('directory:person_detail', kwargs={'slug': record.slug}), record.full_name))
         return lines
 
-    def _summary_table(self, since, as_of):
+    def _summary_table(self, start, end):
         """Rows of Old/Diff/New counts for whatever changed, comparing the database as it stood
-        at the start of `since` with the end of `as_of`. Candidate counts are broken out by status
-        and limited to the elections touched in the window."""
-        tz = timezone.get_current_timezone()
-        start = datetime.datetime.combine(since, datetime.time.min, tzinfo=tz)
-        end = datetime.datetime.combine(as_of + datetime.timedelta(days=1), datetime.time.min, tzinfo=tz)
-
+        at `start` with `end`. Candidate counts are broken out by status and limited to the
+        elections touched in the window."""
         rows = []
-        election_ids = set(self._in_window(Candidate.history, since, as_of).values_list('election_id', flat=True))
+        election_ids = set(self._in_window(Candidate.history, start, end).values_list('election_id', flat=True))
         if election_ids:
             def status_counts(moment):
                 return Counter(
