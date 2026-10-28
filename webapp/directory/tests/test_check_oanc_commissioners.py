@@ -263,6 +263,36 @@ class CommandIntegrationTests(TestCase):
         second_get = self._run()
         self.assertFalse(second_get.called)
 
+    def test_unchanged_roster_does_not_write_a_new_csv(self):
+        self._run()
+        [first_file] = Path(self.csv_dir).glob('commissioners_*.csv')
+        renamed = first_file.with_name('commissioners_2000-01-01.csv')
+        first_file.rename(renamed)
+        (Path(self.csv_dir) / '.last_checked').write_text('2000-01-01\n')
+
+        get = self._run()
+
+        self.assertTrue(get.called)
+        self.assertEqual(list(Path(self.csv_dir).glob('commissioners_*.csv')), [renamed])
+
+    def test_unchanged_roster_still_counts_as_checked_today(self):
+        self._run()
+        [first_file] = Path(self.csv_dir).glob('commissioners_*.csv')
+        first_file.rename(first_file.with_name('commissioners_2000-01-01.csv'))
+
+        second_get = self._run()  # marker says today, so the older CSV is used as the cache
+
+        self.assertFalse(second_get.called)
+        self.assertTrue(Suggestion.objects.filter(district=self.district).exists())
+
+    def test_changed_roster_writes_a_new_csv(self):
+        old_file = Path(self.csv_dir) / 'commissioners_2000-01-01.csv'
+        old_file.write_text('smd_id,Name,oanc_name,is_vacant,is_chairperson,oanc_hash_id\r\n', encoding='utf-8')
+
+        self._run()
+
+        self.assertEqual(len(list(Path(self.csv_dir).glob('commissioners_*.csv'))), 2)
+
     def test_force_refresh_rescrapes_even_if_cache_exists(self):
         self._run()
         second_get = self._run('--force-refresh')

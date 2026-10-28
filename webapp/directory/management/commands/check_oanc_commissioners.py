@@ -23,11 +23,14 @@ a rejected suggestion of the same type for the same district that mentions the s
 suppresses it. If either side's name changes, that's a new situation and it's suggested again.
 
 Caching: the OANC site is only ever scraped once per calendar day. The first run each day
-fetches every ANC (politely rate-limited) and saves the results to
-data/oanc/commissioners_<date>.csv -- same columns/format the old scripts/match_people.py-era
-notebook used, so anything else reading that folder keeps working. Every run after that, the
-same day, reads that CSV back instead of touching the network at all; this data changes slowly,
-and there's no reason to hit a public government site repeatedly. Pass --force-refresh to
+fetches every ANC (politely rate-limited) and, only if the roster differs from the most recent
+snapshot, saves the results to data/oanc/commissioners_<date>.csv -- same columns/format the old
+scripts/match_people.py-era notebook used, so anything else reading that folder keeps working.
+An unchanged roster writes no new CSV (the folder is tracked in git, so identical daily copies
+are just noise); the date of the last check is recorded in data/oanc/.last_checked (gitignored)
+instead. Every run after that, the same day, reads the most recent CSV back instead of touching
+the network at all; this data changes slowly, and there's no reason to hit a public government
+site repeatedly. Pass --force-refresh to
 re-scrape anyway (e.g. you know something changed and don't want to wait for tomorrow).
 
 Usage:
@@ -38,6 +41,7 @@ Usage:
 """
 import csv
 import hashlib
+import io
 import re
 import time
 import unicodedata
@@ -63,6 +67,9 @@ SUGGESTION_SOURCE_NAME = 'OANC comparison'
 DEFAULT_CSV_DIR = Path(settings.BASE_DIR).parent / 'data' / 'oanc'
 # Matches the columns the old notebook-based pipeline saved to data/oanc/*.csv.
 CSV_FIELDNAMES = ['smd_id', 'Name', 'oanc_name', 'is_vacant', 'is_chairperson', 'oanc_hash_id']
+# Holds the ISO date of the last scrape, so an unchanged roster (no new CSV) still counts as
+# "already checked today".
+LAST_CHECKED_FILENAME = '.last_checked'
 
 
 def _oanc_hash(designator, oanc_name):
@@ -87,13 +94,18 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         dry_run = options['dry_run']
         csv_dir = Path(options['csv_dir'])
-        cache_path = csv_dir / f'commissioners_{timezone.localdate().isoformat()}.csv'
+        today = timezone.localdate().isoformat()
+        cache_path = csv_dir / f'commissioners_{today}.csv'
+        latest_path = self._latest_csv(csv_dir)
 
-        if cache_path.exists() and not options['force_refresh']:
-            self.stdout.write(f'Using cached OANC results from {cache_path} (already checked today).')
-            roster_by_designator = self._load_cached_roster(cache_path)
+        if self._checked_today(csv_dir, cache_path, today) and latest_path and not options['force_refresh']:
+            self.stdout.write(f'Using cached OANC results from {latest_path} (already checked today).')
+            roster_by_designator = self._load_cached_roster(latest_path)
         else:
-            roster_by_designator = self._scrape_and_cache(cache_path, dry_run)
+            roster_by_designator = self._scrape_and_cache(cache_path, latest_path, dry_run)
+            if not dry_run:
+                csv_dir.mkdir(parents=True, exist_ok=True)
+                (csv_dir / LAST_CHECKED_FILENAME).write_text(today + '\n')
 
         districts = District.objects.filter(redistricting_year=settings.CURRENT_REDISTRICTING_YEAR)
         if options['anc']:
@@ -165,11 +177,22 @@ class Command(BaseCommand):
         )
         return any(all(n in message for n in names) for message in rejected.values_list('message', flat=True))
 
-    def _scrape_and_cache(self, cache_path, dry_run):
+    def _latest_csv(self, csv_dir):
+        """The most recent commissioners_<date>.csv snapshot, or None. ISO dates sort
+        lexically, so the last filename is the newest."""
+        snapshots = sorted(csv_dir.glob('commissioners_*.csv'))
+        return snapshots[-1] if snapshots else None
+
+    def _checked_today(self, csv_dir, cache_path, today):
+        if cache_path.exists():
+            return True
+        marker = csv_dir / LAST_CHECKED_FILENAME
+        return marker.exists() and marker.read_text().strip() == today
+
+    def _scrape_and_cache(self, cache_path, latest_path, dry_run):
         """Scrapes every ANC's OANC page (politely rate-limited), matches each row to a
-        District, and -- unless dry_run -- saves the result to cache_path for the rest of
-        today's runs to reuse instead of hitting the network again. Returns {designator:
-        oanc_name_or_None} for the whole city."""
+        District, and -- unless dry_run, or the result is identical to latest_path -- saves it
+        to cache_path. Returns {designator: oanc_name_or_None} for the whole city."""
         ancs = list(ANC.objects.filter(redistricting_year=settings.CURRENT_REDISTRICTING_YEAR).exclude(dc_oanc_link=''))
         roster = {}
         csv_rows = []
@@ -209,14 +232,19 @@ class Command(BaseCommand):
                     'oanc_hash_id': _oanc_hash(district.designator, oanc_name_for_csv),
                 })
 
-        if dry_run:
+        buffer = io.StringIO(newline='')
+        writer = csv.DictWriter(buffer, fieldnames=CSV_FIELDNAMES)
+        writer.writeheader()
+        writer.writerows(csv_rows)
+        csv_text = buffer.getvalue()
+
+        if latest_path and latest_path.read_text(encoding='utf-8', newline='') == csv_text:
+            self.stdout.write(f'OANC roster unchanged since {latest_path} -- not saving a new CSV.')
+        elif dry_run:
             self.stdout.write(f'[dry-run] would save {len(csv_rows)} row(s) to {cache_path}.')
         else:
             cache_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(cache_path, 'w', newline='', encoding='utf-8') as f:
-                writer = csv.DictWriter(f, fieldnames=CSV_FIELDNAMES)
-                writer.writeheader()
-                writer.writerows(csv_rows)
+            cache_path.write_text(csv_text, encoding='utf-8', newline='')
             self.stdout.write(self.style.SUCCESS(f'Saved {len(csv_rows)} row(s) to {cache_path}.'))
 
         return roster
