@@ -282,6 +282,19 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(reverse('directory:counts'))
         self.assertEqual(response.status_code, 200)
 
+    def test_counts_status_table_splits_active_and_inactive_totals(self):
+        """Active = Count as Candidate checked. self.status (from setUp) counts and already has
+        one candidate; only the current election is included."""
+        withdrew = make_candidate_status(name='Withdrew', publish_candidate=True, count_as_candidate=False)
+        make_candidate(make_person(full_name='Second'), self.election, self.district, status=self.status)
+        make_candidate(make_person(full_name='Withdrawn'), self.election, self.district, status=withdrew)
+        make_candidate(make_person(full_name='Past'), make_election(year=2024), self.district, status=self.status)
+
+        response = self.client.get(reverse('directory:counts'))
+
+        self.assertEqual(response.context['status_totals'], {'active': 2, 'inactive': 1})
+        self.assertContains(response, '<th>Total</th>', html=False)
+
     def test_counts_vacancy_count_is_not_thrown_off_by_a_same_day_handoff(self):
         """Regression test: a same-day handoff (one term ending today, the next starting today)
         briefly leaves two terms matching "current" for the same district. The vacancy count

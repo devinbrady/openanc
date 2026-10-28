@@ -445,6 +445,10 @@ class CountsView(TemplateView):
             .filter(candidate_count__gt=0)
             .order_by('display_order')
         )
+        status_totals = {
+            'active': sum(s.candidate_count for s in status_counts if s.count_as_candidate),
+            'inactive': sum(s.candidate_count for s in status_counts if not s.count_as_candidate),
+        }
 
         # -- contested districts, current cycle ------------------------------------------
         districts = _districts_with_active_candidate_counts().select_related('anc', 'ward')
@@ -482,6 +486,7 @@ class CountsView(TemplateView):
         context.update({
             'election_year': election_year,
             'status_counts': status_counts,
+            'status_totals': status_totals,
             'dc_totals': dc_totals,
             'by_ward': sorted(by_ward.items(), key=lambda pair: pair[0].ward_number),
             'by_anc': sorted(by_anc.items(), key=lambda pair: pair[0].designator),

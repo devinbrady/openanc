@@ -7,14 +7,22 @@
 <h2>Candidates by Status &mdash; {{ election_year }}</h2>
 {% if status_counts %}
 <table>
-    <tr><th>Status</th><th>Counts as a candidate?</th><th>Count</th></tr>
+    <tr><th>Status</th><th>Active</th><th>Inactive</th></tr>
     {% for status in status_counts %}
     <tr>
         <td>{{ status.name }}</td>
-        <td>{{ status.count_as_candidate|yesno:"Yes,No" }}</td>
-        <td>{{ status.candidate_count }}</td>
+        {% if status.count_as_candidate %}
+        <td>{{ status.candidate_count }}</td><td>&ndash;</td>
+        {% else %}
+        <td>&ndash;</td><td>{{ status.candidate_count }}</td>
+        {% endif %}
     </tr>
     {% endfor %}
+    <tr>
+        <th>Total</th>
+        <th>{{ status_totals.active }}</th>
+        <th>{{ status_totals.inactive }}</th>
+    </tr>
 </table>
 {% else %}
 <p class="muted">No candidates on record yet for {{ election_year }}.</p>
