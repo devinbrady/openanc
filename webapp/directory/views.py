@@ -453,17 +453,19 @@ class CountsView(TemplateView):
         # -- contested districts, current cycle ------------------------------------------
         districts = _districts_with_active_candidate_counts().select_related('anc', 'ward')
 
-        dc_totals = {'no_candidates': 0, 'one_candidate': 0, 'two_plus_candidates': 0}
+        dc_totals = {'no_candidates': 0, 'one_candidate': 0, 'two_plus_candidates': 0, 'total': 0}
         by_ward = {}
         by_anc = {}
         for district in districts:
             key = _candidate_bucket(district.active_candidate_count)
             dc_totals[key] += 1
+            dc_totals['total'] += 1
 
             ward_row = by_ward.setdefault(
-                district.ward, {'no_candidates': 0, 'one_candidate': 0, 'two_plus_candidates': 0}
+                district.ward, {'no_candidates': 0, 'one_candidate': 0, 'two_plus_candidates': 0, 'total': 0}
             )
             ward_row[key] += 1
+            ward_row['total'] += 1
 
             anc_row = by_anc.setdefault(
                 district.anc, {'no_candidates': 0, 'one_candidate': 0, 'two_plus_candidates': 0, 'total': 0}
