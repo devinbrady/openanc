@@ -550,6 +550,18 @@ class ElectionResult(models.Model):
     class Meta:
         ordering = ['election__year', 'district__designator', 'ranking']
 
+    @property
+    def outcome_label(self):
+        """'Won' for the certified winner, 'Leading' for first place while results are still
+        unofficial, otherwise ''. Shown on district and person pages.
+
+        Certified results go by is_winner rather than ranking: first place isn't always the
+        winner. In 2022, a candidate who had withdrawn got the most votes in 1E01, 6E08 and 7D10,
+        so no one won and those seats were left vacant."""
+        if self.election.results_are_final:
+            return 'Won' if self.is_winner else ''
+        return 'Leading' if self.ranking == 1 else ''
+
     def __str__(self):
         name = self.candidate or self.candidate_name_raw or 'Write-ins combined'
         return f'{name} — {self.district} ({self.election.year}): {self.votes} votes'

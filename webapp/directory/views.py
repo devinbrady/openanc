@@ -262,6 +262,9 @@ def _district_context(district):
             'write_in_winner': write_in_winners_by_year.get(election.year),
             # A ranked-choice contest where nobody has more than half the first-choice votes is
             # decided by later rounds, so the first-choice leader may not win.
+            # Certified, yet nobody won: the first-place candidate had withdrawn, so the seat was
+            # left vacant (2022's 1E01, 6E08 and 7D10).
+            'no_winner': election.results_are_final and bool(results) and not any(r.is_winner for r in results),
             'no_majority': (
                 election.uses_ranked_choice and len(results) > 1 and leader is not None
                 and leader.votes * 2 <= total_votes
@@ -407,9 +410,20 @@ class PersonDetailView(DetailView):
             .order_by('-election__year')
         )
         # attach each candidacy's own result row (votes/ranking), if the election has been decided
-        result_lookup = {r.candidate_id: r for r in ElectionResult.objects.filter(candidate__person=self.object)}
+        result_lookup = {
+            r.candidate_id: r
+            for r in ElectionResult.objects.filter(candidate__person=self.object).select_related('election')
+        }
+        # Write-in winners have no result row of their own (DCBOE only reports write-ins combined).
+        write_in_wins = set(self.object.write_in_wins.values_list('election_id', 'district_id'))
         for candidacy in candidacies:
             candidacy.result = result_lookup.get(candidacy.id)
+            if candidacy.result:
+                candidacy.result_label = candidacy.result.outcome_label
+            elif (candidacy.election_id, candidacy.district_id) in write_in_wins:
+                candidacy.result_label = 'Won (write-in)'
+            else:
+                candidacy.result_label = ''
         context['candidacies'] = candidacies
         return context
 

@@ -27,13 +27,14 @@
 {% if candidacies %}
 <h2>Candidacies</h2>
 <table>
-    <tr><th>Election</th><th>District</th><th>Status</th><th>Votes</th></tr>
+    <tr><th>Election</th><th>District</th><th>Status</th><th>Votes</th><th>Result</th></tr>
     {% for candidacy in candidacies %}
     <tr>
         <td>{{ candidacy.election.year }}</td>
         <td><a href="{{ candidacy.district.get_absolute_url }}">SMD {{ candidacy.district.designator }}</a></td>
         <td>{{ candidacy.status.name }}</td>
         <td>{% if candidacy.result %}{{ candidacy.result.votes }}{% if not candidacy.election.results_are_final %} (unofficial{% if candidacy.election.uses_ranked_choice %}, first choice{% endif %}){% endif %}{% endif %}</td>
+        <td>{{ candidacy.result_label }}</td>
     </tr>
     {% endfor %}
 </table>

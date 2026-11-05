@@ -79,11 +79,14 @@
         </td>
         <td>{{ result.votes }}</td>
         <td>{% if result.vote_share is not None %}{{ result.vote_share|floatformat_percent }}{% endif %}</td>
-        <td>{% if election.results_are_final %}{% if result.is_winner %}Won{% endif %}{% elif result.ranking == 1 %}Leading{% endif %}</td>
+        <td>{{ result.outcome_label }}</td>
     </tr>
     {% endfor %}
     <tr><th>Total</th><th>{{ entry.total_votes }}</th><th></th><th></th></tr>
 </table>
+{% if entry.no_winner %}
+<p class="muted">No one won this election. The candidate with the most votes had withdrawn, so the seat was left vacant.</p>
+{% endif %}
 {% if entry.no_majority and not election.results_are_final %}
 <p class="muted">No candidate has a majority of first-choice votes. This is a ranked-choice election, so the winner will be decided by ranked-choice tabulation, which DCBOE hasn't published yet.</p>
 {% endif %}

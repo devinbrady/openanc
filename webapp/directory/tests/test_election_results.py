@@ -201,3 +201,62 @@ class ResultsDisplayTests(PageRenderingTestCase):
         district_page = self.client.get(reverse('directory:district_detail', kwargs={
             'year': self.district.redistricting_year, 'designator': self.district.designator}))
         self.assertContains(district_page, '<th>Votes</th>', html=True)
+
+
+class PersonPageResultTests(PageRenderingTestCase):
+    def setUp(self):
+        self.district = make_district()
+        self.status = make_candidate_status()
+        self.person = make_person(full_name='Front Runner')
+
+    def add_result(self, year, results_status, ranking):
+        election = make_election(year=year, results_status=results_status)
+        candidacy = make_candidate(self.person, election, self.district, status=self.status)
+        return ElectionResult.objects.create(
+            election=election, district=self.district, candidate=candidacy, candidate_name_raw='Front Runner',
+            votes=100 - ranking, ranking=ranking,
+            is_winner=ranking == 1 and results_status == Election.RESULTS_CERTIFIED,
+        )
+
+    def result_cells(self):
+        import re
+        content = self.client.get(self.person.get_absolute_url()).content.decode()
+        table = content[content.index('<h2>Candidacies</h2>'):]
+        return [re.sub(r'\s+', ' ', row) for row in re.findall(r'<tr>(.*?)</tr>', table, re.S)[1:]]
+
+    def test_first_place_certified_is_won(self):
+        self.add_result(2024, Election.RESULTS_CERTIFIED, 1)
+        self.assertIn('<td>Won</td>', self.result_cells()[0])
+
+    def test_first_place_unofficial_is_leading(self):
+        self.add_result(2026, Election.RESULTS_ELECTION_NIGHT, 1)
+        self.assertIn('<td>Leading</td>', self.result_cells()[0])
+
+    def test_not_first_place_shows_nothing(self):
+        self.add_result(2024, Election.RESULTS_CERTIFIED, 2)
+        self.add_result(2026, Election.RESULTS_UNOFFICIAL, 2)
+        for row in self.result_cells():
+            self.assertNotIn('Won', row)
+            self.assertNotIn('Leading', row)
+
+    def test_certified_write_in_winner_is_won(self):
+        from directory.models import WriteInWinner
+        election = make_election(year=2024, results_status=Election.RESULTS_CERTIFIED)
+        make_candidate(self.person, election, self.district, status=self.status)
+        WriteInWinner.objects.create(election=election, district=self.district, person=self.person,
+                                     candidate_name_raw='Front Runner')
+        self.assertIn('<td>Won (write-in)</td>', self.result_cells()[0])
+
+    def test_withdrawn_first_place_with_no_winner(self):
+        """2022's 1E01/6E08/7D10: first place had withdrawn, so no one won and the seat was vacant."""
+        result = self.add_result(2022, Election.RESULTS_CERTIFIED, 1)
+        result.is_winner = False
+        result.save()
+        self.assertNotIn('Won', self.result_cells()[0])
+        district_page = self.client.get(self.district.get_absolute_url())
+        self.assertContains(district_page, 'No one won this election')
+        self.assertNotContains(district_page, '<td>Won</td>', html=True)
+
+    def test_no_winner_note_only_when_nobody_won(self):
+        self.add_result(2024, Election.RESULTS_CERTIFIED, 1)
+        self.assertNotContains(self.client.get(self.district.get_absolute_url()), 'No one won this election')
