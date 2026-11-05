@@ -15,6 +15,7 @@ from directory.tests.factories import (
     make_district,
     make_election,
     make_person,
+    make_ward,
 )
 
 
@@ -26,6 +27,9 @@ class PersonImportFlowTests(PageRenderingTestCase):
         self.election = make_election(year=2026)
         self.status = make_candidate_status(name='Declared Intention to Run')
         self.existing_person = make_person(full_name='Jaspal Bhatia')
+        # A past candidacy in the same district: an exact alias match only links automatically
+        # when the person has a connection to the row's district.
+        make_candidate(self.existing_person, make_election(year=2024), self.district, status=self.status)
 
     def _upload_csv(self, content):
         csv_file = SimpleUploadedFile('candidates.csv', content.encode(), content_type='text/csv')
@@ -101,7 +105,7 @@ class PersonImportFlowTests(PageRenderingTestCase):
         self.client.post(apply_url)
 
         self.assertEqual(Person.objects.filter(full_name='Brand New Person').count(), 1)
-        self.assertEqual(Candidate.objects.count(), 1)
+        self.assertEqual(Candidate.objects.filter(election=self.election).count(), 1)
 
     def test_apply_links_existing_person_when_decision_is_link(self):
         self._upload_csv('name,district\nJaspal Bhatia,1A01\n')
@@ -110,8 +114,41 @@ class PersonImportFlowTests(PageRenderingTestCase):
         self.client.post(reverse('admin:directory_person_import_apply', kwargs={'batch_id': batch.pk}))
 
         self.assertEqual(Person.objects.filter(full_name='Jaspal Bhatia').count(), 1)
-        candidate = Candidate.objects.get(person=self.existing_person)
+        candidate = Candidate.objects.get(person=self.existing_person, election=self.election)
         self.assertEqual(candidate.district, self.district)
+
+    def test_exact_name_with_no_district_connection_is_left_for_review(self):
+        """A same-name person elsewhere in the city could be a namesake, so it isn't linked."""
+        elsewhere = make_district(designator='7B01', anc=make_anc(designator='7B'), ward=make_ward(number=7))
+        self._upload_csv('name,district\nJaspal Bhatia,7B01\n')
+        row = PersonImportBatch.objects.get().rows.get()
+        self.assertEqual(row.district, elsewhere)
+        self.assertEqual(row.decision, PersonImportRow.DECISION_PENDING)
+        self.assertIsNone(row.chosen_person)
+        self.assertEqual(row.match_candidates_json[0]['person_id'], self.existing_person.pk)
+
+    def test_alias_spelling_links_and_new_spelling_is_remembered(self):
+        self.existing_person.aliases.create(name='Jaspal S. Bhatia', source='dcboe_ballot')
+        self._upload_csv('name,district\nJaspal S. Bhatia,1A01\n')
+        batch = PersonImportBatch.objects.get()
+        row = batch.rows.get()
+        self.assertEqual(row.decision, PersonImportRow.DECISION_LINK)
+        self.assertEqual(row.chosen_person, self.existing_person)
+
+    def test_applying_a_manual_link_records_the_spelling_as_an_alias(self):
+        self._upload_csv('name,district\nJ. Bhatia,1A01\n')
+        batch = PersonImportBatch.objects.get()
+        row = batch.rows.get()
+        row.decision = PersonImportRow.DECISION_LINK
+        row.chosen_person = self.existing_person
+        row.save()
+
+        self.client.post(reverse('admin:directory_person_import_apply', kwargs={'batch_id': batch.pk}))
+
+        alias = self.existing_person.aliases.get(name='J. Bhatia')
+        self.assertEqual(alias.source, 'import')
+        self.existing_person.refresh_from_db()
+        self.assertEqual(self.existing_person.full_name, 'Jaspal Bhatia')
 
     def test_review_labels_matched_person_with_most_recent_smd(self):
         other = make_district(designator='1B02', anc=make_anc(designator='1B'), ward=self.district.ward)
@@ -130,6 +167,7 @@ class PersonImportFlowTests(PageRenderingTestCase):
         self.assertNotContains(response, 'Jaspal Bhatia (1B02)')
 
     def test_review_omits_smd_for_a_matched_person_with_no_history(self):
+        Candidate.objects.filter(person=self.existing_person).delete()
         self._upload_csv('name,district\nJaspal Bhatia,1A01\n')
         batch = PersonImportBatch.objects.get()
 

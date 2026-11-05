@@ -10,13 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var visibleFieldsByType = {
         general: [],
-        new_candidate: ['person_name', 'election_year', 'ballot_or_write_in'],
+        new_candidate: ['person_name', 'create_new_person', 'election_year', 'ballot_or_write_in'],
         candidate_withdraws: ['candidate'],
         commissioner_change: ['end_date', 'reason'],
-        new_commissioner: ['person_name', 'start_date'],
+        new_commissioner: ['person_name', 'create_new_person', 'start_date'],
+        name_spelling: ['person_name'],
     };
     var allStructuredFields = [
-        'person_name', 'election_year', 'ballot_or_write_in', 'candidate', 'start_date', 'end_date', 'reason',
+        'person_name', 'create_new_person', 'election_year', 'ballot_or_write_in', 'candidate', 'start_date', 'end_date', 'reason',
     ];
 
     var requiredFieldsByType = {
@@ -25,13 +26,14 @@ document.addEventListener('DOMContentLoaded', function () {
         candidate_withdraws: ['candidate'],
         commissioner_change: ['district', 'end_date'],
         new_commissioner: ['district', 'person_name', 'start_date'],
+        name_spelling: ['person', 'person_name'],
     };
-    var allConditionallyRequiredFields = ['district', 'person_name', 'election_year', 'candidate', 'start_date', 'end_date'];
-    // district/candidate use the admin's autocomplete widget -- a hidden <select> behind a JS
+    var allConditionallyRequiredFields = ['district', 'person', 'person_name', 'election_year', 'candidate', 'start_date', 'end_date'];
+    // district/person/candidate use the admin's autocomplete widget -- a hidden <select> behind a JS
     // search box. Browsers won't reliably show the native "required" validation popup on a
-    // hidden element, so those two get the visible "*" only; server-side clean() still enforces
+    // hidden element, so those get the visible "*" only; server-side clean() still enforces
     // them either way.
-    var AUTOCOMPLETE_FIELDS = ['district', 'candidate'];
+    var AUTOCOMPLETE_FIELDS = ['district', 'person', 'candidate'];
 
     function rowFor(fieldName) {
         var input = document.getElementById('id_' + fieldName);

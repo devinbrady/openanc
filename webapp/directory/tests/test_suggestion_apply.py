@@ -61,8 +61,9 @@ class ApplyNewCandidateTests(TestCase):
         candidate = Candidate.objects.get(person__full_name='Write In Person')
         self.assertEqual(candidate.status.name, 'Write-In Candidate')
 
-    def test_links_to_existing_person_on_exact_name_match(self):
+    def test_links_to_existing_person_on_exact_name_match_in_same_district(self):
         existing = make_person(full_name='Already Here')
+        make_commissioner_term(existing, self.district)
         suggestion = make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {
             'person_name': 'Already Here', 'district_id': self.district.id, 'election_year': 2026,
         })
@@ -71,6 +72,49 @@ class ApplyNewCandidateTests(TestCase):
 
         self.assertEqual(person, existing)
         self.assertEqual(Person.objects.filter(full_name='Already Here').count(), 1)
+
+    def test_exact_name_with_no_district_connection_stops_for_a_moderator(self):
+        existing = make_person(full_name='Already Here')
+        suggestion = make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {
+            'person_name': 'Already Here', 'district_id': self.district.id, 'election_year': 2026,
+        })
+
+        with self.assertRaisesMessage(SuggestionApplyError, f'Already Here (#{existing.pk})'):
+            apply_suggestion(suggestion)
+        self.assertFalse(Candidate.objects.exists())
+
+    def test_close_fuzzy_match_stops_for_a_moderator(self):
+        make_person(full_name='Jonathan Q. Smithson')
+        suggestion = make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {
+            'person_name': 'Jonathan Smithson', 'district_id': self.district.id, 'election_year': 2026,
+        })
+        with self.assertRaises(SuggestionApplyError):
+            apply_suggestion(suggestion)
+
+    def test_moderator_chosen_person_is_used_and_spelling_recorded(self):
+        existing = make_person(full_name='Already Here')
+        suggestion = make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {
+            'person_name': 'Al Here', 'district_id': self.district.id, 'election_year': 2026,
+        })
+        suggestion.person = existing
+        suggestion.save()
+
+        person, _ = apply_suggestion(suggestion)
+
+        self.assertEqual(person, existing)
+        self.assertTrue(existing.aliases.filter(name='Al Here', source='suggestion').exists())
+
+    def test_create_new_person_flag_makes_a_namesake(self):
+        existing = make_person(full_name='Already Here')
+        suggestion = make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {
+            'person_name': 'Already Here', 'district_id': self.district.id, 'election_year': 2026,
+            'create_new_person': True,
+        })
+
+        person, _ = apply_suggestion(suggestion)
+
+        self.assertNotEqual(person, existing)
+        self.assertEqual(Person.objects.filter(full_name='Already Here').count(), 2)
 
     def test_duplicate_candidate_fails_without_partial_apply(self):
         person = make_person(full_name='Already A Candidate')
@@ -268,3 +312,23 @@ class ApplySuggestionLinkTests(TestCase):
         apply_suggestion(suggestion)
 
         self.assertFalse(PersonLink.objects.exists())
+
+
+class ApplyNameSpellingTests(TestCase):
+    def test_records_alias_without_changing_display_name(self):
+        person = make_person(full_name='Erika Núñez')
+        suggestion = Suggestion.objects.create(
+            name='OANC comparison', message='test', suggestion_type=Suggestion.TYPE_NAME_SPELLING,
+            structured_data={'person_name': 'Erika Nunez'}, person=person,
+        )
+
+        apply_suggestion(suggestion)
+
+        person.refresh_from_db()
+        self.assertEqual(person.full_name, 'Erika Núñez')
+        self.assertEqual(person.aliases.get(name='Erika Nunez').source, 'oanc')
+
+    def test_requires_a_person(self):
+        suggestion = make_suggestion(Suggestion.TYPE_NAME_SPELLING, {'person_name': 'Erika Nunez'})
+        with self.assertRaises(SuggestionApplyError):
+            apply_suggestion(suggestion)

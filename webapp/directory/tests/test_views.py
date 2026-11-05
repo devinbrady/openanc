@@ -252,6 +252,15 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(reverse('directory:person_list'))
         self.assertContains(response, 'data-name="monica martinez lopez"')
 
+    def test_person_list_filter_key_includes_aliases_but_page_does_not_show_them(self):
+        person = make_person(full_name='Zachary Adams')
+        person.aliases.create(name='Zach "Z" Adams', source='dcboe_ballot')
+        make_commissioner_term(person, self.district)
+        response = self.client.get(reverse('directory:person_list'))
+        self.assertContains(response, 'data-name="zachary adams | zach z adams"')
+        self.assertNotContains(response, 'Zach &quot;Z&quot;')
+        self.assertNotContains(response, 'Zach "Z"')
+
     def test_person_detail(self):
         response = self.client.get(self.person.get_absolute_url())
         self.assertEqual(response.status_code, 200)

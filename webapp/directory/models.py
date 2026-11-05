@@ -8,6 +8,8 @@ from django.utils import timezone
 from django.utils.text import slugify
 from simple_history.models import HistoricalRecords
 
+from .names import normalize_name
+
 
 # DC redraws ANC/SMD boundaries roughly once a decade. Rather than one "current" table plus an
 # archive, every spatial model keeps rows for every redistricting era side by side, distinguished
@@ -202,6 +204,78 @@ class Person(models.Model):
                 slug = f'{base_slug}-{suffix}'
             self.slug = slug
         super().save(*args, **kwargs)
+        # Every display name is also an alias, so name lookups only ever search one table. A
+        # previous display name stays behind as an alias when the name is edited.
+        if self.full_name:
+            PersonAlias.objects.get_or_create(
+                person=self, name=self.full_name, defaults={'source': PersonAlias.SOURCE_OPENANC},
+            )
+
+    def set_display_name(self, alias):
+        """Promote one of this person's aliases to the display name. The old display name is
+        kept as an alias (it already is one), so nothing is lost. The slug is left alone so the
+        person's URL doesn't change."""
+        if alias.person_id != self.pk:
+            raise ValueError(f'{alias!r} is not an alias of {self!r}')
+        self.full_name = alias.name
+        self.save()
+
+
+class PersonAlias(models.Model):
+    """One way a person's name has been written by some source -- a DCBOE ballot, an election
+    results file, the OANC roster, an import, or OpenANC's own display name. `name` is stored
+    exactly as the source printed it (accents and all); `normalized_name` is only a lookup key.
+
+    Aliases are not unique across people: two different people can share "Patricia Williams".
+    Telling them apart is matching.resolve_person's job, using district context.
+    """
+    SOURCE_OPENANC = 'openanc'
+    SOURCE_DCBOE_BALLOT = 'dcboe_ballot'
+    SOURCE_DCBOE_WRITE_IN = 'dcboe_write_in'
+    SOURCE_DCBOE_RESULTS = 'dcboe_results'
+    SOURCE_OANC = 'oanc'
+    SOURCE_IMPORT = 'import'
+    SOURCE_SUGGESTION = 'suggestion'
+    SOURCE_MERGE = 'merge'
+    SOURCE_MANUAL = 'manual'
+    SOURCE_CHOICES = [
+        (SOURCE_OPENANC, 'OpenANC display name'),
+        (SOURCE_DCBOE_BALLOT, 'DCBOE ballot list'),
+        (SOURCE_DCBOE_WRITE_IN, 'DCBOE write-in list'),
+        (SOURCE_DCBOE_RESULTS, 'DCBOE election results'),
+        (SOURCE_OANC, 'Office of ANCs roster'),
+        (SOURCE_IMPORT, 'Candidate import'),
+        (SOURCE_SUGGESTION, 'Suggestion'),
+        (SOURCE_MERGE, 'Merged person record'),
+        (SOURCE_MANUAL, 'Entered by hand'),
+    ]
+
+    person = models.ForeignKey(Person, related_name='aliases', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    normalized_name = models.CharField(max_length=200, db_index=True, editable=False)
+    source = models.CharField(max_length=20, choices=SOURCE_CHOICES, default=SOURCE_MANUAL)
+    note = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name_plural = 'person aliases'
+        ordering = ['person__full_name', 'name']
+        constraints = [
+            models.UniqueConstraint(fields=['person', 'name'], name='unique_alias_per_person')
+        ]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.normalized_name = normalize_name(self.name)
+        super().save(*args, **kwargs)
+
+    @property
+    def is_display_name(self):
+        return self.name == self.person.full_name
 
 
 class Link(models.Model):
@@ -464,12 +538,14 @@ class Suggestion(models.Model):
     TYPE_CANDIDATE_WITHDRAWS = 'candidate_withdraws'
     TYPE_COMMISSIONER_CHANGE = 'commissioner_change'
     TYPE_NEW_COMMISSIONER = 'new_commissioner'
+    TYPE_NAME_SPELLING = 'name_spelling'
     TYPE_CHOICES = [
         (TYPE_GENERAL, 'General edit / suggestion (free text)'),
         (TYPE_NEW_CANDIDATE, 'New candidate declared'),
         (TYPE_CANDIDATE_WITHDRAWS, 'Candidate withdrew'),
         (TYPE_COMMISSIONER_CHANGE, 'Commissioner resigned'),
         (TYPE_NEW_COMMISSIONER, 'New commissioner appointed'),
+        (TYPE_NAME_SPELLING, 'Another spelling of a name'),
     ]
 
     submitted_at = models.DateTimeField(auto_now_add=True)

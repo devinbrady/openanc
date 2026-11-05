@@ -1,4 +1,5 @@
 import datetime
+import io
 
 from django.core.management import call_command
 from django.test import TestCase
@@ -128,3 +129,38 @@ class EditorialRowCountsTests(TestCase):
         Candidate.objects.filter(pk=candidate.pk).update(created_at=stamp.replace(microsecond=123000))
         truncated = self.run_command()['directory.Candidate']
         self.assertEqual(precise, truncated)
+
+
+class BackfillPersonAliasesTests(TestCase):
+    def setUp(self):
+        import tempfile
+        from directory.tests.factories import make_candidate, make_district, make_election, make_person
+        self.district = make_district(designator='1A01')
+        self.election = make_election(year=2026)
+        self.zach = make_person(full_name='Zachary Adams')
+        self.other = make_person(full_name='Maria Lopez')
+        make_candidate(self.zach, self.election, self.district)
+        make_candidate(self.other, self.election, self.district, status=self.zach.candidacies.get().status)
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        with open(f'{self._tmp.name}/dcboe-ballot-2026-10-13.csv', 'w') as f:
+            f.write('ANC-SMD,Name\n1A01,Zach Adams\n1A01,María López\n1A01,Totally Unknown\n')
+
+    def run_command(self, *args):
+        out = io.StringIO()
+        call_command('backfill_person_aliases', '--dcboe-dir', self._tmp.name, *args, stdout=out)
+        return out.getvalue()
+
+    def test_dry_run_writes_nothing(self):
+        output = self.run_command()
+        self.assertIn('Would add 2 alias(es)', output)
+        self.assertIn('"Totally Unknown" in 1A01', output)
+        self.assertFalse(self.zach.aliases.filter(name='Zach Adams').exists())
+
+    def test_apply_adds_aliases_and_is_rerunnable(self):
+        self.run_command('--apply')
+        self.assertEqual(self.zach.aliases.get(name='Zach Adams').source, 'dcboe_ballot')
+        self.assertTrue(self.other.aliases.filter(name='María López').exists())
+        self.zach.refresh_from_db()
+        self.assertEqual(self.zach.full_name, 'Zachary Adams')
+        self.assertIn('Would add 0 alias(es)', self.run_command())

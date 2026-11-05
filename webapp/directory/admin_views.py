@@ -14,8 +14,8 @@ from django.template.response import TemplateResponse
 from simple_history.utils import update_change_reason
 
 from .forms import PersonImportUploadForm
-from .matching import match_person_rows
-from .models import Candidate, CommissionerTerm, District, Person, PersonImportBatch, PersonImportRow
+from .matching import add_alias, match_person_rows
+from .models import Candidate, CommissionerTerm, District, Person, PersonAlias, PersonImportBatch, PersonImportRow
 
 
 # Column names seen in the wild for the SMD designator, in order of preference: a plain
@@ -177,6 +177,8 @@ def person_import_apply(request, batch_id):
                     incomplete_count += 1
                     continue
                 person = row.chosen_person
+                # Remember this spelling, so the next file that prints it links on its own.
+                add_alias(person, row.raw_name, PersonAlias.SOURCE_IMPORT, note=f'Import batch #{batch.pk}: {batch.source_label}'.strip())
 
             candidate, created = Candidate.objects.get_or_create(
                 person=person, election=batch.election,

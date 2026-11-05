@@ -70,3 +70,31 @@ class ANCLinkInlineTests(TestCase):
         self.assertContains(response, 'value="https://anc1a.org/"')
         self.assertContains(response, 'name="links-0-publish"')
         self.assertNotContains(response, 'Currently:')
+
+
+class PersonAliasAdminTests(TestCase):
+    def setUp(self):
+        self.staff = User.objects.create_user('staff', password='pw', is_staff=True, is_superuser=True)
+        self.client.force_login(self.staff)
+
+    def test_person_search_finds_people_by_alias(self):
+        person = make_person(full_name='Zachary Adams')
+        person.aliases.create(name='Zach Adams', source='dcboe_ballot')
+        response = self.client.get(reverse('admin:directory_person_changelist'), {'q': 'Zach Adams'})
+        self.assertContains(response, 'Zachary Adams')
+
+    def test_person_change_page_shows_alias_inline(self):
+        person = make_person(full_name='Zachary Adams')
+        person.aliases.create(name='Zach Adams', source='dcboe_ballot')
+        response = self.client.get(reverse('admin:directory_person_change', args=[person.pk]))
+        self.assertContains(response, 'Zach Adams')
+
+    def test_use_as_display_name_action(self):
+        person = make_person(full_name='Erika Nunez')
+        accented = person.aliases.create(name='Erika Núñez', source='oanc')
+        self.client.post(reverse('admin:directory_personalias_changelist'), {
+            'action': 'use_as_display_name', '_selected_action': [accented.pk],
+        })
+        person.refresh_from_db()
+        self.assertEqual(person.full_name, 'Erika Núñez')
+        self.assertTrue(person.aliases.filter(name='Erika Nunez').exists())

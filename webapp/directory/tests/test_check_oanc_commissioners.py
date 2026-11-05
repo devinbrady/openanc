@@ -111,7 +111,7 @@ class ClassifyTests(TestCase):
         make_commissioner_term(make_person(full_name='Jaspal Bhatia'), self.district)
         self.assertEqual(self.command._classify(self.district, 'Jaspal Bhatia'), [])
 
-    def test_accent_only_difference_is_surfaced_as_a_general_suggestion_not_a_personnel_change(self):
+    def test_accent_only_difference_is_surfaced_as_a_name_spelling_suggestion_not_a_personnel_change(self):
         """A name that only differs in accented characters is the same person -- not a
         resignation-and-appointment -- but should still be surfaced, since whether to display
         the accents is an editorial call, not something to silently ignore."""
@@ -119,10 +119,16 @@ class ClassifyTests(TestCase):
         mismatches = self.command._classify(self.district, 'Mónica Martínez López')
         self.assertEqual(len(mismatches), 1)
         suggestion_type, message, structured_data = mismatches[0]
-        self.assertEqual(suggestion_type, Suggestion.TYPE_GENERAL)
+        self.assertEqual(suggestion_type, Suggestion.TYPE_NAME_SPELLING)
         self.assertIn('Mónica Martínez López', message)
         self.assertIn('Monica Martinez Lopez', message)
-        self.assertEqual(structured_data, {})
+        self.assertEqual(structured_data, {'person_name': 'Mónica Martínez López'})
+
+    def test_spelling_already_recorded_as_an_alias_is_not_a_mismatch(self):
+        person = make_person(full_name='Erika Núñez')
+        person.aliases.create(name='Erika Nunez', source='oanc')
+        make_commissioner_term(person, self.district)
+        self.assertEqual(self.command._classify(self.district, 'Erika Nunez'), [])
 
     def test_very_different_names_produce_both_a_change_and_a_new_commissioner_suggestion(self):
         make_commissioner_term(make_person(full_name='Someone Else Entirely'), self.district)
@@ -168,17 +174,19 @@ class CommandIntegrationTests(TestCase):
         self.assertEqual(suggestion.name, 'OANC comparison')
         self.assertEqual(suggestion.structured_data, {'district_id': self.district.id, 'person_name': 'Jaspal Bhatia'})
 
-    def test_creates_general_suggestion_for_accent_only_difference(self):
+    def test_creates_name_spelling_suggestion_for_accent_only_difference(self):
         """Regression test: this end-to-end run is what caught a KeyError the unit tests on
         _classify alone didn't -- created_counts needs an entry for every type _classify can
-        return, including TYPE_GENERAL for the accent-difference case."""
+        return, including TYPE_NAME_SPELLING for the accent-difference case."""
         accented_district = make_district(designator='1A03', anc=self.anc, ward=self.ward)
-        make_commissioner_term(make_person(full_name='Monica Martinez Lopez'), accented_district)
+        person = make_person(full_name='Monica Martinez Lopez')
+        make_commissioner_term(person, accented_district)
 
         self._run()
 
         suggestion = Suggestion.objects.get(district=accented_district)
-        self.assertEqual(suggestion.suggestion_type, Suggestion.TYPE_GENERAL)
+        self.assertEqual(suggestion.suggestion_type, Suggestion.TYPE_NAME_SPELLING)
+        self.assertEqual(suggestion.person, person)
         self.assertIn('Mónica Martínez López', suggestion.message)
 
     def test_em_wrapped_vacant_with_title_is_treated_as_vacant_not_a_blank_name(self):

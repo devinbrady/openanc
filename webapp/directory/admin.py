@@ -7,6 +7,7 @@ from simple_history.admin import SimpleHistoryAdmin
 from . import admin_views, suggestion_apply
 from . import forms as admin_forms
 from .matching import strip_diacritics
+from .names import normalize_name
 from .models import (
     ANC,
     ANCLink,
@@ -20,6 +21,7 @@ from .models import (
     ElectionResult,
     MapColor,
     Person,
+    PersonAlias,
     PersonImportBatch,
     PersonImportRow,
     PersonLink,
@@ -47,6 +49,14 @@ class ANCLinkInline(PersonLinkInline):
     model = ANCLink
 
 
+class PersonAliasInline(admin.TabularInline):
+    model = PersonAlias
+    extra = 1
+    fields = ['name', 'source', 'note', 'created_at']
+    readonly_fields = ['created_at']
+    verbose_name_plural = 'Other names (aliases) -- used for matching and search, never displayed'
+
+
 class CommissionerTermInline(admin.TabularInline):
     model = CommissionerTerm
     fk_name = 'person'
@@ -65,7 +75,7 @@ class PersonAdmin(SimpleHistoryAdmin):
     list_display = ['full_name', 'slug']
     search_fields = ['full_name']
     prepopulated_fields = {'slug': ('full_name',)}
-    inlines = [PersonLinkInline, CommissionerTermInline, CandidateInline]
+    inlines = [PersonAliasInline, PersonLinkInline, CommissionerTermInline, CandidateInline]
     change_list_template = 'admin/directory/person/change_list.html'
 
     def get_urls(self):
@@ -87,14 +97,47 @@ class PersonAdmin(SimpleHistoryAdmin):
         filtered_queryset, use_distinct = super().get_search_results(request, queryset, search_term)
         normalized_term = strip_diacritics(search_term).strip().casefold()
         if normalized_term:
-            extra_pks = [
+            extra_pks = {
                 person.pk for person in unfiltered_queryset.only('pk', 'full_name')
                 if normalized_term in strip_diacritics(person.full_name).casefold()
-            ]
+            }
+            # Also find people by any of their aliases ("Zach Adams" finds Zachary Adams).
+            alias_term = normalize_name(search_term)
+            if alias_term:
+                extra_pks |= set(
+                    PersonAlias.objects.filter(normalized_name__contains=alias_term, person__in=unfiltered_queryset)
+                    .values_list('person_id', flat=True)
+                )
             if extra_pks:
                 filtered_queryset = (filtered_queryset | unfiltered_queryset.filter(pk__in=extra_pks)).distinct()
                 use_distinct = True
         return filtered_queryset, use_distinct
+
+
+@admin.register(PersonAlias)
+class PersonAliasAdmin(SimpleHistoryAdmin):
+    list_display = ['name', 'person', 'source', 'is_display_name', 'created_at']
+    list_filter = ['source']
+    search_fields = ['name', 'normalized_name', 'person__full_name']
+    autocomplete_fields = ['person']
+    readonly_fields = ['normalized_name', 'created_at']
+    actions = ['use_as_display_name']
+
+    @admin.display(boolean=True, description='Display name')
+    def is_display_name(self, obj):
+        return obj.is_display_name
+
+    @admin.action(description="Use selected alias as the person's display name")
+    def use_as_display_name(self, request, queryset):
+        from simple_history.utils import update_change_reason
+        if queryset.values('person').distinct().count() != queryset.count():
+            self.message_user(request, 'Pick at most one alias per person.', level=messages.ERROR)
+            return
+        for alias in queryset.select_related('person'):
+            old_name = alias.person.full_name
+            alias.person.set_display_name(alias)
+            update_change_reason(alias.person, f'Display name changed from alias (was "{old_name}")')
+            self.message_user(request, f'{old_name} is now displayed as {alias.name}.', level=messages.SUCCESS)
 
 
 @admin.register(Ward)
@@ -237,7 +280,7 @@ class SuggestionAdmin(admin.ModelAdmin):
     fields = [
         'suggestion_type', 'status',
         'district', 'person',
-        'person_name', 'election_year', 'ballot_or_write_in', 'candidate', 'start_date', 'end_date', 'reason',
+        'person_name', 'create_new_person', 'election_year', 'ballot_or_write_in', 'candidate', 'start_date', 'end_date', 'reason',
         'name', 'email', 'message', 'link', 'moderator_notes',
         'submitted_at', 'applied_at', 'resulting_person', 'resulting_district',
     ]

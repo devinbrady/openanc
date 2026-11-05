@@ -368,6 +368,7 @@ class PersonListView(ListView):
             Person.objects.filter(Q(commissioner_terms__isnull=False) | Q(candidacies__isnull=False))
             .distinct()
             .order_by('full_name')
+            .prefetch_related('aliases')
         )
 
 

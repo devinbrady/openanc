@@ -26,6 +26,7 @@ EDITORIAL_MODELS = [
     'directory.District',
     'directory.DistrictOverlap',
     'directory.Person',
+    'directory.PersonAlias',
     'directory.PersonLink',
     'directory.CommissionerTerm',
     'directory.Election',

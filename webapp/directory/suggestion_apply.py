@@ -23,23 +23,52 @@ from django.db import transaction
 from django.utils import timezone
 from simple_history.utils import update_change_reason
 
-from .matching import build_person_choices, match_name
+from .matching import add_alias, build_alias_choices, fuzzy_candidates, resolve_person
 from .models import (
-    Candidate, CandidateStatus, CommissionerTerm, District, Election, Person, PersonImportRow, PersonLink, Suggestion,
+    Candidate, CandidateStatus, CommissionerTerm, District, Election, Person, PersonAlias, PersonLink, Suggestion,
 )
+
+# A fuzzy match at or above this score is close enough that a suggestion stops for a moderator
+# instead of silently creating a second Person. (It never links on its own -- see
+# _get_or_link_person.)
+REVIEW_THRESHOLD = 90
 
 
 class SuggestionApplyError(Exception):
     """The suggestion couldn't be applied as-is. str(exception) is shown to the moderator."""
 
 
-def _get_or_link_person(person_name):
-    """Auto-links to a high-confidence existing Person match (same matching used by the
-    candidate-import tool); otherwise creates a new Person."""
-    choices = build_person_choices()
-    candidates, decision = match_name(person_name, choices)
-    if decision == PersonImportRow.DECISION_LINK and candidates:
-        return Person.objects.get(pk=candidates[0]['person_id'])
+def _get_or_link_person(suggestion, person_name, district, election=None):
+    """The Person a new-candidate / new-commissioner suggestion is about:
+
+      - the suggestion's own `person`, if a moderator set it;
+      - a new Person, if the moderator ticked "create a new person";
+      - otherwise the person matching.resolve_person() finds -- but only on an EXACT result
+        (one person with that alias, confirmed by a connection to the district). Anything less
+        certain stops with an error naming the possible matches, so a moderator decides.
+
+    A brand-new name with no alias or close fuzzy match just creates a new Person."""
+    if suggestion.person_id:
+        add_alias(suggestion.person, person_name, PersonAlias.SOURCE_SUGGESTION, note=f'Suggestion #{suggestion.pk}')
+        return suggestion.person
+    if suggestion.structured_data.get('create_new_person'):
+        return Person.objects.create(full_name=person_name)
+
+    resolution = resolve_person(person_name, district=district, election=election)
+    if resolution.is_exact:
+        return resolution.person
+
+    possible = resolution.people or [
+        Person.objects.get(pk=c['person_id'])
+        for c in fuzzy_candidates(person_name, build_alias_choices(), limit=3)
+        if c['score'] >= REVIEW_THRESHOLD
+    ]
+    if possible:
+        listed = '; '.join(f'{p.full_name} (#{p.pk})' for p in possible)
+        raise SuggestionApplyError(
+            f'"{person_name}" may be an existing person: {listed}. Set Person to link one of them, '
+            'or tick "Create a new person" if this is someone else.'
+        )
     return Person.objects.create(full_name=person_name)
 
 
@@ -83,7 +112,7 @@ def apply_new_candidate(suggestion):
     if not status:
         raise SuggestionApplyError(f'CandidateStatus "{status_name}" not found -- was it renamed in the admin?')
 
-    person = _get_or_link_person(person_name)
+    person = _get_or_link_person(suggestion, person_name, district, election)
     candidate, created = Candidate.objects.get_or_create(
         person=person, election=election,
         defaults={'district': district, 'status': status, 'source': 'suggestion'},
@@ -150,12 +179,26 @@ def apply_new_commissioner(suggestion):
         raise SuggestionApplyError('No currently-active commissioner terms exist to infer a term end date from.')
     end_date = Counter(current_end_dates).most_common(1)[0][0]
 
-    person = _get_or_link_person(person_name)
+    person = _get_or_link_person(suggestion, person_name, district)
     term = CommissionerTerm(person=person, district=district, start_date=_as_date(start_date), end_date=end_date)
     _run_full_clean(term)
     term.save()
     update_change_reason(term, f'Suggestion #{suggestion.pk}')
     return person, district
+
+
+def apply_name_spelling(suggestion):
+    """Records another spelling of a person's name as an alias -- it doesn't change how the name
+    is displayed (promote the alias in the admin for that). structured_data: {person_name}; the
+    person is the suggestion's own `person` field. The OANC comparison creates these when OANC's
+    spelling differs from ours only in accents or capitalization."""
+    (person_name,) = _get_required(suggestion.structured_data, 'person_name')
+    if not suggestion.person_id:
+        raise SuggestionApplyError('Set Person to the person this spelling belongs to.')
+    source = PersonAlias.SOURCE_OANC if suggestion.name == 'OANC comparison' else PersonAlias.SOURCE_SUGGESTION
+    alias = add_alias(suggestion.person, person_name, source, note=f'Suggestion #{suggestion.pk}')
+    update_change_reason(alias, f'Suggestion #{suggestion.pk}')
+    return suggestion.person, suggestion.district
 
 
 def apply_general(suggestion):
@@ -182,6 +225,7 @@ HANDLERS = {
     Suggestion.TYPE_CANDIDATE_WITHDRAWS: apply_candidate_withdraws,
     Suggestion.TYPE_COMMISSIONER_CHANGE: apply_commissioner_change,
     Suggestion.TYPE_NEW_COMMISSIONER: apply_new_commissioner,
+    Suggestion.TYPE_NAME_SPELLING: apply_name_spelling,
 }
 
 

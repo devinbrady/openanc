@@ -119,11 +119,19 @@ class SuggestionAdminForm(forms.ModelForm):
         Suggestion.TYPE_CANDIDATE_WITHDRAWS: ['candidate'],
         Suggestion.TYPE_COMMISSIONER_CHANGE: ['district', 'end_date'],
         Suggestion.TYPE_NEW_COMMISSIONER: ['district', 'person_name', 'start_date'],
+        Suggestion.TYPE_NAME_SPELLING: ['person', 'person_name'],
     }
 
     person_name = forms.CharField(
         required=False, label='Person name',
-        help_text='New candidate / new commissioner: full name.',
+        help_text='New candidate / new commissioner: full name. Another spelling: the spelling to record.',
+    )
+    create_new_person = forms.BooleanField(
+        required=False, label='Create a new person',
+        help_text=(
+            "New candidate / new commissioner: tick if this name belongs to someone who isn't "
+            'already in OpenANC, even though a similar name exists. Leave Person blank.'
+        ),
     )
     election_year = forms.IntegerField(required=False, help_text='New candidate.')
     ballot_or_write_in = forms.ChoiceField(
@@ -150,6 +158,7 @@ class SuggestionAdminForm(forms.ModelForm):
         data = self.instance.structured_data or {}
         if self.instance.pk:
             self.fields['person_name'].initial = data.get('person_name', '')
+            self.fields['create_new_person'].initial = bool(data.get('create_new_person'))
             self.fields['election_year'].initial = data.get('election_year')
             self.fields['ballot_or_write_in'].initial = data.get('ballot_or_write_in', 'ballot')
             if not self.instance.candidate_id and data.get('candidate_id'):
@@ -177,6 +186,10 @@ class SuggestionAdminForm(forms.ModelForm):
         district = self.cleaned_data.get('district')
         structured_data = {}
 
+        if suggestion_type in (Suggestion.TYPE_NEW_CANDIDATE, Suggestion.TYPE_NEW_COMMISSIONER):
+            if self.cleaned_data.get('create_new_person'):
+                structured_data['create_new_person'] = True
+
         if suggestion_type == Suggestion.TYPE_NEW_CANDIDATE:
             if district:
                 structured_data['district_id'] = district.id
@@ -202,6 +215,9 @@ class SuggestionAdminForm(forms.ModelForm):
                 structured_data['person_name'] = self.cleaned_data['person_name']
             if self.cleaned_data.get('start_date'):
                 structured_data['start_date'] = self.cleaned_data['start_date'].isoformat()
+        elif suggestion_type == Suggestion.TYPE_NAME_SPELLING:
+            if self.cleaned_data.get('person_name'):
+                structured_data['person_name'] = self.cleaned_data['person_name']
 
         self.instance.structured_data = structured_data
         return super().save(commit=commit)

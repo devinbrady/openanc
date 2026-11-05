@@ -7,10 +7,11 @@ data, and creates a `pending` Suggestion for any district where they disagree:
     fuzzy-match closely enough to be confident it's the same person: the current commissioner
     stopping and a new one starting are two separate actions, so they get two suggestions,
     cross-referenced in their messages so a moderator reviews them together.
-  - "general", when both sides show what's evidently the same name but disagree only on
-    capitalization and/or accented characters (e.g. OANC has "Mónica Martínez López", we have
-    "Monica Martinez Lopez") -- not a personnel change, so it's surfaced for a moderator to
-    decide whether to update the stored spelling, rather than treated as a resignation+appointment.
+  - "name_spelling", when both sides show what's evidently the same name but disagree only on
+    capitalization and/or accented characters (e.g. OANC has "Monica Martinez Lopez", we have
+    "Mónica Martínez López") -- not a personnel change. Approving and applying it records OANC's
+    spelling as an alias of the commissioner (PersonAlias); the display name only changes if a
+    moderator then promotes that alias. Once a spelling is an alias, it's never suggested again.
 
 OANC's page only ever shows who holds a seat *today* -- it never gives a change date, so
 nothing here is auto-applied. Suggestions land in the normal review queue
@@ -54,7 +55,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from rapidfuzz import fuzz
 
-from directory.matching import strip_diacritics
+from directory.matching import is_alias_of, strip_diacritics
 from directory.models import ANC, District, Suggestion
 
 USER_AGENT = 'Mozilla/5.0 (OpenANC data sync; https://openanc.org)'
@@ -112,7 +113,7 @@ class Command(BaseCommand):
             districts = districts.filter(anc__designator=options['anc'])
 
         created_counts = {
-            Suggestion.TYPE_NEW_COMMISSIONER: 0, Suggestion.TYPE_COMMISSIONER_CHANGE: 0, Suggestion.TYPE_GENERAL: 0,
+            Suggestion.TYPE_NEW_COMMISSIONER: 0, Suggestion.TYPE_COMMISSIONER_CHANGE: 0, Suggestion.TYPE_NAME_SPELLING: 0,
         }
         skipped_existing = 0
         skipped_rejected = 0
@@ -155,6 +156,7 @@ class Command(BaseCommand):
                 Suggestion.objects.create(
                     name=SUGGESTION_SOURCE_NAME, district=district, message=message,
                     suggestion_type=suggestion_type, structured_data=structured_data,
+                    person=current_term.person if suggestion_type == Suggestion.TYPE_NAME_SPELLING else None,
                 )
 
         if skipped_no_data:
@@ -344,21 +346,22 @@ class Command(BaseCommand):
             )
             return [(Suggestion.TYPE_COMMISSIONER_CHANGE, message, {'district_id': district.id})]
 
-        if official_name == our_name:
+        if official_name == our_name or is_alias_of(current_term.person, official_name):
             return []
 
         if strip_diacritics(official_name).casefold() == strip_diacritics(our_name).casefold():
             # Same person -- the two sides just disagree on capitalization and/or accented
             # characters (e.g. "KSO" vs "Kso", "López" vs "Lopez"). Not a personnel change, so it
-            # never gets the resign+appoint treatment below; whether to update OpenANC's spelling
-            # to match is an editorial call for a moderator, not something to auto-apply.
+            # never gets the resign+appoint treatment below. Applying the suggestion records
+            # OANC's spelling as an alias; which spelling to display stays a moderator's call.
             message = (
                 f'For {district}, Office of ANCs spells the commissioner\'s name "{official_name}", '
                 f'OpenANC has "{our_name}" -- looks like the same person, just a difference in '
-                f'capitalization and/or accented characters. Update the stored name if that '
-                f'spelling is preferred. Found by the automated OANC comparison.'
+                f'capitalization and/or accented characters. Applying this records OANC\'s spelling '
+                f'as an alias; promote the alias in the admin if that spelling should be displayed. '
+                f'Found by the automated OANC comparison.'
             )
-            return [(Suggestion.TYPE_GENERAL, message, {})]
+            return [(Suggestion.TYPE_NAME_SPELLING, message, {'person_name': official_name})]
 
         score = fuzz.WRatio(official_name, our_name)
         if score >= NAME_MATCH_THRESHOLD:
