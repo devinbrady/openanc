@@ -4,6 +4,7 @@ credentials.json
 *.pickle
 Scratch.ipynb
 data/dcboe/monitor_dcboe_site_changes_log.txt
+data/oanc/.last_checked
 
 data/temp/*.csv
 data/matching/*.csv
