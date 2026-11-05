@@ -21,6 +21,7 @@ from .models import (
     District,
     ElectionResult,
     Person,
+    PersonSlugRedirect,
     SiteUpdate,
     Suggestion,
     Ward,
@@ -388,6 +389,14 @@ class PersonDetailView(DetailView):
     template_name = 'directory/person_detail.html'
     context_object_name = 'person'
     slug_field = 'slug'
+
+    def get(self, request, *args, **kwargs):
+        # A merged-away person's old URL permanently redirects to the person they were merged into.
+        if not Person.objects.filter(slug=kwargs['slug']).exists():
+            redirect_row = PersonSlugRedirect.objects.select_related('person').filter(slug=kwargs['slug']).first()
+            if redirect_row:
+                return redirect(redirect_row.person, permanent=True)
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

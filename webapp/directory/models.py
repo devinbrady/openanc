@@ -221,6 +221,42 @@ class Person(models.Model):
         self.save()
 
 
+class PersonSlugRedirect(models.Model):
+    """An old person URL that now points at someone else -- left behind when a person is merged
+    into another (see directory/merge.py), so links to the removed person's page keep working.
+    Synced to production like other editorial data."""
+    slug = models.SlugField(max_length=220, unique=True)
+    person = models.ForeignKey(Person, related_name='slug_redirects', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.slug} -> {self.person}'
+
+
+class PersonMerge(models.Model):
+    """A record of one person merged into another, holding enough to undo it: a serialized copy
+    of every row the merge deleted (the removed person, plus any duplicate candidacy, term, link
+    or alias it dropped) and every foreign key it repointed. Local only -- like the edit history,
+    it isn't synced; production just gets the merged result."""
+    kept_person = models.ForeignKey(Person, related_name='+', null=True, on_delete=models.SET_NULL)
+    removed_person_id = models.PositiveIntegerField()
+    removed_name = models.CharField(max_length=200)
+    removed_slug = models.SlugField(max_length=220)
+    # serializers.serialize('json', ...) of the deleted rows, restored as-is (same primary keys) on undo.
+    deleted_rows = models.TextField()
+    # [[app_label.Model, pk, field_name, old_value_id], ...] -- every foreign key the merge moved.
+    moved = models.JSONField(default=list)
+    created_at = models.DateTimeField(auto_now_add=True)
+    undone_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        kept = self.kept_person or 'deleted person'
+        return f'{self.removed_name} (#{self.removed_person_id}) merged into {kept}'
+
+
 class PersonAlias(models.Model):
     """One way a person's name has been written by some source -- a DCBOE ballot, an election
     results file, the OANC roster, an import, or OpenANC's own display name. `name` is stored

@@ -25,6 +25,8 @@ from .models import (
     PersonImportBatch,
     PersonImportRow,
     PersonLink,
+    PersonMerge,
+    PersonSlugRedirect,
     SiteUpdate,
     Suggestion,
     Ward,
@@ -77,12 +79,24 @@ class PersonAdmin(SimpleHistoryAdmin):
     prepopulated_fields = {'slug': ('full_name',)}
     inlines = [PersonAliasInline, PersonLinkInline, CommissionerTermInline, CandidateInline]
     change_list_template = 'admin/directory/person/change_list.html'
+    actions = ['merge_people']
+
+    @admin.action(description='Merge the two selected people')
+    def merge_people(self, request, queryset):
+        from django.shortcuts import redirect
+        from django.urls import reverse
+        ids = list(queryset.values_list('pk', flat=True)[:3])
+        if len(ids) != 2:
+            self.message_user(request, 'Select exactly two people to merge.', level=messages.ERROR)
+            return None
+        return redirect(f"{reverse('admin:directory_person_merge')}?ids={ids[0]},{ids[1]}")
 
     def get_urls(self):
         custom_urls = [
             path('import/', self.admin_site.admin_view(admin_views.person_import_upload), name='directory_person_import_upload'),
             path('import/<int:batch_id>/', self.admin_site.admin_view(admin_views.person_import_review), name='directory_person_import_review'),
             path('import/<int:batch_id>/apply/', self.admin_site.admin_view(admin_views.person_import_apply), name='directory_person_import_apply'),
+            path('merge/', self.admin_site.admin_view(admin_views.person_merge), name='directory_person_merge'),
         ]
         return custom_urls + super().get_urls()
 
@@ -138,6 +152,49 @@ class PersonAliasAdmin(SimpleHistoryAdmin):
             alias.person.set_display_name(alias)
             update_change_reason(alias.person, f'Display name changed from alias (was "{old_name}")')
             self.message_user(request, f'{old_name} is now displayed as {alias.name}.', level=messages.SUCCESS)
+
+
+@admin.register(PersonSlugRedirect)
+class PersonSlugRedirectAdmin(admin.ModelAdmin):
+    list_display = ['slug', 'person', 'created_at']
+    search_fields = ['slug', 'person__full_name']
+    autocomplete_fields = ['person']
+
+
+@admin.register(PersonMerge)
+class PersonMergeAdmin(admin.ModelAdmin):
+    list_display = ['created_at', 'removed_name', 'removed_person_id', 'kept_person', 'undone_at']
+    fields = ['created_at', 'removed_name', 'removed_person_id', 'removed_slug', 'kept_person', 'undone_at', 'summary']
+    readonly_fields = fields
+    actions = ['undo_merges']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    @admin.display(description='What the merge changed')
+    def summary(self, obj):
+        import json
+        from collections import Counter
+        deleted = Counter(row['model'] for row in json.loads(obj.deleted_rows))
+        moved = Counter(label for label, *_ in obj.moved)
+        parts = [f'deleted {n} {label}' for label, n in sorted(deleted.items())]
+        parts += [f'moved {n} {label}' for label, n in sorted(moved.items())]
+        return '; '.join(parts)
+
+    @admin.action(description='Undo selected merges (restores the removed person)')
+    def undo_merges(self, request, queryset):
+        from .merge import MergeError, undo_merge
+        for merge in queryset.order_by('-created_at'):
+            try:
+                person = undo_merge(merge)
+            except MergeError as e:
+                self.message_user(request, f'{merge}: {e}', level=messages.ERROR)
+            else:
+                note = f' ({person.undo_skipped} row(s) deleted since the merge were left as they are)' if person.undo_skipped else ''
+                self.message_user(request, f'Restored {person.full_name} (#{person.pk}){note}.', level=messages.SUCCESS)
 
 
 @admin.register(Ward)

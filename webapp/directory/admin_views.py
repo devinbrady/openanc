@@ -10,6 +10,8 @@ from django.conf import settings
 from django.contrib import admin, messages
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.utils.html import format_html
 from django.template.response import TemplateResponse
 from simple_history.utils import update_change_reason
 
@@ -198,3 +200,69 @@ def person_import_apply(request, batch_id):
         messages.warning(request, f'{incomplete_count} row(s) could not be applied (missing district, election, or default status).')
     messages.success(request, f'Applied batch #{batch.pk}: {created_people} new people, {created_candidates} new candidates.')
     return redirect('admin:directory_person_import_review', batch_id=batch.pk)
+
+
+def _person_summary(person):
+    return {
+        'person': person,
+        'aliases': list(person.aliases.values_list('name', flat=True)),
+        'candidacies': list(person.candidacies.select_related('election', 'district', 'status').order_by('-election__year')),
+        'terms': list(person.commissioner_terms.select_related('district').order_by('-start_date')),
+        'links': list(person.links.values_list('url', flat=True)),
+        'write_in_wins': list(person.write_in_wins.select_related('election', 'district')),
+    }
+
+
+def _default_kept(a, b):
+    """Keep whichever record has more history; ties go to the older (lower id) record."""
+    def weight(p):
+        return p.candidacies.count() + p.commissioner_terms.count() + p.links.count()
+    return a if (weight(a), -a.pk) >= (weight(b), -b.pk) else b
+
+
+def person_merge(request):
+    """Preview (GET) and perform (POST) merging two people. ?ids=<a>,<b>&keep=<id>"""
+    from .merge import MergeError, merge_people, plan_merge
+
+    try:
+        ids = [int(i) for i in (request.GET.get('ids') or request.POST.get('ids', '')).split(',') if i]
+    except ValueError:
+        ids = []
+    if len(set(ids)) != 2:
+        messages.error(request, 'Select exactly two different people to merge.')
+        return redirect('admin:directory_person_changelist')
+    a, b = (get_object_or_404(Person, pk=i) for i in ids)
+
+    keep_id = request.POST.get('keep') or request.GET.get('keep')
+    kept = (a if str(a.pk) == keep_id else b) if keep_id in (str(a.pk), str(b.pk)) else _default_kept(a, b)
+    removed = b if kept == a else a
+    plan = plan_merge(kept, removed)
+
+    if request.method == 'POST':
+        choices = {
+            c.election.pk: request.POST.get(f'candidacy_{c.election.pk}', c.kept_candidacy.pk)
+            for c in plan.candidacy_conflicts
+        }
+        try:
+            merge = merge_people(kept, removed, keep_candidacy=choices)
+        except MergeError as e:
+            messages.error(request, str(e))
+        else:
+            undo_url = reverse('admin:directory_personmerge_change', args=[merge.pk])
+            messages.success(request, format_html(
+                'Merged {} (#{}) into {}. Push with <code>sync_production.sh push --prune</code> to remove '
+                'the old record on production. <a href="{}">Undo is available here.</a>',
+                merge.removed_name, merge.removed_person_id, kept.full_name, undo_url,
+            ))
+            return redirect('admin:directory_person_change', kept.pk)
+
+    context = {
+        **admin.site.each_context(request),
+        'title': 'Merge people',
+        'opts': Person._meta,
+        'ids': f'{a.pk},{b.pk}',
+        'kept': _person_summary(kept),
+        'removed': _person_summary(removed),
+        'plan': plan,
+    }
+    return TemplateResponse(request, 'admin/directory/person_merge/preview.html', context)

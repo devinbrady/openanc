@@ -1,0 +1,10 @@
+<div class="module" style="flex: 1; min-width: 280px; padding: 0 1rem 1rem;">
+  <h2>{{ heading }}: <a href="{% url 'admin:directory_person_change' summary.person.pk %}">{{ summary.person.full_name }}</a> (#{{ summary.person.pk }})</h2>
+  <p><strong>Names:</strong> {{ summary.aliases|join:"; "|default:"—" }}</p>
+  <p><strong>Candidacies:</strong></p>
+  <ul>{% for c in summary.candidacies %}<li>{{ c.election.year }} SMD {{ c.district.designator }} ({{ c.status.name }})</li>{% empty %}<li>None</li>{% endfor %}</ul>
+  <p><strong>Commissioner terms:</strong></p>
+  <ul>{% for t in summary.terms %}<li>SMD {{ t.district.designator }} ({{ t.district.redistricting_year }}), {{ t.start_date }} to {{ t.end_date }}</li>{% empty %}<li>None</li>{% endfor %}</ul>
+  <p><strong>Links:</strong> {{ summary.links|join:", "|default:"—" }}</p>
+  {% if summary.write_in_wins %}<p><strong>Write-in wins:</strong> {% for w in summary.write_in_wins %}{{ w.election.year }} SMD {{ w.district.designator }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+</div>

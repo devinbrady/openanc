@@ -1,0 +1,56 @@
+{% extends "admin/base_site.html" %}
+
+{% block content_title %}<h1>Merge people</h1>{% endblock %}
+
+{% block content %}
+<p>Everything attached to the person being removed moves to the person being kept. The removed
+person's names become aliases, and their old page redirects to the kept person. The merge can be
+undone later from <a href="{% url 'admin:directory_personmerge_changelist' %}">Person merges</a>.</p>
+
+<p><a href="?ids={{ ids }}&amp;keep={{ removed.person.pk }}">Swap: keep {{ removed.person.full_name }} (#{{ removed.person.pk }}) instead</a></p>
+
+<div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+{% include "admin/directory/person_merge/_person.html" with summary=kept heading="Keep" %}
+{% include "admin/directory/person_merge/_person.html" with summary=removed heading="Remove" %}
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="ids" value="{{ ids }}">
+  <input type="hidden" name="keep" value="{{ kept.person.pk }}">
+
+  {% if plan.blockers %}
+  <h2>This merge is blocked</h2>
+  <ul class="errorlist">
+    {% for blocker in plan.blockers %}<li>{{ blocker }}</li>{% endfor %}
+  </ul>
+  {% else %}
+    {% if plan.candidacy_conflicts %}
+    <h2>Both are candidates in the same election</h2>
+    <p>Pick which candidacy row to keep. Election results on the other row move onto it.</p>
+    {% for conflict in plan.candidacy_conflicts %}
+    <fieldset class="module aligned" style="padding: 0.5rem 1rem;">
+      <strong>{{ conflict.election.year }}, SMD {{ conflict.kept_candidacy.district.designator }}</strong><br>
+      <label><input type="radio" name="candidacy_{{ conflict.election.pk }}" value="{{ conflict.kept_candidacy.pk }}" checked>
+        Keep {{ kept.person.full_name }}'s row ({{ conflict.kept_candidacy.status.name }}, source: {{ conflict.kept_candidacy.source|default:"—" }})</label><br>
+      <label><input type="radio" name="candidacy_{{ conflict.election.pk }}" value="{{ conflict.removed_candidacy.pk }}">
+        Keep {{ removed.person.full_name }}'s row ({{ conflict.removed_candidacy.status.name }}, source: {{ conflict.removed_candidacy.source|default:"—" }})</label>
+    </fieldset>
+    {% endfor %}
+    {% endif %}
+
+    {% if plan.duplicate_terms or plan.duplicate_links or plan.duplicate_aliases %}
+    <h2>Duplicates that will be dropped</h2>
+    <ul>
+      {% for term in plan.duplicate_terms %}<li>Term: {{ term }}</li>{% endfor %}
+      {% for link in plan.duplicate_links %}<li>Link: {{ link.url }}</li>{% endfor %}
+      {% for alias in plan.duplicate_aliases %}<li>Alias: {{ alias.name }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="submit-row">
+      <input type="submit" class="default" value="Merge {{ removed.person.full_name }} into {{ kept.person.full_name }}">
+    </div>
+  {% endif %}
+</form>
+{% endblock %}
