@@ -60,9 +60,13 @@
 {% if results_by_election %}
 <h2>Election Results</h2>
 {% for entry in results_by_election %}
-<h3>{{ entry.election.year }}</h3>
+{% with election=entry.election %}
+<h3>{{ election.year }}</h3>
+{% if not election.results_are_final %}
+<p class="muted">Unofficial results{% if election.results_as_of %} as of {{ election.results_as_of|date:"F j, Y" }}{% endif %}. DCBOE is still counting ballots, so these totals will change until the results are certified.</p>
+{% endif %}
 <table>
-    <tr><th>Candidate</th><th>Votes</th><th>Result</th></tr>
+    <tr><th>Candidate</th><th>{% if election.uses_ranked_choice %}First-choice votes{% else %}Votes{% endif %}</th><th>Share</th><th>Result</th></tr>
     {% for result in entry.results %}
     <tr>
         <td>
@@ -74,10 +78,16 @@
             {% endif %}
         </td>
         <td>{{ result.votes }}</td>
-        <td>{% if result.is_winner %}Won{% endif %}</td>
+        <td>{% if result.vote_share is not None %}{{ result.vote_share|floatformat_percent }}{% endif %}</td>
+        <td>{% if election.results_are_final %}{% if result.is_winner %}Won{% endif %}{% elif result.ranking == 1 %}Leading{% endif %}</td>
     </tr>
     {% endfor %}
+    <tr><th>Total</th><th>{{ entry.total_votes }}</th><th></th><th></th></tr>
 </table>
+{% if entry.no_majority and not election.results_are_final %}
+<p class="muted">No candidate has a majority of first-choice votes. This is a ranked-choice election, so the winner will be decided by ranked-choice tabulation, which DCBOE hasn't published yet.</p>
+{% endif %}
+{% endwith %}
 {% endfor %}
 {% endif %}
 

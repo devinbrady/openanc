@@ -245,15 +245,26 @@ def _district_context(district):
     }
     elections_with_results = {r.election for r in district.results.select_related('election')}
     for election in sorted(elections_with_results, key=lambda e: e.year, reverse=True):
-        results = (
+        results = list(
             district.results.filter(election=election)
             .select_related('candidate__person')
             .order_by('ranking')
         )
+        total_votes = sum(r.votes for r in results)
+        for result in results:
+            result.vote_share = result.votes / total_votes if total_votes else None
+        leader = results[0] if results else None
         results_by_election.append({
             'election': election,
             'results': results,
+            'total_votes': total_votes,
             'write_in_winner': write_in_winners_by_year.get(election.year),
+            # A ranked-choice contest where nobody has more than half the first-choice votes is
+            # decided by later rounds, so the first-choice leader may not win.
+            'no_majority': (
+                election.uses_ranked_choice and len(results) > 1 and leader is not None
+                and leader.votes * 2 <= total_votes
+            ),
         })
 
     return {

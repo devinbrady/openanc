@@ -28,3 +28,9 @@ def person_search_key(person):
         if alias.normalized_name and alias.normalized_name not in keys:
             keys.append(alias.normalized_name)
     return ' | '.join(keys)
+
+
+@register.filter
+def floatformat_percent(fraction):
+    """0.4597 -> '46.0%'."""
+    return f'{fraction * 100:.1f}%'

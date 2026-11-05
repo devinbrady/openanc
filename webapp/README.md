@@ -203,6 +203,33 @@ batch import, etc.), the draft will be noisy/oversized since it's summarizing ev
 the last published update. That's expected — just trim it, or publish something first to reset
 the window before drafting again.
 
+## 5b. Importing election results
+
+DCBOE publishes a precinct-level results CSV on election night and republishes it as counting
+continues, then once more when results are certified. For each new file:
+
+1. Save it under `data/dcboe/election_results/` with the download date appended (DCBOE reuses
+   filenames), e.g. `November_3_2026_General_Election_Election_Night_Unofficial_Results_2026-11-04.csv`.
+2. Dry run, and read the report -- vote changes, leader changes, contests with no first-choice
+   majority:
+
+   ```bash
+   python manage.py import_election_results ../data/dcboe/election_results/<file>.csv \
+       --year 2026 --status election_night --as-of 2026-11-04
+   ```
+
+   `--status` is `election_night`, `unofficial` or `certified`. Winners (`is_winner`) are only
+   set for `certified`; until then the site shows the first-ranked row as "Leading".
+3. Rerun with `--apply`, then push to production as usual.
+
+Candidate names are linked through person aliases (the DCBOE ballot spelling, e.g. "Zach Adams"
+for Zachary Adams). If a name doesn't resolve to exactly one 2026 candidate in that district,
+nothing is written and the name is listed -- add the alias in the Person admin (or the missing
+Candidate) and run it again.
+
+2026 uses ranked choice voting. The file's totals are first-choice votes; round-by-round
+tabulation isn't imported yet.
+
 ## 6. Pushing changes to production
 
 Once you've verified everything on `localhost`, use `ops/sync_production.sh` from the `webapp/`
@@ -305,6 +332,8 @@ apply, and the audit-trail draft generator all live.
 |---|---|---|
 | `check_oanc_commissioners [--anc] [--dry-run] [--force-refresh]` | local | Compare against the official OANC roster; creates review Suggestions |
 | `draft_site_update [--date] [--since]` | local | Draft an Updates-page entry from the audit trail |
+| `import_election_results <csv> --year --status --as-of [--apply]` | local | Load a DCBOE results CSV (dry run unless `--apply`) |
+| `backfill_person_aliases [--apply]` | local | Add aliases from spellings already in the database and DCBOE lists |
 | `dump_editorial_data --output --manifest` | local | Export editorial data + PK manifest (used by `push`) |
 | `load_editorial_data <path> [--prune-manifest] [--yes]` | production | Load an editorial fixture (used by `push`) |
 | `dump_new_suggestions --since-id` | production | Serialize new public Suggestions (used by `pull-suggestions`) |

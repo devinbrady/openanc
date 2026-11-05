@@ -190,7 +190,7 @@ class CommissionerTermAdmin(SimpleHistoryAdmin):
 
 @admin.register(Election)
 class ElectionAdmin(admin.ModelAdmin):
-    list_display = ['year', 'election_date', 'petition_open_date', 'petition_close_date']
+    list_display = ['year', 'election_date', 'results_status', 'results_as_of', 'uses_ranked_choice']
     search_fields = ['year']
 
 

@@ -378,16 +378,40 @@ class CommissionerTerm(models.Model):
 
 
 class Election(models.Model):
+    RESULTS_NONE = ''
+    RESULTS_ELECTION_NIGHT = 'election_night'
+    RESULTS_UNOFFICIAL = 'unofficial'
+    RESULTS_CERTIFIED = 'certified'
+    RESULTS_STATUS_CHOICES = [
+        (RESULTS_NONE, 'No results yet'),
+        (RESULTS_ELECTION_NIGHT, 'Election night (unofficial)'),
+        (RESULTS_UNOFFICIAL, 'Unofficial, counting continues'),
+        (RESULTS_CERTIFIED, 'Certified'),
+    ]
+
     year = models.PositiveSmallIntegerField(unique=True)
     election_date = models.DateField(null=True, blank=True)
     petition_open_date = models.DateField(null=True, blank=True)
     petition_close_date = models.DateField(null=True, blank=True)
+
+    # Set by import_election_results. Elections before 2026 only ever had certified results
+    # imported, so they're marked certified by migration.
+    results_status = models.CharField(max_length=20, choices=RESULTS_STATUS_CHOICES, default=RESULTS_NONE, blank=True)
+    results_as_of = models.DateField(null=True, blank=True, help_text='Date of the DCBOE results file currently loaded.')
+    results_source = models.CharField(max_length=200, blank=True, help_text='Filename of the DCBOE results file currently loaded.')
+    # 2026 is DC's first general election with ranked choice voting (Initiative 83). The vote
+    # counts imported so far are first-choice totals; round-by-round tabulation comes later.
+    uses_ranked_choice = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['year']
 
     def __str__(self):
         return str(self.year)
+
+    @property
+    def results_are_final(self):
+        return self.results_status == self.RESULTS_CERTIFIED
 
     @property
     def is_petition_window_open(self):
