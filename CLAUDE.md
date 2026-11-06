@@ -9,6 +9,12 @@ read it before touching data or deploys.
 
 - Python deps are only installed in the venv: use `.venv/bin/python manage.py ...`, not bare `python`.
 - Run the suite with `.venv/bin/python manage.py test` (all of it should pass before committing).
+- **New features and bug fixes start with tests.** Write the failing test(s) first, run them to
+  see them fail for the expected reason, then write the code. For a bug, the first test
+  reproduces it. Pure refactors and copy/styling tweaks don't need a new test.
+- Coverage: `.venv/bin/python -m coverage run manage.py test && .venv/bin/python -m coverage report`
+  (settings in `webapp/.coveragerc`; `import_legacy_data` and wsgi/asgi are excluded on purpose).
+  Keep new code covered; check the report's Missing column for anything a change added.
 - New machine setup is in `webapp/README.md` ("Setting up on a new machine").
 - `db.sqlite3` is gitignored and is the editorial source of truth (audit history, import batches,
   reviewed suggestions live only there). Never delete or overwrite it.

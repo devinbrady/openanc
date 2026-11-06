@@ -245,3 +245,87 @@ class OldPersonUrlTests(PageRenderingTestCase):
     def test_unknown_slug_is_still_404(self):
         response = self.client.get(reverse('directory:person_detail', kwargs={'slug': 'no-such-person'}))
         self.assertEqual(response.status_code, 404)
+
+
+class MergeAdminEdgeCaseTests(PageRenderingTestCase):
+    def setUp(self):
+        staff = User.objects.create_user('staff', password='pw', is_staff=True, is_superuser=True)
+        self.client.force_login(staff)
+        self.url = reverse('admin:directory_person_merge')
+        self.a = make_person(full_name='Jose Barrios')
+        self.b = make_person(full_name='Joe Barrios')
+
+    def assert_rejected(self, ids):
+        response = self.client.get(self.url, {'ids': ids}, follow=True)
+        self.assertRedirects(response, reverse('admin:directory_person_changelist'))
+        self.assertIn('Select exactly two different people to merge.', [str(m) for m in response.context['messages']])
+
+    def test_requires_exactly_two_distinct_ids(self):
+        self.assert_rejected(f'{self.a.pk}')
+        self.assert_rejected(f'{self.a.pk},{self.a.pk}')
+        self.assert_rejected('abc,def')
+
+    def test_ties_keep_the_older_record_and_keep_param_overrides(self):
+        response = self.client.get(self.url, {'ids': f'{self.b.pk},{self.a.pk}'})
+        self.assertEqual(response.context['kept']['person'], self.a)
+
+        response = self.client.get(self.url, {'ids': f'{self.a.pk},{self.b.pk}', 'keep': self.b.pk})
+        self.assertEqual(response.context['kept']['person'], self.b)
+
+    def test_blocked_merge_shows_error_and_changes_nothing(self):
+        ward = make_ward(number=4)
+        anc = make_anc(designator='4B')
+        election = make_election(year=2026)
+        status = make_candidate_status()
+        make_candidate(self.a, election, make_district(designator='4B05', anc=anc, ward=ward), status=status)
+        make_candidate(self.b, election, make_district(designator='4B06', anc=anc, ward=ward), status=status)
+
+        response = self.client.post(self.url, {'ids': f'{self.a.pk},{self.b.pk}', 'keep': self.a.pk})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(any(m.level_tag == 'error' for m in response.context['messages']))
+        self.assertTrue(Person.objects.filter(pk=self.b.pk).exists())
+        self.assertFalse(PersonMerge.objects.exists())
+
+
+class UndoMergeAdminErrorTests(MergeAdminTests):
+    def test_undoing_an_already_undone_merge_shows_an_error(self):
+        merge = merge_people(self.kept, self.removed)
+        undo_merge(merge)
+        response = self.client.post(reverse('admin:directory_personmerge_changelist'), {
+            'action': 'undo_merges', '_selected_action': [merge.pk],
+        }, follow=True)
+        self.assertTrue(any('already undone' in str(m) for m in response.context['messages']))
+
+
+class MergeGuardTests(MergeTestBase):
+    def test_choosing_a_candidacy_from_neither_person_is_rejected(self):
+        make_candidate(self.kept, self.e2026, self.district, status=self.status)
+        make_candidate(self.removed, self.e2026, self.district, status=self.status)
+        with self.assertRaisesMessage(MergeError, 'Candidacy #99999 is not one of the 2026 candidacies.'):
+            merge_people(self.kept, self.removed, keep_candidacy={self.e2026.pk: 99999})
+        self.assertTrue(Person.objects.filter(pk=self.removed.pk).exists())
+
+    def test_undo_refuses_when_the_removed_id_is_back(self):
+        merge = merge_people(self.kept, self.removed)
+        Person.objects.create(pk=merge.removed_person_id, full_name='Someone Else')
+        with self.assertRaisesMessage(MergeError, f'A person with id #{merge.removed_person_id} already exists.'):
+            undo_merge(merge)
+
+    def test_undo_refuses_when_the_old_slug_is_taken(self):
+        merge = merge_people(self.kept, self.removed)
+        PersonSlugRedirect.objects.filter(slug=merge.removed_slug).delete()
+        other = make_person(full_name='Other Person')
+        Person.objects.filter(pk=other.pk).update(slug=merge.removed_slug)
+        with self.assertRaisesMessage(MergeError, f'Another person now uses the URL slug "{merge.removed_slug}".'):
+            undo_merge(merge)
+
+    def test_undo_skips_rows_deleted_since_the_merge(self):
+        candidacy = make_candidate(self.removed, self.e2024, self.district, status=self.status)
+        merge = merge_people(self.kept, self.removed)
+        candidacy.delete()
+
+        restored = undo_merge(merge)
+
+        self.assertEqual(restored.undo_skipped, 1)
+        self.assertEqual(restored.pk, merge.removed_person_id)

@@ -325,3 +325,50 @@ class CommandIntegrationTests(TestCase):
         Suggestion.objects.all().delete()
         self._run()  # second run: reads the cache, no network call
         self.assertTrue(Suggestion.objects.filter(district=self.district).exists())
+
+
+class CommandFailureModeTests(TestCase):
+    """Unreachable pages, pages without a roster table, and a second ANC (rate-limit pause)."""
+
+    def setUp(self):
+        self.ward = make_ward()
+        self.anc_a = make_anc(designator='1A', dc_oanc_link='https://oanc.dc.gov/anc-profile/anc-1a')
+        self.anc_b = make_anc(designator='1B', dc_oanc_link='https://oanc.dc.gov/anc-profile/anc-1b')
+        self.a01 = make_district(designator='1A01', anc=self.anc_a, ward=self.ward)
+        self.b01 = make_district(designator='1B01', anc=self.anc_b, ward=self.ward)
+        make_commissioner_term(make_person(full_name='Jaspal Bhatia'), self.a01)
+        self._tmpdir = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmpdir.cleanup)
+
+    def run_with(self, get):
+        import io
+        err = io.StringIO()
+        with patch('directory.management.commands.check_oanc_commissioners.requests.get', side_effect=get), \
+                patch('directory.management.commands.check_oanc_commissioners.time.sleep') as sleep:
+            call_command('check_oanc_commissioners', '--csv-dir', self._tmpdir.name, stdout=io.StringIO(), stderr=err)
+        return err.getvalue(), sleep
+
+    def test_unreachable_anc_is_skipped_and_its_districts_counted_as_no_data(self):
+        import requests
+
+        def get(url, **kwargs):
+            if url.endswith('anc-1b'):
+                raise requests.ConnectionError('boom')
+            return mock_response('<table><tr><td>1A01</td><td>Jaspal Bhatia</td></tr></table>')
+
+        err, sleep = self.run_with(get)
+
+        sleep.assert_called_once()
+        self.assertIn('could not fetch https://oanc.dc.gov/anc-profile/anc-1b (boom) -- skipped.', err)
+        self.assertIn('1 district(s) had no OANC data available -- skipped.', err)
+        # 1A01 matches exactly, so nothing to suggest.
+        self.assertFalse(Suggestion.objects.exists())
+
+    def test_page_without_a_table_and_short_rows_yield_no_roster(self):
+        pages = {
+            'anc-1a': '<p>No roster here</p>',
+            'anc-1b': '<table><tr><td>only one cell</td></tr></table>',
+        }
+        err, _ = self.run_with(lambda url, **kwargs: mock_response(pages[url.rsplit('/', 1)[1]]))
+        self.assertIn('scraped 0 SMD row(s) but we have 1 district(s)', err)
+        self.assertIn('2 district(s) had no OANC data available', err)

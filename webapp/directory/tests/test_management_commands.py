@@ -4,7 +4,7 @@ import io
 from django.core.management import call_command
 from django.test import TestCase
 
-from directory.models import Candidate, CommissionerTerm, SiteUpdate
+from directory.models import Candidate, CommissionerTerm, SiteUpdate, WriteInWinner
 from directory.tests.factories import (
     make_candidate, make_candidate_status, make_commissioner_term, make_district, make_election, make_person,
 )
@@ -164,3 +164,185 @@ class BackfillPersonAliasesTests(TestCase):
         self.zach.refresh_from_db()
         self.assertEqual(self.zach.full_name, 'Zachary Adams')
         self.assertIn('Would add 0 alias(es)', self.run_command())
+
+
+class DraftSiteUpdateHistoryTests(TestCase):
+    """The individual change lines draft_site_update builds from django-simple-history records."""
+
+    def setUp(self):
+        self.district = make_district(designator='1A01')
+        self.person = make_person(full_name='Pat Commissioner')
+        self.today = datetime.date.today()
+
+    def draft(self, *args):
+        out = io.StringIO()
+        call_command('draft_site_update', *args, stdout=out)
+        draft = SiteUpdate.objects.filter(is_published=False).first()
+        return draft.body if draft else None
+
+    def backdate_all_history(self):
+        """Move every history record so far to yesterday, i.e. before the window."""
+        yesterday = datetime.datetime.combine(
+            self.today - datetime.timedelta(days=1), datetime.time(12), tzinfo=datetime.timezone.utc,
+        )
+        from directory.models import Person
+        for model in (CommissionerTerm, Candidate, Person, WriteInWinner):
+            model.history.update(history_date=yesterday)
+
+    def test_date_and_since_options_parse_iso_dates(self):
+        body = self.draft('--since', self.today.isoformat(), '--date', self.today.isoformat())
+        self.assertIn(f'Changes from {self.today.isoformat()} to {self.today.isoformat()}', body)
+
+    def test_published_update_without_history_falls_back_to_start_of_its_date(self):
+        update = SiteUpdate.objects.create(date=self.today, body='earlier', is_published=True)
+        update.history.all().delete()
+        self.assertIn('Pat Commissioner', self.draft())
+
+    def test_term_end_date_change_is_reported_without_summary_table(self):
+        term = make_commissioner_term(self.person, self.district, end_date=datetime.date(2027, 1, 2))
+        self.backdate_all_history()
+        term.end_date = datetime.date(2026, 12, 1)
+        term.save()
+
+        body = self.draft()
+
+        self.assertIn("Pat Commissioner</a>'s term now ends 2026-12-01 (was 2027-01-02).", body)
+        # The number of terms didn't change, so there's no Old/Diff/New table.
+        self.assertNotIn('<table>', body)
+
+    def test_term_edit_that_keeps_the_end_date_is_not_reported(self):
+        term = make_commissioner_term(self.person, self.district)
+        self.backdate_all_history()
+        term.start_date_is_approximate = True
+        term.save()
+        self.assertIsNone(self.draft())
+
+    def test_removed_term_is_reported(self):
+        term = make_commissioner_term(self.person, self.district)
+        self.backdate_all_history()
+        term.delete()
+        self.assertIn("Pat Commissioner</a>'s commissioner term record was removed.", self.draft())
+
+    def test_records_whose_person_was_since_deleted_are_skipped(self):
+        make_commissioner_term(self.person, self.district)
+        make_candidate(self.person, make_election(year=2026), self.district)
+        self.person.delete()
+        body = self.draft()
+        self.assertIsNone(body)
+
+    def test_candidate_status_change_is_reported_and_other_edits_are_not(self):
+        candidate = make_candidate(self.person, make_election(year=2026), self.district)
+        self.backdate_all_history()
+        candidate.save()
+        self.assertIsNone(self.draft())
+
+        candidate.status = make_candidate_status(name='Withdrew')
+        candidate.save()
+        self.assertIn("Pat Commissioner</a>'s candidate status changed to Withdrew (election year 2026).", self.draft())
+
+    def test_write_in_winners_link_the_person_or_show_the_raw_name(self):
+        election = make_election(year=2026)
+        other = make_district(designator='1A02', anc=self.district.anc, ward=self.district.ward)
+        WriteInWinner.objects.create(election=election, district=self.district, person=self.person, candidate_name_raw='Pat C')
+        WriteInWinner.objects.create(election=election, district=other, candidate_name_raw='Unlinked <Name>')
+
+        body = self.draft()
+
+        self.assertIn('<strong>Write-in winners certified</strong>', body)
+        self.assertIn(f'<a href="{self.person.get_absolute_url()}">Pat Commissioner</a> certified as write-in winner', body)
+        self.assertIn('Unlinked &lt;Name&gt; certified as write-in winner (election year 2026).', body)
+
+
+class BackfillPersonAliasSourcesTests(TestCase):
+    """The non-DCBOE-list alias sources, plus the DCBOE file filtering rules."""
+
+    def setUp(self):
+        import tempfile
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.district = make_district(designator='1A01')
+        self.person = make_person(full_name='Zachary Adams')
+
+    def write(self, filename, content):
+        with open(f'{self._tmp.name}/{filename}', 'w') as f:
+            f.write(content)
+
+    def run_command(self, *args):
+        out = io.StringIO()
+        call_command('backfill_person_aliases', '--dcboe-dir', self._tmp.name, *args, stdout=out)
+        return out.getvalue()
+
+    def test_applied_import_rows_become_import_aliases(self):
+        from directory.models import PersonImportBatch, PersonImportRow
+        batch = PersonImportBatch.objects.create(source_label='ballot filings')
+        PersonImportRow.objects.create(batch=batch, raw_name='Zack Adams', chosen_person=self.person, applied=True)
+        PersonImportRow.objects.create(batch=batch, raw_name='Not Applied', chosen_person=self.person, applied=False)
+
+        self.run_command('--apply')
+
+        alias = self.person.aliases.get(name='Zack Adams')
+        self.assertEqual(alias.source, 'import')
+        self.assertEqual(alias.note, f'Import batch #{batch.pk}: ballot filings')
+        self.assertFalse(self.person.aliases.filter(name='Not Applied').exists())
+
+    def test_linked_election_results_become_results_aliases(self):
+        from directory.models import ElectionResult
+        election = make_election(year=2024)
+        candidate = make_candidate(self.person, election, self.district)
+        ElectionResult.objects.create(election=election, district=self.district, candidate=candidate,
+                                      candidate_name_raw='ZACHARY R ADAMS', votes=10)
+
+        self.run_command('--apply')
+
+        alias = self.person.aliases.get(name='ZACHARY R ADAMS')
+        self.assertEqual(alias.source, 'dcboe_results')
+        self.assertEqual(alias.note, '2024 results, SMD 1A01')
+
+    def test_rejected_oanc_spelling_note_adds_an_alias_for_the_districts_commissioner(self):
+        from directory.models import Suggestion
+        make_commissioner_term(self.person, self.district)
+        note = Suggestion.objects.create(
+            name='OANC comparison', status=Suggestion.STATUS_REJECTED, district=self.district,
+            message='OANC spells the commissioner\'s name "Zachary  Adáms", OpenANC has "Zachary Adams".',
+        )
+        Suggestion.objects.create(name='OANC comparison', status=Suggestion.STATUS_REJECTED,
+                                  district=self.district, message='Some other note')
+
+        self.run_command('--apply')
+
+        alias = self.person.aliases.get(name='Zachary  Adáms')
+        self.assertEqual(alias.source, 'oanc')
+        self.assertEqual(alias.note, f'Rejected suggestion #{note.pk}')
+
+    def test_oanc_spelling_without_a_unique_commissioner_is_left_for_review(self):
+        from directory.models import Suggestion
+        note = Suggestion.objects.create(
+            name='OANC comparison', status=Suggestion.STATUS_REJECTED, district=self.district,
+            message='OANC spells the commissioner\'s name "Zach Adams", OpenANC has "Zachary Adams".',
+        )
+        output = self.run_command()
+        self.assertIn(f'Suggestion #{note.pk}: OANC "Zach Adams" / ours "Zachary Adams"', output)
+
+    def test_dcboe_lists_skip_other_years_blank_and_repeated_rows(self):
+        make_candidate(self.person, make_election(year=2026), self.district)
+        self.write('dcboe-ballot-2024-10-01.csv', 'ANC-SMD,Name\n1A01,Old Year Spelling\n')
+        self.write('dcboe-write-in-2026-11-05.csv',
+                   'Office,Name\n1A01,Zach  Adams\n1A01,Zach Adams\n,No District\n1A01,\n')
+
+        output = self.run_command('--apply')
+
+        alias = self.person.aliases.get(name='Zach Adams')
+        self.assertEqual(alias.source, 'dcboe_write_in')
+        self.assertFalse(self.person.aliases.filter(name='Old Year Spelling').exists())
+        self.assertNotIn('No District', output)
+
+    def test_dcboe_name_in_a_district_with_no_candidates_is_unresolved(self):
+        self.write('dcboe-ballot-2026-10-13.csv', 'ANC-SMD,Name\n9Z99,Someone Else\n')
+        output = self.run_command()
+        self.assertIn('"Someone Else" in 9Z99 -- no 2026 candidates there', output)
+
+    def test_names_that_normalize_to_nothing_are_ignored(self):
+        self.person.aliases.all().delete()
+        make_person(full_name='...')
+        output = self.run_command()
+        self.assertIn('Would add 1 alias(es): 1 openanc.', output)

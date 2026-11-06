@@ -171,3 +171,126 @@ class ApprovedNotAppliedFilterTests(TestCase):
         )
         content = response.content.decode()
         self.assertIn('Approved, not yet applied (1)', content)
+
+
+class SuggestionAdminFormStructuredDataTests(TestCase):
+    """save() turns the typed fields into structured_data (read by suggestion_apply.py), and an
+    existing suggestion's structured_data comes back as those fields' initial values."""
+
+    def setUp(self):
+        self.district = make_district()
+
+    def save(self, **overrides):
+        form = SuggestionAdminForm(data=base_data(status=Suggestion.STATUS_APPROVED, **overrides))
+        self.assertTrue(form.is_valid(), form.errors)
+        return form.save().structured_data
+
+    def test_new_candidate(self):
+        data = self.save(
+            suggestion_type=Suggestion.TYPE_NEW_CANDIDATE, district=self.district.id,
+            person_name='Pat Example', election_year=2026, ballot_or_write_in='write_in', create_new_person='on',
+        )
+        self.assertEqual(data, {
+            'create_new_person': True, 'district_id': self.district.id, 'person_name': 'Pat Example',
+            'election_year': 2026, 'ballot_or_write_in': 'write_in',
+        })
+
+    def test_new_candidate_defaults_to_ballot(self):
+        data = self.save(
+            suggestion_type=Suggestion.TYPE_NEW_CANDIDATE, district=self.district.id,
+            person_name='Pat Example', election_year=2026, ballot_or_write_in='',
+        )
+        self.assertEqual(data['ballot_or_write_in'], 'ballot')
+        self.assertNotIn('create_new_person', data)
+
+    def test_candidate_withdraws(self):
+        candidate = make_candidate(make_person(), make_election(), self.district)
+        data = self.save(suggestion_type=Suggestion.TYPE_CANDIDATE_WITHDRAWS, candidate=candidate.id)
+        self.assertEqual(data, {'candidate_id': candidate.id})
+
+    def test_commissioner_change(self):
+        data = self.save(
+            suggestion_type=Suggestion.TYPE_COMMISSIONER_CHANGE, district=self.district.id,
+            end_date='2026-10-01', reason='Moved away',
+        )
+        self.assertEqual(data, {'district_id': self.district.id, 'end_date': '2026-10-01', 'reason': 'Moved away'})
+
+    def test_new_commissioner_can_request_a_new_person(self):
+        data = self.save(
+            suggestion_type=Suggestion.TYPE_NEW_COMMISSIONER, district=self.district.id,
+            person_name='Fresh Appointee', start_date='2026-10-01', create_new_person='on',
+        )
+        self.assertTrue(data['create_new_person'])
+
+    def test_name_spelling(self):
+        person = make_person()
+        data = self.save(suggestion_type=Suggestion.TYPE_NAME_SPELLING, person=person.id, person_name='Jayne Doe')
+        self.assertEqual(data, {'person_name': 'Jayne Doe'})
+
+    def test_general_has_no_structured_data(self):
+        self.assertEqual(self.save(suggestion_type=Suggestion.TYPE_GENERAL), {})
+
+    def test_existing_structured_data_populates_initial_values(self):
+        candidate = make_candidate(make_person(), make_election(), self.district)
+        suggestion = Suggestion.objects.create(message='m', structured_data={
+            'person_name': 'Pat Example', 'create_new_person': True, 'election_year': 2026,
+            'ballot_or_write_in': 'write_in', 'candidate_id': candidate.id,
+            'start_date': '2026-01-02', 'end_date': '2026-03-04', 'reason': 'Resigned',
+        })
+        fields = SuggestionAdminForm(instance=suggestion).fields
+        self.assertEqual(fields['person_name'].initial, 'Pat Example')
+        self.assertTrue(fields['create_new_person'].initial)
+        self.assertEqual(fields['election_year'].initial, 2026)
+        self.assertEqual(fields['ballot_or_write_in'].initial, 'write_in')
+        self.assertEqual(fields['candidate'].initial, candidate.id)
+        self.assertEqual(fields['start_date'].initial, '2026-01-02')
+        self.assertEqual(fields['end_date'].initial, '2026-03-04')
+        self.assertEqual(fields['reason'].initial, 'Resigned')
+
+    def test_linked_candidate_is_not_overridden_by_structured_data(self):
+        candidate = make_candidate(make_person(), make_election(), self.district)
+        suggestion = Suggestion.objects.create(message='m', candidate=candidate, structured_data={'candidate_id': 999})
+        self.assertIsNone(SuggestionAdminForm(instance=suggestion).fields['candidate'].initial)
+
+
+class SuggestionAdminActionTests(TestCase):
+    def setUp(self):
+        staff = User.objects.create_user('staff', password='pw', is_staff=True, is_superuser=True)
+        self.client.force_login(staff)
+
+    def act(self, action, *suggestions):
+        return self.client.post(reverse('admin:directory_suggestion_changelist'), {
+            'action': action, '_selected_action': [s.pk for s in suggestions],
+        }, follow=True)
+
+    def messages(self, response):
+        return [str(m) for m in response.context['messages']]
+
+    def test_mark_approved_and_rejected(self):
+        a = Suggestion.objects.create(message='a')
+        b = Suggestion.objects.create(message='b')
+        self.act('mark_approved', a)
+        self.act('mark_rejected', b)
+        a.refresh_from_db(); b.refresh_from_db()
+        self.assertEqual(a.status, Suggestion.STATUS_APPROVED)
+        self.assertEqual(b.status, Suggestion.STATUS_REJECTED)
+
+    def test_apply_reports_applied_skipped_and_failed(self):
+        general = Suggestion.objects.create(message='general', status=Suggestion.STATUS_APPROVED)
+        done = Suggestion.objects.create(message='done', applied_at=timezone.now())
+        broken = Suggestion.objects.create(
+            message='broken', suggestion_type=Suggestion.TYPE_CANDIDATE_WITHDRAWS, structured_data={},
+        )
+
+        messages = self.messages(self.act('apply_suggestions', general, done, broken))
+
+        self.assertIn('Applied 1 suggestion(s).', messages)
+        self.assertTrue(any(m.startswith(f'Suggestion #{done.pk} was already applied') for m in messages))
+        self.assertIn(f'Suggestion #{broken.pk}: structured_data is missing required field(s): candidate_id.', messages)
+        general.refresh_from_db()
+        self.assertIsNotNone(general.applied_at)
+
+    def test_apply_with_nothing_applied_shows_no_success_message(self):
+        done = Suggestion.objects.create(message='done', applied_at=timezone.now())
+        messages = self.messages(self.act('apply_suggestions', done))
+        self.assertFalse(any(m.startswith('Applied') for m in messages))

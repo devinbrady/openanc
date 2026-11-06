@@ -1,0 +1,18 @@
+# Run: .venv/bin/python -m coverage run manage.py test && .venv/bin/python -m coverage report
+[run]
+branch = True
+source =
+    directory
+    openanc_web
+omit =
+    */migrations/*
+    */tests/*
+    # One-time legacy import (not to be re-run) and Django server boilerplate.
+    directory/management/commands/import_legacy_data.py
+    openanc_web/asgi.py
+    openanc_web/wsgi.py
+
+[report]
+skip_empty = True
+sort = Cover
+show_missing = True

@@ -526,3 +526,24 @@ class PersonDistrictHistoryGroupingTests(PageRenderingTestCase):
         response = self.client.get(self.person.get_absolute_url())
         self.assertContains(response, 'SMD 1A01', count=1)
         self.assertContains(response, 'SMD 1B01', count=1)
+
+
+class ViewEdgeCaseTests(PageRenderingTestCase):
+    def setUp(self):
+        self.district = make_district(designator='1A01')
+        self.person = make_person(full_name='Pat Elect')
+
+    def test_district_detail_lists_commissioner_elect(self):
+        today = date.today()
+        make_commissioner_term(self.person, self.district, start_date=today + timedelta(days=30),
+                               end_date=today + timedelta(days=760))
+        response = self.client.get(self.district.get_absolute_url())
+        self.assertEqual(response.context['future_terms'][0].person, self.person)
+        row = response.context['commissioner_history'][0]
+        self.assertEqual((row['status'], row['css_class']), ('future', 'term-future'))
+        self.assertContains(response, 'Commissioner-elect')
+
+    def test_person_detail_candidacy_without_result_has_no_label(self):
+        make_candidate(self.person, make_election(year=2026), self.district)
+        response = self.client.get(self.person.get_absolute_url())
+        self.assertEqual(response.context['candidacies'][0].result_label, '')

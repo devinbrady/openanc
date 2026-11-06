@@ -33,7 +33,7 @@ def results_csv(rows):
     return ''.join(lines)
 
 
-class ImportElectionResultsTests(TestCase):
+class ImportElectionResultsBase(TestCase):
     def setUp(self):
         ward = make_ward(number=1)
         anc = make_anc(designator='1A')
@@ -72,6 +72,9 @@ class ImportElectionResultsTests(TestCase):
             ('ANC-1A02 1A02', 1, 'Write-in', 12), ('ANC-1A02 1A02', 1, 'UNDER VOTES', 80),
         ])
 
+
+
+class ImportElectionResultsTests(ImportElectionResultsBase):
     def test_dry_run_reports_and_writes_nothing(self):
         output = self.run_import(self.night_one())
         self.assertIn('2 ANC contests, 5 result rows, 327 first-choice votes', output)
@@ -260,3 +263,21 @@ class PersonPageResultTests(PageRenderingTestCase):
     def test_no_winner_note_only_when_nobody_won(self):
         self.add_result(2024, Election.RESULTS_CERTIFIED, 1)
         self.assertNotContains(self.client.get(self.district.get_absolute_url()), 'No one won this election')
+
+
+class ImportElectionResultsErrorTests(ImportElectionResultsBase):
+    """Reuses the parent's setUp/write/run_import helpers; see the parent for the happy path."""
+
+    def test_unknown_election_year_is_an_error(self):
+        with self.assertRaisesMessage(CommandError, 'No 2030 election.'):
+            call_command('import_election_results', self.night_one(), '--year', '2030', '--status', 'unofficial',
+                         '--as-of', '2026-11-04', stdout=io.StringIO())
+
+    def test_file_with_no_anc_contests_is_an_error(self):
+        path = self.write([('MAYOR', 1, 'Someone', 100)])
+        with self.assertRaisesMessage(CommandError, 'No ANC contests found in'):
+            self.run_import(path)
+
+    def test_districts_missing_from_the_file_are_reported(self):
+        path = self.write([('ANC-1A01', 1, 'Zach Adams', 100), ('ANC-1A01', 1, 'Maria Lopez', 90)])
+        self.assertIn('No contest in the file for 1 district(s): 1A02', self.run_import(path))

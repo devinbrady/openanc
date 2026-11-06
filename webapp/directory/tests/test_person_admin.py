@@ -98,3 +98,48 @@ class PersonAliasAdminTests(TestCase):
         person.refresh_from_db()
         self.assertEqual(person.full_name, 'Erika Núñez')
         self.assertTrue(person.aliases.filter(name='Erika Nunez').exists())
+
+
+class PersonAdminActionEdgeCaseTests(TestCase):
+    def setUp(self):
+        staff = User.objects.create_user('staff3', password='pw', is_staff=True, is_superuser=True)
+        self.client.force_login(staff)
+
+    def messages(self, response):
+        return [str(m) for m in response.context['messages']]
+
+    def test_merge_action_needs_exactly_two_people(self):
+        people = [make_person(full_name=f'Person {i}') for i in range(3)]
+        response = self.client.post(reverse('admin:directory_person_changelist'), {
+            'action': 'merge_people', '_selected_action': [p.pk for p in people],
+        }, follow=True)
+        self.assertIn('Select exactly two people to merge.', self.messages(response))
+
+    def test_search_term_with_no_name_characters_does_not_error(self):
+        make_person(full_name='Jane Doe')
+        response = self.client.get(reverse('admin:directory_person_changelist'), {'q': '...'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_alias_changelist_flags_the_display_name(self):
+        person = make_person(full_name='Erika Nunez')
+        person.aliases.create(name='Erika Núñez', source='oanc')
+        response = self.client.get(reverse('admin:directory_personalias_changelist'))
+        self.assertContains(response, 'alt="True"')
+        self.assertContains(response, 'alt="False"')
+
+    def test_use_as_display_name_rejects_two_aliases_of_one_person(self):
+        person = make_person(full_name='Erika Nunez')
+        a = person.aliases.create(name='Erika Núñez', source='oanc')
+        b = person.aliases.create(name='E. Nunez', source='oanc')
+        response = self.client.post(reverse('admin:directory_personalias_changelist'), {
+            'action': 'use_as_display_name', '_selected_action': [a.pk, b.pk],
+        }, follow=True)
+        self.assertIn('Pick at most one alias per person.', self.messages(response))
+        person.refresh_from_db()
+        self.assertEqual(person.full_name, 'Erika Nunez')
+
+    def test_import_batch_changelist_links_to_review(self):
+        from directory.models import PersonImportBatch
+        batch = PersonImportBatch.objects.create(source_label='x')
+        response = self.client.get(reverse('admin:directory_personimportbatch_changelist'))
+        self.assertContains(response, reverse('admin:directory_person_import_review', kwargs={'batch_id': batch.pk}))

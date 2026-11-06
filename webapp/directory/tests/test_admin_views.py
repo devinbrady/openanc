@@ -19,7 +19,7 @@ from directory.tests.factories import (
 )
 
 
-class PersonImportFlowTests(PageRenderingTestCase):
+class PersonImportTestBase(PageRenderingTestCase):
     def setUp(self):
         self.staff = User.objects.create_user('staff', password='pw', is_staff=True, is_superuser=True)
         self.client.force_login(self.staff)
@@ -40,6 +40,8 @@ class PersonImportFlowTests(PageRenderingTestCase):
             'default_status': self.status.pk,
         })
 
+
+class PersonImportFlowTests(PersonImportTestBase):
     def test_upload_creates_batch_and_matched_rows(self):
         csv_content = 'name,district\nJaspal Bhatia,1A01\nBrand New Person,1A01\n'
         response = self._upload_csv(csv_content)
@@ -181,3 +183,86 @@ class PersonImportFlowTests(PageRenderingTestCase):
         response = self.client.get(reverse('admin:directory_person_import_upload'))
         self.assertEqual(response.status_code, 302)
         self.assertIn('/admin/login/', response.url)
+
+
+class PersonImportEdgeCaseTests(PersonImportTestBase):
+    def review_url(self, batch):
+        return reverse('admin:directory_person_import_review', kwargs={'batch_id': batch.pk})
+
+    def apply_url(self, batch):
+        return reverse('admin:directory_person_import_apply', kwargs={'batch_id': batch.pk})
+
+    def test_upload_form_renders_with_declared_status_preselected(self):
+        response = self.client.get(reverse('admin:directory_person_import_upload'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['form'].fields['default_status'].initial, self.status.pk)
+
+    def test_csv_without_name_column_is_rejected(self):
+        response = self._upload_csv('person,district\nSomeone,1A01\n')
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response.context['form'], 'csv_file', "CSV must have a 'name' column (and optionally a 'district' column).")
+        self.assertFalse(PersonImportBatch.objects.exists())
+
+    def test_csv_with_only_blank_names_is_rejected(self):
+        response = self._upload_csv('name,district\n,1A01\n  ,1A01\n')
+        self.assertFormError(response.context['form'], 'csv_file', 'No rows with a name found in that file.')
+        self.assertFalse(PersonImportBatch.objects.exists())
+
+    def test_csv_without_district_column_and_blank_rows_skipped(self):
+        self._upload_csv('Name\nFirst Person\n\nSecond Person\n')
+        rows = PersonImportBatch.objects.get().rows.order_by('pk')
+        self.assertEqual([r.raw_name for r in rows], ['First Person', 'Second Person'])
+        self.assertTrue(all(r.district is None for r in rows))
+
+    def test_review_post_links_a_chosen_person_and_ignores_bad_decisions(self):
+        self._upload_csv('name,district\nJ. Bhatia,1A01\nOther Person,1A01\n')
+        batch = PersonImportBatch.objects.get()
+        link_row = batch.rows.get(raw_name='J. Bhatia')
+        other_row = batch.rows.get(raw_name='Other Person')
+        other_before = other_row.decision
+
+        self.client.post(self.review_url(batch), {
+            f'decision_{link_row.id}': PersonImportRow.DECISION_LINK,
+            f'person_{link_row.id}': self.existing_person.pk,
+            f'decision_{other_row.id}': 'not-a-decision',
+        })
+
+        link_row.refresh_from_db(); other_row.refresh_from_db()
+        self.assertEqual(link_row.chosen_person, self.existing_person)
+        self.assertEqual(other_row.decision, other_before)
+
+    def test_apply_via_get_just_redirects(self):
+        self._upload_csv('name,district\nBrand New Person,1A01\n')
+        batch = PersonImportBatch.objects.get()
+        response = self.client.get(self.apply_url(batch))
+        self.assertRedirects(response, self.review_url(batch))
+        self.assertFalse(Person.objects.filter(full_name='Brand New Person').exists())
+
+    def test_apply_reports_skipped_pending_and_incomplete_rows(self):
+        self._upload_csv(
+            'name,district\nSkip Me,1A01\nUndecided,1A01\nNo District,9Z99\nLink Nobody,1A01\n'
+        )
+        batch = PersonImportBatch.objects.get()
+        batch.rows.filter(raw_name='Skip Me').update(decision=PersonImportRow.DECISION_SKIP)
+        batch.rows.filter(raw_name='Undecided').update(decision=PersonImportRow.DECISION_PENDING)
+        batch.rows.filter(raw_name='No District').update(decision=PersonImportRow.DECISION_NEW)
+        batch.rows.filter(raw_name='Link Nobody').update(decision=PersonImportRow.DECISION_LINK, chosen_person=None)
+
+        response = self.client.post(self.apply_url(batch), follow=True)
+
+        messages = [str(m) for m in response.context['messages']]
+        self.assertIn('1 row(s) still need a decision -- go back and choose link/new/skip for those.', messages)
+        self.assertIn('2 row(s) could not be applied (missing district, election, or default status).', messages)
+        self.assertTrue(batch.rows.get(raw_name='Skip Me').applied)
+        self.assertFalse(batch.rows.get(raw_name='Undecided').applied)
+        self.assertFalse(Person.objects.filter(full_name__in=['Skip Me', 'No District']).exists())
+
+    def test_apply_reuses_an_existing_candidacy(self):
+        existing = make_candidate(self.existing_person, self.election, self.district, status=self.status)
+        self._upload_csv('name,district\nJaspal Bhatia,1A01\n')
+        batch = PersonImportBatch.objects.get()
+
+        self.client.post(self.apply_url(batch))
+
+        self.assertEqual(list(Candidate.objects.filter(person=self.existing_person, election=self.election)), [existing])
+        self.assertTrue(batch.rows.get().applied)

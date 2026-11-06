@@ -136,3 +136,16 @@ class SuggestionCreateViewTests(PageRenderingTestCase):
         response = self.client.get(reverse('directory:suggest_edit'), {'district': district.id})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['form'].initial.get('district'), str(district.id))
+
+
+class SuggestionPersonPrefillTests(PageRenderingTestCase):
+    def test_person_query_param_prefills_and_notification_names_the_person(self):
+        from directory.tests.factories import make_person
+        person = make_person(full_name='Pat Example')
+        response = self.client.get(reverse('directory:suggest_edit'), {'person': person.id})
+        self.assertEqual(response.context['form'].initial.get('person'), str(person.id))
+
+        self.client.post(reverse('directory:suggest_edit'), {
+            'person': person.id, 'message': 'Pat has a new website.', 'form_token': human_token(),
+        })
+        self.assertIn('Person: Pat Example', mail.outbox[0].body)

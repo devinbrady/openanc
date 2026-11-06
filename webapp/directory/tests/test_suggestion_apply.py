@@ -332,3 +332,54 @@ class ApplyNameSpellingTests(TestCase):
         suggestion = make_suggestion(Suggestion.TYPE_NAME_SPELLING, {'person_name': 'Erika Nunez'})
         with self.assertRaises(SuggestionApplyError):
             apply_suggestion(suggestion)
+
+
+class ApplyErrorPathTests(TestCase):
+    """Bad or incomplete structured_data, and statuses renamed in the admin, fail cleanly."""
+
+    def setUp(self):
+        self.district = make_district()
+
+    def assert_fails(self, suggestion, message):
+        with self.assertRaisesMessage(SuggestionApplyError, message):
+            apply_suggestion(suggestion)
+        suggestion.refresh_from_db()
+        self.assertIsNone(suggestion.applied_at)
+
+    def test_missing_required_fields_are_listed(self):
+        self.assert_fails(
+            make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {'person_name': 'Someone', 'election_year': ''}),
+            'structured_data is missing required field(s): district_id, election_year.',
+        )
+
+    def test_unknown_district_id(self):
+        make_candidate_status(name='Declared Intention to Run')
+        self.assert_fails(
+            make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {'person_name': 'Someone', 'district_id': 'abc', 'election_year': 2026}),
+            "No district with id 'abc'.",
+        )
+
+    def test_renamed_declared_status(self):
+        self.assert_fails(
+            make_suggestion(Suggestion.TYPE_NEW_CANDIDATE, {'person_name': 'Someone', 'district_id': self.district.id, 'election_year': 2026}),
+            'CandidateStatus "Declared Intention to Run" not found',
+        )
+        self.assertFalse(Person.objects.filter(full_name='Someone').exists())
+
+    def test_renamed_withdrew_status(self):
+        candidate = make_candidate(make_person(), make_election(), self.district)
+        self.assert_fails(
+            make_suggestion(Suggestion.TYPE_CANDIDATE_WITHDRAWS, {'candidate_id': candidate.id}),
+            'CandidateStatus "Withdrew" not found',
+        )
+
+    def test_new_commissioner_with_no_active_terms_anywhere(self):
+        self.assert_fails(
+            make_suggestion(Suggestion.TYPE_NEW_COMMISSIONER, {'person_name': 'Someone', 'district_id': self.district.id, 'start_date': '2026-10-01'}),
+            'No currently-active commissioner terms exist',
+        )
+
+    def test_type_without_a_handler(self):
+        suggestion = Suggestion(message='x', suggestion_type='retired_type')
+        with self.assertRaisesMessage(SuggestionApplyError, 'No automatic handler'):
+            apply_suggestion(suggestion)
