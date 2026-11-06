@@ -20,13 +20,15 @@
     {% endfor %}
 {% endif %}
 
-{% if candidates_current %}
+{% if candidates_current or write_in_leads %}
 <p><strong>{{ current_election_year }} candidates:</strong></p>
 <ul class="link-list">
     {% for candidate in candidates_current %}
-        <li><a href="{{ candidate.person.get_absolute_url }}">{{ candidate.person.full_name }}</a> <span class="tag">{{ candidate.status.name }}</span></li>
+        <li>{% if candidate.is_vote_leader %}<strong>{% endif %}<a href="{{ candidate.person.get_absolute_url }}">{{ candidate.person.full_name }}</a>{% if candidate.is_vote_leader %}</strong>{% endif %} <span class="tag">{{ candidate.status.name }}</span></li>
     {% endfor %}
+    {% if write_in_leads %}<li><strong>Write-in leads, name unknown</strong></li>{% endif %}
 </ul>
+{% include 'directory/_vote_leaders_note.html' %}
 {% endif %}
 
 <p><a href="{% url 'directory:district_detail' year=district.redistricting_year designator=district.designator %}">View district page &rarr;</a></p>

@@ -128,17 +128,17 @@ def _attach_vote_leaders(districts, statuses):
     """Marks who is ahead in the current election's vote count, for bolding in the district table.
 
     Sets candidate.is_vote_leader on the leading candidate in district.ballot_columns, and
-    district.write_in_leads_column to the column index where "Write-in leads, name unknown" goes
-    when the combined write-in row is ahead (None otherwise). Before certification the leader is
+    district.write_in_leads to whether the combined write-in row is ahead. When it is,
+    district.write_in_leads_column is the table column where "Write-in leads, name unknown" goes
+    (None when it isn't, or when the table has no candidate columns at all). Before certification the leader is
     whoever ranks first; after, it's the certified winner (first place isn't always the winner).
     DCBOE only names write-in winners at certification, so a certified write-in win bolds the
     WriteInWinner's person instead of showing the "name unknown" text.
 
-    Returns the current Election if anything was bolded, else None, so pages can explain the bold."""
+    Returns the current Election if any leader was found, else None, so pages can explain the bold."""
     for district in districts:
+        district.write_in_leads = False
         district.write_in_leads_column = None
-    if not statuses:
-        return None
     results = list(
         ElectionResult.objects.filter(election__year=settings.CURRENT_ELECTION_YEAR, district__in=districts)
         .select_related('election')
@@ -167,7 +167,8 @@ def _attach_vote_leaders(districts, statuses):
 
     # The text goes in the Write-In Candidate column when there is one, else the last column.
     write_in_column = next(
-        (i for i, status in enumerate(statuses) if status.name == 'Write-In Candidate'), len(statuses) - 1
+        (i for i, status in enumerate(statuses) if status.name == 'Write-In Candidate'),
+        len(statuses) - 1 if statuses else None,
     )
     any_bold = False
     for district in districts:
@@ -178,6 +179,7 @@ def _attach_vote_leaders(districts, statuses):
                     or (district.id, candidate.person_id) in leading_person_ids
                 )
         if district.id in write_in_leads_district_ids:
+            district.write_in_leads = True
             district.write_in_leads_column = write_in_column
             any_bold = True
         any_bold = any_bold or any(c.is_vote_leader for candidates in district.ballot_columns for c in candidates)
@@ -376,6 +378,13 @@ class DistrictDetailView(DetailView):
 def district_summary(request, year, designator):
     district = get_object_or_404(District, redistricting_year=year, designator=designator)
     context = _district_context(district)
+    # Same vote-leader bolding as the district tables: reuse their logic on this one district.
+    _, context['vote_leaders_election'] = _attach_ballot_columns([district])
+    leader_ids = {c.id for column in district.ballot_columns for c in column if getattr(c, 'is_vote_leader', False)}
+    context['candidates_current'] = list(context['candidates_current'])
+    for candidate in context['candidates_current']:
+        candidate.is_vote_leader = candidate.id in leader_ids
+    context['write_in_leads'] = district.write_in_leads
     return render(request, 'directory/_district_summary.html', context)
 
 

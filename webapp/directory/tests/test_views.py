@@ -423,6 +423,30 @@ class PageSmokeTests(PageRenderingTestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.person.full_name)
+        self.assertNotContains(response, 'in <strong>bold</strong>')
+
+    def _summary(self, district):
+        return self.client.get(reverse(
+            'directory:district_summary',
+            kwargs={'year': district.redistricting_year, 'designator': district.designator},
+        ))
+
+    def test_district_summary_api_bolds_the_leading_candidate(self):
+        trailing = make_candidate(make_person(full_name='Trailing Person'), self.election, self.district, status=self.status)
+        self._result(self.district, 100, 1, candidate=self.candidate)
+        self._result(self.district, 50, 2, candidate=trailing)
+        response = self._summary(self.district)
+        self.assertContains(response, f'<strong><a href="{self.candidate.person.get_absolute_url()}">A Candidate</a></strong>')
+        self.assertNotContains(response, '<strong><a href="' + trailing.person.get_absolute_url())
+        self.assertNotContains(response, 'Write-in leads')
+        self.assertContains(response, 'Candidates in <strong>bold</strong> are leading')
+
+    def test_district_summary_api_shows_write_in_leads_with_no_candidates(self):
+        empty = make_district(designator='1A02', anc=self.anc, ward=self.ward)
+        self._result(empty, 12, 1)
+        response = self._summary(empty)
+        self.assertContains(response, '<li><strong>Write-in leads, name unknown</strong></li>')
+        self.assertContains(response, 'Candidates in <strong>bold</strong> are leading')
 
     def test_district_summary_api_404s_for_unknown_district(self):
         url = reverse('directory:district_summary', kwargs={'year': 2022, 'designator': 'ZZ99'})
