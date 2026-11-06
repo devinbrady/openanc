@@ -563,7 +563,7 @@ class ElectionResult(models.Model):
         return 'Leading' if self.ranking == 1 else ''
 
     def __str__(self):
-        name = self.candidate or self.candidate_name_raw or 'Write-ins combined'
+        name = (self.candidate.person if self.candidate else None) or self.candidate_name_raw or 'Write-ins combined'
         return f'{name} — {self.district} ({self.election.year}): {self.votes} votes'
 
 

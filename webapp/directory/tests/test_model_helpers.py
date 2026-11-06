@@ -35,8 +35,8 @@ class StrLabelTests(TestCase):
         self.assertEqual(str(candidate), f'Jane Doe — {self.district} (2026)')
 
         common = dict(election=self.election, district=self.district, votes=12)
-        linked = str(ElectionResult(candidate=candidate, **common))
-        self.assertTrue(linked.startswith('Jane Doe — ') and linked.endswith(': 12 votes'), linked)
+        # A linked result names the person, not the whole candidacy (which repeats district/year).
+        self.assertEqual(str(ElectionResult(candidate=candidate, **common)), f'Jane Doe — {self.district} (2026): 12 votes')
         self.assertEqual(str(ElectionResult(candidate_name_raw='RAW NAME', **common)), f'RAW NAME — {self.district} (2026): 12 votes')
         self.assertEqual(str(ElectionResult(**common)), f'Write-ins combined — {self.district} (2026): 12 votes')
 
