@@ -15,8 +15,9 @@
         {% for candidates in district.ballot_columns %}
         <td>
             {% for candidate in candidates %}
-                <a href="{{ candidate.person.get_absolute_url }}">{{ candidate.person.full_name }}</a>{% if not forloop.last %}, {% endif %}
+                {% if candidate.is_vote_leader %}<strong>{% endif %}<a href="{{ candidate.person.get_absolute_url }}">{{ candidate.person.full_name }}</a>{% if candidate.is_vote_leader %}</strong>{% endif %}{% if not forloop.last %}, {% endif %}
             {% endfor %}
+            {% if district.write_in_leads_column == forloop.counter0 %}{% if candidates %}<br>{% endif %}<strong>Write-in leads, name unknown</strong>{% endif %}
         </td>
         {% endfor %}
     </tr>

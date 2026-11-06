@@ -5,6 +5,7 @@
 {% block content %}
 <p class="breadcrumbs"><a href="{% url 'directory:district_list' %}">List of districts</a> &rsaquo; ANC {{ anc.designator }}</p>
 <h1>ANC {{ anc.designator }}</h1>
+{% include 'directory/_vote_leaders_note.html' %}
 
 <ul class="link-list">
     {% if anc.dc_oanc_link %}<li><a href="{{ anc.dc_oanc_link }}">Official OANC profile</a></li>{% endif %}

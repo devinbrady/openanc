@@ -82,7 +82,7 @@ class DistrictListView(TemplateView):
             # Computed across ALL districts (not per ANC) so every ANC's table has identical
             # candidate columns and they stay lined up down the page.
             all_districts = [district for anc in ancs for district in anc.districts.all()]
-            context['ballot_statuses'] = _attach_ballot_columns(all_districts)
+            context['ballot_statuses'], context['vote_leaders_election'] = _attach_ballot_columns(all_districts)
 
             for anc in ancs:
                 for district in anc.districts.all():
@@ -98,6 +98,8 @@ class DistrictListView(TemplateView):
 def _attach_ballot_columns(districts):
     """Sets district.ballot_columns on each district: one list of current-election candidates per
     candidate status, in the same order as the returned list of statuses (ordered by display_order).
+    Returns (statuses, election): election is the current Election when anyone in these districts
+    is shown in bold as a vote leader (see _attach_vote_leaders), else None.
     Only statuses someone actually holds in these districts are included, so a column like
     "Write-In Candidate" appears once the first write-in is added and disappears when empty. Only
     candidates whose status is both published and counted are shown. Uses one query for all the
@@ -119,7 +121,67 @@ def _attach_ballot_columns(districts):
         by_district_and_status[(candidate.district_id, candidate.status_id)].append(candidate)
     for district in districts:
         district.ballot_columns = [by_district_and_status.get((district.id, status.id), []) for status in statuses]
-    return statuses
+    return statuses, _attach_vote_leaders(districts, statuses)
+
+
+def _attach_vote_leaders(districts, statuses):
+    """Marks who is ahead in the current election's vote count, for bolding in the district table.
+
+    Sets candidate.is_vote_leader on the leading candidate in district.ballot_columns, and
+    district.write_in_leads_column to the column index where "Write-in leads, name unknown" goes
+    when the combined write-in row is ahead (None otherwise). Before certification the leader is
+    whoever ranks first; after, it's the certified winner (first place isn't always the winner).
+    DCBOE only names write-in winners at certification, so a certified write-in win bolds the
+    WriteInWinner's person instead of showing the "name unknown" text.
+
+    Returns the current Election if anything was bolded, else None, so pages can explain the bold."""
+    for district in districts:
+        district.write_in_leads_column = None
+    if not statuses:
+        return None
+    results = list(
+        ElectionResult.objects.filter(election__year=settings.CURRENT_ELECTION_YEAR, district__in=districts)
+        .select_related('election')
+    )
+    if not results:
+        return None
+    election = results[0].election
+    final = election.results_are_final
+    leading_candidate_ids = set()
+    write_in_leads_district_ids = set()
+    for result in results:
+        is_leader = result.is_winner if final else result.ranking == 1
+        if not is_leader or result.votes == 0:
+            continue
+        if result.candidate_id:
+            leading_candidate_ids.add(result.candidate_id)
+        elif not final:
+            write_in_leads_district_ids.add(result.district_id)
+    leading_person_ids = set()
+    if final:
+        leading_person_ids = set(
+            WriteInWinner.objects.filter(
+                election__year=settings.CURRENT_ELECTION_YEAR, district__in=districts, person__isnull=False
+            ).values_list('district_id', 'person_id')
+        )
+
+    # The text goes in the Write-In Candidate column when there is one, else the last column.
+    write_in_column = next(
+        (i for i, status in enumerate(statuses) if status.name == 'Write-In Candidate'), len(statuses) - 1
+    )
+    any_bold = False
+    for district in districts:
+        for candidates in district.ballot_columns:
+            for candidate in candidates:
+                candidate.is_vote_leader = (
+                    candidate.id in leading_candidate_ids
+                    or (district.id, candidate.person_id) in leading_person_ids
+                )
+        if district.id in write_in_leads_district_ids:
+            district.write_in_leads_column = write_in_column
+            any_bold = True
+        any_bold = any_bold or any(c.is_vote_leader for candidates in district.ballot_columns for c in candidates)
+    return election if any_bold else None
 
 
 def _split_commissioner_terms(district):
@@ -336,7 +398,7 @@ class ANCDetailView(DetailView):
             current, future, former = _split_commissioner_terms(district)
             district.current_term = current[0] if current else None
             district.future_term = future[0] if future else None
-        context['ballot_statuses'] = _attach_ballot_columns(context['districts'])
+        context['ballot_statuses'], context['vote_leaders_election'] = _attach_ballot_columns(context['districts'])
         context['links'] = self.object.links.filter(publish=True)
         context['overlaps'] = self.object.overlaps_from.select_related('to_anc').order_by('-overlap_percentage')
         context.update(mapbox_context())
@@ -365,7 +427,7 @@ class WardDetailView(DetailView):
             current, future, former = _split_commissioner_terms(district)
             district.current_term = current[0] if current else None
             district.future_term = future[0] if future else None
-        context['ballot_statuses'] = _attach_ballot_columns(context['districts'])
+        context['ballot_statuses'], context['vote_leaders_election'] = _attach_ballot_columns(context['districts'])
         context.update(mapbox_context())
         context['boundary_geometry'] = boundary_geometry('ward', self.object.ward_number, self.object.redistricting_year)
         context['district_designators'] = [district.designator for district in context['districts']]

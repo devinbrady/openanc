@@ -1,0 +1,3 @@
+{% if vote_leaders_election %}{% with election=vote_leaders_election %}
+<p class="muted">{% if election.results_are_final %}Candidates in <strong>bold</strong> won the {{ election.year }} election.{% else %}Candidates in <strong>bold</strong> are leading in the unofficial {{ election.year }} vote count{% if election.results_as_of %} as of {{ election.results_as_of|date:"F j, Y" }}{% endif %}.{% endif %}</p>
+{% endwith %}{% endif %}

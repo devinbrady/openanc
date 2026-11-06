@@ -1,10 +1,10 @@
-from datetime import timedelta
+from datetime import date, timedelta
 
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 
-from directory.models import ANCOverlap, DistrictOverlap
+from directory.models import ANCOverlap, DistrictOverlap, ElectionResult, WriteInWinner
 from directory.tests.base import PageRenderingTestCase
 from directory.tests.factories import (
     make_anc,
@@ -131,6 +131,71 @@ class PageSmokeTests(PageRenderingTestCase):
                 self.assertLess(content.index('<th>On the Ballot</th>'), content.index('<th>Write-In Candidate</th>'))
                 self.assertContains(response, 'A Candidate')
                 self.assertContains(response, 'Write In Person')
+
+    def _result(self, district, votes, ranking, candidate=None, **kwargs):
+        return ElectionResult.objects.create(
+            election=self.election, district=district, candidate=candidate,
+            candidate_name_raw='' if candidate else 'Write-in', votes=votes, ranking=ranking, **kwargs,
+        )
+
+    def test_district_tables_bold_the_leading_candidate(self):
+        trailing = make_candidate(make_person(full_name='Trailing Person'), self.election, self.district, status=self.status)
+        self._result(self.district, 100, 1, candidate=self.candidate)
+        self._result(self.district, 50, 2, candidate=trailing)
+        self._result(self.district, 5, 3)
+
+        for url in (reverse('directory:district_list'), self.ward.get_absolute_url(), self.anc.get_absolute_url()):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertContains(response, f'<strong><a href="{self.candidate.person.get_absolute_url()}">A Candidate</a></strong>')
+                self.assertNotContains(response, '<strong><a href="' + trailing.person.get_absolute_url())
+                self.assertNotContains(response, 'Write-in leads')
+                self.assertContains(response, 'Candidates in <strong>bold</strong> are leading in the unofficial 2026 vote count.')
+
+    def test_vote_leader_note_shows_results_date_and_switches_after_certification(self):
+        self._result(self.district, 100, 1, candidate=self.candidate)
+        self.election.results_as_of = date(2026, 11, 5)
+        self.election.save()
+        response = self.client.get(reverse('directory:district_list'))
+        self.assertContains(response, 'leading in the unofficial 2026 vote count as of November 5, 2026.')
+
+        self.election.results_status = 'certified'
+        self.election.save()
+        ElectionResult.objects.update(is_winner=True)
+        response = self.client.get(reverse('directory:district_list'))
+        self.assertContains(response, 'Candidates in <strong>bold</strong> won the 2026 election.')
+
+    def test_vote_leader_note_hidden_without_results(self):
+        for url in (reverse('directory:district_list'), self.ward.get_absolute_url(), self.anc.get_absolute_url()):
+            with self.subTest(url=url):
+                self.assertNotContains(self.client.get(url), 'in <strong>bold</strong>')
+
+    def test_district_tables_say_write_in_leads_in_the_write_in_column(self):
+        write_in = make_candidate_status(name='Write-In Candidate', display_order=5)
+        write_in_candidate = make_candidate(make_person(full_name='Write In Person'), self.election, self.district, status=write_in)
+        self._result(self.district, 80, 1)
+        self._result(self.district, 20, 2, candidate=self.candidate)
+
+        response = self.client.get(reverse('directory:district_list'))
+        self.assertContains(response, '<strong>Write-in leads, name unknown</strong>', count=1)
+        self.assertNotContains(response, '<strong><a href=')
+        district = next(d for anc in response.context['ancs'] for d in anc.districts.all() if d.id == self.district.id)
+        self.assertEqual(district.write_in_leads_column, 1)
+
+        # Once certified, the named write-in winner is bolded instead.
+        self.election.results_status = 'certified'
+        self.election.save()
+        ElectionResult.objects.filter(ranking=1).update(is_winner=True, is_write_in_winner=True)
+        WriteInWinner.objects.create(election=self.election, district=self.district, person=write_in_candidate.person)
+        response = self.client.get(reverse('directory:district_list'))
+        self.assertNotContains(response, 'Write-in leads')
+        self.assertContains(response, f'<strong><a href="{write_in_candidate.person.get_absolute_url()}">Write In Person</a></strong>')
+
+    def test_district_tables_put_write_in_leads_in_last_column_without_write_in_candidates(self):
+        self._result(self.district, 30, 1)
+        self._result(self.district, 10, 2, candidate=self.candidate)
+        response = self.client.get(reverse('directory:district_list'))
+        self.assertContains(response, '<br><strong>Write-in leads, name unknown</strong>', count=1)
 
     def test_ward_and_anc_detail_omit_candidate_columns_when_no_one_is_on_the_ballot(self):
         self.candidate.delete()
