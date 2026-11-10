@@ -1,3 +1,5 @@
+// Line weights: ANC boundaries are thin, ward boundaries thick, and districts get no line (their
+// fill is the boundary). The basemap's ANC line layer ships at width 3, so it's overridden here.
 // Shared by the ANC, Ward, and District detail pages: draws a whole-boundary outline on top of
 // the SMD-colored basemap (skipped when drawOutline is false -- the District page passes this,
 // since the single SMD's own fill already reads as its boundary and a second black outline on
@@ -5,7 +7,10 @@
 // districtDesignators, ancDesignators}), the basemap's SMD fill, SMD label, and ANC boundary-line
 // layers are restricted to just those districts/ANCs -- used on all three detail pages so only
 // the page's own territory is drawn, with plain basemap showing outside it.
-function initBoundaryMap(containerId, geometryElementId, accessToken, style, smdFilter, drawOutline) {
+var ANC_LINE_WIDTH = 1;
+var WARD_LINE_WIDTH = 3;
+
+function initBoundaryMap(containerId, geometryElementId, accessToken, style, smdFilter, drawOutline, outlineWidth) {
     var geometryTag = document.getElementById(geometryElementId);
     if (!geometryTag) return;
     var geometry = JSON.parse(geometryTag.textContent);
@@ -55,7 +60,7 @@ function initBoundaryMap(containerId, geometryElementId, accessToken, style, smd
                 id: 'boundary-outline',
                 type: 'line',
                 source: 'boundary',
-                paint: { 'line-color': '#222', 'line-width': 3 },
+                paint: { 'line-color': '#222', 'line-width': outlineWidth || WARD_LINE_WIDTH },
             });
         });
     }
@@ -96,6 +101,9 @@ function initBoundaryMap(containerId, geometryElementId, accessToken, style, smd
             styleJson.layers.forEach(function (layer) {
                 if (layerFilters[layer.id]) {
                     layer.filter = layerFilters[layer.id];
+                }
+                if (layer.id === 'anc-2022-6ps93f') {
+                    layer.paint['line-width'] = ANC_LINE_WIDTH;
                 }
             });
             createMap(styleJson);
