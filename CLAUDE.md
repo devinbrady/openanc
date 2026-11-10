@@ -2,8 +2,8 @@
 
 The live site is the Django app in `webapp/` (deployed to Fly.io as app `openanc`). The rest of the
 repo (`scripts/`, `build_site.py`, `docs/`, `data/`) is the older static-site pipeline plus the
-source data files the Django app is seeded from. Operational details live in `webapp/README.md`;
-read it before touching data or deploys.
+source data files the Django app is seeded from. Commands live in `webapp/README.md`; the rules and judgment calls
+behind them are in `webapp/GUIDELINES.md`. Read both before touching data or deploys.
 
 ## Working in `webapp/`
 

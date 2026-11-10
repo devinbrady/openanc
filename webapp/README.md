@@ -1,116 +1,64 @@
-# OpenANC data admin guide
+# OpenANC maintainer commands
 
-This is the operational guide for making data changes to OpenANC: adding/removing candidates,
-recording commissioner changes, reviewing public suggestions, and getting those changes onto
-the live site. It assumes you're working from a checkout of this repo with the local
-Django app running (`python manage.py runserver`) and `/admin/` reachable at
-`http://localhost:8000/admin/`.
+What to run to change OpenANC data and ship it to the live site. Commands run from `webapp/` with
+the venv active, unless noted. For the rules behind this workflow and how to make the judgment
+calls, read [GUIDELINES.md](GUIDELINES.md) first.
 
 ## Setting up on a new machine
 
-Everything is in git **except three things**, which you have to bring over yourself:
-
-1. **`webapp/db.sqlite3`** (gitignored) — your local database. This is the editorial source of
-   truth: it holds the audit-trail history, import batches, and reviewed suggestions, none of
-   which exist in a fresh checkout or on production. Losing it means losing that history.
-2. **`webapp/.venv`** (gitignored) — rebuilt from `requirements.txt`, see below.
-3. **`flyctl` login** — authenticated per machine.
+Everything is in git except `webapp/db.sqlite3` (the local database, which is the editorial
+source of truth), `webapp/.venv`, and your `flyctl` login.
 
 ```bash
 git clone git@github.com:devinbrady/openanc.git && cd openanc/webapp
-python -m venv .venv                      # Python version is pinned in ../.python-version (3.14.8)
-source .venv/bin/activate                  # the rest of this README assumes the venv is active
-pip install -r requirements-dev.txt         # requirements.txt plus local-only tools (PDF parsing)
-brew install flyctl && flyctl auth login   # only needed for deploys and ops/sync_production.sh
+python -m venv .venv                       # Python version is pinned in ../.python-version
+source .venv/bin/activate
+pip install -r requirements-dev.txt        # requirements.txt plus local-only tools (PDF parsing)
+brew install flyctl && flyctl auth login   # only for deploys and ops/sync_production.sh
 ```
 
-Then get the database over, in order of preference:
+Then bring the database over, preferably by copying it from the old laptop into
+`webapp/db.sqlite3`. Make a consistent copy there first instead of copying the live file:
 
-- **Copy it from the old laptop** (AirDrop, scp, or a cloud drive) into `webapp/db.sqlite3`.
-  On the old laptop, make a consistent copy first rather than copying the live file:
-  `sqlite3 db.sqlite3 ".backup '/tmp/openanc-backup.sqlite3'"`.
-- **Or rebuild from production** if the old laptop is gone:
-  dump production with `flyctl ssh console -a openanc -C "python manage.py dumpdata --natural-foreign --exclude contenttypes --exclude auth.permission" > prod.json` and `loaddata` it into a fresh local DB (production is Postgres, so there is no SQLite file to download). You get all editorial data
-  and suggestions, but not the audit-trail history or import batches (those are local-only).
+```bash
+sqlite3 db.sqlite3 ".backup '/tmp/openanc-backup.sqlite3'"
+```
 
-Finish with `python manage.py migrate`, `python manage.py collectstatic --noinput`,
-`python manage.py test`, then
-`python manage.py runserver` and open <http://localhost:8000/admin/>. Create a login
-if you rebuilt from scratch: `python manage.py createsuperuser` (production accounts
-are separate from local ones).
+If the old laptop is gone, dump production (it's Postgres, so there's no SQLite file) and
+`loaddata` the dump into a fresh local database. You lose the audit history and import batches.
 
-`collectstatic` is required because the static storage is WhiteNoise's manifest-based one
-(gitignored `staticfiles/`); without it the admin-page tests fail with "Missing staticfiles
-manifest entry".
+```bash
+flyctl ssh console -a openanc -C "python manage.py dumpdata --natural-foreign --exclude contenttypes --exclude auth.permission" > prod.json
+```
 
-**Only one machine should be the editing machine at a time.** The local database is
-authoritative and the sync script pushes it over production by primary key, so two laptops with
-diverging databases would overwrite each other's edits. Before switching laptops, `push` from
-the old one, then copy the database across.
+Finish with:
 
-## The one rule everything else depends on
+```bash
+python manage.py migrate
+python manage.py collectstatic --noinput   # tests fail with "Missing staticfiles manifest entry" without it
+python manage.py test
+python manage.py createsuperuser           # only if you rebuilt the database
+python manage.py runserver                 # admin at http://localhost:8000/admin/
+```
 
-**All "editorial" data (People, CommissionerTerms, Candidates, Elections, SiteUpdates, etc.) is
-created locally only, never directly in the production admin.** Production's only organic write
-path is the public Suggestion form at `/suggest/` (or whatever it's routed as). This is what
-makes the sync script safe: it can upsert by primary key in both directions without worrying
-about the two databases inventing conflicting rows with the same ID.
+## Editing data in the admin
 
-In practice this means: **make every change on your local machine, verify it looks right on
-`localhost`, then push it to production with the sync script.** Never edit `Person`,
-`CommissionerTerm`, `Candidate`, etc. in `https://openanc.org/admin/` directly.
+Edit `Person`, `CommissionerTerm`, `Candidate`, etc. in the local `/admin/`. Every save is
+recorded in the audit trail; the **History** button on a change page shows it.
 
-## The three ways data changes
+## Importing a spreadsheet of candidates
 
-1. **Direct edit in the local Django admin** — for one-off changes (renaming a councilmember,
-   fixing a typo, tweaking a date). Fast, and automatically recorded in the audit trail.
-2. **The candidate-import tool** — for bulk changes from a spreadsheet (e.g. a new list of
-   declared candidates for an election).
-3. **A structured Suggestion** — for changes that arrived as a public submission, or that you
-   want to record with a specific "type" (new candidate, withdrawal, commissioner change) so the
-   Updates-page generator can describe them automatically.
+1. At `/admin/directory/person/`, click **Import candidates**.
+2. Upload a CSV with `name` and `district` columns and pick the `Election` and default
+   `CandidateStatus`.
+3. On the review page, set each row to **Link**, **New**, **Pending** or **Skip**. Rows are
+   pre-set from the fuzzy-match score; Pending rows need your decision.
+4. **Save decisions** persists your choices without writing anything.
+5. **Apply batch** creates the `Person` and `Candidate` rows in one transaction.
+6. Check the district and candidate pages on `localhost`.
 
-All three feed the same audit trail and the same sync process below.
-
-## 1. Direct admin edits
-
-Just edit the model in `/admin/` as normal (`Person`, `CommissionerTerm`, `Candidate`, etc.).
-Every save is automatically recorded by `django-simple-history` — no extra step needed. You can
-see the history of any tracked object via the "History" button on its admin change page.
-
-Models with history tracking: `Person`, `CommissionerTerm`, `Candidate`, `ElectionResult`,
-`SiteUpdate`, `WriteInWinner`. (`Ward`/`ANC`/`District`/`Election`/`CandidateStatus`/overlaps are
-static/geographic and not tracked.)
-
-## 2. Importing a spreadsheet of candidates
-
-Use this when you have a CSV of names + districts (e.g. a new candidate filing list) and need to
-figure out which names are already `Person` rows and which are new.
-
-1. Go to `/admin/directory/person/` and click **Import candidates**.
-2. Upload a CSV with `name` and `district` columns, pick the `Election` it's for, and pick the
-   default `CandidateStatus` to apply (defaults to "Declared Intention to Run").
-3. You're taken to a review page, one row per spreadsheet row. Each row shows the top fuzzy-name
-   matches against existing `Person` records with a confidence score, and a pre-selected decision:
-   - **Link** — high-confidence match to an existing person (score ≥ 95). Pre-selected automatically.
-   - **New** — no decent match found (score < 70). Pre-selected automatically.
-   - **Pending** — a middle-confidence match (70–95). You have to decide by hand: either pick
-     "Link" and choose the right person from the dropdown, or "New" to create a fresh `Person`.
-   - **Skip** — don't do anything with this row (e.g. a duplicate line, a name you don't
-     recognize enough to trust either way).
-4. Click **Save decisions** as often as you like while reviewing — it just persists your choices,
-   nothing is written to `Person`/`Candidate` yet.
-5. When every row's decision looks right, click **Apply batch**. This creates the new `Person`
-   rows, links the existing ones, and creates a `Candidate` row for each — all inside one
-   transaction, so a bad row won't leave things half-applied.
-6. Check the result on `localhost` (the relevant district/candidate pages) before moving on to
-   the sync step below.
-
-### Converting DCBOE candidate list PDFs
-
-`scripts/dcboe_pdf_to_csv.py` turns DCBOE's "ANC Candidates in Ballot Order" and "General
-Election Write-in Candidates" PDFs into CSVs in `data/dcboe/excel-clean`, moving
-"(withdrew 10/22/26)" notes into a `Date of Withdrawal` column. From the repo root:
+To turn DCBOE's "ANC Candidates in Ballot Order" or "General Election Write-in Candidates" PDF
+into a CSV in `data/dcboe/excel-clean` (run from the repo root):
 
 ```bash
 webapp/.venv/bin/python scripts/dcboe_pdf_to_csv.py links                      # current PDF URLs on dcboe.org
@@ -119,189 +67,114 @@ webapp/.venv/bin/python scripts/dcboe_pdf_to_csv.py write-in ~/Downloads/WRITE-I
 
 The output is named after the PDF's creation date unless you pass `-o`.
 
-## 3. Structured Suggestions
+## Applying Suggestions
 
-Every submission from the public "suggest an edit" form lands in `/admin/directory/suggestion/`
-as a `general` (free-text) suggestion. You can also create a `Suggestion` yourself in the admin
-to represent a change you want the audit trail / Updates generator to describe precisely.
+Public submissions land in `/admin/directory/suggestion/` as **General** suggestions. You can
+also create one yourself.
 
-To apply one automatically:
+1. Open the suggestion and set **Suggestion type**. The form shows the fields that type needs:
+   - **New candidate declared**: District, Person name, Election year, Ballot/Write-in.
+   - **Candidate withdrew**: Candidate.
+   - **Commissioner resigned**: District, End date, Reason (optional).
+   - **New commissioner appointed**: District, Person name, Start date (the end date is
+     inferred from the rest of that cycle's commissioners).
+   - **General**: free text; handle it by hand.
+2. Set **Status** to **Approved** and save. Fields are only required once it's Approved.
+3. In the suggestion list, select the row and run **Apply selected suggestions (structured types
+   only)**. This is the step that writes the change. On success, **Applied at**, **Resulting
+   person** and **Resulting district** fill in; on failure you get a per-row error and nothing
+   changes.
 
-1. Open the suggestion in the admin.
-2. Set **Suggestion type**. The form shows only the fields that type needs (and marks them with
-   a red `*`) — there's no JSON to hand-edit:
-   - **New candidate declared** — District, Person name, Election year, Ballot/Write-in (defaults to ballot).
-   - **Candidate withdrew** — Candidate (autocomplete).
-   - **Commissioner resigned** — District, End date, Reason (optional).
-   - **New commissioner appointed** — District, Person name, Start date. The term's end date is
-     inferred automatically — whatever end date the rest of that election cycle's commissioners share.
-   - **General edit / suggestion (free text)** — no automatic apply; handle it by hand as before.
-3. Save. Fields are only required once **Status** is set to **Approved** — saving a suggestion
-   as Pending or Rejected never requires them, even if a structured type is selected.
-4. **Setting Status to Approved does not apply the change** — that field only records your review
-   decision. Go back to the suggestion list, select the row, and run the **"Apply selected
-   suggestions (structured types only)"** admin action — that's the step that actually writes to
-   `CommissionerTerm`/`Candidate`/etc. Use the **"By approved but not applied"** filter in the
-   sidebar to catch anything you approved but forgot to apply.
-5. If applying succeeds, the suggestion's **Applied at** / **Resulting person** / **Resulting
-   district** fields fill in. If something's wrong (bad reference, a conflicting existing
-   record), you'll get a red error message per row and *nothing* about that suggestion changes —
-   fix the fields and try again.
-6. Person name fields reuse the same fuzzy-matching as the import tool: a high-confidence match
-   links to the existing person automatically, otherwise a new `Person` is created.
+The **By status** and **By approved but not applied** filters show the queue.
 
-The suggestion list's **By status** filter shows a count next to each option (Pending review,
-Approved, Rejected) so you can see the queue size at a glance.
-
-## 4. Checking against the Office of ANCs
-
-A regular task: compare the official commissioner roster (scraped from each ANC's page on
-`oanc.dc.gov`) against our own data, and flag anything that disagrees.
+## Checking against the Office of ANCs
 
 ```bash
-python manage.py check_oanc_commissioners
+python manage.py check_oanc_commissioners                  # creates pending Suggestions for mismatches
+python manage.py check_oanc_commissioners --anc 1A         # one ANC
+python manage.py check_oanc_commissioners --dry-run        # preview, create nothing
+python manage.py check_oanc_commissioners --force-refresh  # re-scrape even if today's cache exists
 ```
 
-For each district where the two disagree, it creates a `pending` Suggestion instead of changing
-anything directly:
+The first run each day caches the roster in `data/oanc/commissioners_<date>.csv`; later runs
+that day read the cache. Review the resulting Suggestions as above.
 
-- We show a seat vacant, OANC shows a name → **New commissioner appointed** suggestion.
-- We show someone serving, OANC shows the seat vacant → **Commissioner resigned** suggestion.
-- Both show a different name that isn't obviously the same person → both of the above together
-  (a resignation and an appointment are two separate actions), cross-referenced so you review
-  them as a pair.
-- Both show the same name but spelled/capitalized/accented differently (e.g. "López" vs
-  "Lopez") → a **General** suggestion, since that's the same person — whether to update the
-  stored spelling is an editorial call, not something this command decides.
-
-Review and apply them the same way as any other suggestion (section 3). Add `--anc 1A` to check
-just one ANC, or `--dry-run` to preview without creating anything.
-
-**Rate limiting**: this only ever scrapes `oanc.dc.gov` once per calendar day — the first run
-each day saves the results to `data/oanc/commissioners_<date>.csv` (same format the old
-notebook-based pipeline used), and every run after that the same day reads that file back
-instead of hitting the site again. This data doesn't change quickly, and there's no reason to
-hammer a public government site. Pass `--force-refresh` to re-scrape anyway.
-
-## 5. Drafting an Updates-page entry
-
-After making changes (by any of the methods above), generate a draft summary for the public
-Updates page:
+## Drafting an Updates-page entry
 
 ```bash
-python manage.py draft_site_update
+python manage.py draft_site_update                      # since the last published update
+python manage.py draft_site_update --since 2026-09-01   # or set the window explicitly
+python manage.py draft_site_update --date 2026-09-27
 ```
 
-This mines the audit trail since the last *published* update (or pass `--since 2026-09-01` /
-`--date 2026-09-27` to control the window explicitly) and creates one **unpublished**
-`SiteUpdate` describing commissioner term changes, new/withdrawn candidates, and new people. Go
-to `/admin/directory/siteupdate/`, open the draft, tidy the wording, and check **Is published**
-when it's ready to appear on the live `/updates/` page.
+This creates an unpublished `SiteUpdate` from the audit trail. Edit it at
+`/admin/directory/siteupdate/` and check **Is published** to show it on `/updates/`.
 
-Note: the first time you run this after a large one-time data load (a full CSV re-import, a big
-batch import, etc.), the draft will be noisy/oversized since it's summarizing everything since
-the last published update. That's expected — just trim it, or publish something first to reset
-the window before drafting again.
+## Importing election results
 
-## 5b. Importing election results
-
-DCBOE publishes a precinct-level results CSV on election night and republishes it as counting
-continues, then once more when results are certified. For each new file:
-
-1. Save it under `data/dcboe/election_results/` with the download date appended (DCBOE reuses
-   filenames), e.g. `November_3_2026_General_Election_Election_Night_Unofficial_Results_2026-11-04.csv`.
-2. Dry run, and read the report -- vote changes, leader changes, contests with no first-choice
-   majority:
+1. Save the DCBOE results CSV under `data/dcboe/election_results/` with the download date
+   appended, e.g. `November_3_2026_General_Election_Election_Night_Unofficial_Results_2026-11-04.csv`.
+2. Dry run and read the report:
 
    ```bash
    python manage.py import_election_results ../data/dcboe/election_results/<file>.csv \
        --year 2026 --status election_night --as-of 2026-11-04
    ```
 
-   `--status` is `election_night`, `unofficial` or `certified`. Winners (`is_winner`) are only
-   set for `certified`; until then the site shows the first-ranked row as "Leading".
-3. Rerun with `--apply`, then push to production as usual.
+   `--status` is `election_night`, `unofficial` or `certified`; winners are set only for
+   `certified`.
+3. Rerun with `--apply`, then push to production.
 
-Candidate names are linked through person aliases (the DCBOE ballot spelling, e.g. "Zach Adams"
-for Zachary Adams). If a name doesn't resolve to exactly one 2026 candidate in that district,
-nothing is written and the name is listed -- add the alias in the Person admin (or the missing
-Candidate) and run it again.
+If a name doesn't resolve to exactly one candidate in that district, nothing is written and the
+name is listed. Add the alias in the Person admin (or the missing Candidate) and rerun.
 
-2026 uses ranked choice voting. The file's totals are first-choice votes; round-by-round
-tabulation isn't imported yet.
+## Pushing changes to production
 
-## 6. Pushing changes to production
-
-Once you've verified everything on `localhost`, use `ops/sync_production.sh` from the `webapp/`
-directory. **Run this yourself from your own terminal** — it writes to production, so it's
-intentionally not something to automate or hand off.
+Run these yourself, from `webapp/`:
 
 ```bash
-./ops/sync_production.sh status              # dry-run: compare local vs production, no writes
-./ops/sync_production.sh pull-suggestions     # pull new public submissions down for review
-./ops/sync_production.sh push                 # push local editorial data + reviewed suggestions up
-./ops/sync_production.sh push --prune         # also delete on production any rows you deleted locally
+./ops/sync_production.sh status              # compare local vs production, no writes
+./ops/sync_production.sh pull-suggestions    # pull new public submissions down for review
+./ops/sync_production.sh push                # push local editorial data + reviewed suggestions
+./ops/sync_production.sh push --prune        # also delete on production rows deleted locally
 ```
 
-Typical session:
+A typical session: `status`, `pull-suggestions`, make and verify edits locally, `status` again,
+`push` (it shows row counts and asks y/N before writing), then spot-check
+`https://openanc.org/`.
 
-1. `status` — confirms local/production agree before you start (if they don't, figure out why
-   before pushing). See "Reading `status`" below.
-2. `pull-suggestions` — brings down anything the public submitted since your last pull. Review/
-   classify them locally (section 3 above).
-3. Make your edits locally (sections 1–3), verify on `localhost`.
-4. `status` again — sanity check the diff looks like what you expect.
-5. `push` — dumps local editorial data + your reviewed suggestions, copies them to production via
-   `flyctl ssh sftp`, and loads them there. It asks for a y/N confirmation and shows you row
-   counts before writing anything. Use `--prune` only when you've actually deleted rows locally
-   and want that deletion to also happen on production (plain `push` never deletes on
-   production, only inserts/updates).
-6. Spot-check `https://openanc.org/` afterward.
-
-**Reading `status`.** It prints one row per editorial table with the local and production row
-counts side by side, the difference, and a `Content` column:
+`status` prints one row per editorial table with local and production counts, the difference,
+and a `Content` column:
 
 | Content | Meaning |
 |---|---|
 | `match` | Same count and same content hash |
 | `DIFFERS` | Same count, but at least one row's field values differ |
-| `differs` | The counts already differ (see the `Diff` column) |
+| `differs` | The counts differ (see the `Diff` column) |
 | `unchecked` | Counts match but a hash is missing (production is on an older image; `flyctl deploy`) |
 | `missing` | The table exists on only one side |
 
-Below the table it states either `Local and production are IDENTICAL` (every table matches on
-count and content) or `DIFFER in N table(s)` with a line per table, such as "local has 3 more
-rows than production". For a `DIFFERS` table it also fetches both copies and lists how many rows
-differ, which fields differ, and local vs production values for the first 10 rows. The hash covers
-every field of every row, so it catches edits that leave the count unchanged. Timestamps are
-compared to the millisecond, because the JSON push drops microseconds. `Suggestion` is
-compared too, even though it syncs through its own flow, so a new public submission on production
-shows up as a difference until you `pull-suggestions`, and reviews you haven't pushed yet show up
-until you `push`. `status` ends with the local Suggestion high-water mark.
+It then says `Local and production are IDENTICAL` or `DIFFER in N table(s)`, and for each
+`DIFFERS` table lists which fields differ with local vs production values for up to 10 rows.
+Timestamps are compared to the millisecond, since the push drops microseconds. `Suggestion` is
+compared too, so new public submissions show as a difference until you `pull-suggestions`, and
+unpushed reviews until you `push`.
 
-**If `status` or `push` fail with something like `ModuleNotFoundError` or "command not found" on
-production**, the new management commands haven't been deployed yet — run `flyctl deploy` first
-(code-only deploys ship instantly; the sync script can only call commands that already exist in
-the deployed image).
+If `status` or `push` fail on production with `ModuleNotFoundError` or "command not found", the
+commands haven't been deployed yet: run `flyctl deploy` first.
 
-## 7. Deploying code changes
+## Deploying code changes
 
-Production runs on several Fly machines sharing one Postgres database (`DATABASE_URL`, a Fly
-secret). Local development still uses SQLite. Migrations run once per deploy via the
-`release_command` in `fly.toml`, not at container start.
-
-Whenever you change Python/template/static code (not just data), before `flyctl deploy`:
+Production runs on several Fly machines sharing one Postgres database (`DATABASE_URL` secret);
+migrations run once per deploy via `release_command` in `fly.toml`. Before deploying, check the
+image:
 
 ```bash
 docker build -t openanc-test .
 docker run --rm openanc-test sh -c "python manage.py makemigrations --check --dry-run && python manage.py check && echo 'OK: image builds, no missing migrations, checks pass'"
 ```
 
-If everything worked, the last line printed is `OK: image builds, no missing migrations, checks
-pass`. Any other ending means something failed (and the command exits non-zero).
-
-This catches dependency/migration problems in the exact environment Fly runs, before they hit
-production. Then:
+It should end with `OK: image builds, no missing migrations, checks pass`. Then:
 
 ```bash
 flyctl deploy --app openanc
@@ -309,24 +182,16 @@ flyctl deploy --app openanc
 
 ## Running tests
 
-Before pushing any change to production, run the test suite locally:
-
 ```bash
 python manage.py test
+python manage.py test directory.tests.test_suggestion_apply                            # one file
+python manage.py test directory.tests.test_suggestion_apply.ApplyNewCommissionerTests  # one case
 ```
-
-Run a single file or case while iterating on one area, e.g.:
-
-```bash
-python manage.py test directory.tests.test_suggestion_apply
-python manage.py test directory.tests.test_suggestion_apply.ApplyNewCommissionerTests
-```
-
-If you add a new management command, model behavior, or admin view, add a test for it under
-`directory/tests/` — that's where the existing coverage for matching, imports, suggestion
-apply, and the audit-trail draft generator all live.
 
 ## Reference: management commands
+
+You only run `check_oanc_commissioners`, `draft_site_update` and `import_election_results`
+directly; `ops/sync_production.sh` calls the rest.
 
 | Command | Runs where | Purpose |
 |---|---|---|
@@ -342,6 +207,3 @@ apply, and the audit-trail draft generator all live.
 | `editorial_rows <Model>` | both | Print one model's rows as JSON, for `status`'s row-level diff |
 | `max_suggestion_id` | local | Print the highest local Suggestion PK (used by `status`/`pull-suggestions`) |
 | `import_legacy_data` | local | Full rebuild from the original CSV source data (disaster recovery only) |
-
-You should never need to run any of these directly except `check_oanc_commissioners` and
-`draft_site_update` — the others are called by `ops/sync_production.sh`.
