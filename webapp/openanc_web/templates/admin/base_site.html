@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+{% comment %}
+  Every admin page, including the login page and our custom admin views, renders through this.
+  Outside production the header turns orange and the site name gets a "(LOCAL)" label.
+{% endcomment %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | OpenANC admin{% if not is_production %} (LOCAL){% endif %}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+{% if not is_production %}
+<style>
+  /* html[data-theme] selectors beat Django's dark-mode overrides, so this applies in every theme. */
+  :root, html[data-theme="light"], html[data-theme="dark"], html[data-theme="auto"] {
+    --header-bg: #c2410c;
+    --header-branding-color: #fff;
+    --header-color: #ffedd5;
+    --breadcrumbs-bg: #9a3412;
+  }
+</style>
+{% endif %}
+{% endblock %}
+
+{% block branding %}
+<div id="site-name"><a href="{% url 'admin:index' %}">OpenANC admin{% if not is_production %} (LOCAL){% endif %}</a></div>
+{% if user.is_anonymous %}
+  {% include "admin/color_theme_toggle.html" %}
+{% endif %}
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

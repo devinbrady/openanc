@@ -29,6 +29,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-+#kqi^9@gj5&w(
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [h for h in os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if h]
+# 'production' on Fly (fly.toml); anything else marks the admin with an orange header and a label
+# (see openanc_web/templates/admin/base_site.html) so local and production can't be confused.
+ENVIRONMENT_NAME = os.environ.get('OPENANC_ENVIRONMENT', 'local')
 # When set, www.<this host> redirects to <this host> (see openanc_web/middleware.py).
 CANONICAL_HOST = os.environ.get('DJANGO_CANONICAL_HOST', '')
 
@@ -82,7 +85,8 @@ ROOT_URLCONF = 'openanc_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # Project-level overrides (admin/base_site.html) must come before the admin app's own.
+        'DIRS': [BASE_DIR / 'openanc_web' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,6 +94,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'openanc_web.context_processors.environment',
             ],
         },
     },
