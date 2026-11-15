@@ -195,15 +195,19 @@ class Person(models.Model):
         return reverse('directory:person_detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
+        # The slug follows the display name: a rename regenerates it unless the slug was also
+        # edited by hand in the same save. Whenever the slug changes, the old one is kept as a
+        # PersonSlugRedirect so existing links keep working.
+        previous = Person.objects.filter(pk=self.pk).values('full_name', 'slug').first() if self.pk else None
+        if previous and self.full_name != previous['full_name'] and self.slug == previous['slug']:
+            self.slug = ''
         if not self.slug:
-            base_slug = slugify(self.full_name) or 'person'
-            slug = base_slug
-            suffix = 1
-            while Person.objects.filter(slug=slug).exclude(pk=self.pk).exists():
-                suffix += 1
-                slug = f'{base_slug}-{suffix}'
-            self.slug = slug
+            self.slug = self._unique_slug()
         super().save(*args, **kwargs)
+        if previous and self.slug != previous['slug']:
+            PersonSlugRedirect.objects.update_or_create(slug=previous['slug'], defaults={'person': self})
+            # Renaming back to an earlier name: that slug is a live page again, not a redirect.
+            PersonSlugRedirect.objects.filter(slug=self.slug, person=self).delete()
         # Every display name is also an alias, so name lookups only ever search one table. A
         # previous display name stays behind as an alias when the name is edited.
         if self.full_name:
@@ -211,10 +215,23 @@ class Person(models.Model):
                 person=self, name=self.full_name, defaults={'source': PersonAlias.SOURCE_OPENANC},
             )
 
+    def _unique_slug(self):
+        """A slug from the display name that no other person uses, as a page or as a redirect."""
+        base_slug = slugify(self.full_name) or 'person'
+        slug = base_slug
+        suffix = 1
+        while (
+            Person.objects.filter(slug=slug).exclude(pk=self.pk).exists()
+            or PersonSlugRedirect.objects.filter(slug=slug).exclude(person_id=self.pk).exists()
+        ):
+            suffix += 1
+            slug = f'{base_slug}-{suffix}'
+        return slug
+
     def set_display_name(self, alias):
         """Promote one of this person's aliases to the display name. The old display name is
-        kept as an alias (it already is one), so nothing is lost. The slug is left alone so the
-        person's URL doesn't change."""
+        kept as an alias (it already is one), so nothing is lost. Like any rename, the slug
+        follows the new name and the old URL redirects."""
         if alias.person_id != self.pk:
             raise ValueError(f'{alias!r} is not an alias of {self!r}')
         self.full_name = alias.name

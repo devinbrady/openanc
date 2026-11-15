@@ -2,9 +2,10 @@ from datetime import timedelta
 
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 
-from directory.models import ANCOverlap, DistrictOverlap, Person, PersonLink
+from directory.models import ANCOverlap, DistrictOverlap, Person, PersonLink, PersonSlugRedirect
 from directory.tests.base import PageRenderingTestCase
 from directory.tests.factories import make_anc, make_commissioner_term, make_district, make_person, make_ward
 
@@ -149,6 +150,70 @@ class PersonSlugTests(TestCase):
         second = Person.objects.create(full_name='Jaspal Bhatia')
         self.assertNotEqual(first.slug, second.slug)
         self.assertEqual(second.slug, 'jaspal-bhatia-2')
+
+
+class PersonSlugFollowsNameTests(PageRenderingTestCase):
+    """Renaming a person regenerates their slug, and the old URL redirects to the new one."""
+
+    def test_renaming_regenerates_the_slug(self):
+        person = make_person(full_name='Michal R. Black')
+        person.full_name = 'Michael Black'
+        person.save()
+        person.refresh_from_db()
+        self.assertEqual(person.slug, 'michael-black')
+
+    def test_renaming_leaves_the_old_slug_as_a_redirect(self):
+        person = make_person(full_name='Michal R. Black')
+        person.full_name = 'Michael Black'
+        person.save()
+        self.assertEqual(PersonSlugRedirect.objects.get(slug='michal-r-black').person, person)
+        response = self.client.get(reverse('directory:person_detail', kwargs={'slug': 'michal-r-black'}))
+        self.assertRedirects(response, person.get_absolute_url(), status_code=301)
+
+    def test_editing_the_slug_by_hand_leaves_a_redirect(self):
+        person = make_person(full_name='Michael Black')
+        person.slug = 'michael-black-2f02'
+        person.save()
+        self.assertEqual(PersonSlugRedirect.objects.get(slug='michael-black').person, person)
+
+    def test_a_hand_set_slug_is_kept_when_the_name_changes_in_the_same_save(self):
+        person = make_person(full_name='Michal Black')
+        person.full_name = 'Michael Black'
+        person.slug = 'mike-black'
+        person.save()
+        person.refresh_from_db()
+        self.assertEqual(person.slug, 'mike-black')
+
+    def test_saving_without_a_rename_changes_nothing(self):
+        person = make_person(full_name='Michael Black')
+        person.save()
+        self.assertEqual(person.slug, 'michael-black')
+        self.assertFalse(PersonSlugRedirect.objects.exists())
+
+    def test_renaming_back_removes_the_now_stale_redirect(self):
+        person = make_person(full_name='Michael Black')
+        person.full_name = 'Mike Black'
+        person.save()
+        person.full_name = 'Michael Black'
+        person.save()
+        self.assertEqual(person.slug, 'michael-black')
+        self.assertEqual(list(PersonSlugRedirect.objects.values_list('slug', flat=True)), ['mike-black'])
+
+    def test_new_slug_avoids_another_persons_redirect(self):
+        other = make_person(full_name='Someone Else')
+        PersonSlugRedirect.objects.create(slug='michael-black', person=other)
+        person = make_person(full_name='Michal Black')
+        person.full_name = 'Michael Black'
+        person.save()
+        self.assertEqual(person.slug, 'michael-black-2')
+        self.assertEqual(PersonSlugRedirect.objects.get(slug='michael-black').person, other)
+
+    def test_new_slug_avoids_another_persons_slug(self):
+        make_person(full_name='Michael Black')
+        person = make_person(full_name='Michal Black')
+        person.full_name = 'Michael Black'
+        person.save()
+        self.assertEqual(person.slug, 'michael-black-2')
 
 
 class SlashDesignatorTests(PageRenderingTestCase):
