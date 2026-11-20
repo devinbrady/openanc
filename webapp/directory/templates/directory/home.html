@@ -10,6 +10,10 @@
 {% endblock %}
 
 {% block content %}
+<noscript>
+    <p>The map needs JavaScript. Without it, use the <a href="{% url 'directory:district_list' %}">list of districts</a>.
+    Automated assistants can look up a district by latitude and longitude; see <a href="{% url 'directory:llms_txt' %}">/llms.txt</a>.</p>
+</noscript>
 <div id="map"></div>
 <div class="map-info-panel" id="map-info-panel">
     <button type="button" class="map-info-close" id="map-info-close" aria-label="Close">&times;</button>
