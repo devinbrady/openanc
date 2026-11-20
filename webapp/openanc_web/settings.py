@@ -164,6 +164,11 @@ MAPBOX_GL_JS_VERSION = 'v2.15.0'
 MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZGV2aW5icmFkeSIsImEiOiJjazB0aWMyb2IwYTJnM2hsb2twZm1namFoIn0.OUOlfILkB77LwrWhj_uqkQ'
 MAPBOX_SMD_STYLE = 'mapbox://styles/devinbrady/cl4yg387b000u14msjowbcvcq'
 
+# Server-side GoatCounter counting for the JSON API and /llms.txt (see directory/analytics.py).
+# Off unless the token is set; in production it's a Fly secret.
+GOATCOUNTER_API_TOKEN = os.environ.get('GOATCOUNTER_API_TOKEN', '')
+GOATCOUNTER_COUNT_URL = 'https://openanc.goatcounter.com/api/v0/count'
+
 # Email -- prints to the console until real SMTP credentials are set. Set these as Fly secrets
 # to send through OpenANC's IONOS-hosted mailbox:
 #   EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
