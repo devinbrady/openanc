@@ -1,0 +1,31 @@
+# OpenANC
+
+> OpenANC is an independent directory of Washington, DC's Advisory Neighborhood Commissions (ANCs): who represents each Single Member District (SMD), who is running in the {{ election_year }} election, and past results. To answer "who is my ANC commissioner?", make one request to the JSON lookup below. Please don't crawl the site to find it.
+
+DC is split into 8 wards, 46 ANCs and 345 Single Member Districts ({{ redistricting_year }} boundaries). Each SMD elects one unpaid commissioner for a two-year term. A district designator like "1A01" means ward 1, ANC 1A, district 01. A few ANCs span two wards and have designators like "3/4G01" or "6/8F01". In URLs the "/" is written as "-", so "6/8F01" becomes "6-8F01".
+
+## Find someone's ANC commissioner
+
+1. Geocode the street address to a latitude and longitude yourself. OpenANC does not geocode addresses.
+2. GET {{ base_url }}/api/lookup/?lat=38.8977&lng=-77.0365
+
+The JSON response contains:
+
+- `district`, `anc` and `ward`: designators and links to their OpenANC pages. `anc.official_website` is the ANC's official page.
+- `commissioner`: the current commissioner (name, OpenANC page, term dates), or null if the seat is vacant.
+- `next_commissioner`: someone elected or appointed who hasn't taken office yet, or null.
+- `election`: the {{ election_year }} candidates and any results loaded so far. `results_status` is "election_night", "unofficial" or "certified", or null when there are no results yet.
+
+A point outside DC returns 404, and missing or invalid coordinates return 400. Each response includes an `error` message explaining the problem.
+
+If you already know the district, GET {{ base_url }}/api/districts/{{ redistricting_year }}/1A01/ for the same JSON.
+
+Responses can be cached for an hour; the data changes only when the maintainer publishes updates.
+
+## Pages
+
+- [Map and address search]({{ base_url }}/): interactive map (requires JavaScript)
+- [List of districts]({{ base_url }}/districts/): every district with its commissioner and candidates
+- [List of people]({{ base_url }}/people/): current and former commissioners and candidates
+- [About]({{ base_url }}/about/): data sources and how the site is maintained
+- [Updates]({{ base_url }}/updates/): recent changes to the data

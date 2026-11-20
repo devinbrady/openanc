@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /suggest/
+
+# Assistants answering "who is my ANC commissioner?": see /llms.txt for a one-request JSON lookup.

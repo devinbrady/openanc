@@ -64,3 +64,55 @@ def boundary_geometry(kind, designator, year):
     else:
         feature_id = f'{prefix}_{designator}_{year}'
     return _load(kind, year).get(feature_id)
+
+
+def _ring_contains(ring, lng, lat):
+    """Even-odd ray cast: does the closed ring of [lng, lat] points contain the point?"""
+    inside = False
+    j = len(ring) - 1
+    for i in range(len(ring)):
+        xi, yi = ring[i][0], ring[i][1]
+        xj, yj = ring[j][0], ring[j][1]
+        if (yi > lat) != (yj > lat) and lng < (xj - xi) * (lat - yi) / (yj - yi) + xi:
+            inside = not inside
+        j = i
+    return inside
+
+
+def point_in_geometry(geometry, lng, lat):
+    """True if a GeoJSON Polygon or MultiPolygon contains the point. Holes count as outside: with
+    the even-odd rule, a point in a hole is inside two rings of its polygon."""
+    if not geometry:
+        return False
+    if geometry['type'] == 'Polygon':
+        polygons = [geometry['coordinates']]
+    elif geometry['type'] == 'MultiPolygon':
+        polygons = geometry['coordinates']
+    else:
+        return False
+    return any(sum(_ring_contains(ring, lng, lat) for ring in polygon) % 2 == 1 for polygon in polygons)
+
+
+_bbox_cache = {}
+
+
+def _bbox(key, geometry):
+    if key not in _bbox_cache:
+        rings = geometry['coordinates'] if geometry['type'] == 'Polygon' else [r for p in geometry['coordinates'] for r in p]
+        xs = [pt[0] for ring in rings for pt in ring]
+        ys = [pt[1] for ring in rings for pt in ring]
+        _bbox_cache[key] = (min(xs), min(ys), max(xs), max(ys))
+    return _bbox_cache[key]
+
+
+def designator_at(kind, designators, year, lng, lat):
+    """Which of these designators' boundaries contains the point? Checks bounding boxes first so
+    only a handful of polygons get the full test. None if none of them does (e.g. outside DC)."""
+    for designator in designators:
+        geometry = boundary_geometry(kind, designator, year)
+        if not geometry:
+            continue
+        min_x, min_y, max_x, max_y = _bbox((kind, year, designator), geometry)
+        if min_x <= lng <= max_x and min_y <= lat <= max_y and point_in_geometry(geometry, lng, lat):
+            return designator
+    return None

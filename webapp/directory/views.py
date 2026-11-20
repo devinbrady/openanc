@@ -1,17 +1,22 @@
 import logging
+import math
 from collections import defaultdict
 
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.db.models import Count, Q
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.views.decorators.cache import cache_control
+from django.views.decorators.http import require_safe
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView
 
-from .boundaries import boundary_geometry
+from .boundaries import boundary_geometry, designator_at
 from .forms import SuggestionForm
 from .models import (
     ANC,
@@ -19,6 +24,7 @@ from .models import (
     CandidateStatus,
     CommissionerTerm,
     District,
+    Election,
     ElectionResult,
     Person,
     PersonSlugRedirect,
@@ -386,6 +392,157 @@ def district_summary(request, year, designator):
         candidate.is_vote_leader = candidate.id in leader_ids
     context['write_in_leads'] = district.write_in_leads
     return render(request, 'directory/_district_summary.html', context)
+
+
+# The JSON API and /llms.txt exist so AI assistants can answer "who is my ANC commissioner?"
+# with one small request (issue 101). Responses are marked cacheable: the data only changes when
+# local edits are pushed to production, so an hour's staleness is fine and saves repeat hits.
+API_CACHE_SECONDS = 60 * 60
+TEXT_CACHE_SECONDS = 24 * 60 * 60
+
+
+def _api_response(data, status=200):
+    response = JsonResponse(data, status=status, json_dumps_params={'indent': 2})
+    response['Access-Control-Allow-Origin'] = '*'
+    return response
+
+
+def _person_json(request, term):
+    if term is None:
+        return None
+    return {
+        'name': term.person.full_name,
+        'url': request.build_absolute_uri(term.person.get_absolute_url()),
+        'term_start': term.start_date.isoformat(),
+        'term_end': term.end_date.isoformat(),
+    }
+
+
+def _election_json(request, district):
+    election = Election.objects.filter(year=settings.CURRENT_ELECTION_YEAR).first()
+    if election is None:
+        return None
+    candidates = (
+        district.candidates.filter(election=election, status__publish_candidate=True)
+        .select_related('person', 'status')
+        .order_by('status__display_order', 'person__full_name')
+    )
+    results = (
+        district.results.filter(election=election)
+        .select_related('candidate__person')
+        .order_by('ranking')
+    )
+    return {
+        'year': election.year,
+        'date': election.election_date.isoformat() if election.election_date else None,
+        'candidates': [
+            {
+                'name': c.person.full_name,
+                'status': c.status.name,
+                'url': request.build_absolute_uri(c.person.get_absolute_url()),
+            }
+            for c in candidates
+        ],
+        'results_status': election.results_status or None,
+        'results_as_of': election.results_as_of.isoformat() if election.results_as_of else None,
+        'results': [
+            {
+                'name': (r.candidate.person.full_name if r.candidate else r.candidate_name_raw) or 'Write-ins combined',
+                'votes': r.votes,
+                'is_winner': r.is_winner,
+            }
+            for r in results
+        ],
+    }
+
+
+def _district_json(request, district):
+    current, future, _ = _split_commissioner_terms(district)
+    anc = district.anc
+    ward = district.ward
+    return {
+        'district': {
+            'designator': district.designator,
+            'name': f'Single Member District {district.designator}',
+            'redistricting_year': district.redistricting_year,
+            'url': request.build_absolute_uri(district.get_absolute_url()),
+        },
+        'anc': {
+            'designator': anc.designator,
+            'name': f'Advisory Neighborhood Commission {anc.designator}',
+            'url': request.build_absolute_uri(anc.get_absolute_url()),
+            'official_website': anc.dc_oanc_link or None,
+        },
+        'ward': {
+            'number': ward.ward_number,
+            'councilmember': ward.councilmember or None,
+            'url': request.build_absolute_uri(ward.get_absolute_url()),
+        },
+        # null means the seat is vacant.
+        'commissioner': _person_json(request, current[0] if current else None),
+        'next_commissioner': _person_json(request, future[0] if future else None),
+        'election': _election_json(request, district),
+        'source': 'OpenANC (https://openanc.org/), an independent directory of DC ANC commissioners.',
+    }
+
+
+def _parse_coordinate(value, limit):
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if math.isnan(number) or not -limit <= number <= limit:
+        return None
+    return number
+
+
+@require_safe
+@cache_control(public=True, max_age=API_CACHE_SECONDS)
+def api_lookup(request):
+    lat = _parse_coordinate(request.GET.get('lat'), 90)
+    lng = _parse_coordinate(request.GET.get('lng', request.GET.get('lon')), 180)
+    if lat is None or lng is None:
+        return _api_response(
+            {'error': 'Pass lat and lng as decimal degrees, e.g. /api/lookup/?lat=38.8977&lng=-77.0365'},
+            status=400,
+        )
+    year = settings.CURRENT_REDISTRICTING_YEAR
+    districts = {d.designator: d for d in District.objects.filter(redistricting_year=year).select_related('anc', 'ward')}
+    designator = designator_at('district', sorted(districts), year, lng, lat)
+    if designator is None:
+        return _api_response(
+            {'error': 'That point is not inside any DC Advisory Neighborhood Commission district.'},
+            status=404,
+        )
+    return _api_response(_district_json(request, districts[designator]))
+
+
+@require_safe
+@cache_control(public=True, max_age=API_CACHE_SECONDS)
+def api_district(request, year, designator):
+    district = (
+        District.objects.filter(redistricting_year=year, designator=designator).select_related('anc', 'ward').first()
+    )
+    if district is None:
+        return _api_response({'error': f'No district {designator} in the {year} redistricting.'}, status=404)
+    return _api_response(_district_json(request, district))
+
+
+@require_safe
+@cache_control(public=True, max_age=TEXT_CACHE_SECONDS)
+def llms_txt(request):
+    context = {
+        'base_url': request.build_absolute_uri('/').rstrip('/'),
+        'redistricting_year': settings.CURRENT_REDISTRICTING_YEAR,
+        'election_year': settings.CURRENT_ELECTION_YEAR,
+    }
+    return HttpResponse(render_to_string('directory/llms.txt', context), content_type='text/plain; charset=utf-8')
+
+
+@require_safe
+@cache_control(public=True, max_age=TEXT_CACHE_SECONDS)
+def robots_txt(request):
+    return HttpResponse(render_to_string('directory/robots.txt'), content_type='text/plain; charset=utf-8')
 
 
 class ANCDetailView(DetailView):
