@@ -16,6 +16,7 @@ from django.views.decorators.http import require_safe
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView
 
+from .analytics import count_in_goatcounter
 from .boundaries import boundary_geometry, designator_at
 from .forms import SuggestionForm
 from .models import (
@@ -496,6 +497,7 @@ def _parse_coordinate(value, limit):
     return number
 
 
+@count_in_goatcounter('API lookup')
 @require_safe
 @cache_control(public=True, max_age=API_CACHE_SECONDS)
 def api_lookup(request):
@@ -517,6 +519,7 @@ def api_lookup(request):
     return _api_response(_district_json(request, districts[designator]))
 
 
+@count_in_goatcounter('API district')
 @require_safe
 @cache_control(public=True, max_age=API_CACHE_SECONDS)
 def api_district(request, year, designator):
@@ -528,6 +531,7 @@ def api_district(request, year, designator):
     return _api_response(_district_json(request, district))
 
 
+@count_in_goatcounter('llms.txt')
 @require_safe
 @cache_control(public=True, max_age=TEXT_CACHE_SECONDS)
 def llms_txt(request):
