@@ -27,6 +27,8 @@ from .models import (
     PersonLink,
     PersonMerge,
     PersonSlugRedirect,
+    RankedChoiceContest,
+    RankedChoiceTally,
     SiteUpdate,
     Suggestion,
     Ward,
@@ -267,10 +269,31 @@ class CandidateAdmin(SimpleHistoryAdmin):
 
 @admin.register(ElectionResult)
 class ElectionResultAdmin(SimpleHistoryAdmin):
-    list_display = ['election', 'district', 'candidate', 'candidate_name_raw', 'votes', 'is_winner']
-    list_filter = ['election', 'is_winner', 'is_write_in_winner']
+    list_display = ['election', 'district', 'candidate', 'candidate_name_raw', 'votes', 'is_winner', 'rcv_outcome']
+    list_filter = ['election', 'is_winner', 'is_write_in_winner', 'rcv_outcome']
     search_fields = ['candidate__person__full_name', 'candidate_name_raw', 'district__designator']
     autocomplete_fields = ['election', 'district', 'candidate']
+
+
+class RankedChoiceTallyInline(admin.TabularInline):
+    model = RankedChoiceTally
+    extra = 0
+    fields = ['round_number', 'candidate_name_raw', 'candidate', 'votes', 'outcome', 'is_inactive']
+    readonly_fields = fields
+    can_delete = False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(RankedChoiceContest)
+class RankedChoiceContestAdmin(SimpleHistoryAdmin):
+    """Loaded by import_rcv_results; re-run that rather than editing rounds by hand."""
+    list_display = ['election', 'district', 'num_rounds', 'release_name', 'rcvis_url']
+    list_filter = ['election', 'num_rounds']
+    search_fields = ['district__designator']
+    autocomplete_fields = ['election', 'district']
+    inlines = [RankedChoiceTallyInline]
 
 
 @admin.register(SiteUpdate)

@@ -1,0 +1,41 @@
+{
+ "config": {
+  "contest": "1B03",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "6",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 1,
+   "tally": {
+    "David Seidman": 379.0,
+    "J. Swiderski": 133.0,
+    "Jamie S. Sycamore": 190.0,
+    "Write-in": 5.0
+   },
+   "tallyResults": [
+    {
+     "elected": "David Seidman",
+     "transfers": {}
+    }
+   ],
+   "threshold": "354"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "354",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "821",
+  "undervotes": 106
+ }
+}

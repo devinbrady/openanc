@@ -1,0 +1,41 @@
+{
+ "config": {
+  "contest": "6A02",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "1",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 1,
+   "tally": {
+    "Cole Rinner": 95.0,
+    "Kari Cooke": 216.0,
+    "Kimberly S. Butler": 517.0,
+    "Write-in": 12.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Kimberly S. Butler",
+     "transfers": {}
+    }
+   ],
+   "threshold": "421"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "421",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "1027",
+  "undervotes": 184
+ }
+}

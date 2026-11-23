@@ -1,0 +1,41 @@
+{
+ "config": {
+  "contest": "1E02",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "3",
+    "repeatedRankings": "0",
+    "skippedRankings": "1"
+   },
+   "round": 1,
+   "tally": {
+    "Audra K. Grant": 364.0,
+    "Dominique D. Satterwhite": 99.0,
+    "Michael McGarty": 78.0,
+    "Write-in": 4.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Audra K. Grant",
+     "transfers": {}
+    }
+   ],
+   "threshold": "273"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "273",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "640",
+  "undervotes": 91
+ }
+}

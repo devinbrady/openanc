@@ -128,6 +128,26 @@ This creates an unpublished `SiteUpdate` from the audit trail. Edit it at
 If a name doesn't resolve to exactly one candidate in that district, nothing is written and the
 name is listed. Add the alias in the Person admin (or the missing Candidate) and rerun.
 
+### Ranked-choice rounds
+
+DCBOE publishes round-by-round RCV results separately, in numbered releases on the RCV tab of
+[its results site](https://electionresults.dcboe.org/election_results/2026-General-Election).
+After each new release (and after importing the first-choice CSV it goes with):
+
+```bash
+python manage.py import_rcv_results --year 2026           # dry run, newest release
+python manage.py import_rcv_results --year 2026 --apply
+```
+
+The dry run lists each tabulated ANC contest with its rounds and winner, and flags any where the
+winner isn't the first-choice leader. `--release "<name>"` loads an older release instead.
+Every name has to match a first-choice result row in that district, or nothing is written.
+Fetched pages are cached in `data/rcvis/` (commit them with the results CSVs), so re-running is
+free. The RCVis API key isn't used (see `directory/rcv.py`).
+
+Before certified results, import DCBOE's final RCV release: a `certified` run of
+`import_election_results` marks the ranked-choice winner where one has been imported.
+
 ## Pushing changes to production
 
 Run these yourself, from `webapp/`:
@@ -190,14 +210,15 @@ python manage.py test directory.tests.test_suggestion_apply.ApplyNewCommissioner
 
 ## Reference: management commands
 
-You only run `check_oanc_commissioners`, `draft_site_update` and `import_election_results`
-directly; `ops/sync_production.sh` calls the rest.
+You only run `check_oanc_commissioners`, `draft_site_update`, `import_election_results` and
+`import_rcv_results` directly; `ops/sync_production.sh` calls the rest.
 
 | Command | Runs where | Purpose |
 |---|---|---|
 | `check_oanc_commissioners [--anc] [--dry-run] [--force-refresh]` | local | Compare against the official OANC roster; creates review Suggestions |
 | `draft_site_update [--date] [--since]` | local | Draft an Updates-page entry from the audit trail |
 | `import_election_results <csv> --year --status --as-of [--apply]` | local | Load a DCBOE results CSV (dry run unless `--apply`) |
+| `import_rcv_results --year [--release] [--apply]` | local | Load DCBOE's ranked-choice rounds from RCVis (dry run unless `--apply`) |
 | `backfill_person_aliases [--apply]` | local | Add aliases from spellings already in the database and DCBOE lists |
 | `dump_editorial_data --output --manifest` | local | Export editorial data + PK manifest (used by `push`) |
 | `load_editorial_data <path> [--prune-manifest] [--yes]` | production | Load an editorial fixture (used by `push`) |

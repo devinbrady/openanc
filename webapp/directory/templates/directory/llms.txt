@@ -14,7 +14,7 @@ The JSON response contains:
 - `district`, `anc` and `ward`: designators and links to their OpenANC pages. `anc.official_website` is the ANC's official page.
 - `commissioner`: the current commissioner (name, OpenANC page, term dates), or null if the seat is vacant.
 - `next_commissioner`: someone elected or appointed who hasn't taken office yet, or null.
-- `election`: the {{ election_year }} candidates and any results loaded so far. `results_status` is "election_night", "unofficial" or "certified", or null when there are no results yet.
+- `election`: the {{ election_year }} candidates and any results loaded so far. `results_status` is "election_night", "unofficial" or "certified", or null when there are no results yet. Vote counts in `results` are first-choice votes. `is_leading` marks who is ahead; in a ranked-choice contest that is the winner of the last round, not necessarily the first-choice leader. `ranked_choice` holds DCBOE's round-by-round tabulation (`rounds`, `winner`, `source`, `rcvis_url`), or null if the contest has none.
 
 A point outside DC returns 404, and missing or invalid coordinates return 400. Each response includes an `error` message explaining the problem.
 

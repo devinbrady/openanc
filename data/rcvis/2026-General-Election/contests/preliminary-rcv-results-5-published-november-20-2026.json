@@ -1,0 +1,122 @@
+[
+ {
+  "ContestNumber": 4,
+  "DetailedReportUrl": null,
+  "OfficeName": "DELEGATE TO THE HOUSE OF REPRESENTATIVES FROM THE DISTRICT OF COLUMBIA",
+  "SeatCount": 1,
+  "TotalVotesTallied": 236852,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/delegate-4"
+ },
+ {
+  "ContestNumber": 5,
+  "DetailedReportUrl": null,
+  "OfficeName": "MAYOR OF THE DISTRICT OF COLUMBIA",
+  "SeatCount": 1,
+  "TotalVotesTallied": 236533,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/mayor-18"
+ },
+ {
+  "ContestNumber": 7,
+  "DetailedReportUrl": null,
+  "OfficeName": "AT-LARGE MEMBER OF THE COUNCIL OF THE DISTRICT OF COLUMBIA",
+  "SeatCount": 2,
+  "TotalVotesTallied": 236533,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/at-large-12"
+ },
+ {
+  "ContestNumber": 8,
+  "DetailedReportUrl": null,
+  "OfficeName": "WARD ONE MEMBER OF THE COUNCIL OF THE DISTRICT OF COLUMBIA",
+  "SeatCount": 1,
+  "TotalVotesTallied": 30727,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/ward-one-council-4"
+ },
+ {
+  "ContestNumber": 10,
+  "DetailedReportUrl": null,
+  "OfficeName": "WARD FIVE MEMBER OF THE COUNCIL OF THE DISTRICT OF COLUMBIA",
+  "SeatCount": 1,
+  "TotalVotesTallied": 33657,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/ward-five-council-4"
+ },
+ {
+  "ContestNumber": 18,
+  "DetailedReportUrl": null,
+  "OfficeName": "WARD SIX MEMBER OF THE STATE BOARD OF EDUCATION",
+  "SeatCount": 1,
+  "TotalVotesTallied": 35880,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/ward-six-sboe-4"
+ },
+ {
+  "ContestNumber": 31,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-1B03",
+  "SeatCount": 1,
+  "TotalVotesTallied": 821,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/1b03-4"
+ },
+ {
+  "ContestNumber": 55,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-1E02",
+  "SeatCount": 1,
+  "TotalVotesTallied": 640,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/1e02-4"
+ },
+ {
+  "ContestNumber": 71,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-2B02",
+  "SeatCount": 1,
+  "TotalVotesTallied": 730,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/2b02-4"
+ },
+ {
+  "ContestNumber": 199,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-5A08",
+  "SeatCount": 1,
+  "TotalVotesTallied": 916,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/5a08-4"
+ },
+ {
+  "ContestNumber": 202,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-5B02",
+  "SeatCount": 1,
+  "TotalVotesTallied": 1007,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/5b02-4"
+ },
+ {
+  "ContestNumber": 205,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-5B05",
+  "SeatCount": 1,
+  "TotalVotesTallied": 1004,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/5b05-4"
+ },
+ {
+  "ContestNumber": 225,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-5E02",
+  "SeatCount": 1,
+  "TotalVotesTallied": 781,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/5e02-4"
+ },
+ {
+  "ContestNumber": 238,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-6A02",
+  "SeatCount": 1,
+  "TotalVotesTallied": 1027,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/6a02-4"
+ },
+ {
+  "ContestNumber": 242,
+  "DetailedReportUrl": null,
+  "OfficeName": "ANC-6A06",
+  "SeatCount": 1,
+  "TotalVotesTallied": 957,
+  "VisualizationSourceURL": "https://www.rcvis.com/v/anc-6a06-5"
+ }
+]

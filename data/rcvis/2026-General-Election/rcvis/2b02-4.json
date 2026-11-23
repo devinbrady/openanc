@@ -1,0 +1,93 @@
+{
+ "config": {
+  "contest": "2B02",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "0",
+    "repeatedRankings": "0",
+    "skippedRankings": "0"
+   },
+   "round": 1,
+   "tally": {
+    "Inactive Ballots": 0,
+    "Jeffrey Rueckgauer": 230.0,
+    "Keaton Dicapo": 91.0,
+    "Write-in": 11.0,
+    "Zach Epstein": 261.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Write-in",
+     "transfers": {
+      "Inactive Ballots": 6.0,
+      "Keaton Dicapo": 2.0,
+      "Zach Epstein": 3.0
+     }
+    }
+   ],
+   "threshold": "297"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "6",
+    "overvotes": "0",
+    "repeatedRankings": "0",
+    "skippedRankings": "0"
+   },
+   "round": 2,
+   "tally": {
+    "Inactive Ballots": 6.0,
+    "Jeffrey Rueckgauer": 230.0,
+    "Keaton Dicapo": 93.0,
+    "Zach Epstein": 264.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Keaton Dicapo",
+     "transfers": {
+      "Inactive Ballots": 25.0,
+      "Jeffrey Rueckgauer": 49.0,
+      "Zach Epstein": 19.0
+     }
+    }
+   ],
+   "threshold": "294"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "31",
+    "overvotes": "0",
+    "repeatedRankings": "0",
+    "skippedRankings": "0"
+   },
+   "round": 3,
+   "tally": {
+    "Inactive Ballots": 31.0,
+    "Jeffrey Rueckgauer": 279.0,
+    "Zach Epstein": 283.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Zach Epstein",
+     "transfers": {}
+    }
+   ],
+   "threshold": "282"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "282",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "730",
+  "undervotes": 137
+ }
+}

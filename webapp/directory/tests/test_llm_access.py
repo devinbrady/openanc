@@ -127,10 +127,11 @@ class LookupApiTests(PageRenderingTestCase):
         self.assertEqual(
             data['election']['results'],
             [
-                {'name': 'Carl Candidate', 'votes': 321, 'is_winner': False},
-                {'name': 'Write-ins combined', 'votes': 7, 'is_winner': False},
+                {'name': 'Carl Candidate', 'votes': 321, 'is_winner': False, 'is_leading': True},
+                {'name': 'Write-ins combined', 'votes': 7, 'is_winner': False, 'is_leading': False},
             ],
         )
+        self.assertIsNone(data['election']['ranked_choice'])
 
     def test_unpublished_candidate_statuses_are_left_out(self):
         hidden = make_candidate_status('Hidden', publish_candidate=False)

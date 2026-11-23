@@ -29,6 +29,8 @@ from .models import (
     ElectionResult,
     Person,
     PersonSlugRedirect,
+    RankedChoiceContest,
+    RankedChoiceTally,
     SiteUpdate,
     Suggestion,
     Ward,
@@ -157,8 +159,7 @@ def _attach_vote_leaders(districts, statuses):
     leading_candidate_ids = set()
     write_in_leads_district_ids = set()
     for result in results:
-        is_leader = result.is_winner if final else result.ranking == 1
-        if not is_leader or result.votes == 0:
+        if not result.is_leader or result.votes == 0:
             continue
         if result.candidate_id:
             leading_candidate_ids.add(result.candidate_id)
@@ -302,6 +303,51 @@ def _district_last_edited(district):
     return max(latest_dates) if latest_dates else None
 
 
+def _rcv_rows(contest):
+    """A ranked-choice contest's tallies as (candidate rows, inactive ballots per round).
+
+    Each candidate row has their votes per round (None after they were eliminated), the round
+    they were last counted in, and their outcome. Rows run winner first, then by how many rounds
+    each candidate lasted, then by their votes in their last round."""
+    rounds = contest.num_rounds
+    rows, inactive = {}, [None] * rounds
+    for tally in contest.tallies.select_related('candidate__person'):
+        if tally.is_inactive:
+            inactive[tally.round_number - 1] = tally.votes
+            continue
+        row = rows.setdefault(tally.candidate_name_raw, {
+            'name': tally.candidate_name_raw, 'candidate': tally.candidate,
+            'votes': [None] * rounds, 'last_round': 0, 'outcome': '',
+        })
+        row['votes'][tally.round_number - 1] = tally.votes
+        row['last_round'] = tally.round_number  # tallies come in round order
+        if tally.outcome:
+            row['outcome'] = tally.outcome
+    ordered = sorted(rows.values(), key=lambda r: (
+        r['outcome'] != RankedChoiceTally.OUTCOME_ELECTED, -r['last_round'], -r['votes'][r['last_round'] - 1],
+    ))
+    return ordered, inactive
+
+
+def _rcv_table(contest, election):
+    rows, inactive = _rcv_rows(contest)
+    for row in rows:
+        if row['outcome'] == RankedChoiceTally.OUTCOME_ELECTED:
+            row['label'] = 'Won' if election.results_are_final else 'Leading'
+        elif row['outcome'] == RankedChoiceTally.OUTCOME_ELIMINATED:
+            row['label'] = f'Eliminated in round {row["last_round"]}'
+        else:
+            # Neither elected nor eliminated: still counted in the last round, but lost it.
+            row['label'] = 'Runner-up' if election.results_are_final else 'Trailing'
+    return {
+        'contest': contest,
+        'round_numbers': range(1, contest.num_rounds + 1),
+        'rows': rows,
+        'inactive': inactive,
+        'winner': rows[0] if rows and rows[0]['outcome'] == RankedChoiceTally.OUTCOME_ELECTED else None,
+    }
+
+
 def _district_context(district):
     current_terms, future_terms, former_terms = _split_commissioner_terms(district)
 
@@ -316,6 +362,7 @@ def _district_context(district):
         wiw.election.year: wiw for wiw in district.write_in_winners.select_related('election', 'person')
     }
     elections_with_results = {r.election for r in district.results.select_related('election')}
+    rcv_contests = {c.election_id: c for c in district.rcv_contests.all()}
     for election in sorted(elections_with_results, key=lambda e: e.year, reverse=True):
         results = list(
             district.results.filter(election=election)
@@ -326,8 +373,10 @@ def _district_context(district):
         for result in results:
             result.vote_share = result.votes / total_votes if total_votes else None
         leader = results[0] if results else None
+        rcv_contest = rcv_contests.get(election.pk)
         results_by_election.append({
             'election': election,
+            'rcv': _rcv_table(rcv_contest, election) if rcv_contest else None,
             'results': results,
             'total_votes': total_votes,
             'write_in_winner': write_in_winners_by_year.get(election.year),
@@ -337,7 +386,7 @@ def _district_context(district):
             # left vacant (2022's 1E01, 6E08 and 7D10).
             'no_winner': election.results_are_final and bool(results) and not any(r.is_winner for r in results),
             'no_majority': (
-                election.uses_ranked_choice and len(results) > 1 and leader is not None
+                election.uses_ranked_choice and rcv_contest is None and len(results) > 1 and leader is not None
                 and leader.votes * 2 <= total_votes
             ),
         })
@@ -451,8 +500,38 @@ def _election_json(request, district):
                 'name': (r.candidate.person.full_name if r.candidate else r.candidate_name_raw) or 'Write-ins combined',
                 'votes': r.votes,
                 'is_winner': r.is_winner,
+                'is_leading': r.is_leader,
             }
             for r in results
+        ],
+        'ranked_choice': _rcv_json(district.rcv_contests.filter(election=election).first()),
+    }
+
+
+def _rcv_json(contest):
+    if contest is None:
+        return None
+    rows, inactive = _rcv_rows(contest)
+    winner = rows[0] if rows and rows[0]['outcome'] == RankedChoiceTally.OUTCOME_ELECTED else None
+
+    def name(row):
+        return row['candidate'].person.full_name if row['candidate'] else row['name']
+
+    return {
+        'source': contest.release_name,
+        'rcvis_url': contest.rcvis_url,
+        'winner': name(winner) if winner else None,
+        'rounds': [
+            {
+                'round': n,
+                'votes': {name(r): r['votes'][n - 1] for r in rows if r['votes'][n - 1] is not None},
+                'inactive_ballots': inactive[n - 1],
+                'eliminated': [name(r) for r in rows if r['last_round'] == n
+                               and r['outcome'] == RankedChoiceTally.OUTCOME_ELIMINATED],
+                'elected': [name(r) for r in rows if r['last_round'] == n
+                            and r['outcome'] == RankedChoiceTally.OUTCOME_ELECTED],
+            }
+            for n in range(1, contest.num_rounds + 1)
         ],
     }
 
@@ -648,10 +727,17 @@ class PersonDetailView(DetailView):
         }
         # Write-in winners have no result row of their own (DCBOE only reports write-ins combined).
         write_in_wins = set(self.object.write_in_wins.values_list('election_id', 'district_id'))
+        rcv_rounds = {
+            (c.election_id, c.district_id): c.num_rounds
+            for c in RankedChoiceContest.objects.filter(district__candidates__person=self.object).distinct()
+        }
         for candidacy in candidacies:
             candidacy.result = result_lookup.get(candidacy.id)
             if candidacy.result:
                 candidacy.result_label = candidacy.result.outcome_label
+                rounds = rcv_rounds.get((candidacy.election_id, candidacy.district_id), 1)
+                if candidacy.result_label and rounds > 1:
+                    candidacy.result_label += f' after {rounds} ranked-choice rounds'
             elif (candidacy.election_id, candidacy.district_id) in write_in_wins:
                 candidacy.result_label = 'Won (write-in)'
             else:

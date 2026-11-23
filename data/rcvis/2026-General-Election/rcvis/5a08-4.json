@@ -1,0 +1,93 @@
+{
+ "config": {
+  "contest": "5A08",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "2",
+    "repeatedRankings": "0",
+    "skippedRankings": "5"
+   },
+   "round": 1,
+   "tally": {
+    "Debra Whitford": 208.0,
+    "Dwight Davis": 290.0,
+    "Elaine Alston": 311.0,
+    "Inactive Ballots": 0,
+    "Write-in": 6.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Write-in",
+     "transfers": {
+      "Dwight Davis": 1.0,
+      "Elaine Alston": 1.0,
+      "Inactive Ballots": 4.0
+     }
+    }
+   ],
+   "threshold": "408"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "4",
+    "overvotes": "2",
+    "repeatedRankings": "0",
+    "skippedRankings": "5"
+   },
+   "round": 2,
+   "tally": {
+    "Debra Whitford": 208.0,
+    "Dwight Davis": 291.0,
+    "Elaine Alston": 312.0,
+    "Inactive Ballots": 4.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Debra Whitford",
+     "transfers": {
+      "Dwight Davis": 47.0,
+      "Elaine Alston": 69.0,
+      "Inactive Ballots": 92.0
+     }
+    }
+   ],
+   "threshold": "406"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "94",
+    "overvotes": "2",
+    "repeatedRankings": "0",
+    "skippedRankings": "7"
+   },
+   "round": 3,
+   "tally": {
+    "Dwight Davis": 338.0,
+    "Elaine Alston": 381.0,
+    "Inactive Ballots": 96.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Elaine Alston",
+     "transfers": {}
+    }
+   ],
+   "threshold": "360"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "360",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "916",
+  "undervotes": 94
+ }
+}

@@ -556,11 +556,22 @@ class ElectionResult(models.Model):
     )
     candidate_name_raw = models.CharField(max_length=200, blank=True)
 
+    RCV_ELECTED = 'elected'
+    RCV_ELIMINATED = 'eliminated'
+    RCV_OUTCOME_CHOICES = [
+        ('', 'Not tabulated'),
+        (RCV_ELECTED, 'Elected'),
+        (RCV_ELIMINATED, 'Eliminated'),
+    ]
+
     votes = models.PositiveIntegerField()
     ranking = models.PositiveSmallIntegerField(null=True, blank=True)
     is_winner = models.BooleanField(default=False)
     is_write_in_winner = models.BooleanField(default=False)
     margin_of_victory = models.IntegerField(null=True, blank=True)
+    # Set by import_rcv_results for every row in a contest DCBOE has run ranked-choice tabulation
+    # for; blank otherwise. `votes` and `ranking` stay first-choice.
+    rcv_outcome = models.CharField(max_length=20, choices=RCV_OUTCOME_CHOICES, default='', blank=True)
 
     history = HistoricalRecords()
 
@@ -568,20 +579,85 @@ class ElectionResult(models.Model):
         ordering = ['election__year', 'district__designator', 'ranking']
 
     @property
-    def outcome_label(self):
-        """'Won' for the certified winner, 'Leading' for first place while results are still
-        unofficial, otherwise ''. Shown on district and person pages.
+    def is_leader(self):
+        """Who is ahead: the certified winner once results are final; before that, whoever was
+        elected in the last ranked-choice round if DCBOE has tabulated the contest, else first
+        place on first choices.
 
         Certified results go by is_winner rather than ranking: first place isn't always the
         winner. In 2022, a candidate who had withdrawn got the most votes in 1E01, 6E08 and 7D10,
-        so no one won and those seats were left vacant."""
+        so no one won and those seats were left vacant. Under ranked choice, the first-choice
+        leader can also lose in later rounds (5E02 in 2026)."""
+        if self.election.results_are_final:
+            return self.is_winner
+        if self.rcv_outcome:
+            return self.rcv_outcome == self.RCV_ELECTED
+        return self.ranking == 1
+
+    @property
+    def outcome_label(self):
+        """'Won' for the certified winner, 'Leading' for the leader while results are still
+        unofficial (see is_leader), otherwise ''. Shown on district and person pages."""
         if self.election.results_are_final:
             return 'Won' if self.is_winner else ''
-        return 'Leading' if self.ranking == 1 else ''
+        return 'Leading' if self.is_leader else ''
 
     def __str__(self):
         name = (self.candidate.person if self.candidate else None) or self.candidate_name_raw or 'Write-ins combined'
         return f'{name} — {self.district} ({self.election.year}): {self.votes} votes'
+
+
+class RankedChoiceContest(models.Model):
+    """DCBOE's ranked-choice tabulation of one district's contest, from the RCVis visualization
+    DCBOE links on its results site. Loaded (and replaced with each new DCBOE release) by
+    import_rcv_results; the rounds are in `tallies`."""
+    election = models.ForeignKey(Election, related_name='rcv_contests', on_delete=models.CASCADE)
+    district = models.ForeignKey(District, related_name='rcv_contests', on_delete=models.CASCADE)
+    rcvis_url = models.URLField()
+    release_name = models.CharField(max_length=200, help_text="DCBOE's name for the RCV results release.")
+    release_date = models.DateField(null=True, blank=True)
+    num_rounds = models.PositiveSmallIntegerField()
+
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ['election__year', 'district__designator']
+        constraints = [
+            models.UniqueConstraint(fields=['election', 'district'], name='unique_rcv_contest_per_district')
+        ]
+
+    def __str__(self):
+        return f'{self.district} ({self.election.year}): {self.num_rounds} RCV round(s)'
+
+
+class RankedChoiceTally(models.Model):
+    """One candidate's votes in one ranked-choice round. The "Inactive ballots" row (ballots with
+    no remaining ranked candidate) has is_inactive set and no candidate; so does the combined
+    "Write-in" row. outcome says what happened to the candidate at the end of this round."""
+    OUTCOME_ELECTED = 'elected'
+    OUTCOME_ELIMINATED = 'eliminated'
+    OUTCOME_CHOICES = [('', 'Continues'), (OUTCOME_ELECTED, 'Elected'), (OUTCOME_ELIMINATED, 'Eliminated')]
+
+    contest = models.ForeignKey(RankedChoiceContest, related_name='tallies', on_delete=models.CASCADE)
+    round_number = models.PositiveSmallIntegerField()
+    candidate = models.ForeignKey(
+        Candidate, related_name='rcv_tallies', null=True, blank=True, on_delete=models.SET_NULL
+    )
+    candidate_name_raw = models.CharField(max_length=200)
+    is_inactive = models.BooleanField(default=False)
+    votes = models.PositiveIntegerField()
+    outcome = models.CharField(max_length=20, choices=OUTCOME_CHOICES, default='', blank=True)
+
+    class Meta:
+        verbose_name_plural = 'ranked choice tallies'
+        ordering = ['contest', 'round_number', 'is_inactive', '-votes']
+        constraints = [
+            models.UniqueConstraint(fields=['contest', 'round_number', 'candidate_name_raw'],
+                                    name='unique_rcv_tally_per_round')
+        ]
+
+    def __str__(self):
+        return f'{self.contest.district} round {self.round_number}: {self.candidate_name_raw} {self.votes}'
 
 
 class SiteUpdate(models.Model):
