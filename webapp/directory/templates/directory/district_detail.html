@@ -90,6 +90,31 @@
 {% if entry.no_majority and not election.results_are_final %}
 <p class="muted">No candidate has a majority of first-choice votes. This is a ranked-choice election, so the winner will be decided by ranked-choice tabulation, which DCBOE hasn't published yet.</p>
 {% endif %}
+{% with rcv=entry.rcv %}
+{% if rcv and rcv.contest.num_rounds > 1 %}
+<h4>Ranked-choice rounds</h4>
+<p class="muted">From DCBOE's {{ rcv.contest.release_name }}. After each round, the candidate in last place is eliminated, and each of their ballots moves to the next candidate it ranks. Ballots with no candidates left ranked become inactive. Round 1 can be a few votes higher than the first-choice totals above, because a ballot with an unusable first choice (two candidates marked in one column, say) still counts for its next valid choice. <a href="{{ rcv.contest.rcvis_url }}">See this tabulation on RCVis</a>.</p>
+<div class="table-scroll">
+<table class="rcv-rounds">
+    <tr><th>Candidate</th>{% for n in rcv.round_numbers %}<th>Round {{ n }}</th>{% endfor %}<th>Result</th></tr>
+    {% for row in rcv.rows %}
+    <tr>
+        <td>{% if row.candidate %}<a href="{{ row.candidate.person.get_absolute_url }}">{{ row.candidate.person.full_name }}</a>{% else %}{{ row.name }}{% endif %}</td>
+        {% for votes in row.votes %}<td>{% if votes is None %}—{% else %}{{ votes }}{% endif %}</td>
+        {% endfor %}<td>{{ row.label }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td>Inactive ballots</td>
+        {% for votes in rcv.inactive %}<td>{% if votes is None %}—{% else %}{{ votes }}{% endif %}</td>
+        {% endfor %}<td></td>
+    </tr>
+</table>
+</div>
+{% elif rcv %}
+<p class="muted">In DCBOE's ranked-choice tabulation ({{ rcv.contest.release_name }}), {% if rcv.winner.candidate %}{{ rcv.winner.candidate.person.full_name }}{% else %}{{ rcv.winner.name }}{% endif %} won a majority in the first round, so no further rounds were needed. <a href="{{ rcv.contest.rcvis_url }}">See it on RCVis</a>.</p>
+{% endif %}
+{% endwith %}
 {% endwith %}
 {% endfor %}
 {% endif %}

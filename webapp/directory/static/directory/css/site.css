@@ -258,6 +258,13 @@ tr.term-future { background: var(--future-bg); }
 /* Fixed District column width, so a page listing many of these tables back to back (e.g. one
    per ANC on the district list) keeps District/Commissioner lined up from one table to the
    next, instead of each table auto-sizing its columns to its own widest content. */
+/* Ranked-choice rounds: one column per round, so a long contest can outgrow a phone screen.
+   Scroll the table sideways instead of the page, and keep vote counts right-aligned. */
+.table-scroll { overflow-x: auto; margin: 0.75rem 0 1.5rem; }
+.table-scroll table { margin: 0; }
+.rcv-rounds td:not(:first-child):not(:last-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.rcv-rounds th, .rcv-rounds td:last-child { white-space: nowrap; }
+
 .district-table { table-layout: fixed; }
 .district-table th:first-child,
 .district-table td:first-child {

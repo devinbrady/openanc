@@ -1,0 +1,122 @@
+{
+ "config": {
+  "contest": "ANC 6A06",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "1",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 1,
+   "tally": {
+    "Ben Hammer": 254.0,
+    "Chris Kennedy": 189.0,
+    "Daniel Aboagye": 237.0,
+    "Inactive Ballots": 0,
+    "Ray Biggs, II": 131.0,
+    "Write-in": 5.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Write-in",
+     "transfers": {
+      "Chris Kennedy": 1.0,
+      "Inactive Ballots": 3.0,
+      "Ray Biggs, II": 1.0
+     }
+    }
+   ],
+   "threshold": "409"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "3",
+    "overvotes": "1",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 2,
+   "tally": {
+    "Ben Hammer": 254.0,
+    "Chris Kennedy": 190.0,
+    "Daniel Aboagye": 237.0,
+    "Inactive Ballots": 3.0,
+    "Ray Biggs, II": 132.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Ray Biggs, II",
+     "transfers": {
+      "Ben Hammer": 15.0,
+      "Chris Kennedy": 29.0,
+      "Daniel Aboagye": 38.0,
+      "Inactive Ballots": 50.0
+     }
+    }
+   ],
+   "threshold": "407"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "53",
+    "overvotes": "1",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 3,
+   "tally": {
+    "Ben Hammer": 269.0,
+    "Chris Kennedy": 219.0,
+    "Daniel Aboagye": 275.0,
+    "Inactive Ballots": 53.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Chris Kennedy",
+     "transfers": {
+      "Ben Hammer": 81.0,
+      "Daniel Aboagye": 67.0,
+      "Inactive Ballots": 71.0
+     }
+    }
+   ],
+   "threshold": "382"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "124",
+    "overvotes": "1",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 4,
+   "tally": {
+    "Ben Hammer": 350.0,
+    "Daniel Aboagye": 342.0,
+    "Inactive Ballots": 124.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Ben Hammer",
+     "transfers": {}
+    }
+   ],
+   "threshold": "347"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "347",
+  "numCandidates": 5,
+  "numWinners": 1,
+  "totalNumBallots": "957",
+  "undervotes": 138
+ }
+}

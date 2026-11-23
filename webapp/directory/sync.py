@@ -34,6 +34,8 @@ EDITORIAL_MODELS = [
     'directory.CandidateStatus',
     'directory.Candidate',
     'directory.ElectionResult',
+    'directory.RankedChoiceContest',
+    'directory.RankedChoiceTally',
     'directory.WriteInWinner',
     'directory.SiteUpdate',
 ]

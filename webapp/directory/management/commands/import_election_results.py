@@ -13,7 +13,9 @@ doesn't, nothing is written: add the missing alias or Candidate and run it again
 Vote counts are first-choice totals. The election-wide "Write-in" total becomes the
 candidate-less row, as in earlier years. is_winner / is_write_in_winner are only set once the
 results are certified; until then the first-ranked row is just "leading". Ranked-choice rounds
-aren't part of this file and aren't imported here.
+aren't part of this file: import_rcv_results loads them. Where it has, a certified import marks
+the ranked-choice winner (ElectionResult.rcv_outcome) rather than the first-choice leader, so run
+import_rcv_results on DCBOE's final RCV release before importing certified results.
 
 Save each DCBOE file under data/dcboe/election_results/ with the download date appended (DCBOE
 reuses filenames), then:
@@ -139,6 +141,13 @@ class Command(BaseCommand):
             (c.district_id, c.person_id): c
             for c in Candidate.objects.filter(election=election).select_related('person')
         }
+        # Contests import_rcv_results has tabulated: there the winner is whoever was elected in the
+        # last ranked-choice round, which isn't always the first-choice leader.
+        rcv_outcomes = {
+            (r.district_id, r.candidate_name_raw): r.rcv_outcome
+            for r in ElectionResult.objects.filter(election=election).exclude(rcv_outcome='')
+        }
+        self.rcv_decided = []
         rows, errors = [], []
         for designator, votes_by_name in sorted(totals.items()):
             district = districts[designator]
@@ -155,9 +164,16 @@ class Command(BaseCommand):
                         continue
                 contest.append({'district': district, 'candidate': candidate, 'candidate_name_raw': name, 'votes': votes})
 
+            tabulated = any((district.pk, row['candidate_name_raw']) in rcv_outcomes for row in contest)
+            if certified and tabulated:
+                self.rcv_decided.append(designator)
             for ranking, row in enumerate(contest, start=1):
                 row['ranking'] = ranking
-                row['is_winner'] = certified and ranking == 1
+                if tabulated:
+                    elected = rcv_outcomes.get((district.pk, row['candidate_name_raw'])) == ElectionResult.RCV_ELECTED
+                else:
+                    elected = ranking == 1
+                row['is_winner'] = certified and elected
                 row['is_write_in_winner'] = row['is_winner'] and row['candidate'] is None
                 if len(contest) == 1:
                     row['margin_of_victory'] = None
@@ -216,5 +232,7 @@ class Command(BaseCommand):
             self.stdout.write(line)
         if len(changed) > 50:
             self.stdout.write(f'  ... and {len(changed) - 50} more')
+        for designator in self.rcv_decided:
+            self.stdout.write(f'  {designator}: winner from ranked-choice tabulation (import_rcv_results).')
         if election.uses_ranked_choice and no_majority:
             self.stdout.write(f'No first-choice majority (ranked-choice rounds will decide) in {len(no_majority)}: {", ".join(no_majority)}')

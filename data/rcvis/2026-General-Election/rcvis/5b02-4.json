@@ -1,0 +1,41 @@
+{
+ "config": {
+  "contest": "5B02",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "1",
+    "repeatedRankings": "0",
+    "skippedRankings": "1"
+   },
+   "round": 1,
+   "tally": {
+    "Andrew Davis": 157.0,
+    "Bree Ryback": 465.0,
+    "Ursula Higgins": 273.0,
+    "Write-in": 9.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Bree Ryback",
+     "transfers": {}
+    }
+   ],
+   "threshold": "453"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "453",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "1007",
+  "undervotes": 101
+ }
+}

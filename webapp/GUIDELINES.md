@@ -42,8 +42,9 @@ There are three ways data changes, and all three feed the same audit trail and s
    want recorded with a specific type (new candidate, withdrawal, commissioner change) so the
    Updates-page generator can describe them precisely.
 
-History is tracked for `Person`, `CommissionerTerm`, `Candidate`, `ElectionResult`, `SiteUpdate`
-and `WriteInWinner`. `Ward`/`ANC`/`District`/`Election`/`CandidateStatus`/overlaps are static or
+History is tracked for `Person`, `CommissionerTerm`, `Candidate`, `ElectionResult`,
+`RankedChoiceContest`, `SiteUpdate` and `WriteInWinner`. (`RankedChoiceTally` rows are replaced
+wholesale on each RCV import; the contest's history records which release they came from.) `Ward`/`ANC`/`District`/`Election`/`CandidateStatus`/overlaps are static or
 geographic and not tracked.
 
 ## Matching names to existing people
@@ -100,9 +101,19 @@ DCBOE reuses filenames as it republishes results, so save each download with its
 to keep every version. Always read the dry-run report (vote changes, leader changes, contests
 without a first-choice majority) before applying.
 
-Winners are only marked from certified results; until then the site shows the first-ranked
-candidate as "Leading". 2026 uses ranked choice voting, and the imported totals are first-choice
-votes; round-by-round tabulation isn't imported yet.
+Winners are only marked from certified results; until then the site shows the leader as
+"Leading". 2026 uses ranked choice voting. The results CSV has first-choice votes only; DCBOE's
+round-by-round tabulation comes from `import_rcv_results`, and once a contest is tabulated, the
+leader (and, at certification, the winner) is whoever was elected in the last round. That isn't
+always the first-choice leader: in 2026's fifth preliminary release, 5E02's first-choice leader
+lost in round 3. Read the dry-run report for those flagged contests before applying.
+
+DCBOE posts a new RCVis visualization for each release, so its links change every time. The
+import always reads them from DCBOE's list rather than guessing slugs. RCVis is a small
+volunteer-run service. Our API agreement caps us at 1,000 GETs a week, and although we read the
+public pages rather than the API, the import keeps well under that: it pauses between pages and
+caches each one, so a release costs about one request per tabulated contest, once. Don't delete
+`data/rcvis/` to force a refetch; a slug's data doesn't change after DCBOE publishes it.
 
 ## Pushing to production
 

@@ -134,6 +134,19 @@ class ImportElectionResultsTests(ImportElectionResultsBase):
         self.assertTrue(write_in_only.is_winner)
         self.assertTrue(write_in_only.is_write_in_winner)
 
+    def test_certified_ranked_choice_contest_keeps_rcv_winner(self):
+        """Once import_rcv_results has tabulated a contest, the winner is whoever was elected in
+        the last ranked-choice round, not the first-choice leader."""
+        self.run_import(self.night_one(), '--apply')
+        ElectionResult.objects.filter(district=self.d1).update(rcv_outcome='eliminated')
+        ElectionResult.objects.filter(candidate=self.maria_c).update(rcv_outcome='elected')
+
+        output = self.run_import(self.night_one(), '--apply', status='certified')
+        winners = set(ElectionResult.objects.filter(is_winner=True).values_list('candidate_name_raw', flat=True))
+        self.assertEqual(winners, {'Maria Lopez', 'Write-in'})  # 1A02 has no tabulation: first place wins
+        self.assertEqual(ElectionResult.objects.get(candidate=self.maria_c).rcv_outcome, 'elected')
+        self.assertIn('1A01: winner from ranked-choice tabulation', output)
+
     def test_unlinkable_name_writes_nothing(self):
         path = self.write([('ANC-1A01', 1, 'Zach Adams', 10), ('ANC-1A01', 1, 'Somebody Unknown', 5)])
         with self.assertRaises(CommandError):

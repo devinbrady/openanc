@@ -1,0 +1,92 @@
+{
+ "config": {
+  "contest": "5B05",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "3",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 1,
+   "tally": {
+    "Inactive Ballots": 0,
+    "John J. Feeley": 183.0,
+    "Michael Chaney": 401.0,
+    "Rachel Williams": 337.0,
+    "Write-in": 10.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Write-in",
+     "transfers": {
+      "Inactive Ballots": 9.0,
+      "Rachel Williams": 1.0
+     }
+    }
+   ],
+   "threshold": "466"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "9",
+    "overvotes": "3",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 2,
+   "tally": {
+    "Inactive Ballots": 9.0,
+    "John J. Feeley": 183.0,
+    "Michael Chaney": 401.0,
+    "Rachel Williams": 338.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "John J. Feeley",
+     "transfers": {
+      "Inactive Ballots": 87.0,
+      "Michael Chaney": 44.0,
+      "Rachel Williams": 52.0
+     }
+    }
+   ],
+   "threshold": "462"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "96",
+    "overvotes": "3",
+    "repeatedRankings": "0",
+    "skippedRankings": "2"
+   },
+   "round": 3,
+   "tally": {
+    "Inactive Ballots": 96.0,
+    "Michael Chaney": 445.0,
+    "Rachel Williams": 390.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Michael Chaney",
+     "transfers": {}
+    }
+   ],
+   "threshold": "418"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "418",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "1004",
+  "undervotes": 68
+ }
+}

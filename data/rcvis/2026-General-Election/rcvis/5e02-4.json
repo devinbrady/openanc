@@ -1,0 +1,92 @@
+{
+ "config": {
+  "contest": "5E02",
+  "date": "",
+  "generatedBy": "RCTab 2.1.0",
+  "jurisdiction": "",
+  "office": ""
+ },
+ "jsonFormatVersion": "1",
+ "results": [
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "0",
+    "overvotes": "4",
+    "repeatedRankings": "0",
+    "skippedRankings": "1"
+   },
+   "round": 1,
+   "tally": {
+    "Ada Avitabile": 173.0,
+    "Inactive Ballots": 0,
+    "Karla M. Lewis": 274.0,
+    "Matt Malinowski": 237.0,
+    "Write-in": 6.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Write-in",
+     "transfers": {
+      "Inactive Ballots": 5.0,
+      "Karla M. Lewis": 1.0
+     }
+    }
+   ],
+   "threshold": "346"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "5",
+    "overvotes": "4",
+    "repeatedRankings": "0",
+    "skippedRankings": "1"
+   },
+   "round": 2,
+   "tally": {
+    "Ada Avitabile": 173.0,
+    "Inactive Ballots": 5.0,
+    "Karla M. Lewis": 275.0,
+    "Matt Malinowski": 237.0
+   },
+   "tallyResults": [
+    {
+     "eliminated": "Ada Avitabile",
+     "transfers": {
+      "Inactive Ballots": 50.0,
+      "Karla M. Lewis": 35.0,
+      "Matt Malinowski": 88.0
+     }
+    }
+   ],
+   "threshold": "343"
+  },
+  {
+   "inactiveBallots": {
+    "exhaustedChoices": "55",
+    "overvotes": "4",
+    "repeatedRankings": "0",
+    "skippedRankings": "1"
+   },
+   "round": 3,
+   "tally": {
+    "Inactive Ballots": 55.0,
+    "Karla M. Lewis": 310.0,
+    "Matt Malinowski": 325.0
+   },
+   "tallyResults": [
+    {
+     "elected": "Matt Malinowski",
+     "transfers": {}
+    }
+   ],
+   "threshold": "318"
+  }
+ ],
+ "summary": {
+  "finalThreshold": "318",
+  "numCandidates": 4,
+  "numWinners": 1,
+  "totalNumBallots": "781",
+  "undervotes": 86
+ }
+}
