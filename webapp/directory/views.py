@@ -407,6 +407,56 @@ def _district_context(district):
     }
 
 
+# Link-preview descriptions (base.html's og:description), for the pages people share most.
+def _join_names(names):
+    if len(names) <= 2:
+        return ' and '.join(names)
+    return ', '.join(names[:-1]) + ', and ' + names[-1]
+
+
+def _plural(count, singular, plural):
+    return f'{count} {singular if count == 1 else plural}'
+
+
+def _district_description(district, current_terms, candidates_current):
+    sentences = [f'Single Member District {district.designator} in ANC {district.anc.designator}, {district.ward.name}.']
+    if current_terms:
+        sentences.append(f'Commissioner: {current_terms[0].person.full_name}.')
+    else:
+        sentences.append('No current commissioner.')
+    names = [
+        c.person.full_name for c in candidates_current
+        if c.status.publish_candidate and c.status.count_as_candidate
+    ]
+    year = settings.CURRENT_ELECTION_YEAR
+    if len(names) > 3:
+        sentences.append(f'{len(names)} candidates in {year}.')
+    elif names:
+        label = 'candidate' if len(names) == 1 else 'candidates'
+        sentences.append(f'{year} {label}: {_join_names(names)}.')
+    return ' '.join(sentences)
+
+
+def _person_description(person, term_rows, candidacies):
+    """term_rows is _group_terms_by_district's output (newest first); candidacies newest first."""
+    name = person.full_name
+    sentences = []
+    if term_rows:
+        row = next((r for r in term_rows if r['status'] == 'current'), term_rows[0])
+        role = {
+            'current': 'is the commissioner',
+            'future': 'is the commissioner-elect',
+            'former': 'is a former commissioner',
+        }[row['status']]
+        sentences.append(f'{name} {role} for SMD {row["district"].designator}.')
+    candidacy = next((c for c in candidacies if c.status.publish_candidate), None)
+    # An old run says little about someone who has since served; a current-cycle one is news.
+    if candidacy and (not sentences or candidacy.election.year >= settings.CURRENT_ELECTION_YEAR):
+        text = f'{candidacy.election.year} candidate in SMD {candidacy.district.designator}.'
+        sentences.append(text if sentences else f'{name}: {text}')
+    return ' '.join(sentences) or None
+
+
 class DistrictDetailView(DetailView):
     model = District
     template_name = 'directory/district_detail.html'
@@ -429,6 +479,9 @@ class DistrictDetailView(DetailView):
         # boundary line at all (an empty designator list never matches, so the line layer
         # renders nothing).
         context['anc_designators'] = []
+        context['page_description'] = _district_description(
+            self.object, context['current_terms'], context['candidates_current']
+        )
         return context
 
 
@@ -662,6 +715,10 @@ class ANCDetailView(DetailView):
         context['boundary_geometry'] = boundary_geometry('anc', self.object.designator, self.object.redistricting_year)
         context['district_designators'] = [district.designator for district in context['districts']]
         context['anc_designators'] = [self.object.designator]
+        district_count = _plural(len(context['districts']), 'single member district', 'single member districts')
+        context['page_description'] = (
+            f'ANC {self.object.designator}: {district_count}, with their commissioners and candidates.'
+        )
         return context
 
 
@@ -689,6 +746,11 @@ class WardDetailView(DetailView):
         context['boundary_geometry'] = boundary_geometry('ward', self.object.ward_number, self.object.redistricting_year)
         context['district_designators'] = [district.designator for district in context['districts']]
         context['anc_designators'] = sorted({district.anc.designator for district in context['districts']})
+        district_count = _plural(len(context['districts']), 'single member district', 'single member districts')
+        anc_count = _plural(len(context['anc_designators']), 'ANC', 'ANCs')
+        context['page_description'] = (
+            f'{self.object.name}: {district_count} in {anc_count}, with their commissioners and candidates.'
+        )
         return context
 
 
@@ -751,6 +813,7 @@ class PersonDetailView(DetailView):
             else:
                 candidacy.result_label = ''
         context['candidacies'] = candidacies
+        context['page_description'] = _person_description(self.object, context['commissioner_terms'], candidacies)
         return context
 
 

@@ -1,6 +1,7 @@
 {% extends 'directory/base.html' %}
 {% load static %}
 {% block title %}Ward {{ ward.ward_number }} | OpenANC{% endblock %}
+{% block og_title %}{{ ward.name }}{% endblock %}
 
 {% block content %}
 <p class="breadcrumbs"><a href="{% url 'directory:district_list' %}?view=by_ward">List of districts</a> &rsaquo; {{ ward.name }}</p>

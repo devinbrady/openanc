@@ -472,7 +472,7 @@ class CommissionerHistoryGroupingTests(PageRenderingTestCase):
             person, self.district, start_date=today - timedelta(days=30), end_date=today + timedelta(days=400)
         )
         response = self.client.get(self.district.get_absolute_url())
-        self.assertContains(response, 'Jaspal Bhatia', count=1)
+        self.assertContains(response, '>Jaspal Bhatia</a>', count=1)
         self.assertContains(response, 'Current')
 
     def test_nonconsecutive_stints_stay_as_separate_rows(self):
@@ -510,7 +510,7 @@ class PersonDistrictHistoryGroupingTests(PageRenderingTestCase):
             self.person, district, start_date=today - timedelta(days=30), end_date=today + timedelta(days=400)
         )
         response = self.client.get(self.person.get_absolute_url())
-        self.assertContains(response, f'SMD {district.designator}', count=1)
+        self.assertContains(response, f'>SMD {district.designator}</a>', count=1)
 
     def test_terms_in_different_districts_stay_separate(self):
         ward = make_ward()
@@ -524,8 +524,8 @@ class PersonDistrictHistoryGroupingTests(PageRenderingTestCase):
             self.person, district2, start_date=today - timedelta(days=400), end_date=today - timedelta(days=30)
         )
         response = self.client.get(self.person.get_absolute_url())
-        self.assertContains(response, 'SMD 1A01', count=1)
-        self.assertContains(response, 'SMD 1B01', count=1)
+        self.assertContains(response, '>SMD 1A01</a>', count=1)
+        self.assertContains(response, '>SMD 1B01</a>', count=1)
 
 
 class ViewEdgeCaseTests(PageRenderingTestCase):

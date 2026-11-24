@@ -95,6 +95,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'openanc_web.context_processors.environment',
+                'openanc_web.context_processors.social_meta',
             ],
         },
     },

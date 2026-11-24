@@ -1,5 +1,6 @@
 {% extends 'directory/base.html' %}
 {% block title %}{{ person.full_name }} | OpenANC{% endblock %}
+{% block og_title %}{{ person.full_name }}{% endblock %}
 
 {% block content %}
 <p class="breadcrumbs"><a href="{% url 'directory:person_list' %}">List of people</a> &rsaquo; {{ person.full_name }}</p>
