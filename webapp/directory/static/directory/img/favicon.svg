@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Street-grid districts in the homepage map's palette (data/map_colors.csv).
+       favicon-32.png and apple-touch-icon.png are rendered from these same shapes. -->
+  <clipPath id="tile"><rect width="32" height="32" rx="6"/></clipPath>
+  <g clip-path="url(#tile)" stroke="#fff" stroke-width="1.4">
+    <path fill="#1f78b4" d="M-1 -1H14V12H-1Z"/>
+    <path fill="#33a02c" d="M14 -1H24V12H14Z"/>
+    <path fill="#ff7f00" d="M24 -1H33V12H24Z"/>
+    <path fill="#e31a1c" d="M-1 12H14V20L-1 27Z"/>
+    <path fill="#6a3d9a" d="M-1 27L14 20V33H-1Z"/>
+    <path fill="#b15928" d="M14 12H33V22H14Z"/>
+    <path fill="#33a02c" d="M14 22H33V33H14Z"/>
+  </g>
+</svg>

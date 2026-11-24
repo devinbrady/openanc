@@ -9,6 +9,7 @@ from django.db.models import Count, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.cache import cache_control
@@ -626,6 +627,13 @@ def llms_txt(request):
 @cache_control(public=True, max_age=TEXT_CACHE_SECONDS)
 def robots_txt(request):
     return HttpResponse(render_to_string('directory/robots.txt'), content_type='text/plain; charset=utf-8')
+
+
+@require_safe
+def favicon_ico(request):
+    # Browsers and crawlers request /favicon.ico regardless of base.html's <link> tags. Not a
+    # permanent redirect: the target's hashed static URL changes whenever the icon does.
+    return redirect(static('directory/img/favicon-32.png'))
 
 
 class ANCDetailView(DetailView):

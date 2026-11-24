@@ -41,4 +41,5 @@ urlpatterns = [
     path('api/districts/<int:year>/<designator:designator>/', views.api_district, name='api_district'),
     path('llms.txt', views.llms_txt, name='llms_txt'),
     path('robots.txt', views.robots_txt, name='robots_txt'),
+    path('favicon.ico', views.favicon_ico, name='favicon_ico'),
 ]

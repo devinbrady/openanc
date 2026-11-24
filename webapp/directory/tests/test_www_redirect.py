@@ -1,7 +1,9 @@
 from django.test import SimpleTestCase, override_settings
 
+from directory.tests.base import TEST_STORAGES
 
-@override_settings(CANONICAL_HOST='openanc.org', ALLOWED_HOSTS=['openanc.org', 'www.openanc.org', 'openanc.fly.dev'])
+
+@override_settings(STORAGES=TEST_STORAGES, CANONICAL_HOST='openanc.org', ALLOWED_HOSTS=['openanc.org', 'www.openanc.org', 'openanc.fly.dev'])
 class WwwRedirectTests(SimpleTestCase):
     def test_www_redirects_to_apex_keeping_path_and_query(self):
         response = self.client.get('/suggest/?x=1', HTTP_HOST='www.openanc.org')

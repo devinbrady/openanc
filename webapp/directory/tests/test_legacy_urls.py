@@ -1,9 +1,8 @@
-from django.test import TestCase
-
 from directory.models import Person
+from directory.tests.base import PageRenderingTestCase
 
 
-class LegacyUrlRedirectTests(TestCase):
+class LegacyUrlRedirectTests(PageRenderingTestCase):
     def assertPermanentRedirect(self, old, new):
         response = self.client.get(old)
         self.assertEqual(response.status_code, 301, old)
